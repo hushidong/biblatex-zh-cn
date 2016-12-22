@@ -1,0 +1,226 @@
+\select@language {american}
+\contentsline {section}{\numberline {1}引言}{6}{section.1}
+\contentsline {subsection}{\numberline {1.1}关于biblatex}{6}{subsection.1.1}
+\contentsline {subsection}{\numberline {1.2}许可}{6}{subsection.1.2}
+\contentsline {subsection}{\numberline {1.3}反馈}{7}{subsection.1.3}
+\contentsline {subsection}{\numberline {1.4}致谢}{7}{subsection.1.4}
+\contentsline {subsection}{\numberline {1.5}前提与必备}{7}{subsection.1.5}
+\contentsline {subsubsection}{\numberline {1.5.1}必须资源}{7}{subsubsection.1.5.1}
+\contentsline {subsubsection}{\numberline {1.5.2}推荐包}{7}{subsubsection.1.5.2}
+\contentsline {subsubsection}{\numberline {1.5.3}兼容的包}{8}{subsubsection.1.5.3}
+\contentsline {subsubsection}{\numberline {1.5.4}不兼容的包}{8}{subsubsection.1.5.4}
+\contentsline {subsubsection}{\numberline {1.5.5}biber/biblatex兼容性}{10}{subsubsection.1.5.5}
+\contentsline {section}{\numberline {2}数据库指南}{11}{section.2}
+\contentsline {subsection}{\numberline {2.1}条目类型}{11}{subsection.2.1}
+\contentsline {subsubsection}{\numberline {2.1.1}常规类型}{11}{subsubsection.2.1.1}
+\contentsline {subsubsection}{\numberline {2.1.2}类型别名}{16}{subsubsection.2.1.2}
+\contentsline {subsubsection}{\numberline {2.1.3}不支持的条目类型}{16}{subsubsection.2.1.3}
+\contentsline {subsection}{\numberline {2.2}条目域 Entry Fields}{17}{subsection.2.2}
+\contentsline {subsubsection}{\numberline {2.2.1}数据类型 Data Types}{17}{subsubsection.2.2.1}
+\contentsline {subsubsection}{\numberline {2.2.2}数据域 Data Fields}{20}{subsubsection.2.2.2}
+\contentsline {subsubsection}{\numberline {2.2.3}特殊域 Special Fields}{33}{subsubsection.2.2.3}
+\contentsline {subsubsection}{\numberline {2.2.4}自定义域 Custom Fields}{38}{subsubsection.2.2.4}
+\contentsline {subsubsection}{\numberline {2.2.5}域的别名 Field Aliases}{39}{subsubsection.2.2.5}
+\contentsline {subsection}{\numberline {2.3}使用注意事项 Usage Notes}{40}{subsection.2.3}
+\contentsline {subsubsection}{\numberline {2.3.1}\bibtype {inbook}条目类型 The Entry Type \bibtype {inbook}}{40}{subsubsection.2.3.1}
+\contentsline {subsubsection}{\numberline {2.3.2}缺失和可忽略数据 Missing and Omissible Data}{41}{subsubsection.2.3.2}
+\contentsline {subsubsection}{\numberline {2.3.3}集体作者和编者 Corporate Authors and Editors}{41}{subsubsection.2.3.3}
+\contentsline {subsubsection}{\numberline {2.3.4}原样输出列表 Literal Lists}{42}{subsubsection.2.3.4}
+\contentsline {subsubsection}{\numberline {2.3.5}题名 Titles}{42}{subsubsection.2.3.5}
+\contentsline {subsubsection}{\numberline {2.3.6}编辑角色 Editorial Roles}{44}{subsubsection.2.3.6}
+\contentsline {subsubsection}{\numberline {2.3.7}出版物和期刊系列 Publication and Journal Series}{45}{subsubsection.2.3.7}
+\contentsline {subsubsection}{\numberline {2.3.8}日期格式 Date Specifications}{46}{subsubsection.2.3.8}
+\contentsline {subsubsection}{\numberline {2.3.9}月份和期刊季度号 Months and Journal Issues}{47}{subsubsection.2.3.9}
+\contentsline {subsubsection}{\numberline {2.3.10}标记页码 Pagination}{47}{subsubsection.2.3.10}
+\contentsline {subsection}{\numberline {2.4}提示与警告 Hints and Caveats}{48}{subsection.2.4}
+\contentsline {subsubsection}{\numberline {2.4.1}交叉引用 Cross-referencing}{48}{subsubsection.2.4.1}
+\contentsline {paragraph}{\numberline {2.4.1.1}The \bibfield {crossref} field (\bibtex )}{48}{paragraph.2.4.1.1}
+\contentsline {paragraph}{\numberline {2.4.1.2}The \bibfield {crossref} field (Biber\xspace )}{49}{paragraph.2.4.1.2}
+\contentsline {paragraph}{\numberline {2.4.1.3}The \bibfield {xref} field}{50}{paragraph.2.4.1.3}
+\contentsline {subsubsection}{\numberline {2.4.2}能力问题 Capacity Issues}{50}{subsubsection.2.4.2}
+\contentsline {paragraph}{\numberline {2.4.2.1}\bibtex }{50}{paragraph.2.4.2.1}
+\contentsline {paragraph}{\numberline {2.4.2.2}\file {bibtex8}}{50}{paragraph.2.4.2.2}
+\contentsline {paragraph}{\numberline {2.4.2.3}Biber\xspace }{50}{paragraph.2.4.2.3}
+\contentsline {subsubsection}{\numberline {2.4.3}排序和编码问题 Sorting and Encoding Issues}{50}{subsubsection.2.4.3}
+\contentsline {paragraph}{\numberline {2.4.3.1}\bibtex }{50}{paragraph.2.4.3.1}
+\contentsline {paragraph}{\numberline {2.4.3.2}\file {bibtex8}}{51}{paragraph.2.4.3.2}
+\contentsline {paragraph}{\numberline {2.4.3.3}Biber\xspace }{52}{paragraph.2.4.3.3}
+\contentsline {paragraph}{\numberline {2.4.3.4}Specifying Encodings}{53}{paragraph.2.4.3.4}
+\contentsline {subsubsection}{\numberline {2.4.4}编纂者脚本 Editors and Compiler Scripts}{55}{subsubsection.2.4.4}
+\contentsline {section}{\numberline {3}用户使用手册}{55}{section.3}
+\contentsline {subsection}{\numberline {3.1}宏包选项}{56}{subsection.3.1}
+\contentsline {subsubsection}{\numberline {3.1.1}加载选项}{56}{subsubsection.3.1.1}
+\contentsline {subsubsection}{\numberline {3.1.2}导言区选项}{57}{subsubsection.3.1.2}
+\contentsline {paragraph}{\numberline {3.1.2.1}一般选项}{57}{paragraph.3.1.2.1}
+\contentsline {paragraph}{\numberline {3.1.2.2}Style-specific}{68}{paragraph.3.1.2.2}
+\contentsline {paragraph}{\numberline {3.1.2.3}Internal}{69}{paragraph.3.1.2.3}
+\contentsline {subsubsection}{\numberline {3.1.3}条目选项 Entry Options}{75}{subsubsection.3.1.3}
+\contentsline {paragraph}{\numberline {3.1.3.1}Preamble/Type/Entry Options}{75}{paragraph.3.1.3.1}
+\contentsline {paragraph}{\numberline {3.1.3.2}Type/Entry Options}{76}{paragraph.3.1.3.2}
+\contentsline {paragraph}{\numberline {3.1.3.3}Entry Only Options}{77}{paragraph.3.1.3.3}
+\contentsline {subsubsection}{\numberline {3.1.4}遗留选项 Legacy Options}{78}{subsubsection.3.1.4}
+\contentsline {subsection}{\numberline {3.2}全局定制 Global Customization}{78}{subsection.3.2}
+\contentsline {subsubsection}{\numberline {3.2.1}配置文件 Configuration File}{78}{subsubsection.3.2.1}
+\contentsline {subsubsection}{\numberline {3.2.2}设置包选项 Setting Package Options}{78}{subsubsection.3.2.2}
+\contentsline {subsection}{\numberline {3.3}标准样式 Standard Styles}{78}{subsection.3.3}
+\contentsline {subsubsection}{\numberline {3.3.1}标注样式 Citation Styles}{78}{subsubsection.3.3.1}
+\contentsline {subsubsection}{\numberline {3.3.2}参考文献样式 Bibliography Styles}{83}{subsubsection.3.3.2}
+\contentsline {subsection}{\numberline {3.4}相关条目 Related Entries}{84}{subsection.3.4}
+\contentsline {subsection}{\numberline {3.5}排序选项 Sorting Options}{87}{subsection.3.5}
+\contentsline {subsection}{\numberline {3.6}参考文献命令 Bibliography Commands}{88}{subsection.3.6}
+\contentsline {subsubsection}{\numberline {3.6.1}文献数据源 Resources}{88}{subsubsection.3.6.1}
+\contentsline {subsubsection}{\numberline {3.6.2}参考文献表 The Bibliography}{89}{subsubsection.3.6.2}
+\contentsline {subsubsection}{\numberline {3.6.3}缩略表 The List of Shorthands}{93}{subsubsection.3.6.3}
+\contentsline {subsubsection}{\numberline {3.6.4}各类参考文献表 Bibliography Lists}{93}{subsubsection.3.6.4}
+\contentsline {subsubsection}{\numberline {3.6.5}参考文献分节 Bibliography Sections}{96}{subsubsection.3.6.5}
+\contentsline {subsubsection}{\numberline {3.6.6}参考文献分部 Bibliography Segments}{96}{subsubsection.3.6.6}
+\contentsline {subsubsection}{\numberline {3.6.7}参考文献分类 Bibliography Categories}{97}{subsubsection.3.6.7}
+\contentsline {subsubsection}{\numberline {3.6.8}参考文献标题和环境 Bibliography Headings and Environments}{97}{subsubsection.3.6.8}
+\contentsline {subsubsection}{\numberline {3.6.9}参考文献注释 Bibliography Notes}{100}{subsubsection.3.6.9}
+\contentsline {subsubsection}{\numberline {3.6.10}参考文献过滤和检查 Bibliography Filters and Checks}{100}{subsubsection.3.6.10}
+\contentsline {subsubsection}{\numberline {3.6.11}参考文献表内容 Bibliography Contexts}{102}{subsubsection.3.6.11}
+\contentsline {subsubsection}{\numberline {3.6.12}动态条目集 Dynamic Entry Sets}{103}{subsubsection.3.6.12}
+\contentsline {subsection}{\numberline {3.7}引用命令 Citation Commands}{103}{subsection.3.7}
+\contentsline {subsubsection}{\numberline {3.7.1}标准命令 Standard Commands}{104}{subsubsection.3.7.1}
+\contentsline {subsubsection}{\numberline {3.7.2}样式相关命令 Style-specific Commands}{104}{subsubsection.3.7.2}
+\contentsline {subsubsection}{\numberline {3.7.3}有限标注表 Qualified Citation Lists}{105}{subsubsection.3.7.3}
+\contentsline {subsubsection}{\numberline {3.7.4}与样式无关的命令 Style-independent Commands}{107}{subsubsection.3.7.4}
+\contentsline {subsubsection}{\numberline {3.7.5}文本命令 Text Commands}{108}{subsubsection.3.7.5}
+\contentsline {subsubsection}{\numberline {3.7.6}特殊命令 Special Commands}{109}{subsubsection.3.7.6}
+\contentsline {subsubsection}{\numberline {3.7.7}底层命令 Low-level Commands}{112}{subsubsection.3.7.7}
+\contentsline {subsubsection}{\numberline {3.7.8}其它命令 Miscellaneous Commands}{112}{subsubsection.3.7.8}
+\contentsline {subsubsection}{\numberline {3.7.9}与\sty {natbib}兼容的命令 \sty {natbib} Compatibility Commands}{113}{subsubsection.3.7.9}
+\contentsline {subsubsection}{\numberline {3.7.10}类似\sty {mcite}给的标注命令 \sty {mcite}-like Citation Commands}{114}{subsubsection.3.7.10}
+\contentsline {subsection}{\numberline {3.8}本地化命令 Localization Commands}{115}{subsection.3.8}
+\contentsline {subsection}{\numberline {3.9}格式命令 Formatting Commands}{117}{subsection.3.9}
+\contentsline {subsubsection}{\numberline {3.9.1}一般命令和钩子 Generic Commands and Hooks}{117}{subsubsection.3.9.1}
+\contentsline {subsubsection}{\numberline {3.9.2}语言相关命令 Language-specific Commands}{121}{subsubsection.3.9.2}
+\contentsline {subsubsection}{\numberline {3.9.3}尺寸和计数器 Lengths and Counters}{123}{subsubsection.3.9.3}
+\contentsline {subsubsection}{\numberline {3.9.4}多用途命令 All-purpose Commands}{124}{subsubsection.3.9.4}
+\contentsline {subsection}{\numberline {3.10}语言注意点 Language notes}{125}{subsection.3.10}
+\contentsline {subsubsection}{\numberline {3.10.1}美语 American}{125}{subsubsection.3.10.1}
+\contentsline {subsubsection}{\numberline {3.10.2}西班牙语 Spanish}{126}{subsubsection.3.10.2}
+\contentsline {subsubsection}{\numberline {3.10.3}希腊语 Greek}{126}{subsubsection.3.10.3}
+\contentsline {subsubsection}{\numberline {3.10.4}俄语 Russian}{127}{subsubsection.3.10.4}
+\contentsline {subsection}{\numberline {3.11}用法注意点 Usage Notes}{127}{subsection.3.11}
+\contentsline {subsubsection}{\numberline {3.11.1}概述 Overview}{127}{subsubsection.3.11.1}
+\contentsline {paragraph}{\numberline {3.11.1.1}Biber\xspace }{128}{paragraph.3.11.1.1}
+\contentsline {paragraph}{\numberline {3.11.1.2}\bibtex }{128}{paragraph.3.11.1.2}
+\contentsline {subsubsection}{\numberline {3.11.2}辅助文件 Auxiliary Files}{128}{subsubsection.3.11.2}
+\contentsline {paragraph}{\numberline {3.11.2.1}Biber\xspace }{128}{paragraph.3.11.2.1}
+\contentsline {paragraph}{\numberline {3.11.2.2}\bibtex }{129}{paragraph.3.11.2.2}
+\contentsline {subsubsection}{\numberline {3.11.3}多个参考文献表 Multiple Bibliographies}{129}{subsubsection.3.11.3}
+\contentsline {subsubsection}{\numberline {3.11.4}子参考文献表 Subdivided Bibliographies}{132}{subsubsection.3.11.4}
+\contentsline {subsubsection}{\numberline {3.11.5}条目集 Entry Sets}{135}{subsubsection.3.11.5}
+\contentsline {paragraph}{\numberline {3.11.5.1}Static entry sets}{135}{paragraph.3.11.5.1}
+\contentsline {paragraph}{\numberline {3.11.5.2}Dynamic entry sets}{136}{paragraph.3.11.5.2}
+\contentsline {subsubsection}{\numberline {3.11.6}数据容器 Data Containers}{136}{subsubsection.3.11.6}
+\contentsline {subsubsection}{\numberline {3.11.7}电子出版信息 Electronic Publishing Information}{137}{subsubsection.3.11.7}
+\contentsline {subsubsection}{\numberline {3.11.8}额外的摘要和注释 External Abstracts and Annotations}{139}{subsubsection.3.11.8}
+\contentsline {subsection}{\numberline {3.12}提示与警告 Hints and Caveats}{140}{subsection.3.12}
+\contentsline {subsubsection}{\numberline {3.12.1}与\acr {KOMA}-Script类共用的方法 Usage with \acr {KOMA}-Script Classes}{140}{subsubsection.3.12.1}
+\contentsline {subsubsection}{\numberline {3.12.2}与Memoir类共用的方法 Usage with the Memoir Class}{140}{subsubsection.3.12.2}
+\contentsline {subsubsection}{\numberline {3.12.3}标注中的页码 Page Numbers in Citations}{141}{subsubsection.3.12.3}
+\contentsline {subsubsection}{\numberline {3.12.4}姓名组成部分及其间距 Name Parts and Name Spacing}{143}{subsubsection.3.12.4}
+\contentsline {subsubsection}{\numberline {3.12.5}参考文献筛选器和标注标签 Bibliography Filters and Citation Labels}{144}{subsubsection.3.12.5}
+\contentsline {subsubsection}{\numberline {3.12.6}参考文献标题中的活动字符 Active Characters in Bibliography Headings}{145}{subsubsection.3.12.6}
+\contentsline {subsubsection}{\numberline {3.12.7}在参考文献分节和分部中的编组 Grouping in Reference Sections and Segments}{145}{subsubsection.3.12.7}
+\contentsline {section}{\numberline {4}样式作者指南}{145}{section.4}
+\contentsline {subsection}{\numberline {4.1}概述 Overview}{146}{subsection.4.1}
+\contentsline {subsection}{\numberline {4.2}参考文献样式 Bibliography Styles}{149}{subsection.4.2}
+\contentsline {subsubsection}{\numberline {4.2.1}参考文献样式文件 Bibliography Style Files}{149}{subsubsection.4.2.1}
+\contentsline {subsubsection}{\numberline {4.2.2}参考文献环境 Bibliography Environments}{151}{subsubsection.4.2.2}
+\contentsline {subsubsection}{\numberline {4.2.3}参考文献驱动 Bibliography Drivers}{152}{subsubsection.4.2.3}
+\contentsline {subsubsection}{\numberline {4.2.4}特殊域 Special Fields}{154}{subsubsection.4.2.4}
+\contentsline {paragraph}{\numberline {4.2.4.1}一般域 Generic Fields}{154}{paragraph.4.2.4.1}
+\contentsline {paragraph}{\numberline {4.2.4.2}引用标签中使用的域 Fields for Use in Citation Labels}{158}{paragraph.4.2.4.2}
+\contentsline {paragraph}{\numberline {4.2.4.3}date的分解域 Date Component Fields}{161}{paragraph.4.2.4.3}
+\contentsline {subsection}{\numberline {4.3}标注样式 Citation Styles}{165}{subsection.4.3}
+\contentsline {subsubsection}{\numberline {4.3.1}标注样式文件 Citation Style Files}{165}{subsubsection.4.3.1}
+\contentsline {subsubsection}{\numberline {4.3.2}特殊域 Special Fields}{167}{subsubsection.4.3.2}
+\contentsline {subsection}{\numberline {4.4}数据接口 Data Interface}{168}{subsection.4.4}
+\contentsline {subsubsection}{\numberline {4.4.1}数据命令 Data Commands}{168}{subsubsection.4.4.1}
+\contentsline {subsubsection}{\numberline {4.4.2}格式化指令 Formatting Directives}{173}{subsubsection.4.4.2}
+\contentsline {subsection}{\numberline {4.5}自定义 Customization}{176}{subsection.4.5}
+\contentsline {subsubsection}{\numberline {4.5.1}关联条目 Related Entries}{176}{subsubsection.4.5.1}
+\contentsline {subsubsection}{\numberline {4.5.2}数据动态修改 Dynamic Modification of Data}{177}{subsubsection.4.5.2}
+\contentsline {subsubsection}{\numberline {4.5.3}数据模型规范 Data Model Specification}{188}{subsubsection.4.5.3}
+\contentsline {subsubsection}{\numberline {4.5.4}标签 Labels}{193}{subsubsection.4.5.4}
+\contentsline {subsubsection}{\numberline {4.5.5}排序 Sorting}{200}{subsubsection.4.5.5}
+\contentsline {subsubsection}{\numberline {4.5.6}参考文献表过滤器 Bibliography List Filters}{205}{subsubsection.4.5.6}
+\contentsline {subsubsection}{\numberline {4.5.7}控制姓名首字母生成 Controlling Name Initials Generation}{206}{subsubsection.4.5.7}
+\contentsline {subsubsection}{\numberline {4.5.8}排序微调 Fine Tuning Sorting}{207}{subsubsection.4.5.8}
+\contentsline {subsubsection}{\numberline {4.5.9}特殊域 Special Fields}{208}{subsubsection.4.5.9}
+\contentsline {subsubsection}{\numberline {4.5.10}数据继承 Data Inheritance (\bibfield {crossref})}{210}{subsubsection.4.5.10}
+\contentsline {subsection}{\numberline {4.6}辅助命令 Auxiliary Commands}{212}{subsection.4.6}
+\contentsline {subsubsection}{\numberline {4.6.1}数据命令 Data Commands}{212}{subsubsection.4.6.1}
+\contentsline {subsubsection}{\numberline {4.6.2}独立判断命令 Stand-alone Tests}{214}{subsubsection.4.6.2}
+\contentsline {subsubsection}{\numberline {4.6.3}使用\cmd {ifboolexpr}和\cmd {ifthenelse}的判断 Tests with \cmd {ifboolexpr} and \cmd {ifthenelse}}{224}{subsubsection.4.6.3}
+\contentsline {subsubsection}{\numberline {4.6.4}综合命令 Miscellaneous Commands}{225}{subsubsection.4.6.4}
+\contentsline {subsection}{\numberline {4.7}标点 Punctuation}{235}{subsection.4.7}
+\contentsline {subsubsection}{\numberline {4.7.1}块和单元标点 Block and Unit Punctuation}{235}{subsubsection.4.7.1}
+\contentsline {subsubsection}{\numberline {4.7.2}标点判断 Punctuation Tests}{237}{subsubsection.4.7.2}
+\contentsline {subsubsection}{\numberline {4.7.3}添加标点 Adding Punctuation}{237}{subsubsection.4.7.3}
+\contentsline {subsubsection}{\numberline {4.7.4}添加空格 Adding Whitespace}{238}{subsubsection.4.7.4}
+\contentsline {subsubsection}{\numberline {4.7.5}标点设置和大写 Configuring Punctuation and Capitalization}{239}{subsubsection.4.7.5}
+\contentsline {subsubsection}{\numberline {4.7.6}修正标点追踪 Correcting Punctuation Tracking}{241}{subsubsection.4.7.6}
+\contentsline {subsection}{\numberline {4.8}本地化字符串 Localization Strings}{242}{subsection.4.8}
+\contentsline {subsection}{\numberline {4.9}本地化模块 Localization Modules}{244}{subsection.4.9}
+\contentsline {subsubsection}{\numberline {4.9.1}本地化命令 Localization Commands}{244}{subsubsection.4.9.1}
+\contentsline {subsubsection}{\numberline {4.9.2}本地化关键词 Localization Keys}{247}{subsubsection.4.9.2}
+\contentsline {paragraph}{\numberline {4.9.2.1}Headings}{247}{paragraph.4.9.2.1}
+\contentsline {paragraph}{\numberline {4.9.2.2}Roles, Expressed as Functions}{247}{paragraph.4.9.2.2}
+\contentsline {paragraph}{\numberline {4.9.2.3}Concatenated Editor Roles, Expressed as Functions}{248}{paragraph.4.9.2.3}
+\contentsline {paragraph}{\numberline {4.9.2.4}Concatenated Translator Roles, Expressed as Functions}{249}{paragraph.4.9.2.4}
+\contentsline {paragraph}{\numberline {4.9.2.5}Roles, Expressed as Actions}{250}{paragraph.4.9.2.5}
+\contentsline {paragraph}{\numberline {4.9.2.6}Concatenated Editor Roles, Expressed as Actions}{251}{paragraph.4.9.2.6}
+\contentsline {paragraph}{\numberline {4.9.2.7}Concatenated Translator Roles, Expressed as Actions}{252}{paragraph.4.9.2.7}
+\contentsline {paragraph}{\numberline {4.9.2.8}Roles, Expressed as Objects}{252}{paragraph.4.9.2.8}
+\contentsline {paragraph}{\numberline {4.9.2.9}Supplementary Material}{253}{paragraph.4.9.2.9}
+\contentsline {paragraph}{\numberline {4.9.2.10}Publication Details}{253}{paragraph.4.9.2.10}
+\contentsline {paragraph}{\numberline {4.9.2.11}Publication State}{254}{paragraph.4.9.2.11}
+\contentsline {paragraph}{\numberline {4.9.2.12}Pagination}{254}{paragraph.4.9.2.12}
+\contentsline {paragraph}{\numberline {4.9.2.13}Types}{254}{paragraph.4.9.2.13}
+\contentsline {paragraph}{\numberline {4.9.2.14}Miscellaneous}{255}{paragraph.4.9.2.14}
+\contentsline {paragraph}{\numberline {4.9.2.15}Labels}{255}{paragraph.4.9.2.15}
+\contentsline {paragraph}{\numberline {4.9.2.16}Citations}{255}{paragraph.4.9.2.16}
+\contentsline {paragraph}{\numberline {4.9.2.17}Month Names}{256}{paragraph.4.9.2.17}
+\contentsline {paragraph}{\numberline {4.9.2.18}Language Names}{257}{paragraph.4.9.2.18}
+\contentsline {paragraph}{\numberline {4.9.2.19}Country Names}{258}{paragraph.4.9.2.19}
+\contentsline {paragraph}{\numberline {4.9.2.20}Patents and Patent Requests}{258}{paragraph.4.9.2.20}
+\contentsline {subsection}{\numberline {4.10}格式化命令 Formatting Commands}{259}{subsection.4.10}
+\contentsline {subsubsection}{\numberline {4.10.1}用户可定义的命令和钩子 User-definable Commands and Hooks}{259}{subsubsection.4.10.1}
+\contentsline {subsubsection}{\numberline {4.10.2}不同语言的命令 Language-specific Commands}{263}{subsubsection.4.10.2}
+\contentsline {subsubsection}{\numberline {4.10.3}用户可定义的尺寸和计数器 User-definable Lengths and Counters}{264}{subsubsection.4.10.3}
+\contentsline {subsubsection}{\numberline {4.10.4}辅助命令和钩子 Auxiliary Commands and Hooks}{265}{subsubsection.4.10.4}
+\contentsline {subsubsection}{\numberline {4.10.5}辅助长度计数器和其它功能 Auxiliary Lengths, Counters, and Other Features}{268}{subsubsection.4.10.5}
+\contentsline {subsubsection}{\numberline {4.10.6}一般目的的钩子 General Purpose Hooks}{270}{subsubsection.4.10.6}
+\contentsline {subsection}{\numberline {4.11}提示与警告 Hints and Caveats}{273}{subsection.4.11}
+\contentsline {subsubsection}{\numberline {4.11.1}条目集 Entry Sets}{273}{subsubsection.4.11.1}
+\contentsline {subsubsection}{\numberline {4.11.2}电子出版信息 Electronic Publishing Information}{274}{subsubsection.4.11.2}
+\contentsline {subsubsection}{\numberline {4.11.3}额外的摘要和注释 External Abstracts and Annotations}{275}{subsubsection.4.11.3}
+\contentsline {subsubsection}{\numberline {4.11.4}消除姓名歧义 Name Disambiguation}{275}{subsubsection.4.11.4}
+\contentsline {paragraph}{\numberline {4.11.4.1}单个姓名(姓名内的处理) (\opt {uniquename})}{275}{paragraph.4.11.4.1}
+\contentsline {paragraph}{\numberline {4.11.4.2}姓名列表(独立姓名外的处理) (\opt {uniquelist})}{278}{paragraph.4.11.4.2}
+\contentsline {subsubsection}{\numberline {4.11.5}浮动体和\acr {TOC}/\acr {LOT}/\acr {LOF}中的追踪器 Trackers in Floats and \acr {TOC}/\acr {LOT}/\acr {LOF}}{280}{subsubsection.4.11.5}
+\contentsline {subsubsection}{\numberline {4.11.6}混合编程接口 Mixing Programming Interfaces}{280}{subsubsection.4.11.6}
+\contentsline {subsubsection}{\numberline {4.11.7}使用标点追踪 Using the Punctuation Tracker}{282}{subsubsection.4.11.7}
+\contentsline {paragraph}{\numberline {4.11.7.1}标点基础 The Basics}{282}{paragraph.4.11.7.1}
+\contentsline {paragraph}{\numberline {4.11.7.2}常见错误 Common Mistakes}{283}{paragraph.4.11.7.2}
+\contentsline {paragraph}{\numberline {4.11.7.3}高级应用 Advanced Usage}{285}{paragraph.4.11.7.3}
+\contentsline {subsubsection}{\numberline {4.11.8}定制本地化模型 Custom Localization Modules}{286}{subsubsection.4.11.8}
+\contentsline {subsubsection}{\numberline {4.11.9}编组 Grouping}{288}{subsubsection.4.11.9}
+\contentsline {subsubsection}{\numberline {4.11.10}姓名内的间距 Namespaces}{288}{subsubsection.4.11.10}
+\contentsline {section}{附录}{289}{section*.1}
+\contentsline {section}{\numberline {A}默认的驱动源映射}{289}{appendix.A}
+\contentsline {subsection}{\numberline {A.1}\opt {bibtex}}{289}{subsection.A.1}
+\contentsline {subsection}{\numberline {A.2}\opt {endnotexml}}{290}{subsection.A.2}
+\contentsline {subsection}{\numberline {A.3}\opt {ris}}{293}{subsection.A.3}
+\contentsline {subsection}{\numberline {A.4}\opt {zoterordfxml}}{295}{subsection.A.4}
+\contentsline {section}{\numberline {B}默认的继承设置}{298}{appendix.B}
+\contentsline {section}{\numberline {C}默认的排序方式}{299}{appendix.C}
+\contentsline {subsection}{\numberline {C.1}Alphabetic 1}{299}{subsection.C.1}
+\contentsline {subsection}{\numberline {C.2}Alphabetic 2}{300}{subsection.C.2}
+\contentsline {subsection}{\numberline {C.3}Chronological}{300}{subsection.C.3}
+\contentsline {section}{\numberline {D}选项集合}{300}{appendix.D}
+\contentsline {section}{\numberline {E}更新历史}{302}{appendix.E}
