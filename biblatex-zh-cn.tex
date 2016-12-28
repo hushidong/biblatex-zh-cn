@@ -234,7 +234,7 @@ scrartcl.cls，ltxdockit.cls，ltxdockit.cfg，ltxdockit.def，btxdockit.sty，l
 biblatex包提供了一套与latex配合使用的高级参考文献工具。该包是latex提供的参考文献功能的完整再实现。该包默认使用自定义后端biber，用于处理bibtex格式文件、执行排序和生成标签(以及其它更多工作)。参考文献的格式化完全由tex宏包控制。只要具备一定的latex知识就足以设计新的参考文献著录样式和标注样式。
 
 %This package also supports subdivided bibliographies, multiple bibliographies within one document, and separate lists of
-%bibliographic information such as abbreviations of various fields.  Bibliographies may be subdivided into parts and/or segmented by topics. Just like the bibliography styles, all citation commands may be freely defined. 
+%bibliographic information such as abbreviations of various fields.  Bibliographies may be subdivided into parts and/or segmented by topics. Just like the bibliography styles, all citation commands may be freely defined.
 
 biblatex也支持参考文献表细分，支持在一个文档内包含多个参考文献表，支持生成参考文献局部信息表比如多个不同域的缩略词。参考文献表可以根据主题进行分块或者分段。与参考文献著录样式类似，所有的标注(引用)命令也可以自由定义。
 
@@ -2387,11 +2387,11 @@ but also less obvious things like:
 \end{optionlist}
 
 \subsubsection{导言区选项}
-%Preamble Options 
+%Preamble Options
 \label{use:opt:pre}
 
 \paragraph{一般选项}
-%General 
+%General
 \label{use:opt:pre:gen}
 
 下面的选项可以作为\cmd{usepackage}命令的可选参数，也可以在配置文件和导言区设置。默认值列在右侧作为包的默认值。注意著录和标注样式可以修改加载时的默认设置，详见\secref{use:xbx}节。
@@ -8249,7 +8249,7 @@ This example demonstrates how to emulate traditional \bibtex's cross"=referencin
 本节的工具用来分析和保存参考文献数据而不是格式化或者打印它们。
 %The facilities in this section are intended for analyzing and saving bibliographic data rather than formatting and printing it.
 
-\subsubsection{数据命令 Data Commands}
+\subsubsection{数据命令}%Data Commands
 \label{aut:aux:dat}
 本节的命令允许以low"=level方式访问未格式化的参考文献数据。这些命令不是用来输出，而是用来将数据保存到临时宏中，可以用于下一步的比较。
 %The commands in this section grant low"=level access to the unformatted bibliographic data. They are not intended for typesetting but rather for things like saving data to a temporary macro so that it may be used in a comparison later.
@@ -8263,178 +8263,181 @@ This example demonstrates how to emulate traditional \bibtex's cross"=referencin
 
 \cmditem{strfield}{field}
 
-Similar to \cmd{thefield}, except that the field is automatically sanitized such that its value may safely be used in the formation of a control sequence name.
+类似于\cmd{thefield}命令，但其值经自动净化，以便安全的用于构成控制序列名。
+%Similar to \cmd{thefield}, except that the field is automatically sanitized such that its value may safely be used in the formation of a control sequence name.
 
 \cmditem{csfield}{field}
-
-Similar to \cmd{thefield}, but prevents expansion.
+类似于\cmd{thefield}命令，但禁止展开
+%Similar to \cmd{thefield}, but prevents expansion.
 
 \cmditem{usefield}{command}{field}
-
-Executes \prm{command} using the unformatted \prm{field} as its argument.
+执行\prm{command}命令使用未格式化的\prm{field}作为其参数
+%Executes \prm{command} using the unformatted \prm{field} as its argument.
 
 \cmditem{thelist}{literal list}
-
-Expands to the unformatted \prm{literal list}. If the list is undefined, this command expands to an empty string. Note that this command will dump the \prm{literal list} in the internal format used by this package. This format is not suitable for printing.
+展开为未格式化的\prm{literal list}。如果list未定义那么展开为一个空字符串。注意该命令中将\prm{literal list}转存为本宏包使用的内部格式。这一格式不适合打印。
+%Expands to the unformatted \prm{literal list}. If the list is undefined, this command expands to an empty string. Note that this command will dump the \prm{literal list} in the internal format used by this package. This format is not suitable for printing.
 
 \cmditem{thename}{name list}
-
-Expands to the unformatted \prm{name list}. If the list is undefined, this command expands to an empty string. Note that this command will dump the \prm{name list} in the internal format used by this package. This format is not suitable for printing.
+展开为未格式化的\prm{name list}。如果list未定义那么展开为一个空字符串。注意该命令中将\prm{name list}转存为本宏包使用的内部格式。这一格式不适合打印。
+%Expands to the unformatted \prm{name list}. If the list is undefined, this command expands to an empty string. Note that this command will dump the \prm{name list} in the internal format used by this package. This format is not suitable for printing.
 
 \cmditem{savefield}{field}{macro}
 \cmditem*{savefield*}{field}{macro}
-
-Copies an unformatted \prm{field} to a \prm{macro}. The regular variant of this command defines the \prm{macro} globally, the starred one works locally.
+将未格式化的\prm{field}拷贝到一个\prm{macro}中。不带星的命令全局的定义\prm{macro}，而带星的命令是局部定义。
+%Copies an unformatted \prm{field} to a \prm{macro}. The regular variant of this command defines the \prm{macro} globally, the starred one works locally.
 
 \cmditem{savelist}{literal list}{macro}
 \cmditem*{savelist*}{literal list}{macro}
-
-Copies an unformatted \prm{literal list} to a \prm{macro}. The regular variant of this command defines the \prm{macro} globally, the starred one works locally.
+将未格式化的\prm{literal list}拷贝到一个\prm{macro}中。不带星的命令全局的定义\prm{macro}，而带星的命令是局部定义。
+%Copies an unformatted \prm{literal list} to a \prm{macro}. The regular variant of this command defines the \prm{macro} globally, the starred one works locally.
 
 \cmditem{savename}{name list}{macro}
 \cmditem*{savename*}{name list}{macro}
-
-Copies an unformatted \prm{name list} to a \prm{macro}. The regular variant of this command defines the \prm{macro} globally, the starred one works locally.
+将未格式化的\prm{name list}拷贝到一个\prm{macro}中。不带星的命令全局的定义\prm{macro}，而带星的命令是局部定义。
+%Copies an unformatted \prm{name list} to a \prm{macro}. The regular variant of this command defines the \prm{macro} globally, the starred one works locally.
 
 \cmditem{savefieldcs}{field}{csname}
 \cmditem*{savefieldcs*}{field}{csname}
-
-Similar to \cmd{savefield}, but takes the control sequence name \prm{csname} (without a leading backslash) as an argument, rather than a macro name.
+类似于\cmd{savefield}命令，当将控制序列名\prm{csname}(即没有斜杠)作为参数，而不是宏。
+%Similar to \cmd{savefield}, but takes the control sequence name \prm{csname} (without a leading backslash) as an argument, rather than a macro name.
 
 \cmditem{savelistcs}{literal list}{csname}
 \cmditem*{savelistcs*}{literal list}{csname}
-
-Similar to \cmd{savelist}, but takes the control sequence name \prm{csname} (without a leading backslash) as an argument, rather than a macro name.
+类似于\cmd{savelist}命令，当将控制序列名\prm{csname}(即没有斜杠)作为参数，而不是宏。
+%Similar to \cmd{savelist}, but takes the control sequence name \prm{csname} (without a leading backslash) as an argument, rather than a macro name.
 
 \cmditem{savenamecs}{name list}{csname}
 \cmditem*{savenamecs*}{name list}{csname}
-
-Similar to \cmd{savename}, but takes the control sequence name \prm{csname} (without a leading backslash) as an argument, rather than a macro name.
+类似于\cmd{savename}命令，当将控制序列名\prm{csname}(即没有斜杠)作为参数，而不是宏。
+%Similar to \cmd{savename}, but takes the control sequence name \prm{csname} (without a leading backslash) as an argument, rather than a macro name.
 
 \cmditem{restorefield}{field}{macro}
-
-Restores a \prm{field} from a \prm{macro} defined with \cmd{savefield} before. The field is restored within a local scope.
+从之前用\cmd{savefield}命令定义的\prm{macro}中将\prm{field}恢复回来。该域是在局部范围内恢复。
+%Restores a \prm{field} from a \prm{macro} defined with \cmd{savefield} before. The field is restored within a local scope.
 
 \cmditem{restorelist}{literal list}{macro}
-
-Restores a \prm{literal list} from a \prm{macro} defined with \cmd{savelist} before. The list is restored within a local scope.
+从之前用\cmd{savelist}命令定义的\prm{macro}中将\prm{literal list}恢复回来。该list是在局部范围内恢复。
+%Restores a \prm{literal list} from a \prm{macro} defined with \cmd{savelist} before. The list is restored within a local scope.
 
 \cmditem{restorename}{name list}{macro}
-
-Restores a \prm{name list} from a \prm{macro} defined with \cmd{savename} before. The list is restored within a local scope.
+从之前用\cmd{savename}命令定义的\prm{macro}中将\prm{name list}恢复回来。该list是在局部范围内恢复。
+%Restores a \prm{name list} from a \prm{macro} defined with \cmd{savename} before. The list is restored within a local scope.
 
 \cmditem{clearfield}{field}
-
-Clears the \prm{field} within a local scope. A field cleared this way is treated as undefined by subsequent data commands.
+在局部范围内清除\prm{field}。以这种方式清除的域对于后续的数据命令来说相当于没有定义。
+%Clears the \prm{field} within a local scope. A field cleared this way is treated as undefined by subsequent data commands.
 
 \cmditem{clearlist}{literal list}
-
-Clears the \prm{literal list} within a local scope. A list cleared this way is treated as undefined by subsequent data commands.
+在局部范围内清除\prm{literal list}。以这种方式清除的list对于后续的数据命令来说相当于没有定义。
+%Clears the \prm{literal list} within a local scope. A list cleared this way is treated as undefined by subsequent data commands.
 
 \cmditem{clearname}{name list}
-
-Clears the \prm{name list} within a local scope. A list cleared this way is treated as undefined by subsequent data commands.
+在局部范围内清除\prm{name list}。以这种方式清除的list对于后续的数据命令来说相当于没有定义。
+%Clears the \prm{name list} within a local scope. A list cleared this way is treated as undefined by subsequent data commands.
 
 \end{ltxsyntax}
 
-\subsubsection{独立判断命令 Stand-alone Tests}
+\subsubsection{独立判断命令}%Stand-alone Tests
 \label{aut:aux:tst}
-
-The commands in this section are various kinds of stand"=alone tests for use in bibliography and citation styles.
+本节的命令是不同类型的stand"=alone判断命令，用于参考文献著录和标注样式中。
+%The commands in this section are various kinds of stand"=alone tests for use in bibliography and citation styles.
 
 \begin{ltxsyntax}
 
 \cmditem{iffieldundef}{field}{true}{false}
-
-Expands to \prm{true} if the \prm{field} is undefined, and to \prm{false} otherwise.
+展开为\prm{true}，如果\prm{field}未定义，否则展开为\prm{false}
+%Expands to \prm{true} if the \prm{field} is undefined, and to \prm{false} otherwise.
 
 \cmditem{iflistundef}{literal list}{true}{false}
-
-Expands to \prm{true} if the \prm{literal list} is undefined, and to \prm{false} otherwise.
+展开为\prm{true}，如果\prm{literal list}未定义，否则展开为\prm{false}
+%Expands to \prm{true} if the \prm{literal list} is undefined, and to \prm{false} otherwise.
 
 \cmditem{ifnameundef}{name list}{true}{false}
-
-Expands to \prm{true} if the \prm{name list} is undefined, and to \prm{false} otherwise.
+展开为\prm{true}，如果\prm{name list}未定义，否则展开为\prm{false}
+%Expands to \prm{true} if the \prm{name list} is undefined, and to \prm{false} otherwise.
 
 \cmditem{iffieldsequal}{field 1}{field 2}{true}{false}
-
-Expands to \prm{true} if the values of \prm{field 1} and \prm{field 2} are equal, and to \prm{false} otherwise.
+展开为\prm{true}，如果\prm{field 1}和\prm{field 2}相等，否则展开为\prm{false}
+%Expands to \prm{true} if the values of \prm{field 1} and \prm{field 2} are equal, and to \prm{false} otherwise.
 
 \cmditem{iflistsequal}{literal list 1}{literal list 2}{true}{false}
-
-Expands to \prm{true} if the values of \prm{literal list 1} and \prm{literal list 2} are equal, and to \prm{false} otherwise.
+展开为\prm{true}，如果\prm{literal list 1}和\prm{literal list 2}相等，否则展开为\prm{false}
+%Expands to \prm{true} if the values of \prm{literal list 1} and \prm{literal list 2} are equal, and to \prm{false} otherwise.
 
 \cmditem{ifnamesequal}{name list 1}{name list 2}{true}{false}
-
-Expands to \prm{true} if the values of \prm{name list 1} and \prm{name list 2} are equal, and to \prm{false} otherwise.
+展开为\prm{true}，如果\prm{name list 1}和\prm{name list 2}相等，否则展开为\prm{false}
+%Expands to \prm{true} if the values of \prm{name list 1} and \prm{name list 2} are equal, and to \prm{false} otherwise.
 
 \cmditem{iffieldequals}{field}{macro}{true}{false}
-
-Expands to \prm{true} if the value of the \prm{field} is equal to the definition of \prm{macro}, and to \prm{false} otherwise.
+展开为\prm{true}，如果\prm{field}的值和\prm{macro}的定义相等，否则展开为\prm{false}。\footnote{可以用于改进gb7714-2015中的新闻和标准的判断}
+%Expands to \prm{true} if the value of the \prm{field} is equal to the definition of \prm{macro}, and to \prm{false} otherwise.
 
 \cmditem{iflistequals}{literal list}{macro}{true}{false}
-
-Expands to \prm{true} if the value of the \prm{literal list} is equal to the definition of \prm{macro}, and to \prm{false} otherwise.
+展开为\prm{true}，如果\prm{literal list}的值和\prm{macro}的定义相等，否则展开为\prm{false}。
+%Expands to \prm{true} if the value of the \prm{literal list} is equal to the definition of \prm{macro}, and to \prm{false} otherwise.
 
 \cmditem{ifnameequals}{name list}{macro}{true}{false}
-
-Expands to \prm{true} if the value of the \prm{name list} is equal to the definition of \prm{macro}, and to \prm{false} otherwise.
+展开为\prm{true}，如果\prm{name list}的值和\prm{macro}的定义相等，否则展开为\prm{false}。
+%Expands to \prm{true} if the value of the \prm{name list} is equal to the definition of \prm{macro}, and to \prm{false} otherwise.
 
 \cmditem{iffieldequalcs}{field}{csname}{true}{false}
-
-Similar to \cmd{iffieldequals} but takes the control sequence name \prm{csname} (without a leading backslash) as an argument, rather than a macro name.
+类似于\cmd{iffieldequals}，但将控制序列名\prm{csname}(不带斜杠)作为参数，而不是一个宏名。
+%Similar to \cmd{iffieldequals} but takes the control sequence name \prm{csname} (without a leading backslash) as an argument, rather than a macro name.
 
 \cmditem{iflistequalcs}{literal list}{csname}{true}{false}
-
-Similar to \cmd{iflistequals} but takes the control sequence name \prm{csname} (without a leading backslash) as an argument, rather than a macro name.
+类似于\cmd{iflistequals}，但将控制序列名\prm{csname}(不带斜杠)作为参数，而不是一个宏名。
+%Similar to \cmd{iflistequals} but takes the control sequence name \prm{csname} (without a leading backslash) as an argument, rather than a macro name.
 
 \cmditem{ifnameequalcs}{name list}{csname}{true}{false}
-
-Similar to \cmd{ifnameequals} but takes the control sequence name \prm{csname} (without a leading backslash) as an argument, rather than a macro name.
+类似于\cmd{ifnameequals}，但将控制序列名\prm{csname}(不带斜杠)作为参数，而不是一个宏名。
+%Similar to \cmd{ifnameequals} but takes the control sequence name \prm{csname} (without a leading backslash) as an argument, rather than a macro name.
 
 \cmditem{iffieldequalstr}{field}{string}{true}{false}
-
-Executes \prm{true} if the value of the \prm{field} is equal to \prm{string}, and \prm{false} otherwise. This command is robust.
+展开为\prm{true}，如果\prm{field}的值和字符串\prm{string}的定义相等，否则展开为\prm{false}。该命令是鲁棒的。
+%Executes \prm{true} if the value of the \prm{field} is equal to \prm{string}, and \prm{false} otherwise. This command is robust.
 
 \cmditem{iffieldxref}{field}{true}{false}
-
-If the \bibfield{crossref}\slash \bibfield{xref} field of an entry is defined, this command checks if the \prm{field} is related to the cross"=referenced parent entry. It executes \prm{true} if the \prm{field} of the child entry is equal to the corresponding \prm{field} of the parent entry, and \prm{false} otherwise. If the \bibfield{crossref}\slash \bibfield{xref} field is undefined, it always executes \prm{false}. This command is robust. See the description of the \bibfield{crossref} and \bibfield{xref} fields in \secref{bib:fld:spc} as well as \secref{bib:cav:ref} for further information concerning cross"=referencing.
+如果一个条目定义了\bibfield{crossref}\slash \bibfield{xref}，该命令检测\prm{field}是否与cross"=referenced父条目相关联。如果子条目的\prm{field}与父条目对应的\prm{field}相等，那么执行\prm{true}，否则执行\prm{false}。如果\bibfield{crossref}\slash \bibfield{xref}未定义，总是执行\prm{false}。该命令是鲁棒的。\bibfield{crossref}和 \bibfield{xref}域的描述见\secref{bib:fld:spc}，更多关于cross"=referencing的信息见\secref{bib:cav:ref}。
+%If the \bibfield{crossref}\slash \bibfield{xref} field of an entry is defined, this command checks if the \prm{field} is related to the cross"=referenced parent entry. It executes \prm{true} if the \prm{field} of the child entry is equal to the corresponding \prm{field} of the parent entry, and \prm{false} otherwise. If the \bibfield{crossref}\slash \bibfield{xref} field is undefined, it always executes \prm{false}. This command is robust. See the description of the \bibfield{crossref} and \bibfield{xref} fields in \secref{bib:fld:spc} as well as \secref{bib:cav:ref} for further information concerning cross"=referencing.
 
 \cmditem{iflistxref}{literal list}{true}{false}
-
-Similar to \cmd{iffieldxref} but checks if a \prm{literal list} is related to the cross"=referenced parent entry. See the description of the \bibfield{crossref} and \bibfield{xref} fields in \secref{bib:fld:spc} as well as \secref{bib:cav:ref} for further information concerning cross"=referencing.
+类似于\cmd{iffieldxref}命令，但检测\prm{literal list}是否与cross"=referenced父条目相关联。
+\bibfield{crossref}和 \bibfield{xref}域的描述见\secref{bib:fld:spc}，更多关于cross"=referencing的信息见\secref{bib:cav:ref}。
+%Similar to \cmd{iffieldxref} but checks if a \prm{literal list} is related to the cross"=referenced parent entry. See the description of the \bibfield{crossref} and \bibfield{xref} fields in \secref{bib:fld:spc} as well as \secref{bib:cav:ref} for further information concerning cross"=referencing.
 
 \cmditem{ifnamexref}{name list}{true}{false}
-
-Similar to \cmd{iffieldxref} but checks if a \prm{name list} is related to the cross"=referenced parent entry. See the description of the \bibfield{crossref} and \bibfield{xref} fields in \secref{bib:fld:spc} as well as \secref{bib:cav:ref} for further information concerning cross"=referencing.
+类似于\cmd{iffieldxref}命令，但检测\prm{name list}是否与cross"=referenced父条目相关联。
+\bibfield{crossref}和 \bibfield{xref}域的描述见\secref{bib:fld:spc}，更多关于cross"=referencing的信息见\secref{bib:cav:ref}。
+%Similar to \cmd{iffieldxref} but checks if a \prm{name list} is related to the cross"=referenced parent entry. See the description of the \bibfield{crossref} and \bibfield{xref} fields in \secref{bib:fld:spc} as well as \secref{bib:cav:ref} for further information concerning cross"=referencing.
 
 \cmditem{ifcurrentfield}{field}{true}{false}
-
-Executes \prm{true} if the current field is \prm{field}, and \prm{false} otherwise. This command is robust. It is intended for use in field formatting directives and always executes \prm{false} when used in any other context.
+执行\prm{true}，如果当前域为\prm{field}，否则执行\prm{false}。该命令是鲁棒的。它主要用于域格式指令中，如果在其它环境中总是执行\prm{false}。
+%Executes \prm{true} if the current field is \prm{field}, and \prm{false} otherwise. This command is robust. It is intended for use in field formatting directives and always executes \prm{false} when used in any other context.
 
 \cmditem{ifcurrentlist}{literal list}{true}{false}
-
-Executes \prm{true} if the current list is \prm{literal list}, and \prm{false} otherwise. This command is robust. It is intended for use in list formatting directives and always executes \prm{false} when used in any other context.
+执行\prm{true}，如果当前list为\prm{literal list}，否则执行\prm{false}。该命令是鲁棒的。它主要用于域格式指令中，如果在其它环境中总是执行\prm{false}。
+%Executes \prm{true} if the current list is \prm{literal list}, and \prm{false} otherwise. This command is robust. It is intended for use in list formatting directives and always executes \prm{false} when used in any other context.
 
 \cmditem{ifcurrentname}{name list}{true}{false}
-
-Executes \prm{true} if the current list is \prm{name list}, and \prm{false} otherwise. This command is robust. It is intended for use in list formatting directives and always executes \prm{false} when used in any other context.
+执行\prm{true}，如果当前list为\prm{name list}，否则执行\prm{false}。该命令是鲁棒的。它主要用于域格式指令中，如果在其它环境中总是执行\prm{false}。
+%Executes \prm{true} if the current list is \prm{name list}, and \prm{false} otherwise. This command is robust. It is intended for use in list formatting directives and always executes \prm{false} when used in any other context.
 
 \cmditem{ifuseprefix}{true}{false}
-
-Expands to \prm{true} if the \opt{useprefix} option is enabled (either globally or for the current entry), and \prm{false} otherwise. See \secref{use:opt:bib} for details on this option.
+执行\prm{true}，如果\opt{useprefix}选项打开(无论是全局的还是针对当前条目)，否则执行\prm{false}。该选项的细节见\secref{use:opt:bib}。
+%Expands to \prm{true} if the \opt{useprefix} option is enabled (either globally or for the current entry), and \prm{false} otherwise. See \secref{use:opt:bib} for details on this option.
 
 \cmditem{ifuseauthor}{true}{false}
-
-This is just a particular case of the \cmd{ifuse$<$name$>$} macro below but is mentioned here as \bibfield{author} is part of the default data model. Expands to \prm{true} if the \opt{useauthor} option is enabled (either globally or for the current entry), and \prm{false} otherwise. See \secref{use:opt:bib} for details on this option.
+这只是下面的\cmd{ifuse$<$name$>$}宏的一个特例，因为\bibfield{author}是默认数据模型的一部分所以放到这里来说。执行\prm{true}，如果\opt{useauthor}选项打开(无论是全局的还是针对当前条目)，否则执行\prm{false}。该选项的细节见\secref{use:opt:bib}。
+%This is just a particular case of the \cmd{ifuse$<$name$>$} macro below but is mentioned here as \bibfield{author} is part of the default data model. Expands to \prm{true} if the \opt{useauthor} option is enabled (either globally or for the current entry), and \prm{false} otherwise. See \secref{use:opt:bib} for details on this option.
 
 \cmditem{ifuseeditor}{true}{false}
-
-This is just a particular case of the \cmd{ifuse$<$name$>$} macro below but is mentioned here as \bibfield{editor} is part of the default data model. Expands to \prm{true} if the \opt{useeditor} option is enabled (either globally or for the current entry), and \prm{false} otherwise. See \secref{use:opt:bib} for details on this option.
+这只是下面的\cmd{ifuse$<$name$>$}宏的一个特例，因为\bibfield{editor}是默认数据模型的一部分所以放到这里来说。执行\prm{true}，如果\opt{useeditor}选项打开(无论是全局的还是针对当前条目)，否则执行\prm{false}。该选项的细节见\secref{use:opt:bib}。
+%This is just a particular case of the \cmd{ifuse$<$name$>$} macro below but is mentioned here as \bibfield{editor} is part of the default data model. Expands to \prm{true} if the \opt{useeditor} option is enabled (either globally or for the current entry), and \prm{false} otherwise. See \secref{use:opt:bib} for details on this option.
 
 \cmditem{ifusetranslator}{true}{false}
-
-This is just a particular case of the \cmd{ifuse$<$name$>$} macro below but is mentioned here as \bibfield{translator} is part of the default data model. Expands to \prm{true} if the \opt{usetranslator} option is enabled (either globally or for the current entry), and \prm{false} otherwise. See \secref{use:opt:bib} for details on this option.
+这只是下面的\cmd{ifuse$<$name$>$}宏的一个特例，因为\bibfield{translator}是默认数据模型的一部分所以放到这里来说。执行\prm{true}，如果\opt{usetranslator}选项打开(无论是全局的还是针对当前条目)，否则执行\prm{false}。该选项的细节见\secref{use:opt:bib}。
+%This is just a particular case of the \cmd{ifuse$<$name$>$} macro below but is mentioned here as \bibfield{translator} is part of the default data model. Expands to \prm{true} if the \opt{usetranslator} option is enabled (either globally or for the current entry), and \prm{false} otherwise. See \secref{use:opt:bib} for details on this option.
 
 \cmditem{ifuse$<$name$>$}{true}{false}
 
@@ -8632,7 +8635,7 @@ The current nesting level of parentheses and\slash or brackets. This information
 
 \end{ltxsyntax}
 
-\subsubsection{使用\cmd{ifboolexpr}和\cmd{ifthenelse}的判断 Tests with \cmd{ifboolexpr} and \cmd{ifthenelse}}
+\subsubsection{使用\cmd{ifboolexpr}和\cmd{ifthenelse}的判断}%Tests with \cmd{ifboolexpr} and \cmd{ifthenelse}
 \label{aut:aux:ife}
 
 The tests introduced in \secref{aut:aux:tst} may also be used with the \cmd{ifboolexpr} command provided by the \sty{etoolbox} package and the \cmd{ifthenelse} command provided by the \sty{ifthen} package. The syntax of the tests is slightly different in this case: the \prm{true} and \prm{false} arguments are omitted from the test itself and passed to the \cmd{ifboolexpr} or \cmd{ifthenelse} command instead. Note that the use of these commands implies some processing overhead. If you do not need any boolean operators, it is more efficient to use the stand"=alone tests from \secref{aut:aux:tst}.
