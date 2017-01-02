@@ -1,0 +1,87 @@
+% formats and patches for biblatex-zh-cn
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{format-biblatex-zh-cn}
+
+\RequirePackage{etoolbox}
+\RequirePackage{ltxdockit}
+
+% set Chinese formats
+\RequirePackage[UTF8, scheme=chinese, heading=false]{ctex}
+\RequirePackage{indentfirst}
+\ctexset{listtablename=表目录}
+
+% environment patches for btxdockit.sty
+\renewenvironment*{fieldlist}
+  {\list{}{%
+     \setlength{\labelwidth}{\marglistwidth}%
+     \setlength{\labelsep}{\marglistsep}%
+     \setlength{\leftmargin}{0pt}%
+     \renewcommand*{\makelabel}[1]{\hss\marglistfont##1}}%
+   \def\fielditem##1##2{%
+     \item[##1]%
+     \ltd@pdfbookmark{##1}{##1}%
+     \Field (##2)\par\nobreak
+     \vspace{\itemsep}}%
+   \def\listitem##1##2{%
+     \item[##1]%
+     \ltd@pdfbookmark{##1}{##1}%
+     \ListName (##2)\par\nobreak
+     \vspace{\itemsep}}}
+  {\endlist}
+
+\renewenvironment*{typelist}
+  {\list{}{%
+     \setlength{\labelwidth}{\marglistwidth}%
+     \setlength{\labelsep}{\marglistsep}%
+     \setlength{\leftmargin}{0pt}%
+     \renewcommand*{\makelabel}[1]{\hss\marglistfont##1}}%
+   \def\typeitem##1{%
+     \item[{##1}]%
+     \ltd@pdfbookmark{##1}{##1}}%
+   \def\reqitem{%
+     \par\begingroup\itemsep0.5\itemsep\item
+     \RequireFields\btd@fieldloop}
+   \def\optitem{%
+     \par\begingroup\itemsep0.5\itemsep\item
+     \OptionalFields\btd@fieldloop}}
+  {\endlist}
+
+\def\Field{域}
+\def\ListName{列表}
+\def\RequireFields{必选域：}
+\def\OptionalFields{可选域：}
+
+
+% command patches for ltxdockit.sty
+
+\renewcommand*{\apxref}{\refs{附录}{附录}}
+\renewcommand*{\Apxref}{\refs{附录}{附录}}
+\renewcommand*{\tabref}{\refs{表}{表}}
+\renewcommand*{\Tabref}{\refs{表}{表}}
+
+\renewrobustcmd*{\refs}[3]{%
+  \begingroup
+  \@tempcnta\z@
+  \def\do##1{\advance\@tempcnta\@ne}%
+  \docsvlist{#3}%
+  \@tempcntb\@ne
+  \def\@tempa{\def\@tempa{%
+    \advance\@tempcntb\@ne
+    \ifnumequal{\@tempcnta}{2}
+      { 和 }
+      {、}}}%
+  \def\do##1{\@tempa\ref{##1}}%
+  \ifnumgreater{\@tempcnta}{1}{#2}{#1}~\docsvlist{#3}%
+  \endgroup}
+
+% cancel two-column format in toc defined by ltxdockit.def
+\AtBeginDocument{
+ 	\renewcommand*{\@begintochook}{}
+ 	\renewcommand*{\@endtochook}{}
+ 	\setcounter{tocdepth}{3}
+}
+% alias
+\let\kaiti\kaishu
+
+\endinput
