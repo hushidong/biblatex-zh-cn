@@ -5686,13 +5686,10 @@ This will not from a group, but otherwise works as usual. As far as \biblatex is
 
 手册的这一部分介绍\biblatex 包的作者接口。该指南包括了编写参考文献表和引用样式或本地化模型所需知晓的所有内容。在阅读本部分前最好先阅读用户指南。
 
-\subsection{概述 Overview}
+\subsection{概述}%Overview
 \label{aut:int}
-
+在讨论\biblatex 提供的命令和工具之前，我们将首先介绍一些基本概念。\biblatex 包以一种特殊的方式使用辅助文件。最值得注意的是当使用\bibtex 后端时，\file{bbl}文件的使用方式是有区别的，只有一个\file{bst}文件可用来实现结构化的数据接口，而不是输出可打印的数据。使用\latex 的标准参考文献工具，一个文档通常包括任意数量的文献引用命令，以及常放在文档最后的\cmd{bibliographystyle}和\cmd{bibliography}命令。文献引用命令在文档中的位置是任意的，而\cmd{bibliographystyle}和\cmd{bibliography}命令则标记了打印参考文献表的位置，比如:
 %Before we get to the commands and facilities provided by \biblatex, we will have a look at some of its fundamental concepts. The \biblatex package uses auxiliary files in a special way. Most notably, the \file{bbl} file is used differently and when using \bibtex as the backend, there is only one \file{bst} file which implements a structured data interface rather than exporting printable data. With \latex's standard bibliographic facilities, a document includes any number of citation commands in the document body plus \cmd{bibliographystyle} and \cmd{bibliography}, usually towards the end of the document. The location of the former is arbitrary, the latter marks the spot where the list of references is to be printed:
-
-在讨论\biblatex 提供的命令和工具之前，我们将首先介绍一些基本概念。\biblatex 包以一种特殊的方式使用辅助文件。最需要注意的是使用了\file{bbl}文件，而且当使用\bibtex 后端时，只有一个\file{bst}文件实现用来结构化的数据接口，而不是输出可打印的数据。使用\latex 的标准参考文献工具，一个文档通常包括任意数量的文献引用命令，再加上常放在文档最后的\cmd{bibliographystyle}和\cmd{bibliography}命令。文献引用命令在文档中的位置是任意的，而\cmd{bibliographystyle}和\cmd{bibliography}命令则标记了打印参考文献表的位置，比如:
-
 
 \begin{ltxexample}
 \documentclass{...}
@@ -5706,7 +5703,7 @@ This will not from a group, but otherwise works as usual. As far as \biblatex is
 %
 %Processing this files requires that a certain procedure be followed. This procedure is as follows:
 
-处理这些文件需要如下的一定的流程，如下:
+处理这些文件存在一定的流程，其过程如下:
 
 \begin{enumerate}
 
@@ -5864,7 +5861,7 @@ and Samarin}}}
 
 由这一例子可见，某种程度上说结构化的数据构成了\file{bbl}文件内容\footnote{这里应该是bbl文件而不是原文的bib文件}。从这点上说，没有任何关于参考文献条目最终格式的决定。而参考文献表和引用标注的格式化由 \latex 宏控制，这些宏定义在参考文献和引用样式文件中。
 
-\subsection{参考文献样式 Bibliography Styles}
+\subsection{参考文献样式}%Bibliography Styles
 \label{aut:bbx}
 一个参考文献样式是用于控制打印参考文献表中条目的宏的集合，定义在扩展名为\file{bbx}的文件中。\biblatex 包在其结尾加载所选择的参考文献样式文件。需要注意:一些由多个标准样式文件共享的常用宏定义在\path{biblatex.def}文件中。该文件同样在包结尾加载，但先于参考文献样式文件。
 
@@ -6065,7 +6062,7 @@ and Samarin}}}
 \DeclareFieldFormat{title}{\emph{#1}}
 \end{lstlisting}
 %
-List formats are slightly more complex. After splitting up the list into individual items, \biblatex will execute the formatting directive once for every item in the list. The item is passed to the directive as an argument. The separator to be inserted between the individual items in the list is also handled by the corresponding directive, hence we have to check whether we are in the middle of the list or at the end when inserting it.
+%List formats are slightly more complex. After splitting up the list into individual items, \biblatex will execute the formatting directive once for every item in the list. The item is passed to the directive as an argument. The separator to be inserted between the individual items in the list is also handled by the corresponding directive, hence we have to check whether we are in the middle of the list or at the end when inserting it.
 
 列表格式则要复杂一些。在将列表划分为独立的项后，\biblatex 将对列表中的每一项执行格式化命令。各项作为参数传递给格式化命令。列表中各项间的分隔符由相应的命令控制，因此我们必须在插入分隔符前要检查是否在列表中或者是列表末尾。
 
@@ -6080,7 +6077,7 @@ List formats are slightly more complex. After splitting up the list into individ
 
 姓名(name)的格式化命令类似于这种抄录列表，但列表中的单个项是姓名，因此需要自动的解析为姓名的不同组成部分。列表格式化命令对列表中每个姓名都执行一次，信吗的各个部分以分开的参数传递给该命令。比如，|#1|是姓(last name)和|#3|是名(first name)。下面给出一个简化的格式化命令例子:
 
-Formatting directives for names are similar to those for literal lists, but the individual items in the list are names which are automatically dissected into their components. The list formatting directive is executed once for each name in the list and the components of the name are passed to the formatting directive as separate arguments. For example, |#1| is the last name and |#3| is the first name. Here is a simplified example:
+%Formatting directives for names are similar to those for literal lists, but the individual items in the list are names which are automatically dissected into their components. The list formatting directive is executed once for each name in the list and the components of the name are passed to the formatting directive as separate arguments. For example, |#1| is the last name and |#3| is the first name. Here is a simplified example:
 
 \begin{lstlisting}[style=latex]{}
 \DeclareNameFormat{author}{%
@@ -6096,7 +6093,7 @@ Formatting directives for names are similar to those for literal lists, but the 
 %
 上述各格式化命令调换了第一个作者的姓名前后顺序«Last, First»)，而其余姓名则是常规顺序(«First Last»)。注意:必须要保证提供的姓名部分是姓(last name)，因此我们必须要检查实际数据中姓名的哪些部分是存在的。如果姓名的一些部分不存在，则相关的变量就为空。如同抄录列表的命令，在各独立项之间插入的分隔符也由格式化命令控制，因为我们也要检查是否处于列表中还是在其末尾，这也是第二个\cmd{ifthenelse}命令做的事情。
 
-The above directive reverses the name of the first author («Last, First») and prints the remaining names in their regular sequence («First Last»). Note that the only component which is guaranteed to be available is the last name, hence we have to check which parts of the name are actually present. If a certain component of a name is not available, the corresponding argument will be blank. As with directives for literal lists, the separator to be inserted between the individual items in the list is also handled by the formatting directive, hence we have to check whether we are in the middle of the list or at the end when inserting it. This is what the second \cmd{ifthenelse} test does.
+%The above directive reverses the name of the first author («Last, First») and prints the remaining names in their regular sequence («First Last»). Note that the only component which is guaranteed to be available is the last name, hence we have to check which parts of the name are actually present. If a certain component of a name is not available, the corresponding argument will be blank. As with directives for literal lists, the separator to be inserted between the individual items in the list is also handled by the formatting directive, hence we have to check whether we are in the middle of the list or at the end when inserting it. This is what the second \cmd{ifthenelse} test does.
 
 \subsubsection{特殊域 Special Fields}
 
@@ -6104,7 +6101,7 @@ The above directive reverses the name of the first author («Last, First») and 
 下面的列表和域用于\biblatex 传递数据给参考文献驱动和引用命令。它们由包自动定义，并不是用于\file{bib}文件。从参考文献和引用样式的角度，它们与\file{bib}中的域并没有什么不同。
 
 
-The following lists and fields are used by \biblatex to pass data to bibliography drivers and citation commands. They are not used in \file{bib} files but defined automatically by the package. From the perspective of a bibliography or citation style, they are not different from the fields in a \file{bib} file.
+%The following lists and fields are used by \biblatex to pass data to bibliography drivers and citation commands. They are not used in \file{bib} files but defined automatically by the package. From the perspective of a bibliography or citation style, they are not different from the fields in a \file{bib} file.
 
 \paragraph{一般域 Generic Fields}
 \label{aut:bbx:fld:gen}
@@ -6114,17 +6111,17 @@ The following lists and fields are used by \biblatex to pass data to bibliograph
 	\fielditem{entrykey}{string}
 	\file{bib}文件中某一项的entry key。这是一个字符串，用于\biblatex 及其后端确定\file{bib}文件中的一个条目。
 	
-	The entry key of an item in the \file{bib} file. This is the string used by \biblatex and the backend to identify an entry in the \file{bib} file.
+	%The entry key of an item in the \file{bib} file. This is the string used by \biblatex and the backend to identify an entry in the \file{bib} file.
 	
 	\fielditem{childentrykey}{string}
 	当引用一个条目集的子条目时，\biblatex 给引用数据提供了父\bibtype{set}条目的数据。这意味着\bibfield{entrykey}表示的是父条目的关键词。而子条目的关键词在\bibfield{childentrykey}域中提供。该域仅在引用一个条目集的某一子条目时使用。
 	
-	When citing a subentry of an entry set, \biblatex provides the data of the parent \bibtype{set} entry to citation commands. This implies that the \bibfield{entrykey} field holds the entry key of the parent. The entry key of the child entry being cited is provided in the \bibfield{childentrykey} field. This field is only available when citing a subentry of an entry set.
+	%When citing a subentry of an entry set, \biblatex provides the data of the parent \bibtype{set} entry to citation commands. This implies that the \bibfield{entrykey} field holds the entry key of the parent. The entry key of the child entry being cited is provided in the \bibfield{childentrykey} field. This field is only available when citing a subentry of an entry set.
 	
 	\fielditem{datelabelsource}{literal\BiberOnlyMark}
 	该域决定由\cmd{DeclareLabeldate}命令所选择的date域名的<date>的前缀词。比如，如果标签的date域是\bibfield{eventdate}，那么\bibfield{datelabelsource}将会是<event>。如果\cmd{DeclareLabeldate}命令选择\bibfield{date}域，那么\bibfield{datelabelsource}将会定义一个空字符串。这使得\bibfield{datelabelsource}的内容可以用于构建对\cmd{DeclareLabeldate}选择的域的引用。因为\cmd{DeclareLabeldate}也能选择用于备用的抄录字符串，如果\bibfield{datelabelsource}未定义，那么要不\opt{labeldate}包选项设置为false，或是\cmd{DeclareLabeldate}命令选择一个抄录字符串用于代替date域。要记住\cmd{DeclareLabeldate}也用来选择非日期域作为备用，因此\bibfield{datelabelsource}可以包含一个域名。所以，总结起来，规则是:
 	
-	Holds the prefix coming before <date> of the date field name chosen by \cmd{DeclareLabeldate}. For example, if the label date field is \bibfield{eventdate}, then \bibfield{datelabelsource} will be <event>. In case \cmd{DeclareLabeldate} selects the \bibfield{date} field, then \bibfield{datelabelsource} will be defined but will be an empty string as the prefix coming before <date> in the date label name is empty. This is so that the contents of \bibfield{datelabelsource} can be used in constructing references to the field which \cmd{DeclareLabeldate} chooses. Since \cmd{DeclareLabeldate} can also select literal strings for fallbacks, if \bibfield{datelabelsource} is undefined, then either the \opt{labeldate} package option is set to false or \cmd{DeclareLabeldate} chose a literal string instead of a date field. Bear in mind that \cmd{DeclareLabeldate} can also be used to select non-date fields as a fallback and so \bibfield{datelabelsource} might contain a field name. So, in summary, the rules are
+	%Holds the prefix coming before <date> of the date field name chosen by \cmd{DeclareLabeldate}. For example, if the label date field is \bibfield{eventdate}, then \bibfield{datelabelsource} will be <event>. In case \cmd{DeclareLabeldate} selects the \bibfield{date} field, then \bibfield{datelabelsource} will be defined but will be an empty string as the prefix coming before <date> in the date label name is empty. This is so that the contents of \bibfield{datelabelsource} can be used in constructing references to the field which \cmd{DeclareLabeldate} chooses. Since \cmd{DeclareLabeldate} can also select literal strings for fallbacks, if \bibfield{datelabelsource} is undefined, then either the \opt{labeldate} package option is set to false or \cmd{DeclareLabeldate} chose a literal string instead of a date field. Bear in mind that \cmd{DeclareLabeldate} can also be used to select non-date fields as a fallback and so \bibfield{datelabelsource} might contain a field name. So, in summary, the rules are
 	
 	\begin{lstlisting}[style=latex]{}
 	\iffieldundef{datelabelsource}
@@ -6145,85 +6142,84 @@ The following lists and fields are used by \biblatex to pass data to bibliograph
 	\fielditem{entrytype}{string}
 	
 	条目类型(\bibtype{book}, \bibtype{inbook},等)，以小写字母给出。
-	
-	The entry type (\bibtype{book}, \bibtype{inbook}, etc.), given in lowercase letters.
+	%The entry type (\bibtype{book}, \bibtype{inbook}, etc.), given in lowercase letters.
 	
 	\fielditem{childentrytype}{string}
 	
 	当引用一个条目集的子条目时，\biblatex 给引用命令提供父集条目的数据。这意味着\bibfield{entrytype}保存父条目的类型。子条目的类型则由\bibfield{childentrytype}域提供。该域仅在引用一个条目集的子条目时使用。
-	
-	When citing a subentry of an entry set, \biblatex provides the data of the parent \bibtype{set} entry to citation commands. This implies that the \bibfield{entrytype} field holds the entry type of the parent. The entry type of the child entry being cited is provided in the \bibfield{childentrytype} field. This field is only available when citing a subentry of an entry set.
+	%When citing a subentry of an entry set, \biblatex provides the data of the parent \bibtype{set} entry to citation commands. This implies that the \bibfield{entrytype} field holds the entry type of the parent. The entry type of the child entry being cited is provided in the \bibfield{childentrytype} field. This field is only available when citing a subentry of an entry set.
 	
 	\fielditem{entrysetcount}{integer}
+
 	该域保存的整数用于指明一个集中某个集成员的位置(起始值是\texttt{1})。该域仅对一个条目集的子条目有用。
-	
-	This field holds an integer indicating the position of a set member in the entry set (starting at \texttt{1}). This field is only available in the subentries of an entry set.
+	%This field holds an integer indicating the position of a set member in the entry set (starting at \texttt{1}). This field is only available in the subentries of an entry set.
 	
 	\fielditem{hash}{string\BiberOnlyMark}
+
 	该域非常特殊，仅在姓名格式化命令中使用。它保存一个hash字符串，用于唯一的确定姓名列表中的单个姓名。该信息对于姓名列表中的所有姓名都有提供。另外参见\bibfield{namehash}和\bibfield{fullhash}。
-	
-	This field is special in that it is only available locally in name formatting directives. It holds a hash string which uniquely identifies individual names in a name list. This information is available for all names in all name lists. See also \bibfield{namehash} and \bibfield{fullhash}.
+	%This field is special in that it is only available locally in name formatting directives. It holds a hash string which uniquely identifies individual names in a name list. This information is available for all names in all name lists. See also \bibfield{namehash} and \bibfield{fullhash}.
 	
 	\fielditem{namehash}{string}
+
 	一个hash字符串用于唯一确定\bibfield{labelname}列表。这对再现检查很有用。比如，一个将再次出现的作者和编者用一个类似<idem>的字符串代替的引用样式，可以用\cmd{savefield}命令保存\bibfield{namehash}域，并将其用于后面\cmd{iffieldequals}(见\secref{aut:aux:dat, aut:aux:tst})命令的比较中。\bibfield{namehash}域通过\bibfield{labelname}列表的截短得到，即它的结果与\opt{maxnames}和\opt{minnames}选项相关。另外参见\bibfield{hash}和\bibfield{fullhash}。
-	
-	A hash string which uniquely identifies the \bibfield{labelname} list. This is useful for recurrence checks. For example, a citation style which replaces recurrent authors or editors with a string like <idem> could save the \bibfield{namehash} field with \cmd{savefield} and use it in a comparison with \cmd{iffieldequals} later (see \secref{aut:aux:dat, aut:aux:tst}). The \bibfield{namehash} is derived from the truncated \bibfield{labelname} list, \ie it is responsive to \opt{maxnames} and \opt{minnames}. See also \bibfield{hash} and \bibfield{fullhash}.
+	%A hash string which uniquely identifies the \bibfield{labelname} list. This is useful for recurrence checks. For example, a citation style which replaces recurrent authors or editors with a string like <idem> could save the \bibfield{namehash} field with \cmd{savefield} and use it in a comparison with \cmd{iffieldequals} later (see \secref{aut:aux:dat, aut:aux:tst}). The \bibfield{namehash} is derived from the truncated \bibfield{labelname} list, \ie it is responsive to \opt{maxnames} and \opt{minnames}. See also \bibfield{hash} and \bibfield{fullhash}.
 	
 	\fielditem{fullhash}{string}
+
 	一个hash字符串用于唯一确定\bibfield{labelname}列表。该域域\bibfield{namehash}有两点不同:1.产生hash时忽略\bibfield{shortauthor}和\bibfield{shorteditor}列表。2.该hash指的是完整的列表，忽略\opt{maxnames}和\opt{minnames}选项。另外见\bibfield{hash}和\bibfield{namehash}。
-	
-	A hash string which uniquely identifies the \bibfield{labelname} list. This fields differs from \bibfield{namehash} in two details: 1) The \bibfield{shortauthor} and \bibfield{shorteditor} lists are ignored when generating the hash. 2) The hash always refers to the full list, ignoring \opt{maxnames} and \opt{minnames}. See also \bibfield{hash} and \bibfield{namehash}.
+	%A hash string which uniquely identifies the \bibfield{labelname} list. This fields differs from \bibfield{namehash} in two details: 1) The \bibfield{shortauthor} and \bibfield{shorteditor} lists are ignored when generating the hash. 2) The hash always refers to the full list, ignoring \opt{maxnames} and \opt{minnames}. See also \bibfield{hash} and \bibfield{namehash}.
 	
 	\listitem{pageref}{literal}
+
 	如果\opt{backref}包选项打开，该域保存各被引用条目所在页的页码。如果文档中有\env{refsection}环境，反向引用是针对当前参考文献节的。
-	
-	If the \opt{backref} package option is enabled, this list holds the page numbers of the pages on which the respective bibliography entry is cited. If there are \env{refsection} environments in the document, the back references are local to the reference sections.
+	%If the \opt{backref} package option is enabled, this list holds the page numbers of the pages on which the respective bibliography entry is cited. If there are \env{refsection} environments in the document, the back references are local to the reference sections.
 	
 	\fielditem{sortinit}{literal}
+
 	该域保存用于排序的信息首字符。使用\bibtex 时，该域也用来代替\bibfield{sortinithash}域。
-	
-	This field holds the initial character of the information used during sorting.
-	With \bibtex, this field is also used internally instead of \bibfield{sortinithash}.
+	%This field holds the initial character of the information used during sorting.
+	%With \bibtex, this field is also used internally instead of \bibfield{sortinithash}.
 	
 	\fielditem{sortinithash}{string\BiberOnlyMark}
 	
 	使用\biber 时，该域保存排序字符串的第一个扩展字素集群(基本上是第一个字符)的Unicode排序规则算法主要权重的hash值。当按照字母表顺序划分参考文献列表时很有用，该域有内部\cmd{bibinitsep}所使用。(见\secref{use:fmt:len})
-	
-	With \biber, this field holds a hash of the (locale-specific) Unicode Collation Algorithm primary weight of the first extended grapheme cluster (essentially the first character) of the string used during sorting. This is useful when subdividing the bibliography alphabetically and is used internally by \cmd{bibinitsep} (see \secref{use:fmt:len}).
+	%With \biber, this field holds a hash of the (locale-specific) Unicode Collation Algorithm primary weight of the first extended grapheme cluster (essentially the first character) of the string used during sorting. This is useful when subdividing the bibliography alphabetically and is used internally by \cmd{bibinitsep} (see \secref{use:fmt:len}).
 	
 	\fielditem{clonesourcekey}{string\BiberOnlyMark}
+
 	该域保存复制条目源条目的关键词。复制条目常用于处理相关条目和\bibfield{related}域。
-	This field holds the entry key of the entry from which an entry was cloned. Clones are created for
-	entries which are mentioned in \bibfield{related} fields as part of related entry processing, for example.
+	%This field holds the entry key of the entry from which an entry was cloned. Clones are created for
+	%entries which are mentioned in \bibfield{related} fields as part of related entry processing, for example.
 	
 \end{fieldlist}
 
-\paragraph{引用标签中使用的域 Fields for Use in Citation Labels}
+\paragraph{引用标签中使用的域}%Fields for Use in Citation Labels
 \label{aut:bbx:fld:lab}
 
 \begin{fieldlist}
 	
 	\fielditem{labelalpha}{literal}
+
 	当使用\bibtex 为后端时，生成一个类似于传统\bibtex 的\path{alpha.bst}样式的标签。这一默认标签由抽取\bibfield{labelname}列表的首字母加上出版年的最后两个数字构成。\bibfield{label}域可用来重写它的非数值部分(non"=numeric portion)。如果定义了\bibfield{label}域，\biblatex 将使用它的值加上出版年的后两个数字生成\bibfield{labelalpha}。\bibfield{shorthand}域也可用来重写整个标签。如果定义了该域，\bibfield{labelalpha}就是\bibfield{shorthand}域，而不是一个自动生成的标签。\BiberOnlyMark 使用\biber 时，用户可以定义用来构建字母顺序标签的模板(见\secref{aut:ctm:lab})，而默认的模板域上面bibtex后端使用的格式相同。一个完整的字母顺序(<alphabetic>)标签由以下域构成:
 	\bibfield{labelalpha} 加 \bibfield{extraalpha}。注意\bibfield{labelalpha}和 \bibfield{extraalpha}域需要打开包选项 \opt{labelalpha}(\secref{use:opt:pre:int})。另外参见 \bibfield{extraalpha}和 \secref{use:fmt:fmt}的\cmd{labelalphaothers}。
-	
-	When using \bibtex as the backend, a label similar to the labels generated by the \path{alpha.bst} style of traditional \bibtex. This default label consists of initials drawn from the \bibfield{labelname} list plus the last two digits of the publication year. The \bibfield{label} field may be used to override its non"=numeric portion. If the \bibfield{label} field is defined, \biblatex will use its value and append the last two digits of the publication year when generating \bibfield{labelalpha}. The \bibfield{shorthand} field may be used to override the entire label. If defined, \bibfield{labelalpha} is the \bibfield{shorthand} rather than an automatically generated label. \BiberOnlyMark With \biber, users can specify a template used to construct the alphabetic label (see \secref{aut:ctm:lab}) and the default template mirrors the format mentioned for bibtex above. A complete <alphabetic> label consists of the fields \bibfield{labelalpha} plus \bibfield{extraalpha}. Note that the \bibfield{labelalpha} and \bibfield{extraalpha} fields need to be requested with the package option \opt{labelalpha} (\secref{use:opt:pre:int}). See also \bibfield{extraalpha} as well as \cmd{labelalphaothers} in \secref{use:fmt:fmt}.
+	%When using \bibtex as the backend, a label similar to the labels generated by the \path{alpha.bst} style of traditional \bibtex. This default label consists of initials drawn from the \bibfield{labelname} list plus the last two digits of the publication year. The \bibfield{label} field may be used to override its non"=numeric portion. If the \bibfield{label} field is defined, \biblatex will use its value and append the last two digits of the publication year when generating \bibfield{labelalpha}. The \bibfield{shorthand} field may be used to override the entire label. If defined, \bibfield{labelalpha} is the \bibfield{shorthand} rather than an automatically generated label. \BiberOnlyMark With \biber, users can specify a template used to construct the alphabetic label (see \secref{aut:ctm:lab}) and the default template mirrors the format mentioned for bibtex above. A complete <alphabetic> label consists of the fields \bibfield{labelalpha} plus \bibfield{extraalpha}. Note that the \bibfield{labelalpha} and \bibfield{extraalpha} fields need to be requested with the package option \opt{labelalpha} (\secref{use:opt:pre:int}). See also \bibfield{extraalpha} as well as \cmd{labelalphaothers} in \secref{use:fmt:fmt}.
 	
 	\fielditem{extraalpha}{integer}
+
 	当参考文献中包含同一作者同一年出版的多个引文时，<alphabetic>引用格式常需要一个额外的字母加入标签来区分。这种情况下\bibfield{extraalpha}域保存一个整数可用命令 \cmd{mknumalph} 转换成字母或以其他方式格式化。该域类似于在作者年(author"=year)格式中\bibfield{extrayear}的作用。完整的 <alphabetic>的标签由\bibfield{labelalpha} 加 \bibfield{extraalpha}构成。注意\bibfield{labelalpha}和 \bibfield{extraalpha}域需要打开包选项 \opt{labelalpha}(详见\secref{use:opt:pre:int})。另外参见 \bibfield{labelalpha}和 \secref{use:fmt:fmt}的\cmd{labelalphaothers}。表\ref{use:opt:tab1}总结了不同的\opt{extra*}非歧义计数器和他们追踪的信息。
-	
-	The <alphabetic> citation scheme usually requires a letter to be appended to the label if the bibliography contains two or more works by the same author which were all published in the same year. In this case, the \bibfield{extraalpha} field holds an integer which may be converted to a letter with \cmd{mknumalph} or formatted in some other way. This field is similar to the role of \bibfield{extrayear} in the author"=year scheme. A complete <alphabetic> label consists of the fields \bibfield{labelalpha} plus \bibfield{extraalpha}. Note that the \bibfield{labelalpha} and \bibfield{extraalpha} fields need to be requested with the package option \opt{labelalpha}, see \secref{use:opt:pre:int} for details. See also \bibfield{labelalpha} as well as \cmd{labelalphaothers} in \secref{use:fmt:fmt}. Table \ref{use:opt:tab1} summarises the various \opt{extra*} disambiguation counters and what they track.
+	%The <alphabetic> citation scheme usually requires a letter to be appended to the label if the bibliography contains two or more works by the same author which were all published in the same year. In this case, the \bibfield{extraalpha} field holds an integer which may be converted to a letter with \cmd{mknumalph} or formatted in some other way. This field is similar to the role of \bibfield{extrayear} in the author"=year scheme. A complete <alphabetic> label consists of the fields \bibfield{labelalpha} plus \bibfield{extraalpha}. Note that the \bibfield{labelalpha} and \bibfield{extraalpha} fields need to be requested with the package option \opt{labelalpha}, see \secref{use:opt:pre:int} for details. See also \bibfield{labelalpha} as well as \cmd{labelalphaothers} in \secref{use:fmt:fmt}. Table \ref{use:opt:tab1} summarises the various \opt{extra*} disambiguation counters and what they track.
 	
 	\listitem{labelname}{name}
+
 	引用中打印的姓名。该列表可以是\bibfield{shortauthor}, \bibfield{author},  \bibfield{shorteditor}, \bibfield{editor}, 或\bibfield{translator}域的
 	复制值，正常情况以该顺序检测。如果没有作者(authors)和编者(authors)，该列表时未定义的。注意该列表也与\opt{use$<$name$>$}相关，见\secref{use:opt:bib}。引用样式打印引用中的姓名时使用这一列表。提供该列表仅为方便起见，没有附加的意义。\BiberOnlyMark 使用\biber 时，该域可以定制，详见\secref{aut:ctm:fld}。
-
-The name to be printed in citations. This list is a copy of either the \bibfield{shortauthor}, the \bibfield{author}, the \bibfield{shorteditor}, the \bibfield{editor}, or the \bibfield{translator} list, which are normally checked for in this order. If no authors and editors are available, this list is undefined. Note that this list is also responsive to the \opt{use$<$name$>$}, options, see \secref{use:opt:bib}. Citation styles should use this list when printing the name in a citation. This list is provided for convenience only and does not carry any additional meaning.
-\BiberOnlyMark With \biber, this field may be customized. See \secref{aut:ctm:fld} for details.
+%The name to be printed in citations. This list is a copy of either the \bibfield{shortauthor}, the \bibfield{author}, the \bibfield{shorteditor}, the \bibfield{editor}, or the \bibfield{translator} list, which are normally checked for in this order. If no authors and editors are available, this list is undefined. Note that this list is also responsive to the \opt{use$<$name$>$}, options, see \secref{use:opt:bib}. Citation styles should use this list when printing the name in a citation. This list is provided for convenience only and does not carry any additional meaning.
+%\BiberOnlyMark With \biber, this field may be customized. See \secref{aut:ctm:fld} for details.
 
 \fielditem{labelnumber}{literal}
 
-The number of the bibliography entry, as required by numeric citation schemes. If the \bibfield{shorthand} field is defined, \biblatex does not assign a number to the respective entry. In this case \bibfield{labelnumber} is the shorthand rather than a number. Numeric styles must use the value of this field instead of a counter. Note that this field needs to be requested with the package option \opt{labelnumber}, see \secref{use:opt:pre:int} for details. Also see the package option \opt{defernumbers} in \secref{use:opt:pre:gen}.
+参考文献条目的序号，用于顺序编码类的样式。如果定义了\bibfield{shorthand}域，\biblatex 不再给各条目赋予一个数值。这种情况下，\bibfield{labelnumber}就是shorthand而不是一个数字。顺序编码类的样式必须使用该域的值而不是一个计数器值。注意: 该域需要打开包选项\opt{labelnumber}，详见\secref{use:opt:pre:int}。也可以参考\secref{use:opt:pre:gen}节的\opt{defernumbers}选项。
+%The number of the bibliography entry, as required by numeric citation schemes. If the \bibfield{shorthand} field is defined, \biblatex does not assign a number to the respective entry. In this case \bibfield{labelnumber} is the shorthand rather than a number. Numeric styles must use the value of this field instead of a counter. Note that this field needs to be requested with the package option \opt{labelnumber}, see \secref{use:opt:pre:int} for details. Also see the package option \opt{defernumbers} in \secref{use:opt:pre:gen}.
 
 \fielditem{prefixnumber}{literal}
 
@@ -6262,7 +6258,7 @@ The author"=year citation scheme usually requires a letter to be appended to the
 
 \end{fieldlist}
 
-\paragraph{date的分解域 Date Component Fields}
+\paragraph{date的组成域}%Date Component Fields
 \label{aut:bbx:fld:dat}
 
 See \tabref{aut:bbx:fld:tab1} for an overview of how the date fields in \file{bib} files are related to the date fields provided by the style interface. When testing for a field like \bibfield{origdate} in a style, use code like:
@@ -8244,7 +8240,8 @@ This rule, which applies to all entries, regardless of the source and target ent
 %
 This example demonstrates how to emulate traditional \bibtex's cross"=referencing mechanism. It enables inheritance by default, disables overwriting, and clears all other inheritance rules and mappings.
 
-\subsection{辅助命令 Auxiliary Commands}
+\subsection{辅助命令}
+%Auxiliary Commands
 \label{aut:aux}
 本节的工具用来分析和保存参考文献数据而不是格式化或者打印它们。
 %The facilities in this section are intended for analyzing and saving bibliographic data rather than formatting and printing it.
@@ -8257,8 +8254,8 @@ This example demonstrates how to emulate traditional \bibtex's cross"=referencin
 \begin{ltxsyntax}
 
 \cmditem{thefield}{field}
-展开为未格式化的\prm{field}。如果\prm{field}未定义那么展开为一个空字符串。
 
+展开为未格式化的\prm{field}。如果\prm{field}未定义那么展开为一个空字符串。
 %Expands to the unformatted \prm{field}. If the \prm{field} is undefined, this command expands to an empty string.
 
 \cmditem{strfield}{field}
@@ -8267,72 +8264,88 @@ This example demonstrates how to emulate traditional \bibtex's cross"=referencin
 %Similar to \cmd{thefield}, except that the field is automatically sanitized such that its value may safely be used in the formation of a control sequence name.
 
 \cmditem{csfield}{field}
+
 类似于\cmd{thefield}命令，但禁止展开
 %Similar to \cmd{thefield}, but prevents expansion.
 
 \cmditem{usefield}{command}{field}
+
 执行\prm{command}命令使用未格式化的\prm{field}作为其参数
 %Executes \prm{command} using the unformatted \prm{field} as its argument.
 
 \cmditem{thelist}{literal list}
+
 展开为未格式化的\prm{literal list}。如果list未定义那么展开为一个空字符串。注意该命令中将\prm{literal list}转存为本宏包使用的内部格式。这一格式不适合打印。
 %Expands to the unformatted \prm{literal list}. If the list is undefined, this command expands to an empty string. Note that this command will dump the \prm{literal list} in the internal format used by this package. This format is not suitable for printing.
 
 \cmditem{thename}{name list}
+
 展开为未格式化的\prm{name list}。如果list未定义那么展开为一个空字符串。注意该命令中将\prm{name list}转存为本宏包使用的内部格式。这一格式不适合打印。
 %Expands to the unformatted \prm{name list}. If the list is undefined, this command expands to an empty string. Note that this command will dump the \prm{name list} in the internal format used by this package. This format is not suitable for printing.
 
 \cmditem{savefield}{field}{macro}
 \cmditem*{savefield*}{field}{macro}
+
 将未格式化的\prm{field}拷贝到一个\prm{macro}中。不带星的命令全局的定义\prm{macro}，而带星的命令是局部定义。
 %Copies an unformatted \prm{field} to a \prm{macro}. The regular variant of this command defines the \prm{macro} globally, the starred one works locally.
 
 \cmditem{savelist}{literal list}{macro}
 \cmditem*{savelist*}{literal list}{macro}
+
 将未格式化的\prm{literal list}拷贝到一个\prm{macro}中。不带星的命令全局的定义\prm{macro}，而带星的命令是局部定义。
 %Copies an unformatted \prm{literal list} to a \prm{macro}. The regular variant of this command defines the \prm{macro} globally, the starred one works locally.
 
 \cmditem{savename}{name list}{macro}
 \cmditem*{savename*}{name list}{macro}
+
 将未格式化的\prm{name list}拷贝到一个\prm{macro}中。不带星的命令全局的定义\prm{macro}，而带星的命令是局部定义。
 %Copies an unformatted \prm{name list} to a \prm{macro}. The regular variant of this command defines the \prm{macro} globally, the starred one works locally.
 
 \cmditem{savefieldcs}{field}{csname}
 \cmditem*{savefieldcs*}{field}{csname}
+
 类似于\cmd{savefield}命令，当将控制序列名\prm{csname}(即没有斜杠)作为参数，而不是宏。
 %Similar to \cmd{savefield}, but takes the control sequence name \prm{csname} (without a leading backslash) as an argument, rather than a macro name.
 
 \cmditem{savelistcs}{literal list}{csname}
 \cmditem*{savelistcs*}{literal list}{csname}
+
 类似于\cmd{savelist}命令，当将控制序列名\prm{csname}(即没有斜杠)作为参数，而不是宏。
 %Similar to \cmd{savelist}, but takes the control sequence name \prm{csname} (without a leading backslash) as an argument, rather than a macro name.
 
 \cmditem{savenamecs}{name list}{csname}
 \cmditem*{savenamecs*}{name list}{csname}
+
 类似于\cmd{savename}命令，当将控制序列名\prm{csname}(即没有斜杠)作为参数，而不是宏。
 %Similar to \cmd{savename}, but takes the control sequence name \prm{csname} (without a leading backslash) as an argument, rather than a macro name.
 
 \cmditem{restorefield}{field}{macro}
+
 从之前用\cmd{savefield}命令定义的\prm{macro}中将\prm{field}恢复回来。该域是在局部范围内恢复。
 %Restores a \prm{field} from a \prm{macro} defined with \cmd{savefield} before. The field is restored within a local scope.
 
 \cmditem{restorelist}{literal list}{macro}
+
 从之前用\cmd{savelist}命令定义的\prm{macro}中将\prm{literal list}恢复回来。该list是在局部范围内恢复。
 %Restores a \prm{literal list} from a \prm{macro} defined with \cmd{savelist} before. The list is restored within a local scope.
 
 \cmditem{restorename}{name list}{macro}
+
 从之前用\cmd{savename}命令定义的\prm{macro}中将\prm{name list}恢复回来。该list是在局部范围内恢复。
 %Restores a \prm{name list} from a \prm{macro} defined with \cmd{savename} before. The list is restored within a local scope.
 
 \cmditem{clearfield}{field}
+
 在局部范围内清除\prm{field}。以这种方式清除的域对于后续的数据命令来说相当于没有定义。
 %Clears the \prm{field} within a local scope. A field cleared this way is treated as undefined by subsequent data commands.
 
 \cmditem{clearlist}{literal list}
+
 在局部范围内清除\prm{literal list}。以这种方式清除的list对于后续的数据命令来说相当于没有定义。
 %Clears the \prm{literal list} within a local scope. A list cleared this way is treated as undefined by subsequent data commands.
 
 \cmditem{clearname}{name list}
+
 在局部范围内清除\prm{name list}。以这种方式清除的list对于后续的数据命令来说相当于没有定义。
 %Clears the \prm{name list} within a local scope. A list cleared this way is treated as undefined by subsequent data commands.
 
@@ -8346,305 +8359,379 @@ This example demonstrates how to emulate traditional \bibtex's cross"=referencin
 \begin{ltxsyntax}
 
 \cmditem{iffieldundef}{field}{true}{false}
+
 展开为\prm{true}，如果\prm{field}未定义，否则展开为\prm{false}
 %Expands to \prm{true} if the \prm{field} is undefined, and to \prm{false} otherwise.
 
 \cmditem{iflistundef}{literal list}{true}{false}
+
 展开为\prm{true}，如果\prm{literal list}未定义，否则展开为\prm{false}
 %Expands to \prm{true} if the \prm{literal list} is undefined, and to \prm{false} otherwise.
 
 \cmditem{ifnameundef}{name list}{true}{false}
+
 展开为\prm{true}，如果\prm{name list}未定义，否则展开为\prm{false}
 %Expands to \prm{true} if the \prm{name list} is undefined, and to \prm{false} otherwise.
 
 \cmditem{iffieldsequal}{field 1}{field 2}{true}{false}
+
 展开为\prm{true}，如果\prm{field 1}和\prm{field 2}相等，否则展开为\prm{false}
 %Expands to \prm{true} if the values of \prm{field 1} and \prm{field 2} are equal, and to \prm{false} otherwise.
 
 \cmditem{iflistsequal}{literal list 1}{literal list 2}{true}{false}
+
 展开为\prm{true}，如果\prm{literal list 1}和\prm{literal list 2}相等，否则展开为\prm{false}
 %Expands to \prm{true} if the values of \prm{literal list 1} and \prm{literal list 2} are equal, and to \prm{false} otherwise.
 
 \cmditem{ifnamesequal}{name list 1}{name list 2}{true}{false}
+
 展开为\prm{true}，如果\prm{name list 1}和\prm{name list 2}相等，否则展开为\prm{false}
 %Expands to \prm{true} if the values of \prm{name list 1} and \prm{name list 2} are equal, and to \prm{false} otherwise.
 
 \cmditem{iffieldequals}{field}{macro}{true}{false}
+
 展开为\prm{true}，如果\prm{field}的值和\prm{macro}的定义相等，否则展开为\prm{false}。\footnote{可以用于改进gb7714-2015中的新闻和标准的判断}
 %Expands to \prm{true} if the value of the \prm{field} is equal to the definition of \prm{macro}, and to \prm{false} otherwise.
 
 \cmditem{iflistequals}{literal list}{macro}{true}{false}
+
 展开为\prm{true}，如果\prm{literal list}的值和\prm{macro}的定义相等，否则展开为\prm{false}。
 %Expands to \prm{true} if the value of the \prm{literal list} is equal to the definition of \prm{macro}, and to \prm{false} otherwise.
 
 \cmditem{ifnameequals}{name list}{macro}{true}{false}
+
 展开为\prm{true}，如果\prm{name list}的值和\prm{macro}的定义相等，否则展开为\prm{false}。
 %Expands to \prm{true} if the value of the \prm{name list} is equal to the definition of \prm{macro}, and to \prm{false} otherwise.
 
 \cmditem{iffieldequalcs}{field}{csname}{true}{false}
+
 类似于\cmd{iffieldequals}，但将控制序列名\prm{csname}(不带斜杠)作为参数，而不是一个宏名。
 %Similar to \cmd{iffieldequals} but takes the control sequence name \prm{csname} (without a leading backslash) as an argument, rather than a macro name.
 
 \cmditem{iflistequalcs}{literal list}{csname}{true}{false}
+
 类似于\cmd{iflistequals}，但将控制序列名\prm{csname}(不带斜杠)作为参数，而不是一个宏名。
 %Similar to \cmd{iflistequals} but takes the control sequence name \prm{csname} (without a leading backslash) as an argument, rather than a macro name.
 
 \cmditem{ifnameequalcs}{name list}{csname}{true}{false}
+
 类似于\cmd{ifnameequals}，但将控制序列名\prm{csname}(不带斜杠)作为参数，而不是一个宏名。
 %Similar to \cmd{ifnameequals} but takes the control sequence name \prm{csname} (without a leading backslash) as an argument, rather than a macro name.
 
 \cmditem{iffieldequalstr}{field}{string}{true}{false}
+
 展开为\prm{true}，如果\prm{field}的值和字符串\prm{string}的定义相等，否则展开为\prm{false}。该命令是鲁棒的。
 %Executes \prm{true} if the value of the \prm{field} is equal to \prm{string}, and \prm{false} otherwise. This command is robust.
 
 \cmditem{iffieldxref}{field}{true}{false}
+
 如果一个条目定义了\bibfield{crossref}\slash \bibfield{xref}，该命令检测\prm{field}是否与cross"=referenced父条目相关联。如果子条目的\prm{field}与父条目对应的\prm{field}相等，那么执行\prm{true}，否则执行\prm{false}。如果\bibfield{crossref}\slash \bibfield{xref}未定义，总是执行\prm{false}。该命令是鲁棒的。\bibfield{crossref}和 \bibfield{xref}域的描述见\secref{bib:fld:spc}，更多关于cross"=referencing的信息见\secref{bib:cav:ref}。
 %If the \bibfield{crossref}\slash \bibfield{xref} field of an entry is defined, this command checks if the \prm{field} is related to the cross"=referenced parent entry. It executes \prm{true} if the \prm{field} of the child entry is equal to the corresponding \prm{field} of the parent entry, and \prm{false} otherwise. If the \bibfield{crossref}\slash \bibfield{xref} field is undefined, it always executes \prm{false}. This command is robust. See the description of the \bibfield{crossref} and \bibfield{xref} fields in \secref{bib:fld:spc} as well as \secref{bib:cav:ref} for further information concerning cross"=referencing.
 
 \cmditem{iflistxref}{literal list}{true}{false}
+
 类似于\cmd{iffieldxref}命令，但检测\prm{literal list}是否与cross"=referenced父条目相关联。
 \bibfield{crossref}和 \bibfield{xref}域的描述见\secref{bib:fld:spc}，更多关于cross"=referencing的信息见\secref{bib:cav:ref}。
 %Similar to \cmd{iffieldxref} but checks if a \prm{literal list} is related to the cross"=referenced parent entry. See the description of the \bibfield{crossref} and \bibfield{xref} fields in \secref{bib:fld:spc} as well as \secref{bib:cav:ref} for further information concerning cross"=referencing.
 
 \cmditem{ifnamexref}{name list}{true}{false}
+
 类似于\cmd{iffieldxref}命令，但检测\prm{name list}是否与cross"=referenced父条目相关联。
 \bibfield{crossref}和 \bibfield{xref}域的描述见\secref{bib:fld:spc}，更多关于cross"=referencing的信息见\secref{bib:cav:ref}。
 %Similar to \cmd{iffieldxref} but checks if a \prm{name list} is related to the cross"=referenced parent entry. See the description of the \bibfield{crossref} and \bibfield{xref} fields in \secref{bib:fld:spc} as well as \secref{bib:cav:ref} for further information concerning cross"=referencing.
 
 \cmditem{ifcurrentfield}{field}{true}{false}
+
 执行\prm{true}，如果当前域为\prm{field}，否则执行\prm{false}。该命令是鲁棒的。它主要用于域格式指令中，如果在其它环境中总是执行\prm{false}。
 %Executes \prm{true} if the current field is \prm{field}, and \prm{false} otherwise. This command is robust. It is intended for use in field formatting directives and always executes \prm{false} when used in any other context.
 
 \cmditem{ifcurrentlist}{literal list}{true}{false}
+
 执行\prm{true}，如果当前list为\prm{literal list}，否则执行\prm{false}。该命令是鲁棒的。它主要用于域格式指令中，如果在其它环境中总是执行\prm{false}。
 %Executes \prm{true} if the current list is \prm{literal list}, and \prm{false} otherwise. This command is robust. It is intended for use in list formatting directives and always executes \prm{false} when used in any other context.
 
 \cmditem{ifcurrentname}{name list}{true}{false}
+
 执行\prm{true}，如果当前list为\prm{name list}，否则执行\prm{false}。该命令是鲁棒的。它主要用于域格式指令中，如果在其它环境中总是执行\prm{false}。
 %Executes \prm{true} if the current list is \prm{name list}, and \prm{false} otherwise. This command is robust. It is intended for use in list formatting directives and always executes \prm{false} when used in any other context.
 
 \cmditem{ifuseprefix}{true}{false}
+
 执行\prm{true}，如果\opt{useprefix}选项打开(无论是全局的还是针对当前条目)，否则执行\prm{false}。该选项的细节见\secref{use:opt:bib}。
 %Expands to \prm{true} if the \opt{useprefix} option is enabled (either globally or for the current entry), and \prm{false} otherwise. See \secref{use:opt:bib} for details on this option.
 
 \cmditem{ifuseauthor}{true}{false}
+
 这只是下面的\cmd{ifuse$<$name$>$}宏的一个特例，因为\bibfield{author}是默认数据模型的一部分所以放到这里来说。执行\prm{true}，如果\opt{useauthor}选项打开(无论是全局的还是针对当前条目)，否则执行\prm{false}。该选项的细节见\secref{use:opt:bib}。
 %This is just a particular case of the \cmd{ifuse$<$name$>$} macro below but is mentioned here as \bibfield{author} is part of the default data model. Expands to \prm{true} if the \opt{useauthor} option is enabled (either globally or for the current entry), and \prm{false} otherwise. See \secref{use:opt:bib} for details on this option.
 
 \cmditem{ifuseeditor}{true}{false}
+
 这只是下面的\cmd{ifuse$<$name$>$}宏的一个特例，因为\bibfield{editor}是默认数据模型的一部分所以放到这里来说。执行\prm{true}，如果\opt{useeditor}选项打开(无论是全局的还是针对当前条目)，否则执行\prm{false}。该选项的细节见\secref{use:opt:bib}。
 %This is just a particular case of the \cmd{ifuse$<$name$>$} macro below but is mentioned here as \bibfield{editor} is part of the default data model. Expands to \prm{true} if the \opt{useeditor} option is enabled (either globally or for the current entry), and \prm{false} otherwise. See \secref{use:opt:bib} for details on this option.
 
 \cmditem{ifusetranslator}{true}{false}
+
 这只是下面的\cmd{ifuse$<$name$>$}宏的一个特例，因为\bibfield{translator}是默认数据模型的一部分所以放到这里来说。执行\prm{true}，如果\opt{usetranslator}选项打开(无论是全局的还是针对当前条目)，否则执行\prm{false}。该选项的细节见\secref{use:opt:bib}。
 %This is just a particular case of the \cmd{ifuse$<$name$>$} macro below but is mentioned here as \bibfield{translator} is part of the default data model. Expands to \prm{true} if the \opt{usetranslator} option is enabled (either globally or for the current entry), and \prm{false} otherwise. See \secref{use:opt:bib} for details on this option.
 
 \cmditem{ifuse$<$name$>$}{true}{false}
 
-Expands to \prm{true} if the \opt{use$<$name$>$} option is enabled (either globally or for the current entry), and \prm{false} otherwise. See \secref{use:opt:bib} for details on this option.
+展开为\prm{true}，如果选项\opt{use$<$name$>$}打开(无论全局还是当前条目的选项)，否则展开为\prm{false}。这一选项的细节详见第\secref{use:opt:bib}节。
+%Expands to \prm{true} if the \opt{use$<$name$>$} option is enabled (either globally or for the current entry), and \prm{false} otherwise. See \secref{use:opt:bib} for details on this option.
 
 \cmditem{ifsingletitle}{true}{false}
 
-Expands to \prm{true} if there is only one work by the \opt{labelname} name in the bibliography, and to \prm{false} otherwise. If there is no \opt{labelname} name at all for the entry, then this expands to \prm{true} if there is only one work with the \opt{labeltitle} title in the bibliography and \prm{false} otherwise. If neither \opt{labelname} nor \opt{labeltitle} are set for an entry, this will always expand to \prm{false}. Note that this feature needs to be enabled explicitly with the package option \opt{singletitle}.
+展开为\prm{true}，如果文献表中只有以\opt{labelname}为名的一片文献，否则展开为\prm{false}。如果没有\opt{labelname}为名的条目，当文献表中有以\opt{labeltitle}为题的文献则展开为\prm{true}，否则展开为\prm{false}。如果条目既没设置\opt{labelname}也没设置\opt{labeltitle}，总是展开为\prm{false}。注意该功能需要显式的打开宏包选项\opt{singletitle}才行。
+%Expands to \prm{true} if there is only one work by the \opt{labelname} name in the bibliography, and to \prm{false} otherwise. If there is no \opt{labelname} name at all for the entry, then this expands to \prm{true} if there is only one work with the \opt{labeltitle} title in the bibliography and \prm{false} otherwise. If neither \opt{labelname} nor \opt{labeltitle} are set for an entry, this will always expand to \prm{false}. Note that this feature needs to be enabled explicitly with the package option \opt{singletitle}.
 
 \cmditem{ifandothers}{list}{true}{false}
 
-Expands to \prm{true} if the \prm{list} is defined and has been truncated in the \file{bib} file with the keyword <\texttt{and others}>, and to \prm{false} otherwise. The \prm{list} may be a literal list or a name list.
+展开为\prm{true}，如果\prm{list}已定义并且在\file{bib}文件中以关键词<\texttt{and others}>截短了，否则展开为\prm{false}。\prm{list}可以是literal或name列表。
+%Expands to \prm{true} if the \prm{list} is defined and has been truncated in the \file{bib} file with the keyword <\texttt{and others}>, and to \prm{false} otherwise. The \prm{list} may be a literal list or a name list.
 
 \cmditem{ifmorenames}{true}{false}
 
-Expands to \prm{true} if the current name list has been or will be truncated, and to \prm{false} otherwise. This command is intended for use in formatting directives for name lists. It will always expand to \prm{false} when used elsewhere. This command performs the equivalent of an \cmd{ifandothers} test for the current list. If this test is negative, it also checks if the \cnt{listtotal} counter is larger than \cnt{liststop}. This command may be used in a formatting directive to decide if a note such as «and others» or «et al.» is to be printed at the end of the list. Note that you still need to check whether you are in the middle or at the end of the list, \ie whether \cnt{listcount} is smaller than or equal to \cnt{liststop}, see \secref{aut:bib:dat} for details.
+展开为\prm{true}，如果当前姓名列表已经截短或将截短，否则展开为\prm{false}。该命令用于姓名列表的格式化指令中，在其它地方使用将展开为\prm{false}。该命令对当前列表执行与\cmd{ifandothers}判断一样的操作。如果判断结果为否，它将检测\cnt{listtotal}是否大于\cnt{liststop}。该命令用于格式化命令中用以决定是否需要在列表默认打印«and others» or «et al.»这样的标注。注意: 当需要检测实在列表中间或者末尾时，即\cnt{listcount}是否小于或等于\cnt{liststop}，详见第\secref{aut:bib:dat}节。
+%Expands to \prm{true} if the current name list has been or will be truncated, and to \prm{false} otherwise. This command is intended for use in formatting directives for name lists. It will always expand to \prm{false} when used elsewhere. This command performs the equivalent of an \cmd{ifandothers} test for the current list. If this test is negative, it also checks if the \cnt{listtotal} counter is larger than \cnt{liststop}. This command may be used in a formatting directive to decide if a note such as «and others» or «et al.» is to be printed at the end of the list. Note that you still need to check whether you are in the middle or at the end of the list, \ie whether \cnt{listcount} is smaller than or equal to \cnt{liststop}, see \secref{aut:bib:dat} for details.
 
 \cmditem{ifmoreitems}{true}{false}
 
-This command is similar to \cmd{ifmorenames} but checks the current literal list. It is intended for use in formatting directives for literal lists. It will always expand to \prm{false} when used elsewhere.
+类似于\cmd{ifmorenames}，但检测literal列表。用于literal列表的格式化指令，其它地方用总是展开为\prm{false}。
+%This command is similar to \cmd{ifmorenames} but checks the current literal list. It is intended for use in formatting directives for literal lists. It will always expand to \prm{false} when used elsewhere.
 
 \cmditem{iffirstinits}{true}{false}
 
-Expands to \prm{true} or \prm{false}, depending on the state of the \opt{firstinits} package option (see \secref{use:opt:pre:int}). This command is intended for use in formatting directives for name lists.
+根据\opt{firstinits}包选项的状态，展开为\prm{true}或\prm{false}(见第\secref{use:opt:pre:int}节)。该命令用于姓名列表的格式化指令。
+%Expands to \prm{true} or \prm{false}, depending on the state of the \opt{firstinits} package option (see \secref{use:opt:pre:int}). This command is intended for use in formatting directives for name lists.
 
 \cmditem{ifterseinits}{true}{false}
 
-Expands to \prm{true} or \prm{false}, depending on the state of the \opt{terseinits} package option (see \secref{use:opt:pre:int}). This command is intended for use in formatting directives for name lists.
+根据\opt{terseinits}包选项的状态，展开为\prm{true}或\prm{false}(见第\secref{use:opt:pre:int}节)。该命令用于姓名列表的格式化指令。
+%Expands to \prm{true} or \prm{false}, depending on the state of the \opt{terseinits} package option (see \secref{use:opt:pre:int}). This command is intended for use in formatting directives for name lists.
 
 \cmditem{ifentrytype}{type}{true}{false}
 
-Executes \prm{true} if the entry type of the entry currently being processed is \prm{type}, and \prm{false} otherwise.
+如果当前处理条目类型是\prm{type}，则展开为\prm{true}，否则展开为\prm{false}。
+%Executes \prm{true} if the entry type of the entry currently being processed is \prm{type}, and \prm{false} otherwise.
 
 \cmditem{ifkeyword}{keyword}{true}{false}
 
-Executes \prm{true} if the \prm{keyword} is found in the \bibfield{keywords} field of the entry currently being processed, and \prm{false} otherwise.
+如果\prm{keyword}能在当前处理的条目的\bibfield{keywords}域中找到，展开为\prm{true}，否则展开为\prm{false}。
+%Executes \prm{true} if the \prm{keyword} is found in the \bibfield{keywords} field of the entry currently being processed, and \prm{false} otherwise.
 
 \cmditem{ifentrykeyword}{entrykey}{keyword}{true}{false}
 
-A variant of \cmd{ifkeyword} which takes an entry key as its first argument. This is useful for testing an entry other than the one currently processed.
+当条目关键词作为\cmd{ifkeyword}命令参数的变化形式，在判断当前处理条目是否是某一条目时很有用。
+%A variant of \cmd{ifkeyword} which takes an entry key as its first argument. This is useful for testing an entry other than the one currently processed.
 
 \cmditem{ifcategory}{category}{true}{false}
 
-Executes \prm{true} if the entry currently being processed has been assigned to a \prm{category} with \cmd{addtocategory}, and \prm{false} otherwise.
+执行\prm{true}，如果当前正在处理条目被指派为由\cmd{addtocategory}命令定义的\prm{category}中，否则执行\prm{false}。
+%Executes \prm{true} if the entry currently being processed has been assigned to a \prm{category} with \cmd{addtocategory}, and \prm{false} otherwise.
 
 \cmditem{ifentrycategory}{entrykey}{category}{true}{false}
 
-A variant of \cmd{ifcategory} which takes an entry key as its first argument. This is useful for testing an entry other than the one currently processed.
+当条目关键词作为\cmd{ifcategory}命令参数时的变化形式，在判断当前处理条目是否是某一条目时很有用。
+%A variant of \cmd{ifcategory} which takes an entry key as its first argument. This is useful for testing an entry other than the one currently processed.
 
 \cmditem{ifciteseen}{true}{false}
 
-Executes \prm{true} if the entry currently being processed has been cited before, and \prm{false} otherwise. This command is robust and intended for use in citation styles. If there are any \env{refsection} environments in the document, the citation tracking is local to these environments. Note that the citation tracker needs to be enabled explicitly with the package option \opt{citetracker}. The behavior of this test depends on the mode the citation tracker is operating in, see \secref{use:opt:pre:int} for details. If the citation tracker is disabled, the test always yields \prm{false}. Also see the \cmd{citetrackertrue} and \cmd{citetrackerfalse} switches in \secref{aut:aux:msc}.
+展开为\prm{true}，如果当前条目之前已经被引用过，否则展开为\prm{false}。该命令是鲁棒的，用于标注样式中。如果文档中有\env{refsection}环境，引用追踪是基于这些环境的。注意:引用追踪器需要显式的以包选项\opt{citetracker}打开，如果追踪器未打开，该命令总是展开为\prm{false}。也可以参考第\secref{aut:aux:msc}节的\cmd{citetrackertrue}和\cmd{citetrackerfalse}开关。
+%Executes \prm{true} if the entry currently being processed has been cited before, and \prm{false} otherwise. This command is robust and intended for use in citation styles. If there are any \env{refsection} environments in the document, the citation tracking is local to these environments. Note that the citation tracker needs to be enabled explicitly with the package option \opt{citetracker}. The behavior of this test depends on the mode the citation tracker is operating in, see \secref{use:opt:pre:int} for details. If the citation tracker is disabled, the test always yields \prm{false}. Also see the \cmd{citetrackertrue} and \cmd{citetrackerfalse} switches in \secref{aut:aux:msc}.
 
 \cmditem{ifentryseen}{entrykey}{true}{false}
 
-A variant of \cmd{ifciteseen} which takes an entry key as its first argument. Since the \prm{entrykey} is expanded prior to performing the test, it is possible to test for entry keys in a field such as \bibfield{xref}:
+当条目关键词作为\cmditem{ifciteseen}命令参数时的变化形式。因为\prm{entrykey}先于判断展开，它也可以用来测试在\bibfield{xref}等域中的条目关键词。
+%A variant of \cmd{ifciteseen} which takes an entry key as its first argument. Since the \prm{entrykey} is expanded prior to performing the test, it is possible to test for entry keys in a field such as \bibfield{xref}:
 
 \begin{lstlisting}[style=latex]{}
 \ifentryseen{<<\thefield{xref}>>}{true}{false}
 \end{lstlisting}
 %
-Apart from the additional argument, \cmd{ifentryseen} behaves like \cmd{ifciteseen}.
+除了一个额外参数，\cmd{ifentryseen}的操作类似于\cmd{ifciteseen}。
+%Apart from the additional argument, \cmd{ifentryseen} behaves like \cmd{ifciteseen}.
 
 \cmditem{ifentryinbib}{entrykey}{true}{false}
 
-Executes \prm{true} if the entry \prm{entrykey} appears in the current bibliography, and \prm{false} otherwise. This command is intended for use in bibliography styles.
+如果\prm{entrykey}出现当前文献表中，执行\prm{true}，否则执行\prm{false}。该命令用于参考文献著录样式。
+%Executes \prm{true} if the entry \prm{entrykey} appears in the current bibliography, and \prm{false} otherwise. This command is intended for use in bibliography styles.
 
 \cmditem{iffirstcitekey}{true}{false}
 
-Executes \prm{true} if the entry currently being processed is the first one in the citation list, and \prm{false} otherwise. This command relies on the \cnt{citecount}, \cnt{citetotal}, \cnt{multicitecount} and \cnt{multicitetotal} counters (\secref{aut:fmt:ilc}) and thus is intended for use only in the \prm{loopcode} of a citation command defined with \cmd{DeclareCiteCommand}.
+如果当前处理条目是引用列表中的第一个，执行\prm{true}，否则执行\prm{false}。该命令依赖于\cnt{citecount}, \cnt{citetotal}, \cnt{multicitecount} 和 \cnt{multicitetotal}计数器(见\secref{aut:fmt:ilc})，因此只能用于\cmd{DeclareCiteCommand}命令定义的标注命令的循环执行代码\prm{loopcode}中。
+%Executes \prm{true} if the entry currently being processed is the first one in the citation list, and \prm{false} otherwise. This command relies on the \cnt{citecount}, \cnt{citetotal}, \cnt{multicitecount} and \cnt{multicitetotal} counters (\secref{aut:fmt:ilc}) and thus is intended for use only in the \prm{loopcode} of a citation command defined with \cmd{DeclareCiteCommand}.
 
 \cmditem{iflastcitekey}{true}{false}
 
-Similar \cmd{iffirstcitekey}, but executes \prm{true} if the entry currently being processed is the last one in the citation list, and \prm{false} otherwise.
+类似于\cmd{iffirstcitekey}，但判断的是是否为引用列表中的最后一个。
+%Similar \cmd{iffirstcitekey}, but executes \prm{true} if the entry currently being processed is the last one in the citation list, and \prm{false} otherwise.
 
 \cmditem{ifciteibid}{true}{false}
 
-Expands to \prm{true} if the entry currently being processed is the same as the last one, and to \prm{false} otherwise. This command is intended for use in citation styles. If there are any \env{refsection} environments in the document, the tracking is local to these environments. Note that the <ibidem> tracker needs to be enabled explicitly with the package option \opt{ibidtracker}. The behavior of this test depends on the mode the tracker is operating in, see \secref{use:opt:pre:int} for details. If the tracker is disabled, the test always yields \prm{false}. Also see the \cmd{citetrackertrue} and \cmd{citetrackerfalse} switches in \secref{aut:aux:msc}.
+如果当前处理条目于前一条相同，展开为\prm{true}，否则展开为\prm{false}。该命令用于标注样式。如果有\env{refsection}环境，追踪器是基于这些环境的。注意:<ibidem>追踪器需要由\opt{ibidtracker}包选项显式的打开。该判断命令的运行方式与追踪器运行的模式相关，详见\secref{use:opt:pre:int}。如果追踪器未打开，总是展开为\prm{false}。也可以参考\secref{aut:aux:msc}节的\cmd{citetrackertrue}和\cmd{citetrackerfalse}开关。
+%Expands to \prm{true} if the entry currently being processed is the same as the last one, and to \prm{false} otherwise. This command is intended for use in citation styles. If there are any \env{refsection} environments in the document, the tracking is local to these environments. Note that the <ibidem> tracker needs to be enabled explicitly with the package option \opt{ibidtracker}. The behavior of this test depends on the mode the tracker is operating in, see \secref{use:opt:pre:int} for details. If the tracker is disabled, the test always yields \prm{false}. Also see the \cmd{citetrackertrue} and \cmd{citetrackerfalse} switches in \secref{aut:aux:msc}.
 
 \cmditem{ifciteidem}{true}{false}
 
-Expands to \prm{true} if the primary name (\ie the author or editor) in the entry currently being processed is the same as the last one, and to \prm{false} otherwise. This command is intended for use in citation styles. If there are any \env{refsection} environments in the document, the tracking is local to these environments. Note that the <idem> tracker needs to be enabled explicitly with the package option \opt{idemtracker}. The behavior of this test depends on the mode the tracker is operating in, see \secref{use:opt:pre:int} for details. If the tracker is disabled, the test always yields \prm{false}. Also see \cmd{citetrackertrue} and \cmd{citetrackerfalse} in \secref{aut:aux:msc}.
+如果当前处理条目的责任者(即作者或编者)于前一条目的相同，展开为\prm{true}，否则展开为\prm{false}。该命令用于标注样式。如果有\env{refsection}环境，追踪器是基于这些环境的。注意: <idem> 追踪器需要由\opt{idemtracker}包选项显式的打开。该判断命令的运行方式与追踪器运行的模式相关，详见\secref{use:opt:pre:int}。如果追踪器未打开，总是展开为\prm{false}。也可以参考\secref{aut:aux:msc}节的\cmd{citetrackertrue}和\cmd{citetrackerfalse}开关。
+%Expands to \prm{true} if the primary name (\ie the author or editor) in the entry currently being processed is the same as the last one, and to \prm{false} otherwise. This command is intended for use in citation styles. If there are any \env{refsection} environments in the document, the tracking is local to these environments. Note that the <idem> tracker needs to be enabled explicitly with the package option \opt{idemtracker}. The behavior of this test depends on the mode the tracker is operating in, see \secref{use:opt:pre:int} for details. If the tracker is disabled, the test always yields \prm{false}. Also see \cmd{citetrackertrue} and \cmd{citetrackerfalse} in \secref{aut:aux:msc}.
 
 \cmditem{ifopcit}{true}{false}
 
-This command is similar to \cmd{ifciteibid} except that it expands to \prm{true} if the entry currently being processed is the same as the last one \emph{by this author or editor}. Note that the <opcit> tracker needs to be enabled explicitly with the package option \opt{opcittracker}. The behavior of this test depends on the mode the tracker is operating in, see \secref{use:opt:pre:int} for details. If the tracker is disabled, the test always yields \prm{false}. Also see the \cmd{citetrackertrue} and \cmd{citetrackerfalse} switches in \secref{aut:aux:msc}.
+该命令类似于\cmd{ifciteibid}，但只要当前处理等条目的\emph{作者 或 编者 }与前一条目相同，则展开为\prm{true}。注意: <opcit> 追踪器需要由\opt{opcittracker}包选项显式的打开。该判断命令的运行方式与追踪器运行的模式相关，详见\secref{use:opt:pre:int}。如果追踪器未打开，总是展开为\prm{false}。也可以参考\secref{aut:aux:msc}节的\cmd{citetrackertrue}和\cmd{citetrackerfalse}开关。
+%This command is similar to \cmd{ifciteibid} except that it expands to \prm{true} if the entry currently being processed is the same as the last one \emph{by this author or editor}. Note that the <opcit> tracker needs to be enabled explicitly with the package option \opt{opcittracker}. The behavior of this test depends on the mode the tracker is operating in, see \secref{use:opt:pre:int} for details. If the tracker is disabled, the test always yields \prm{false}. Also see the \cmd{citetrackertrue} and \cmd{citetrackerfalse} switches in \secref{aut:aux:msc}.
 
 \cmditem{ifloccit}{true}{false}
 
-This command is similar to \cmd{ifopcit} except that it also compares the \prm{postnote} arguments and expands to \prm{true} only if they match and are numerical (in the sense of \cmd{ifnumerals} from \secref{aut:aux:tst}), \ie \cmd{ifloccit} will yield \texttt{true} if the citation refers to the same page cited before. Note that the <loccit> tracker needs to be enabled explicitly with the package option \opt{loccittracker}. The behavior of this test depends on the mode the tracker is operating in, see \secref{use:opt:pre:int} for details. If the tracker is disabled, the test always yields \prm{false}. Also see the \cmd{citetrackertrue} and \cmd{citetrackerfalse} switches in \secref{aut:aux:msc}.
+该命令类似于\cmd{ifopcit}，但还要比较\prm{postnote}的参数，如果他们相同且是数值(\secref{aut:aux:tst}节的\cmd{ifnumerals}命令判断)，则展开为\prm{true}。即:如果引文的页码与前一文献相同则展开为\texttt{true}。 注意: <loccit> 追踪器需要由\opt{loccittracker}包选项显式的打开。该判断命令的运行方式与追踪器运行的模式相关，详见\secref{use:opt:pre:int}。如果追踪器未打开，总是展开为\prm{false}。也可以参考\secref{aut:aux:msc}节的\cmd{citetrackertrue}和\cmd{citetrackerfalse}开关。
+%This command is similar to \cmd{ifopcit} except that it also compares the \prm{postnote} arguments and expands to \prm{true} only if they match and are numerical (in the sense of \cmd{ifnumerals} from \secref{aut:aux:tst}), \ie \cmd{ifloccit} will yield \texttt{true} if the citation refers to the same page cited before. Note that the <loccit> tracker needs to be enabled explicitly with the package option \opt{loccittracker}. The behavior of this test depends on the mode the tracker is operating in, see \secref{use:opt:pre:int} for details. If the tracker is disabled, the test always yields \prm{false}. Also see the \cmd{citetrackertrue} and \cmd{citetrackerfalse} switches in \secref{aut:aux:msc}.
 
 \cmditem{iffirstonpage}{true}{false}
 
-The behavior of this command is responsive to the package option \opt{pagetracker}. If the option is set to \texttt{page}, it expands to \prm{true} if the current item is the first one on the page, and to \prm{false} otherwise. If the option is set to \texttt{spread}, it expands to \prm{true} if the current item is the first one on the double-page spread, and to \prm{false} otherwise. If the page tracker is disabled, this test always yields \prm{false}. Depending on the context, the <item> may be a citation or an entry in the bibliography or a bibliography list. Note that this test distinguishes between body text and footnotes. For example, if used in the first footnote on a page, it will expand to \prm{true} even if there is a citation in the body text prior to the footnote. Also see the \cmd{pagetrackertrue} and \cmd{pagetrackerfalse} switches in \secref{aut:aux:msc}.
+该命令的运行与\opt{pagetracker}包选项相关，如果选项设置成\texttt{page}，当当前项是页中的第一项，展开为\prm{true}，否则展开为\prm{false}。如果选项设置成\texttt{spread}，当当前项是合页中的第一项，展开为\prm{true}，否则展开为\prm{false}。如果选项未打开，总是展开为\prm{false}。根据所处环境不同，<item>可以是一个标注，或者参考文献表中的条目。注意该命令区分正文文本和脚注，例如，当在某页的第一个脚注中使用，即便是文中有一个标注且先于该脚注。也可以参考\secref{aut:aux:msc}节的\cmd{pagetrackertrue}和\cmd{pagetrackerfalse}开关。
+%The behavior of this command is responsive to the package option \opt{pagetracker}. If the option is set to \texttt{page}, it expands to \prm{true} if the current item is the first one on the page, and to \prm{false} otherwise. If the option is set to \texttt{spread}, it expands to \prm{true} if the current item is the first one on the double-page spread, and to \prm{false} otherwise. If the page tracker is disabled, this test always yields \prm{false}. Depending on the context, the <item> may be a citation or an entry in the bibliography or a bibliography list. Note that this test distinguishes between body text and footnotes. For example, if used in the first footnote on a page, it will expand to \prm{true} even if there is a citation in the body text prior to the footnote. Also see the \cmd{pagetrackertrue} and \cmd{pagetrackerfalse} switches in \secref{aut:aux:msc}.
 
 \cmditem{ifsamepage}{instance 1}{instance 2}{true}{false}
 
-This command expands to \prm{true} if two instances of a reference are located on the same page or double-page spread, and to \prm{false} otherwise. An instance of a reference may be a citation or an entry in the bibliography or a bibliography list. These instances are identified by the value of the \cnt{instcount} counter, see \secref{aut:fmt:ilc}. The behavior of this command is responsive to the package option \opt{pagetracker}. If this option is set to \texttt{spread}, \cmd{ifsamepage} is in fact an <if same spread> test. If the page tracker is disabled, this test always yields \prm{false}. The arguments \prm{instance 1} and \prm{instance 2} are treated as integer expressions in the sense of \etex's \cmd{numexpr}. This implies that it is possible to make calculations within these arguments, for example:
+如果两个引用实例位于同于页或者同一合页中，展开为\prm{true}，否则为\prm{false}。一个引用实例可以是一个标注也可以是文献表中的条目。这些实例用\cnt{instcount}计数区分，见\secref{aut:fmt:ilc}。该命令的运行与\opt{pagetracker}包选项相关，如果选项设置成\texttt{spread}，其本质是<if same spread>(是否同意合页)的判断。如果选项未打开，总是展开为\prm{false}。参数\prm{instance 1}和\prm{instance 2}以\etex's \cmd{numexpr}方式当成整数表达式处理。这意味着可以在参数中计算。比如:
+%This command expands to \prm{true} if two instances of a reference are located on the same page or double-page spread, and to \prm{false} otherwise. An instance of a reference may be a citation or an entry in the bibliography or a bibliography list. These instances are identified by the value of the \cnt{instcount} counter, see \secref{aut:fmt:ilc}. The behavior of this command is responsive to the package option \opt{pagetracker}. If this option is set to \texttt{spread}, \cmd{ifsamepage} is in fact an <if same spread> test. If the page tracker is disabled, this test always yields \prm{false}. The arguments \prm{instance 1} and \prm{instance 2} are treated as integer expressions in the sense of \etex's \cmd{numexpr}. This implies that it is possible to make calculations within these arguments, for example:
 
 \begin{lstlisting}[style=latex]{}
 \ifsamepage{<<\value>>{instcount}}{<<\value>>{instcount}<<-1>>}{true}{false}
 \end{lstlisting}
 
-Note that \cmd{value} is not prefixed by \cmd{the} and that the subtraction is included in the second argument in the above example. If \prm{instance 1} or \prm{instance 2} is an invalid number (for example, a negative one), the test yields \prm{false}. Also note that this test does not distinguish between body text and footnotes. Also see the \cmd{pagetrackertrue} and \cmd{pagetrackerfalse} switches in \secref{aut:aux:msc}.
+注意:\cmd{value}命令不是以\cmd{the}为前缀，在第二个参数中做了减法运算。如果\prm{instance 1} 或 \prm{instance 2}是无效数字(比如一个负值)，总是展开为\prm{false}。也要注意该命令不区分正文和脚注。也可以参考\secref{aut:aux:msc}节的\cmd{pagetrackertrue}和\cmd{pagetrackerfalse}开关。
+%Note that \cmd{value} is not prefixed by \cmd{the} and that the subtraction is included in the second argument in the above example. If \prm{instance 1} or \prm{instance 2} is an invalid number (for example, a negative one), the test yields \prm{false}. Also note that this test does not distinguish between body text and footnotes. Also see the \cmd{pagetrackertrue} and \cmd{pagetrackerfalse} switches in \secref{aut:aux:msc}.
 
 \cmditem{ifinteger}{string}{true}{false}
 
-Executes \prm{true} if the \prm{string} is a positive integer, and \prm{false} otherwise. This command is robust.
+如果\prm{string}是一个正整数，展开为\prm{true}，否则为\prm{false}，该命令鲁棒。
+%Executes \prm{true} if the \prm{string} is a positive integer, and \prm{false} otherwise. This command is robust.
 
 \cmditem{ifnumeral}{string}{true}{false}
 
-Executes \prm{true} if the \prm{string} is an Arabic or Roman numeral, and \prm{false} otherwise. This command is robust. See also \cmd{DeclareNumChars} and \cmd{NumCheckSetup} in \secref{aut:aux:msc}.
+如果\prm{string}是一个阿拉伯或者罗马数字，展开为\prm{true}，否则为\prm{false}，该命令鲁棒。也可以参考\secref{aut:aux:msc}节的\cmd{DeclareNumChars}和\cmd{NumCheckSetup}命令。
+%Executes \prm{true} if the \prm{string} is an Arabic or Roman numeral, and \prm{false} otherwise. This command is robust. See also \cmd{DeclareNumChars} and \cmd{NumCheckSetup} in \secref{aut:aux:msc}.
 
 \cmditem{ifnumerals}{string}{true}{false}
 
-Executes \prm{true} if the \prm{string} is a range or a list of Arabic or Roman numerals, and \prm{false} otherwise. This command is robust. In contrast to \cmd{ifnumeral}, it will also execute \prm{true} with arguments like «52--58», «14/15», «1,~3,~5», and so on. See also \cmd{DeclareNumChars}, \cmd{DeclareRangeChars}, \cmd{DeclareRangeCommands}, and \cmd{NumCheckSetup} in \secref{aut:aux:msc}.
+如果\prm{string}是一个阿拉伯或者罗马数字的范围或列表，展开为\prm{true}，否则为\prm{false}，该命令鲁棒。相比于\cmd{ifnumeral}命令，当参数像 «52--58», «14/15», «1,~3,~5»等时，该命令会执行\prm{true}。
+也可以参考\secref{aut:aux:msc}节的\cmd{DeclareNumChars}，\cmd{NumCheckSetup}，\cmd{DeclareRangeCommands}和 \cmd{NumCheckSetup}命令。
+%Executes \prm{true} if the \prm{string} is a range or a list of Arabic or Roman numerals, and \prm{false} otherwise. This command is robust. In contrast to \cmd{ifnumeral}, it will also execute \prm{true} with arguments like «52--58», «14/15», «1,~3,~5», and so on. See also \cmd{DeclareNumChars}, \cmd{DeclareRangeChars}, \cmd{DeclareRangeCommands}, and \cmd{NumCheckSetup} in \secref{aut:aux:msc}.
 
 \cmditem{ifpages}{string}{true}{false}
 
-Similar to \cmd{ifnumerals}, but also considers \cmd{DeclarePageCommands} from \secref{aut:aux:msc}.
+类似于\cmd{ifnumerals}，但也考虑\secref{aut:aux:msc}节的\cmd{DeclarePageCommands}命令。
+%Similar to \cmd{ifnumerals}, but also considers \cmd{DeclarePageCommands} from \secref{aut:aux:msc}.
 
 \cmditem{iffieldint}{field}{true}{false}
 
-Similar to \cmd{ifinteger}, but uses the value of a \prm{field} rather than a literal string in the test. If the \prm{field} is undefined, it executes \prm{false}.
+类似于\cmd{ifinteger}命令，但使用\prm{field}的值而不是一个字符串，如果域未定义，执行\prm{false}。
+%Similar to \cmd{ifinteger}, but uses the value of a \prm{field} rather than a literal string in the test. If the \prm{field} is undefined, it executes \prm{false}.
 
 \cmditem{iffieldnum}{field}{true}{false}
 
-Similar to \cmd{ifnumeral}, but uses the value of a \prm{field} rather than a literal string in the test. If the \prm{field} is undefined, it executes \prm{false}.
+类似于\cmd{ifnumeral}命令，但使用\prm{field}的值而不是一个字符串，如果域未定义，执行\prm{false}。
+%Similar to \cmd{ifnumeral}, but uses the value of a \prm{field} rather than a literal string in the test. If the \prm{field} is undefined, it executes \prm{false}.
 
 \cmditem{iffieldnums}{field}{true}{false}
 
-Similar to \cmd{ifnumerals}, but uses the value of a \prm{field} rather than a literal string in the test. If the \prm{field} is undefined, it executes \prm{false}.
+类似于\cmd{ifnumerals}命令，但使用\prm{field}的值而不是一个字符串，如果域未定义，执行\prm{false}。\footnote{是否可以用来解析卷期的范围？}
+%Similar to \cmd{ifnumerals}, but uses the value of a \prm{field} rather than a literal string in the test. If the \prm{field} is undefined, it executes \prm{false}.
 
 \cmditem{iffieldpages}{field}{true}{false}
 
-Similar to \cmd{ifpages}, but uses the value of a \prm{field} rather than a literal string in the test. If the \prm{field} is undefined, it executes \prm{false}.
+类似于\cmd{ifpages}命令，但使用\prm{field}的值而不是一个字符串，如果域未定义，执行\prm{false}。
+%Similar to \cmd{ifpages}, but uses the value of a \prm{field} rather than a literal string in the test. If the \prm{field} is undefined, it executes \prm{false}.
 
 \cmditem{ifbibstring}{string}{true}{false}
 
-Expands to \prm{true} if the \prm{string} is a known localization key, and to \prm{false} otherwise. The localization keys defined by default are listed in \secref{aut:lng:key}. New ones may be defined with \cmd{NewBibliographyString}.
+如果\prm{string}是已知的本地化关键词，展开为\prm{true}，否则\prm{false}。默认定义的本地化字符串见\secref{aut:lng:key}。新的字符串可以用命令\cmd{NewBibliographyString}定义。
+%Expands to \prm{true} if the \prm{string} is a known localization key, and to \prm{false} otherwise. The localization keys defined by default are listed in \secref{aut:lng:key}. New ones may be defined with \cmd{NewBibliographyString}.
 
 \cmditem{ifbibxstring}{string}{true}{false}
 
-Similar to \cmd{ifbibstring}, but the \prm{string} is expanded.
+类似于\cmd{ifbibstring}，但\prm{string}是展开的。
+%Similar to \cmd{ifbibstring}, but the \prm{string} is expanded.
 
 \cmditem{iffieldbibstring}{field}{true}{false}
 
-Similar to \cmd{ifbibstring}, but uses the value of a \prm{field} rather than a literal string in the test. If the \prm{field}  is undefined, it expands to \prm{false}.
+类似于\cmd{ifbibstring}，但使用\prm{field}域的值而不是一个字符串，如果域未定义，执行\prm{false}。
+%Similar to \cmd{ifbibstring}, but uses the value of a \prm{field} rather than a literal string in the test. If the \prm{field}  is undefined, it expands to \prm{false}.
 
 \cmditem{ifdriver}{entrytype}{true}{false}
 
-Expands to \prm{true} if a driver for the \prm{entrytype} is available, and to \prm{false} otherwise.
+展开为\prm{true}如果\prm{entrytype}的驱动存在，否则为\prm{false}。
+%Expands to \prm{true} if a driver for the \prm{entrytype} is available, and to \prm{false} otherwise.
 
 \cmditem{ifcapital}{true}{false}
 
-Executes \prm{true} if \biblatex's punctuation tracker would capitalize a localization string at the current location, and \prm{false} otherwise. This command is robust. It may be useful for conditional capitalization of certain parts of a name in a formatting directive.
+如果\biblatex 的标点追踪器将当前位置的本地化字符串大写，则执行\prm{true}，否则执行\prm{false}。给命令在格式化指令中对于姓名的某一部分做有条件的大写处理时有用。
+%Executes \prm{true} if \biblatex's punctuation tracker would capitalize a localization string at the current location, and \prm{false} otherwise. This command is robust. It may be useful for conditional capitalization of certain parts of a name in a formatting directive.
 
 \cmditem{ifcitation}{true}{false}
 
-Expands to \prm{true} when located in a citation, and to \prm{false} otherwise. Note that this command is responsive to the outermost context in which it is used. For example, if a citation command defined with \cmd{DeclareCiteCommand} executes a driver defined with \cmd{DeclareBibliographyDriver}, any \cmd{ifcitation} tests in the driver code will yield \prm{true}. See \secref{aut:cav:mif} for a practical example.
+当处于标注中则展开为\prm{true}，否则为\prm{false}。注意这一命令与其所在的最外层环境有关。比如，当由\cmd{DeclareCiteCommand}命令定义的标注命令执行一个由\cmd{DeclareBibliographyDriver}定义的驱动，则任何在该驱动中的\cmd{ifcitation}都会展开为\prm{true}。在\secref{aut:cav:mif}可以看到一个实例。
+%Expands to \prm{true} when located in a citation, and to \prm{false} otherwise. Note that this command is responsive to the outermost context in which it is used. For example, if a citation command defined with \cmd{DeclareCiteCommand} executes a driver defined with \cmd{DeclareBibliographyDriver}, any \cmd{ifcitation} tests in the driver code will yield \prm{true}. See \secref{aut:cav:mif} for a practical example.
 
 \cmditem{ifbibliography}{true}{false}
 
-Expands to \prm{true} when located in a bibliography, and to \prm{false} otherwise. Note that this command is responsive to the outermost context in which it is used. For example, if a driver defined with \cmd{DeclareBibliographyDriver} executes a citation command defined with \cmd{DeclareCiteCommand}, any \cmd{ifbibliography} tests in the citation code will yield \prm{true}. See \secref{aut:cav:mif} for a practical example.
+当处于文献表中则展开为\prm{true}，否则为\prm{false}。注意这一命令与其所在的最外层环境有关。比如，当由\cmd{DeclareBibliographyDriver}命令定义的驱动执行一个由\cmd{DeclareCiteCommand}定义的标注，则任何在该标注中的\cmd{ifbibliography}都会展开为\prm{true}。在\secref{aut:cav:mif}可以看到一个实例。
+%Expands to \prm{true} when located in a bibliography, and to \prm{false} otherwise. Note that this command is responsive to the outermost context in which it is used. For example, if a driver defined with \cmd{DeclareBibliographyDriver} executes a citation command defined with \cmd{DeclareCiteCommand}, any \cmd{ifbibliography} tests in the citation code will yield \prm{true}. See \secref{aut:cav:mif} for a practical example.
 
 \cmditem{ifnatbibmode}{true}{false}
 
-Expands to \prm{true} or \prm{false} depending on the \opt{natbib} option from \secref{use:opt:ldt}.
+根据\secref{use:opt:ldt}的\opt{natbib}选项展开为\prm{true}或\prm{false}。
+%Expands to \prm{true} or \prm{false} depending on the \opt{natbib} option from \secref{use:opt:ldt}.
 
 \cmditem{ifciteindex}{true}{false}
 
-Expands to \prm{true} or \prm{false} depending on the \opt{indexing} option from \secref{use:opt:pre:gen}.
+根据\secref{use:opt:pre:gen}的\opt{indexing}选项展开为\prm{true}或\prm{false}。
+%Expands to \prm{true} or \prm{false} depending on the \opt{indexing} option from \secref{use:opt:pre:gen}.
 
 \cmditem{ifbibindex}{true}{false}
 
-Expands to \prm{true} or \prm{false} depending on the \opt{indexing} option from \secref{use:opt:pre:gen}.
+根据\secref{use:opt:pre:gen}的\opt{indexing}选项展开为\prm{true}或\prm{false}。
+%Expands to \prm{true} or \prm{false} depending on the \opt{indexing} option from \secref{use:opt:pre:gen}.
 
 \cmditem{iffootnote}{true}{false}
 
-Expands to \prm{true} when located in a footnote, and to \prm{false} otherwise. Note that footnotes in \env{minipage} environments are considered to be part of the body text. This command will only expand to \prm{true} in footnotes a the bottom of the page and in endnotes as provided by the \sty{endnotes} package.
+当处于脚注中时，展开为\prm{true}，否则为\prm{false}。注意:在\env{minipage}中的脚注被认为正文的一部分。当处于页面底部的脚注中或者由\sty{endnotes}提供的endnotes中时，只会展开为\prm{true}。
+%Expands to \prm{true} when located in a footnote, and to \prm{false} otherwise. Note that footnotes in \env{minipage} environments are considered to be part of the body text. This command will only expand to \prm{true} in footnotes at the bottom of the page and in endnotes as provided by the \sty{endnotes} package.
 
 \cntitem{citecounter}
 
-This counter indicates how many times the entry currently being processed is cited in the current reference section. Note that this feature needs to be enabled explicitly with the package option \opt{citecounter}. If the option is set to \texttt{context}, citations in the body text and in footnotes are counted separately. In this case, \cnt{citecounter} will hold the value of the context it is used in.
+这一计数器表示当前处理条目在当前reference section中的引用次数。注意该功能需要以包选项\opt{citecounter}显式的打开。如果选项设置为\texttt{context}，正文和脚注中的引用分别计数。这种情况下，\cnt{citecounter}记录其所在环境中的值。
+%This counter indicates how many times the entry currently being processed is cited in the current reference section. Note that this feature needs to be enabled explicitly with the package option \opt{citecounter}. If the option is set to \texttt{context}, citations in the body text and in footnotes are counted separately. In this case, \cnt{citecounter} will hold the value of the context it is used in.
 
 \cntitem{uniquename}\BiberOnlyMark
-This counter refers to the \bibfield{labelname} list. It is set on a per-name basis. Its value is \texttt{0} if the last name is unique, \texttt{1} if adding the other parts of the name (first name, prefix, suffix) as initials will make it unique, and \texttt{2} if the full name is required to disambiguate the name. This information is required by author-year and author-title citation schemes which add additional parts of the name when citing different authors with the same last name. For example, if there is one <John Doe> and one <Edward Doe> in the list of references, this counter will be set to \texttt{1}. If there is one <John Doe> and one <Jane Doe>, the value of the counter will be \texttt{2}. If the option is set to \texttt{init}\slash \texttt{allinit}\slash \texttt{mininit}, the counter will be limited to \texttt{1}. This is useful for citations styles which use initials to disambiguate names but never print the full name in citations. If adding the initials is not sufficient to disambiguate the name, \cnt{uniquename} will also be set to \texttt{0} for that name. This feature needs to be enabled explicitly with the package option \opt{uniquename}. Note that the \cnt{uniquename} counter is local to \cmd{printnames} and that it is only set for the \bibfield{labelname} list and to the name list \bibfield{labelname} has been derived from (typically \bibfield{author} or \bibfield{editor}). Its value is zero in any other context, i.e., it must be evaluated in the name formatting directives handling name lists. See \secref{aut:cav:amb} for further details and practical examples.
+这一计数器用于\bibfield{labelname}列表。它以每个名字为基础进行设置。如果姓不同，它的值设置为0，当增加姓名的其它部分的首字母使得姓名能区分，则设置为1，如果需要完整的姓名才能区分，则设置为2。作者年值和作者标题值得标注格式需要这一信息来增加姓名的其它部分以对姓相同的作者进行引用。比如:当引用列表中有一个<John Doe>和一个<Edward Doe>，该计数器将设置为1。如果有有一个<John Doe>和一个<John Doe>，该计数器将设置为2。如果选项设置成\texttt{init}\slash \texttt{allinit}\slash \texttt{mininit}，那么计数器将限制值最大为\texttt{1}。这对于标注样式不打印全名而使用首字母来区分姓名很有用。如果添加首字母还无法区分姓名，\cnt{uniquename}将设置为\texttt{0}。该功能需要以包选项\opt{uniquename}显式的打开。注意\cnt{uniquename} 是对\cmd{printnames}局部的，仅根据\bibfield{labelname}列表或其来源姓名列表(典型如\bibfield{author} 或\bibfield{editor})设置。它的值在任何正文中都是0,即它仅在处理姓名的格式化指令中计算，更多细节和实例见\secref{aut:cav:amb}。
+%This counter refers to the \bibfield{labelname} list. It is set on a per-name basis. Its value is \texttt{0} if the last name is unique, \texttt{1} if adding the other parts of the name (first name, prefix, suffix) as initials will make it unique, and \texttt{2} if the full name is required to disambiguate the name. This information is required by author-year and author-title citation schemes which add additional parts of the name when citing different authors with the same last name. For example, if there is one <John Doe> and one <Edward Doe> in the list of references, this counter will be set to \texttt{1}. If there is one <John Doe> and one <Jane Doe>, the value of the counter will be \texttt{2}. If the option is set to \texttt{init}\slash \texttt{allinit}\slash \texttt{mininit}, the counter will be limited to \texttt{1}. This is useful for citations styles which use initials to disambiguate names but never print the full name in citations. If adding the initials is not sufficient to disambiguate the name, \cnt{uniquename} will also be set to \texttt{0} for that name. This feature needs to be enabled explicitly with the package option \opt{uniquename}. Note that the \cnt{uniquename} counter is local to \cmd{printnames} and that it is only set for the \bibfield{labelname} list and to the name list \bibfield{labelname} has been derived from (typically \bibfield{author} or \bibfield{editor}). Its value is zero in any other context, i.e., it must be evaluated in the name formatting directives handling name lists. See \secref{aut:cav:amb} for further details and practical examples.
 
 \cntitem{uniquelist}\BiberOnlyMark
-This counter refers to the \bibfield{labelname} list. It is set on a per-field basis. Its value indicates the number of names required to disambiguate the name list if automatic \cnt{maxnames}\slash \cnt{minnames} truncation would lead to ambiguous citations. For example, if there is one work by <Doe\slash Smith\slash Johnson> and another one by <Doe\slash Edwards\slash Williams>, setting \kvopt{maxnames}{1} would lead to <Doe et al.> in both cases. In this case, \cnt{uniquelist} would be set to \texttt{2} on the \bibfield{labelname} lists of both entries because at least the first two names are required to disambiguate them. Note that the \cnt{uniquelist} counter is local to \cmd{printnames} and that it is only set for the \bibfield{labelname} list and to the name list \bibfield{labelname} has been derived from (typically \bibfield{author} or \bibfield{editor}). Its value is zero in any other context. If available, the \cnt{uniquelist} value will be used automatically by \cmd{printnames} when processing the name list, \ie it will automatically override \cnt{maxnames}\slash \cnt{minnames}. This feature needs to be enabled explicitly with the package option \opt{uniquelist}. See \secref{aut:cav:amb} for further details and practical examples.
+该计数器用于\bibfield{labelname}列表。它以每个域为基础进行设置。它的值表示当使用\cnt{maxnames}\slash \cnt{minnames}自动将姓名列表截短后导致标注歧义时，消除歧义最小需要的姓名数。比如，有一篇作者是<Doe\slash Smith\slash Johnson>的文献和另一篇作者是<Doe\slash Edwards\slash Williams>的文献，设置\kvopt{maxnames}{1}将导致两篇的作者都是<Doe et al.>。这种情况下，两个条目的\bibfield{labelname}列表的\cnt{uniquelist}将设置成\texttt{2}，因为至少需要两个名字来区分。注意\cnt{uniquelist}是对\cmd{printnames}命令局部的，仅根据\bibfield{labelname}列表或其来源姓名列表(典型如\bibfield{author} 或\bibfield{editor})设置。它的值在任何正文中都是0,即它仅在处理姓名的格式化指令中计算，如果该值存在，则\cmd{printnames}命令在处理姓名列表时将自动应用，即自动覆盖\cnt{maxnames}\slash \cnt{minnames}。该功能需要以包选项\opt{uniquelist}显式的打开。更多细节和实例见\secref{aut:cav:amb}。
+%This counter refers to the \bibfield{labelname} list. It is set on a per-field basis. Its value indicates the number of names required to disambiguate the name list if automatic \cnt{maxnames}\slash \cnt{minnames} truncation would lead to ambiguous citations. For example, if there is one work by <Doe\slash Smith\slash Johnson> and another one by <Doe\slash Edwards\slash Williams>, setting \kvopt{maxnames}{1} would lead to <Doe et al.> in both cases. In this case, \cnt{uniquelist} would be set to \texttt{2} on the \bibfield{labelname} lists of both entries because at least the first two names are required to disambiguate them. Note that the \cnt{uniquelist} counter is local to \cmd{printnames} and that it is only set for the \bibfield{labelname} list and to the name list \bibfield{labelname} has been derived from (typically \bibfield{author} or \bibfield{editor}). Its value is zero in any other context. If available, the \cnt{uniquelist} value will be used automatically by \cmd{printnames} when processing the name list, \ie it will automatically override \cnt{maxnames}\slash \cnt{minnames}. This feature needs to be enabled explicitly with the package option \opt{uniquelist}. See \secref{aut:cav:amb} for further details and practical examples.
 
 \cntitem{parenlevel}
 
-The current nesting level of parentheses and\slash or brackets. This information is only available if the \opt{parentracker} from \secref{use:opt:pre:int} is enabled.
+圆括号和/或方括号的嵌套层级。该信息仅在\secref{use:opt:pre:int}的\opt{parentracker}选项打开的情况下提供。
+%The current nesting level of parentheses and\slash or brackets. This information is only available if the \opt{parentracker} from \secref{use:opt:pre:int} is enabled.
 
 \end{ltxsyntax}
 
 \subsubsection{使用\cmd{ifboolexpr}和\cmd{ifthenelse}的判断}%Tests with \cmd{ifboolexpr} and \cmd{ifthenelse}
 \label{aut:aux:ife}
 
-The tests introduced in \secref{aut:aux:tst} may also be used with the \cmd{ifboolexpr} command provided by the \sty{etoolbox} package and the \cmd{ifthenelse} command provided by the \sty{ifthen} package. The syntax of the tests is slightly different in this case: the \prm{true} and \prm{false} arguments are omitted from the test itself and passed to the \cmd{ifboolexpr} or \cmd{ifthenelse} command instead. Note that the use of these commands implies some processing overhead. If you do not need any boolean operators, it is more efficient to use the stand"=alone tests from \secref{aut:aux:tst}.
+第\secref{aut:aux:tst}节介绍的判断可以与\sty{etoolbox}宏包提供的\cmd{ifboolexpr}命令和\sty{ifthen}宏包提供的\cmd{ifthenelse}命令一同使用。这种情况下，其语法略有差异，判断命令的\prm{true}和\prm{false}参数自动省略，而直接传递给\cmd{ifboolexpr} 或 \cmd{ifthenelse}。注意，使用这些命令需要一些计算代价。如果不需要一些布尔操作，使用\secref{aut:aux:tst}节的stand"=alone判断命令更高效。
+%The tests introduced in \secref{aut:aux:tst} may also be used with the \cmd{ifboolexpr} command provided by the \sty{etoolbox} package and the \cmd{ifthenelse} command provided by the \sty{ifthen} package. The syntax of the tests is slightly different in this case: the \prm{true} and \prm{false} arguments are omitted from the test itself and passed to the \cmd{ifboolexpr} or \cmd{ifthenelse} command instead. Note that the use of these commands implies some processing overhead. If you do not need any boolean operators, it is more efficient to use the stand"=alone tests from \secref{aut:aux:tst}.
 
 \begin{ltxsyntax}
 
 \cmditem{ifboolexpr}{expression}{true}{false}
 
-\sty{etoolbox} command which allows for complex tests with boolean operators and grouping:
+该\sty{etoolbox}包命令允许进行包括布尔运算和编组的复杂判断。
+%\sty{etoolbox} command which allows for complex tests with boolean operators and grouping:
 
 \begin{lstlisting}[style=ifthen]{}
 \ifboolexpr{ (
@@ -8660,7 +8747,8 @@ The tests introduced in \secref{aut:aux:tst} may also be used with the \cmd{ifbo
 
 \cmditem{ifthenelse}{tests}{true}{false}
 
-\sty{ifthen} command which allows for complex tests with boolean operators and grouping:
+该\sty{ifthen}包命令允许进行包括布尔运算和编组的复杂判断。
+%\sty{ifthen} command which allows for complex tests with boolean operators and grouping:
 
 \begin{lstlisting}[style=ifthen]{}
 \ifthenelse{ \(
@@ -8674,77 +8762,90 @@ The tests introduced in \secref{aut:aux:tst} may also be used with the \cmd{ifbo
   {...}
 \end{lstlisting}
 %
-The additional tests provided by \biblatex are only available when \cmd{ifboolexpr} or \cmd{ifthenelse} are used in citation commands and in the bibliography.
+\biblatex 提供的附加判断命令仅在标注命令和文献表中使用\cmd{ifboolexpr}或\cmd{ifthenelse}命令时可用。
+%The additional tests provided by \biblatex are only available when \cmd{ifboolexpr} or \cmd{ifthenelse} are used in citation commands and in the bibliography.
 
 \end{ltxsyntax}
 
-\subsubsection{综合命令 Miscellaneous Commands}
+\subsubsection{综合命令}%Miscellaneous Commands
 \label{aut:aux:msc}
 
-The section introduced miscellaneous commands and little helpers for use in bibliography and citation styles.
+本节介绍参考文献著录和标注样式中使用的一些综合命令和小工具。
+%The section introduced miscellaneous commands and little helpers for use in bibliography and citation styles.
 
 \begin{ltxsyntax}
 
 \cmditem{newbibmacro}{name}[arguments][optional]{definition}
 \cmditem*{newbibmacro*}{name}[arguments][optional]{definition}
 
-Defines a macro to be executed via \cmd{usebibmacro} later. The syntax of this command is very similar to \cmd{newcommand} except that \prm{name} may contain characters such as numbers and punctuation marks and does not start with a backslash. The optional argument \prm{arguments} is an integer specifying the number of arguments taken by the macro. If \prm{optional} is given, it specifies a default value for the first argument of the macro, which automatically becomes an optional argument. In contrast to \cmd{newcommand}, \cmd{newbibmacro} issues a warning message if the macro is already defined, and automatically falls back to \cmd{renewbibmacro}. As with \cmd{newcommand}, the regular variant of this command uses the \cmd{long} prefix in the definition while the starred one does not. If a macro has been declared to be long, it may take arguments containing \cmd{par} tokens. \cmd{newbibmacro} and \cmd{renewbibmacro} are provided for convenience. Style authors are free to use \cmd{newcommand} or \cmd{def} instead. However, note that most shared definitions found in \path{biblatex.def} are defined with \cmd{newbibmacro}, hence they must be used and modified accordingly.
+定义一个用于后面\cmd{usebibmacro}调用的宏。该命令的语法类似于\cmd{newcommand}，除了\prm{name}可以包含一些数字或标点，但不以斜杠开头。可选参数\prm{arguments}是一个整数用于指定宏需要处理的参数数量。如果\prm{optional}给出，它指定了该宏的第一个参数的默认值，这第一个参数自动变成为可选参数。相比于\cmd{newcommand}，当宏已经定义时，\cmd{newbibmacro}命令会给出一个警告信息，并自动转换为\cmd{renewbibmacro}命令。类似于\cmd{newcommand}，该命令的常规形式在定义中使用\cmd{long}前缀，而带星的命令则没有。如果一个宏声明为long，它的参数可以包含\cmd{par}记号。提供\cmd{newbibmacro}和\cmd{renewbibmacro}命令是为了方便使用，样式作者也可以使用\cmd{newcommand} 或\cmd{def}。然而，需要注意，共享文件 \path{biblatex.def}中的绝大多数定义都是用\cmd{newbibmacro}定义的，因此，要使用和修改它们要用相应的方式处理。
+%Defines a macro to be executed via \cmd{usebibmacro} later. The syntax of this command is very similar to \cmd{newcommand} except that \prm{name} may contain characters such as numbers and punctuation marks and does not start with a backslash. The optional argument \prm{arguments} is an integer specifying the number of arguments taken by the macro. If \prm{optional} is given, it specifies a default value for the first argument of the macro, which automatically becomes an optional argument. In contrast to \cmd{newcommand}, \cmd{newbibmacro} issues a warning message if the macro is already defined, and automatically falls back to \cmd{renewbibmacro}. As with \cmd{newcommand}, the regular variant of this command uses the \cmd{long} prefix in the definition while the starred one does not. If a macro has been declared to be long, it may take arguments containing \cmd{par} tokens. \cmd{newbibmacro} and \cmd{renewbibmacro} are provided for convenience. Style authors are free to use \cmd{newcommand} or \cmd{def} instead. However, note that most shared definitions found in \path{biblatex.def} are defined with \cmd{newbibmacro}, hence they must be used and modified accordingly.
 
 \cmditem{renewbibmacro}{name}[arguments][optional]{definition}
 \cmditem*{renewbibmacro*}{name}[arguments][optional]{definition}
 
-Similar to \cmd{newbibmacro} but redefines \prm{name}. In contrast to \cmd{renewcommand}, \cmd{renewbibmacro} issues a warning message if the macro is undefined, and automatically falls back to \cmd{newbibmacro}.
+类似于\cmd{newbibmacro}，但用于重定义\prm{name}。相比于\cmd{newcommand}，当宏未定义时，\cmd{renewbibmacro}命令给出一个警告信息，并自动转换为\cmd{newbibmacro}命令。
+%Similar to \cmd{newbibmacro} but redefines \prm{name}. In contrast to \cmd{renewcommand}, \cmd{renewbibmacro} issues a warning message if the macro is undefined, and automatically falls back to \cmd{newbibmacro}.
 
 \cmditem{providebibmacro}{name}[arguments][optional]{definition}
 \cmditem*{providebibmacro*}{name}[arguments][optional]{definition}
 
-Similar to \cmd{newbibmacro} but only defines \prm{name} if it is undefined. This command is similar in concept to \cmd{providecommand}.
+类似于\cmd{newbibmacro}，但仅在\prm{name}未定义时定义宏。该命令概念上类似于\cmd{providecommand}。
+%Similar to \cmd{newbibmacro} but only defines \prm{name} if it is undefined. This command is similar in concept to \cmd{providecommand}.
 
 \cmditem{usebibmacro}{name}
 \cmditem*{usebibmacro*}{name}
 
-This command executes the macro \prm{name}, as defined with \cmd{newbibmacro}. If the macro takes any arguments, they are simply appended after \prm{name}. The regular variant of this command sanitizes
-\prm{name} while the starred variant does not.
+该命令执行由\cmd{newbibmacro}定义的宏\prm{name}。如果宏带参数，只要简单的跟在\prm{name}后面即可。该命令的常规形式会处理\prm{name}，而带星的命令不会。
+%This command executes the macro \prm{name}, as defined with \cmd{newbibmacro}. If the macro takes any arguments, they are simply appended after \prm{name}. The regular variant of this command sanitizes \prm{name} while the starred variant does not.
 
 \cmditem{savecommand}{command}
 \cmditem{restorecommand}{command}
 
-These commands save and restore any \prm{command}, which must be a command name starting with a backslash. Both commands work within a local scope. They are mainly provided for use in localization files.
+这两个命令用来保存和恢复\prm{command}，其中\prm{command}必须是以斜杠开头的命令。两个命令都在局部范围内起作用。它们主要用于本地化文件中。
+%These commands save and restore any \prm{command}, which must be a command name starting with a backslash. Both commands work within a local scope. They are mainly provided for use in localization files.
 
 \cmditem{savebibmacro}{name}
 \cmditem{restorebibmacro}{name}
 
-These commands save and restore the macro \prm{name}, where \prm{name} is the identifier of a macro defined with \cmd{newbibmacro}. Both commands work within a local scope. They are mainly provided for use in localization files.
+这两个命令用来保存和恢复宏\prm{name}，其中\prm{name}由\cmd{newbibmacro}定义的宏的标识。两个命令都在局部范围内起作用。它们主要用于本地化文件中。
+%These commands save and restore the macro \prm{name}, where \prm{name} is the identifier of a macro defined with \cmd{newbibmacro}. Both commands work within a local scope. They are mainly provided for use in localization files.
 
 \cmditem{savefieldformat}[entry type]{format}
 \cmditem{restorefieldformat}[entry type]{format}
 
-These commands save and restore the formatting directive \prm{format}, as defined with \cmd{DeclareFieldFormat}. Both commands work within a local scope. They are mainly provided for use in localization files.
+这两个命令用来保存和恢复格式化指令\prm{format}，其中\prm{format}由\cmd{DeclareFieldFormat}定义。两个命令都在局部范围内起作用。它们主要用于本地化文件中。
+%These commands save and restore the formatting directive \prm{format}, as defined with \cmd{DeclareFieldFormat}. Both commands work within a local scope. They are mainly provided for use in localization files.
 
 \cmditem{savelistformat}[entry type]{format}
 \cmditem{restorelistformat}[entry type]{format}
 
-These commands save and restore the formatting directive \prm{format}, as defined with \cmd{DeclareListFormat}. Both commands work within a local scope. They are mainly provided for use in localization files.
+这两个命令用来保存和恢复格式化指令\prm{format}，其中\prm{format}由\cmd{DeclareListFormat}定义。两个命令都在局部范围内起作用。它们主要用于本地化文件中。
+%These commands save and restore the formatting directive \prm{format}, as defined with \cmd{DeclareListFormat}. Both commands work within a local scope. They are mainly provided for use in localization files.
 
 \cmditem{savenameformat}[entry type]{format}
 \cmditem{restorenameformat}[entry type]{format}
 
-These commands save and restore the formatting directive \prm{format}, as defined with \cmd{DeclareNameFormat}. Both commands work within a local scope. They are mainly provided for use in localization files.
+这两个命令用来保存和恢复格式化指令\prm{format}，其中\prm{format}由\cmd{DeclareNameFormat}定义。两个命令都在局部范围内起作用。它们主要用于本地化文件中。
+%These commands save and restore the formatting directive \prm{format}, as defined with \cmd{DeclareNameFormat}. Both commands work within a local scope. They are mainly provided for use in localization files.
 
 \cmditem{ifbibmacroundef}{name}{true}{false}
 
-Expands to \prm{true} if the bibliography macro \prm{name} is undefined, and to \prm{false} otherwise.
+如果参考文献宏\prm{name}未定义，展开为\prm{true}否则为\prm{false}。
+%Expands to \prm{true} if the bibliography macro \prm{name} is undefined, and to \prm{false} otherwise.
 
 \cmditem{iffieldformatundef}[entry type]{name}{true}{false}
 \cmditem{iflistformatundef}[entry type]{name}{true}{false}
 \cmditem{ifnameformatundef}[entry type]{name}{true}{false}
 
-Expands to \prm{true} if the formatting directive \prm{format} is undefined, and to \prm{false}
+如果参考文献格式化指令\prm{format}未定义，展开为\prm{true}否则为\prm{false}。
+%Expands to \prm{true} if the formatting directive \prm{format} is undefined, and to \prm{false}
 otherwise.
 
 \cmditem{usedriver}{code}{entrytype}
 
-Executes the bibliography driver for an \prm{entrytype}. Calling this command in the \prm{loopcode} of a citation command defined with \cmd{DeclareCiteCommand} is a simple way to print full citations similar to a bibliography entry. Commands such as \cmd{newblock}, which are not applicable in a citation, are disabled automatically. Additional initialization commands may be passed as the \prm{code} argument. This argument is executed inside the group in which \cmd{usedriver} runs the respective driver. Note that it is mandatory in terms of the syntax but may be left empty. Also note that this command will automatically switch languages if the \opt{autolang} package option is enabled.
+执行\prm{entrytype}类条目的参考文献驱动。在由\cmd{DeclareCiteCommand}定义的标注命令的\prm{loopcode}中调用该命令是打印类似于一个参考文献条目的完整标注的简单方法。诸如\cmd{newblock}等命令无法用于标注，自动省略。附加的初始化命令可以通过\prm{code}参数传递。该参数在一个编组内执行，这一编组用于运行相应驱动。注意: 该参数语法上是必须的，但可以留空。也要注意该命令会自动切换语言，如果\opt{autolang}包选项打开的话。
+%Executes the bibliography driver for an \prm{entrytype}. Calling this command in the \prm{loopcode} of a citation command defined with \cmd{DeclareCiteCommand} is a simple way to print full citations similar to a bibliography entry. Commands such as \cmd{newblock}, which are not applicable in a citation, are disabled automatically. Additional initialization commands may be passed as the \prm{code} argument. This argument is executed inside the group in which \cmd{usedriver} runs the respective driver. Note that it is mandatory in terms of the syntax but may be left empty. Also note that this command will automatically switch languages if the \opt{autolang} package option is enabled.
 
 \cmditem{bibhypertarget}{name}{text}
 
@@ -9026,7 +9127,7 @@ These commands activate or deactivate the \texttt{backref} tracker locally. They
 
 \end{ltxsyntax}
 
-\subsection[标点 Punctuation]{标点和间距 Punctuation and Spacing}
+\subsection[标点和间距]{标点和间距}%Punctuation and Spacing
 \label{aut:pct}
 
 The \biblatex package provides elaborate facilities designed to manage and track punctuation and spacing in the bibliography and in citations. These facilities work on two levels. The high"=level commands discussed in \secref{aut:pct:new} deal with punctuation and whitespace inserted by the bibliography style between the individual segments of a bibliography entry. The commands in \secref{aut:pct:chk, aut:pct:pct, aut:pct:spc} work at a lower level. They use \tex's space factor and modified space factor codes to track punctuation in a robust and efficient way. This way it is possible to detect trailing punctuation marks within fields, not only those explicitly inserted between fields. The same technique is also used for automatic capitalization of localization strings, see \cmd{DeclareCapitalPunctuation} in \secref{aut:pct:cfg} as well as \secref{aut:str} for details. Note that these facilities are only made available locally in citations and bibliographies. They will not affect any other part of a document.
@@ -10790,7 +10891,7 @@ J. Doe
 John Smith
 \end{lstlisting}
 %
-The options \kvopt{uniquename}{mininit/minfull} are similar to \texttt{init\slash full} in that they only consider visible names, but they perform minimal disambiguation. That is, they will disambiguate individual names only if they occur in identical lists of last names. Consider the following data:
+%The options \kvopt{uniquename}{mininit/minfull} are similar to \texttt{init\slash full} in that they only consider visible names, but they perform minimal disambiguation. That is, they will disambiguate individual names only if they occur in identical lists of last names. Consider the following data:
 
 \kvopt{uniquename}{mininit/minfull}选项类似于\texttt{init\slash full}仅考虑可见姓名，但仅执行最小的歧义消除。即，仅对姓列表的歧义进行处理，考虑如下数据:
 
@@ -11365,7 +11466,7 @@ In a citation or bibliography style, you may need to set flags or store certain 
 
 Note that using \cmd{aftergroup} in citation and bibliography styles is unreliable because the precise number of groups employed in a certain context may change in future versions of this package. If the above list states that something is processed in a group, this means that there is \emph{at least one} group. There may also be several nested ones.
 
-\subsubsection{姓名内的间距 Namespaces}
+\subsubsection{命名空间 Namespaces}
 \label{aut:cav:nam}
 
 In order to minimize the risk of name clashes, \latex packages typically prefix the names of internal macros with a short string specific to the package. For example, if the \sty{foobar} package requires a macro for internal use, it would typically be called \cmd{FB@macro} or \cmd{foo@macro} rather than \cmd{macro} or \cmd{@macro}. Here is a list of the prefixes used or recommended by \biblatex:
