@@ -9,7 +9,7 @@
 % set Chinese formats
 \RequirePackage[UTF8, scheme=chinese, heading=false]{ctex}
 \RequirePackage{indentfirst}
-\ctexset{listtablename=表目录}
+\ctexset{listtablename=表格}%还是用两个字和目录两字对应
 
 % environment patches for btxdockit.sty
 \renewenvironment*{fieldlist}
@@ -76,9 +76,12 @@
   \endgroup}
 
 % cancel two-column format in toc defined by ltxdockit.def
+% \g@addto@macro的定义见source2e中的68.1 hooks
 \AtBeginDocument{
  	\renewcommand*{\@begintochook}{}
  	\renewcommand*{\@endtochook}{}
+    \renewcommand*{\@beginlothook}{}
+    \renewcommand*{\@endlothook}{}
  	\setcounter{tocdepth}{3}
 }
 % alias

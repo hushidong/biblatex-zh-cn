@@ -15,7 +15,7 @@
 \subsubsection{常规类型}
 \label{bib:typ:blx}
 
-下面的列表说明了每种条目类型支持的域。注意，每种条目类型的预的使用是由参考文献样式决定的。下面的列表有两个目的，一是，说明有本包提供的标准样式支持的域，二是，作为定制样式的模板。注意，所谓需要的域并不是严格的必不可少，详见\secref{bib:use:key} 。而标记“可选”的域技术上是可选的。而参考文献样式规则常需要多于需要的域。默认的数据类型，定义了一些数据域的约束。比如ISBNs和一些特殊的域如\bibfield{gender}。但约束的校验只有在biber带校验选项时进行。通用域如\bibfield{abstract}， \bibfield{annotation}，\bibfield{label} 和 \bibfield{shorthand} 并不在下面列表中，因为他们独立于条目类型，\secref{bib:fld:spc}节讨论的特殊域，同样，独立于条目类型，不在下面的列表中，默认的支持类型规范，见文件\file{blx-dm.def}，内有\biblatex 的完整规范。
+下面的列表说明了每种条目类型支持的域。注意，每种条目类型的域的使用是由参考文献样式决定的。下面的列表有两个目的，一是，说明有本包提供的标准样式支持的域，二是，作为定制样式的模板。注意，所谓必选域并不是严格的必不可少，详见\secref{bib:use:key} 。而标记“可选”的域技术上是可选的。而参考文献样式规则常需要多于需要的域。默认的数据类型，定义了一些数据域的约束。比如ISBNs和一些特殊的域如\bibfield{gender}。但约束的校验只有在biber带校验选项时进行。通用域如\bibfield{abstract}， \bibfield{annotation}，\bibfield{label} 和 \bibfield{shorthand} 并不在下面的列表中，因为他们独立于条目类型，\secref{bib:fld:spc}节讨论的特殊域，同样，独立于条目类型，也不在下面的列表中，默认的支持类型见文件\file{blx-dm.def}，内有\biblatex 的完整规范。
 
 
 \begin{typelist}
@@ -24,23 +24,23 @@
 
 指期刊，杂志，报纸，或其他周期性刊物的文章。刊物名在\bibfield{journaltitle} 域中，If the issue has its own title in addition to the main title of the periodical, it goes in the \bibfield{issuetitle} field. 注意：刊物 的\bibfield{editor} 及相关域，指的是期刊的，而 \bibfield{translator}及其相关域指的是文章的。
 
-需要域：author, title, journaltitle, year/date。
-
-可选域：translator, annotator, commentator, subtitle, titleaddon, editor, editora, editorb, editorc, journalsubtitle, issuetitle, issuesubtitle, language, origlanguage, series, volume, number, eid, issue, month, pages, version, note, issn, addendum, pubstate, doi, eprint, eprintclass, eprinttype, url, urldate。
+\reqitem{author, title, journaltitle, year/date}
+\optitem{translator, annotator, commentator, subtitle, titleaddon, editor, editora, editorb, editorc, journalsubtitle, issuetitle, issuesubtitle, language, origlanguage, series, volume, number, eid, issue, month, pages, version, note, issn, addendum, pubstate, doi, eprint, eprintclass, eprinttype, url, urldate}
 
 \typeitem{book}
 
 单卷书有一个或多个作者。这些这些作者作为整体共享该工作，该条目涵盖了传统bibtex中的\bibtype{inbook} 类型，详见\secref{bib:use:inb}。
-需要域：author, title, year/date
-可选域：editor, editora, editorb, editorc, translator, annotator, commentator, introduction, foreword, afterword, subtitle, titleaddon, maintitle, mainsubtitle, maintitleaddon, language, origlanguage, volume, part, edition, volumes, series, number, note, publisher, location, isbn, chapter, pages, pagetotal, addendum, pubstate, doi, eprint, eprintclass, eprinttype, url, urldate
+
+\reqitem{author, title, year/date}
+\optitem{editor, editora, editorb, editorc, translator, annotator, commentator, introduction, foreword, afterword, subtitle, titleaddon, maintitle, mainsubtitle, maintitleaddon, language, origlanguage, volume, part, edition, volumes, series, number, note, publisher, location, isbn, chapter, pages, pagetotal, addendum, pubstate, doi, eprint, eprintclass, eprinttype, url, urldate}
 
 
 \typeitem{mvbook}
 
 多卷书，为了向后兼容，多卷书也可用\bibtype{book}类，然而建议最好使用专用类\bibtype{mvbook}。
 
-需要域：author, title, year/date。
-可选域：editor, editora, editorb, editorc, translator, annotator, commentator, introduction, foreword, afterword, subtitle, titleaddon, language, origlanguage, edition, volumes, series, number, note, publisher, location, isbn, pagetotal, addendum, pubstate, doi, eprint, eprintclass, eprinttype, url, urldate。
+\reqitem{author, title, year/date}
+\optitem{editor, editora, editorb, editorc, translator, annotator, commentator, introduction, foreword, afterword, subtitle, titleaddon, language, origlanguage, edition, volumes, series, number, note, publisher, location, isbn, pagetotal, addendum, pubstate, doi, eprint, eprintclass, eprinttype, url, urldate}
 
 
 \typeitem{inbook}
@@ -316,25 +316,22 @@
 \begin{description}
 
 \item[Name lists] %are parsed and split up into the individual items at the \texttt{and} delimiter. Each item in the list is then dissected into four name components: the first name, the name prefix (von, van, of, da, de, della, \dots), the last name, and the name suffix (junior, senior, \dots). Name lists may be truncated in the \file{bib} file with the keyword <\texttt{and others}>. Typical examples of name lists are \bibfield{author} and \bibfield{editor}.
-对姓名列表解析能以\texttt{and}为间隔符分成为独立的项。列表中的每一项进一步剖析为4个名称的组成部分，the first name（西方人名的第一个字，对于中文来说，名字无需划分，如果是拼音的话，是可以对应的划分的），the name prefix （姓名前缀比如von, van, of, da, de, della, \dots），the last name（姓），the name suffix（名字后缀，比如junior, senior, \dots）。姓名列表在bib文件中可能会用关键词<\texttt{and others}>截断。典型的姓名列表是\bibfield{author}和\bibfield{editor}。（译者注:在些bib文件中参考文献数据的时候，当有些机构的名称中含有空格的情况下，最好将整个机构用\{\}包含起来。）
+姓名列表:能根据\texttt{and}间隔符将其解析并分成独立的项。列表中的每一项进一步剖析为4个名称的组成部分，the first name （西方人名的第一个字，对于中文来说，名字无需划分，如果是拼音的话，是可以对应的划分的），the name prefix （姓名前缀比如von, van, of, da, de, della, \dots），the last name（姓），the name suffix（名字后缀，比如junior, senior, \dots）。姓名列表在bib文件中可能会用关键词<\texttt{and others}>截断。典型的姓名列表是\bibfield{author}和\bibfield{editor}。（译者注:在些bib文件中参考文献数据的时候，当有些机构的名称中含有空格的情况下，最好将整个机构用\{\}包含起来。）
 
 
 %\BiberOnlyMark With \biber, name list fields automatically have an \cmd{ifuse*} test created as per the name lists in the default data model (see \secref{aut:aux:tst}). They are also automatically have a \opt{ifuse*} option created which controls labelling and sorting behaviour with the name (see \secref{use:opt:bib:hyb}).
 
 \BiberOnlyMark 利用\biber，在默认的数据模型中姓名列表自动进行一个\cmd{ifuse*}测试（见\secref{aut:aux:tst}）。同时也自动创建了一个\opt{ifuse*}选项用例控制姓名的标记和排序行为（见\secref{use:opt:bib:hyb}）。
 
-\item[Literal lists] are parsed and split up into the individual items at the \texttt{and} delimiter but not dissected further. Literal lists may be truncated in the \file{bib} file with the keyword <\texttt{and others}>. There are two subtypes:
-
-逐字列表类似的解析并划分成独立的项，但不再进一步的剖析。逐字列表也类似的被截断。它有两个子类:
+\item[Literal lists] %are parsed and split up into the individual items at the \texttt{and} delimiter but not dissected further. Literal lists may be truncated in the \file{bib} file with the keyword <\texttt{and others}>. There are two subtypes:
+逐字列表可以进行类似的解析并划分成独立的项，但各项不再进一步的剖析。逐字列表也类似地被截断。它有两个子类:
 
 \begin{description}
 
-\item[Literal lists] in the strict sense are handled as described above. The individual items are simply printed as is. Typical examples of such literal lists are \bibfield{publisher} and \bibfield{location}.
-
+\item[Literal lists] %in the strict sense are handled as described above. The individual items are simply printed as is. Typical examples of such literal lists are \bibfield{publisher} and \bibfield{location}.
 严格的按照上面的描述处理。各独立项简单如实打印。典型的逐字列表是\bibfield{publisher}和 \bibfield{location}。
 
-\item[Key lists] are a variant of literal lists which may hold printable data or localization keys. For each item in the list, a test is performed to determine whether it is a known localization key (the localization keys defined by default are listed in \secref{aut:lng:key}). If so, the localized string is printed. If not, the item is printed as is. A typical example of a key list is \bibfield{language}.
-
+\item[Key lists] %are a variant of literal lists which may hold printable data or localization keys. For each item in the list, a test is performed to determine whether it is a known localization key (the localization keys defined by default are listed in \secref{aut:lng:key}). If so, the localized string is printed. If not, the item is printed as is. A typical example of a key list is \bibfield{language}.
 关键词列表是逐字列表的变种，可以处理可打印的数据和本地化的关键词。对于列表中的每一项，首先执行测试它是否是已知的本地化关键词（本地化关键词默认定义在\secref{aut:lng:key}中）。如果是，那么打印本地化的字符串，否则如实打印。典型的关键词列表是\bibfield{language}。
 
 \end{description}
@@ -342,54 +339,43 @@
 
 \begin{description}
 
-\item[Fields] are usually printed as a whole. There are several subtypes:
-
+\item[Fields] %are usually printed as a whole. There are several subtypes:
 域是以整体打印的，有多种子类:
 
 \begin{description}
 
-\item[Literal fields] are printed as is. Typical examples of literal fields are \bibfield{title} and \bibfield{note}.
-
+\item[Literal fields] %are printed as is. Typical examples of literal fields are \bibfield{title} and \bibfield{note}.
 逐字域，如实打印。典型的逐字域是\bibfield{title}和\bibfield{note}。
 
-\item[Range fields] consist of one or more ranges where all dashes are normalized and replaced by the command \cmd{bibrangedash}. A range is something optionally followed by one or more dashes optionally followed by some non-dash (e.g. \texttt{5--7}). Any number of consecutive dashes will only yield a single range dash. A typical example of a range field is the \bibfield{pages} field. See also the \BiberOnlyMark\cmd{bibrangessep} command which can be used to customise the separator between multiple ranges. With \biber, range fields will be skipped and will generate a warning if they do not consist of one or more ranges. You can normalise messy range fields before they are parsed using \cmd{DeclareSourcemap} (see \secref{aut:ctm:map}).
-
+\item[Range fields] %consist of one or more ranges where all dashes are normalized and replaced by the command \cmd{bibrangedash}. A range is something optionally followed by one or more dashes optionally followed by some non-dash (e.g. \texttt{5--7}). Any number of consecutive dashes will only yield a single range dash. A typical example of a range field is the \bibfield{pages} field. See also the \BiberOnlyMark\cmd{bibrangessep} command which can be used to customise the separator between multiple ranges. With \biber, range fields will be skipped and will generate a warning if they do not consist of one or more ranges. You can normalise messy range fields before they are parsed using \cmd{DeclareSourcemap} (see \secref{aut:ctm:map}).
 范围域，包括一个或更多的范围，其中所有的短划线都规范化用命令\cmd{bibrangedash}代替。一个范围是非短划线紧跟一个或多个短划线再跟上非短划线构成（比如\texttt{5--7}）。任何有连续短划线的数字都将产生单个的范围短划线。典型的范围域是 \bibfield{pages}域。\BiberOnlyMark\cmd{bibrangessep}命令可以自定义多个范围之间的分隔符。利用biber，范围域将跳过并产生一个警告信息当它不是由一个或多个范围组成。可以用使用\cmd{DeclareSourcemap}命令在其被解析之前对其进行规范化（见 \secref{aut:ctm:map}）。
 
-\item[Integer fields] hold unformatted integers which may be converted to ordinals or strings as they are printed. A typical example is the \bibfield{extrayear} field.
-
+\item[Integer fields] %hold unformatted integers which may be converted to ordinals or strings as they are printed. A typical example is the \bibfield{extrayear} field.
 整数域，处理非格式化的整数，这些整数可以转化为序数或者字符串。典型的域有:\bibfield{extrayear}。
 
-\item[Datepart fields] hold unformatted integers which may be converted to ordinals or strings as they are printed. A typical example is the \bibfield{month} field.
-
+\item[Datepart fields] %hold unformatted integers which may be converted to ordinals or strings as they are printed. A typical example is the \bibfield{month} field.
 部分日期域，处理非格式化的整数，这些整数可以转化为序数或者字符串。典型的域有:\bibfield{month}。
 
-\item[Date fields] hold a date specification in \texttt{yyyy-mm-dd} format or a date range in \texttt{yyyy-mm-dd/yyyy-mm-dd} format. Date fields are special in that the date is parsed and split up into its components. See \secref{bib:use:dat} for details. A typical example is the \bibfield{date} field.
-
+\item[Date fields] %hold a date specification in \texttt{yyyy-mm-dd} format or a date range in \texttt{yyyy-mm-dd/yyyy-mm-dd} format. Date fields are special in that the date is parsed and split up into its components. See \secref{bib:use:dat} for details. A typical example is the \bibfield{date} field.
 日期域，处理一个以\texttt{yyyy-mm-dd}格式规定的日期或者一个以\texttt{yyyy-mm-dd/yyyy-mm-dd} 格式规定的日期范围。日期域需要特别的解析并分成不同的部分。更多细节见 \secref{bib:use:dat} 。典型的域有:
 \bibfield{date}。
 
-\item[Verbatim fields] are processed in verbatim mode and may contain special characters. Typical examples of verbatim fields are \bibfield{file} and \bibfield{doi}.
+\item[Verbatim fields] %are processed in verbatim mode and may contain special characters. Typical examples of verbatim fields are \bibfield{file} and \bibfield{doi}.
 字面（逐字）域，以verbatim模式处理可能包含特殊的字符，典型的字面（逐字）域有:\bibfield{file}和 \bibfield{doi}。
 
-\item[URI fields] are processed in verbatim mode and may contain special characters. They are also URL-escaped if they don't look like they already are. The typical example of a uri field is \bibfield{url}.
-
+\item[URI fields] %are processed in verbatim mode and may contain special characters. They are also URL-escaped if they don't look like they already are. The typical example of a uri field is \bibfield{url}.
 url域以verbatim模式处理，可能包含特殊的字符。如果它们看起来不像其实质，也可以例外处理。典型域是 \bibfield{url}.
 
-\item[Separated value fields] A separated list of literal values. Examples are the \bibfield{keywords} and \bibfield{options} fields. The separator is always a comma when using \bibtex as the backend but can be configured to be any Perl regular expression when using \biber via the \opt{xsvsep} option which defaults to the usual \bibtex comma surrounded by optional whitespace.
-
+\item[Separated value fields] %A separated list of literal values. Examples are the \bibfield{keywords} and \bibfield{options} fields. The separator is always a comma when using \bibtex as the backend but can be configured to be any Perl regular expression when using \biber via the \opt{xsvsep} option which defaults to the usual \bibtex comma surrounded by optional whitespace.
 分离值域，字母值的分离列表。典型的域是\bibfield{keywords}和\bibfield{options}。使用\bibtex 后端时时分隔符总是逗号，但可以使用\opt{xsvsep}选项重设为任何的PERL正则表达式，当使用biber后端时，当然默认情况下也是逗号或者逗号加空格。
 
-\item[Pattern fields] A literal field which must match a particular pattern. An example is the \bibfield{gender} field from \secref{bib:fld:spc}.
-
+\item[Pattern fields] %A literal field which must match a particular pattern. An example is the \bibfield{gender} field from \secref{bib:fld:spc}.
 型（pattern）域，是逐字域必须匹配特殊的pattern。典型的域是 \bibfield{gender} ，见\secref{bib:fld:spc}。
 
-\item[Key fields] May hold printable data or localization keys. A test is performed to determine whether the value of the field is a known localization key (the localization keys defined by default are listed in \secref{aut:lng:key}). If so, the localized string is printed. If not, the value is printed as is. A typical example is the \bibfield{type} field.
-
+\item[Key fields] %May hold printable data or localization keys. A test is performed to determine whether the value of the field is a known localization key (the localization keys defined by default are listed in \secref{aut:lng:key}). If so, the localized string is printed. If not, the value is printed as is. A typical example is the \bibfield{type} field.
 关键词域，可以处理可打印数据或本地化关键词。类似于逐字列表中的关键词列表，这是这里是单个的域，而不是列表。
 
-\item[Code fields] Holds \tex code.
-
+\item[Code fields] %Holds \tex code.
 代码（code）域，处理代码。
 
 \end{description}
@@ -398,11 +384,11 @@ url域以verbatim模式处理，可能包含特殊的字符。如果它们看起
 \subsubsection{数据域 Data Fields}
 \label{bib:fld:dat}
 
-The fields listed in this section are the regular ones holding printable data in the default data model. The name on the left is the default data model name of the field as used by \biblatex and its backend. The \biblatex data type is given to the right of the name. See \secref{bib:fld:typ} for explanation of the various data types.
+%The fields listed in this section are the regular ones holding printable data in the default data model. The name on the left is the default data model name of the field as used by \biblatex and its backend. The \biblatex data type is given to the right of the name. See \secref{bib:fld:typ} for explanation of the various data types.
 
 本节中列出的域是默认数据模型携带可打印数据的。左侧给出的名称是 \biblatex 及其后端中使用的域的默认数据模型名。而右侧给出的是它的数据类型。不同的数据类型的解释见\secref{bib:fld:typ} 。
 
-\BiberOnlyMark Some fields are marked as <Label fields> which means that they are often used as abbreviation labels when printing bibliography lists in the sense of section \secref{use:bib:biblist}. \biblatex automatically creates supporting macros for such fields. See \secref{use:bib:biblist}.
+%\BiberOnlyMark Some fields are marked as <Label fields> which means that they are often used as abbreviation labels when printing bibliography lists in the sense of section \secref{use:bib:biblist}. \biblatex automatically creates supporting macros for such fields. See \secref{use:bib:biblist}.
 
 \BiberOnlyMark 一些以 <Label fields>标记的域表示当以\secref{use:bib:biblist}节的方式打印参考文献列表时它们常用为简化标签。\biblatex 自动创建支持这些域的宏，详见 \secref{use:bib:biblist}。
 
@@ -410,7 +396,7 @@ The fields listed in this section are the regular ones holding printable data in
 
 \fielditem{abstract}{literal}
 
-This field is intended for recording abstracts in a \file{bib} file, to be printed by a special bibliography style. It is not used by all standard bibliography styles.
+%This field is intended for recording abstracts in a \file{bib} file, to be printed by a special bibliography style. It is not used by all standard bibliography styles.
 
 标准样式不使用
 
