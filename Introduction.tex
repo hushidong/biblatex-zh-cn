@@ -1,0 +1,253 @@
+% Introduction.tex
+
+
+\section{引言}
+\label{int}
+
+这是关于biblatex包的语法文档，使用范例文档参考文档\fnurl{\biblatexctan doc/examples}。
+快速开始，请浏览\secref{int:abt, bib:typ, bib:fld, bib:use, use:opt, use:xbx, use:bib, use:cit, use:use} 节。
+
+%译文文档说明: 译文文档直接在原biblatex说明文档基础上进行修改，biblatex说明文档除了使用了一些基本宏包外主要使用类和包文件包括:
+%scrartcl.cls，ltxdockit.cls，ltxdockit.cfg，ltxdockit.def，btxdockit.sty，ltxdockit.sty。需要修改一些默认设置和命令可在这些文件中查找。
+%还要注意，文档没有参考文献，使用texstudio自动编译时设置驱动是bibtex或bibtex8可一遍过？
+
+
+\subsection{关于biblatex}
+\label{int:abt}
+
+%This package provides advanced bibliographic facilities for use with LaTeX. The
+%package is a complete reimplementation of the bibliographic facilities provided by
+%LaTeX. The biblatex package works with the “backend” (program) biber, which
+%is used to process BibTeX format data files and them performs all sorting, label
+%generation (and a great deal more). Formatting of the bibliography is entirely controlled by TeX macros. Good working knowledge in LaTeX should be sufficient to
+%design new bibliography and citation styles.
+biblatex包提供了一套与latex配合使用的高级参考文献工具。该包是latex提供的参考文献功能的完整再实现。该包默认使用自定义后端biber，用于处理bibtex格式文件、执行排序和生成标签(以及其它更多工作)。参考文献的格式化完全由tex宏包控制。只要具备一定的latex知识就足以设计新的参考文献著录样式和标注样式。
+
+%This package also supports subdivided bibliographies, multiple bibliographies within one document, and separate lists of
+%bibliographic information such as abbreviations of various fields.  Bibliographies may be subdivided into parts and/or segmented by topics. Just like the bibliography styles, all citation commands may be freely defined.
+
+biblatex也支持参考文献表细分，支持在一个文档内包含多个参考文献表，支持生成参考文献局部信息表比如多个不同域的缩略词。参考文献表可以根据主题进行分块或者分段。与参考文献著录样式类似，所有的标注(引用)命令也可以自由定义。
+
+%Features such as full Unicode support
+%for bibliography data, customisable sorting, multiple bibliographies with different
+%sorting, customisable labels and dynamic data modification are available. Please refer
+%to § 1.5.5 for information on biber/biblatex version compatibility. The package is completely localised and can interface with the babel and polyglossia packages. Please refer to table 2 for a list of languages currently supported by this package.
+提供的功能还包括:文献数据的Unicode支持、自定义排序、不同排序方式的多参考文献表、自定义标签和动态数据修改。
+biber/biblatex的版本兼容性见\secref{int:pre:bibercompat}节。该包可完全实现本地化，可与babel或polyglossia包配合使用，该包支持的语言详见表\tabref{bib:fld:tab1}。
+
+\subsection{许可}
+
+Copyright \textcopyright\ 2006--2012 Philipp Lehman, 2012--2013 Philip Kime, Audrey Boruvka, Joseph Wright. Permission is granted to copy, distribute and\slash or modify this software under  the terms of the \lppl, version 1.3.\fnurl{http://www.ctan.org/tex-archive/macros/latex/base/lppl.txt}
+
+\subsection{反馈}
+\label{int:feb}
+
+请使用github的biblatex项目页报告bug和提交所需功能\fnurl{http://github.com/plk/biblatex}。
+若寻求帮助请在comp.text.tex新闻组或tex-latex讨论区提交问题\fnurl{http://tex.stackexchange.com/questions/tagged/biblatex}。
+
+\subsection{致谢}
+
+The language modules of this package are made possible thanks to the following contributors:
+Augusto Ritter Stoffel, Mateus Araújo (Brazilian);
+Sebastià Vila-Marta (Catalan);
+Ivo Pletikosić (Croatian);
+Michal Hoftich (Czech);
+Jonas Nyrup (Danish);
+Johannes Wilm (Danish\slash Norwegian);
+Alexander van Loon, Pieter Belmans, Hendrik Maryns (Dutch);
+Hannu Väisänen, Janne Kujanpää (Finnish);
+Denis Bitouzé (French);
+Apostolos Syropoulos, Prokopis (Greek);
+Baldur Kristinsson (Icelandic);
+Enrico Gregorio, Andrea Marchitelli (Italian);
+Håkon Malmedal (Norwegian);
+Anastasia Kandulina, Yuriy Chernyshov (Polish);
+José Carlos Santos (Portuguese);
+Oleg Domanov (Russian);
+Tea Tušar and Bogdan Filipič (Slovene);
+Ignacio Fernández Galván (Spanish);
+Per Starbäck, Carl-Gustav Werner, Filip Åsblom (Swedish).
+
+\subsection{前提与必备}
+\label{int:pre}
+
+本节介绍所需资源和兼容性问题。
+
+\subsubsection{必须资源}
+\label{int:pre:req}
+
+如下资源是必须的，否则biblatex无法正常工作
+
+\begin{marglist}
+
+\item[\etex]\biblatex 宏包需要\etex 。%tex发布版转变成\etex 的各种执行文件已经有一段时间，近来流行的版本大多使用它们。
+%The \biblatex package requires \etex. \tex distributions have been shipping \etex binaries for quite some time, the popular distributions use them by default these days. The \biblatex package checks if it is running under \etex. Simply try compiling your documents as you usually do, the chances are that it just works. If you get an error message, try compiling the document with \bin{elatex} instead of \bin{latex} or \bin{pdfelatex} instead of \bin{pdflatex}, respectively.
+
+
+
+\item[\biber]\biber 是\biblatex 的默认后端，只需要一个后端\bibtex 或者\biber 。
+%\biber is the default backend of \biblatex. You only need one backend, either \bibtex or \biber. \biber comes with TeXLive and is also available from SourceForge.\fnurl{http://biblatex-biber.sourceforge.net/}. There are some slight differences in name parsing of <von> parts with \biber as compared with \bibtex which you probably won't normally notice. \biber uses the \texttt{btparse} C library for \bibtex format file parsing which aimed to be compatible with \bibtex's parsing rules but also aimed at correcting some of the common problems. For details, see the manual page for the Perl \texttt{Text::BibTeX} module\fnurl{http://search.cpan.org/~ambs/Text-BibTeX}.
+
+\item[\bibtex] \biblatex 可以使用传统的的\bibtex 作为数据后端。
+%The \biblatex package can use legacy \bibtex as a data backend. While a legacy \bibtex binary is sufficient to run \biblatex, using \bin{bibtex8} is recommended. If your \tex distribution does not ship with \bin{bibtex8}, you can get it from \acr{CTAN}.\fnurl{http://www.ctan.org/tex-archive/biblio/bibtex/8-bit/}
+
+\item[etoolbox] 自动加载，提供\biblatex 所需的通用编程工具。
+%This \latex package, which is loaded automatically, provides generic programming facilities required by \biblatex. It is available from \acr{CTAN}.\fnurl{http://www.ctan.org/tex-archive/macros/latex/contrib/etoolbox/}
+
+\item[kvoptions] 自动加载，用于内部选项处理。
+%This \latex package, which is also loaded automatically, is used for internal option handling. It is available with the \sty{oberdiek} package bundle from \acr{CTAN}.\fnurl{http://www.ctan.org/pkg/kvoptions}
+
+\item[logreq] 自动加载，提供了向辅助日志文件写入机器可读信息的前端。
+%This \latex package, which is also loaded automatically, provides a frontend for writing machine-readable messages to an auxiliary log file. It is available from \acr{CTAN}.\fnurl{http://www.ctan.org/tex-archive/macros/latex/contrib/logreq/}
+
+\end{marglist}
+除了上述资源，\biblatex 还需要标准\latex 宏包\sty{keyval} 、\sty{ifthen}和\sty{url} 。这些包包含在所有通用\tex 发行版中，也自动进行加载。
+%Apart from the above resources, \biblatex also requires the standard \latex packages \sty{keyval} and \sty{ifthen} as well as the \sty{url} package. These package are included in all common \tex distributions and will be loaded automatically.
+
+\subsubsection{推荐包}
+\label{int:pre:rec}
+
+The packages listed in this section are not required for \biblatex to function, but they provide recommended additional functions or enhance existing features. The package loading order does not matter.
+
+\begin{marglist}
+
+\item[babel/polyglossia]
+The \sty{babel} and \sty{polyglossia} packages provides the core architecture for multilingual typesetting. If you are writing in a language other than American English, using one of these packages is strongly recommended. If loaded, \biblatex package will detect \sty{babel} or \sty{polyglossia} automatically.
+
+\item[csquotes]
+If this package is available, \biblatex will use its language sensitive quotation facilities to enclose certain titles in quotation marks. If not, \biblatex uses quotes suitable for American English as a fallback. When writing in any other language, loading \sty{csquotes} is strongly recommended.\fnurl{http://www.ctan.org/tex-archive/macros/latex/contrib/csquotes/}
+
+\item[xpatch]
+The \sty{xpatch} package extends the patching commands of \sty{etoolbox} to \biblatex bibliography macros, drivers and formatting directives.\fnurl{http://www.ctan.org/tex-archive/macros/latex/contrib/xpatch/}
+
+\end{marglist}
+
+\subsubsection{兼容的包}
+\label{int:pre:cmp}
+
+The \biblatex package provides dedicated compatibility code for the classes and packages listed in this section.
+
+\begin{marglist}
+
+\item[hyperref]
+The \sty{hyperref} package transforms citations into hyperlinks. See the \opt{hyperref} and \opt{backref} package options in \secref{use:opt:pre:gen} for further details. When using the \sty{hyperref} package, it is preferable to load it after \biblatex.
+
+\item[showkeys]
+The \sty{showkeys} package prints the internal keys of, among other things, citations in the text and items in the bibliography. The package loading order does not matter.
+
+\item[memoir]
+When using the \sty{memoir} class, the default bibliography headings are adapted such that they blend well with the default layout of this class. See \secref{use:cav:mem} for further usage hints.
+
+\item[\acr{KOMA}-Script]
+When using any of the \sty{scrartcl}, \sty{scrbook}, or \sty{scrreprt} classes, the default bibliography headings are adapted such that they blend with the default layout of these classes. See \secref{use:cav:scr} for further usage hints.
+
+\end{marglist}
+
+\subsubsection{不兼容的包}
+\label{int:pre:inc}
+
+The packages listed in this section are not compatible with \biblatex. Since it reimplements the bibliographic facilities of \latex from the ground up, \biblatex naturally conflicts with all packages modifying the same facilities. This is not specific to \biblatex. Some of the packages listed below are also incompatible with each other for the same reason.
+
+\begin{marglist}
+
+%% FIXME: complete list
+%
+% amsrefs
+% apacite
+% drftcite
+% footbib
+% multibbl
+% overcite
+% bibtopicprefix
+
+\item[babelbib]
+The \sty{babelbib} package provides support for multilingual bibliographies. This is a standard feature of \biblatex. Use the \bibfield{langid} field and the package option \opt{autolang} for similar functionality. Note that \biblatex automatically adjusts to the main document language if \sty{babel} or \sty{polyglossia} is loaded. You only need the above mentioned features if you want to switch languages on a per"=entry basis within the bibliography. See \secref{bib:fld:spc, use:opt:pre:gen} for details. Also see \secref{use:lng}.
+
+\item[backref]
+The \sty{backref} package creates back references in the bibliography. See the package options \opt{hyperref} and \opt{backref} in \secref{use:opt:pre:gen} for comparable functionality.
+
+\item[bibtopic]
+The \sty{bibtopic} package provides support for bibliographies subdivided by topic, type, or other criteria. For bibliographies subdivided by topic, see the category feature in \secref{use:bib:cat} and the corresponding filters in \secref{use:bib:bib}. Alternatively, you may use the \bibfield{keywords} field in conjunction with the \opt{keyword} and \opt{notkeyword} filters for comparable functionality, see \secref{bib:fld:spc, use:bib:bib} for details. For bibliographies subdivided by type, use the \opt{type} and \opt{nottype} filters. Also see \secref{use:use:div} for examples.
+
+\item[bibunits]
+The \sty{bibunits} package provides support for multiple partial (\eg per chapter) bibliographies. See \sty{chapterbib}.
+
+\item[chapterbib]
+The \sty{chapterbib} package provides support for multiple partial bibliographies. Use the \env{refsection} environment and the \opt{section} filter for comparable functionality. Alternatively, you might also want to use the \env{refsegment} environment and the \opt{segment} filter. See \secref{use:bib:sec, use:bib:seg, use:bib:bib} for details. Also see \secref{use:use:mlt} for examples.
+
+\item[cite]
+The \sty{cite} package automatically sorts numeric citations and can compress a list of consecutive numbers to a range. It also makes the punctuation used in citations configurable. For sorted and compressed numeric citations, see the \opt{sortcites} package option in \secref{use:opt:pre:gen} and the \texttt{numeric-comp} citation style in \secref{use:xbx:cbx}. For configurable punctuation, see \secref{use:fmt}.
+
+\item[citeref]
+Another package for creating back references in the bibliography. See \sty{backref}.
+
+\item[inlinebib]
+The \sty{inlinebib} package is designed for traditional citations given in footnotes. For comparable functionality, see the verbose citation styles in \secref{use:xbx:cbx}.
+
+\item[jurabib]
+Originally designed for citations in law studies and (mostly German) judicial documents, the \sty{jurabib} package also provides features aimed at users in the humanities. In terms of the features provided, there are some similarities between \sty{jurabib} and \biblatex but the approaches taken by both packages are quite different. Since both \sty{jurabib} and \biblatex are full"=featured packages, the list of similarities and differences is too long to be discussed here.
+
+\item[mcite]
+The \sty{mcite} package provides support for grouped citations, \ie multiple items can be cited as a single reference and listed as a single block in the bibliography. The citation groups are defined as the items are cited. This only works with unsorted bibliographies. The \biblatex package also supports grouped citations, which are called <entry sets> or <reference sets> in this manual. See \secref{use:use:set,use:bib:set,use:cit:mct} for details.
+
+\item[mciteplus]
+A significantly enhanced reimplementation of the \sty{mcite} package which supports grouping in sorted bibliographies. See \sty{mcite}.
+
+\item[multibib]
+The \sty{multibib} package provides support for bibliographies subdivided by topic or other criteria. See \sty{bibtopic}.
+
+\item[natbib]
+The \sty{natbib} package supports numeric and author"=year citation schemes, incorporating sorting and compression code found in the \sty{cite} package. It also provides additional citation commands and several configuration options. See the \texttt{numeric} and \texttt{author-year} citation styles and their variants in \secref{use:xbx:cbx}, the \opt{sortcites} package option in \secref{use:opt:pre:gen}, the citation commands in \secref{use:cit}, and the facilities discussed in \secref{use:bib:hdg, use:bib:nts, use:fmt} for comparable functionality. Also see \secref{use:cit:nat}.
+
+\item[splitbib]
+The \sty{splitbib} package provides support for bibliographies subdivided by topic. See \sty{bibtopic}.
+
+\item[titlesec]
+The \sty{titlesec} package redefines user-level document division commands such as \cmd{chapter} or \cmd{section}. This approach is not compatible with internal command changes applied by the \biblatex \texttt{refsection} and \texttt{refsegment} option settings described in \secref{use:opt:pre:gen}.
+
+\item[ucs]
+The \sty{ucs} package provides support for \utf encoded input. Either use \sty{inputenc}'s standard \file{utf8} module or a Unicode enabled engine such as \xetex or \luatex instead.
+
+\end{marglist}
+
+\subsubsection{biber/biblatex兼容性}
+\label{int:pre:bibercompat}
+
+\biber\ versions are closely coupled with \biblatex\ versions. You
+need to have the right combination of the two. \biber\ will warn you
+during processing if it encounters information which comes from a
+\biblatex\ version which is incompatible. \tabref{tab:int:pre:bibercompat} shows a
+compatibility matrix for the recent versions.
+
+\begin{table}
+\tablesetup\centering
+\begin{tabular}{cc}
+\toprule
+\sffamily\bfseries\spotcolor Biber version
+  & \sffamily\bfseries\spotcolor \biblatex\ version\\
+\midrule
+1.9 & 2.9\\
+1.8 & 2.8\\
+1.7 & 2.7\\
+1.6 & 2.6\\
+1.5 & 2.5\\
+1.4 & 2.4\\
+1.3 & 2.3\\
+1.2 & 2.1, 2.2\\
+1.1 & 2.1\\
+1.0 & 2.0\\
+0.9.9 & 1.7x\\
+0.9.8 & 1.7x\\
+0.9.7 & 1.7x\\
+0.9.6 & 1.7x\\
+0.9.5 & 1.6x\\
+0.9.4 & 1.5x\\
+0.9.3 & 1.5x\\
+0.9.2 & 1.4x\\
+0.9.1 & 1.4x\\
+0.9 & 1.4x\\
+\bottomrule
+\end{tabular}
+\caption{\biber/\biblatex\ compatibility matrix}
+\label{tab:int:pre:bibercompat}
+\end{table}
