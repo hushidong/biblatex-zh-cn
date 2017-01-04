@@ -4,7 +4,7 @@
 \section{引言}
 \label{int}
 
-这是关于biblatex包的语法文档，使用范例文档参考文档\fnurl{\biblatexctan doc/examples}。
+这是关于 \biblatex 包的语法文档，使用范例文档参考文档\fnurl{\biblatexctan doc/examples}。
 快速开始，请浏览\secref{int:abt, bib:typ, bib:fld, bib:use, use:opt, use:xbx, use:bib, use:cit, use:use} 节。
 
 %译文文档说明: 译文文档直接在原biblatex说明文档基础上进行修改，biblatex说明文档除了使用了一些基本宏包外主要使用类和包文件包括:
@@ -12,8 +12,9 @@
 %还要注意，文档没有参考文献，使用texstudio自动编译时设置驱动是bibtex或bibtex8可一遍过？
 
 
-\subsection{关于biblatex}
+\subsection{关于 \biblatex}
 \label{int:abt}
+
 
 %This package provides advanced bibliographic facilities for use with LaTeX. The
 %package is a complete reimplementation of the bibliographic facilities provided by
@@ -21,7 +22,7 @@
 %is used to process BibTeX format data files and them performs all sorting, label
 %generation (and a great deal more). Formatting of the bibliography is entirely controlled by TeX macros. Good working knowledge in LaTeX should be sufficient to
 %design new bibliography and citation styles.
-biblatex包提供了一套与latex配合使用的高级参考文献工具。该包是latex提供的参考文献功能的完整再实现。该包默认使用自定义后端biber，用于处理bibtex格式文件、执行排序和生成标签(以及其它更多工作)。参考文献的格式化完全由tex宏包控制。只要具备一定的latex知识就足以设计新的参考文献著录样式和标注样式。
+\biblatex 包提供了一套与 \latex 配合使用的高级参考文献工具。该包是latex提供的参考文献功能的完整再实现。该包默认使用自定义后端biber，用于处理bibtex格式文件、执行排序和生成标签(以及其它更多工作)。参考文献的格式化完全由tex宏包控制。只要具备一定的latex知识就足以设计新的参考文献著录样式和标注样式。
 
 %This package also supports subdivided bibliographies, multiple bibliographies within one document, and separate lists of
 %bibliographic information such as abbreviations of various fields.  Bibliographies may be subdivided into parts and/or segmented by topics. Just like the bibliography styles, all citation commands may be freely defined.
@@ -107,147 +108,225 @@ Per Starbäck, Carl-Gustav Werner, Filip Åsblom (Swedish).
 \subsubsection{推荐包}
 \label{int:pre:rec}
 
-The packages listed in this section are not required for \biblatex to function, but they provide recommended additional functions or enhance existing features. The package loading order does not matter.
+%The packages listed in this section are not required for \biblatex to function, but they provide recommended additional functions or enhance existing features. The package loading order does not matter.
+
+这一节所列出的宏包对于运行 \biblatex 不是必须的。
+不过，它们可以提供一些值得推荐的额外功能，或者加强已有的特征。
+宏包载入的顺序并不重要。
 
 \begin{marglist}
 
 \item[babel/polyglossia]
-The \sty{babel} and \sty{polyglossia} packages provides the core architecture for multilingual typesetting. If you are writing in a language other than American English, using one of these packages is strongly recommended. If loaded, \biblatex package will detect \sty{babel} or \sty{polyglossia} automatically.
+%The \sty{babel} and \sty{polyglossia} packages provides the core architecture for multilingual typesetting. If you are writing in a language other than American English, using one of these packages is strongly recommended. You should load \sty{babel} or \sty{polyglossia} before \biblatex and then \biblatex will detect \sty{babel} or \sty{polyglossia} automatically.
+
+\sty{babel} 和 \sty{polyglossia} 宏包提供了多语种排版的核心架构。
+如果你使用美式英语以外的语言写作，那么强烈推荐使用这两个宏包中的一个。
+你应当在 \biblatex 之前载入 \sty{babel} 或 \sty{polyglossia}，
+这样 \biblatex 宏包可以自动检测。
 
 \item[csquotes]
-If this package is available, \biblatex will use its language sensitive quotation facilities to enclose certain titles in quotation marks. If not, \biblatex uses quotes suitable for American English as a fallback. When writing in any other language, loading \sty{csquotes} is strongly recommended.\fnurl{http://www.ctan.org/tex-archive/macros/latex/contrib/csquotes/}
+%If this package is available, \biblatex will use its language sensitive quotation facilities to enclose certain titles in quotation marks. If not, \biblatex uses quotes suitable for American English as a fallback. When writing in a language other than American English, loading \sty{csquotes} is strongly recommended.\fnurl{http://ctan.org/pkg/csquotes/}
+
+如果使用该宏包，\biblatex 会使用它的引用语工具给相应标题加上语言相关的引号。
+如果没有，那么 \biblatex 会使用作为后备的美式英语的引号。
+当使用其它语言写作时，强烈推荐使用 \sty{csquotes} 宏包。\fnurl{http://ctan.org/pkg/csquotes/}
 
 \item[xpatch]
-The \sty{xpatch} package extends the patching commands of \sty{etoolbox} to \biblatex bibliography macros, drivers and formatting directives.\fnurl{http://www.ctan.org/tex-archive/macros/latex/contrib/xpatch/}
+%The \sty{xpatch} package extends the patching commands of \sty{etoolbox} to \biblatex bibliography macros, drivers and formatting directives.\fnurl{http://ctan.org/pkg/xpatch/}
+
+\sty{xpatch} 宏包为 \biblatex 宏、驱动和格式指令扩展了 \sty{etoolbox} 的一些补丁命令。\fnurl{http://ctan.org/pkg/xpatch/}
 
 \end{marglist}
 
 \subsubsection{兼容的包}
 \label{int:pre:cmp}
 
-The \biblatex package provides dedicated compatibility code for the classes and packages listed in this section.
+%The \biblatex package provides dedicated compatibility code for the classes and packages listed in this section.
+
+\biblatex 宏包专门为本节所列出的文档类和宏包提供了兼容性代码。
 
 \begin{marglist}
 
 \item[hyperref]
-The \sty{hyperref} package transforms citations into hyperlinks. See the \opt{hyperref} and \opt{backref} package options in \secref{use:opt:pre:gen} for further details. When using the \sty{hyperref} package, it is preferable to load it after \biblatex.
+%The \sty{hyperref} package transforms citations into hyperlinks. See the \opt{hyperref} and \opt{backref} package options in \secref{use:opt:pre:gen} for further details. When using the \sty{hyperref} package, it is preferable to load it after \biblatex.
+\sty{hyperref} 宏包将引用转化为超链接。
+详见 \secref{use:opt:pre:gen}  一节中的 \opt{hyperref} 和 \opt{backref} 宏包选项。
+当使用 \sty{hyperref} 宏包时，最好在 \biblatex 之后载入。
 
 \item[showkeys]
-The \sty{showkeys} package prints the internal keys of, among other things, citations in the text and items in the bibliography. The package loading order does not matter.
+%The \sty{showkeys} package prints the internal keys of, among other things, citations in the text and items in the bibliography. The package loading order does not matter.
+\sty{showkeys} 宏包会打印出文本引用和参考条目的内部键值。
+宏包载入的顺序不重要。
 
 \item[memoir]
-When using the \sty{memoir} class, the default bibliography headings are adapted such that they blend well with the default layout of this class. See \secref{use:cav:mem} for further usage hints.
+%When using the \sty{memoir} class, the default bibliography headings are adapted such that they blend well with the default layout of this class. See \secref{use:cav:mem} for further usage hints.
+使用 \sty{memoir} 文档类会调整默认的参考文献标题，从而与该文档类默认的页面布局相协调。
+更多使用提示请参考 \secref{use:cav:mem} 一节。
 
 \item[\acr{KOMA}-Script]
-When using any of the \sty{scrartcl}, \sty{scrbook}, or \sty{scrreprt} classes, the default bibliography headings are adapted such that they blend with the default layout of these classes. See \secref{use:cav:scr} for further usage hints.
-
+%When using any of the \sty{scrartcl}, \sty{scrbook}, or \sty{scrreprt} classes, the default bibliography headings are adapted such that they blend with the default layout of these classes. See \secref{use:cav:scr} for further usage hints.
+使用 \sty{scrartcl}、\sty{scrbook} 或 \sty{scrreprt} 文档类中的任何一个都会调整默认的参考文献标题，
+从而与这些文档类默认的页面布局相协调。
+更多使用提示请参考 \secref{use:cav:scr} 一节。
 \end{marglist}
 
 \subsubsection{不兼容的包}
 \label{int:pre:inc}
 
-The packages listed in this section are not compatible with \biblatex. Since it reimplements the bibliographic facilities of \latex from the ground up, \biblatex naturally conflicts with all packages modifying the same facilities. This is not specific to \biblatex. Some of the packages listed below are also incompatible with each other for the same reason.
+%The packages listed in this section are not compatible with \biblatex. Since it reimplements the bibliographic facilities of \latex from the ground up, \biblatex naturally conflicts with all packages modifying the same facilities. This is not specific to \biblatex. Some of the packages listed below are also incompatible with each other for the same reason.
+
+本节列出了与 \biblatex 不兼容的宏包。
+\biblatex 从根本上重新实现了 \LaTeX 的文献功能，因此很自然地与修改这些功能的所有宏包相冲突。
+这并不是 \biblatex 独有的——在列出的宏包中，出于同样的原因，有些宏包相互之间也是不兼容的。
 
 \begin{marglist}
 
-%% FIXME: complete list
-%
-% amsrefs
-% apacite
-% drftcite
-% footbib
-% multibbl
-% overcite
-% bibtopicprefix
-
 \item[babelbib]
-The \sty{babelbib} package provides support for multilingual bibliographies. This is a standard feature of \biblatex. Use the \bibfield{langid} field and the package option \opt{autolang} for similar functionality. Note that \biblatex automatically adjusts to the main document language if \sty{babel} or \sty{polyglossia} is loaded. You only need the above mentioned features if you want to switch languages on a per"=entry basis within the bibliography. See \secref{bib:fld:spc, use:opt:pre:gen} for details. Also see \secref{use:lng}.
+%The \sty{babelbib} package provides support for multilingual bibliographies. This is a standard feature of \biblatex. Use the \bibfield{langid} field and the package option \opt{autolang} for similar functionality. Note that \biblatex automatically adjusts to the main document language if \sty{babel} or \sty{polyglossia} is loaded. You only need the above mentioned features if you want to switch languages on a per"=entry basis within the bibliography. See \secref{bib:fld:spc, use:opt:pre:gen} for details. Also see \secref{use:lng}.
+\sty{babelbib} 宏包为多语种文献提供了支持，这正是 \biblatex 的一个典型特点。
+使用 \bibfield{langid} 域和宏包选项 \opt{autolang} 即可实现类似的功能。
+请注意，当载入 \sty{bable} 或 \sty{polyglossia} 宏包时 \biblatex 会自动调整主文档的语言。
+如果想要在文献中每个条目里切换语言，你只需要以上提到的特性。
+具体细节请参考 \secref{bib:fld:spc, use:opt:pre:gen} 以及 \secref{use:lng} 几节。
 
 \item[backref]
-The \sty{backref} package creates back references in the bibliography. See the package options \opt{hyperref} and \opt{backref} in \secref{use:opt:pre:gen} for comparable functionality.
+%The \sty{backref} package creates back references in the bibliography. See the package options \opt{hyperref} and \opt{backref} in \secref{use:opt:pre:gen} for comparable functionality.
+\sty{backref} 宏包可以在参考文献中创建反向引用。
+类似的功能请参考 \secref{use:opt:pre:gen} 一节中的宏包选项 \opt{hyperref} 和 \opt{backref}。
 
 \item[bibtopic]
-The \sty{bibtopic} package provides support for bibliographies subdivided by topic, type, or other criteria. For bibliographies subdivided by topic, see the category feature in \secref{use:bib:cat} and the corresponding filters in \secref{use:bib:bib}. Alternatively, you may use the \bibfield{keywords} field in conjunction with the \opt{keyword} and \opt{notkeyword} filters for comparable functionality, see \secref{bib:fld:spc, use:bib:bib} for details. For bibliographies subdivided by type, use the \opt{type} and \opt{nottype} filters. Also see \secref{use:use:div} for examples.
+%The \sty{bibtopic} package provides support for bibliographies subdivided by topic, type, or other criteria. For bibliographies subdivided by topic, see the category feature in \secref{use:bib:cat} and the corresponding filters in \secref{use:bib:bib}. Alternatively, you may use the \bibfield{keywords} field in conjunction with the \opt{keyword} and \opt{notkeyword} filters for comparable functionality, see \secref{bib:fld:spc, use:bib:bib} for details. For bibliographies subdivided by type, use the \opt{type} and \opt{nottype} filters. Also see \secref{use:use:div} for examples.
+\sty{bibtopic} 宏包支持根据主题、类型或者其它标准细分文献。
+对于按照主题细分文献，可以参考 \secref{use:bib:cat} 一节的类型特征以及 \secref{use:bib:bib} 一节中相应的filters。
+另外，你也可以使用 \bibfield{keywords} 域结合 \opt{keyword} 和 \opt{notkeyword} filters 来实现相应功能，细节请参考 \secref{bib:fld:spc, use:bib:bib}。
+对于按照类型细分文献，可以使用 \opt{type} 和 \opt{nottype} filters。
+相关例子请参考 \secref{use:use:div}。
 
 \item[bibunits]
-The \sty{bibunits} package provides support for multiple partial (\eg per chapter) bibliographies. See \sty{chapterbib}.
+%The \sty{bibunits} package provides support for multiple partial (\eg per chapter) bibliographies. See \sty{chapterbib}.
+\sty{bibunits} 宏包支持多个部分（例如每一章内）的参考文献。请参考 \sty{chapterbib}。
 
 \item[chapterbib]
-The \sty{chapterbib} package provides support for multiple partial bibliographies. Use the \env{refsection} environment and the \opt{section} filter for comparable functionality. Alternatively, you might also want to use the \env{refsegment} environment and the \opt{segment} filter. See \secref{use:bib:sec, use:bib:seg, use:bib:bib} for details. Also see \secref{use:use:mlt} for examples.
+%The \sty{chapterbib} package provides support for multiple partial bibliographies. Use the \env{refsection} environment and the \opt{section} filter for comparable functionality. Alternatively, you might also want to use the \env{refsegment} environment and the \opt{segment} filter. See \secref{use:bib:sec, use:bib:seg, use:bib:bib} for details. Also see \secref{use:use:mlt} for examples.
+\sty{chapterbib} 宏包支持多个部分的参考文献。
+使用 \env{refsection} 环境和 \opt{section} filter 可以实现相应效果。
+此外，你也可能需要 \env{refsegment} 环境和 \opt{segment} filter。
+细节请参考 \secref{use:bib:sec, use:bib:seg, use:bib:bib}。
+相关实例请参考 \secref{use:use:mlt}。
 
 \item[cite]
-The \sty{cite} package automatically sorts numeric citations and can compress a list of consecutive numbers to a range. It also makes the punctuation used in citations configurable. For sorted and compressed numeric citations, see the \opt{sortcites} package option in \secref{use:opt:pre:gen} and the \texttt{numeric-comp} citation style in \secref{use:xbx:cbx}. For configurable punctuation, see \secref{use:fmt}.
+%The \sty{cite} package automatically sorts numeric citations and can compress a list of consecutive numbers to a range. It also makes the punctuation used in citations configurable. For sorted and compressed numeric citations, see the \opt{sortcites} package option in \secref{use:opt:pre:gen} and the \texttt{numeric-comp} citation style in \secref{use:xbx:cbx}. For configurable punctuation, see \secref{use:fmt}.
+\sty{cite} 可以自动对引用编号进行排序，并且将连续的数字缩写为一个区间。
+它也可以配置引用中的标点符号。
+关于引用编号的排序和缩写，请参考 \secref{use:opt:pre:gen} 一节中的 \opt{sortcites} 宏包选项和 \secref{use:xbx:cbx} 一节中的 \texttt{numeric-comp} 引用样式。
+关于可配置的标点请参考 \secref{use:fmt}。
 
 \item[citeref]
-Another package for creating back references in the bibliography. See \sty{backref}.
+%Another package for creating back references in the bibliography. See \sty{backref}.
+另一个可以创建反向引用的宏包。参考 \sty{backref} 条目。
 
 \item[inlinebib]
-The \sty{inlinebib} package is designed for traditional citations given in footnotes. For comparable functionality, see the verbose citation styles in \secref{use:xbx:cbx}.
+%The \sty{inlinebib} package is designed for traditional citations given in footnotes. For comparable functionality, see the verbose citation styles in \secref{use:xbx:cbx}.
+\sty{inlinebib} 宏包用于脚注文献这种传统引用样式。
+相应的功能请参考 \secref{use:xbx:cbx} 中详细的引用样式说明。
 
 \item[jurabib]
-Originally designed for citations in law studies and (mostly German) judicial documents, the \sty{jurabib} package also provides features aimed at users in the humanities. In terms of the features provided, there are some similarities between \sty{jurabib} and \biblatex but the approaches taken by both packages are quite different. Since both \sty{jurabib} and \biblatex are full"=featured packages, the list of similarities and differences is too long to be discussed here.
+%Originally designed for citations in law studies and (mostly German) judicial documents, the \sty{jurabib} package also provides features aimed at users in the humanities. In terms of the features provided, there are some similarities between \sty{jurabib} and \biblatex but the approaches taken by both packages are quite different. Since both \sty{jurabib} and \biblatex are full"=featured packages, the list of similarities and differences is too long to be discussed here.
+\sty{jurabib} 宏包原本用于法学和司法文件（主要是德文）中的引用，它也为人文学科中的使用者提供了一些特性。
+在提供这些特征方面，\sty{jurabib} 和 \biblatex 有一些类似之处，但是采用的手段是截然不同的。
+由于 \sty{jurabib} 和 \biblatex 都是那种功能齐备的宏包，鉴于篇幅这里不再赘述它们的异同之处。
 
 \item[mcite]
-The \sty{mcite} package provides support for grouped citations, \ie multiple items can be cited as a single reference and listed as a single block in the bibliography. The citation groups are defined as the items are cited. This only works with unsorted bibliographies. The \biblatex package also supports grouped citations, which are called <entry sets> or <reference sets> in this manual. See \secref{use:use:set,use:bib:set,use:cit:mct} for details.
+%The \sty{mcite} package provides support for grouped citations, \ie multiple items can be cited as a single reference and listed as a single block in the bibliography. The citation groups are defined as the items are cited. This only works with unsorted bibliographies. The \sty{biblatex} package also supports grouped citations, which are called <entry sets> or <reference sets> in this manual. See \secref{use:use:set,use:bib:set,use:cit:mct} for details.
+\sty{mcite} 提供了分组引用的支持，也就是说，不同条目可以指向同一处引用，并且在参考文献中作为同一条目列在一起。
+引用组依照被引用的条目定义，不过这只在未排序的参考文献中有效。
+\biblatex 宏包同样支持分组引用，在本手册中称之为 “条目集” 或 “参考文献集”。
+细节请参考 \secref{use:use:set,use:bib:set,use:cit:mct}。
 
 \item[mciteplus]
-A significantly enhanced reimplementation of the \sty{mcite} package which supports grouping in sorted bibliographies. See \sty{mcite}.
+%A significantly enhanced reimplementation of the \sty{mcite} package which supports grouping in sorted bibliographies. See \sty{mcite}.
+\sty{mcite} 宏包的一个加强版的重新实现，可以支持排序文献的分组。参考 \sty{mcite} 宏包条目。
 
 \item[multibib]
-The \sty{multibib} package provides support for bibliographies subdivided by topic or other criteria. See \sty{bibtopic}.
+%The \sty{multibib} package provides support for bibliographies subdivided by topic or other criteria. See \sty{bibtopic}.
+\sty{multibib} 宏包支持依照主题或其它标准细分文献。参考 \sty{bibtopic} 宏包条目。
 
 \item[natbib]
-The \sty{natbib} package supports numeric and author"=year citation schemes, incorporating sorting and compression code found in the \sty{cite} package. It also provides additional citation commands and several configuration options. See the \texttt{numeric} and \texttt{author-year} citation styles and their variants in \secref{use:xbx:cbx}, the \opt{sortcites} package option in \secref{use:opt:pre:gen}, the citation commands in \secref{use:cit}, and the facilities discussed in \secref{use:bib:hdg, use:bib:nts, use:fmt} for comparable functionality. Also see \secref{use:cit:nat}.
+%The \sty{natbib} package supports numeric and author"=year citation schemes, incorporating sorting and compression code found in the \sty{cite} package. It also provides additional citation commands and several configuration options. See the \texttt{numeric} and \texttt{author-year} citation styles and their variants in \secref{use:xbx:cbx}, the \opt{sortcites} package option in \secref{use:opt:pre:gen}, the citation commands in \secref{use:cit}, and the facilities discussed in \secref{use:bib:hdg, use:bib:nts, use:fmt} for comparable functionality. Also see \secref{use:cit:nat}.
+\sty{natbib} 宏包支持编号和作者---年份引用格式，以及\sty{cite} 宏包中的合并排序和压缩代码。
+它同样提供了一些额外的引用命令和几种设置选项。
+相应的功能请参考 \secref{use:xbx:cbx} 中的 \texttt{numeric} 和 \texttt{author-year} 引用样式及其变种，
+\secref{use:opt:pre:gen}中的 \opt{sortcites} 宏包选项，\secref{use:cit} 中的引用命令，
+以及 \secref{use:bib:hdg, use:bib:nts, use:fmt} 中讨论的工具。
+也可以参考 \secref{use:cit:nat}。
 
 \item[splitbib]
-The \sty{splitbib} package provides support for bibliographies subdivided by topic. See \sty{bibtopic}.
+%The \sty{splitbib} package provides support for bibliographies subdivided by topic. See \sty{bibtopic}.
+\sty{splitbib} 宏包支持按照主题细分文献。参考 \sty{bibtopic} 宏包条目。
 
 \item[titlesec]
-The \sty{titlesec} package redefines user-level document division commands such as \cmd{chapter} or \cmd{section}. This approach is not compatible with internal command changes applied by the \biblatex \texttt{refsection} and \texttt{refsegment} option settings described in \secref{use:opt:pre:gen}.
+%The \sty{titlesec} package redefines user-level document division commands such as \cmd{chapter} or \cmd{section}. This approach is not compatible with internal command changes applied by the \sty{biblatex} \texttt{refsection} and \texttt{refsegment} option settings described in \secref{use:opt:pre:gen}.
+\sty{titlesec} 宏包重新定义了一些用户水平的文档划分命令，例如 \cmd{chapter} 或 \cmd{section}。
+这种方法与 \biblatex 的 \texttt{refsection} 和 \texttt{refsegment} 选项设置引起的内部命令改动不兼容，具体描述在 \secref{use:opt:pre:gen} 一节。
 
 \item[ucs]
-The \sty{ucs} package provides support for \utf encoded input. Either use \sty{inputenc}'s standard \file{utf8} module or a Unicode enabled engine such as \xetex or \luatex instead.
+%The \sty{ucs} package provides support for \utf encoded input. Either use \sty{inputenc}'s standard \file{utf8} module or a Unicode enabled engine such as \xetex or \luatex instead.
+%The \sty{ucs} package provides support for \utf encoded input. Either use \sty{inputenc}'s standard \file{utf8} module or a Unicode enabled engine such as \xetex or \luatex instead.
+\sty{ucs} 宏包提供 \utf 编码输入的支持。
+可以使用 \sty{inputenc} 宏包的标准 \file{utf8} 模块或者 \XeTeX 、\LuaTeX 等支持 Unicode 的编译引擎来实现这一功能。
 
 \end{marglist}
 
-\subsubsection{biber/biblatex兼容性}
+\subsubsection{\biber/\biblatex 兼容性}
 \label{int:pre:bibercompat}
 
-\biber\ versions are closely coupled with \biblatex\ versions. You
-need to have the right combination of the two. \biber\ will warn you
-during processing if it encounters information which comes from a
-\biblatex\ version which is incompatible. \tabref{tab:int:pre:bibercompat} shows a
-compatibility matrix for the recent versions.
+%\biber\ versions are closely coupled with \biblatex\ versions. You
+%need to have the right combination of the two. \biber\ will warn you
+%during processing if it encounters information which comes from a
+%\biblatex\ version which is incompatible. \tabref{tab:int:pre:bibercompat} shows a
+%compatibility matrix for the recent versions.
+
+\biber 的版本与 \biblatex 的版本有着紧密的联系。
+你需要二者正确的组合。
+如果发现来自于不兼容的 \biblatex 版本信息，\biber 会在处理过程中发出警告。
+\tabref{tab:int:pre:bibercompat} 展示了最近一些版本的兼容性状况。
 
 \begin{table}
-\tablesetup\centering
-\begin{tabular}{cc}
-\toprule
-\sffamily\bfseries\spotcolor Biber version
-  & \sffamily\bfseries\spotcolor \biblatex\ version\\
-\midrule
-1.9 & 2.9\\
-1.8 & 2.8\\
-1.7 & 2.7\\
-1.6 & 2.6\\
-1.5 & 2.5\\
-1.4 & 2.4\\
-1.3 & 2.3\\
-1.2 & 2.1, 2.2\\
-1.1 & 2.1\\
-1.0 & 2.0\\
-0.9.9 & 1.7x\\
-0.9.8 & 1.7x\\
-0.9.7 & 1.7x\\
-0.9.6 & 1.7x\\
-0.9.5 & 1.6x\\
-0.9.4 & 1.5x\\
-0.9.3 & 1.5x\\
-0.9.2 & 1.4x\\
-0.9.1 & 1.4x\\
-0.9 & 1.4x\\
-\bottomrule
-\end{tabular}
-\caption{\biber/\biblatex\ compatibility matrix}
-\label{tab:int:pre:bibercompat}
+	\tablesetup\centering
+	\begin{tabular}{cc}
+		\toprule
+		\sffamily\bfseries\spotcolor Biber 版本
+		& \sffamily\bfseries\spotcolor \biblatex\ 版本\\
+		\midrule
+		2.6 & 3.5, 3.6\\
+		2.5 & 3.4\\
+		2.4 & 3.3\\
+		2.3 & 3.2\\
+		2.2 & 3.1\\
+		2.1 & 3.0\\
+		2.0 & 3.0\\
+		1.9 & 2.9\\
+		1.8 & 2.8\\
+		1.7 & 2.7\\
+		1.6 & 2.6\\
+		1.5 & 2.5\\
+		1.4 & 2.4\\
+		1.3 & 2.3\\
+		1.2 & 2.1, 2.2\\
+		1.1 & 2.1\\
+		1.0 & 2.0\\
+		0.9.9 & 1.7x\\
+		0.9.8 & 1.7x\\
+		0.9.7 & 1.7x\\
+		0.9.6 & 1.7x\\
+		0.9.5 & 1.6x\\
+		0.9.4 & 1.5x\\
+		0.9.3 & 1.5x\\
+		0.9.2 & 1.4x\\
+		0.9.1 & 1.4x\\
+		0.9 & 1.4x\\
+		\bottomrule
+	\end{tabular}
+	\caption{\biber/\biblatex\ 兼容性}
+	\label{tab:int:pre:bibercompat}
 \end{table}
