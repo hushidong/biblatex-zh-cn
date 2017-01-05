@@ -15,26 +15,35 @@
 \subsection{关于 \biblatex}
 \label{int:abt}
 
+%This package provides advanced bibliographic facilities for use with \latex. 
+%The package is a complete reimplementation of the bibliographic facilities provided by \latex. 
+%The \biblatex\ package works with the \enquote{backend} (program) \biber, which is used to process \bibtex\ format data files and them performs all sorting, label generation (and a great deal more). 
+%Formatting of the bibliography is entirely controlled by \tex\ macros. 
+%Good working knowledge in \latex should be sufficient to design new bibliography and citation styles. 
 
-%This package provides advanced bibliographic facilities for use with LaTeX. The
-%package is a complete reimplementation of the bibliographic facilities provided by
-%LaTeX. The biblatex package works with the “backend” (program) biber, which
-%is used to process BibTeX format data files and them performs all sorting, label
-%generation (and a great deal more). Formatting of the bibliography is entirely controlled by TeX macros. Good working knowledge in LaTeX should be sufficient to
-%design new bibliography and citation styles.
-\biblatex 包提供了一套与 \latex 配合使用的高级参考文献工具。该包是latex提供的参考文献功能的完整再实现。该包默认使用自定义后端biber，用于处理bibtex格式文件、执行排序和生成标签(以及其它更多工作)。参考文献的格式化完全由tex宏包控制。只要具备一定的latex知识就足以设计新的参考文献著录样式和标注样式。
+%This package also supports subdivided bibliographies, multiple bibliographies within one document, and separate lists of bibliographic information such as abbreviations of various fields.
+%Bibliographies may be subdivided into parts and\slash or segmented by topics. 
+%Just like the bibliography styles, all citation commands may be freely defined. 
 
-%This package also supports subdivided bibliographies, multiple bibliographies within one document, and separate lists of
-%bibliographic information such as abbreviations of various fields.  Bibliographies may be subdivided into parts and/or segmented by topics. Just like the bibliography styles, all citation commands may be freely defined.
+%Features such as full Unicode support for bibliography data, customisable sorting, multiple bibliographies with different sorting, customisable labels and dynamic data modification are available. 
+%Please refer to \secref{int:pre:bibercompat} for information on \biber/\biblatex version compatibility. 
+%The package is completely localised and can interface with the \sty{babel} and \sty{polyglossia} packages. 
+%Please refer to \tabref{bib:fld:tab1} for a list of languages currently supported by this package.
+\biblatex 包提供了一套与 \latex 配合使用的高级参考文献工具。
+它重新实现了 \LaTeX 提供的参考文献功能。
+该包使用后端程序 \biber 来处理\bibtex\ 格式的数据文件，并完成排序、标签生成和更多功能。
+参考文献的格式化完全由 \TeX\ 宏指令控制。
+具备良好的 \LaTeX 知识就足以设计新的参考文献著录样式和标注样式。
 
-biblatex也支持参考文献表细分，支持在一个文档内包含多个参考文献表，支持生成参考文献局部信息表比如多个不同域的缩略词。参考文献表可以根据主题进行分块或者分段。与参考文献著录样式类似，所有的标注(引用)命令也可以自由定义。
+\biblatex 也支持参考文献表细分、在一个文档内包含多个参考文献表、以及域缩写等参考文献信息表。
+参考文献表可以根据主题进行分块或者分段。
+与参考文献著录样式类似，所有的标注引用命令也可以自由定义。
 
-%Features such as full Unicode support
-%for bibliography data, customisable sorting, multiple bibliographies with different
-%sorting, customisable labels and dynamic data modification are available. Please refer
-%to § 1.5.5 for information on biber/biblatex version compatibility. The package is completely localised and can interface with the babel and polyglossia packages. Please refer to table 2 for a list of languages currently supported by this package.
-提供的功能还包括:文献数据的Unicode支持、自定义排序、不同排序方式的多参考文献表、自定义标签和动态数据修改。
-biber/biblatex的版本兼容性见\secref{int:pre:bibercompat}节。该包可完全实现本地化，可与babel或polyglossia包配合使用，该包支持的语言详见表\tabref{bib:fld:tab1}。
+提供的功能还包括：文献数据的Unicode支持、自定义排序、不同排序方式的多参考文献表、自定义标签和动态数据修改等。
+\biber/\biblatex 的版本兼容性见 \secref{int:pre:bibercompat} 节。
+该包可完全实现本地化，可与 \sty{babel} 和 \sty{polyglossia} 宏包配合使用。
+该包支持的语言详见表~\tabref{bib:fld:tab1}。
+
 
 \subsection{许可}
 
@@ -43,8 +52,12 @@ Copyright \textcopyright\ 2006--2012 Philipp Lehman, 2012--2013 Philip Kime, Aud
 \subsection{反馈}
 \label{int:feb}
 
-请使用github的biblatex项目页报告bug和提交所需功能\fnurl{http://github.com/plk/biblatex}。
-若寻求帮助请在comp.text.tex新闻组或tex-latex讨论区提交问题\fnurl{http://tex.stackexchange.com/questions/tagged/biblatex}。
+%Please use the \biblatex project page on GitHub to report bugs and submit feature requests.\fnurl{http://github.com/plk/biblatex} Before making a feature request, please ensure that you have thoroughly studied this manual. If you do not want to report a bug or request a feature but are simply in need of assistance, you might want to consider posting your question on the \texttt{comp.text.tex} newsgroup or \tex-\latex Stack Exchange.\fnurl{http://tex.stackexchange.com/questions/tagged/biblatex}
+
+请使用 Github 的 \biblatex 项目页报告bug和提交所需功能\fnurl{http://github.com/plk/biblatex}。
+在提出功能需求，请确保你已经彻底研究过本手册。
+如果你不想报告bug或者请求新功能，而只是需要帮助，
+可以考虑在 \texttt{comp.text.tex} 新闻组或者 \TeX-\LaTeX\ Stack Exchange 提交问题。\fnurl{http://tex.stackexchange.com/questions/tagged/biblatex}
 
 \subsection{致谢}
 
@@ -77,33 +90,52 @@ Per Starbäck, Carl-Gustav Werner, Filip Åsblom (Swedish).
 \subsubsection{必须资源}
 \label{int:pre:req}
 
-如下资源是必须的，否则biblatex无法正常工作
+%The resources listed in this section are strictly required for \biblatex to function. The package will not work if they are not available.
+
+如下资源是必须的，否则 \biblatex 无法正常工作。
 
 \begin{marglist}
 
-\item[\etex]\biblatex 宏包需要\etex 。%tex发布版转变成\etex 的各种执行文件已经有一段时间，近来流行的版本大多使用它们。
+\item[\etex]
 %The \biblatex package requires \etex. \tex distributions have been shipping \etex binaries for quite some time, the popular distributions use them by default these days. The \biblatex package checks if it is running under \etex. Simply try compiling your documents as you usually do, the chances are that it just works. If you get an error message, try compiling the document with \bin{elatex} instead of \bin{latex} or \bin{pdfelatex} instead of \bin{pdflatex}, respectively.
+\biblatex 宏包依赖于 \eTeX 。
+很长时间以来，\TeX 发行版就带有 \eTeX ，并且近来主流的发行版都默认使用。
+\biblatex 宏包会检查是否在 \eTeX 下运行。
+只需要像平常一样编译你的文档即可，基本上是可以运行的。
+如果你得到错误信息，尝试用 \bin{elatex} 或 \bin{pdfelatex} 分别代替 \bin{latex} 或 \bin{pdflatex} 来编译文档。
 
+\item[\biber]
+%\biber is the backend of \biblatex used to transfer data from source files to the \latex code. \biber comes with TeX Live and is also available from SourceForge.\fnurl{http://biblatex-biber.sourceforge.net/}. \biber uses the \texttt{btparse} C library for \bibtex format file parsing which aimed to be compatible with \bibtex's parsing rules but also aimed at correcting some of the common problems. For details, see the manual page for the Perl \texttt{Text::BibTeX} module\fnurl{http://search.cpan.org/~ambs/Text-BibTeX}.
+\biber 是\biblatex 默认的后端程序。你只需要 \bibtex 或者 \biber 中的一个后端程序。
+\TeX Live 中带有 \biber ，也可以从 SourceForge 得到。\fnurl{http://biblatex-biber.sourceforge.net/}
+\biber 使用 \texttt{btparse} C 程序库解析 \bibtex 格式文件，
+这既为了兼容 \bibtex 的解析规则，也用于修正一些常见问题。
+详见 Perl 的 \texttt{Text::BibTeX} 模块（module）的手册页。\fnurl{http://search.cpan.org/~ambs/Text-BibTeX}
 
+\item[etoolbox] 
+%This \latex package, which is loaded automatically, provides generic programming facilities required by \biblatex. It is available from \acr{CTAN}.\fnurl{http://ctan.org/pkg/etoolbox}
+自动加载，提供\biblatex 所需的通用编程工具，可以从 \acr{CTAN} 下载。\fnurl{http://ctan.org/pkg/etoolbox}
 
-\item[\biber]\biber 是\biblatex 的默认后端，只需要一个后端\bibtex 或者\biber 。
-%\biber is the default backend of \biblatex. You only need one backend, either \bibtex or \biber. \biber comes with TeXLive and is also available from SourceForge.\fnurl{http://biblatex-biber.sourceforge.net/}. There are some slight differences in name parsing of <von> parts with \biber as compared with \bibtex which you probably won't normally notice. \biber uses the \texttt{btparse} C library for \bibtex format file parsing which aimed to be compatible with \bibtex's parsing rules but also aimed at correcting some of the common problems. For details, see the manual page for the Perl \texttt{Text::BibTeX} module\fnurl{http://search.cpan.org/~ambs/Text-BibTeX}.
+\item[kvoptions] 
+%This \latex package, which is also loaded automatically, is used for internal option handling. It is available with the \sty{oberdiek} package bundle from \acr{CTAN}.\fnurl{http://ctan.org/pkg/kvoptions}
+自动加载，用于内部选项处理。可以和 \sty{oberdiek} 宏包集一起从 \acr{CTAN} 下载。\fnurl{http://ctan.org/pkg/kvoptions}
 
-\item[\bibtex] \biblatex 可以使用传统的的\bibtex 作为数据后端。
-%The \biblatex package can use legacy \bibtex as a data backend. While a legacy \bibtex binary is sufficient to run \biblatex, using \bin{bibtex8} is recommended. If your \tex distribution does not ship with \bin{bibtex8}, you can get it from \acr{CTAN}.\fnurl{http://www.ctan.org/tex-archive/biblio/bibtex/8-bit/}
+\item[logreq]
+%This \latex package, which is also loaded automatically, provides a frontend for writing machine-readable messages to an auxiliary log file. It is available from \acr{CTAN}.\fnurl{http://ctan.org/pkg/logreq/}
+自动加载，它提供的前端可用于将机器可读信息写入辅助 log 文件，
+可以从 \acr{CTAN} 下载。\fnurl{http://ctan.org/pkg/logreq/}
 
-\item[etoolbox] 自动加载，提供\biblatex 所需的通用编程工具。
-%This \latex package, which is loaded automatically, provides generic programming facilities required by \biblatex. It is available from \acr{CTAN}.\fnurl{http://www.ctan.org/tex-archive/macros/latex/contrib/etoolbox/}
-
-\item[kvoptions] 自动加载，用于内部选项处理。
-%This \latex package, which is also loaded automatically, is used for internal option handling. It is available with the \sty{oberdiek} package bundle from \acr{CTAN}.\fnurl{http://www.ctan.org/pkg/kvoptions}
-
-\item[logreq] 自动加载，提供了向辅助日志文件写入机器可读信息的前端。
-%This \latex package, which is also loaded automatically, provides a frontend for writing machine-readable messages to an auxiliary log file. It is available from \acr{CTAN}.\fnurl{http://www.ctan.org/tex-archive/macros/latex/contrib/logreq/}
+\item[xstring]
+%This \latex package, which is also loaded automatically, provides advanced string processing macros It is available from \acr{CTAN}.\fnurl{http://ctan.org/pkg/xstring/}
+自动加载，提供了一些高级字符串处理宏。
+可以从 \acr{CTAN} 下载。\fnurl{http://ctan.org/pkg/xstring/}
 
 \end{marglist}
-除了上述资源，\biblatex 还需要标准\latex 宏包\sty{keyval} 、\sty{ifthen}和\sty{url} 。这些包包含在所有通用\tex 发行版中，也自动进行加载。
+
 %Apart from the above resources, \biblatex also requires the standard \latex packages \sty{keyval} and \sty{ifthen} as well as the \sty{url} package. These package are included in all common \tex distributions and will be loaded automatically.
+
+除了上述资源，\biblatex 还需要 \sty{keyval}、\sty{ifthen} 以及 \sty{url} 等标准 \LaTeX 宏包。
+常见的 \TeX 发行版中都会带有这些宏包，而且本宏包会自动加载。
 
 \subsubsection{推荐包}
 \label{int:pre:rec}
@@ -197,7 +229,7 @@ Per Starbäck, Carl-Gustav Werner, Filip Åsblom (Swedish).
 \item[bibtopic]
 %The \sty{bibtopic} package provides support for bibliographies subdivided by topic, type, or other criteria. For bibliographies subdivided by topic, see the category feature in \secref{use:bib:cat} and the corresponding filters in \secref{use:bib:bib}. Alternatively, you may use the \bibfield{keywords} field in conjunction with the \opt{keyword} and \opt{notkeyword} filters for comparable functionality, see \secref{bib:fld:spc, use:bib:bib} for details. For bibliographies subdivided by type, use the \opt{type} and \opt{nottype} filters. Also see \secref{use:use:div} for examples.
 \sty{bibtopic} 宏包支持根据主题、类型或者其它标准细分文献。
-对于按照主题细分文献，可以参考 \secref{use:bib:cat} 一节的类型特征以及 \secref{use:bib:bib} 一节中相应的filters。
+对于按照主题细分文献，可以参考 \secref{use:bib:cat} 一节的类型特征以及 \secref{use:bib:bib} 一节中相应的。
 另外，你也可以使用 \bibfield{keywords} 域结合 \opt{keyword} 和 \opt{notkeyword} filters 来实现相应功能，细节请参考 \secref{bib:fld:spc, use:bib:bib}。
 对于按照类型细分文献，可以使用 \opt{type} 和 \opt{nottype} filters。
 相关例子请参考 \secref{use:use:div}。
