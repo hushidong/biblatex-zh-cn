@@ -29,9 +29,9 @@
 %Please refer to \secref{int:pre:bibercompat} for information on \biber/\biblatex version compatibility. 
 %The package is completely localised and can interface with the \sty{babel} and \sty{polyglossia} packages. 
 %Please refer to \tabref{bib:fld:tab1} for a list of languages currently supported by this package.
-\biblatex 包提供了一套与 \latex 配合使用的高级参考文献工具。
+\biblatex 包提供了一套与 \LaTeX\ 配合使用的高级参考文献工具。
 它重新实现了 \LaTeX 提供的参考文献功能。
-该包使用后端程序 \biber 来处理\bibtex\ 格式的数据文件，并完成排序、标签生成和更多功能。
+该包使用后端程序 \biber 来处理\BibTeX\ 格式的数据文件，并完成排序、标签生成和更多功能。
 参考文献的格式化完全由 \TeX\ 宏指令控制。
 具备良好的 \LaTeX 知识就足以设计新的参考文献著录样式和标注样式。
 
@@ -96,7 +96,7 @@ Per Starbäck, Carl-Gustav Werner, Filip Åsblom (Swedish).
 
 \begin{marglist}
 
-\item[\etex]
+\item[\eTeX]
 %The \biblatex package requires \etex. \tex distributions have been shipping \etex binaries for quite some time, the popular distributions use them by default these days. The \biblatex package checks if it is running under \etex. Simply try compiling your documents as you usually do, the chances are that it just works. If you get an error message, try compiling the document with \bin{elatex} instead of \bin{latex} or \bin{pdfelatex} instead of \bin{pdflatex}, respectively.
 \biblatex 宏包依赖于 \eTeX 。
 很长时间以来，\TeX 发行版就带有 \eTeX ，并且近来主流的发行版都默认使用。
@@ -106,10 +106,10 @@ Per Starbäck, Carl-Gustav Werner, Filip Åsblom (Swedish).
 
 \item[\biber]
 %\biber is the backend of \biblatex used to transfer data from source files to the \latex code. \biber comes with TeX Live and is also available from SourceForge.\fnurl{http://biblatex-biber.sourceforge.net/}. \biber uses the \texttt{btparse} C library for \bibtex format file parsing which aimed to be compatible with \bibtex's parsing rules but also aimed at correcting some of the common problems. For details, see the manual page for the Perl \texttt{Text::BibTeX} module\fnurl{http://search.cpan.org/~ambs/Text-BibTeX}.
-\biber 是\biblatex 默认的后端程序。你只需要 \bibtex 或者 \biber 中的一个后端程序。
+\biber 是\biblatex 默认的后端程序。你只需要 \BibTeX 或者 \biber 中的一个后端程序。
 \TeX Live 中带有 \biber ，也可以从 SourceForge 得到。\fnurl{http://biblatex-biber.sourceforge.net/}
-\biber 使用 \texttt{btparse} C 程序库解析 \bibtex 格式文件，
-这既为了兼容 \bibtex 的解析规则，也用于修正一些常见问题。
+\biber 使用 C 程序库 \texttt{btparse} 解析 \BibTeX 格式文件，
+这既为了兼容 \BibTeX 的解析规则，也用于修正一些常见问题。
 详见 Perl 的 \texttt{Text::BibTeX} 模块（module）的手册页。\fnurl{http://search.cpan.org/~ambs/Text-BibTeX}
 
 \item[etoolbox] 
@@ -230,8 +230,8 @@ Per Starbäck, Carl-Gustav Werner, Filip Åsblom (Swedish).
 %The \sty{bibtopic} package provides support for bibliographies subdivided by topic, type, or other criteria. For bibliographies subdivided by topic, see the category feature in \secref{use:bib:cat} and the corresponding filters in \secref{use:bib:bib}. Alternatively, you may use the \bibfield{keywords} field in conjunction with the \opt{keyword} and \opt{notkeyword} filters for comparable functionality, see \secref{bib:fld:spc, use:bib:bib} for details. For bibliographies subdivided by type, use the \opt{type} and \opt{nottype} filters. Also see \secref{use:use:div} for examples.
 \sty{bibtopic} 宏包支持根据主题、类型或者其它标准细分文献。
 对于按照主题细分文献，可以参考 \secref{use:bib:cat} 一节的类型特征以及 \secref{use:bib:bib} 一节中相应的。
-另外，你也可以使用 \bibfield{keywords} 域结合 \opt{keyword} 和 \opt{notkeyword} filters 来实现相应功能，细节请参考 \secref{bib:fld:spc, use:bib:bib}。
-对于按照类型细分文献，可以使用 \opt{type} 和 \opt{nottype} filters。
+另外，你也可以使用 \bibfield{keywords} 域结合 \opt{keyword} 和 \opt{notkeyword} 过滤器来实现相应功能，细节请参考 \secref{bib:fld:spc, use:bib:bib}。
+对于按照类型细分文献，可以使用 \opt{type} 和 \opt{nottype} 过滤器。
 相关例子请参考 \secref{use:use:div}。
 
 \item[bibunits]
@@ -241,8 +241,8 @@ Per Starbäck, Carl-Gustav Werner, Filip Åsblom (Swedish).
 \item[chapterbib]
 %The \sty{chapterbib} package provides support for multiple partial bibliographies. Use the \env{refsection} environment and the \opt{section} filter for comparable functionality. Alternatively, you might also want to use the \env{refsegment} environment and the \opt{segment} filter. See \secref{use:bib:sec, use:bib:seg, use:bib:bib} for details. Also see \secref{use:use:mlt} for examples.
 \sty{chapterbib} 宏包支持多个部分的参考文献。
-使用 \env{refsection} 环境和 \opt{section} filter 可以实现相应效果。
-此外，你也可能需要 \env{refsegment} 环境和 \opt{segment} filter。
+使用 \env{refsection} 环境和 \opt{section} 过滤器可以实现相应效果。
+此外，你也可能需要 \env{refsegment} 环境和 \opt{segment} 过滤器。
 细节请参考 \secref{use:bib:sec, use:bib:seg, use:bib:bib}。
 相关实例请参考 \secref{use:use:mlt}。
 

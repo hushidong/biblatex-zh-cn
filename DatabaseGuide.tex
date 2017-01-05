@@ -1,301 +1,455 @@
+% DatabaseGuide.tex
 
 \section{数据库指南}
 \label{bib}
 
-有必要区分一下bibtex程序和bibtex文件格式。biblatex无论有无bibtex程序都可以使用，因为其默认使用的后端biber完全支持bibtex文件格式（bib）。当使用biber后端时，用户仅需少量修改就可以使用bibtex数据文件。注意当使用bibtex后端时，无法使用任意的bst文件，因为该包基于一个特定的bibtex接口。当使用bibtex时，biblatex只能使用自己的样式文件(即通过biblatex宏包所定义的参考文献样式)。除非特殊说明，下面的条目指南适用于所有的后端。
+%This section describes the default data model defined in the \file{blx-dm.def} file which is part of \path{biblatex}. The data model is defined using the macros documented in \secref{aut:ctm:dm}. It is possible to redefine the data model which both \biblatex and \biber use so that datasources can contain new entrytypes and fields (which of course will need style support). The data model specification also allows for constraints to be defined so that data sources can be validated against the data model (using \biber's \opt{--validate-datamodel} option). Users who want to customise the data model need to look at the \file{blx-dm.def} file and to read \secref{aut:ctm:dm}.
 
-本节描述在blx-dm.def中定义的默认数据模型。blx-dm.def文件是宏包的一部分。数据模型的定义由\secref{aut:ctm:dm}节中的宏实现。可以重新定义\biblatex 和\biber 所用的数据模型。因此数据源可以包括所有的条目类型和域（当然这需要样式文件支持）。数据模型规范允许定义约束，因此数据源可以根据数据模型进行校验（使用\biber 的 \path{--validate_datamodel} 选项）。若需要定制数据模型，请参考\secref{aut:ctm:dm}节。
+本节描述 \file{blx-dm.def} 中定义的默认数据模型。该文件是宏包的一部分。
+该数据模型的定义由\secref{aut:ctm:dm}节中的宏实现。
+因此，可以重新定义 \biblatex 和 \biber 所用的数据模型，
+使得数据源可以包括新的条目类型和域（当然这需要样式文件支持）。
+数据模型规范还允许定义约束，使得数据源可以根据数据模型进行校验
+（使用 \biber 的 \path{--validate_datamodel} 选项）。
+若需要定制数据模型，请参考 \file{blx-dm.def} 文件和 \secref{aut:ctm:dm} 节。
 
 
 \subsection{条目类型}
 \label{bib:typ}
 
-本节介绍默认数据类型支持的条目类型及每种条目类型支持的域。
+%This section gives an overview of the entry types supported by the default \biblatex data model along with the fields supported by each type.
+
+本节介绍 \biblatex 默认数据模型支持的条目类型及每种条目类型支持的域。
 
 \subsubsection{常规类型}
 \label{bib:typ:blx}
 
-下面的列表说明了每种条目类型支持的域。注意，每种条目类型的域的使用是由参考文献样式决定的。下面的列表有两个目的，一是，说明有本包提供的标准样式支持的域，二是，作为定制样式的模板。注意，所谓必选域并不是严格的必不可少，详见\secref{bib:use:key} 。而标记“可选”的域技术上是可选的。而参考文献样式规则常需要多于需要的域。默认的数据类型，定义了一些数据域的约束。比如ISBNs和一些特殊的域如\bibfield{gender}。但约束的校验只有在biber带校验选项时进行。通用域如\bibfield{abstract}， \bibfield{annotation}，\bibfield{label} 和 \bibfield{shorthand} 并不在下面的列表中，因为他们独立于条目类型，\secref{bib:fld:spc}节讨论的特殊域，同样，独立于条目类型，也不在下面的列表中，默认的支持类型见文件\file{blx-dm.def}，内有\biblatex 的完整规范。
+%The lists below indicate the fields supported by each entry type. Note that the mapping of fields to an entry type is ultimately at the discretion of the bibliography style. The lists below therefore serve two purposes. They indicate the fields supported by the standard styles which ship with this package and they also serve as a model for custom styles. Note that the <required> fields are not strictly required in all cases, see \secref{bib:use:key} for details. The fields marked as <optional> are optional in a technical sense. Bibliographical formatting rules usually require more than just the <required> fields. The default data model defined a few constraints for the format of date fields, ISBNs and some special fields like \bibfield{gender} but the constraints are only used if validating against the data model with \biber's \opt{--validate-datamodel} option. Generic fields like \bibfield{abstract} and \bibfield{annotation} or \bibfield{label} and \bibfield{shorthand} are not included in the lists below because they are independent of the entry type. The special fields discussed in \secref{bib:fld:spc}, which are also independent of the entry type, are not included in the lists either. See the default data model specification in the file \file{blx-dm.def} which comes with \biblatex for a complete specification.
+
+下面的列表说明了每种条目类型支持的域。
+注意，每种条目类型的域的使用是由参考文献样式决定的。
+因此，下面的列表有两个目的，一是，说明有本包提供的标准样式支持的域，二是，作为定制样式的模板。
+注意，所谓“必选”域并不是在所有情况下都严格必不可少的，详见\secref{bib:use:key} 节。
+而标记“可选”的域技术上是可选的。
+通常来说，文献格式规则往往不仅需要“必选”域。
+默认的数据模型为一些数据域、ISBN 和 \bibfield{gender} 等特殊域定义了一些约束。
+但这些约束仅用于校验这些域是否合乎数据模型（通过 \biber 的 \path{--validate_datamodel} 选项）。
+通用域如\bibfield{abstract}， \bibfield{annotation}，\bibfield{label} 和 \bibfield{shorthand} 并不在下面的列表中，因为它们独立于条目类型；
+\secref{bib:fld:spc}节讨论的特殊域同样也独立于条目类型，因此也不在下面的列表中。
+默认的支持类型见文件\file{blx-dm.def}，内有\biblatex 数据模型的完整规范。
 
 
 \begin{typelist}
 
 \typeitem{article}
 
-指期刊，杂志，报纸，或其他周期性刊物的文章。刊物名在\bibfield{journaltitle} 域中，If the issue has its own title in addition to the main title of the periodical, it goes in the \bibfield{issuetitle} field. 注意：刊物 的\bibfield{editor} 及相关域，指的是期刊的，而 \bibfield{translator}及其相关域指的是文章的。
+%An article in a journal, magazine, newspaper, or other periodical which forms a self"=contained unit with its own title. The title of the periodical is given in the \bibfield{journaltitle} field. If the issue has its own title in addition to the main title of the periodical, it goes in the \bibfield{issuetitle} field. Note that \bibfield{editor} and related fields refer to the journal while \bibfield{translator} and related fields refer to the article.
+
+指期刊、杂志、报纸或其他周期性刊物的文章。
+它是独立个体，有自己的标题。
+刊物名在 \bibfield{journaltitle} 域中给出。
+如果在出版物标题外，期号也有自己的标题，那么在 \bibfield{issuetitle} 域中给出。
+注意，\bibfield{editor} 及相关域指的是期刊，
+而 \bibfield{translator} 及其相关域则涉及到文章。
 
 \reqitem{author, title, journaltitle, year/date}
 \optitem{translator, annotator, commentator, subtitle, titleaddon, editor, editora, editorb, editorc, journalsubtitle, issuetitle, issuesubtitle, language, origlanguage, series, volume, number, eid, issue, month, pages, version, note, issn, addendum, pubstate, doi, eprint, eprintclass, eprinttype, url, urldate}
 
 \typeitem{book}
 
-单卷书有一个或多个作者。这些这些作者作为整体共享该工作，该条目涵盖了传统bibtex中的\bibtype{inbook} 类型，详见\secref{bib:use:inb}。
+%A single"=volume book with one or more authors where the authors share credit for the work as a whole. This entry type also covers the function of the \bibtype{inbook} type of traditional \bibtex, see \secref{bib:use:inb} for details.
+
+单卷本的书籍，有一名或多名作者，并且这些作者作为整体共享该著作。
+该条目类型也涵盖了传统 \BibTeX 的 \bibtype{inbook} 类型，详见 \secref{bib:use:inb} 节。
 
 \reqitem{author, title, year/date}
 \optitem{editor, editora, editorb, editorc, translator, annotator, commentator, introduction, foreword, afterword, subtitle, titleaddon, maintitle, mainsubtitle, maintitleaddon, language, origlanguage, volume, part, edition, volumes, series, number, note, publisher, location, isbn, chapter, pages, pagetotal, addendum, pubstate, doi, eprint, eprintclass, eprinttype, url, urldate}
 
-
 \typeitem{mvbook}
 
-多卷书，为了向后兼容，多卷书也可用\bibtype{book}类，然而建议最好使用专用类\bibtype{mvbook}。
+%A multi"=volume \bibtype{book}. For backwards compatibility, multi"=volume books are also supported by the entry type \bibtype{book}. However, it is advisable to make use of the dedicated entry type \bibtype{mvbook}.
+
+多卷本书籍。为了向后兼容，多卷书也可用 \bibtype{book} 条目类型。
+然而建议最好使用专用条目类型 \bibtype{mvbook}。
 
 \reqitem{author, title, year/date}
 \optitem{editor, editora, editorb, editorc, translator, annotator, commentator, introduction, foreword, afterword, subtitle, titleaddon, language, origlanguage, edition, volumes, series, number, note, publisher, location, isbn, pagetotal, addendum, pubstate, doi, eprint, eprintclass, eprinttype, url, urldate}
 
-
 \typeitem{inbook}
 
-书的一部分，具有自有单元和标题，注意：该类的定义不同于标准\bibtex 给出的定义，见\secref{bib:use:inb}。
+%A part of a book which forms a self"=contained unit with its own title. Note that the profile of this entry type is different from standard \bibtex, see \secref{bib:use:inb}.
+
+书的一部分。它是一个独立的单元，有自己的标题。
+注意，该类型的定义不同于标准 \bibtex 给出的定义，见 \secref{bib:use:inb} 节。
 
 \reqitem{author, title, booktitle, year/date}
 \optitem{bookauthor, editor, editora, editorb, editorc, translator, annotator, commentator, introduction, foreword, afterword, subtitle, titleaddon, maintitle, mainsubtitle, maintitleaddon, booksubtitle, booktitleaddon, language, origlanguage, volume, part, edition, volumes, series, number, note, publisher, location, isbn, chapter, pages, addendum, pubstate, doi, eprint, eprintclass, eprinttype, url, urldate}
 
 \typeitem{bookinbook}
 
-类似于\bibtype{inbook}，但用于原本以单本书出版的工作，典型例子是：搜集一个作者的多个工作进行重印。
+%This type is similar to \bibtype{inbook} but intended for works originally published as a stand-alone book. A typical example are books reprinted in the collected works of an author.
 
+类似于 \bibtype{inbook}，但用于原本已经单独出版的作品。
+典型的例子是在一位作者的作品集中再版的书籍。
 
 \typeitem{suppbook}
 
-\bibtype{book} （书）的补充材料，与\bibtype{inbook}类密切相关，不同于\bibtype{inbook} 类是书的一部分，具有自己的标题，（比如，相同作者论文集中的一篇论文），这个类型常用于书的元素如：序，简介，前言，后记等，常有通用名。有时需要定制样式区别于\bibtype{inbook}。标准样式则认为它是\bibtype{inbook}的别名。
+%Supplemental material in a \bibtype{book}. This type is closely related to the \bibtype{inbook} entry type. While \bibtype{inbook} is primarily intended for a part of a book with its own title (\eg a single essay in a collection of essays by the same author), this type is provided for elements such as prefaces, introductions, forewords, afterwords, etc. which often have a generic title only. Style guides may require such items to be formatted differently from other \bibtype{inbook} items. The standard styles will treat this entry type as an alias for \bibtype{inbook}.
 
+\bibtype{book} （书）的补充材料，与 \bibtype{inbook} 条目类型很相近。
+\bibtype{inbook} 用于一本书中自己带有标题的部分，例如一本散文集中同一作者的单独一篇散文；
+而本条目用于诸如序言、导论、前言、后记等部分，通常只有一般性的标题。
+一些样式指南需要定制该类型的格式区别于\bibtype{inbook}。
+不过标准样式则认为它是 \bibtype{inbook} 的别名。
 
 \typeitem{booklet}
-类似于书，但没有正式出版机构，若适当的话，使用\bibfield{howpublished}域，可以自由格式提供出版信息。\bibfield{type}域有时也很有用。
+
+%A book"=like work without a formal publisher or sponsoring institution. Use the field \bibfield{howpublished} to supply publishing information in free format, if applicable. The field \bibfield{type} may be useful as well.
+
+类似于书籍，但没有正式的出版者或赞助机构。
+如果可以的话，使用\bibfield{howpublished}域可以提供自由格式的出版信息。
+也可以用 \bibfield{type} 域。
 
 \reqitem{author/editor, title, year/date}
 \optitem{subtitle, titleaddon, language, howpublished, type, note, location, chapter, pages, pagetotal, addendum, pubstate, doi, eprint, eprintclass, eprinttype, url, urldate}
 
 \typeitem{collection}
 
-单卷文集由多个具有不同标题和作者的独立工作构成，作为一个整体没有全局作者，常有一个编者。
+%A single"=volume collection with multiple, self"=contained contributions by distinct authors which have their own title. The work as a whole has no overall author but it will usually have an editor.
+
+单卷本的作品集，包括了一些有不同标题和作者的独立作品。
+作品集没有总体意义上的作者，但通常有一位编辑。
 
 \reqitem{editor, title, year/date}
 \optitem{editora, editorb, editorc, translator, annotator, commentator, introduction, foreword, afterword, subtitle, titleaddon, maintitle, mainsubtitle, maintitleaddon, language, origlanguage, volume, part, edition, volumes, series, number, note, publisher, location, isbn, chapter, pages, pagetotal, addendum, pubstate, doi, eprint, eprintclass, eprinttype, url, urldate}
 
 \typeitem{mvcollection}
-多卷文集，类似于mvbook之于book
+
+%A multi"=volume \bibtype{collection}. For backwards compatibility, multi"=volume collections are also supported by the entry type \bibtype{collection}. However, it is advisable to make use of the dedicated entry type \bibtype{mvcollection}.
+
+多卷本作品集。为了向后兼容，也可用 \bibtype{collection} 条目类型。
+然而建议最好使用专用条目类型 \bibtype{mvcollection}。
 
 \reqitem{editor, title, year/date}
 \optitem{editora, editorb, editorc, translator, annotator, commentator, introduction, foreword, afterword, subtitle, titleaddon, language, origlanguage, edition, volumes, series, number, note, publisher, location, isbn, pagetotal, addendum, pubstate, doi, eprint, eprintclass, eprinttype, url, urldate}
 
 \typeitem{incollection}
-类似于inbook之于book，
-\bibfield{author} 指的是 \bibfield{title}的作者。
-\bibfield{editor} 指的是 \bibfield{booktitle}
-（ 即文集的标题）的编者。
+
+%A contribution to a collection which forms a self"=contained unit with a distinct author and title. The \bibfield{author} refers to the \bibfield{title}, the \bibfield{editor} to the \bibfield{booktitle}, \ie the title of the collection.
+
+作品集中的一篇作品，是一个独立的单元，有自己的标题。
+\bibfield{author} 指的是 \bibfield{title} 的作者，
+而 \bibfield{editor} 指的是 \bibfield{booktitle}（ 即文集的标题）的编者。
 
 \reqitem{author, title, booktitle, year/date}
 \optitem{editor, editora, editorb, editorc, translator, annotator, commentator, introduction, foreword, afterword, subtitle, titleaddon, maintitle, mainsubtitle, maintitleaddon, booksubtitle, booktitleaddon, language, origlanguage, volume, part, edition, volumes, series, number, note, publisher, location, isbn, chapter, pages, addendum, pubstate, doi, eprint, eprintclass, eprinttype, url, urldate}
 
 \typeitem{suppcollection}
-类似于suppbook之于book。标准样式将其认为是\bibtype{incollection}的别名。
+
+%Supplemental material in a \bibtype{collection}. This type is similar to \bibtype{suppbook} but related to the \bibtype{collection} entry type. The standard styles will treat this entry type as an alias for \bibtype{incollection}.
+
+\bibtype{collection} 中的补充材料。
+类似于 \bibtype{suppbook} 之于 \bibtype{book}。
+标准样式将其视为 \bibtype{incollection} 的别名。
 
 \typeitem{manual}
 
-技术或其它文档，不必然是出版的形式，作者域\bibfield{author} 或编者域 \bibfield{editor} 可忽略见\secref{bib:use:key}。
+%Technical or other documentation, not necessarily in printed form. The \bibfield{author} or \bibfield{editor} is omissible in terms of \secref{bib:use:key}.
+
+技术或其它文档，不必是出版的形式。
+按照 \secref{bib:use:key} 一节，\bibfield{author} 或者 \bibfield{editor} 是可以省略的。
 
 \reqitem{author/editor, title, year/date}
 \optitem{subtitle, titleaddon, language, edition, type, series, number, version, note, organization, publisher, location, isbn, chapter, pages, pagetotal, addendum, pubstate, doi, eprint, eprintclass, eprinttype, url, urldate}
 
 \typeitem{misc}
 
-备选类型，当条目无法分类为其他条目时，可使用。适当的话，使用\bibfield{howpublished}域，可以自由格式提供出版信息。\bibfield{type}域有时也很有用。\bibfield{author}, \bibfield{editor}, 和\bibfield{year} 可忽略对于 \secref{bib:use:key} 节。
+%A fallback type for entries which do not fit into any other category. Use the field \bibfield{howpublished} to supply publishing information in free format, if applicable. The field \bibfield{type} may be useful as well. \bibfield{author}, \bibfield{editor}, and \bibfield{year} are omissible in terms of \secref{bib:use:key}.
+
+备选类型，用于无法归入任何其它类别的条目。
+适当的话，使用 \bibfield{howpublished} 域，可以提供自由格式的出版信息。
+也可以使用 \bibfield{type} 域。
+按照 \secref{bib:use:key} 节，\bibfield{author}、\bibfield{editor} 和 \bibfield{year} 可以省略。
 
 \reqitem{author/editor, title, year/date}
 \optitem{subtitle, titleaddon, language, howpublished, type, version, note, organization, location, date, month, year, addendum, pubstate, doi, eprint, eprintclass, eprinttype, url, urldate}
 
 \typeitem{online}
 
-在线资源，\bibfield{author} (作者), \bibfield{editor} (编者), 和\bibfield{year} (编者) 可忽略对于 \secref{bib:use:key} 节。
-该类用于网址等本身就是的在线资源，注意：所有类型都支持\bibfield{url}域，比如：当增加一篇来自在线期刊的文章，应优先使用\bibtype{article}类和它的\bibfield{url}域。
+%An online resource. \bibfield{author}, \bibfield{editor}, and \bibfield{year} are omissible in terms of \secref{bib:use:key}. This entry type is intended for sources such as web sites which are intrinsically online resources. Note that all entry types support the \bibfield{url} field. For example, when adding an article from an online journal, it may be preferable to use the \bibtype{article} type and its \bibfield{url} field.
+
+在线资源。
+按照 \secref{bib:use:key} 节，\bibfield{author}，\bibfield{editor} 和 \bibfield{year} 可以省略。
+该类型用于网址等本质上的在线资源。
+注意：所有条目类型都支持 \bibfield{url} 域。
+比如，当增加一篇来自在线期刊的文章时，应优先使用 \bibtype{article} 条目和它的 \bibfield{url} 域。
 
 \reqitem{author/editor, title, year/date, url}
 \optitem{subtitle, titleaddon, language, version, note, organization, date, month, year, addendum, pubstate, urldate}
 
 \typeitem{patent}
 
-专利或专利申请。号码或记录号在\bibfield{number}域中给出，\bibfield{type}用于描述类型， \bibfield{location}用于描述专利范围，如果存在暗指的范围不同的情况。注意，\bibfield{location} 以key list的方式处理，详见\secref{bib:fld:typ}节。
+%A patent or patent request. The number or record token is given in the \bibfield{number} field. Use the \bibfield{type} field to specify the type and the \bibfield{location} field to indicate the scope of the patent, if different from the scope implied by the \bibfield{type}. Note that the \bibfield{location} field is treated as a key list with this entry type, see \secref{bib:fld:typ} for details.
+
+专利或专利申请。号码或记录号在 \bibfield{number} 域中给出。
+\bibfield{type} 域用于描述类型，
+\bibfield{location} 域则用于描述专利范围，如果存在与 \bibfield{type} 领域不同的情况。
+注意，\bibfield{location} 在本条目中以键值列表的方式处理，详见 \secref{bib:fld:typ} 节。
 
 \reqitem{author, title, number, year/date}
 \optitem{holder, subtitle, titleaddon, type, version, location, note, date, month, year, addendum, pubstate, doi, eprint, eprintclass, eprinttype, url, urldate}
 
 \typeitem{periodical}
 
-周期性刊物的某一完整出版物，比如某一期刊的特刊，标题在\bibfield{title} 域中给出。如果该出版物有其自由标题，除了在期刊的主标题外，放在\bibfield{issuetitle}域中。\bibfield{editor}域可忽略，对于 \secref{bib:use:key}节。
+%An complete issue of a periodical, such as a special issue of a journal. The title of the periodical is given in the \bibfield{title} field. If the issue has its own title in addition to the main title of the periodical, it goes in the \bibfield{issuetitle} field. The \bibfield{editor} is omissible in terms of \secref{bib:use:key}.
+
+周期性刊物中完整的一期，比如某一期刊的某一期特刊。
+标题在 \bibfield{title} 域中给出。
+如果该期在期刊的主标题外有其自己的标题，那么由 \bibfield{issuetitle} 域中给出。
+根据 \secref{bib:use:key} 节，\bibfield{editor} 域可以省略。
 
 \reqitem{editor, title, year/date}
 \optitem{editora, editorb, editorc, subtitle, issuetitle, issuesubtitle, language, series, volume, number, issue, date, month, year, note, issn, addendum, pubstate, doi, eprint, eprintclass, eprinttype, url, urldate}
 
 \typeitem{suppperiodical}
 
-类似于suppbook之于book，在标准样式中与\bibtype{article} 类相同处理，（可以认为\bibtype{article}类型就是\bibtype{inperiodical}类）。
-该类型应用于诸如：常规栏目，卜告，或者给编者的信等具有通用名的资料很有用。
+%Supplemental material in a \bibtype{periodical}. This type is similar to \bibtype{suppbook} but related to the \bibtype{periodical} entry type. The role of this entry type may be more obvious if you bear in mind that the \bibtype{article} type could also be called \bibtype{inperiodical}. This type may be useful when referring to items such as regular columns, obituaries, letters to the editor, etc. which only have a generic title. Style guides may require such items to be formatted differently from articles in the strict sense of the word. The standard styles will treat this entry type as an alias for \bibtype{article}.
+
+\bibtype{periodical} 的补充材料，
+类似于 \bibtype{suppbook} 之于 \bibtype{book}。
+如果你意识到 \bibtype{article} 类型其实就是 \bibtype{inperiodical}，那么本条目的作用显而易见了。
+该类型应用于只有一般性题目的栏目，例如固定专栏、讣告、致编辑的信等。
+一些样式指南会严格定制该类型的格式区别于 \bibtype{article}。
+不过标准样式则认为它是 \bibtype{article} 的别名。
 
 \typeitem{proceedings}
 
-单卷会议进展成果，该类与\bibtype{collection}类似，支持可选的\bibfield{organization}域用于给出主办机构， \bibfield{editor} 域可忽略对于\secref{bib:use:key}节。
+%A single"=volume conference proceedings. This type is very similar to \bibtype{collection}. It supports an optional \bibfield{organization} field which holds the sponsoring institution. The \bibfield{editor} is omissible in terms of \secref{bib:use:key}.
+
+单卷本的会议记录。这一类型与 \bibtype{collection} 非常相似。
+它支持可选的 \bibfield{organization} 域用于给出主办机构。
+根据 \secref{bib:use:key} 节，\bibfield{editor} 域可以省略。
 
 \reqitem{title, year/date}
 \optitem{editor, subtitle, titleaddon, maintitle, mainsubtitle, maintitleaddon, eventtitle, eventtitleaddon, eventdate, venue, language, volume, part, volumes, series, number, note, organization, publisher, location, month, isbn, chapter, pages, pagetotal, addendum, pubstate, doi, eprint, eprintclass, eprinttype, url, urldate}
 
 \typeitem{mvproceedings}
 
-多卷\bibtype{proceedings}条目，类似于mvbook之于book。
+%A multi"=volume \bibtype{proceedings} entry. For backwards compatibility, multi"=volume proceedings are also supported by the entry type \bibtype{proceedings}. However, it is advisable to make use of the dedicated entry type \bibtype{mvproceedings}
+
+多卷\bibtype{proceedings}条目，类似于 \bibtype{mvbook} 之于 \bibtype{book}。
 
 \reqitem{title, year/date}
 \optitem{editor, subtitle, titleaddon, eventtitle, eventtitleaddon, eventdate, venue, language, volumes, series, number, note, organization, publisher, location, month, isbn, pagetotal, addendum, pubstate, doi, eprint, eprintclass, eprinttype, url, urldate}
 
 \typeitem{inproceedings}
 
-会议进展中的一篇文章，类似于inbook之于book，支持可选\bibfield{organization}域。
+%An article in a conference proceedings. This type is similar to \bibtype{incollection}. It supports an optional \bibfield{organization} field.
+
+会议集中的一篇文章，与 \bibtype{incollection} 类似。支持 \bibfield{organization} 可选域。
 
 \reqitem{author, title, booktitle, year/date}
 \optitem{editor, subtitle, titleaddon, maintitle, mainsubtitle, maintitleaddon, booksubtitle, booktitleaddon, eventtitle, eventtitleaddon, eventdate, venue, language, volume, part, volumes, series, number, note, organization, publisher, location, month, isbn, chapter, pages, addendum, pubstate, doi, eprint, eprintclass, eprinttype, url, urldate}
 
 \typeitem{reference}
 
-单卷参考文献集，诸如百科全书或词典，它是通用\bibtype{collection}类的特殊变种，标准样式中与\bibtype{collection}相同处理。
+%A single"=volume work of reference such as an encyclopedia or a dictionary. This is a more specific variant of the generic \bibtype{collection} entry type. The standard styles will treat this entry type as an alias for \bibtype{collection}.
+
+单卷本的参考文献集，诸如百科全书或词典等。
+它是通用 \bibtype{collection} 条目的特殊变种。
+标准样式将其视为 \bibtype{collection} 的别名。
 
 \typeitem{mvreference}
 
-多卷文集献，标准样式中是\bibtype{mvcollection}的别名，类似于mvbook之于book。
+%A multi"=volume \bibtype{reference} entry. The standard styles will treat this entry type as an alias for \bibtype{mvcollection}. For backwards compatibility, multi"=volume references are also supported by the entry type \bibtype{reference}. However, it is advisable to make use of the dedicated entry type \bibtype{mvreference}.
+
+多卷本的 \bibtype{reference} 条目。标准样式将其视为 \bibtype{mvcollection} 的别名。
+出于向后兼容性，也可以使用 \bibtype{reference} 条目。
+不过，还是建议使用专门的 \bibtype{mvreference} 条目类型。
 
 \typeitem{inreference}
 
-参考文献集中的一篇文章，类似于\bibtype{incollection}类条目，标准样式中与 \bibtype{incollection}相同处理。
+%An article in a work of reference. This is a more specific variant of the generic \bibtype{incollection} entry type. The standard styles will treat this entry type as an alias for \bibtype{incollection}.。
+
+参考文献集中的一篇文章，
+它是通用 \bibtype{incollection} 条目的特殊变种。
+标准样式将其视为 \bibtype{incollection} 的别名。
 
 \typeitem{report}
 
-技术报告，研究报告或大学和一些机构的白皮书。用\bibfield{type}域明确报告的类型，主办机构\bibfield{institution}域中。
+%A technical report, research report, or white paper published by a university or some other institution. Use the \bibfield{type} field to specify the type of report. The sponsoring institution goes in the \bibfield{institution} field.
+
+由大学或其它机构发行的技术报告、研究报告以及白皮书等。
+使用 \bibfield{type} 域来确定报告的类型。
+主办机构由 \bibfield{institution} 域给出。
 
 \reqitem{author, title, type, institution, year/date}
 \optitem{subtitle, titleaddon, language, number, version, note, location, month, isrn, chapter, pages, pagetotal, addendum, pubstate, doi, eprint, eprintclass, eprinttype, url, urldate}
 
 \typeitem{set}
 
-条目集，是一种特殊类型条目，详见see \secref{use:use:set}节。
+%An entry set. This entry type is special, see \secref{use:use:set} for details.
 
+条目集，是一种特殊类型条目，详见 \secref{use:use:set} 节。
 
 \typeitem{thesis}
 
-学位论文用于在教育机构中满足学位要求，用\bibfield{type}域规定论文的类型。
+%A thesis written for an educational institution to satisfy the requirements for a degree. Use the \bibfield{type} field to specify the type of thesis.
+
+为满足教育机构的学位要求而写的学位论文。
+使用 \bibfield{type} 域确定学位论文类型。
 
 \reqitem{author, title, type, institution, year/date}
 \optitem{subtitle, titleaddon, language, note, location, month, isbn, chapter, pages, pagetotal, addendum, pubstate, doi, eprint, eprintclass, eprinttype, url, urldate}
 
 \typeitem{unpublished}
 
-没有正式发表的有作者和标题的工作，如手稿，讲话稿等。需要的话，可使用\bibfield{howpublished}域和\bibfield{note}域，以自由格式提供附加信息。
+%A work with an author and a title which has not been formally published, such as a manuscript or the script of a talk. Use the fields \bibfield{howpublished} and \bibfield{note} to supply additional information in free format, if applicable.
+
+有作者和标题但是没有正式出版的作品，例如手稿或演讲稿等。
+需要的话，可使用 \bibfield{howpublished} 域和 \bibfield{note} 域提供自由格式的附加信息。
 
 \reqitem{author, title, year/date}
 \optitem{subtitle, titleaddon, language, howpublished, note, location, isbn, date, month, year, addendum, pubstate, url, urldate}
 
 \typeitem{xdata}
 
-\BiberOnlyMark  特殊类型，\bibtype{xdata} 条目记录可能继承自使用\bibfield{xdata}域的其他条目的数据，这一类型只是作为数据容器，不可被引用或加入到参考文献中，详见\secref{use:use:xdat}节。
+%This entry type is special. \bibtype{xdata} entries hold data which may be inherited by other entries using the \bibfield{xdata} field. Entries of this type only serve as data containers; they may not be cited or added to the bibliography. See \secref{use:use:xdat} for details.
+
+特殊类型，\bibtype{xdata} 条目处理的数据可以被其它条目用 \bibfield{xdata} 域继承。
+这一条目类型只是作为数据容器，不可被引用或加入到参考文献中，详见\secref{use:use:xdat} 节。
 
 \typeitem{custom[a--f]}
 
-用于特殊参考文献样式的自定义类型，标准样式中不使用。
+%Custom types for special bibliography styles. Not used by the standard styles.
 
+用于特殊参考文献样式的自定义类型，标准样式中不使用。
 
 \end{typelist}
 
 \subsubsection{类型别名}
 \label{bib:typ:als}
 
-本节中列出的类型用于向下兼容传统的类型。这些别名由后端在数据处理时一并处理，样式中仅能见到这些别名所指代的类型，而一种未知的类型一般输出为\bibtype{misc}条目。
+%The entry types listed in this section are provided for backwards compatibility with traditional \bibtex styles. These aliases are resolved by the backend as the data is processed. Bibliography styles will see the entry type the alias points to, not the alias name. All unknown entry types are generally exported as \bibtype{misc}.
 
+本节中列出的条目类型用于向后兼容传统的 \BibTeX 样式。
+这些别名由后端在数据处理时一并处理，样式中仅能见到这些别名所指代的类型，而不是别名本身。
+所有未知的条目类型一般输出为 \bibtype{misc} 条目。
 
 \begin{typelist}
 
-\typeitem{conference} \bibtex 遗留的\bibtype{inproceedings}的别名。
+\typeitem{techreport}
 
-\typeitem{electronic} \bibtype{online}的别名。
-
-\typeitem{mastersthesis} 类似于\bibtype{thesis}除了\bibfield{type}域是可选的，默认为<Master's thesis> 。可使用\bibfield{type}域重定义。
-
-\typeitem{phdthesis}  类似于\bibtype{thesis}除了\bibfield{type}域是可选的，默认为<PhD thesis>。可使用\bibfield{type}域重定义。
-
-\typeitem{techreport}  类似于\bibtype{report}除了\bibfield{type}域是可选的，默认为<technical report>。可使用\bibfield{type}域重定义。
+\typeitem{www}
 
 
-\typeitem{www} \bibtype{online}的别名，用于兼容\sty{jurabib}。
+
+\typeitem{conference} %A \bibtex legacy alias for \bibtype{inproceedings}.
+\BibTeX 遗留的 \bibtype{inproceedings} 的别名。
+
+\typeitem{electronic} %An alias for \bibtype{online}
+\bibtype{online}的别名。
+
+\typeitem{mastersthesis} %Similar to \bibtype{thesis} except that the \bibfield{type} field is optional and defaults to the localised term <Master's thesis>. You may still use the \bibfield{type} field to override that.
+类似于 \bibtype{thesis} 不过 \bibfield{type} 域是可选的，默认为<Master's thesis> 。
+可使用 \bibfield{type} 域重定义。
+
+\typeitem{phdthesis} %Similar to \bibtype{thesis} except that the \bibfield{type} field is optional and defaults to the localised term <PhD thesis>. You may still use the \bibfield{type} field to override that.
+类似于 \bibtype{thesis} 不过 \bibfield{type} 域是可选的，默认为<PhD thesis> 。
+可使用 \bibfield{type} 域重定义。
+
+\typeitem{techreport} % Similar to \bibtype{report} except that the \bibfield{type} field is optional and defaults to the localised term <technical report>. You may still use the \bibfield{type} field to override that.
+类似于\bibtype{report} 不过 \bibfield{type} 域是可选的，默认为 <technical report>。
+可使用 \bibfield{type} 域重定义。
+
+\typeitem{www} % An alias for \bibtype{online}, provided for \sty{jurabib} compatibility.
+\bibtype{online} 的别名，用于兼容 \sty{jurabib} 宏包。
 
 \end{typelist}
 
 \subsubsection{不支持的条目类型}
 \label{bib:typ:ctm}
 
-本节中的条目类型类似于自定义类型，标准样式不支持这些类型，若使用标准样式，他们将会以\bibtype{misc}条目类处理。
+%The types in this section are similar to the custom types \bibtype{custom[a--f]}, \ie the standard bibliography styles provide no support for these types. When using the standard styles, they will be treated as \bibtype{misc} entries.
+
+本节中的条目类型类似于自定义类型 \bibtype{custom[a--f]}。
+即，标准样式不支持这些类型，若使用标准样式，将会以 \bibtype{misc} 条目类处理。
 
 \begin{typelist}
 
 \typeitem{artwork}
-
-可视艺术作品，如绘画，雕像，装饰。
+%Works of the visual arts such as paintings, sculpture, and installations.
+视觉艺术作品，例如绘画、雕塑和装饰艺术。
 
 \typeitem{audio}
-
-声音记录，典型如：有声CD，dvd，有声磁带或类似媒介，也可参考\bibtype{music}。
+%Audio recordings, typically on audio \acr{CD}, \acr{DVD}, audio cassette, or similar media. See also \bibtype{music}.
+录音品，典型的有音频 \acr{CD}、\acr{DVD}、录音磁带或类似媒介。
+参考 \bibtype{music} 类型。
 
 \typeitem{bibnote}
-
-该类条目不象其它类型用于\file{bib}文件中，它用于第三方宏包比如\sty{notes2bib}。注赢放在\bibfield{note}域中。要注意：\bibtype{bibnote}类型与命令\cmd{defbibnote} 没有任何关系。\cmd{defbibnote}命令用于在参考文献开头或结尾添加评注，而\bibtype{bibnote} 作为条目应用于提供尾注的宏包。
+%This special entry type is not meant to be used in the \file{bib} file like other types. It is provided for third-party packages like \sty{notes2bib} which merge notes into the bibliography. The notes should go into the \bibfield{note} field. Be advised that the \bibtype{bibnote} type is not related to the \cmd{defbibnote} command in any way. \cmd{defbibnote} is for adding comments at the beginning or the end of the bibliography, whereas the \bibtype{bibnote} type is meant for packages which render endnotes as bibliography entries.
+这一特殊条目类型并不像其它类型那样用于 \file{bib} 文件中。
+它主要提供给 \sty{notes2bib} 等第三方宏包，用于将注记并入文献中。
+注记应该在 \bibfield{note} 域中。
+请谨记，\bibtype{bibnote} 类型与 \cmd{defbibnote} 命令毫无关系。
+\cmd{defbibnote} 命令用来在参考文献的开始或末尾添加评论，
+而 \bibtype{bibnote} 类型是为那些提供尾注参考条目的宏包准备的。
 
 \typeitem{commentary}
-
-评注（集注），与普通书籍的差异在于它具有法律效力，如法律评注。
+%Commentaries which have a status different from regular books, such as legal commentaries.
+与常规书籍地位不同的评注，如司法评论等。
 
 \typeitem{image}
-
-照片，图片类媒介。
+%Images, pictures, photographs, and similar media.
+图像、图画、摄影和类似媒介。
 
 \typeitem{jurisdiction}
-
-法院记录，如判决和类似文书。
+%Court decisions, court recordings, and similar things.
+法庭判决、法庭记录和类似物。
 
 \typeitem{legislation}
-
-法律，提案，立法建议或类似东西。
+%Laws, bills, legislative proposals, and similar things.
+法律、法案、立法提案和类似物。
 
 \typeitem{legal}
-
-如条约等法律文书。
+%Legal documents such as treaties.
+协议等的法律文书。
 
 \typeitem{letter}
-
-个人通信，如信，电邮，备忘等。
+%Personal correspondence such as letters, emails, memoranda, etc.
+私人通信，例如信件、电子邮件、备忘录等。
 
 \typeitem{movie}
-
-电影。也可参见\bibtype{video}。
+%Motion pictures. See also \bibtype{video}.
+动画。参考 \bibtype{video} 类型。
 
 \typeitem{music}
-
-音乐记录，\bibtype{audio}的一种具体形式。
+%Musical recordings. This is a more specific variant of \bibtype{audio}.
+音乐刻录，\bibtype{audio} 的一种具体变种形式。
 
 \typeitem{performance}
-
-音乐或戏剧表演和其它一些表演艺术工作。这一条目类型指的是表演的事件，而不是记录，打分或剧本。
+%Musical and theatrical performances as well as other works of the performing arts. This type refers to the event as opposed to a recording, a score, or a printed play.
+音乐或戏剧表演和其它一些表演艺术作品。
+这一条目类型指的是表演的事件，而不是录制，评论或付印的剧本。
 
 \typeitem{review}
-
-工作回顾，是\bibtype{article} 的更具体形式。标准样式中以\bibtype{article}处理。
+%Reviews of some other work. This is a more specific variant of the \bibtype{article} type. The standard styles will treat this entry type as an alias for \bibtype{article}.
+一些其它工作的回顾总结。
+这是 \bibtype{article} 类型的一个具体变种。
+标准样式将其视为 \bibtype{article} 的一个别称。
 
 \typeitem{software}
-
+%Computer software.
 电脑软件。
 
 \typeitem{standard}
-
-国内和国际标准，由国内和国际的标准组织（ 如国际标准组织）发布。
-
+%National and international standards issued by a standards body such as the International Organization for Standardization.
+由一个标准组织（例如国际标准组织）发布的国家或国际标准。
 
 \typeitem{video}
-
-音视频，典型如：dvd，VHS等媒介，可参见\bibtype{movie}。
+%Audiovisual recordings, typically on \acr{DVD}, \acr{VHS} cassette, or similar media. See also \bibtype{movie}.
+视听记录，典型的包括 \acr{DVD}、\acr{VHS} 录像带或其它类似媒介。
+参考 \bibtype{movie} 类型。
 
 \end{typelist}
 
@@ -1625,7 +1779,7 @@ hash\_size     &              & 5000  & 10000  & 19000  & 35000 \\
 %Sorry---you've exceeded BibTeX's total number of fields 17250
 %\end{lstlisting}
 %
-%\Tabref{bib:cav:tab2} gives an overview of the various capacity parameters of \file{bibtex8} and the command"=line switches used to increase their default values. There are two ways to increase the capacity on the command"=line. You may use a high"=level switch like |--huge| to select a different set of defaults or low"=level switches such as |--mfields| to modify a single parameter. The first thing you should always do is run \file{bibtex8} with the |--wolfgang| switch. Don't even bother trying anything else. With a very large database, however, even that capacity may be too small. In this case, you need to resort to the low"=level switches. Here is an example of a set of switches which should cope with a \file{bib} file containing about 1000 entries:
+%\Tabref{bib:cav:tab2} gives an overview of the various capacity parameters of \file{bibtex8} and the command"=line switches used to increase their default values. There are two ways to increase the capacity on the command"=line. You may use a high"=level switch like |--huge| to select a different set of defaults or low"=level switches such as |--mfields| to modify a single parameter. The first thing you should always do is run \file{bibtex8} with the |--wolfgang| switch. Don't even bother trying anything else. With a very large database, however, even that capacity may be too small. In this case, you need to resort to the low"=level switches. Here is an example of a set of switches which should cope with a \file{bib} file containing about 1000 entries:
 
 %\begin{lstlisting}[style=plain]{}
 %bibtex8 --wolfgang --mcites 30000 --mentints 30000 --mentstrs 40000
