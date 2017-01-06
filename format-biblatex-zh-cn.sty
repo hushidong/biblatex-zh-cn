@@ -5,7 +5,7 @@
 
 \RequirePackage{etoolbox}
 \RequirePackage{ltxdockit}
-
+\RequirePackage{hologo}
 % set Chinese formats
 \RequirePackage[UTF8, scheme=chinese, heading=false]{ctex}
 \RequirePackage{indentfirst}
@@ -86,5 +86,9 @@
 }
 % alias
 \let\kaiti\kaishu
+\def\BibTeX{\hologo{BibTeX}\xspace}
+\def\eTeX{\hologo{eTeX}\xspace}
+\def\XeTeX{\hologo{XeTeX}\xspace}
+\def\LuaTeX{\hologo{LuaTeX}\xspace}
 
 \endinput
