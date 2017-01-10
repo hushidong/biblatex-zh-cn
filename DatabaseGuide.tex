@@ -1,3 +1,4 @@
+% !TeX encoding = UTF-8
 % DatabaseGuide.tex
 
 \section{数据库指南}
@@ -28,15 +29,15 @@
 
 下面的列表说明了每种条目类型支持的域。
 注意，每种条目类型的域的使用是由参考文献样式决定的。
-因此，下面的列表有两个目的，一是，说明有本包提供的标准样式支持的域，二是，作为定制样式的模板。
-注意，所谓“必选”域并不是在所有情况下都严格必不可少的，详见\secref{bib:use:key} 节。
+因此，下面的列表有两个目的，一是说明有本包提供的标准样式支持的域，二是作为定制样式的模板。
+注意，所谓“必选”域并不是在所有情况下都严格必不可少的，详见 \secref{bib:use:key} 节。
 而标记“可选”的域技术上是可选的。
 通常来说，文献格式规则往往不仅需要“必选”域。
 默认的数据模型为一些数据域、ISBN 和 \bibfield{gender} 等特殊域定义了一些约束。
 但这些约束仅用于校验这些域是否合乎数据模型（通过 \biber 的 \path{--validate_datamodel} 选项）。
-通用域如\bibfield{abstract}， \bibfield{annotation}，\bibfield{label} 和 \bibfield{shorthand} 并不在下面的列表中，因为它们独立于条目类型；
+通用域如 \bibfield{abstract}、\bibfield{annotation}、\bibfield{label} 和 \bibfield{shorthand} 并不在下面的列表中，因为它们独立于条目类型；
 \secref{bib:fld:spc}节讨论的特殊域同样也独立于条目类型，因此也不在下面的列表中。
-默认的支持类型见文件\file{blx-dm.def}，内有\biblatex 数据模型的完整规范。
+默认的支持类型见文件 \file{blx-dm.def}，内有 \biblatex 数据模型的完整规范。
 
 
 \begin{typelist}
@@ -80,7 +81,7 @@
 %A part of a book which forms a self"=contained unit with its own title. Note that the profile of this entry type is different from standard \bibtex, see \secref{bib:use:inb}.
 
 书的一部分。它是一个独立的单元，有自己的标题。
-注意，该类型的定义不同于标准 \bibtex 给出的定义，见 \secref{bib:use:inb} 节。
+注意，该类型的定义不同于标准 \BibTeX 给出的定义，见 \secref{bib:use:inb} 节。
 
 \reqitem{author, title, booktitle, year/date}
 \optitem{bookauthor, editor, editora, editorb, editorc, translator, annotator, commentator, introduction, foreword, afterword, subtitle, titleaddon, maintitle, mainsubtitle, maintitleaddon, booksubtitle, booktitleaddon, language, origlanguage, volume, part, edition, volumes, series, number, note, publisher, location, isbn, chapter, pages, addendum, pubstate, doi, eprint, eprintclass, eprinttype, url, urldate}
@@ -99,7 +100,7 @@
 \bibtype{book} （书）的补充材料，与 \bibtype{inbook} 条目类型很相近。
 \bibtype{inbook} 用于一本书中自己带有标题的部分，例如一本散文集中同一作者的单独一篇散文；
 而本条目用于诸如序言、导论、前言、后记等部分，通常只有一般性的标题。
-一些样式指南需要定制该类型的格式区别于\bibtype{inbook}。
+一些样式指南需要定制该类型的格式区别于 \bibtype{inbook}。
 不过标准样式则认为它是 \bibtype{inbook} 的别名。
 
 \typeitem{booklet}
@@ -237,7 +238,7 @@
 
 %A multi"=volume \bibtype{proceedings} entry. For backwards compatibility, multi"=volume proceedings are also supported by the entry type \bibtype{proceedings}. However, it is advisable to make use of the dedicated entry type \bibtype{mvproceedings}
 
-多卷\bibtype{proceedings}条目，类似于 \bibtype{mvbook} 之于 \bibtype{book}。
+多卷 \bibtype{proceedings} 条目，类似于 \bibtype{mvbook} 之于 \bibtype{book}。
 
 \reqitem{title, year/date}
 \optitem{editor, subtitle, titleaddon, eventtitle, eventtitleaddon, eventdate, venue, language, volumes, series, number, note, organization, publisher, location, month, isbn, pagetotal, addendum, pubstate, doi, eprint, eprintclass, eprinttype, url, urldate}
@@ -337,12 +338,6 @@
 所有未知的条目类型一般输出为 \bibtype{misc} 条目。
 
 \begin{typelist}
-
-\typeitem{techreport}
-
-\typeitem{www}
-
-
 
 \typeitem{conference} %A \bibtex legacy alias for \bibtype{inproceedings}.
 \BibTeX 遗留的 \bibtype{inproceedings} 的别名。
@@ -458,79 +453,169 @@
 
 %This section gives an overview of the fields supported by the \biblatex default data model. See \secref{bib:fld:typ} for an introduction to the data types used by the data model specification and \secref{bib:fld:dat, bib:fld:spc} for the actual field listings.
 
-本节给出了biblatex默认数据模型支持域的概览，数据模型使用的数据类的介绍参考\secref{bib:fld:typ}小节，实际的域的列表见\secref{bib:fld:dat, bib:fld:spc}小节。
+本节概述 \biblatex 默认数据模型支持的域。
+数据模型使用的数据类型的介绍请参考\secref{bib:fld:typ} 小节，
+实际的域列表见\secref{bib:fld:dat, bib:fld:spc} 小节。
 
 \subsubsection{数据类型 Data Types}
 \label{bib:fld:typ}
 
 %In datasources such as a \file{bib} file, all bibliographic data is specified in fields. Some of those fields, for example \bibfield{author} and \bibfield{editor}, may contain a list of items. This list structure is implemented by the \bibtex file format via the keyword <|and|>, which is used to separate the individual items in the list. The \biblatex package implements three distinct data types to handle bibliographic data: name lists, literal lists, and fields. There are also several list and field subtypes and a content type which can be used to semantically distinguish fields which are otherwise not distinguishable on the basis of only their datatype (see \secref{aut:ctm:dm}). This section gives an overview of the data types supported by this package. See \secref{bib:fld:dat, bib:fld:spc} for information about the mapping of the \bibtex file format fields to \biblatex's data types.
 
-在数据源文件如一个\file{bib}文件中，所有的参考文献数据都是以域的形式给出的。其中一些域，比如 \bibfield{author} 和\bibfield{editor}可能包含一些项的列表(LIST)。这种列表结构由\bibtex 文件格式通过关键词<|and|>实现，该关键词用例分隔列表中的各个独立项。\biblatex 包实现了三种不同的数据类型用于处理参考文献数据:姓名列表( name lists)，逐字列表(literal lists), 和域 (fields)。同时也有几种列表的域的子类和一个内容类(content)，可以用来从语义上区分那些无法从它们的数据类进行区分的域（见\secref{aut:ctm:dm}）。本节给出包所支持的数据类的概览。更多的关于\bibtex 文件格式域到\biblatex 数据类型的映射信息参考 \secref{bib:fld:dat, bib:fld:spc} 小节。
+在 \file{bib} 文件等数据源中，所有的文献数据都在域中指定。
+其中一些域，例如 \bibfield{author} 和 \bibfield{editor}，可以包括一个项目列表。
+在 \BibTeX 文件格式中，这种列表结构通过关键词 “|and|” 来分隔列表中的每一项。
+\biblatex 宏包实现了三种不同的数据类型来处理文献数据：
+姓名列表（name list）、文本列表（literal list）和域（field）。
+此外，列表和域中还有一些子类型，以及一个内容类型（content type）用于从语义上区分那些无法根据数据类型进行区分的域（见 \secref{aut:ctm:dm} 节）。
+这一节大致概括了本宏包所支持的数据类型。
+关于 \BibTeX 文件格式域到 \biblatex 的数据类型的对应，请参考 \secref{bib:fld:dat, bib:fld:spc} 等节。
 
 \begin{description}
 
-\item[Name lists] %are parsed and split up into the individual items at the \texttt{and} delimiter. Each item in the list is then dissected into four name components: the first name, the name prefix (von, van, of, da, de, della, \dots), the last name, and the name suffix (junior, senior, \dots). Name lists may be truncated in the \file{bib} file with the keyword <\texttt{and others}>. Typical examples of name lists are \bibfield{author} and \bibfield{editor}.
-姓名列表:能根据\texttt{and}间隔符将其解析并分成独立的项。列表中的每一项进一步剖析为4个名称的组成部分，the first name （西方人名的第一个字，对于中文来说，名字无需划分，如果是拼音的话，是可以对应的划分的），the name prefix （姓名前缀比如von, van, of, da, de, della, \dots），the last name（姓），the name suffix（名字后缀，比如junior, senior, \dots）。姓名列表在bib文件中可能会用关键词<\texttt{and others}>截断。典型的姓名列表是\bibfield{author}和\bibfield{editor}。（译者注:在些bib文件中参考文献数据的时候，当有些机构的名称中含有空格的情况下，最好将整个机构用\{\}包含起来。）
+%\item[Name lists] are parsed and split up into the individual items at the \texttt{and} delimiter. Each item in the list is then dissected into the name part components: by default the given name, the name prefix (von, van, of, da, de, della, \dots), the family name, and the name suffix (junior, senior, \dots). The valid name parts can be customised by changing the datamodel definition described in \secref{aut:bbx:drv}. Name lists may be truncated in the \file{bib} file with the keyword <\texttt{and others}>. Typical examples of name lists are \bibfield{author} and \bibfield{editor}.
 
+\item[姓名列表（name list）] 根据分隔词 \texttt{and} 将其解析并划分成独立的项目。
+然后列表中的每一项进一步分成四个姓名成分：\footnote{
+	这是针对西方人名的划分。对于中文来说，姓名无需划分。
+	当然中文名的拼音可以进行对应的划分。——译注}
+名（given name，默认值）、姓名前缀（name prefix, 如 von、van、of、da、de、della 等）、姓（family name），以及姓名后缀（name suffix, 如 junior、senior 等）。
+可以通过调整数据模型的定义来定制有效的姓名成分，见 \secref{aut:bbx:drv} 节。
+在 \file{bib} 文件中，姓名列表可以用关键词“\texttt{and others}”来截断。
+典型的姓名列表是 \bibfield{author} 和 \bibfield{editor}。
+%（译者注:在些bib文件中参考文献数据的时候，当有些机构的名称中含有空格的情况下，最好将整个机构用\{\}包含起来。）
 
-%\BiberOnlyMark With \biber, name list fields automatically have an \cmd{ifuse*} test created as per the name lists in the default data model (see \secref{aut:aux:tst}). They are also automatically have a \opt{ifuse*} option created which controls labelling and sorting behaviour with the name (see \secref{use:opt:bib:hyb}).
+%Name list fields automatically have an \cmd{ifuse*} test created as per the name lists in the default data model (see \secref{aut:aux:tst}). They are also automatically have a \opt{ifuse*} option created which controls labelling and sorting behaviour with the name (see \secref{use:opt:bib:hyb}). \biber supports a customisable set of name parts but currently this is defined to be the same set of parts as supported by traditional \bibtex:
 
-\BiberOnlyMark 利用\biber，在默认的数据模型中姓名列表自动进行一个\cmd{ifuse*}测试（见\secref{aut:aux:tst}）。同时也自动创建了一个\opt{ifuse*}选项用例控制姓名的标记和排序行为（见\secref{use:opt:bib:hyb}）。
+在默认的数据模型中，姓名列表域会为每一个姓名列表自动创建相应的 \cmd{ifuse*} 测试（见 \secref{aut:aux:tst} 节）。
+同时也自动创建了一个 \opt{ifuse*} 选项用以控制姓名的标记和排序行为（见 \secref{use:opt:bib:hyb} 节）。
+\biber 支持定制姓名成分组合，
+不过目前的定义与传统 \BibTeX 支持的姓名成分相同：
 
-\item[Literal lists] %are parsed and split up into the individual items at the \texttt{and} delimiter but not dissected further. Literal lists may be truncated in the \file{bib} file with the keyword <\texttt{and others}>. There are two subtypes:
-逐字列表可以进行类似的解析并划分成独立的项，但各项不再进一步的剖析。逐字列表也类似地被截断。它有两个子类:
+\begin{itemize}
+	\item 姓（family name，即<last>部分）%Family name (also known as <last> part)
+	\item 名（given name，即<first>部分） %Given name (also known as <first> part)
+	\item 前缀（name prefix，即<von>部分）%Name prefix (also known as <von> part)
+	\item 后缀（name suffix，即<Jr>部分）%Name suffix (also known as <Jr> part)
+\end{itemize}
+
+%The supported list of name parts is defined as a constant list in the default data model using the \cmd{DeclareDatamodelConstant} command (see \ref{aut:ctm:dm}). However, it is not enough to simply add to this list in order to add support for another name part as name parts typically have to be hard coded into bibliography drivers and the backend processing. See the example file \file{93-nameparts.tex} for details on how to define and use custom name parts. Also see \cmd{DeclareUniquenameTemplate} in \secref{aut:cav:amb} for information on how to customise name disambiguation using custom name parts.
+
+默认数据模型使用 \cmd{DeclareDatamodelConstant} 命令（见 \ref{aut:ctm:dm} 节）将支持的姓名成分定义成一个恒定列表。
+然而，由于姓名成分通常需要硬编码到文献驱动程序和后端处理程序中，
+因此，如果想支持额外的姓名成分，将其简单地添加到姓名成分列表中是远远不够的。
+关于如何定义和使用定制姓名成分的细节，可以参考示例文件 \file{93-nameparts.tex}。
+关于如何使用定制姓名成分来消除姓名歧义的信息，参见 \secref{aut:cav:amb} 节中的 \cmd{DeclareUniquenameTemplate} 命令。
+
+%\item[Literal lists] are parsed and split up into the individual items at the \texttt{and} delimiter but not dissected further. Literal lists may be truncated in the \file{bib} file with the keyword <\texttt{and others}>. There are two subtypes:
+\item[文本列表（literal list）] 由分隔词 \texttt{and} 划分成独立的项目，但各项不再进一步细分。
+在 \file{bib} 文件中，文本列表可以用关键词“\texttt{and others}”来截断。
+其中又有两个子类型：
 
 \begin{description}
 
-\item[Literal lists] %in the strict sense are handled as described above. The individual items are simply printed as is. Typical examples of such literal lists are \bibfield{publisher} and \bibfield{location}.
-严格的按照上面的描述处理。各独立项简单如实打印。典型的逐字列表是\bibfield{publisher}和 \bibfield{location}。
+%\item[Literal lists] in the strict sense are handled as described above. The individual items are simply printed as is. Typical examples of such literal lists are \bibfield{publisher} and \bibfield{location}.
+\item[（狭义的）文本列表（literal lists in the strict sense）] 按照如上所述进行处理。
+各独立的项目就简单如实打印。
+典型的文本列表是 \bibfield{publisher} 和 \bibfield{location}。
 
-\item[Key lists] %are a variant of literal lists which may hold printable data or localization keys. For each item in the list, a test is performed to determine whether it is a known localization key (the localization keys defined by default are listed in \secref{aut:lng:key}). If so, the localized string is printed. If not, the item is printed as is. A typical example of a key list is \bibfield{language}.
-关键词列表是逐字列表的变种，可以处理可打印的数据和本地化的关键词。对于列表中的每一项，首先执行测试它是否是已知的本地化关键词（本地化关键词默认定义在\secref{aut:lng:key}中）。如果是，那么打印本地化的字符串，否则如实打印。典型的关键词列表是\bibfield{language}。
+%\item[Key lists] are a variant of literal lists which may hold printable data or localization keys. For each item in the list, a test is performed to determine whether it is a known localization key (the localization keys defined by default are listed in \secref{aut:lng:key}). If so, the localized string is printed. If not, the item is printed as is. A typical example of a key list is \bibfield{language}.
+\item[关键字列表（key list）]  是文本列表的变种，可以包括可打印的数据和本地化的关键字。
+对于列表中每一项，首先测试它是否是已知的本地化关键字
+（本地化关键字的默认定义在 \secref{aut:lng:key} 节中）。
+如果是，那么打印本地化的字符串；否则这些项就按本身打印出来。
+典型的关键字列表是 \bibfield{language}。
 
 \end{description}
 \end{description}
 
 \begin{description}
 
-\item[Fields] %are usually printed as a whole. There are several subtypes:
-域是以整体打印的，有多种子类:
+%\item[Fields] are usually printed as a whole. There are several subtypes:
+\item[域（field）] 通常以整体打印。有如下多种子类型：
 
 \begin{description}
 
-\item[Literal fields] %are printed as is. Typical examples of literal fields are \bibfield{title} and \bibfield{note}.
-逐字域，如实打印。典型的逐字域是\bibfield{title}和\bibfield{note}。
+%\item[Literal fields] are printed as is. Typical examples of literal fields are \bibfield{title} and \bibfield{note}.
+\item[文本域（literal field）]  会如实打印。
+典型的文本域是 \bibfield{title} 和 \bibfield{note}。
 
-\item[Range fields] %consist of one or more ranges where all dashes are normalized and replaced by the command \cmd{bibrangedash}. A range is something optionally followed by one or more dashes optionally followed by some non-dash (e.g. \texttt{5--7}). Any number of consecutive dashes will only yield a single range dash. A typical example of a range field is the \bibfield{pages} field. See also the \BiberOnlyMark\cmd{bibrangessep} command which can be used to customise the separator between multiple ranges. With \biber, range fields will be skipped and will generate a warning if they do not consist of one or more ranges. You can normalise messy range fields before they are parsed using \cmd{DeclareSourcemap} (see \secref{aut:ctm:map}).
-范围域，包括一个或更多的范围，其中所有的短划线都规范化用命令\cmd{bibrangedash}代替。一个范围是非短划线紧跟一个或多个短划线再跟上非短划线构成（比如\texttt{5--7}）。任何有连续短划线的数字都将产生单个的范围短划线。典型的范围域是 \bibfield{pages}域。\BiberOnlyMark\cmd{bibrangessep}命令可以自定义多个范围之间的分隔符。利用biber，范围域将跳过并产生一个警告信息当它不是由一个或多个范围组成。可以用使用\cmd{DeclareSourcemap}命令在其被解析之前对其进行规范化（见 \secref{aut:ctm:map}）。
+%\item[Range fields] consist of one or more ranges where all dashes are normalized and replaced by the command \cmd{bibrangedash}. A range is something optionally followed by one or more dashes optionally followed by some non-dash (e.g. \texttt{5--7}). Any number of consecutive dashes will only yield a single range dash. A typical example of a range field is the \bibfield{pages} field. See also the \cmd{bibrangessep} command which can be used to customise the separator between multiple ranges. Range fields will be skipped and will generate a warning if they do not consist of one or more ranges. You can normalise messy range fields before they are parsed using \cmd{DeclareSourcemap} (see \secref{aut:ctm:map}).
 
-\item[Integer fields] %hold unformatted integers which may be converted to ordinals or strings as they are printed. A typical example is the \bibfield{extrayear} field.
-整数域，处理非格式化的整数，这些整数可以转化为序数或者字符串。典型的域有:\bibfield{extrayear}。
+\item[范围域（range field）] 包含了一个或更多范围，其中所有的短划线都规范化用 \cmd{bibrangedash} 命令取代。
+一个范围指的是一个非短划线部分后紧跟一个或多个短划线再紧跟一个非短划线部分（比如 \texttt{5--7}）。
+任意数目的连续短划线都只会产生一个表示范围的横线。
+典型的范围域是 \bibfield{pages} 域。
+也可以参考 \cmd{bibrangessep} 命令，它用于定制多重范围间的分隔符。
+如果不包括范围，那么范围域将被忽略并生成警告信息。
+可以使用 \cmd{DeclareSourcemap} 命令在解析范围域之前对其进行整理（见 \secref{aut:ctm:map} 节）。
 
-\item[Datepart fields] %hold unformatted integers which may be converted to ordinals or strings as they are printed. A typical example is the \bibfield{month} field.
-部分日期域，处理非格式化的整数，这些整数可以转化为序数或者字符串。典型的域有:\bibfield{month}。
+%\item[Integer fields] hold integers which may be converted to ordinals or strings as they are printed. A typical example is the \bibfield{extrayear} or \bibfield{volume} field. Such fields are sorted as integers. \biber makes a (quite serious) effort to map non-arabic representations (roman numerals for example) to integers for sorting purposes. 
 
-\item[Date fields] %hold a date specification in \texttt{yyyy-mm-dd} format or a date range in \texttt{yyyy-mm-dd/yyyy-mm-dd} format. Date fields are special in that the date is parsed and split up into its components. See \secref{bib:use:dat} for details. A typical example is the \bibfield{date} field.
-日期域，处理一个以\texttt{yyyy-mm-dd}格式规定的日期或者一个以\texttt{yyyy-mm-dd/yyyy-mm-dd} 格式规定的日期范围。日期域需要特别的解析并分成不同的部分。更多细节见 \secref{bib:use:dat} 。典型的域有:
-\bibfield{date}。
+\item[整数域（integer field）] 包含的整数当打印时会转化为序数或者字符串。
+典型的例子是 \bibfield{extrayear} 和 \bibfield{volume} 域。
+这些域会按照数字进行排序。
+出于排序的目的，\biber 会尝试将非阿拉伯数字的表示（例如罗马数字）转成相应的整数。
 
-\item[Verbatim fields] %are processed in verbatim mode and may contain special characters. Typical examples of verbatim fields are \bibfield{file} and \bibfield{doi}.
-字面（逐字）域，以verbatim模式处理可能包含特殊的字符，典型的字面（逐字）域有:\bibfield{file}和 \bibfield{doi}。
+%\item[Datepart fields] hold unformatted integers which may be converted to ordinals or strings as they are printed. A typical example is the \bibfield{month} field. For every field X of datatype \bibfield{date} in the datamodel, datepart fields are automatically created with the following names: \bibfield{$<$datetype$>$year}, \bibfield{$<$datetype$>$endyear}, \bibfield{$<$datetype$>$month}, \bibfield{$<$datetype$>$endmonth}, \bibfield{$<$datetype$>$day}, \bibfield{$<$datetype$>$endday}, \bibfield{$<$datetype$>$hour}, \bibfield{$<$datetype$>$endhour}, \bibfield{$<$datetype$>$minute}, \bibfield{$<$datetype$>$endminute}, \bibfield{$<$datetype$>$second}, \bibfield{$<$datetype$>$endsecond}, \bibfield{$<$datetype$>$timezone}, \bibfield{$<$datetype$>$endtimezone}. $<$datetype$>$ is the string preceding <date> for any datamodel field of \kvopt{datatype}{date}. For example, in the default datamodel, <event>, <orig>, <url> and the empty string <> for the date field \bibfield{date}.
 
-\item[URI fields] %are processed in verbatim mode and may contain special characters. They are also URL-escaped if they don't look like they already are. The typical example of a uri field is \bibfield{url}.
-url域以verbatim模式处理，可能包含特殊的字符。如果它们看起来不像其实质，也可以例外处理。典型域是 \bibfield{url}.
+\item[日期部分域（datepart field）] 处理未格式化的整数，当打印时会转化为序数或者字符串。
+典型的例子是 \bibfield{month} 域。
+在数据模型中，对于每一个数据类型为 \bibfield{date} 的域X，
+会自动创建带有如下名称的日期部分域：
+\begin{flushleft}
+\bibfield{\prm{datetype}year}, \bibfield{\prm{datetype}endyear}, \bibfield{\prm{datetype}month}, \bibfield{\prm{datetype}endmonth}, \bibfield{\prm{datetype}day}, \bibfield{\prm{datetype}endday}, \bibfield{\prm{datetype}hour}, \bibfield{\prm{datetype}endhour}, \bibfield{\prm{datetype}minute}, \bibfield{\prm{datetype}endminute}, \bibfield{\prm{datetype}second}, \bibfield{\prm{datetype}endsecond}, \bibfield{\prm{datetype}timezone}, \bibfield{\prm{datetype}endtimezone}
+\end{flushleft}
+其中，对于任何 \kvopt{datatype}{date} 的数据模型域，\prm{datetype} 是在 <date> 之前的字符串。
+例如，在默认数据模型中，日期域 \bibfield{date} 对应的是<event>, <orig>, <url> 和空字符串 <>。
 
-\item[Separated value fields] %A separated list of literal values. Examples are the \bibfield{keywords} and \bibfield{options} fields. The separator is always a comma when using \bibtex as the backend but can be configured to be any Perl regular expression when using \biber via the \opt{xsvsep} option which defaults to the usual \bibtex comma surrounded by optional whitespace.
-分离值域，字母值的分离列表。典型的域是\bibfield{keywords}和\bibfield{options}。使用\bibtex 后端时时分隔符总是逗号，但可以使用\opt{xsvsep}选项重设为任何的PERL正则表达式，当使用biber后端时，当然默认情况下也是逗号或者逗号加空格。
+%\item[Date fields] hold a date specification in \texttt{yyyy-mm-ddThh:nn[+|-][hh[:nn]|Z]} format or a date range in \texttt{yyyy-mm-ddThh:nn[+|-][hh[:nn]|Z]/yyyy-mm-ddThh:nn[+|-][hh[:nn]|Z]} format and other formats permitted by EDTF level 1, see \secref{bib:use:dat}. Date fields are special in that the date is parsed and split up into its datepart type components. The \bibfield{datepart} components (see above) are automatically defined and recognised when a field of datatype \bibfield{date} is defined in the datamodel. A typical example is the \bibfield{date} field.
 
-\item[Pattern fields] %A literal field which must match a particular pattern. An example is the \bibfield{gender} field from \secref{bib:fld:spc}.
-型（pattern）域，是逐字域必须匹配特殊的pattern。典型的域是 \bibfield{gender} ，见\secref{bib:fld:spc}。
+\item[日期域（date field）] 处理形如 \texttt{yyyy-mm-ddThh:nn[+|-][hh[:nn]|Z]} 格式的日期，
+或者格式为 \texttt{yyyy-mm-ddThh:nn[+|-][hh[:nn]|Z]/yyyy-mm-ddThh:nn[+|-][hh[:nn]|Z]} 的日期范围，
+或者其它EDTF level 1允许的格式，见 \secref{bib:use:dat} 节。
+日期域的特殊之处在于，日期会被解析并分解成各个日期部分类型的成分。
+当数据模型中定义一个数据类型为 \bibfield{date} 的域时，
+会自动定义并识别相应的 \bibfield{datepart} 组件（见上文）。
+典型的例子是 \bibfield{date} 域。
 
-\item[Key fields] %May hold printable data or localization keys. A test is performed to determine whether the value of the field is a known localization key (the localization keys defined by default are listed in \secref{aut:lng:key}). If so, the localized string is printed. If not, the value is printed as is. A typical example is the \bibfield{type} field.
-关键词域，可以处理可打印数据或本地化关键词。类似于逐字列表中的关键词列表，这是这里是单个的域，而不是列表。
+%\item[Verbatim fields] are processed in verbatim mode and may contain special characters. Typical examples of verbatim fields are \bibfield{file} and \bibfield{doi}.
 
-\item[Code fields] %Holds \tex code.
-代码（code）域，处理代码。
+\item[抄录域（verbatim field）] 在抄录模式下处理，可以包含特殊字符。
+典型的抄录域是 \bibfield{file} 和 \bibfield{doi}。
+
+%\item[URI fields] are processed in verbatim mode and may contain special characters. They are also URL-escaped if they don't look like they already are. The typical example of a uri field is \bibfield{url}.
+\item[URI 域] 在抄录模式下处理，可以包含特殊字符。
+如果看起来不像其实质，也可以进行URL转义。
+（ They are also URL-escaped if they don't look like they already are. ）
+典型的例子是 \bibfield{url} 域。
+
+%\item[Separated value fields] A separated list of literal values. Examples are the \bibfield{keywords} and \bibfield{options} fields. The separator can be configured to be any Perl regular expression via the \opt{xsvsep} option which defaults to the usual \bibtex comma surrounded by optional whitespace.
+
+\item[分隔值域（separated value field）]  
+被分隔的文本值列表。
+例子是 \bibfield{keywords} 和 \bibfield{options} 域。
+通过 \opt{xsvsep} 选项可以将分隔符配置成任何Perl正则表达式，
+其默认值是通常 \BibTeX 中的（西文）逗号或者逗号加空格。
+
+%\item[Pattern fields] A literal field which must match a particular pattern. An example is the \bibfield{gender} field from \secref{bib:fld:spc}.
+
+\item[模式域（pattern field）] 是必须匹配某一特定模式的文本域。
+例子有 \secref{bib:fld:spc} 一节中的 \bibfield{gender} 域。
+
+
+
+%\item[Key fields] May hold printable data or localisation keys. A test is performed to determine whether the value of the field is a known localisation key (the localisation keys defined by default are listed in \secref{aut:lng:key}). If so, the localised string is printed. If not, the value is printed as is. A typical example is the \bibfield{type} field.
+
+%\item[Key fields] May hold printable data or localization keys. A test is performed to determine whether the value of the field is a known localization key (the localization keys defined by default are listed in \secref{aut:lng:key}). If so, the localized string is printed. If not, the value is printed as is. A typical example is the \bibfield{type} field.
+\item[关键字域（key field）] 可以处理可打印的数据或本地化的关键字。
+首先测试是否是已知的本地化关键字键值（本地化关键字的默认定义在 \secref{aut:lng:key} 一节中）。
+如果是，就打印本地化的字符串；否则，就按本身来打印。
+典型的例子是 \bibfield{type} 域。
+
+%\item[Code fields] Holds \tex code.
+
+\item[代码域（code field）] 处理 \TeX\ 代码。
 
 \end{description}
 \end{description}
@@ -540,206 +625,339 @@ url域以verbatim模式处理，可能包含特殊的字符。如果它们看起
 
 %The fields listed in this section are the regular ones holding printable data in the default data model. The name on the left is the default data model name of the field as used by \biblatex and its backend. The \biblatex data type is given to the right of the name. See \secref{bib:fld:typ} for explanation of the various data types.
 
-本节中列出的域是默认数据模型携带可打印数据的。左侧给出的名称是 \biblatex 及其后端中使用的域的默认数据模型名。而右侧给出的是它的数据类型。不同的数据类型的解释见\secref{bib:fld:typ} 。
+本节所列的域是在默认数据模型中处理可打印数据的常规域。
+左边的名称是域的默认数据模型名，会在 \biblatex 和后端使用。
+右边则是相应的 \biblatex 数据类型。
+不同数据类型的解释请参考 \secref{bib:fld:typ} 节。
 
-%\BiberOnlyMark Some fields are marked as <Label fields> which means that they are often used as abbreviation labels when printing bibliography lists in the sense of section \secref{use:bib:biblist}. \biblatex automatically creates supporting macros for such fields. See \secref{use:bib:biblist}.
+%Some fields are marked as <label> fields which means that they are often used as abbreviation labels when printing bibliography lists in the sense of section \secref{use:bib:biblist}. \biblatex automatically creates supporting macros for such fields. See \secref{use:bib:biblist}.
 
-\BiberOnlyMark 一些以 <Label fields>标记的域表示当以\secref{use:bib:biblist}节的方式打印参考文献列表时它们常用为简化标签。\biblatex 自动创建支持这些域的宏，详见 \secref{use:bib:biblist}。
+一些域标记为“label”域，
+这说明当打印文献列表时（在\secref{use:bib:biblist} 节的意义下）
+这些域通常用于标签缩写。
+\biblatex 会自动创建支持这些域的宏，详见 \secref{use:bib:biblist}。
 
 \begin{fieldlist}
 
-\fielditem{abstract}{literal}
+%\fielditem{abstract}{literal}
 
 %This field is intended for recording abstracts in a \file{bib} file, to be printed by a special bibliography style. It is not used by all standard bibliography styles.
 
-标准样式不使用
+\fielditem{abstract}{文本}
 
-\fielditem{addendum}{literal}
+该域用来记录 \file{bib} 文件中的摘要，在某些特别的文献样式会打印出来。
+但在所有的标准文献样式中都不会使用。
 
-Miscellaneous bibliographic data to be printed at the end of the entry. This is similar to the \bibfield{note} field except that it is printed at the end of the bibliography entry.
+%\fielditem{addendum}{literal}
 
-\listitem{afterword}{name}
+%Miscellaneous bibliographic data to be printed at the end of the entry. This is similar to the \bibfield{note} field except that it is printed at the end of the bibliography entry.
 
-The author(s) of an afterword to the work. If the author of the afterword is identical to the \bibfield{editor} and\slash or \bibfield{translator}, the standard styles will automatically concatenate these fields in the bibliography. See also \bibfield{introduction} and \bibfield{foreword}.
+\fielditem{addendum}{文本}
 
-后记的作者，当域编者或译者相同时，标准样式自动联接这些域。
+在条目末尾打印的杂项文献数据。
+它与 \bibfield{note} 域类似，而不同之处是在文献条目末尾打印。
 
-\fielditem{annotation}{literal}
+%\listitem{afterword}{name}
 
-This field may be useful when implementing a style for annotated bibliographies. It is not used by all standard bibliography styles. Note that this field is completely unrelated to \bibfield{annotator}. The \bibfield{annotator} is the author of annotations which are part of the work cited.
+%The author(s) of an afterword to the work. If the author of the afterword is identical to the \bibfield{editor} and\slash or \bibfield{translator}, the standard styles will automatically concatenate these fields in the bibliography. See also \bibfield{introduction} and \bibfield{foreword}.
 
-标准样式不使用
+\listitem{afterword}{姓名}
 
-\listitem{annotator}{name}
+后记的作者。如果与 \bibfield{editor} 或 \bibfield{translator} 相同，
+那么标准样式在参考文献中就会自动把这些域关联起来。
+参考 \bibfield{introduction} 域和 \bibfield{foreword} 域。
 
-The author(s) of annotations to the work. If the annotator is identical to the \bibfield{editor} and\slash or \bibfield{translator}, the standard styles will automatically concatenate these fields in the bibliography. See also \bibfield{commentator}.
+%\fielditem{annotation}{literal}
 
-注释的作者，当与编者和译者同时，标准样式自动联接。
+%This field may be useful when implementing a style for annotated bibliographies. It is not used by all standard bibliography styles. Note that this field is completely unrelated to \bibfield{annotator}. The \bibfield{annotator} is the author of annotations which are part of the work cited.
 
-\listitem{author}{name}
+\fielditem{annotation}{文本}
 
-The author(s) of the \bibfield{title}.
+该域在实现带注释的文献样式时很有用。
+所有的标准文献样式都不使用。
+请注意，该域与 \bibfield{annotator} 域毫无关系，后者是释文（被引用著作的一部分）的作者。
 
-作者，姓名类
+%\listitem{annotator}{name}
 
-\fielditem{authortype}{key}
+%The author(s) of annotations to the work. If the annotator is identical to the \bibfield{editor} and\slash or \bibfield{translator}, the standard styles will automatically concatenate these fields in the bibliography. See also \bibfield{commentator}.
 
-The type of author. This field will affect the string (if any) used to introduce the author. Not used by the standard bibliography styles.
+\listitem{annotator}{姓名}
 
-标准样式不用
+释文的作者。如果与 \bibfield{editor} 或 \bibfield{translator} 相同，
+那么标准样式在参考文献中就会自动把这些域关联起来。
+参考 \bibfield{commentator} 域。
 
-\listitem{bookauthor}{name}
+%\listitem{author}{name}
 
-The author(s) of the \bibfield{booktitle}.
+%The author(s) of the \bibfield{title}.
 
-书名作者，姓名类
+\listitem{author}{姓名}
 
-\fielditem{bookpagination}{key}
+\bibfield{title} 域的作者。
 
-If the work is published as part of another one, this is the pagination scheme of the enclosing work, \ie \bibfield{bookpagination} relates to \bibfield{pagination} like \bibfield{booktitle} to \bibfield{title}. The value of this field will affect the formatting of the \bibfield{pages} and \bibfield{pagetotal} fields. The key should be given in the singular form. Possible keys are \texttt{page}, \texttt{column}, \texttt{line}, \texttt{verse}, \texttt{section}, and \texttt{paragraph}. See also \bibfield{pagination} as well as \secref{bib:use:pag}.
+%\fielditem{authortype}{key}
 
-标记页数
+%The type of author. This field will affect the string (if any) used to introduce the author. Not used by the standard bibliography styles.
 
-\fielditem{booksubtitle}{literal}
+\fielditem{authortype}{关键字}
 
-The subtitle related to the \bibfield{booktitle}. If the \bibfield{subtitle} field refers to a work which is part of a larger publication, a possible subtitle of the main work is given in this field. See also \bibfield{subtitle}.
+作者的类型。
+该域会影响介绍作者的字符串。
+标准文献样式不使用。
 
-工作的子标题
+%\listitem{bookauthor}{name}
 
-\fielditem{booktitle}{literal}
+%The author(s) of the \bibfield{booktitle}.
 
-If the \bibfield{title} field indicates the title of a work which is part of a larger publication, the title of the main work is given in this field. See also \bibfield{title}.
+\listitem{bookauthor}{姓名}
 
-书的标题，当title用来表示该书所在的更大的出版物的标题时用
+\bibfield{booktitle} 域的作者。
 
-\fielditem{booktitleaddon}{literal}
+%\fielditem{bookpagination}{key}
 
-An annex to the \bibfield{booktitle}, to be printed in a different font.
+%If the work is published as part of another one, this is the pagination scheme of the enclosing work, \ie \bibfield{bookpagination} relates to \bibfield{pagination} like \bibfield{booktitle} to \bibfield{title}. The value of this field will affect the formatting of the \bibfield{pages} and \bibfield{pagetotal} fields. The key should be given in the singular form. Possible keys are \texttt{page}, \texttt{column}, \texttt{line}, \texttt{verse}, \texttt{section}, and \texttt{paragraph}. See also \bibfield{pagination} as well as \secref{bib:use:pag}.
 
-附加标题
+\fielditem{bookpagination}{关键字}
 
-\fielditem{chapter}{literal}
+如果该作品是另一件作品的一部分，该域就是被附作品的分页格式。
+也就是说，\bibfield{bookpagination} 相对于 \bibfield{pagination} 正如同 \bibfield{booktitle} 相对于 \bibfield{title}。
+该域的值会影响 \bibfield{pages} 和 \bibfield{pagetotal} 域的格式。
+关键字应当是简单的形式。可能的关键字包括 \texttt{page}、\texttt{column}、\texttt{line}、\texttt{verse}、\texttt{section} 和 \texttt{paragraph} 等。
+参考 \bibfield{pagination} 域以及 \secref{bib:use:pag} 节。
 
-A chapter or section or any other unit of a work.
+%\fielditem{booksubtitle}{literal}
 
-章节名
+%The subtitle related to the \bibfield{booktitle}. If the \bibfield{subtitle} field refers to a work which is part of a larger publication, a possible subtitle of the main work is given in this field. See also \bibfield{subtitle}.
 
-\listitem{commentator}{name}
+\fielditem{booksubtitle}{文本}
 
-The author(s) of a commentary to the work. Note that this field is intended for commented editions which have a commentator in addition to the author. If the work is a stand"=alone commentary, the commentator should be given in the \bibfield{author} field. If the commentator is identical to the \bibfield{editor} and\slash or \bibfield{translator}, the standard styles will automatically concatenate these fields in the bibliography. See also \bibfield{annotator}.
+\bibfield{booktitle} 的副标题。
+如果 \bibfield{subtitle} 域指的是一个更大出版物中的一部分作品的副标题，
+那么该域则给出了整个作品的副标题。
+参考 \bibfield{subtitle}。
 
-某工作的评论的作者，类似于\bibfield{annotator}。
+%\fielditem{booktitle}{literal}
 
-\fielditem{date}{date}
+%If the \bibfield{title} field indicates the title of a work which is part of a larger publication, the title of the main work is given in this field. See also \bibfield{title}.
 
-The publication date. See also \bibfield{month} and \bibfield{year} as well as \secref{bib:use:dat}.
+\fielditem{booktitle}{文本}
 
-出版日期。还可参见\bibfield{month}，\bibfield{year} 和\secref{bib:use:dat}小节。
+如果 \bibfield{title} 域指的是一个更大出版物中的一部分工作的标题，那么该域则给出了整个作品的标题。
+参考 \bibfield{title}。
 
-\fielditem{doi}{verbatim}
+%\fielditem{booktitleaddon}{literal}
 
-The Digital Object Identifier of the work.
+%An annex to the \bibfield{booktitle}, to be printed in a different font.
 
-数字对象标识符。verbatim类。
+\fielditem{booktitleaddon}{文本}
 
-\fielditem{edition}{integer or literal}
+\bibfield{booktitle} 的附语，会用不同的字体打印。
 
-The edition of a printed publication. This must be an integer, not an ordinal. Don't say |edition={First}| or |edition={1st}| but |edition={1}|. The bibliography style converts this to a language dependent ordinal. It is also possible to give the edition as a literal string, for example «Third, revised and expanded edition».
+%\fielditem{chapter}{literal}
 
-版本域，整数或者逐字类。
+%A chapter or section or any other unit of a work.
 
-\listitem{editor}{name}
+\fielditem{chapter}{文本}
 
-The editor(s) of the \bibfield{title}, \bibfield{booktitle}, or \bibfield{maintitle}, depending on the entry type. Use the \bibfield{editortype} field to specify the role if it is different from <\texttt{editor}>. See \secref{bib:use:edr} for further hints.
+作品的章节或其它单元。
 
-编者，姓名类
+%\listitem{commentator}{name}
 
-\listitem{editora}{name}
+%The author(s) of a commentary to the work. Note that this field is intended for commented editions which have a commentator in addition to the author. If the work is a stand"=alone commentary, the commentator should be given in the \bibfield{author} field. If the commentator is identical to the \bibfield{editor} and\slash or \bibfield{translator}, the standard styles will automatically concatenate these fields in the bibliography. See also \bibfield{annotator}.
 
-A secondary editor performing a different editorial role, such as compiling, redacting, etc. Use the \bibfield{editoratype} field to specify the role. See \secref{bib:use:edr} for further hints.
+\listitem{commentator}{姓名}
 
-editora，次要编者，比如汇集，编纂，修订等工作作者。
+作品评论的作者。
+请注意，该域用于那种带评论的作品版本，即，在作者之外还有一位评论者。
+如果作品是独立的评论，那么评论者应该在 \bibfield{author} 域中给出。
+如果评论者与 \bibfield{editor} 或 \bibfield{translator} 相同，
+那么标准样式就会在文献中自动将这些域关联起来。
+参考 \bibfield{annotator} 域。
 
-\listitem{editorb}{name}
+%\fielditem{date}{date}
 
-Another secondary editor performing a different role. Use the \bibfield{editorbtype} field to specify the role. See \secref{bib:use:edr} for further hints.
+%The publication date. See also \bibfield{month} and \bibfield{year} as well as \secref{bib:use:dat}.
 
-editora，次要编者。
+\fielditem{date}{日期}
 
-\listitem{editorc}{name}
+出版日期。参考 \bibfield{month} 和 \bibfield{year} 域以及 \secref{bib:use:dat} 节。
 
-Another secondary editor performing a different role. Use the \bibfield{editorctype} field to specify the role. See \secref{bib:use:edr} for further hints.
+%\fielditem{doi}{verbatim}
 
-editora，次要编者。
+%The Digital Object Identifier of the work.
 
-\fielditem{editortype}{key}
+\fielditem{doi}{抄录}
 
-The type of editorial role performed by the \bibfield{editor}. Roles supported by default are \texttt{editor}, \texttt{compiler}, \texttt{founder}, \texttt{continuator}, \texttt{redactor}, \texttt{reviser}, \texttt{collaborator}. The role <\texttt{editor}> is the default. In this case, the field is omissible. See \secref{bib:use:edr} for further hints.
+作品的数字对象标识符（Digital Object Identifier,  DOI）。
 
-编者类型，用于描述编者的角色。
+%\fielditem{edition}{integer or literal}
 
-\fielditem{editoratype}{key}
+%The edition of a printed publication. This must be an integer, not an ordinal. Don't say |edition={First}| or |edition={1st}| but |edition={1}|. The bibliography style converts this to a language dependent ordinal. It is also possible to give the edition as a literal string, for example «Third, revised and expanded edition».
 
-Similar to \bibfield{editortype} but referring to the \bibfield{editora} field. See \secref{bib:use:edr} for further hints.
+\fielditem{edition}{整数或文本}
 
-editoratype，次要编者类型，用于描述编者的角色。
+出版物的版次。
+这必须是整数而不是序数。
+不要用 |edition={First}| 或 |edition={1st}|，而要用 |edition={1}|。
+文献样式会将其转为跟语言相关的序数。
+也可以用文本字符串表示版次，例如“Third, revised and expanded edition”。
 
-\fielditem{editorbtype}{key}
+%\listitem{editor}{name}
 
-Similar to \bibfield{editortype} but referring to the \bibfield{editorb} field. See \secref{bib:use:edr} for further hints.
+%The editor(s) of the \bibfield{title}, \bibfield{booktitle}, or \bibfield{maintitle}, depending on the entry type. Use the \bibfield{editortype} field to specify the role if it is different from <\texttt{editor}>. See \secref{bib:use:edr} for further hints.
 
-editorbtype，次要编者类型，用于描述编者的角色。
+\listitem{editor}{姓名}
 
-\fielditem{editorctype}{key}
+\bibfield{title}、\bibfield{booktitle} 或者 \bibfield{maintitle} 的编辑，这取决于条目类型。
+如果不是“\texttt{editor}”的话，使用 \bibfield{editortype} 域来确定具体的角色。
+更多提示参考 \secref{bib:use:edr} 节。
 
-Similar to \bibfield{editortype} but referring to the \bibfield{editorc} field. See \secref{bib:use:edr} for further hints.
+%\listitem{editora}{name}
 
-editorctype，次要编者类型，用于描述编者的角色。
+%A secondary editor performing a different editorial role, such as compiling, redacting, etc. Use the \bibfield{editoratype} field to specify the role. See \secref{bib:use:edr} for further hints.
 
-\fielditem{eid}{literal}
+\listitem{editora}{姓名}
 
-The electronic identifier of an \bibtype{article}.
+次要编辑，执行汇集、编校等不同编辑任务。
+使用 \bibfield{editoratype} 域来确定具体的角色。
+更多提示参考 \secref{bib:use:edr} 节。
 
-文章电子ID号。
+%\listitem{editorb}{name}
 
-\fielditem{entrysubtype}{literal}
+%Another secondary editor performing a different role. Use the \bibfield{editorbtype} field to specify the role. See \secref{bib:use:edr} for further hints.
 
-This field, which is not used by the standard styles, may be used to specify a subtype of an entry type. This may be useful for bibliography styles which support a finer"=grained set of entry types.
+\listitem{editorb}{姓名}
 
-标准样式不用。
+另一位执行不同任务的次要编辑。
+使用 \bibfield{editorbtype} 域来确定具体的角色。
+更多提示参考 \secref{bib:use:edr} 节。
 
-\fielditem{eprint}{verbatim}
+%\listitem{editorc}{name}
 
-The electronic identifier of an online publication. This is roughly comparable to a \acr{doi} but specific to a certain archive, repository, service, or system. See \secref{use:use:epr} for details. Also see \bibfield{eprinttype} and \bibfield{eprintclass}.
+%Another secondary editor performing a different role. Use the \bibfield{editorctype} field to specify the role. See \secref{bib:use:edr} for further hints.
 
-在线出版物的电子ID号。
+\listitem{editorc}{姓名}
 
-\fielditem{eprintclass}{literal}
+另一位执行不同编辑任务的次要编辑。
+使用 \bibfield{editorctype} 域来确定具体的角色。
+更多提示参考 \secref{bib:use:edr} 节。
 
-Additional information related to the resource indicated by the \bibfield{eprinttype} field. This could be a section of an archive, a path indicating a service, a classification of some sort, etc. See \secref{use:use:epr} for details. Also see \bibfield{eprint} and \bibfield{eprinttype}.
+%\fielditem{editortype}{key}
 
-\bibfield{eprinttype} 域的附加信息。
+%The type of editorial role performed by the \bibfield{editor}. Roles supported by default are \texttt{editor}, \texttt{compiler}, \texttt{founder}, \texttt{continuator}, \texttt{redactor}, \texttt{reviser}, \texttt{collaborator}. The role <\texttt{editor}> is the default. In this case, the field is omissible. See \secref{bib:use:edr} for further hints.
 
-\fielditem{eprinttype}{literal}
+\fielditem{editortype}{关键字}
 
-The type of \bibfield{eprint} identifier, \eg the name of the archive, repository, service, or system the \bibfield{eprint} field refers to. See \secref{use:use:epr} for details. Also see \bibfield{eprint} and \bibfield{eprintclass}.
+\bibfield{editor} 执行的编辑任务类型。
+默认支持的任务包括 \texttt{editor}、\texttt{compiler}、\texttt{founder}、\texttt{continuator}, \texttt{redactor}、\texttt{reviser} 和 \texttt{collaborator}。
+默认值是“\texttt{editor}”，此时该域可以省略。
+更多提示参考 \secref{bib:use:edr} 节。
 
-\bibfield{eprint} 域的类型信息。比如档案，仓库，服务，系统的名字。
+%\fielditem{editoratype}{key}
 
-\fielditem{eventdate}{date}
+%Similar to \bibfield{editortype} but referring to the \bibfield{editora} field. See \secref{bib:use:edr} for further hints.
 
-The date of a conference, a symposium, or some other event in \bibtype{proceedings} and \bibtype{inproceedings} entries. This field may also be useful for the custom types listed in \secref{bib:typ:ctm}. See also \bibfield{eventtitle} and \bibfield{venue} as well as \secref{bib:use:dat}.
+\fielditem{editoratype}{关键字}
 
-一些如会议，专题讨论，座谈等事件的日期。
+类似于 \bibfield{editortype} 但对应的是 \bibfield{editora} 域。
+更多提示参考 \secref{bib:use:edr} 节。
 
+%\fielditem{editorbtype}{key}
 
-\fielditem{eventtitle}{literal}
+%Similar to \bibfield{editortype} but referring to the \bibfield{editorb} field. See \secref{bib:use:edr} for further hints.
 
-The title of a conference, a symposium, or some other event in \bibtype{proceedings} and \bibtype{inproceedings} entries. This field may also be useful for the custom types listed in \secref{bib:typ:ctm}. Note that this field holds the plain title of the event. Things like «Proceedings of the Fifth XYZ Conference» go into the \bibfield{titleaddon} or \bibfield{booktitleaddon} field, respectively. See also \bibfield{eventdate} and \bibfield{venue}.
+\fielditem{editorbtype}{关键字}
 
-\fielditem{eventtitleaddon}{literal}
+类似于 \bibfield{editortype} 但对应的是 \bibfield{editorb} 域。
+更多提示参考 \secref{bib:use:edr} 节。
 
-An annex to the \bibfield{eventtitle} field. Can be used for known event acronyms, for example.
+%\fielditem{editorctype}{key}
+
+%Similar to \bibfield{editortype} but referring to the \bibfield{editorc} field. See \secref{bib:use:edr} for further hints.
+
+\fielditem{editorctype}{关键字}
+
+类似于 \bibfield{editortype} 但对应的是 \bibfield{editorc} 域。
+更多提示参考 \secref{bib:use:edr} 节。
+
+%\fielditem{eid}{literal}
+
+%The electronic identifier of an \bibtype{article}.
+
+\fielditem{eid}{文本}
+
+\bibtype{article} 的电子标识符（electronic identifier）。
+
+%\fielditem{entrysubtype}{literal}
+
+%This field, which is not used by the standard styles, may be used to specify a subtype of an entry type. This may be useful for bibliography styles which support a finer"=grained set of entry types.
+
+\fielditem{entrysubtype}{文本}
+
+该域用于确定一个条目类型的子类型。
+它不会在标准样式中使用，但可用于支持细粒化条目类型的文献样式。
+
+%\fielditem{eprint}{verbatim}
+
+%The electronic identifier of an online publication. This is roughly comparable to a \acr{doi} but specific to a certain archive, repository, service, or system. See \secref{use:use:epr} for details. Also see \bibfield{eprinttype} and \bibfield{eprintclass}.
+
+\fielditem{eprint}{抄录}
+
+在线出版物的电子标识符。
+它大致相当于 \acr{doi}，但针对于某个档案、资源库、服务或系统。
+参考 \secref{use:use:epr} 一节以及 \bibfield{eprinttype} 和 \bibfield{eprintclass} 域。
+
+%\fielditem{eprintclass}{literal}
+
+%Additional information related to the resource indicated by the \bibfield{eprinttype} field. This could be a section of an archive, a path indicating a service, a classification of some sort, etc. See \secref{use:use:epr} for details. Also see \bibfield{eprint} and \bibfield{eprinttype}.
+
+\fielditem{eprintclass}{文本}
+
+由 \bibfield{eprinttype} 域指明的资源额外信息。
+它可以是档案的一部分、标识服务的路径、某个排序的分类等等。
+参考 \secref{use:use:epr} 一节以及 \bibfield{eprint} 和 \bibfield{eprinttype} 域。
+
+%\fielditem{eprinttype}{literal}
+
+%The type of \bibfield{eprint} identifier, \eg the name of the archive, repository, service, or system the \bibfield{eprint} field refers to. See \secref{use:use:epr} for details. Also see \bibfield{eprint} and \bibfield{eprintclass}.
+
+\fielditem{eprinttype}{文本}
+
+\bibfield{eprint} 标识符的类型，例如 \bibfield{eprint} 所指的档案、资源库、服务或系统的名称。
+参考 \secref{use:use:epr} 一节以及 \bibfield{eprint} 和 \bibfield{eprintclass} 域。
+
+%\fielditem{eventdate}{date}
+
+%The date of a conference, a symposium, or some other event in \bibtype{proceedings} and \bibtype{inproceedings} entries. This field may also be useful for the custom types listed in \secref{bib:typ:ctm}. See also \bibfield{eventtitle} and \bibfield{venue} as well as \secref{bib:use:dat}.
+
+\fielditem{eventdate}{日期}
+
+会议、研讨会或其它在 \bibtype{proceedings} 和 \bibtype{inproceedings} 条目中事件的发生日期。
+该域还可以用于在 \secref{bib:typ:ctm} 一节所列的定制类型。
+参考 \bibfield{eventtitle} 和 \bibfield{venue} 域以及 \secref{bib:use:dat} 一节。
+
+%\fielditem{eventtitle}{literal}
+
+%The title of a conference, a symposium, or some other event in \bibtype{proceedings} and \bibtype{inproceedings} entries. This field may also be useful for the custom types listed in \secref{bib:typ:ctm}. Note that this field holds the plain title of the event. Things like «Proceedings of the Fifth XYZ Conference» go into the \bibfield{titleaddon} or \bibfield{booktitleaddon} field, respectively. See also \bibfield{eventdate} and \bibfield{venue}.
+
+\fielditem{eventtitle}{文本}
+
+会议、研讨会或其它在 \bibtype{proceedings} 和 \bibtype{inproceedings} 条目中事件的标题。
+该域还可以用于在 \secref{bib:typ:ctm} 一节所列的定制类型。
+请注意，该域处理事件的主标题。
+诸如“Proceedings of the Fifth XYZ Conference”之类的信息会归入 \bibfield{titleaddon} 或 \bibfield{booktitleaddon} 域。
+参考 \bibfield{eventdate} 和 \bibfield{venue} 域。
+
+%\fielditem{eventtitleaddon}{literal}
+
+%An annex to the \bibfield{eventtitle} field. Can be used for known event acronyms, for example.
+
+\fielditem{eventtitleaddon}{文本}
+
+\bibfield{eventtitle} 域的附语。
+例如可以用于已知事件的首字母缩写词。
+
+
 
 \fielditem{file}{verbatim}
 
@@ -1051,6 +1269,7 @@ The type of a \bibfield{manual}, \bibfield{patent}, \bibfield{report}, or \bibfi
 \fielditem{url}{url}
 
 The \acr{URL} of an online publication. If it is not URL-escaped (no <\%> chars), with \biber, it will be URI-escaped according to RFC 3987, that is, even Unicode chars will be correctly escaped.
+%https://tools.ietf.org/html/rfc3987
 
 url。
 
