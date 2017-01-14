@@ -603,11 +603,8 @@
 \item[模式域（pattern field）] 是必须匹配某一特定模式的文本域。
 例子有 \secref{bib:fld:spc} 一节中的 \bibfield{gender} 域。
 
-
-
 %\item[Key fields] May hold printable data or localisation keys. A test is performed to determine whether the value of the field is a known localisation key (the localisation keys defined by default are listed in \secref{aut:lng:key}). If so, the localised string is printed. If not, the value is printed as is. A typical example is the \bibfield{type} field.
 
-%\item[Key fields] May hold printable data or localization keys. A test is performed to determine whether the value of the field is a known localization key (the localization keys defined by default are listed in \secref{aut:lng:key}). If so, the localized string is printed. If not, the value is printed as is. A typical example is the \bibfield{type} field.
 \item[关键字域（key field）] 可以处理可打印的数据或本地化的关键字。
 首先测试是否是已知的本地化关键字键值（本地化关键字的默认定义在 \secref{aut:lng:key} 一节中）。
 如果是，就打印本地化的字符串；否则，就按本身来打印。
@@ -957,355 +954,610 @@
 \bibfield{eventtitle} 域的附语。
 例如可以用于已知事件的首字母缩写词。
 
+%\fielditem{file}{verbatim}
 
+%A local link to a \acr{pdf} or other version of the work. Not used by the standard bibliography styles.
 
-\fielditem{file}{verbatim}
+\fielditem{file}{抄录}
 
-A local link to a \acr{pdf} or other version of the work. Not used by the standard bibliography styles.
+某个作品的 \acr{pdf} 或其它版本的本地链接。
+标准文献样式中不使用。
 
-标准样式不使用
+%\listitem{foreword}{name}
 
-\listitem{foreword}{name}
+%The author(s) of a foreword to the work. If the author of the foreword is identical to the \bibfield{editor} and\slash or \bibfield{translator}, the standard styles will automatically concatenate these fields in the bibliography. See also \bibfield{introduction} and \bibfield{afterword}.
 
-The author(s) of a foreword to the work. If the author of the foreword is identical to the \bibfield{editor} and\slash or \bibfield{translator}, the standard styles will automatically concatenate these fields in the bibliography. See also \bibfield{introduction} and \bibfield{afterword}.
+\listitem{foreword}{姓名}
 
-前言作者。
+作品前言的作者。
+如果前言的作者与 \bibfield{editor} 或 \bibfield{translator} 相同，
+那么标准样式就会在文献中自动将其与这些域关联起来。
+参考 \bibfield{introduction} 和 \bibfield{afterword} 域。
 
-\listitem{holder}{name}
+%\listitem{holder}{name}
 
-The holder(s) of a \bibtype{patent}, if different from the \bibfield{author}. Not that corporate holders need to be wrapped in an additional set of braces, see \secref{bib:use:inc} for details. This list may also be useful for the custom types listed in \secref{bib:typ:ctm}.
+%The holder(s) of a \bibtype{patent}, if different from the \bibfield{author}. Not that corporate holders need to be wrapped in an additional set of braces, see \secref{bib:use:inc} for details. This list may also be useful for the custom types listed in \secref{bib:typ:ctm}.
 
-专利持有人。
+\listitem{holder}{名称}
 
-\fielditem{howpublished}{literal}
+\bibtype{patent} 的持有者（如果与 \bibfield{author} 不同的话）。
+注意，共同持有者需要各自放到额外的花括号里，参考 \secref{bib:use:inc} 一节。
+该域可以用于 \secref{bib:typ:ctm} 一节所列的定制类型中。
 
-A publication notice for unusual publications which do not fit into any of the common categories.
+%\fielditem{howpublished}{literal}
 
-非常规出版物的出版信息。
+%A publication notice for unusual publications which do not fit into any of the common categories.
 
-\fielditem{indextitle}{literal}
+\fielditem{howpublished}{文本}
 
-A title to use for indexing instead of the regular \bibfield{title} field. This field may be useful if you have an entry with a title like «An Introduction to \dots» and want that indexed as «Introduction to \dots, An». Style authors should note that \biblatex automatically copies the value of the \bibfield{title} field to \bibfield{indextitle} if the latter field is undefined.
+不适合任何常见类型的非常规出版物的出版公告。
 
+%\fielditem{indextitle}{literal}
 
+%A title to use for indexing instead of the regular \bibfield{title} field. This field may be useful if you have an entry with a title like «An Introduction to \dots» and want that indexed as «Introduction to \dots, An». Style authors should note that \biblatex automatically copies the value of the \bibfield{title} field to \bibfield{indextitle} if the latter field is undefined.
 
-\listitem{institution}{literal}
+\fielditem{indextitle}{文本}
 
-The name of a university or some other institution, depending on the entry type. Traditional \bibtex uses the field name \bibfield{school} for theses, which is supported as an alias. See also \secref{bib:fld:als, bib:use:and}.
+在索引中用于取代常规 \bibfield{title} 域的标题。
+如果你有一个带有“An Introduction to~\dots”之类标题的条目，并且想索引为“Introduction to~\dots, An”，那么就可以使用该域。
+样式作者需要注意，如果 \bibfield{indextitle} 没有定义，那么 \biblatex 会自动将 \bibfield{title} 域的值复制给 \bibfield{indextitle}。
 
-大学或研究机构，bibtex中使用的域名是school。
+%\listitem{institution}{literal}
 
-\listitem{introduction}{name}
+%The name of a university or some other institution, depending on the entry type. Traditional \bibtex uses the field name \bibfield{school} for theses, which is supported as an alias. See also \secref{bib:fld:als, bib:use:and}.
 
-The author(s) of an introduction to the work. If the author of the introduction is identical to the \bibfield{editor} and\slash or \bibfield{translator}, the standard styles will automatically concatenate these fields in the bibliography. See also \bibfield{foreword} and \bibfield{afterword}.
+\listitem{institution}{文本}
 
-简介的作者。
+大学或其它研究机构的名字，这取决于条目类型。
+传统的 \BibTeX 使用 \bibfield{school} 域来表示。
+本宏包也支持 \bibfield{school}，但只作为本域的别名。
+参考 \secref{bib:fld:als, bib:use:and}。
 
-\fielditem{isan}{literal}
+%\listitem{introduction}{name}
 
-The International Standard Audiovisual Number of an audiovisual work. Not used by the standard bibliography styles.
+%The author(s) of an introduction to the work. If the author of the introduction is identical to the \bibfield{editor} and\slash or \bibfield{translator}, the standard styles will automatically concatenate these fields in the bibliography. See also \bibfield{foreword} and \bibfield{afterword}.
 
-ISAN号。
+\listitem{introduction}{姓名}
 
-\fielditem{isbn}{literal}
+作品导论的作者。
+如果导论的作者与 \bibfield{editor} 或 \bibfield{translator} 相同，
+那么标准样式就会在文献中自动将这些域关联起来。
+参考 \bibfield{foreword} 和 \bibfield{afterword} 域。
 
-The International Standard Book Number of a book.
+%\fielditem{isan}{literal}
 
-ISBN号。
+%The International Standard Audiovisual Number of an audiovisual work. Not used by the standard bibliography styles.
 
+\fielditem{isan}{文本}
 
-\fielditem{ismn}{literal}
+音像作品的视听数码国际标准（International Standard Audiovisual Number,  ISAN）。
+不会在标准文献样式中使用。
 
-The International Standard Music Number for printed music such as musical scores. Not used by the standard bibliography styles.
+%\fielditem{isbn}{literal}
 
-ISMN号。
+%The International Standard Book Number of a book.
 
-\fielditem{isrn}{literal}
+\fielditem{isbn}{文本}
 
-The International Standard Technical Report Number of a technical report.
+书籍的国际标准书号（International Standard Book Number, ISBN）。
 
-ISRN号。
+%\fielditem{ismn}{literal}
 
-\fielditem{issn}{literal}
+%The International Standard Music Number for printed music such as musical scores. Not used by the standard bibliography styles.
 
-The International Standard Serial Number of a periodical.
+\fielditem{ismn}{文本}
 
-ISSN号。
+乐谱等的发行音乐作品的国际标准印刷音乐作品编码（International Standard Music Number,  ISMN）。
 
-\fielditem{issue}{literal}
+%\fielditem{isrn}{literal}
 
-The issue of a journal. This field is intended for journals whose individual issues are identified by a designation such as <Spring> or <Summer> rather than the month or a number. Since the placement of \bibfield{issue} is similar to \bibfield{month} and \bibfield{number}, this field may also be useful with double issues and other special cases. See also \bibfield{month}, \bibfield{number}, and \secref{bib:use:iss}.
+%The International Standard Technical Report Number of a technical report.
 
-期刊的版次，通常是特殊的版次，而不是以月份和数字标示的版次。（译者注:可能类似于什么什么增刊，特刊等。）
+\fielditem{isrn}{文本}
 
-\fielditem{issuesubtitle}{literal}
+技术报告的国际标准技术报告编码（International Standard Technical Report Number,  ISRN）。
 
-The subtitle of a specific issue of a journal or other periodical.
+%\fielditem{issn}{literal}
 
-\fielditem{issuetitle}{literal}
+%The International Standard Serial Number of a periodical.
 
-The title of a specific issue of a journal or other periodical.
+\fielditem{issn}{文本}
 
-\fielditem{iswc}{literal}
+连续出版物的国际标准连续出版物号（International Standard Serial Number,  ISSN）。
 
-The International Standard Work Code of a musical work. Not used by the standard bibliography styles.
+%\fielditem{issue}{literal}
 
-ISWC码。
+%The issue of a journal. This field is intended for journals whose individual issues are identified by a designation such as <Spring> or <Summer> rather than the month or a number. Since the placement of \bibfield{issue} is similar to \bibfield{month} and \bibfield{number}, this field may also be useful with double issues and other special cases. See also \bibfield{month}, \bibfield{number}, and \secref{bib:use:iss}.
 
-\fielditem{journalsubtitle}{literal}
+\fielditem{issue}{文本}
 
-The subtitle of a journal, a newspaper, or some other periodical.
+期刊的卷数。
+该域适用的期刊特点是，每一卷由“Spring”或“Summer”等名称而不是由月份或数字确定。
+由于 \bibfield{issue} 的位置与 \bibfield{month} 和 \bibfield{number} 类似，
+该域也可用于双重卷数或其它特殊场合\footnote{
+	例如增刊、特刊等。——译注}。
+参考 \bibfield{month} 和 \bibfield{number} 域以及 \secref{bib:use:iss} 一节。
 
-期刊等周期出版物的子名
+%\fielditem{issuesubtitle}{literal}
 
-\fielditem{journaltitle}{literal}
+%The subtitle of a specific issue of a journal or other periodical.
 
-The name of a journal, a newspaper, or some other periodical.
+\fielditem{issuesubtitle}{文本}
 
-期刊等周期出版物的名
+期刊或其它连续出版物中某一卷的副标题。
 
-\fielditem{label}{literal}
+%\fielditem{issuetitle}{literal}
 
-A designation to be used by the citation style as a substitute for the regular label if any data required to generate the regular label is missing. For example, when an author"=year citation style is generating a citation for an entry which is missing the author or the year, it may fall back to \bibfield{label}. See \secref{bib:use:key} for details. Note that, in contrast to \bibfield{shorthand}, \bibfield{label} is only used as a fallback. See also \bibfield{shorthand}.
+%The title of a specific issue of a journal or other periodical.
 
+\fielditem{issuetitle}{文本}
 
+期刊或其它连续出版物中某一卷的标题。
 
-\listitem{language}{key}
+%\fielditem{iswc}{literal}
 
-The language(s) of the work. Languages may be specified literally or as localization keys. If localization keys are used, the prefix \texttt{lang} is omissible. See also \bibfield{origlanguage} and compare \bibfield{langid} in \secref{bib:fld:spc}.
+%The International Standard Work Code of a musical work. Not used by the standard bibliography styles.
 
-工作的语言。
+\fielditem{iswc}{文本}
 
-\fielditem{library}{literal}
+音乐作品的国际标准音乐作品编码（International Standard Work Code,  ISWC）。
+标准文献样式中不使用。
 
-This field may be useful to record information such as a library name and a call number. This may be printed by a special bibliography style if desired. Not used by the standard bibliography styles.
+%\fielditem{journalsubtitle}{literal}
 
-标准样式不用。
+%The subtitle of a journal, a newspaper, or some other periodical.
 
-\listitem{location}{literal}
+\fielditem{journalsubtitle}{文本}
 
-The place(s) of publication, \ie the location of the \bibfield{publisher} or \bibfield{institution}, depending on the entry type. Traditional \bibtex uses the field name \bibfield{address}, which is supported as an alias. See also \secref{bib:fld:als, bib:use:and}. With \bibtype{patent} entries, this list indicates the scope of a patent. This list may also be useful for the custom types listed in \secref{bib:typ:ctm}.
+期刊、报纸或其它连续出版物的副标题。
 
-出版社地址。
+%\fielditem{journaltitle}{literal}
 
-\fielditem{mainsubtitle}{literal}
+%The name of a journal, a newspaper, or some other periodical.
 
-The subtitle related to the \bibfield{maintitle}. See also \bibfield{subtitle}.
+\fielditem{journaltitle}{文本}
 
-\fielditem{maintitle}{literal}
+期刊、报纸或其它连续出版物的标题。
 
-The main title of a multi"=volume book, such as \emph{Collected Works}. If the \bibfield{title} or \bibfield{booktitle} field indicates the title of a single volume which is part of multi"=volume book, the title of the complete work is given in this field.
+%\fielditem{label}{literal}
 
-集合物的名称，当title指单卷物的时候用。
+%A designation to be used by the citation style as a substitute for the regular label if any data required to generate the regular label is missing. For example, when an author"=year citation style is generating a citation for an entry which is missing the author or the year, it may fall back to \bibfield{label}. See \secref{bib:use:key} for details. Note that, in contrast to \bibfield{shorthand}, \bibfield{label} is only used as a fallback. See also \bibfield{shorthand}.
 
-\fielditem{maintitleaddon}{literal}
+\fielditem{label}{文本}
 
-An annex to the \bibfield{maintitle}, to be printed in a different font.
+如果缺失生成常规标签所需的某一数据，
+那么该域就是替代常规标签而被引用样式所用的指定文本。
+例如，当|作者-年份|引用样式要生成条目的引用，但作者或年份缺失，
+那么它就会使用后备的 \bibfield{label}。
+详情请参考 \secref{bib:use:key} 节。
+请注意，与 \bibfield{shorthand} 域相反，\bibfield{label} 只是作为后备而使用。
+同样参考 \bibfield{shorthand}。
 
-\fielditem{month}{datepart}
+%\listitem{language}{key}
 
-The publication month. This must be an integer, not an ordinal or a string. Don't say |month={January}| but |month={1}|. The bibliography style converts this to a language dependent string or ordinal where required. See also \bibfield{date} as well as \secref{bib:use:iss, bib:use:dat}.
+%The language(s) of the work. Languages may be specified literally or as localisation keys. If localisation keys are used, the prefix \texttt{lang} is omissible. See also \bibfield{origlanguage} and compare \bibfield{langid} in \secref{bib:fld:spc}.
 
-出版月份。
+\listitem{language}{关键字}
 
-\fielditem{nameaddon}{literal}
+作品的语言。
+语言可以按字面或者本地化关键字确定。
+如果使用本地化关键字，那么前缀 \opt{lang} 将省略。
+参考 \bibfield{origlanguage} 域并比较 \secref{bib:fld:spc} 节中的 \bibfield{langid}。
 
-An addon to be printed immediately after the author name in the bibliography. Not used by the standard bibliography styles. This field may be useful to add an alias or pen name (or give the real name if the pseudonym is commonly used to refer to that author).
+%\fielditem{library}{literal}
 
-标准样式不用。
+%This field may be useful to record information such as a library name and a call number. This may be printed by a special bibliography style if desired. Not used by the standard bibliography styles.
 
-\fielditem{note}{literal}
+\fielditem{library}{文本}
 
-Miscellaneous bibliographic data which does not fit into any other field. The \bibfield{note} field may be used to record bibliographic data in a free format. Publication facts such as «Reprint of the edition London 1831» are typical candidates for the \bibfield{note} field. See also \bibfield{addendum}.
+该域可用于记录图书馆名称或书架号码等信息。
+某些特殊的文献样式可能需要打印出来。
+但在标准文献样式中不使用。
 
-混杂数据，无法分类到某一种域中。
+%\listitem{location}{literal}
 
-\fielditem{number}{literal}
+%The place(s) of publication, \ie the location of the \bibfield{publisher} or \bibfield{institution}, depending on the entry type. Traditional \bibtex uses the field name \bibfield{address}, which is supported as an alias. See also \secref{bib:fld:als, bib:use:and}. With \bibtype{patent} entries, this list indicates the scope of a patent. This list may also be useful for the custom types listed in \secref{bib:typ:ctm}.
 
-The number of a journal or the volume\slash number of a book in a \bibfield{series}. See also \bibfield{issue} as well as \secref{bib:use:ser, bib:use:iss}. With \bibtype{patent} entries, this is the number or record token of a patent or patent request.
+\listitem{location}{文本}
 
-期刊或数的卷的数字号比如期号。在专利条目中是专利申请号。
+出版地，即 \bibfield{publisher} 或 \bibfield{institution} （取决于条目类型）的所在地。
+传统 \BibTeX 使用 \bibfield{address} 域，在这里作为别名也被支持。
+参考 \secref{bib:fld:als, bib:use:and} 几节。
+在 \bibtype{patent} 条目里，该列表表示专利范围。
+该文本列表可用于 \secref{bib:typ:ctm} 中的定制类型。
 
-\listitem{organization}{literal}
+%\fielditem{mainsubtitle}{literal}
 
-The organization(s) that published a \bibtype{manual} or an \bibtype{online} resource, or sponsored a conference. See also \secref{bib:use:and}.
+%The subtitle related to the \bibfield{maintitle}. See also \bibfield{subtitle}.
 
-手册或在线资源或会议主办的机构。
+\fielditem{mainsubtitle}{文本}
 
-\fielditem{origdate}{date}
+对应于 \bibfield{maintitle} 的副标题。参考 \bibfield{subtitle} 域。
 
-If the work is a translation, a reprint, or something similar, the publication date of the original edition. Not used by the standard bibliography styles. See also \bibfield{date}.
+%\fielditem{maintitle}{literal}
 
-标准样式不用。
+%The main title of a multi"=volume book, such as \emph{Collected Works}. If the \bibfield{title} or \bibfield{booktitle} field indicates the title of a single volume which is part of multi"=volume book, the title of the complete work is given in this field.
 
-\fielditem{origlanguage}{key}
+\fielditem{maintitle}{文本}
 
-If the work is a translation, the language of the original work. See also \bibfield{language}.
+多卷本书籍（例如\emph{著作集}）的主标题。
+如果 \bibfield{title} 或 \bibfield{booktitle} 域指的是多卷本中某一卷的标题，
+那么该域则给出了全集的标题。
 
-\listitem{origlocation}{literal}
+%\fielditem{maintitleaddon}{literal}
 
-If the work is a translation, a reprint, or something similar, the \bibfield{location} of the original edition. Not used by the standard bibliography styles. See also \bibfield{location} and \secref{bib:use:and}.
+%An annex to the \bibfield{maintitle}, to be printed in a different font.
 
-\listitem{origpublisher}{literal}
+\fielditem{maintitleaddon}{文本}
 
-If the work is a translation, a reprint, or something similar, the \bibfield{publisher} of the original edition. Not used by the standard bibliography styles. See also \bibfield{publisher} and \secref{bib:use:and}.
+\bibfield{maintitle} 的附言，会用不同的字体打印。
 
-\fielditem{origtitle}{literal}
+%\fielditem{month}{datepart}
 
-If the work is a translation, the \bibfield{title} of the original work. Not used by the standard bibliography styles. See also \bibfield{title}.
+%The publication month. This must be an integer, not an ordinal or a string. Don't say |month={January}| but |month={1}|. The bibliography style converts this to a language dependent string or ordinal where required. See also \bibfield{date} as well as \secref{bib:use:iss, bib:use:dat}.
+
+\fielditem{month}{日期部分}
+
+出版月份。必须是整数，而不能是序数或字符。
+例如使用 |month={1}| 而不是 |month={January}|。
+文献样式会在需要时将它转换为语言相关的字符串或序数。
+参考 \bibfield{date} 以及 \secref{bib:use:iss, bib:use:dat}。
+
+%\fielditem{nameaddon}{literal}
+
+%An addon to be printed immediately after the author name in the bibliography. Not used by the standard bibliography styles. This field may be useful to add an alias or pen name (or give the real name if the pseudonym is commonly used to refer to that author).
+
+\fielditem{nameaddon}{文本}
+
+参考文献中立即在作者名之后输出的插入语。
+标准文献样式中不使用。
+该域可用于添加别名或笔名（或者给出原名，如果作者的化名更熟知的话）。
+
+%\fielditem{note}{literal}
+
+%Miscellaneous bibliographic data which does not fit into any other field. The \bibfield{note} field may be used to record bibliographic data in a free format. Publication facts such as «Reprint of the edition London 1831» are typical candidates for the \bibfield{note} field. See also \bibfield{addendum}.
+
+\fielditem{note}{文本}
+
+不可归类于其它域的杂项文献数据。
+\bibfield{note} 域可以用于记录自由格式的文献数据。
+典型的 \bibfield{note} 域包括一些出版信息，例如“Reprint of the edition London 1831”。
+参考 \bibfield{addendum}。
+
+%\fielditem{number}{integer}
+
+%The number of a journal or the volume\slash number of a book in a \bibfield{series}. See also \bibfield{issue} as well as \secref{bib:use:ser, bib:use:iss}. With \bibtype{patent} entries, this is the number or record token of a patent or patent request. It is expected to be an integer, not necessarily in arabic numerals since \biber will automatically from roman numerals or arabic letter to integers internally for sorting purposes.
+
+\fielditem{number}{整数}
+
+期刊的期数或者 \bibfield{series} 丛书中某本书的卷数\slash 期数。
+参考 \bibfield{issue} 以及 \secref{bib:use:ser, bib:use:iss}。
+在 \bibtype{patent} 条目中，这是专利或专利申请的号码或记录标识。
+应该是整数，但实际上不必是阿拉伯数字的形式，
+因为 \biber 为了排序会自动将罗马数字或者阿拉伯数码转成整数。
+
+%\listitem{organization}{literal}
+
+%The organization(s) that published a \bibtype{manual} or an \bibtype{online} resource, or sponsored a conference. See also \secref{bib:use:and}.
+
+\listitem{organization}{文本}
+
+出版 \bibtype{manual} 或者  \bibtype{online} 资源以及赞助会议的组织。
+参考 \secref{bib:use:and} 节。
+
+%\fielditem{origdate}{date}
+
+%If the work is a translation, a reprint, or something similar, the publication date of the original edition. Not used by the standard bibliography styles. See also \bibfield{date}.
+
+\fielditem{origdate}{日期}
+
+如果作品是译作、重印或其它类似情况，该域指的是原始版次的出版日期。
+在标准文献样式中不使用。
+参考 \bibfield{date} 域。
+
+%\fielditem{origlanguage}{key}
+
+%If the work is a translation, the language of the original work. See also \bibfield{language}.
+
+\fielditem{origlanguage}{关键字}
+
+如果作品是译作，该域指的是原作的语言。
+参考 \bibfield{language} 域。
+
+%\listitem{origlocation}{literal}
+
+%If the work is a translation, a reprint, or something similar, the \bibfield{location} of the original edition. Not used by the standard bibliography styles. See also \bibfield{location} and \secref{bib:use:and}.
+
+\listitem{origlocation}{文本}
+
+如果作品是译作、重印或其它类似情况，该域指的是原始版次的 \bibfield{location}。
+标准文献样式不使用。
+参考 \bibfield{location} 域和 \secref{bib:use:and} 节。
+
+%\listitem{origpublisher}{literal}
+
+%If the work is a translation, a reprint, or something similar, the \bibfield{publisher} of the original edition. Not used by the standard bibliography styles. See also \bibfield{publisher} and \secref{bib:use:and}.
+
+\listitem{origpublisher}{文本}
+
+如果作品是译作、重印或其它类似情况，该域指的是原始版次的 \bibfield{publisher}。
+在标准文献样式中不使用。
+参考 \bibfield{publisher} 域和 \secref{bib:use:and} 节。
+
+%\fielditem{origtitle}{literal}
+
+%If the work is a translation, the \bibfield{title} of the original work. Not used by the standard bibliography styles. See also \bibfield{title}.
+
+\fielditem{origtitle}{文本}
+
+如果作品是译作，该域指的是原作的  \bibfield{title}。
+标准文献样式不使用。
+参考 \bibfield{title} 域。
 
 \fielditem{pages}{range}
 
-One or more page numbers or page ranges. If the work is published as part of another one, such as an article in a journal or a collection, this field holds the relevant page range in that other work. It may also be used to limit the reference to a specific part of a work (a chapter in a book, for example).
+%One or more page numbers or page ranges. If the work is published as part of another one, such as an article in a journal or a collection, this field holds the relevant page range in that other work. It may also be used to limit the reference to a specific part of a work (a chapter in a book, for example).
 
-页码范围。
+\fielditem{pages}{范围}
 
-\fielditem{pagetotal}{literal}
+一个或多个页码数或页码范围。
+如果这项作品是其它出版作品的一部分，例如期刊或文集中的文章，
+该域指的是在那项作品中的相关页码范围。
+它也可以用于指明著作中某一特定部分（例如一本书中的一章）。
 
-The total number of pages of the work.
+%\fielditem{pagetotal}{literal}
 
-总页数。
+%The total number of pages of the work.
 
-\fielditem{pagination}{key}
+\fielditem{pagetotal}{文本}
 
-The pagination of the work. The value of this field will affect the formatting the \prm{postnote} argument to a citation command. The key should be given in the singular form. Possible keys are \texttt{page}, \texttt{column}, \texttt{line}, \texttt{verse}, \texttt{section}, and \texttt{paragraph}. See also \bibfield{bookpagination} as well as \secref{bib:use:pag, use:cav:pag}.
+作品的总页码数。
 
+%\fielditem{pagination}{key}
 
+%The pagination of the work. The value of this field will affect the formatting the \prm{postnote} argument to a citation command. The key should be given in the singular form. Possible keys are \texttt{page}, \texttt{column}, \texttt{line}, \texttt{verse}, \texttt{section}, and \texttt{paragraph}. See also \bibfield{bookpagination} as well as \secref{bib:use:pag, use:cav:pag}.
 
-\fielditem{part}{literal}
+\fielditem{pagination}{关键字}
 
-The number of a partial volume. This field applies to books only, not to journals. It may be used when a logical volume consists of two or more physical ones. In this case the number of the logical volume goes in the \bibfield{volume} field and the number of the part of that volume in the \bibfield{part} field. See also \bibfield{volume}.
+作品的分页格式。
+该域的值或影响引用命令的 \prm{postnote} 选项的格式。
+该域应当以单数的形式给出。
+可能的关键字包括 \texttt{page}、\texttt{column}、\texttt{line}、\texttt{verse}、\texttt{section} 和 \texttt{paragraph}。
+参考 \bibfield{bookpagination} 域以及 \secref{bib:use:pag, use:cav:pag} 节。
 
-卷的部分的号。
+%\fielditem{part}{literal}
 
-\listitem{publisher}{literal}
+%The number of a partial volume. This field applies to books only, not to journals. It may be used when a logical volume consists of two or more physical ones. In this case the number of the logical volume goes in the \bibfield{volume} field and the number of the part of that volume in the \bibfield{part} field. See also \bibfield{volume}.
 
-The name(s) of the publisher(s). See also \secref{bib:use:and}.
+\fielditem{part}{文本}
 
-出版社名。
+部分卷的编号。该域只用于书籍而不能用于期刊。
+它可以用于一个逻辑卷册包括两个或更多实际卷册的情形。
+此时逻辑卷册的编号由 \bibfield{volume} 给出，而这一卷的每一部分的编号由 \bibfield{part} 给出。
+参考 \bibfield{volume} 域。
 
-\fielditem{pubstate}{key}
+%\listitem{publisher}{literal}
 
-The publication state of the work, \eg\ <in press>. See \secref{aut:lng:key:pst} for known publication states.
+%The name(s) of the publisher(s). See also \secref{bib:use:and}.
 
-出版状态。
+\listitem{publisher}{文本}
 
-\fielditem{reprinttitle}{literal}
+%The name(s) of the publisher(s). See also \secref{bib:use:and}.
+出版者的名字。参考 \secref{bib:use:and} 一节。
 
-\BibTeXOnlyMark The title of a reprint of the work. Not used by the standard styles.
+%\fielditem{pubstate}{key}
 
-标准样式不用。
+%The publication state of the work, \eg\ <in press>. See \secref{aut:lng:key:pst} for known publication states.
 
-\fielditem{series}{literal}
+\fielditem{pubstate}{关键字}
 
-The name of a publication series, such as «Studies in \dots», or the number of a journal series. Books in a publication series are usually numbered. The number or volume of a book in a series is given in the \bibfield{number} field. Note that the \bibtype{article} entry type makes use of the \bibfield{series} field as well, but handles it in a special way. See \secref{bib:use:ser} for details.
+作品的出版状态，例如“in press”。
+已知的出版状态请参考 \secref{aut:lng:key:pst}  一节。
 
-系列丛书的标题。
+%\fielditem{reprinttitle}{literal}
 
-\listitem{shortauthor}{name\LFMark}
+%The title of a reprint of the work. Not used by the standard styles.
 
-The author(s) of the work, given in an abbreviated form. This field is mainly intended for abbreviated forms of corporate authors, see \secref{bib:use:inc} for details.
+\fielditem{reprinttitle}{文本}
 
-缩略的作者名。
+作品重印时的标题。标准样式中不使用。
 
-\listitem{shorteditor}{name\LFMark}
+%\fielditem{series}{literal}
 
-The editor(s) of the work, given in an abbreviated form. This field is mainly intended for abbreviated forms of corporate editors, see \secref{bib:use:inc} for details.
+%The name of a publication series, such as «Studies in \dots», or the number of a journal series. Books in a publication series are usually numbered. The number or volume of a book in a series is given in the \bibfield{number} field. Note that the \bibtype{article} entry type makes use of the \bibfield{series} field as well, but handles it in a special way. See \secref{bib:use:ser} for details.
 
-缩略的编者名。
+\fielditem{series}{文本}
 
-\fielditem{shorthand}{literal\LFMark}
+丛书的名称，例如“Studies in \dots”，或者期刊系列的编号。
+系列出版的丛书通常带有编号。
+其编号或者卷数由 \bibfield{number} 域给出。
+请注意，\bibtype{article} 条目类型也使用 \bibfield{series} 域，但是以一种特别的方式处理。
+参考 \secref{bib:use:ser} 一节。
 
-A special designation to be used by the citation style instead of the usual label. If defined, it overrides the default label. See also \bibfield{label}.
+%\listitem{shortauthor}{name\LFMark}
 
-特殊标记用于引用样式代替常用的标签。
+%The author(s) of the work, given in an abbreviated form. This field is mainly intended for abbreviated forms of corporate authors, see \secref{bib:use:inc} for details.
 
-\fielditem{shorthandintro}{literal}
+\listitem{shortauthor}{姓名\LFMark }
 
-The verbose citation styles which comes with this package use a phrase like «henceforth cited as [shorthand]» to introduce shorthands on the first citation. If the \bibfield{shorthandintro} field is defined, it overrides the standard phrase. Note that the alternative phrase must include the shorthand.
+作者名的缩写形式。
+该域主要用于集体作者的缩写形式。
+参考 \secref{bib:use:inc} 一节。
 
-\fielditem{shortjournal}{literal\LFMark}
+%\listitem{shorteditor}{name\LFMark}
 
-A short version or an acronym of the \bibfield{journaltitle}. Not used by the standard bibliography styles.
+%The editor(s) of the work, given in an abbreviated form. This field is mainly intended for abbreviated forms of corporate editors, see \secref{bib:use:inc} for details.
 
-期刊名首字母缩略词。
+\listitem{shorteditor}{姓名\LFMark}
 
-\fielditem{shortseries}{literal\LFMark}
+编辑名的缩写形式。
+该域主要用于集体编辑的缩写形式。
+参考 \secref{bib:use:inc} 一节。
 
-A short version or an acronym of the \bibfield{series} field. Not used by the standard bibliography styles.
+%\fielditem{shorthand}{literal\LFMark}
 
-\fielditem{shorttitle}{literal\LFMark}
+%A special designation to be used by the citation style instead of the usual label. If defined, it overrides the default label. See also \bibfield{label}.
 
-The title in an abridged form. This field is usually not included in the bibliography. It is intended for citations in author"=title format. If present, the author"=title citation styles use this field instead of \bibfield{title}.
+\fielditem{shorthand}{文本\LFMark}
 
-\fielditem{subtitle}{literal}
+替代通常的标签而被引用样式使用的指定域。
+如果有定义，那么它会覆盖默认的标签。
+参考 \bibfield{label} 域。
 
-The subtitle of the work.
+%\fielditem{shorthandintro}{literal}
 
-工作的子标题。
+%The verbose citation styles which comes with this package use a phrase like «henceforth cited as [shorthand]» to introduce shorthands on the first citation. If the \bibfield{shorthandintro} field is defined, it overrides the standard phrase. Note that the alternative phrase must include the shorthand.
 
-\fielditem{title}{literal}
+\fielditem{shorthandintro}{文本}
 
-The title of the work.
+本宏包附带一些的引用样式会使用比较冗长的引用格式，
+例如，在第一次引用时会使用诸如“henceforth cited as [shorthand]”的短语来声明 shorthand。
+如果 \bibfield{shorthandintro} 域有定义，它将覆盖标准的声明短语。
+请注意，使用的备选短语必须包含 shorthand。
 
-工作的标题。
+%\fielditem{shortjournal}{literal\LFMark}
 
-\fielditem{titleaddon}{literal}
+%A short version or an acronym of the \bibfield{journaltitle}. Not used by the standard bibliography styles.
 
-An annex to the \bibfield{title}, to be printed in a different font.
+\fielditem{shortjournal}{文本\LFMark}
 
-\listitem{translator}{name}
+\bibfield{journaltitle} 的缩写版本或其首字母缩略语。
+标准文献样式中不会使用。
 
-The translator(s) of the \bibfield{title} or \bibfield{booktitle}, depending on the entry type. If the translator is identical to the \bibfield{editor}, the standard styles will automatically concatenate these fields in the bibliography.
+%\fielditem{shortseries}{literal\LFMark}
 
-译者。
+%A short version or an acronym of the \bibfield{series} field. Not used by the standard bibliography styles.
 
-\fielditem{type}{key}
+\fielditem{shortseries}{文本\LFMark}
 
-The type of a \bibfield{manual}, \bibfield{patent}, \bibfield{report}, or \bibfield{thesis}. This field may also be useful for the custom types listed in \secref{bib:typ:ctm}.
+\bibfield{series} 的缩写版本或其首字母缩略语。
+标准文献样式中不会使用。
 
-类型。
+%\fielditem{shorttitle}{literal\LFMark}
 
-\fielditem{url}{url}
+%The title in an abridged form. This field is usually not included in the bibliography. It is intended for citations in author"=title format. If present, the author"=title citation styles use this field instead of \bibfield{title}.
 
-The \acr{URL} of an online publication. If it is not URL-escaped (no <\%> chars), with \biber, it will be URI-escaped according to RFC 3987, that is, even Unicode chars will be correctly escaped.
-%https://tools.ietf.org/html/rfc3987
+\fielditem{shorttitle}{文本\LFMark}
 
-url。
+缩略形式的标题。
+该域通常不会包括在参考文献列表中。
+它可用于 |author-title| 格式的引用。
+如果有该域的话，|author-title| 引用样式使用该域来替代 \bibfield{title} 域。
 
-\fielditem{urldate}{date}
+%\fielditem{subtitle}{literal}
 
-The access date of the address specified in the \bibfield{url} field. See also \secref{bib:use:dat}.
+%The subtitle of the work.
 
-\fielditem{venue}{literal}
+\fielditem{subtitle}{文本}
 
-The location of a conference, a symposium, or some other event in \bibtype{proceedings} and \bibtype{inproceedings} entries. This field may also be useful for the custom types listed in \secref{bib:typ:ctm}. Note that the \bibfield{location} list holds the place of publication. It therefore corresponds to the \bibfield{publisher} and \bibfield{institution} lists. The location of the event is given in the \bibfield{venue} field. See also \bibfield{eventdate} and \bibfield{eventtitle}.
+作品的副标题。
 
-现场。会议，座谈，或其它事件的地址。
+%\fielditem{title}{literal}
 
-\fielditem{version}{literal}
+%The title of the work.
 
-The revision number of a piece of software, a manual, etc.
+\fielditem{title}{文本}
 
-版本。
+作品的标题。
 
-\fielditem{volume}{literal}
+%\fielditem{titleaddon}{literal}
 
-The volume of a multi"=volume book or a periodical. See also \bibfield{part}.
+%An annex to the \bibfield{title}, to be printed in a different font.
 
-期刊或多卷书的卷的卷数。
+\fielditem{titleaddon}{文本}
 
-\fielditem{volumes}{literal}
+\bibfield{title} 的附文，会用不同字体打印。
 
-The total number of volumes of a multi"=volume work. Depending on the entry type, this field refers to \bibfield{title} or \bibfield{maintitle}.
+%\listitem{translator}{name}
 
-总卷数。
+%The translator(s) of the \bibfield{title} or \bibfield{booktitle}, depending on the entry type. If the translator is identical to the \bibfield{editor}, the standard styles will automatically concatenate these fields in the bibliography.
 
-\fielditem{year}{literal}
+\listitem{translator}{名称}
 
-The year of publication. See also \bibfield{date} and \secref{bib:use:dat}.
+\bibfield{title} 或 \bibfield{booktitle} 的译者，具体取决于条目类型。
+如果译者与 \bibfield{editor} 相同，标准样式会在文献中自动将这些域关联起来。
 
-年份。
+%\fielditem{type}{key}
+
+%The type of a \bibfield{manual}, \bibfield{patent}, \bibfield{report}, or \bibfield{thesis}. This field may also be useful for the custom types listed in \secref{bib:typ:ctm}.
+
+\fielditem{type}{关键字}
+
+\bibfield{manual}、\bibfield{patent}、\bibfield{report} 或 \bibfield{thesis} 的类型。
+该域可用于 \secref{bib:typ:ctm} 节的定制类型。
+
+%\fielditem{url}{uri}
+
+%The \acr{URL} of an online publication. If it is not URL-escaped (no <\%> chars) it will be URI-escaped according to RFC 3987, that is, even Unicode chars will be correctly escaped.
+
+\fielditem{url}{uri}
+
+在线出版物的 \acr{URL}。
+如果它不是 URL-转义的（没有“\%”字符），
+那么会根据 RFC 3987 \footnote{
+	参考\url{https://tools.ietf.org/html/rfc3987}——译注}
+将其 URI-转义，也就是说，即使 Unicode 字符也会正确转义。
+
+%\fielditem{urldate}{date}
+
+%The access date of the address specified in the \bibfield{url} field. See also \secref{bib:use:dat}.
+
+\fielditem{urldate}{日期}
+
+\bibfield{url} 域中网址的获取日期。参考 \secref{bib:use:dat} 一节。
+
+%\fielditem{venue}{literal}
+
+%The location of a conference, a symposium, or some other event in \bibtype{proceedings} and \bibtype{inproceedings} entries. This field may also be useful for the custom types listed in \secref{bib:typ:ctm}. Note that the \bibfield{location} list holds the place of publication. It therefore corresponds to the \bibfield{publisher} and \bibfield{institution} lists. The location of the event is given in the \bibfield{venue} field. See also \bibfield{eventdate} and \bibfield{eventtitle}.
+
+\fielditem{venue}{文本}
+
+\bibtype{proceedings} 和 \bibtype{inproceedings} 条目中的会议、研讨会或其它事件的地点。
+该域可用于 \secref{bib:typ:ctm} 一节所列的定制类型。
+请注意，\bibfield{location} 列表指的是出版地点，因此对应于 \bibfield{publisher} 和 \bibfield{institution} 列表。
+而会议事件的会场地点则由 \bibfield{venue} 域给出。
+参考 \bibfield{eventdate} 和 \bibfield{eventtitle} 域。
+
+%\fielditem{version}{literal}
+
+%The revision number of a piece of software, a manual, etc.
+
+\fielditem{version}{文本}
+
+软件、手册等作品的修订次数。
+
+%\fielditem{volume}{integer}
+
+%The volume of a multi"=volume book or a periodical. It is expected to be an integer, not necessarily in arabic numerals since \biber will automatically from roman numerals or arabic letter to integers internally for sorting purposes. See also \bibfield{part}.
+
+\fielditem{volume}{整数}
+
+多卷本或连续出版物中作品的卷数。
+应当是整数，但不必是阿拉伯数字的形式。
+这是因为 \biber 为了排序会将罗马数字和阿拉伯数码自动转成整数。
+参考 \bibfield{part} 域。
+
+%\fielditem{volumes}{integer}
+
+%The total number of volumes of a multi"=volume work. Depending on the entry type, this field refers to \bibfield{title} or \bibfield{maintitle}. It is expected to be an integer, not necessarily in arabic numerals since \biber will automatically from roman numerals or arabic letter to integers internally for sorting purposes.
+
+\fielditem{volumes}{整数}
+
+多卷本著作的总卷数。
+根据文献条目类型，该域对应于 \bibfield{title} 或 \bibfield{maintitle} 域。
+应当是整数，但不必是阿拉伯数字的形式。
+这是因为 \biber 为了排序会将罗马数字和阿拉伯数码自动转成整数。
+
+%\fielditem{year}{literal}
+
+%The year of publication. It is better to use the \bibfield{date} field as this is compatible with plain years too. See \secref{bib:use:dat}.
+
+\fielditem{year}{文本}
+
+出版年份。
+不过使用 \bibfield{date} 域更好些，
+因为它也和普通年份兼容。
+参考 \secref{bib:use:dat} 节。
 
 \end{fieldlist}
 
