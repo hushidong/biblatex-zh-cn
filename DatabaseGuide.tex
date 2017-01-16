@@ -1378,7 +1378,7 @@
 
 %The author(s) of the work, given in an abbreviated form. This field is mainly intended for abbreviated forms of corporate authors, see \secref{bib:use:inc} for details.
 
-\listitem{shortauthor}{姓名\LFMark }
+\listitem{shortauthor}{姓名\LFMark}
 
 作者名的缩写形式。
 该域主要用于集体作者的缩写形式。
@@ -1564,97 +1564,97 @@
 \subsubsection{特殊域 Special Fields}
 \label{bib:fld:spc}
 
-The fields listed in this section do not hold printable data but serve a different purpose. They apply to all entry types in the default data model.
+%The fields listed in this section do not hold printable data but serve a different purpose. They apply to all entry types in the default data model.
 
-本节中的域不包括可打印的数据，用于其它用途，可用于默认数据模型的所有条目类型。
+本节中的域不包括可打印的数据，而是有其它用途。
+在默认数据模型中可用于所有条目类型。
 
 \begin{fieldlist}
 
-\fielditem{crossref}{entry key}
+%\fielditem{crossref}{entry key}
 
-This field holds an entry key for the cross"=referencing feature. Child entries with a \bibfield{crossref} field inherit data from the parent entry specified in the \bibfield{crossref} field. If the number of child entries referencing a specific parent entry hits a certain threshold, the parent entry is automatically added to the bibliography even if it has not been cited explicitly. The threshold is settable with the \opt{mincrossrefs} package option from \secref{use:opt:pre:gen}. Style authors should note that whether or not the \bibfield{crossref} fields of the child entries are defined on the \biblatex level depends on the availability of the parent entry. If the parent entry is available, the \bibfield{crossref} fields of the child entries will be defined. If not, the child entries still inherit the data from the parent entry but their \bibfield{crossref} fields will be undefined. Whether the parent entry is added to the bibliography implicitly because of the threshold or explicitly because it has been cited does not matter. See also the \bibfield{xref} field in this section as well as \secref{bib:cav:ref}.
+%This field holds an entry key for the cross"=referencing feature. Child entries with a \bibfield{crossref} field inherit data from the parent entry specified in the \bibfield{crossref} field. If the number of child entries referencing a specific parent entry hits a certain threshold, the parent entry is automatically added to the bibliography even if it has not been cited explicitly. The threshold is settable with the \opt{mincrossrefs} package option from \secref{use:opt:pre:gen}. Style authors should note that whether or not the \bibfield{crossref} fields of the child entries are defined on the \biblatex level depends on the availability of the parent entry. If the parent entry is available, the \bibfield{crossref} fields of the child entries will be defined. If not, the child entries still inherit the data from the parent entry but their \bibfield{crossref} fields will be undefined. Whether the parent entry is added to the bibliography implicitly because of the threshold or explicitly because it has been cited does not matter. See also the \bibfield{xref} field in this section as well as \secref{bib:cav:ref}.
 
-\fielditem{entryset}{separated values}
+\fielditem{crossref}{条目关键字}
 
-This field is specific to entry sets. See \secref{use:use:set} for details. This field is consumed by the backend processing and does not appear in the \path{.bbl}.
+该域提供的条目关键字可用于交叉引用。
+带有 \bibfield{crossref} 域的子条目可以从由 \bibfield{crossref} 域指定的父条目继承数据。
+如果引用某个父条目的子条目数量达到一个阈值，该父条目就会自动添加到参考文献中，
+即使它没有显式地被正文引用。
+该阈值可以由 \secref{use:opt:pre:gen} 节中的 \opt{mincrossrefs} 宏包选项设置。
+样式作者请注意，在 \biblatex 层面上子条目的 \bibfield{crossref} 域是否有定义取决于父条目是否可用。
+如果父条目可用，那么子条目的 \bibfield{crossref} 域将被定义。
+反之，子条目仍然可以继承父条目的数据但是其 \bibfield{crossref} 域是未定义的。
+父条目是否被添加到文献中（间接地由于阈值或者直接被显式地引用）对于该域的定义并不重要。
+参考本节中的 \bibfield{xref} 域以及 \secref{bib:cav:ref} 一节。
 
-\fielditem{execute}{code}
+%\fielditem{entryset}{separated values}
 
-A special field which holds arbitrary \tex code to be executed whenever the data of the respective entry is accessed. This may be useful to handle special cases. Conceptually, this field is comparable to the hooks \cmd{AtEveryBibitem}, \cmd{AtEveryLositem}, and \cmd{AtEveryCitekey} from \secref{aut:fmt:hok}, except that it is definable on a per"=entry basis in the \file{bib} file. Any code in this field is executed automatically immediately after these hooks.
+%This field is specific to entry sets. See \secref{use:use:set} for details. This field is consumed by the backend processing and does not appear in the \path{.bbl}.
 
-\fielditem{gender}{Pattern matching one of: \opt{sf}, \opt{sm}, \opt{sn}, \opt{pf}, \opt{pm}, \opt{pn}, \opt{pp}}
+\fielditem{entryset}{分隔值}
 
-The gender of the author or the gender of the editor, if there is no author. The following identifiers are supported: \opt{sf} (feminine singular, a single female name), \opt{sm} (masculine singular, a single male name), \opt{sn} (neuter singular, a single neuter name), \opt{pf} (feminine plural, a list of female names), \opt{pm} (masculine plural, a list of male names), \opt{pn} (neuter plural, a list of neuter names), \opt{pp} (plural, a mixed gender list of names). This information is only required by special bibliography and citation styles and only in certain languages. For example, a citation style may replace recurrent author names with a term such as <idem>. If the Latin word is used, as is custom in English and French, there is no need to specify the gender. In German publications, however, such key terms are usually given in German and in this case they are gender"=sensitive.
+该域用于指明条目集。
+详见 \secref{use:use:set} 节。
+该域在后端过程中被处理，不出现在 \path{.bbl} 中。
 
-\begin{table}
-\tablesetup
-\begin{tabularx}{\textwidth}{@{}p{80pt}@{}p{170pt}@{}X@{}}
-\toprule
-\multicolumn{1}{@{}H}{Language} &
-\multicolumn{1}{@{}H}{Region/Dialect} &
-\multicolumn{1}{@{}H}{Identifiers} \\
-\cmidrule(r){1-1}\cmidrule(r){2-2}\cmidrule{3-3}
-Catalan      & Spain, France, Andorra, Italy & \opt{catalan} \\
-Croatian     & Croatia, Bosnia and Herzegovina, Serbia & \opt{croatian} \\
-Czech        & Czech Republic & \opt{czech} \\
-Danish       & Denmark        & \opt{danish} \\
-Dutch        & Netherlands    & \opt{dutch} \\
-English      & USA            & \opt{american}, \opt{USenglish}, \opt{english} \\
-             & United Kingdom & \opt{british}, \opt{UKenglish} \\
-             & Canada         & \opt{canadian} \\
-             & Australia      & \opt{australian} \\
-             & New Zealand    & \opt{newzealand} \\
-Finnish      & Finland        & \opt{finnish} \\
-French       & France, Canada & \opt{french} \\
-German       & Germany        & \opt{german} \\
-             & Austria        & \opt{austrian} \\
-German (new) & Germany        & \opt{ngerman} \\
-             & Austria        & \opt{naustrian} \\
-Greek        & Greece         & \opt{greek} \\
-Italian      & Italy          & \opt{italian} \\
-Norwegian    & Norway         & \opt{norwegian}, \opt{norsk}, \opt{nynorsk} \\
-Polish       & Poland         & \opt{polish} \\
-Portuguese   & Brazil         & \opt{brazil} \\
-             & Portugal       & \opt{portuguese}, \opt{portuges} \\
-Russian      & Russia         & \opt{russian} \\
-Slovene      & Slovenian      & \opt{slovene} \\
-Spanish      & Spain          & \opt{spanish} \\
-Swedish      & Sweden         & \opt{swedish} \\
-\bottomrule
-\end{tabularx}
-\caption{Supported Languages}
-\label{bib:fld:tab1}
-\end{table}
+%\fielditem{execute}{code}
 
-\fielditem{langid}{identifier}
+%A special field which holds arbitrary \tex code to be executed whenever the data of the respective entry is accessed. This may be useful to handle special cases. Conceptually, this field is comparable to the hooks \cmd{AtEveryBibitem}, \cmd{AtEveryLositem}, and \cmd{AtEveryCitekey} from \secref{aut:fmt:hok}, except that it is definable on a per"=entry basis in the \file{bib} file. Any code in this field is executed automatically immediately after these hooks.
 
-The language id of the bibliography entry. The alias \bibfield{hyphenation} is provided for backwards compatibility. The identifier must be a language name known to the \sty{babel}/\sty{polyglossia} packages. This information may be used to switch hyphenation patterns and localize strings in the bibliography. Note that the language names are case sensitive. The languages currently supported by this package are given in \tabref{bib:fld:tab1}. Note that \sty{babel} treats the identifier \opt{english} as an alias for \opt{british} or \opt{american}, depending on the \sty{babel} version. The \biblatex package always treats it as an alias for \opt{american}. It is preferable to use the language identifiers \opt{american} and \opt{british} (\sty{babel}) or a language specific option to specify a language variant (\sty{polyglossia}, using the \bibfield{langidopts} field) to avoid any possible confusion. Compare \bibfield{language} in \secref{bib:fld:dat}.
+\fielditem{execute}{代码}
 
-\fielditem{langidopts}{literal}
+包含了任意 \TeX\ 代码的特殊域，这些代码会在获取相应的条目数据时被执行。
+这对处理特殊情况很有用。
+概念上，该域可以类比于 \secref{aut:fmt:hok} 节中的钩子命令 \cmd{AtEveryBibitem}、\cmd{AtEveryLositem} 和 \cmd{AtEveryCitekey}，
+但不同之处在于该域可以基于 \file{bib} 文件中的每一条目进行逐条定义。
+该域中的任何代码都会在这些钩子命令后立即自动执行。
 
-For \sty{polyglossia} users, allows per-entry language specific options. The literal value of this field is passed to \sty{polyglossia}'s language switching facility when using the package option \opt{autolang=langname}. For example, the fields:
+%\fielditem{gender}{Pattern matching one of: \opt{sf}, \opt{sm}, \opt{sn}, \opt{pf}, \opt{pm}, \opt{pn}, \opt{pp}}
 
-\begin{lstlisting}[style=bibtex]{}
-langid         = {english},
-langidopts     = {variant=british},
-\end{lstlisting}
-%
-would wrap the bibliography entry in:
+%The gender of the author or the gender of the editor, if there is no author. The following identifiers are supported: \opt{sf} (feminine singular, a single female name), \opt{sm} (masculine singular, a single male name), \opt{sn} (neuter singular, a single neuter name), \opt{pf} (feminine plural, a list of female names), \opt{pm} (masculine plural, a list of male names), \opt{pn} (neuter plural, a list of neuter names), \opt{pp} (plural, a mixed gender list of names). This information is only required by special bibliography and citation styles and only in certain languages. For example, a citation style may replace recurrent author names with a term such as <idem>. If the Latin word is used, as is custom in English and French, there is no need to specify the gender. In German publications, however, such key terms are usually given in German and in this case they are gender"=sensitive.
 
-\begin{lstlisting}[style=latex]{}
-\english[variant=british]
-...
-\endenglish
-\end{lstlisting}
-%
+\fielditem{gender}{匹配 \opt{sf}、\opt{sm}、\opt{sn}、\opt{pf}、\opt{pm}、\opt{pn}、\opt{pp} 其中之一的模式}
 
-\fielditem{ids}{separated list of entrykeys\BiberOnlyMark}
+作者或编辑（如果没有作者的话）的词性。
+支持以下以下标识符：\opt{sf} （阴性单数，单独的女性名）, \opt{sm}（阳性单数，单独的男性名），\opt{sn}（中性单数，单独的中性名），\opt{pf}（阴性复数，多个女性名），\opt{pm}（阳性复数，多个男性名），\opt{pn}（中性复数，多个中性名），\opt{pp}（复数，不同词性名的混合）。
+这一信息只在特殊的文献和引用样式以及某些语言中是需要的。
+例如，某一引用样式会用拉丁语“idem”等词汇来代替反复出现的作者名字。
+如果按照英语或法语的习惯使用这一拉丁词汇，那么就没有必要确定词性。
+然而在德语出版物中，这样的词汇通常用德语给出，此时就依赖于词性。
 
-Citation key aliases for the main citation key. An entry may be cited by any of its aliases and \biblatex will treat the citation as if it had used the primary citation key. This is to aid users who change their citation keys but have legacy documents which use older keys for the same entry. This field is consumed by the backend processing and does not appear in the \path{.bbl}.
 
-\fielditem{indexsorttitle}{literal}
+%\fielditem{ids}{separated list of entrykeys}
 
-The title used when sorting the index. In contrast to \bibfield{indextitle}, this field is used for sorting only. The printed title in the index is the \bibfield{indextitle} or the \bibfield{title} field. This field may be useful if the title contains special characters or commands which interfere with the sorting of the index. Consider this example:
+%Citation key aliases for the main citation key. An entry may be cited by any of its aliases and \biblatex will treat the citation as if it had used the primary citation key. This is to aid users who change their citation keys but have legacy documents which use older keys for the same entry. This field is consumed by the backend processing and does not appear in the \path{.bbl}.
+
+
+\fielditem{ids}{条目关键字的分隔值列表}
+
+主要引用关键字的别称。
+一个条目可以通过别称引用，\biblatex 会将引用视为它使用了原本的引用关键字。
+借助于该域，用户可以在改变引用关键字的同时仍然可以使用带有旧引用关键字条目的其它文件。
+该域在后端过程中被处理，不出现在 \path{.bbl} 中。
+
+%\fielditem{indexsorttitle}{literal}
+
+%The title used when sorting the index. In contrast to \bibfield{indextitle}, this field is used for sorting only. The printed title in the index is the \bibfield{indextitle} or the \bibfield{title} field. This field may be useful if the title contains special characters or commands which interfere with the sorting of the index. Consider this example:
+
+%\begin{lstlisting}[style=bibtex]{}
+%title          = {The \LaTeX\ Companion},
+%indextitle     = {\LaTeX\ Companion, The},
+%indexsorttitle = {LATEX Companion},
+%\end{lstlisting}
+%%
+%Style authors should note that \biblatex automatically copies the value of either the \bibfield{indextitle} or the \bibfield{title} field to \bibfield{indexsorttitle} if the latter field is undefined.
+
+\fielditem{indexsorttitle}{文本}
+
+排序索引使用的标题。
+与 \bibfield{indextitle} 域不同，该域只用于排序。
+而索引中打印出来的标题是 \bibfield{indextitle} 或\bibfield{title} 域。
+当标题中含有与索引排序相冲突的特殊字符或命令时，该域会很有用。
+考虑如下例子：
 
 \begin{lstlisting}[style=bibtex]{}
 title          = {The \LaTeX\ Companion},
@@ -1662,151 +1662,456 @@ indextitle     = {\LaTeX\ Companion, The},
 indexsorttitle = {LATEX Companion},
 \end{lstlisting}
 %
-Style authors should note that \biblatex automatically copies the value of either the \bibfield{indextitle} or the \bibfield{title} field to \bibfield{indexsorttitle} if the latter field is undefined.
+文献样式作者请注意，当 \bibfield{indexsorttitle} 没有定义时，\biblatex 会自动将 \bibfield{indextitle} 或 \bibfield{title} 域的值复制给该域。
 
-\fielditem{keywords}{separated values}
+%\fielditem{keywords}{separated values}
 
-A separated list of keywords. These keywords are intended for the bibliography filters (see \secref{use:bib:bib, use:use:div}), they are usually not printed. Note that with the default separator (comma), spaces around the separator are ignored.
+%A separated list of keywords. These keywords are intended for the bibliography filters (see \secref{use:bib:bib, use:use:div}), they are usually not printed. Note that with the default separator (comma), spaces around the separator are ignored.
 
-\fielditem{options}{separated \keyval options}
+\fielditem{keywords}{分隔值}
 
-A separated list of entry options in \keyval notation. This field is used to set options on a per"=entry basis. See \secref{use:opt:bib} for details. Note that citation and bibliography styles may define additional entry options.
+关键词的分隔值列表。
+这些关键词用于文献过滤（filter），
+参考 \secref{use:bib:bib, use:use:div} 节，通常不会打印出来。
+请注意，使用默认的分隔符（西文逗号）时，分隔符左右的空格会被忽略。
 
-\fielditem{presort}{string}
+%\begin{table}
+%\tablesetup
+%\begin{tabularx}{\textwidth}{@{}p{80pt}@{}p{170pt}@{}X@{}}
+%\toprule
+%\multicolumn{1}{@{}H}{Language} &
+%\multicolumn{1}{@{}H}{Region/Dialect} &
+%\multicolumn{1}{@{}H}{Identifiers} \\
+%\cmidrule(r){1-1}\cmidrule(r){2-2}\cmidrule{3-3}
+%Catalan      & Spain, France, Andorra, Italy & \opt{catalan} \\
+%Croatian     & Croatia, Bosnia and Herzegovina, Serbia & \opt{croatian} \\
+%Czech        & Czech Republic & \opt{czech} \\
+%Danish       & Denmark        & \opt{danish} \\
+%Dutch        & Netherlands    & \opt{dutch} \\
+%English      & USA            & \opt{american}, \opt{USenglish}, \opt{english} \\
+%			 & United Kingdom & \opt{british}, \opt{UKenglish} \\
+%			 & Canada         & \opt{canadian} \\
+%			 & Australia      & \opt{australian} \\
+%			 & New Zealand    & \opt{newzealand} \\
+%Estonian     & Estonia        & \opt{estonian} \\
+%Finnish      & Finland        & \opt{finnish} \\
+%French       & France, Canada & \opt{french} \\
+%German       & Germany        & \opt{german} \\
+%			 & Austria        & \opt{austrian} \\
+%			 & Switzerland    & \opt{swissgerman} \\
+%German (new) & Germany        & \opt{ngerman} \\
+%			 & Austria        & \opt{naustrian} \\
+%			 & Switzerland    & \opt{nswissgerman} \\
+%Greek        & Greece         & \opt{greek} \\
+%Italian      & Italy          & \opt{italian} \\
+%Norwegian    & Norway         & \opt{norwegian}, \opt{norsk}, \opt{nynorsk} \\
+%Polish       & Poland         & \opt{polish} \\
+%Portuguese   & Brazil         & \opt{brazil} \\
+%		   	 & Portugal       & \opt{portuguese}, \opt{portuges} \\
+%Russian      & Russia         & \opt{russian} \\
+%Slovak       & Slovakia       & \opt{slovak} \\
+%Slovene      & Slovenia       & \opt{slovene} \\
+%Spanish      & Spain          & \opt{spanish} \\
+%Swedish      & Sweden         & \opt{swedish} \\
+%\bottomrule
+%\end{tabularx}
+%\caption{Supported Languages}
+%\label{bib:fld:tab1}
+%\end{table}
 
-A special field used to modify the sorting order of the bibliography. This field is the first item the sorting routine considers when sorting the bibliography, hence it may be used to arrange the entries in groups. This may be useful when creating subdivided bibliographies with the bibliography filters. Please refer to \secref{use:srt} for further details. Also see \secref{aut:ctm:srt}. This field is consumed by the backend processing and does not appear in the \path{.bbl}.
+\begin{table}%[!t]
+\tablesetup
+\begin{tabularx}{\textwidth}{@{}p{80pt}@{}p{170pt}@{}X@{}}
+\toprule
+\multicolumn{1}{@{}H}{语言} &
+\multicolumn{1}{@{}H}{地区/方言} &
+\multicolumn{1}{@{}H}{标识符} \\
+\cmidrule(r){1-1}\cmidrule(r){2-2}\cmidrule{3-3}
+加泰罗尼亚语  & 西班牙、法国、安道尔、意大利 & \opt{catalan} \\
+克罗地亚语    & 克罗地亚、波黑、塞尔维亚 & \opt{croatian} \\
+捷克语       & 捷克共和国 & \opt{czech} \\
+丹麦语       & 丹麦        & \opt{danish} \\
+荷兰语        & 荷兰    & \opt{dutch} \\
+英语      	& 美国            & \opt{american}, \opt{USenglish}, \opt{english} \\
+			& 英国 & \opt{british}, \opt{UKenglish} \\
+			& 加拿大         & \opt{canadian} \\
+			& 澳大利亚      & \opt{australian} \\
+			& 新西兰    & \opt{newzealand} \\
+芬兰语      & 芬兰        & \opt{finnish} \\
+法语        & 法国、加拿大 & \opt{french} \\
+德语        & 德国        & \opt{german} \\
+			& 奥地利        & \opt{austrian} \\
+			& 瑞士    & \opt{swissgerman} \\
+德语（新正字法） & 德国        & \opt{ngerman} \\
+				& 奥地利        & \opt{naustrian} \\
+				& 瑞士    & \opt{nswissgerman} \\
+希腊语        & 希腊         & \opt{greek} \\
+意大利语      & 意大利          & \opt{italian} \\
+挪威语   	 & 挪威         & \opt{norwegian}, \opt{norsk}, \opt{nynorsk} \\
+波兰语       & 波兰         & \opt{polish} \\
+葡萄牙语  	 & 巴西         & \opt{brazil} \\
+			& 葡萄牙       & \opt{portuguese}, \opt{portuges} \\
+俄语     		 & 俄罗斯         & \opt{russian} \\
+斯洛伐克语       & 斯洛伐克       & \opt{slovak} \\
+斯洛文尼亚语      & 斯洛文尼亚       & \opt{slovene} \\
+西班牙语      & 西班牙          & \opt{spanish} \\
+瑞典语      	& 瑞典         & \opt{swedish} \\
+\bottomrule
+\end{tabularx}
+\caption{支持的语种}
+\label{bib:fld:tab1}
+\end{table}
 
-\fielditem{related}{separated values\BiberOnlyMark}
+%\fielditem{langid}{identifier}
 
-Citation keys of other entries which have a relationship to this entry. The relationship is specified by the \bibfield{relatedtype} field. Please refer to \secref{use:rel} for further details.
+%The language id of the bibliography entry. The alias \bibfield{hyphenation} is provided for backwards compatibility. The identifier must be a language name known to the \sty{babel}/\sty{polyglossia} packages. This information may be used to switch hyphenation patterns and localise strings in the bibliography. Note that the language names are case sensitive. The languages currently supported by this package are given in \tabref{bib:fld:tab1}. Note that \sty{babel} treats the identifier \opt{english} as an alias for \opt{british} or \opt{american}, depending on the \sty{babel} version. The \biblatex package always treats it as an alias for \opt{american}. It is preferable to use the language identifiers \opt{american} and \opt{british} (\sty{babel}) or a language specific option to specify a language variant (\sty{polyglossia}, using the \bibfield{langidopts} field) to avoid any possible confusion. Compare \bibfield{language} in \secref{bib:fld:dat}.
 
-\fielditem{relatedoptions}{separated values\BiberOnlyMark}
+\fielditem{langid}{标识符}
 
-Per"=type options to set for a related entry. Note that this does not set the options on the related entry itself, only the \opt{dataonly} clone which is used as a datasource for the parent entry.
+文献条目的语种标识。
+出于向后兼容性另提供了别称 \bibfield{hyphenation}。
+标识符必须是 \sty{babel}/\sty{polyglossia} 宏包中的语言名称。
+该信息用于文献中切换断词模式和本地化字符串。
+请注意，语言名称是大小写敏感的。
+目前本宏包支持的语言在\tabref{bib:fld:tab1} 中给出。
+需要注意的是，\sty{babel} 宏包将标识符 \opt{english} 当作 \opt{british} 或 \opt{american} 的别称，
+具体取决于 \sty{babel} 的版本。
+而 \biblatex 宏包总是将其当作 \opt{american} 的别称。
+为了避免可能的混淆，最好使用语言标识符 \opt{american} 和 \opt{british}（\sty{babel}）或者语言选项来确定语言变种
+（\sty{polyglossia}，使用 \bibfield{langidopts} 域）。
+比较 \secref{bib:fld:dat} 一节中的 \bibfield{language} 域。
 
-\fielditem{relatedtype}{identifier\BiberOnlyMark}
+%\fielditem{langidopts}{literal}
 
-An identifier which specified the type of relationship for the keys listed in the \bibfield{related} field. The identifier is a localized bibliography string printed
-before the data from the related entry list. It is also used to identify type-specific
-formatting directives and bibliography macros for the related entries. Please refer to \secref{use:rel} for further details.
+%For \sty{polyglossia} users, allows per-entry language specific options. The literal value of this field is passed to \sty{polyglossia}'s language switching facility when using the package option \opt{autolang=langname}. For example, the fields:
 
-\fielditem{relatedstring}{literal\BiberOnlyMark}
+%\begin{lstlisting}[style=bibtex]{}
+%langid         = {english},
+%langidopts     = {variant=british},
+%\end{lstlisting}
+%%
+%would wrap the bibliography entry in:
 
-A field used to override the bibliography string specified by \bibfield{relatedtype}. Please refer to \secref{use:rel} for further details.
+%\begin{ltxexample}
+%	\english[variant=british]
+%	...
+%	\endenglish
+%\end{ltxexample}
+%%
 
-\fielditem{sortkey}{literal}
+\fielditem{langidopts}{文本}
 
-A field used to modify the sorting order of the bibliography. Think of this field as the master sort key. If present, \biblatex uses this field during sorting and ignores everything else, except for the \bibfield{presort} field. Please refer to \secref{use:srt} for further details. This field is consumed by the backend processing and does not appear in the \path{.bbl}.
+对于 \sty{polyglossia} 的用户，该域会允许每个条目有自己的语言选项。
+当使用本宏包的选项 \opt{autolang=langname} 时，它们将被传递到 \sty{polyglossia} 的语言切换机制。
+例如，以下的域
+\begin{lstlisting}[style=bibtex]{}
+langid         = {english},
+langidopts     = {variant=british},
+\end{lstlisting}
+%
+会将文献条目置于如下代码块中
+\begin{ltxexample}
+\english[variant=british]
+...
+\endenglish
+\end{ltxexample}
+%
 
-\listitem{sortname}{name}
+%\fielditem{options}{separated \keyval options}
 
-A name or a list of names used to modify the sorting order of the bibliography. If present, this list is used instead of \bibfield{author} or \bibfield{editor} when sorting the bibliography. Please refer to \secref{use:srt} for further details. This field is consumed by the backend processing and does not appear in the \path{.bbl}.
+%A separated list of entry options in \keyval notation. This field is used to set options on a per"=entry basis. See \secref{use:opt:bib} for details. Note that citation and bibliography styles may define additional entry options.
 
-\fielditem{sortshorthand}{literal\BiberOnlyMark}
+\fielditem{options}{分隔的 \keyval 选项}
 
-Similar to \bibfield{sortkey} but used in the list of shorthands. If present, \biblatex uses this field instead of \bibfield{shorthand} when sorting the list of shorthands. This is useful if the \bibfield{shorthand} field holds shorthands with formatting commands such as \cmd{emph} or \cmd{textbf}. This field is consumed by the backend processing and does not appear in the \path{.bbl}.
+\keyval 形式的条目选项分隔值列表。
+该域用于设置每一条目的选项，详见 \secref{use:opt:bib} 一节。
+请注意，引用和文献样式会定义额外的条目选项。
 
-\fielditem{sorttitle}{literal}
+%\fielditem{presort}{string}
 
-A field used to modify the sorting order of the bibliography. If present, this field is used instead of the \bibfield{title} field when sorting the bibliography. The \bibfield{sorttitle} field may come in handy if you have an entry with a title like «An Introduction to\dots» and want that alphabetized under <I> rather than <A>. In this case, you could put «Introduction to\dots» in the \bibfield{sorttitle} field. Please refer to \secref{use:srt} for further details. This field is consumed by the backend processing and does not appear in the \path{.bbl}.
+%A special field used to modify the sorting order of the bibliography. This field is the first item the sorting routine considers when sorting the bibliography, hence it may be used to arrange the entries in groups. This may be useful when creating subdivided bibliographies with the bibliography filters. Please refer to \secref{use:srt} for further details. Also see \secref{aut:ctm:srt}. This field is consumed by the backend processing and does not appear in the \path{.bbl}.
 
-\fielditem{sortyear}{literal}
+\fielditem{presort}{字符串}
 
-A field used to modify the sorting order of the bibliography. If present, this field is used instead of the \bibfield{year} field when sorting the bibliography. Please refer to \secref{use:srt} for further details. This field is consumed by the backend processing and does not appear in the \path{.bbl}.
+用于修正文献排列顺序的特殊域。
+该域是文献排列时排序程序考虑的第一个项目，因此可用于将文献条目分组。
+这在使用文献过滤创建文献细分时很有用。
+更多细节请参考 \secref{use:srt} 以及 \secref{aut:ctm:srt} 节。
+该域在后端过程中被处理，不出现在 \path{.bbl} 中。
 
-\fielditem{xdata}{separated list of entrykeys\BiberOnlyMark}
+%\fielditem{related}{separated values}
 
-This field inherits data from one or more \bibtype{xdata} entries. Conceptually, the \bibfield{xdata} field is related to \bibfield{crossref} and \bibfield{xref}: \bibfield{crossref} establishes a logical parent/child relation and inherits data; \bibfield{xref} establishes as logical parent/child relation without inheriting data; \bibfield{xdata} inherits data without establishing a relation. The value of the \bibfield{xdata} may be a single entry key or a separated list of keys. See \secref{use:use:xdat} for further details. This field is consumed by the backend processing and does not appear in the \path{.bbl}.
+%Citation keys of other entries which have a relationship to this entry. The relationship is specified by the \bibfield{relatedtype} field. Please refer to \secref{use:rel} for further details.
 
-\fielditem{xref}{entry key}
+\fielditem{related}{分隔值}
 
-This field is an alternative cross"=referencing mechanism. It differs from \bibfield{crossref} in that the child entry will not inherit any data from the parent entry specified in the \bibfield{xref} field. If the number of child entries referencing a specific parent entry hits a certain threshold, the parent entry is automatically added to the bibliography even if it has not been cited explicitly. The threshold is settable with the \opt{mincrossrefs} package option from \secref{use:opt:pre:gen}. Style authors should note that whether or not the \bibfield{xref} fields of the child entries are defined on the \biblatex level depends on the availability of the parent entry. If the parent entry is available, the \bibfield{xref} fields of the child entries will be defined. If not, their \bibfield{xref} fields will be undefined. Whether the parent entry is added to the bibliography implicitly because of the threshold or explicitly because it has been cited does not matter. See also the \bibfield{crossref} field in this section as well as \secref{bib:cav:ref}.
+与本条目相关的其它条目的引用关键字。
+相互关系由 \bibfield{relatedtype} 域来确定。
+进一步细节请参考 \secref{use:rel} 一节。
+
+%\fielditem{relatedoptions}{separated values}
+
+%Per"=type options to set for a related entry. Note that this does not set the options on the related entry itself, only the \opt{dataonly} clone which is used as a datasource for the parent entry.
+
+\fielditem{relatedoptions}{分隔值}
+
+为相关条目设置基于类型的选项。
+请注意，这不会设置相关条目本身的选项，
+而只会作用到用作数据源的父条目的临时副本上。
+
+%\fielditem{relatedtype}{identifier}
+
+%An identifier which specified the type of relationship for the keys listed in the \bibfield{related} field. The identifier is a localised bibliography string printed before the data from the related entry list. It is also used to identify type-specific formatting directives and bibliography macros for the related entries. Please refer to \secref{use:rel} for further details.
+
+\fielditem{relatedtype}{标识符}
+标识符，为列在 \bibfield{related} 域中的关键字列表指定相互关系类型。
+该标识符是本地化字符串，会打印在相关条目列表的数据之前。
+该域也用于为相关条目指明类型相关的格式指令和参考文献宏。
+更多信息参考 \secref{use:rel} 节。
+
+%\fielditem{relatedstring}{literal}
+
+%A field used to override the bibliography string specified by \bibfield{relatedtype}. Please refer to \secref{use:rel} for further details.
+
+\fielditem{relatedstring}{文本}
+
+用于覆盖 \bibfield{relatedtype} 确定的参考文献字符串。
+更多信息参考 \secref{use:rel} 节。
+
+%\fielditem{sortkey}{literal}
+
+%A field used to modify the sorting order of the bibliography. Think of this field as the master sort key. If present, \biblatex uses this field during sorting and ignores everything else, except for the \bibfield{presort} field. Please refer to \secref{use:srt} for further details. This field is consumed by the backend processing and does not appear in the \path{.bbl}.
+
+\fielditem{sortkey}{文本}
+
+用来修正文献排序的域。
+该域可以认为是最主要的排序键值。
+当存在时，\biblatex 会在排序时使用该域，并且忽略除了 \bibfield{presort} 域之外的所有信息。
+详见 \secref{use:srt} 节。
+该域在后端过程中被处理，不出现在 \path{.bbl} 中。
+
+%\listitem{sortname}{name}
+
+%A name or a list of names used to modify the sorting order of the bibliography. If present, this list is used instead of \bibfield{author} or \bibfield{editor} when sorting the bibliography. Please refer to \secref{use:srt} for further details. This field is consumed by the backend processing and does not appear in the \path{.bbl}.
+
+\listitem{sortname}{姓名}
+
+用于修正文献排序的姓名或姓名列表。
+当存在时，该列会在文献排序时取代  \bibfield{author} 或 \bibfield{editor} 域。
+详见 \secref{use:srt} 节。
+该域在后端过程中被处理，不出现在 \path{.bbl} 中。
+
+%\fielditem{sortshorthand}{literal}
+
+%Similar to \bibfield{sortkey} but used in the list of shorthands. If present, \biblatex uses this field instead of \bibfield{shorthand} when sorting the list of shorthands. This is useful if the \bibfield{shorthand} field holds shorthands with formatting commands such as \cmd{emph} or \cmd{textbf}. This field is consumed by the backend processing and does not appear in the \path{.bbl}.
+
+\fielditem{sortshorthand}{文本}
+
+与 \bibfield{sortkey} 类似但用于缩略语列表中。
+当存在时，\biblatex 会在缩略语列表排序中用该域取代 \bibfield{shorthand} 域。
+当 \bibfield{shorthand} 域含有带格式命令（如 \cmd{emph} 或 \cmd{textbf}）的缩略语时，该域是很有用的。
+该域在后端过程中被处理，不出现在 \path{.bbl} 中。
+
+%\fielditem{sorttitle}{literal}
+
+%A field used to modify the sorting order of the bibliography. If present, this field is used instead of the \bibfield{title} field when sorting the bibliography. The \bibfield{sorttitle} field may come in handy if you have an entry with a title like «An Introduction to\dots» and want that alphabetized under <I> rather than <A>. In this case, you could put «Introduction to\dots» in the \bibfield{sorttitle} field. Please refer to \secref{use:srt} for further details. This field is consumed by the backend processing and does not appear in the \path{.bbl}.
+
+\fielditem{sorttitle}{文本}
+
+用于修正文献排序的域。
+当存在时，该域会在文献排序时取代 \bibfield{title} 域。
+如果一个条目带有“An Introduction to\dots”这样的标题，并且你想让它按字母“I”而不是“A”排序，那么 \bibfield{sorttitle} 域就会派上用场。
+这时，你就可以在 \bibfield{sorttitle} 域中填上“Introduction to\dots”。
+详见 \secref{use:srt} 节。
+该域在后端过程中被处理，不出现在 \path{.bbl} 中。
+
+%\fielditem{sortyear}{integer}
+
+%A field used to modify the sorting order of the bibliography. If present, this field is used instead of the \bibfield{year} field when sorting the bibliography. Please refer to \secref{use:srt} for further details. This field is consumed by the backend processing and does not appear in the \path{.bbl}.
+
+\fielditem{sortyear}{整数}
+
+用于修正文献排序的域。
+当存在时，该域会在文献排序时取代 \bibfield{year} 域。
+详见 \secref{use:srt} 节。
+该域在后端过程中被处理，不出现在 \path{.bbl} 中。
+
+%\fielditem{xdata}{separated list of entrykeys}
+
+%This field inherits data from one or more \bibtype{xdata} entries. Conceptually, the \bibfield{xdata} field is related to \bibfield{crossref} and \bibfield{xref}: \bibfield{crossref} establishes a logical parent/child relation and inherits data; \bibfield{xref} establishes as logical parent/child relation without inheriting data; \bibfield{xdata} inherits data without establishing a relation. The value of the \bibfield{xdata} may be a single entry key or a separated list of keys. See \secref{use:use:xdat} for further details. This field is consumed by the backend processing and does not appear in the \path{.bbl}.
+
+\fielditem{xdata}{条目关键字的分隔值列表}
+
+该域从一个或更多 \bibtype{xdata} 条目中继承数据。
+从概念上讲，\bibfield{xdata} 域与 \bibfield{crossref} 和 \bibfield{xref} 域相关：
+\bibfield{crossref} 创建一个父/子的逻辑关系并继承数据；
+\bibfield{xref} 创建一个不继承数据的父/子逻辑关系；
+而 \bibfield{xdata} 则继承数据却不创建关系。
+\bibfield{xdata} 的值可以是一个单独的条目关键字或者条目关键字的分隔值列表。
+详见 \secref{use:use:xdat} 节。
+该域在后端过程中被处理，不出现在 \path{.bbl} 中。
+
+%\fielditem{xref}{entry key}
+
+%This field is an alternative cross"=referencing mechanism. It differs from \bibfield{crossref} in that the child entry will not inherit any data from the parent entry specified in the \bibfield{xref} field. If the number of child entries referencing a specific parent entry hits a certain threshold, the parent entry is automatically added to the bibliography even if it has not been cited explicitly. The threshold is settable with the \opt{minxrefs} package option from \secref{use:opt:pre:gen}. Style authors should note that whether or not the \bibfield{xref} fields of the child entries are defined on the \biblatex level depends on the availability of the parent entry. If the parent entry is available, the \bibfield{xref} fields of the child entries will be defined. If not, their \bibfield{xref} fields will be undefined. Whether the parent entry is added to the bibliography implicitly because of the threshold or explicitly because it has been cited does not matter. See also the \bibfield{crossref} field in this section as well as \secref{bib:cav:ref}.
+
+\fielditem{xref}{条目关键字}
+
+该域可用于代替交叉引用机制。
+它与 \bibfield{crossref} 域的不同之处在于，
+子条目不会从其 \bibfield{xref} 域所列的父条目中继承数据。
+如果引用某个父条目的子条目数量达到一个阈值，该父条目就会自动添加到文献中，即使它并没有显式地被引用。
+该阈值可以由 \secref{use:opt:pre:gen} 节的 \opt{mincrossrefs} 宏包选项设置。
+文献样式作者需要注意，在 \biblatex 层面上，子条目的 \bibfield{xref} 域是否有定义取决于父条目是否可用。
+如果父条目可用，那么子条目的 \bibfield{xref} 域将被定义。
+反之，其 \bibfield{xref} 域是未定义的。
+父条目是否被添加到文献中（间接地由于阈值或者直接被显式地引用）对于域的定义并不重要。
+参考本节中的 \bibfield{crossref} 域以及 \secref{bib:cav:ref} 节。
+
 
 \end{fieldlist}
 
 \subsubsection{自定义域 Custom Fields}
 \label{bib:fld:ctm}
 
-The fields listed in this section are intended for special bibliography styles. They are not used by the standard bibliography styles.
+%The fields listed in this section are intended for special bibliography styles. They are not used by the standard bibliography styles.
 
 本节中的域用于特定的参考文献样式，标准样式不使用。
 
 \begin{fieldlist}
 
-\listitem{name{[a--c]}}{name}
+%\listitem{name{[a--c]}}{name}
 
-Custom lists for special bibliography styles. Not used by the standard bibliography styles.
+%Custom lists for special bibliography styles. Not used by the standard bibliography styles.
 
-\fielditem{name{[a--c]}type}{key}
+\listitem{name{[a--c]}}{姓名}
 
-Similar to \bibfield{authortype} and \bibfield{editortype} but referring to the fields \bibfield{name{[a--c]}}. Not used by the standard bibliography styles.
+特殊文献样式的定制列表。标准文献样式不使用。
 
-\listitem{list{[a--f]}}{literal}
+%\fielditem{name{[a--c]}type}{key}
 
-Custom lists for special bibliography styles. Not used by the standard bibliography styles.
+%Similar to \bibfield{authortype} and \bibfield{editortype} but referring to the fields \bibfield{name{[a--c]}}. Not used by the standard bibliography styles.
 
-\fielditem{user{[a--f]}}{literal}
+\fielditem{name{[a--c]}type}{关键字}
 
-Custom fields for special bibliography styles. Not used by the standard bibliography styles.
+类似于 \bibfield{authortype} 和 \bibfield{editortype} 域，
+不过对应的是 \bibfield{name{[a--c]}} 域。
+标准文献样式不使用。
 
-\fielditem{verb{[a--c]}}{literal}
+%\listitem{list{[a--f]}}{literal}
 
-Similar to the custom fields above except that these are verbatim fields. Not used by the standard bibliography styles.
+%Custom lists for special bibliography styles. Not used by the standard bibliography styles.
+
+\listitem{list{[a--f]}}{文本}
+
+特殊文献样式的定制列表。标准文献样式不使用。
+
+%\fielditem{user{[a--f]}}{literal}
+
+%Custom fields for special bibliography styles. Not used by the standard bibliography styles.
+
+\fielditem{user{[a--f]}}{文本}
+
+特殊文献样式的定制列表。标准文献样式不使用。
+
+%\fielditem{verb{[a--c]}}{literal}
+
+%Similar to the custom fields above except that these are verbatim fields. Not used by the standard bibliography styles.
+
+\fielditem{verb{[a--c]}}{文本}
+
+类似于以上的定制域，不过这些是抄录域。标准文献样式不使用。
 
 \end{fieldlist}
 
 \subsubsection{域的别名 Field Aliases}
 \label{bib:fld:als}
 
-The aliases listed in this section are provided for backwards compatibility with traditional \bibtex and other applications based on traditional \bibtex styles. Note that these aliases are immediately resolved as the \file{bib} file is processed. All bibliography and citation styles must use the names of the fields they point to, not the alias. In \file{bib} files, you may use either the alias or the field name but not both at the same time.
+%The aliases listed in this section are provided for backwards compatibility with traditional \bibtex and other applications based on traditional \bibtex styles. Note that these aliases are immediately resolved as the \file{bib} file is processed. All bibliography and citation styles must use the names of the fields they point to, not the alias. In \file{bib} files, you may use either the alias or the field name but not both at the same time.
 
-本级列出的别名用于兼容传统的bibtex。在biblatex的样式文件中则必须使用这些别名所指代的域名。
+本节列出的别名用于向后兼容传统 \BibTeX 以及其它基于传统 \BibTeX 样式的应用。
+请注意，当 \file{bib} 文件被处理时就立即解析这些别名。
+因此所有的文献和引用样式必须使用它们所指的域的名称，而不能是别名。
+而在 \file{bib} 文件中，既可以使用别名也可以使用原名，但不能同时使用。
+
 
 \begin{fieldlist}
 
-\listitem{address}{literal}
+\listitem{address}{文本}
 
-An alias for \bibfield{location}, provided for \bibtex compatibility. Traditional \bibtex uses the slightly misleading field name \bibfield{address} for the place of publication, \ie the location of the publisher, while \biblatex uses the generic field name \bibfield{location}. See \secref{bib:fld:dat,bib:use:and}.
+\bibfield{location}  的别名，用于 \BibTeX 相容性。
+传统的 \BibTeX 使用这一稍微有些误导性的域 \bibfield{address} 来表示出版地点，即出版者的所在地，
+而 \biblatex 使用更一般的 \bibfield{location} 域。
+参考 \secref{bib:fld:dat,bib:use:and} 节。
 
-address就是location。
+%\fielditem{annote}{literal}
 
-\fielditem{annote}{literal}
+%An alias for \bibfield{annotation}, provided for \sty{jurabib} compatibility. See \secref{bib:fld:dat}.
 
-An alias for \bibfield{annotation}, provided for \sty{jurabib} compatibility. See \secref{bib:fld:dat}.
+\fielditem{annote}{文本}
 
-\fielditem{archiveprefix}{literal}
+\bibfield{annotation} 的别名，用于 \sty{jurabib} 宏包兼容性。
+参考 \secref{bib:fld:dat} 节。
 
-An alias for \bibfield{eprinttype}, provided for arXiv compatibility. See \secref{bib:fld:dat,use:use:epr}.
+%\fielditem{archiveprefix}{literal}
 
-\fielditem{journal}{literal}
+%An alias for \bibfield{eprinttype}, provided for arXiv compatibility. See \secref{bib:fld:dat,use:use:epr}. 
 
-An alias for \bibfield{journaltitle}, provided for \bibtex compatibility. See \secref{bib:fld:dat}.
+\fielditem{archiveprefix}{文本}
 
-journal就是journaltitle。
+\bibfield{eprinttype} 的别名，用于 arXiv 的兼容性。
+参考 \secref{bib:fld:dat,use:use:epr} 节。
 
-\fielditem{key}{literal}
+%\fielditem{journal}{literal}
 
-An alias for \bibfield{sortkey}, provided for \bibtex compatibility. See \secref{bib:fld:spc}.
+%An alias for \bibfield{journaltitle}, provided for \bibtex compatibility. See \secref{bib:fld:dat}.
 
-key是sortkey。
+\fielditem{journal}{文本}
 
-\fielditem{pdf}{verbatim}
+\bibfield{journaltitle} 的别名，用于 \BibTeX 兼容性。
+参考 \secref{bib:fld:dat} 节。
 
-An alias for \bibfield{file}, provided for JabRef compatibility. See \secref{bib:fld:dat}.
+%\fielditem{key}{literal}
 
-pdf是file。
+%An alias for \bibfield{sortkey}, provided for \bibtex compatibility. See \secref{bib:fld:spc}.
+
+\fielditem{key}{文本}
+
+\bibfield{sortkey} 的别名，用于 \BibTeX 兼容性。
+参考 \secref{bib:fld:spc} 节。
+
+%\fielditem{pdf}{verbatim}
+
+%An alias for \bibfield{file}, provided for JabRef compatibility. See \secref{bib:fld:dat}.
+
+\fielditem{pdf}{抄录}
+
+\bibfield{file} 的别名，用于 JabRef 兼容性。
+参考 \secref{bib:fld:dat} 节。
 
 \fielditem{primaryclass}{literal}
 
-An alias for \bibfield{eprintclass}, provided for arXiv compatibility. See \secref{bib:fld:dat,use:use:epr}.
+An alias for \bibfield{eprintclass}, provided for arXiv compatibility. See \secref{bib:fld:dat,use:use:epr}. 
 
-\listitem{school}{literal}
+\fielditem{primaryclass}{文本}
 
-An alias for \bibfield{institution}, provided for \bibtex compatibility. The \bibfield{institution} field is used by traditional \bibtex for technical reports whereas the \bibfield{school} field holds the institution associated with theses. The \biblatex package employs the generic field name \bibfield{institution} in both cases. See \secref{bib:fld:dat,bib:use:and}.
+\bibfield{eprintclass} 的别名，用于 arXiv 的兼容性。
+参考 \secref{bib:fld:dat,use:use:epr} 节。
 
-school是institution。
+%\listitem{school}{literal}
+
+%An alias for \bibfield{institution}, provided for \bibtex compatibility. The \bibfield{institution} field is used by traditional \bibtex for technical reports whereas the \bibfield{school} field holds the institution associated with theses. The \biblatex package employs the generic field name \bibfield{institution} in both cases. See \secref{bib:fld:dat,bib:use:and}.
+
+\listitem{school}{文本}
+
+\bibfield{institution} 的别名，用于 \BibTeX 兼容性。
+\bibfield{institution} 域用于传统 \BibTeX 中的技术报告，
+而 \bibfield{school} 域处理与之相关的研究机构。
+在这两种情况下，\biblatex 宏包都会使用一般的域 \bibfield{institution}。
+参考 \secref{bib:fld:dat,bib:use:and}。
 
 \end{fieldlist}
+
 
 \subsection{使用注意事项 Usage Notes}
 \label{bib:use}
