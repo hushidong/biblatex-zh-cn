@@ -2116,56 +2116,107 @@ An alias for \bibfield{eprintclass}, provided for arXiv compatibility. See \secr
 \subsection{使用注意事项 Usage Notes}
 \label{bib:use}
 
-The entry types and fields supported by this package should for the most part be intuitive to use for anyone familiar with \bibtex. However, apart from the additional types and fields provided by this package, some of the familiar ones are handled in a way which is in need of explanation.
+%The entry types and fields supported by this package should for the most part be intuitive to use for anyone familiar with \bibtex. However, apart from the additional types and fields provided by this package, some of the familiar ones are handled in a way which is in need of explanation.
+%This package includes some compatibility code for \file{bib} files which were generated with a traditional \bibtex style in mind. Unfortunately, it is not possible to handle all legacy files automatically because \biblatex's data model is slightly different from traditional \bibtex. Therefore, such \file{bib} files will most likely require editing in order to work properly with this package. In sum, the following items are different from traditional \bibtex styles:
 
-本包支持的类型和域对于熟悉bibtex的人来说可以直觉的使用。然而除了传统的类型和域，其中某些熟悉的域和类型需要进一步解释。
-
-This package includes some compatibility code for \file{bib} files which were generated with a traditional \bibtex style in mind. Unfortunately, it is not possible to handle all legacy files automatically because \biblatex's data model is slightly different from traditional \bibtex. Therefore, such \file{bib} files will most likely require editing in order to work properly with this package. In sum, the following items are different from traditional \bibtex styles:
-
-本包包含了一些兼容bibtex的代码，但不可能完全处理所有的继承bib文件，因此这些bib需要修改，一些不同的需要修改的地方，总结如下:
-
+对于熟悉 \BibTeX 的用户来说，本宏包支持的绝大部分条目类型和域都是很直观的。
+然而，且不说本宏包额外新增的类型和域，一些很常见的类型和域的处理方式也需要进一步解释一下。
+本宏包考虑到包含一些相容性代码，用于处理那些由传统 \BibTeX 样式产生的 \file{bib} 文件。
+但不幸的是，自动处理所有留传下来的文件是不可能的，
+因为 \biblatex 的数据模型域传统的 \BibTeX 有少许不同。
+因此，为了在本宏包下能正确运行，这样的 \file{bib} 文件也许需要稍作修改。
+大体上，下列事项与传统的 \BibTeX 样式不同：
 
 \begin{itemize}
-\setlength{\itemsep}{0pt}
-\item The entry type \bibtype{inbook}. See \secref{bib:typ:blx, bib:use:inb} for details.
-\item The fields \bibfield{institution}, \bibfield{organization}, and \bibfield{publisher} as well as the aliases \bibfield{address} and \bibfield{school}. See \secref{bib:fld:dat, bib:fld:als, bib:use:and} for details.
-\item The handling of certain types of titles. See \secref{bib:use:ttl} for details.
-\item The field \bibfield{series}. See \secref{bib:fld:dat, bib:use:ser} for details.
-\item The fields \bibfield{year} and \bibfield{month}. See \secref{bib:fld:dat, bib:use:dat, bib:use:iss} for details.
-\item The field \bibfield{edition}. See \secref{bib:fld:dat} for details.
-\item The field \bibfield{key}. See \secref{bib:use:key} for details.
+	\setlength{\itemsep}{0pt}
+	%\item The entry type \bibtype{inbook}. See \secref{bib:typ:blx, bib:use:inb} for details.
+	\item \bibtype{inbook} 条目类型。详见 \secref{bib:typ:blx, bib:use:inb} 节。
+	%\item The fields \bibfield{institution}, \bibfield{organization}, and \bibfield{publisher} as well as the aliases \bibfield{address} and \bibfield{school}. See \secref{bib:fld:dat, bib:fld:als, bib:use:and} for details.
+	\item \bibfield{institution}、\bibfield{organization}、\bibfield{publisher} 域以及相应的别名 \bibfield{address} 和 \bibfield{school}。
+	详见 \secref{bib:fld:dat, bib:fld:als, bib:use:and} 节。
+	%\item The handling of certain types of titles. See \secref{bib:use:ttl} for details.
+	\item 一些标题类型的处理。详见 \secref{bib:use:ttl} 节。
+	%\item The field \bibfield{series}. See \secref{bib:fld:dat, bib:use:ser} for details.
+	\item \bibfield{series} 域。详见 \secref{bib:fld:dat, bib:use:ser} 节。
+	%\item The fields \bibfield{year} and \bibfield{month}. See \secref{bib:fld:dat, bib:use:dat, bib:use:iss} for details.
+	\item \bibfield{year} 和 \bibfield{month} 域。
+	详见 \secref{bib:fld:dat, bib:use:dat, bib:use:iss} 节。
+	%\item The field \bibfield{edition}. See \secref{bib:fld:dat} for details.
+	\item \bibfield{edition} 域。详见 \secref{bib:fld:dat} 节。
+	%\item The field \bibfield{key}. See \secref{bib:use:key} for details.
+	\item \bibfield{key} 域。详见 \secref{bib:use:key} 节。
 \end{itemize}
 
-Users of the \sty{jurabib} package should note that the \bibfield{shortauthor} field is treated as a name list by \biblatex, see \secref{bib:use:inc} for details.
+%Users of the \sty{jurabib} package should note that the \bibfield{shortauthor} field is treated as a name list by \sty{biblatex}, see \secref{bib:use:inc} for details.
 
-\subsubsection{\bibtype{inbook}条目类型 The Entry Type \bibtype{inbook}}
+\sty{jurabib} 宏包的用户请注意，\bibfield{shortauthor} 域被 \biblatex 视作姓名列表，
+详见 \secref{bib:use:inc} 节。
+
+\subsubsection{\bibtype{inbook} 条目类型}
 \label{bib:use:inb}
 
-\bibtype{inbook}条目类型只用来表示以书籍(专著)中包含的某一具有标题的部分作为引文的参考文献。它与
-\bibtype{book}的关系如同\bibtype{incollection}和\bibtype{collection}的关系。具体示例见\secref{bib:use:ttl}。如果只是将书籍的章节作为引文，简单的使用\bibfield{book}类型再加上\bibfield{chapter} 和\slash or \bibfield{pages} 域即可。至于参考文献列表是否应该完全包含章节引文的问题是有争议的，因为章并不是一个参考文献实体。
-
 %Use the \bibtype{inbook} entry type for a self"=contained part of a book with its own title only. It relates to \bibtype{book} just like \bibtype{incollection} relates to \bibtype{collection}. See \secref{bib:use:ttl} for examples. If you want to refer to a chapter or section of a book, simply use the \bibfield{book} type and add a \bibfield{chapter} and\slash or \bibfield{pages} field. Whether a bibliography should at all include references to chapters or sections is controversial because a chapter is not a bibliographic entity.
+
+\bibtype{inbook} 条目类型只用于那些书籍中有自己标题的独立部分。
+它与 \bibtype{book} 的关系正如同 \bibtype{incollection} 与 \bibtype{collection} 的关系。
+参考 \secref{bib:use:ttl} 中的例子。
+如果你想要指的是书的某一章节，
+使用 \bibfield{book} 类型并添加 \bibfield{chapter} 或 \bibfield{pages} 域即可。
+究竟参考文献是否可以引用章节是有争议的，因为章并不是文献实体。
 
 \subsubsection{缺失和可忽略数据 Missing and Omissible Data}
 \label{bib:use:key}
 
-The fields marked as <required> in \secref{bib:typ:blx} are not strictly required in all cases. The bibliography styles which ship with this package can get by with as little as a \bibfield{title} field for most entry types. A book published anonymously, a periodical without an explicit editor, or a software manual without an explicit author should pose no problem as far as the bibliography is concerned. Citation styles, however, may have different requirements. For example, an author"=year citation scheme obviously requires an \bibfield{author}\slash \bibfield{editor} and a \bibfield{year} field.
+%The fields marked as <required> in \secref{bib:typ:blx} are not strictly required in all cases. The bibliography styles which ship with this package can get by with as little as a \bibfield{title} field for most entry types. A book published anonymously, a periodical without an explicit editor, or a software manual without an explicit author should pose no problem as far as the bibliography is concerned. Citation styles, however, may have different requirements. For example, an author"=year citation scheme obviously requires an \bibfield{author}\slash \bibfield{editor} and a \bibfield{year} field.
 
-You may generally use the \bibfield{label} field to provide a substitute for any missing data required for citations. How the \bibfield{label} field is employed depends on the citation style. The author"=year citation styles which come with this package use the \bibfield{label} field as a fallback if either the \bibfield{author}\slash \bibfield{editor} or the \bibfield{year} is missing. The numeric styles, on the other hand, do not use it at all since the numeric scheme is independent of the available data. The author"=title styles ignore it as well, because the bare \bibfield{title} is usually sufficient to form a unique citation and a title is expected to be available in any case. The \bibfield{label} field may also be used to override the non"=numeric portion of the automatically generated \bibfield{labelalpha} field used by alphabetic citation styles. See \secref{aut:bbx:fld} for details.
+在 \secref{bib:typ:blx} 节中标记为“required”的域并不一定在所有情况下都是严格要求的。
+大部分只含 \bibfield{title} 域的条目类型对于本宏包所带的文献样式也可以过得去。
+就参考文献而言，匿名出版的书籍、没有明确编辑的周期出版物、或者没有明确作者的软件手册都应当不会有问题。
+但是，引用样式也许会有不同的要求。
+例如，|author-year|引用格式就明确要求 \bibfield{author}\slash \bibfield{editor} 域和 \bibfield{year} 域。
 
-Note that traditional \bibtex styles support a \bibfield{key} field which is used for alphabetizing if both \bibfield{author} and \bibfield{editor} are missing. The \biblatex package treats \bibfield{key} as an alias for \bibfield{sortkey}. In addition to that, it offers very fine-grained sorting controls, see \secref{bib:fld:spc, use:srt} for details. The \sty{natbib} package employs the \bibfield{key} field as a fallback label for citations. Use the \bibfield{label} field instead.
+%You may generally use the \bibfield{label} field to provide a substitute for any missing data required for citations. How the \bibfield{label} field is employed depends on the citation style. The author"=year citation styles which come with this package use the \bibfield{label} field as a fallback if either the \bibfield{author}\slash \bibfield{editor} or the \bibfield{year} is missing. The numeric styles, on the other hand, do not use it at all since the numeric scheme is independent of the available data. The author"=title styles ignore it as well, because the bare \bibfield{title} is usually sufficient to form a unique citation and a title is expected to be available in any case. The \bibfield{label} field may also be used to override the non"=numeric portion of the automatically generated \bibfield{labelalpha} field used by alphabetic citation styles. See \secref{aut:bbx:fld} for details.
+
+一般来说可以使用 \bibfield{label} 域代替引用要求的任意缺失数据。
+\bibfield{label} 域的使用方式取决于引用样式。
+如果 \bibfield{author}\slash \bibfield{editor} 域或 \bibfield{year} 域缺失，
+那么本宏包所带的 |author-year| 引用样式会将 \bibfield{label} 域作为后备信息。
+另一方面，数字样式根本不会用到这些，因为数字格式与可用数据无关。
+此外，|author-title|样式也会忽略这些，因为 \bibfield{title} 域足够生成惟一的引用，
+并且标题几乎在所有情形中都是存在的。
+\bibfield{label} 域也可以用于覆盖自动生成的 \bibfield{labelalpha} 域中的非数值部分，
+这用于按字母排序的引用样式。
+详见 \secref{aut:bbx:fld} 节。
+
+
+%Note that traditional \bibtex styles support a \bibfield{key} field which is used for alphabetizing if both \bibfield{author} and \bibfield{editor} are missing. The \biblatex package treats \bibfield{key} as an alias for \bibfield{sortkey}. In addition to that, it offers very fine-grained sorting controls, see \secref{bib:fld:spc, use:srt} for details. The \sty{natbib} package employs the \bibfield{key} field as a fallback label for citations. Use the \bibfield{label} field instead.
+
+请注意，当 \bibfield{author} 和 \bibfield{editor} 域都缺失时，
+传统的 \BibTeX 样式支持 \bibfield{key} 域用于依字母排序。
+\biblatex 宏包将 \bibfield{key} 视为 \bibfield{sortkey} 的别名。
+此外，它还提供了非常细致化的排序控制，详见 \secref{bib:fld:spc, use:srt} 节。
+\sty{natbab} 宏包使用 \bibfield{key} 域作为后备的引用标签。
+使用 \bibfield{label} 域来代替它。
 
 \subsubsection{集体作者和编者 Corporate Authors and Editors}
 \label{bib:use:inc}
 
-Corporate authors and editors are given in the \bibfield{author} or \bibfield{editor} field, respectively. Note that they must be wrapped in an extra pair of curly braces to prevent data parsing from treating them as personal names which are to be dissected into their components. Use the \bibfield{shortauthor} field if you want to give an abbreviated form of the name or an acronym for use in citations.
+%Corporate authors and editors are given in the \bibfield{author} or \bibfield{editor} field, respectively. Note that they must be wrapped in an extra pair of curly braces to prevent data parsing from treating them as personal names which are to be dissected into their components. Use the \bibfield{shortauthor} field if you want to give an abbreviated form of the name or an acronym for use in citations.
+
+集体作者和编辑分别在 \bibfield{author} 和 \bibfield{editor} 域中给出。
+请注意，他们必须再用花括号括起来，以防被认为是个人姓名进而被分解成姓名成分。
+如果你想在引用时给出简称或首字母缩写的形式，请使用 \bibfield{shortauthor} 域。
 
 \begin{lstlisting}[style=bibtex]{}
 author       = {<<{National Aeronautics and Space Administration}>>},
 shortauthor  = {NASA},
 \end{lstlisting}
 %
-The default citation styles will use the short name in all citations while the full name is printed in the bibliography. For corporate editors, use the corresponding fields \sty{editor} and \sty{shorteditor}. Since all of these fields are treated as name lists, it is possible to mix personal names and corporate names, provided that the names of all corporations and institutions are wrapped in braces.
+%The default citation styles will use the short name in all citations while the full name is printed in the bibliography. For corporate editors, use the corresponding fields \sty{editor} and \sty{shorteditor}. Since all of these fields are treated as name lists, it is possible to mix personal names and corporate names, provided that the names of all corporations and institutions are wrapped in braces.
+默认的引用样式会在所有的引用里使用短名称而在参考文献中打印全名。
+对于集体编辑，则使用 \bibfield{editor} 和 \bibfield{shorteditor} 域。
+由于这些域都被视作姓名列表，
+因此，只要把所有的合作者和单位用花括号括起来，就可以将个人姓名和集体名称混合起来使用。
 
 \begin{lstlisting}[style=bibtex]{}
 editor       = {<<{National Aeronautics and Space Administration}>>
@@ -2173,12 +2224,19 @@ editor       = {<<{National Aeronautics and Space Administration}>>
 shorteditor  = {NASA and Doe, John},
 \end{lstlisting}
 %
-Users switching from the \sty{jurabib} package to \biblatex should note that the \bibfield{shortauthor} field is treated as a name list.
+%Users switching from the \sty{jurabib} package to \sty{biblatex} should note that the \bibfield{shortauthor} field is treated as a name list.
+从 \sty{jurabib} 宏包切换到 \biblatex 宏包的用户需要注意，
+\bibfield{shortauthor} 域被视作姓名列表。
 
-\subsubsection{原样输出列表 Literal Lists}
+\subsubsection{文本列表 Literal Lists}
 \label{bib:use:and}
 
-The fields \bibfield{institution}, \bibfield{organization}, \bibfield{publisher}, and \bibfield{location} are literal lists in terms of \secref{bib:fld}. This also applies to \bibfield{origlocation}, \bibfield{origpublisher} and to the field aliases \bibfield{address} and \bibfield{school}. All of these fields may contain a list of items separated by the keyword <|and|>. If they contain a literal <|and|>, it must be wrapped in braces.
+%The fields \bibfield{institution}, \bibfield{organization}, \bibfield{publisher}, and \bibfield{location} are literal lists in terms of \secref{bib:fld}. This also applies to \bibfield{origlocation}, \bibfield{origpublisher} and to the field aliases \bibfield{address} and \bibfield{school}. All of these fields may contain a list of items separated by the keyword <|and|>. If they contain a literal <|and|>, it must be wrapped in braces.
+
+按照 \secref{bib:fld} 节，\bibfield{institution}、\bibfield{organization}、\bibfield{publisher} 和 \bibfield{location} 等域是文本列表。
+\bibfield{origlocation}、\bibfield{origpublisher}，以及作为别名的 \bibfield{address} 和 \bibfield{school} 域也是如此。
+所有的这些域都可以包含一个由关键词“|and|”分隔的项目列表。
+如果它们本身带有“|and|”文本，那么必须用括号括起来。
 
 \begin{lstlisting}[style=bibtex]{}
 publisher    = {William Reid <<{and}>> Company},
@@ -2188,7 +2246,9 @@ organization = {American Society for Photogrammetry <<{and}>> Remote Sensing
 		American Congress on Surveying <<{and}>> Mapping},
 \end{lstlisting}
 %
-Note the difference between a literal <|{and}|> and the list separator <|and|> in the above examples. You may also wrap the entire name in braces:
+%Note the difference between a literal <|{and}|> and the list separator <|and|> in the above examples. You may also wrap the entire name in braces:
+请注意以上例子中作为文本和作为列表分隔符的“|and|”之间的区别。
+你也可以把整个名称用括号括起来：
 
 \begin{lstlisting}[style=bibtex]{}
 publisher    = {<<{William Reid and Company}>>},
@@ -2198,12 +2258,19 @@ organization = {<<{American Society for Photogrammetry and Remote Sensing}>>
 		<<{American Congress on Surveying and Mapping}>>},
 \end{lstlisting}
 %
-Legacy files which have not been updated for use with \biblatex will still work if these fields do not contain a literal <and>. However, note that you will miss out on the additional features of literal lists in this case, such as configurable formatting and automatic truncation.
+%Legacy files which have not been updated for use with \biblatex will still work if these fields do not contain a literal <and>. However, note that you will miss out on the additional features of literal lists in this case, such as configurable formatting and automatic truncation.
+对于没有为在 \biblatex 宏包中使用而更新的旧文件，如果它们的域中不含“and”文本，
+那么仍然可以运行。
+然而，请注意此时你会缺失那些关于文本列表的新特性，例如可配置的格式和自动截词。
 
-\subsubsection{题名 Titles}
+\subsubsection{标题}
 \label{bib:use:ttl}
 
-The following examples demonstrate how to handle different types of titles. Let's start with a five"=volume work which is referred to as a whole:
+%The following examples demonstrate how to handle different types of titles. Let's start with a five"=volume work which is referred to as a whole:
+以下例子展示了如何处理不同类型的标题。
+首先是一个作为整体的五卷本作品：
+
+
 
 \begin{lstlisting}[style=bibtex]{}
 @MvBook{works,
@@ -2213,7 +2280,9 @@ The following examples demonstrate how to handle different types of titles. Let'
   ...
 \end{lstlisting}
 %
-The individual volumes of a multi"=volume work usually have a title of their own. Suppose the fourth volume of the \emph{Collected Works} includes Shakespeare's sonnets and we are referring to this volume only:
+%The individual volumes of a multi"=volume work usually have a title of their own. Suppose the fourth volume of the \emph{Collected Works} includes Shakespeare's sonnets and we are referring to this volume only:
+多卷本作品的每一卷通常有自己的标题。
+假设\emph{全集}的第四卷是莎士比亚的十四行诗，并且我们要单独引用该卷：
 
 \begin{lstlisting}[style=bibtex]{}
 @Book{works:4,
@@ -2224,7 +2293,8 @@ The individual volumes of a multi"=volume work usually have a title of their own
   ...
 \end{lstlisting}
 %
-If the individual volumes do not have a title, we put the main title in the \bibfield{title} field and include a volume number:
+%If the individual volumes do not have a title, we put the main title in the \bibfield{title} field and include a volume number:
+如果单卷没有标题，我们在 \bibfield{title} 域中使用主标题，并标明卷数：
 
 \begin{lstlisting}[style=bibtex]{}
 @Book{works:4,
@@ -2234,7 +2304,9 @@ If the individual volumes do not have a title, we put the main title in the \bib
   ...
 \end{lstlisting}
 %
-In the next example, we are referring to a part of a volume, but this part is a self"=contained work with its own title. The respective volume also has a title and there is still the main title of the entire edition:
+%In the next example, we are referring to a part of a volume, but this part is a self"=contained work with its own title. The respective volume also has a title and there is still the main title of the entire edition:
+在下个例子里，我们引用一卷的一部分，但是该部分自成一个独立作品且有自己的标题。
+相应的卷也有一个标题，并且整个作品有一个主标题：
 
 \begin{lstlisting}[style=bibtex]{}
 @InBook{lear,
@@ -2248,7 +2320,10 @@ In the next example, we are referring to a part of a volume, but this part is a 
   ...
 \end{lstlisting}
 %
-Suppose the first volume of the \emph{Collected Works} includes a reprinted essay by a well"=known scholar. This is not the usual introduction by the editor but a self"=contained work. The \emph{Collected Works} also have a separate editor:
+%Suppose the first volume of the \emph{Collected Works} includes a reprinted essay by a well"=known scholar. This is not the usual introduction by the editor but a self"=contained work. The \emph{Collected Works} also have a separate editor:
+假设\emph{全集}的第一卷是翻版时由一位著名学者写的随笔。
+这不是通常意义上编辑写的简介，而是一份独立的作品。
+\emph{全集} 同样另有一位编辑：
 
 \begin{lstlisting}[style=bibtex]{}
 @InBook{stage,
@@ -2263,25 +2338,39 @@ Suppose the first volume of the \emph{Collected Works} includes a reprinted essa
   ...
 \end{lstlisting}
 %
-See \secref{bib:use:ser} for further examples.
+%See \secref{bib:use:ser} for further examples.
+更多例子请参考 \secref{bib:use:ser} 节。
 
 \subsubsection{编辑角色 Editorial Roles}
 \label{bib:use:edr}
 
-The type of editorial role performed by an editor in one of the \bibfield{editor} fields (\ie \bibfield{editor}, \bibfield{editora}, \bibfield{editorb}, \bibfield{editorc}) may be specified in the corresponding \bibfield{editor...type} field. The following roles are supported by default. The role <\texttt{editor}> is the default. In this case, the \bibfield{editortype} field is omissible.
+%The type of editorial role performed by an editor in one of the \bibfield{editor} fields (\ie \bibfield{editor}, \bibfield{editora}, \bibfield{editorb}, \bibfield{editorc}) may be specified in the corresponding \bibfield{editor...type} field. The following roles are supported by default. The role <\texttt{editor}> is the default. In this case, the \bibfield{editortype} field is omissible.
+
+\bibfield{editor} 域
+（包括 \bibfield{editor}、\bibfield{editora}、\bibfield{editorb}、\bibfield{editorc}）中编辑作用的类型可以由相应的 \bibfield{editor...type} 域确定。
+默认支持以下的角色。
+缺省值是“\texttt{editor}”，此时 \bibfield{editortype} 域可以省略。
 
 \begin{marglist}
-\setlength{\itemsep}{0pt}
-\item[editor] The main editor. This is the most generic editorial role and the default value.
-\item[compiler] Similar to \texttt{editor} but used if the task of the editor is mainly compiling.
-\item[founder] The founding editor of a periodical or a comprehensive publication project such as a <Collected Works> edition or a long"=running legal commentary.
-\item[continuator] An editor who continued the work of the founding editor (\texttt{founder}) but was subsequently replaced by the current editor (\texttt{editor}).
-\item[redactor] A secondary editor whose task is redacting the work.
-\item[reviser] A secondary editor whose task is revising the work.
-\item[collaborator] A secondary editor or a consultant to the editor.
+	\setlength{\itemsep}{0pt}
+	\item[editor] %The main editor. This is the most generic editorial role and the default value.
+	主要编辑。这是最普遍的编辑角色，也是默认值。
+	\item[compiler] %Similar to \texttt{editor} but used if the task of the editor is mainly compiling.
+	类似于 \texttt{editor} 但使用场合是编辑主要进行编纂工作。
+	\item[founder] %The founding editor of a periodical or a comprehensive publication project such as a <Collected Works> edition or a long"=running legal commentary.
+	诸如“全集”或长期的法律评论等连续出版物或综合出版项目的创刊者。
+	\item[continuator] %An editor who continued the work of the founding editor (\texttt{founder}) but was subsequently replaced by the current editor (\texttt{editor}).
+	继续创刊编辑（\texttt{founder}）工作的编辑，不过随后由现任编辑（\texttt{editor}）所接替。
+	\item[redactor] %A secondary editor whose task is redacting the work.
+	从事编修工作的次要编辑。
+	\item[reviser] %A secondary editor whose task is revising the work.
+	从事校订工作的次要编辑。
+	\item[collaborator] %A secondary editor or a consultant to the editor.
+	次要编辑或者主编的顾问。
 \end{marglist}
 %
-For example, if the task of the editor is compiling, you may indicate that in the corresponding \bibfield{editortype} field:
+%For example, if the task of the editor is compiling, you may indicate that in the corresponding \bibfield{editortype} field:
+例如，如果编辑的任务是编纂的话，你可以在相应的 \bibfield{editortype} 域中指明：
 
 \begin{lstlisting}[style=bibtex]{}
 @Collection{...,
@@ -2290,7 +2379,8 @@ For example, if the task of the editor is compiling, you may indicate that in th
   ...
 \end{lstlisting}
 %
-There may also be secondary editors in addition to the main editor:
+%There may also be secondary editors in addition to the main editor:
+除主编之外可以有次要编辑：
 
 \begin{lstlisting}[style=bibtex]{}
 @Book{...,
@@ -2303,7 +2393,9 @@ There may also be secondary editors in addition to the main editor:
   ...
 \end{lstlisting}
 %
-Periodicals or long"=running publication projects may see several generations of editors. For example, there may be a founding editor in addition to the current editor:
+%Periodicals or long"=running publication projects may see several generations of editors. For example, there may be a founding editor in addition to the current editor:
+连续出版物或长期出版项目通常有不同阶段的编辑。
+例如，在现任编辑之外还可以有一位创刊编辑：
 
 \begin{lstlisting}[style=bibtex]{}
 @Book{...,
@@ -2314,7 +2406,10 @@ Periodicals or long"=running publication projects may see several generations of
   ...
 \end{lstlisting}
 %
-Note that only the \bibfield{editor} is considered in citations and when sorting the bibliography. If an entry is typically cited by the founding editor (and sorted accordingly in the bibliography), the founder goes into the \bibfield{editor} field and the current editor moves to one of the \bibfield{editor...} fields:
+%Note that only the \bibfield{editor} is considered in citations and when sorting the bibliography. If an entry is typically cited by the founding editor (and sorted accordingly in the bibliography), the founder goes into the \bibfield{editor} field and the current editor moves to one of the \bibfield{editor...} fields:
+请注意，只有 \bibfield{editor} 在引用和文献排列中起作用。
+如果一个条目特地引用创刊编辑（并且据此在文献中排列），
+那么创刊者在 \bibfield{editor} 域中给出，而现任编辑则移动到 \bibfield{editor...} 域中：
 
 \begin{lstlisting}[style=bibtex]{}
 @Collection{...,
@@ -2324,12 +2419,21 @@ Note that only the \bibfield{editor} is considered in citations and when sorting
   ...
 \end{lstlisting}
 %
-You may add more roles by initializing and defining a new localization key whose name corresponds to the identifier in the \bibfield{editor...type} field. See \secref{use:lng,aut:lng:cmd} for details.
+%You may add more roles by initializing and defining a new localization key whose name corresponds to the identifier in the \bibfield{editor...type} field. See \secref{use:lng,aut:lng:cmd} for details.
+可以通过初始化和定义新的本地化关键字来增加更多的角色，
+关键字的名称对应于 \bibfield{editor...type} 域中的标识符。
+详见 \secref{use:lng,aut:lng:cmd} 节。
 
 \subsubsection{出版物和期刊系列 Publication and Journal Series}
 \label{bib:use:ser}
 
-The \bibfield{series} field is used by traditional \bibtex styles both for the main title of a multi"=volume work and for a publication series, \ie a loosely related sequence of books by the same publisher which deal with the same general topic or belong to the same field of research. This may be ambiguous. This package introduces a \bibfield{maintitle} field for multi"=volume works and employs \bibfield{series} for publication series only. The volume or number of a book in the series goes in the \bibfield{number} field in this case:
+%The \bibfield{series} field is used by traditional \bibtex styles both for the main title of a multi"=volume work and for a publication series, \ie a loosely related sequence of books by the same publisher which deal with the same general topic or belong to the same field of research. This may be ambiguous. This package introduces a \bibfield{maintitle} field for multi"=volume works and employs \bibfield{series} for publication series only. The volume or number of a book in the series goes in the \bibfield{number} field in this case:
+
+在传统的 \BibTeX 样式中，\bibfield{series} 域既用于多卷本作品的主标题，也用于出版物的系列，
+也就是说，同一位出版者的关系较松散的一系列书籍，主要关于一个大致的方向或者同一个研究领域。
+这种用法是模糊不清的。
+因此，本宏包引入了 \bibfield{maintitle} 域来表示多卷本作品，而 \bibfield{series} 只用于出版物系列。
+此时该系列中的一本书的卷号由 \bibfield{number} 域给出：
 
 \begin{lstlisting}[style=bibtex]{}
 @Book{...,
@@ -2340,7 +2444,12 @@ The \bibfield{series} field is used by traditional \bibtex styles both for the m
   ...
 \end{lstlisting}
 %
-The \bibtype{article} entry type makes use of the \bibfield{series} field as well, but handles it in a special way. First, a test is performed to determine whether the value of the field is an integer. If so, it will be printed as an ordinal. If not, another test is performed to determine whether it is a localization key. If so, the localized string is printed. If not, the value is printed as is. Consider the following example of a journal published in numbered series:
+%The \bibtype{article} entry type makes use of the \bibfield{series} field as well, but handles it in a special way. First, a test is performed to determine whether the value of the field is an integer. If so, it will be printed as an ordinal. If not, another test is performed to determine whether it is a localization key. If so, the localized string is printed. If not, the value is printed as is. Consider the following example of a journal published in numbered series:
+\bibtype{article} 条目类型也使用 \bibfield{series} 域，但是使用方式比较特殊。
+首先，会执行一个测试来确定该域的值是否是整数。
+如果是的话，它会以序数的形式打印；反之，会执行另一个测试来确定它是否是本地化关键字。
+如果是的话，会打印本地化字符串；反之则按照本身打印。
+考虑下面这个以带有数字系列的期刊的例子：
 
 \begin{lstlisting}[style=bibtex]{}
 @Article{...,
@@ -2352,7 +2461,11 @@ The \bibtype{article} entry type makes use of the \bibfield{series} field as wel
   ...
 \end{lstlisting}
 %
-This entry will be printed as «\emph{Journal Name}. 3rd ser. 15.7 (1995)». Some journals use designations such as «old series» and «new series» instead of a number. Such designations may be given in the \bibfield{series} field as well, either as a literal string or as a localization key. Consider the following example which makes use of the localization key \texttt{newseries}:
+%This entry will be printed as «\emph{Journal Name}. 3rd ser. 15.7 (1995)». Some journals use designations such as «old series» and «new series» instead of a number. Such designations may be given in the \bibfield{series} field as well, either as a literal string or as a localization key. Consider the following example which makes use of the localization key \texttt{newseries}:
+该条目会打印成“\emph{Journal Name}. 3rd ser. 15.7 (1995)”。
+一些期刊会使用“旧系列”和“新系列”等指定名而不是一个数字。
+这样的指定名也可以由 \bibfield{series} 域给出，或者是一个文本字符串，或者是一个本地化关键字。
+考虑如下这个使用本地化关键字 \texttt{newseries} 的例子：
 
 \begin{lstlisting}[style=bibtex]{}
 @Article{...,
@@ -2363,49 +2476,258 @@ This entry will be printed as «\emph{Journal Name}. 3rd ser. 15.7 (1995)». Som
   ...
 \end{lstlisting}
 %
-This entry will be printed as «\emph{Journal Name}. New ser. 9 (1998)». See \secref{aut:lng:key} for a list of localization keys defined by default.
+%This entry will be printed as «\emph{Journal Name}. New ser. 9 (1998)». See \secref{aut:lng:key} for a list of localization keys defined by default.
+该条目会打印成“\emph{Journal Name}. New ser. 9 (1998)”。
+默认定义的本地化关键字列表请参考 \secref{aut:lng:key} 节。
 
-\subsubsection{日期格式 Date Specifications}
+\subsubsection{日期和时间规范 Date and Time Specifications}
 \label{bib:use:dat}
 
+%\begin{table}
+%	\tablesetup
+%	\begin{tabularx}{\textwidth}{@{}>{\ttfamily}llX@{}}
+%		\toprule
+%		\multicolumn{1}{@{}H}{Date Specification} &
+%		\multicolumn{2}{H}{Formatted Date (Examples)} \\
+%		\cmidrule(l){2-3}
+%		&
+%		\multicolumn{1}{H}{Short/12-hour Format} &
+%		\multicolumn{1}{H}{Long/24-hour Format} \\
+%		\cmidrule{1-1}\cmidrule(l){2-2}\cmidrule(l){3-3}
+%		1850			& 1850				& 1850 \\
+%		1997/			& 1997--			& 1997-- \\
+%		/1997			& --1997			& --1997 \\
+%		1997/unknown		& 1997--			& 1997-- \\
+%		1997/*		& 1997--			& 1997-- \\
+%		unknown/1997		& --1997			& --1997 \\
+%		*/1997		& --1997			& --1997 \\
+%		1997/open		& 1997--			& 1997-- \\
+%		open/1997		& --1997			& --1997 \\
+%		1967-02			& 02/1967			& February 1967 \\
+%		2009-01-31		& 31/01/2009			& 31st January 2009 \\
+%		1988/1992		& 1988--1992			& 1988--1992 \\
+%		2002-01/2002-02		& 01/2002--02/2002		& January 2002--February 2002 \\
+%		1995-03-30/1995-04-05	& 30/03/1995--05/04/1995	& 30th March 1995--5th April 1995 \\
+%		2004-04-05T14:34:00 & 05/04/2004 2:34 PM & 5th April 2004 14:34:00\\
+%		\bottomrule
+%	\end{tabularx}
+%	\caption{Date Specifications}
+%	\label{bib:use:tab1}
+%\end{table}
+
 \begin{table}
-\tablesetup
-\begin{tabularx}{\textwidth}{@{}>{\ttfamily}llX@{}}
-\toprule
-\multicolumn{1}{@{}H}{Date Specification} &
-\multicolumn{2}{H}{Formatted Date (Examples)} \\
-\cmidrule(l){2-3}
-&
-\multicolumn{1}{H}{Short Format} &
-\multicolumn{1}{H}{Long Format} \\
-\cmidrule{1-1}\cmidrule(l){2-2}\cmidrule(l){3-3}
-1850			& 1850				& 1850 \\
-1997/			& 1997--			& 1997-- \\
-1967-02			& 02/1967			& February 1967 \\
-2009-01-31		& 31/01/2009			& 31st January 2009 \\
-1988/1992		& 1988--1992			& 1988--1992 \\
-2002-01/2002-02		& 01/2002--02/2002		& January 2002--February 2002 \\
-1995-03-30/1995-04-05	& 30/03/1995--05/04/1995	& 30th March 1995--5th April 1995 \\
-\bottomrule
-\end{tabularx}
-\caption{Date Specifications}
-\label{bib:use:tab1}
+	\tablesetup
+	\begin{tabularx}{\textwidth}{@{}>{\ttfamily}llX@{}}
+		\toprule
+		\multicolumn{1}{@{}H}{日期规格} &
+		\multicolumn{2}{H}{日期格式（例）} \\
+		\cmidrule(l){2-3}
+		&
+		\multicolumn{1}{H}{短格式/12小时格式} &
+		\multicolumn{1}{H}{长格式/24小时格式} \\
+		\cmidrule{1-1}\cmidrule(l){2-2}\cmidrule(l){3-3}
+		1850			& 1850				& 1850 \\
+		1997/			& 1997--			& 1997-- \\
+		/1997			& --1997			& --1997 \\
+		1997/unknown	& 1997--			& 1997-- \\
+		1997/*			& 1997--			& 1997-- \\
+		unknown/1997	& --1997			& --1997 \\
+		*/1997			& --1997			& --1997 \\
+		1997/open		& 1997--			& 1997-- \\
+		open/1997		& --1997			& --1997 \\
+		1967-02			& 02/1967			& February 1967 \\
+		2009-01-31		& 31/01/2009		& 31st January 2009 \\
+		1988/1992		& 1988--1992		& 1988--1992 \\
+		2002-01/2002-02	& 01/2002--02/2002	& January 2002--February 2002 \\
+		1995-03-30/1995-04-05	& 30/03/1995--05/04/1995	& 30th March 1995--5th April 1995 \\
+		2004-04-05T14:34:00 & 05/04/2004 2:34 PM & 5th April 2004 14:34:00\\
+		\bottomrule
+	\end{tabularx}
+	\caption{日期规范}
+	\label{bib:use:tab1}
 \end{table}
 
-The date fields \bibfield{date}, \bibfield{origdate}, \bibfield{eventdate}, and \bibfield{urldate} require a date specification in \texttt{yyyy-mm-dd} format. Date ranges are given as \texttt{yyyy-mm-dd\slash yyyy-mm-dd}. Partial dates are valid provided that date components are omitted at the end only. You may specify an open ended date range by giving the range separator and omitting the end date (\eg \texttt{yyyy/}). See \tabref{bib:use:tab1} for some examples of valid date specifications and the formatted date automatically generated by \biblatex. The formatted date is language specific and will be adapted automatically. If there is no \bibfield{date} field in an entry, \biblatex will also consider the fields \bibfield{year} and \bibfield{month} for backwards compatibility with traditional \bibtex. Style author should note that date fields like \bibfield{date} or \bibfield{origdate} are only available in the \file{bib} file. All dates are parsed and dissected into their components as the \file{bib} file is processed. The date components are made available to styles by way of the special fields discussed in \secref{aut:bbx:fld:dat}. See this section and \tabref{aut:bbx:fld:tab1} on page~\pageref{aut:bbx:fld:tab1} for further information.
+%Date fields such as the default data model dates \bibfield{date}, \bibfield{origdate}, \bibfield{eventdate}, and \bibfield{urldate} adhere to  \acr{EDTF}\footnote{\url{https://www.loc.gov/standards/datetime/pre-submission.html}} (Extended Date/Time Format) specification levels 0 and 1. Also supported are the open-ended range specifications in section 4.5 of the current working draft of ISO8601-2\footnote{\url{http://www.loc.gov/standards/datetime/iso-tc154-wg5_n0039_iso_wd_8601-2_2016-02-16.pdf}}. \acr{EDTF} is a stricter subset of the somewhat messy formats allowed by \acr{ISO8601v2004} and is better suited to bibliographic data. In addition to the \acr{EDTF} empty date range markers, you may also specify an open ended/start date range by giving the range separator and omitting the end/start date (\eg \texttt{YYYY/}, \texttt{/YYYY}). See \tabref{bib:use:tab1} for some examples of valid date specifications and the formatted dates automatically generated by \biblatex. The formatted date is language specific and will be adapted automatically. If there is no \bibfield{date} field in an entry, \biblatex will also consider the fields \bibfield{year} and \bibfield{month} for backwards compatibility with traditional \bibtex but this is not encouraged as explicit \bibfield{year} and \bibfield{month} are not parsed for date meta-information markers or times and are used as-is. Style authors should note that date fields like \bibfield{date} or \bibfield{origdate} are only available in the \file{bib} file. All dates are parsed and dissected into their components as the \file{bib} file is processed. The date and time components are made available to styles by way of the special fields discussed in \secref{aut:bbx:fld:dat}. See this section and \tabref{aut:bbx:fld:tab1} on page~\pageref{aut:bbx:fld:tab1} for further information.
 
-\subsubsection{月份和期刊季度号 Months and Journal Issues}
+日期域遵循扩展日期时间格式%
+\footnote{\url{https://www.loc.gov/standards/datetime/pre-submission.html}} 
+（Extended Date/Time Format, \acr{EDTF}） 
+标准0和标准1，
+例如默认数据模型的日期域 \bibfield{date}、\bibfield{origdate}、\bibfield{eventdate} 和 \bibfield{urldate}。
+此外也支持ISO8601-2的当前草案%
+\footnote{\url{http://www.loc.gov/standards/datetime/iso-tc154-wg5_n0039_iso_wd_8601-2_2016-02-16.pdf}}
+的第4.5节中的开放式范围规范。
+相比于有些混乱的\acr{ISO8601v2004}允许格式，
+\acr{EDTF} 是其中一个更严格的子集，更适用于文献数据。
+除了 \acr{EDTF} 空日期范围标记外，
+还通过给定范围分隔符并省略结束或开始日期的方式
+（例如 \texttt{YYYY/}、\texttt{/YYYY}）
+指明无末端或无开端的日期范围。
+\tabref{bib:use:tab1} 列出了一些有效的日期规范以及由 \biblatex 自动生成的日期格式。
+日期格式与语言有关，因此会自动调整。
+如果条目中没有 \bibfield{date} 域，\biblatex 还会考虑 \bibfield{year} 和 \bibfield{month} 域。
+不过这仅仅出于对传统 \BibTeX 的向后兼容性，并不鼓励使用。
+因为显式的 \bibfield{year} 和 \bibfield{month} 域不能解析为日期的元信息标记，只能原样使用。
+样式作者需要注意，\bibfield{date} 或 \bibfield{origdate}  等日期域只在 \file{bib} 文件中有效。
+随着 \file{bib} 文件的处理，所有的日期都被解析并分为各个日期部件。
+通过\secref{aut:bbx:fld:dat} 节讨论的特殊域，日期和时间部件可以为样式所用。
+更多信息请参考该节和\pageref{aut:bbx:fld:tab1} 页的\tabref{aut:bbx:fld:tab1} 节。
+
+%\acr{EDTF} dates are astronomical dates in which year <0> exists. When outputting dates in BCE or BC era (see the \opt{dateera} option below), note that they will typically be one year earlier since BCE/BC era do not have a year 0 (year 0 is 1 BCE/BC). This conversion is automatic. See examples in table \tabref{bib:use:tab2}.
+
+\acr{EDTF} 日期是天文学日期，其中第“0”年是存在的。
+当输出公元前年代（BCE/BC era）的日期时（见下面的 \opt{dateera} 选项），
+请注意它们通常要早一年，因为公元前年代没有第0年（第0年就是公元前1年）。
+该转换是自动完成的，见\tabref{bib:use:tab2} 中的例子。
+
+%Date field names \emph{must} end with the string <date>, as with the default date fields. Bear this in mind when adding new date fields to the datamodel (see \secref{aut:ctm:dm}). \biblatex will check all date fields after reading the date model and will exit with an error if it finds a date field which does not adhere to this naming convention.
+
+如同默认日期域，日期域的名称\emph{必须}以字符串“date”结尾。
+当在数据模型中添加新的日期域时（见 \secref{aut:ctm:dm} 节）必须注意这一点。
+\biblatex 在读入日期模型后会检查所有的日期域，
+如果发现有日期域不遵循这一命名约定就会报错并退出。
+
+%\acr{EDTF} supports dates before common era (BCE/BC) by way of a negative date format and supports  <approximate> (circa) and uncertain dates. Such date formats set internal markers which can be tested for so that appropriate localised markers (such as \opt{circa} or \opt{beforecommonera}) can be inserted. Also supported are <unspecified> dates (\acr{EDTF} 5.2.2) which are automatically expanded into appropriate data ranges accompanied by a field \bibfield{$<$datetype$>$dateunspecified} which details the granularity of the unspecified data. Styles may use this information to format such dates appropriately but the standard styles do not do this. See \tabref{bib:use:tab3} on page~\pageref{bib:use:tab3} for the allowed \acr{EDTF} <unspecified> formats, their range expansions and \bibfield{$<$datetype$>$dateunspecified} values (see \secref{aut:bbx:fld:gen}).
+
+\acr{EDTF} 通过负日期格式支持公元前（before common era, BCE/BC）日期，
+此外还支持“近似”（circa）和不确定的日期。
+这样的日期格式设置可以检测的内部标记，进而可以插入合适的本地化标记
+（例如  \opt{circa} 或 \opt{beforecommonera}）。
+另外，未定日期（\acr{EDTF} 5.2.2）会自动展开成合适的日期范围，
+随之另有一个\bibfield{\prm{datetype}dateunspecified} 域指明未定数据的间隔尺寸。
+文献样式可以使用该信息构造合适的日期格式，但标准样式不会使用。
+\pageref{bib:use:tab3} 页的\tabref{bib:use:tab3} 列出了允许的 \acr{EDTF} 未定日期格式、范围扩展和 \bibfield{\prm{datetype}dateunspecified} 域的值（\secref{aut:bbx:fld:gen} 节）。
+
+%\begin{table}
+%	\tablesetup
+%	\begin{tabularx}{\textwidth}{@{}>{\ttfamily}llX@{}}
+%		\toprule
+%		\multicolumn{1}{@{}H}{Date Specification} &
+%		\multicolumn{1}{H}{Expanded Range} &
+%		\multicolumn{1}{H}{Meta-information} \\
+%		\cmidrule{1-1}\cmidrule(l){2-2}\cmidrule(l){3-3}
+%		199u       & 1990/1999             & yearindecade \\
+%		19uu       & 1900/1999             & yearincentury \\
+%		1999-uu    & 1999-01/1999-12       & monthinyear \\
+%		1999-01-uu & 1999-01-01/1999-01-31 & dayinmonth \\
+%		1999-uu-uu & 1999-01-01/1999-12-31 & dayinyear \\
+%		\bottomrule
+%	\end{tabularx}
+%	\caption{EDTF 5.2.2 Unspecified Date Parsing}
+%	\label{bib:use:tab3}
+%\end{table}
+\begin{table}
+	\tablesetup
+	\begin{tabularx}{\textwidth}{@{}>{\ttfamily}llX@{}}
+		\toprule
+		\multicolumn{1}{@{}H}{日期规范} &
+		\multicolumn{1}{H}{扩展范围} &
+		\multicolumn{1}{H}{元信息} \\
+		\cmidrule{1-1}\cmidrule(l){2-2}\cmidrule(l){3-3}
+		199u       & 1990/1999             & yearindecade \\
+		19uu       & 1900/1999             & yearincentury \\
+		1999-uu    & 1999-01/1999-12       & monthinyear \\
+		1999-01-uu & 1999-01-01/1999-01-31 & dayinmonth \\
+		1999-uu-uu & 1999-01-01/1999-12-31 & dayinyear \\
+		\bottomrule
+	\end{tabularx}
+	\caption{EDTF 5.2.2 未定日期解析}
+	\label{bib:use:tab3}
+\end{table}
+
+%\tabref{bib:use:tab2} shows formats which use appropriate tests and formatting. See the date meta-information tests in \secref{aut:aux:tst} and the localisation strings in \secref{aut:lng:key:dt}. See also the \file{96-dates.tex} example file for complete examples of the tests and localisation strings use.
+
+\tabref{bib:use:tab2} 展示了使用恰当的测试和格式化的格式。
+参考 \secref{aut:aux:tst} 节的日期元信息测试以及 \secref{aut:lng:key:dt} 节的本地化字符串。
+关于相应测试和使用本地化字符串的完整的例子另参考 \file{96-dates.tex} 示例文件。
+
+%The output of <circa>, uncertainty and era information in standard styles (or custom styles not customising the internal \cmd{mkdaterange*} macros) is controlled by the package options \opt{datecirca}, \opt{dateuncertain}, \opt{dateera} and \opt{dateeraauto} (see \secref{use:opt:pre:gen}). See \tabref{bib:use:tab2} on page~\pageref{bib:use:tab2} for examples which assumes these options are all used.
+
+在标准样式以及没有定制内部宏 \cmd{mkdaterange*} 的定制样式中，
+<circa>、不确定信息和年代信息的输出由 \secref{use:opt:pre:gen} 节中的宏包选项 \opt{datecirca}、\opt{dateuncertain}、\opt{dateera} 和 \opt{dateeraauto} 控制。
+\pageref{bib:use:tab2} 页中的 \tabref{bib:use:tab2}列出了使用这些选项的例子。
+
+%\begin{table}
+%	\tablesetup
+%	\begin{tabularx}{\textwidth}{@{}>{\ttfamily}llX@{}}
+%		\toprule
+%		\multicolumn{1}{@{}H}{Date Specification} &
+%		\multicolumn{2}{H}{Formatted Date (Examples)} \\
+%		\cmidrule(l){2-3}
+%		&
+%		\multicolumn{1}{H}{Output Format} &
+%		\multicolumn{1}{H}{Output Format Notes} \\
+%		\cmidrule{1-1}\cmidrule(l){2-2}\cmidrule(l){3-3}
+%		0000        & 1 BC            & \kvopt{dateera}{christian} prints \opt{beforechrist} localisation\\
+%		-0876			  & 877 BCE			     & \kvopt{dateera}{secular} prints \opt{beforecommonera} localisation string\\
+%		-0877/-0866 & 878 BC--867 BC & using \cmd{ifdateera} test and \opt{beforechrist} localisation string\\
+%		0768 & 0768 CE & using \opt{dateeraauto} set to <1000>  and \opt{commonera} localisation string\\
+%		-0343-02 & 344-02 BCE & \\
+%		0343-02-03 & 343-02-03 CE & with \opt{dateeraauto=400} \\
+%		0343-02-03 & 343-02-02 CE & with \opt{dateeraauto=400} and \opt{julian} \\
+%		1723\textasciitilde & circa 1723 & using \cmd{ifdatecirca} test\\
+%		1723? & 1723? & using \cmd{ifdateuncertain} test\\
+%		1723?\textasciitilde & circa 1723? & using \cmd{ifdateuncertain} and \cmd{ifdatecirca} tests\\
+%		2004-22 & 2004 & also, \bibfield{season} is set to the localisation string <summer>\\
+%		2004-24 & 2004 & also, \bibfield{season} is set to the localisation string <winter>\\
+%		\bottomrule
+%	\end{tabularx}
+%	\caption{Enhanced Date Specifications}
+%	\label{bib:use:tab2}
+%\end{table}
+
+\begin{table}
+	\tablesetup
+	\begin{tabularx}{\textwidth}{@{}>{\ttfamily}llX@{}}
+		\toprule
+		\multicolumn{1}{@{}H}{日期规范} &
+		\multicolumn{2}{H}{格式化日期（例）} \\
+		\cmidrule(l){2-3}
+		&
+		\multicolumn{1}{H}{输出格式} &
+		\multicolumn{1}{H}{输出格式注记} \\
+		\cmidrule{1-1}\cmidrule(l){2-2}\cmidrule(l){3-3}
+		0000        & 1 BC            & \kvopt{dateera}{christian} 打印本地化字符串 \opt{beforechrist} \\
+		-0876			  & 877 BCE			     & \kvopt{dateera}{secular} 打印本地化字符串 \opt{beforecommonera} \\
+		-0877/-0866 & 878 BC--867 BC & 使用 \cmd{ifdateera} 测试和本地化字符串 \opt{beforechrist}  \\
+		0768 & 0768 CE & \opt{dateeraauto} 设置为 1000，并使用本地化字符串 \opt{commonera}\\
+		-0343-02 & 344-02 BCE & \\
+		0343-02-03 & 343-02-03 CE & 以及 \opt{dateeraauto=400} \\
+		0343-02-03 & 343-02-02 CE & 以及 \opt{dateeraauto=400} 和 \opt{julian} \\
+		1723\textasciitilde & circa 1723 & 使用 \cmd{ifdatecirca} 测试\\
+		1723? & 1723? & 使用 \cmd{ifdateuncertain} 测试\\
+		1723?\textasciitilde & circa 1723? & 使用 \cmd{ifdateuncertain} 和 \cmd{ifdatecirca} 测试\\
+		2004-22 & 2004 & 另外，\bibfield{season} 设置为本地化字符串 <summer>\\
+		2004-24 & 2004 & 另外，\bibfield{season} 设置为本地化字符串 <winter>\\
+		\bottomrule
+	\end{tabularx}
+	\caption{增强的日期规范}
+	\label{bib:use:tab2}
+\end{table}
+
+\subsubsection{月份和期刊的卷号 Months and Journal Issues}
 \label{bib:use:iss}
 
-The \bibfield{month} field is an integer field. The bibliography style converts the month to a language"=dependent string as required. For backwards compatibility, you may also use the following three"=letter abbreviations in the \bibfield{month} field: \texttt{jan}, \texttt{feb}, \texttt{mar}, \texttt{apr}, \texttt{may}, \texttt{jun}, \texttt{jul}, \texttt{aug}, \texttt{sep}, \texttt{oct}, \texttt{nov}, \texttt{dec}. Note that these abbreviations are \bibtex strings which must be given without any braces or quotes. When using them, don't say |month={jan}| or |month="jan"| but |month=jan|. It is not possible to specify a month such as |month={8/9}|. Use the \bibfield{date} field for date ranges instead.
+%The \bibfield{month} field is an integer field. The bibliography style converts the month to a language"=dependent string as required. For backwards compatibility, you may also use the following three"=letter abbreviations in the \bibfield{month} field: \texttt{jan}, \texttt{feb}, \texttt{mar}, \texttt{apr}, \texttt{may}, \texttt{jun}, \texttt{jul}, \texttt{aug}, \texttt{sep}, \texttt{oct}, \texttt{nov}, \texttt{dec}. Note that these abbreviations are \bibtex strings which must be given without any braces or quotes. When using them, don't say |month={jan}| or |month="jan"| but |month=jan|. It is not possible to specify a month such as |month={8/9}|. Use the \bibfield{date} field for date ranges instead. Quarterly journals are typically identified by a designation such as <Spring> or <Summer> which should be given in the \bibfield{issue} field. The placement of the \bibfield{issue} field in \bibtype{article} entries is similar to and overrides the \bibfield{month} field.
 
-%Quarterly journals are typically identified by a designation such as <Spring> or <Summer> which should be given in the \bibfield{issue} field. The placement of the \bibfield{issue} field in \bibtype{article} entries is similar to and overrides the \bibfield{month} field.
-用于区分季刊的<Spring>或<Summer>应该放在\bibfield{issue}域内，\bibtype{article}条目的\bibfield{issue}域位置类似于\bibfield{month}域并覆盖该域。
+\bibfield{month} 是整数域。文献样式按照要求将月份转化成不同语言的字符串。
+出于向后兼容性，你也可以在 \bibfield{month} 域中使用以下的三字母缩写形式：\texttt{jan}、\texttt{feb}、\texttt{mar}、\texttt{apr}、\texttt{may}、\texttt{jun}、\texttt{jul}、\texttt{aug}、\texttt{sep}、\texttt{oct}、\texttt{nov}、\texttt{dec}。
+请注意，这些缩写词是 \BibTeX 字符串，不能带有任何括号或引号。
+即，不要用 |month={jan}| 或 |month="jan"|，而直接使用 |month=jan|。
+像 |month={8/9}| 这样的月份是不可识别的，此时请使用 \bibfield{date} 域来表示日期范围。
+季刊通常由“Spring”或“Summer”等标识符确定，这些标识符应在 \bibfield{issue} 域中给出。
+在 \bibtype{article} 条目中，\bibfield{issue} 域的位置与 \bibfield{month} 域类似，并且会覆盖后者。
 
 \subsubsection{标记页码 Pagination}
 \label{bib:use:pag}
-当在条目的\bibfield{pages}域或者一个引用命令的\prm{postnote}参数中指定页码或者页码范围，很方便让\biblatex 自动添加像 <p.> 或 <pp.> 之类的前缀，这也是该包的默认处理方式。然而，一些文档可能使用一种不同的页码标记格式或者可能不是以页码而是以诗节号或者行号为标记。这时\bibfield{pagination}和\bibfield{bookpagination} 域就可以起到作用了，举例考虑下面的条目:
+
 %When specifying a page or page range, either in the \bibfield{pages} field of an entry or in the \prm{postnote} argument to a citation command, it is convenient to have \biblatex add prefixes like <p.> or <pp.> automatically and this is indeed what this package does by default. However, some works may use a different pagination scheme or may not be cited by page but rather by verse or line number. This is when the \bibfield{pagination} and \bibfield{bookpagination} fields come into play. As an example, consider the following entry:
+
+当在条目的 \bibfield{pages} 域中或引用命令的 \prm{postnote} 选项中指明页码或页码范围时，
+通常习惯让 \biblatex 自动添加“p.”或“pp.”等前缀，而这也确实是本宏包的默认设置。
+然而，一些作品或许使用不同的页码标记格式，或者不是按页码而是按韵节或者行号引用。
+此时 \bibfield{pagination} 和 \bibfield{bookpagination} 就可以起作用了。
+例如考虑如下条目：
 
 \begin{lstlisting}[style=bibtex]{}
 @InBook{key,
@@ -2417,49 +2739,44 @@ The \bibfield{month} field is an integer field. The bibliography style converts 
   ...
 \end{lstlisting}
 %
-The \bibfield{bookpagination} field affects the formatting of the \bibfield{pages} and \bibfield{pagetotal} fields in the list of references. Since \texttt{page} is the default, this field is omissible in the above example. In this case, the page range will be formatted as <pp.~53--65>. Suppose that, when quoting from this work, it is customary to use verse numbers rather than page numbers in citations. This is reflected by the \bibfield{pagination} field, which affects the formatting of the \prm{postnote} argument to any citation command. With a citation like |\cite[17]{key}|, the postnote will be formatted as <v.~17>. Setting the \bibfield{pagination} field to \texttt{section} would yield <\S~17>. See \secref{use:cav:pag} for further usage instructions.
+%The \bibfield{bookpagination} field affects the formatting of the \bibfield{pages} and \bibfield{pagetotal} fields in the list of references. Since \texttt{page} is the default, this field is omissible in the above example. In this case, the page range will be formatted as <pp.~53--65>. Suppose that, when quoting from this work, it is customary to use verse numbers rather than page numbers in citations. This is reflected by the \bibfield{pagination} field, which affects the formatting of the \prm{postnote} argument to any citation command. With a citation like |\cite[17]{key}|, the postnote will be formatted as <v.~17>. Setting the \bibfield{pagination} field to \texttt{section} would yield <\S~17>. See \secref{use:cav:pag} for further usage instructions.
+\bibfield{bookpagination} 域会影响文献列表中  \bibfield{pages} 和 \bibfield{pagetotal} 的格式。
+由于 \texttt{page} 是默认的，因此在上面这个例子中该域可以省略。
+此时页码范围的格式是“pp.~53--65”。
+假设引用该作品时习惯使用韵节号而不是页码数。
+这可以通过 \bibfield{pagination} 域反映出来，从而影响任何引用命令的 \prm{postnote} 选项格式。
+如引用命令 |\cite[17]{key}| 的随后注记格式就会是 “v.~17”。
+若设置 \bibfield{pagination} 域为 \texttt{section}，那么就会产生“\S~17”。
+进一步的使用说明请参考 \secref{use:cav:pag} 节。
 
-The \bibfield{pagination} and \bibfield{bookpagination} fields are key fields. This package will try to use their value as a localization key, provided that the key is defined. Always use the singular form of the key name in \file{bib} files, the plural is formed automatically. The keys \texttt{page}, \texttt{column}, \texttt{line}, \texttt{verse}, \texttt{section}, and \texttt{paragraph} are predefined, with \texttt{page} being the default. The string <\texttt{none}> has a special meaning when used in a \bibfield{pagination} or \bibfield{bookpagination} field. It suppresses the prefix for the respective entry. If there are no predefined localization keys for the pagination scheme required by a certain entry, you can simply add them. See the commands \cmd{NewBibliographyString} and \cmd{DefineBibliographyStrings} in \secref{use:lng}. You need to define two localization strings for each additional pagination scheme: the singular form (whose localization key corresponds to the value of the \bibfield{pagination} field) and the plural form (whose localization key must be the singular plus the letter <\texttt{s}>). See the predefined keys in \secref{aut:lng:key} for examples.
+%The \bibfield{pagination} and \bibfield{bookpagination} fields are key fields. This package will try to use their value as a localization key, provided that the key is defined. Always use the singular form of the key name in \file{bib} files, the plural is formed automatically. The keys \texttt{page}, \texttt{column}, \texttt{line}, \texttt{verse}, \texttt{section}, and \texttt{paragraph} are predefined, with \texttt{page} being the default. The string <\texttt{none}> has a special meaning when used in a \bibfield{pagination} or \bibfield{bookpagination} field. It suppresses the prefix for the respective entry. If there are no predefined localization keys for the pagination scheme required by a certain entry, you can simply add them. See the commands \cmd{NewBibliographyString} and \cmd{DefineBibliographyStrings} in \secref{use:lng}. You need to define two localization strings for each additional pagination scheme: the singular form (whose localization key corresponds to the value of the \bibfield{pagination} field) and the plural form (whose localization key must be the singular plus the letter <\texttt{s}>). See the predefined keys in \secref{aut:lng:key} for examples.
+
+\bibfield{pagination} 和 \bibfield{bookpagination} 都是关键字域。
+如果关键字是已定义的，本宏包会尝试使用它们的值作为本地化关键字的值。
+在 \file{bib} 文件中要使用关键字名称的单数形式，复数形式会自动形成的。
+预定义的关键字有 \texttt{page}、\texttt{column}、\texttt{line}、\texttt{verse}、\texttt{section} 和 \texttt{paragraph}，其中 \texttt{page} 是默认值。
+在使用 \bibfield{pagination} 和 \bibfield{bookpagination} 时，字符串“\texttt{none}” 有特殊意义，
+它将取消相应条目的前缀。
+如果对于某一条目的页码标记格式没有预定义的本地化关键字，你可以直接添加它们。
+参考 \secref{use:lng} 节中的 \cmd{NewBibliographyString} 和 \cmd{DefineBibliographyStrings} 命令。
+你需要定义两个本地化字符串来对应额外的页码标记格式：单数形式（本地化关键字对应于 \bibfield{pagination} 域的值）和复数形式（本地化关键字必须是单数形式加上字母“\texttt{s}”）。
+具体例子可以参考 \secref{aut:lng:key} 节的预定义关键字。
+
 
 \subsection{提示与警告 Hints and Caveats}
 \label{bib:cav}
 
-This section provides some additional hints concerning the data interface of this package. It also addresses some common problems.
+%This section provides some additional hints concerning the data interface of this package. It also addresses some common problems.
+本节提供了一些关于本宏包数据层面上的额外提示，另外也说明了一些常见问题。
 
 \subsubsection{交叉引用 Cross-referencing}
 \label{bib:cav:ref}
 
-\paragraph{The \bibfield{crossref} field (\bibtex)}
-\label{bib:cav:ref:btx}
+%\biber features a highly customizable cross-referencing mechanism with flexible data inheritance rules. Duplicating certain fields in the parent entry or adding empty fields to the child entry is no longer required. Entries are specified in a natural way:
 
-The \bibfield{crossref} field is a convenient way to establish a parent\slash child relation between two associated entries. Unfortunately, the \bibtex program uses symmetric field mapping which reduces the usefulness of the \bibfield{crossref} field significantly. The are two issues with symmetric field mapping, as seen in the following example:
-
-\begin{lstlisting}[style=bibtex]{}
-@Book{book,
-  <<author>>	= {Author},
-  <<bookauthor>>	= {Author},
-  <<title>>		= {Booktitle},
-  <<booktitle>>	= {Booktitle},
-  <<subtitle>>	= {Booksubtitle},
-  <<booksubtitle>>	= {Booksubtitle},
-  publisher	= {Publisher},
-  location	= {Location},
-  date		= {1995},
-}
-@InBook{inbook,
-  crossref	= {book},
-  title		= {Title},
-  <<subtitle>>	= {},
-  pages		= {5--25},
-}
-\end{lstlisting}
-%
-As \bibtex is not capable of mapping the \bibfield{title} field of the parent to the \bibfield{booktitle} field of the child, the title of the book needs to be given twice. The style then needs to ignore the \bibfield{booktitle} of the parent since it is only required to work around this fundamental limitation of \bibtex. The problem with the \bibfield{subtitle} field is the inverse of that. Since the \bibfield{subtitle} of the parent would become the \bibfield{subtitle}, rather than in the \bibfield{booksubtitle}, of the child, we need to add an empty \bibfield{subtitle} field to the child entry to prevent inheritance of this field. Of course we also need to duplicate the subtitle in the parent entry to ensure that it is available as \bibfield{booksubtitle} in the child entry. In short, using \bibtex's \bibfield{crossref} field tends to bloat database files and corrupt the data model.
-
-\paragraph{The \bibfield{crossref} field (\biber)}
-\label{bib:cav:ref:bbr}
-
-With \biber, the limitations of \bibtex's \bibfield{crossref} field belong to the past. \biber features a highly customizable cross-referencing mechanism with flexible data inheritance rules. Duplicating certain fields in the parent entry or adding empty fields to the child entry is no longer required. Entries are specified in a natural way:
+\biber 的一大特色就是带有灵活数据继承规则的交叉引用机制并且高度可定制化。
+因此不再需要从父条目复制域或者向子条目中添加空白域，
+而可以用很自然的方式指定条目：
 
 \begin{lstlisting}[style=bibtex]{}
 @Book{book,
@@ -2477,7 +2794,11 @@ With \biber, the limitations of \bibtex's \bibfield{crossref} field belong to th
 }
 \end{lstlisting}
 %
-The \bibfield{title} field of the parent will be copied to the \bibfield{booktitle} field of the child, the \bibfield{subtitle} becomes the \bibfield{booksubtitle}. The \bibfield{author} of the parent becomes the \bibfield{bookauthor} of the child and, since the child does not provide an \bibfield{author} field, it is also duplicated as the \bibfield{author} of the child. After data inheritance, the child entry is similar to this:
+%The \bibfield{title} field of the parent will be copied to the \bibfield{booktitle} field of the child, the \bibfield{subtitle} becomes the \bibfield{booksubtitle}. The \bibfield{author} of the parent becomes the \bibfield{bookauthor} of the child and, since the child does not provide an \bibfield{author} field, it is also duplicated as the \bibfield{author} of the child. After data inheritance, the child entry is similar to this:
+父条目的 \bibfield{title} 和 \bibfield{subtitle} 会分别复制给子条目的 \bibfield{booktitle} 和 \bibfield{booksubtitle}。
+父条目的 \bibfield{author} 会成为子条目的 \bibfield{bookauthor}，
+并且由于子条目没有提供 \bibfield{author} 域，它也会复制给子条目的 \bibfield{author} 域。
+继承数据之后的子条目会大致如下：
 
 \begin{lstlisting}[style=bibtex]{}
 author	  	= {Author},
@@ -2491,278 +2812,242 @@ date		= {1995},
 pages		= {5--25},
 \end{lstlisting}
 %
-See \apxref{apx:ref} for a list of mapping rules set up by default. Note that all of this is customizable. See \secref{aut:ctm:ref} on how to configure \biber's cross"=referencing mechanism. See also \secref{bib:fld:spc}.
+%See \apxref{apx:ref} for a list of mapping rules set up by default. Note that all of this is customizable. See \secref{aut:ctm:ref} on how to configure \biber's cross"=referencing mechanism. See also \secref{bib:fld:spc}.
+默认的映射法则设置列表请参考\apxref{apx:ref}。
+请注意，所有这一切都是可以定制的。
+关于如何配置 \biber 的交叉引用机制请参考 \secref{aut:ctm:ref} 以及 \secref{bib:fld:spc} 节。
 
-\paragraph{The \bibfield{xref} field}
+\paragraph{\bibfield{xref} 域}%\paragraph{The \bibfield{xref} field}
 \label{bib:cav:ref:ref}
 
-In addition to the \bibfield{crossref} field, \biblatex supports a simplified cross"=referencing mechanism based on the \bibfield{xref} field. This is useful if you want to establish a parent\slash child relation between two associated entries but prefer to keep them independent as far as the data is concerned. The \bibfield{xref} field differs from \bibfield{crossref} in that the child entry will not inherit any data from the parent. If the parent is referenced by a certain number of child entries, \biblatex will automatically add it to the bibliography. The threshold is controlled by the \opt{mincrossrefs} package option from \secref{use:opt:pre:gen}. The \bibfield{xref} field is supported with all backends. See also \secref{bib:fld:spc}.
+%In addition to the \bibfield{crossref} field, \biblatex supports a simplified cross"=referencing mechanism based on the \bibfield{xref} field. This is useful if you want to establish a parent\slash child relation between two associated entries but prefer to keep them independent as far as the data is concerned. The \bibfield{xref} field differs from \bibfield{crossref} in that the child entry will not inherit any data from the parent. If the parent is referenced by a certain number of child entries, \biblatex will automatically add it to the bibliography. The threshold is controlled by the \opt{minxrefs} package option  from \secref{use:opt:pre:gen}.u See also \secref{bib:fld:spc}.
 
-\subsubsection{能力问题 Capacity Issues}
-\label{bib:cav:btx}
-
-\paragraph{\bibtex}
-当参考文献量较大时，\bibtex 可能存在内存不足的情形，这里给出了一些出错情况。最后建议使用bibtex8或biber。
-
-%A venerable tool originally developed in the 1980s, \bibtex uses static memory allocation, much to the dismay of users working with large bibliographical databases. With a large \file{bib} file which contains several hundred entries, \bibtex is very likely to run out of memory. The number of entries it can cope with depends on the number of fields defined by the \bibtex style (\file{bst}). Style files which define a considerable number of fields, such as \path{biblatex.bst}, are more likely to trigger such problems. Unfortunately, traditional \bibtex does not output a clear error message when it runs out of memory but exposes a rather cryptical kind of faulty behavior. The warning messages printed in this case look like this:
-
-%\begin{lstlisting}[style=plain]{}
-%Warning--I'm ignoring Jones1995's extra "year" field
-%--line 422 of file huge.bib
-%Warning--I'm ignoring Jones1995's extra "volume" field
-%--line 423 of file huge.bib
-%\end{lstlisting}
-%
-%These warning messages could indeed indicate that the entry \texttt{Jones1995} is faulty because it includes two \bibfield{year} and two \bibfield{volume} fields. If that is not the case and the \file{bib} file is fairly large, this is most likely a capacity issue. What makes these warnings so confusing is that they are not tied to a specific entry. If you remove the allegedly faulty entry, a different one will trigger similar warnings. This is one reason why switching to \file{bibtex8} or \biber is advisable.
-
-\paragraph{\file{bibtex8}}
-bibtex8比之bibtex有所增强，还有一些参数设置可以增大默认能力。但其能力仍然有限，还可能存在内存不足的问题。
-
-%\file{bibtex8} is a venerable tool as well and will also run out of memory with its default capacity. Switching from traditional \bibtex to \file{bibtex8} is still an improvement because the capacity of the latter may be increased at run"=time via command"=line switches and it also prints unambiguous error messages, for example:
-
-\begin{table}
-\tablesetup\lnstyle
-\begin{tabularx}{\textwidth}{@{}>{\raggedright\ttfamily}X%
-                               @{}>{\raggedright\ttfamily}X%
-			       rR{50pt}R{50pt}R{50pt}@{}}
-\toprule
-\multicolumn{1}{@{}H}{Parameter} &
-\multicolumn{1}{@{}H}{Switch} &
-\multicolumn{4}{@{}H}{Capacity} \\
-\cmidrule{3-6}
-&& \multicolumn{1}{@{}H}{Default} &
-\multicolumn{1}{@{}>{\sffamily\bfseries\spotcolor\ttfamily}r}{-{}-big} &
-\multicolumn{1}{@{}>{\sffamily\bfseries\spotcolor\ttfamily}r}{-{}-huge} &
-\multicolumn{1}{@{}>{\sffamily\bfseries\spotcolor\ttfamily}r@{}}{-{}-wolfgang} \\
-\cmidrule(r){1-1}\cmidrule(r){2-2}\cmidrule{3-6}
-max\_cites     & -{}-mcites   & 750   & 2000   & 5000   & 7500 \\
-max\_ent\_ints & -{}-mentints & 3000  & 4000   & 5000   & 7500 \\
-max\_ent\_strs & -{}-mentstrs & 3000  & 6000   & 10000  & 10000 \\
-max\_fields    & -{}-mfields  & 17250 & 30000  & 85000  & 125000 \\
-max\_strings   & -{}-mstrings & 4000  & 10000  & 19000  & 30000 \\
-pool\_size     & -{}-mpool    & 65530 & 130000 & 500000 & 750000 \\
-wiz\_fn\_space & -{}-mwizfuns & 3000  & 6000   & 10000  & 10000 \\
-hash\_prime    &              & 4253  & 8501   & 16319  & 30011 \\
-hash\_size     &              & 5000  & 10000  & 19000  & 35000 \\
-\bottomrule
-\end{tabularx}
-\caption[Capacity of \bin{bibtex8}]{Capacity and Switches of \bin{bibtex8}}
-\label{bib:cav:tab2}
-\end{table}
-
-%\begin{lstlisting}[style=plain]{}
-%17289 fields:
-%Sorry---you've exceeded BibTeX's total number of fields 17250
-%\end{lstlisting}
-%
-%\Tabref{bib:cav:tab2} gives an overview of the various capacity parameters of \file{bibtex8} and the command"=line switches used to increase their default values. There are two ways to increase the capacity on the command"=line. You may use a high"=level switch like |--huge| to select a different set of defaults or low"=level switches such as |--mfields| to modify a single parameter. The first thing you should always do is run \file{bibtex8} with the |--wolfgang| switch. Don't even bother trying anything else. With a very large database, however, even that capacity may be too small. In this case, you need to resort to the low"=level switches. Here is an example of a set of switches which should cope with a \file{bib} file containing about 1000 entries:
-
-%\begin{lstlisting}[style=plain]{}
-%bibtex8 --wolfgang --mcites 30000 --mentints 30000 --mentstrs 40000
-%  --mfields 250000 --mstrings 35000 --mpool 750000 --csfile csfile.csf
-%  auxfile
-%\end{lstlisting}
-%
-%When taking a closer look at \tabref{bib:cav:tab2}, you will notice that there are two parameters which can not be modified directly, |hash_prime| and |hash_size|. Increasing these values is only possible with the high"=level switches. That is why the above command includes the |--wolfgang| switch in addition to the low"=level switches. This situation is very unfortunate because the hash size effectively sets a cap on some other parameters. For example, |max_strings| can not be greater than |hash_size|. If you hit this cap, all you can do is recompile \file{bibtex8} with a larger capacity. Also note that the |wiz_fn_space| parameter is not related to the \file{bib} file but to the memory requirements of the \file{bst} file. \file{biblatex.bst} needs a value of about 6000. The value 10000 implicitly used by the |--wolfgang| switch is fine.
-
-\paragraph{\biber} \biber 可以消除上述所有局限。
-%\biber eliminates all of the above limitations.
+除了 \bibfield{crossref} 域之外，\biblatex 也支持一种简化的交叉引用机制。
+而该机制则基于 \bibfield{xref} 域。
+如果你想在两个相关条目间创建父\slash 子关系，但就数据而言又希望保持它们的独立性，那么该域会很有用。
+\bibfield{xref} 域与 \bibfield{crossref} 的不同之处在于子条目不会从父条目继承任何数据。
+如果一个父条目被若干子条目引用，那么它将被 \biblatex 自动添加到参考文献中。
+相关子条目数量的阈值由 \secref{use:opt:pre:gen} 节的 \opt{mincrossrefs} 宏包选项所控制。
+参考 \secref{bib:fld:spc} 一节。
 
 \subsubsection{排序和编码问题 Sorting and Encoding Issues}
 \label{bib:cav:enc}
 
-\paragraph{\bibtex}
-\label{bib:cav:enc:btx}
-Traditional \bibtex can only alphabetize Ascii characters correctly. If the bibliographic data includes non"=Ascii characters, they have to be given in Ascii notation. For example, instead of typing a letter like <ä> directly, you need to input it as |\"a|, using an accent command and the Ascii letter. This Ascii notation needs to be wrapped in a pair of curly braces. Traditional \bibtex will then ignore the accent and use the Ascii letter for sorting. Here are a few examples:
+%\biber handles Ascii, 8-bit encodings such as Latin\,1, and \utf. It features true Unicode support and is capable of reencoding the \file{bib} data on the fly in a robust way. For sorting, \biber uses a Perl implementation of the Unicode Collation Algorithm (\acr{UCA}), as outlined in Unicode Technical Standard \#10.\fnurl{http://unicode.org/reports/tr10/} Collation tailoring based on the Unicode Common Locale Data Repository (\acr{CLDR}) is also supported.\fnurl{http://cldr.unicode.org/}
 
-\begin{lstlisting}[style=bibtex,upquote]{}
-author     = {S<<{\'a}>>nchez, Jos<<{\'e}>>},
-editor     = {Ma<<{\ss}>>mann, R<<{\"u}>>diger},
-translator = {Ferdi<<{\`e}>>re, Fr<<{\c{c}}>>ois},
-title      = {<<{\OE}>>uvres compl<<{\`e}>>tes},
-\end{lstlisting}
+\biber 处理 Ascii、Latin\,1等8比特编码以及 \utf。
+它的特色在于真正的Unicode支持，并且能够在实时运行中以一种鲁棒的方式重新编码 \file{bib} 数据。
+对于排序，\biber 使用Perl实现Unicode排序算法（Unicode Collation Algorithm，\acr{UCA}），该算法在Unicode技术标准\#10中有介绍\fnurl{http://unicode.org/reports/tr10/}。
+基于Unicode通用区域数据库（Common Locale Data Repository，\acr{CLDR}）的排序裁剪也是支持的\fnurl{http://cldr.unicode.org/} 。
+
+
+%Supporting Unicode implies much more than handling \utf input. Unicode is a complex standard covering more than its most well-known parts, the Unicode character encoding and transport encodings such as \utf. It also standardizes aspects such as string collation, which is required for language-sensitive sorting. For example, by using the Unicode Collation Algorithm, \biber can handle the character <ß> without any manual intervention. All you need to do to get localised sorting is specify the locale:
+
+支持Unicode不仅仅意味着处理 \utf 输入。
+Unicode是一个复杂的标准，不仅仅涵盖了它最著名的的部分——Unicode字符编码和 \utf 等传输编码。
+它同样对字符串排序等方面做了标准化，这对不同语言中的排序是必要的。
+例如，使用Unicode排序算法（\acr{UCA}），\biber 可以处理字符“ß”，而不需要任何人工干预。
+你需要针对本地化排序所做的就是指定本地化设置：
+
+\begin{ltxexample}
+\usepackage[sortlocale=de]{biblatex}
+\end{ltxexample}
 %
-Apart from it being inconvenient, there are two major issues with this convention. One subtle problem is that the extra set of braces suppresses the kerning on both sides of all non"=Ascii letters. But first and foremost, simply ignoring all accents may not be the correct way to handle them. For example, in Danish, the letter <å> is the very last letter of the alphabet, so it should be alphabetized after <z>. \bibtex will sort it like an <a>. The <æ> ligature and the letter <ø> are also sorted after <z> in this language. There are similar cases in Norwegian. In Swedish, the letter <ö> is the very last letter of the alphabet and the letters <å> and <ä> are also alphabetized after <z>, rather than like an <a>. What's more, even the sorting of Ascii characters is done in a rather peculiar way by traditional \bibtex because the sorting algorithm uses Ascii codepage order (\texttt{0-9,A-Z,a-z}). This implies that the lowercase letter <a> would end up after the uppercase <Z>, which is not even acceptable in the language \bibtex was originally designed for. The traditional \file{bst} files work around this problem by converting all strings used for sorting to lowercase, \ie sorting is effectively case"=insensitive. See also \secref{bib:cav:enc:enc}.
+%or if you are using German as the main document language via \sty{babel} or \sty{polyglossia}:
+如果通过 \sty{babel} 或者 \sty{polyglossia} 等宏包将德语设置为主文档语言，
+设置方式为：
 
-\paragraph{\file{bibtex8}}
-\label{bib:cav:enc:bt8}
-Switching to \file{bibtex8} will help in such cases. \file{bibtex8} can sort case"=sensitively and it can handle 8-bit characters properly, provided that you supply it with a suitable \file{csf} file and give the |--csfile| switch on the command line. This also implies that it is possible to apply language specific sorting rules to the bibliography. The \biblatex package comes with \file{csf} files for some common Western European encodings. \bin{bibtex8} also ships with a few \file{csf} files. Note that \file{biblatex.bst} can not detect if it is running under traditional \bibtex or \file{bibtex8}, hence the \opt{bibtex8} package option. By default, sorting is case-insensitive since this is required for traditional \bibtex. If the \opt{bibtex8} package option is enabled, sorting is case-sensitive.
-
-Since \file{bibtex8} is backwards compatible with traditional \bibtex, it is possible to mix 8-bit input and Ascii notation. This is useful if the encoding used in the \file{bib} file does not cover all required characters. There are also a few marginal cases in which the Ascii notation scheme would yield better sorting results. A typical example is the ligature <œ>. \file{bibtex8} will handle this ligature like a single character. Depending on the sorting scheme defined in the \file{csf} file, it could be treated like an <o> or alphabetized after the letter <o> but it can not be sorted as <oe>. The Ascii notation (|\oe|) is equivalent to <oe> during sorting:
-
-\begin{lstlisting}[style=bibtex,upquote]{}
-title      = {<<Œ>>uvres compl<<è>>tes},
-title      = {<<{\OE}>>uvres compl<<è>>tes},
-\end{lstlisting}
+\begin{ltxexample}
+\usepackage[sortlocale=auto]{biblatex}
+\end{ltxexample}
 %
-Sometimes even that is not sufficient and further tricks are required. For example, the letter <ß> in German is particularly tricky. This letter is essentially alphabetized as <ss> but after <ss>. The name <Baßmann> would be alphabetized as follows: Basmann\slash Bassmann\slash Baßmann\slash Bastmann. In this case, the Ascii notation (|\ss|) would yield slightly better sorting results than <ß> in conjunction with a \file{csf} file which treats <ß> like <s>:
+%This will make \biblatex pass the \sty{babel}/\sty{polyglossia} main document language
+%as the locale which \biber will map into a suitable default locale. \biber
+%will not try to get locale information from its environment as this makes
+%document processing dependent on something not in the document which is
+%against \tex's spirit of reproducibility. This also makes sense since
+%\sty{babel}/\sty{polyglossia} are in fact the relevant environment for a document. Note
+%that this will also work with 8-bit encodings such as Latin\,9, \ie you can
+%take advantage of Unicode-based sorting even though you are not using \utf
+%input. See \secref{bib:cav:enc:enc} on how to specify input and data
+%encodings properly.
+这会使得 \biblatex 将 \sty{babel}/\sty{polyglossia} 主文档语言传递过来并映射为合适的默认本地化语言。
+\biber 不会尝试从操作环境中获取本地化信息，
+因为这会使得文本处理取决于文档外，而这有悖于 \TeX 可移植性的精神。
+由于 \sty{babel}/\sty{polyglossia}  实际上与文档的环境有关，因此这也是有意义的。
+请注意，这对于  Latin\,9 等8比特编码也是有效的，也就是说，你可以利用基于Unicode的排序，即使你没有使用 \utf 输入。
+关于如何正确地指定输入和数据编码请参考 \secref{bib:cav:enc:enc}。
 
-\begin{lstlisting}[style=bibtex,upquote]{}
-author     = {Ba<<{\ss}>>mann, Paul},
-\end{lstlisting}
-%
-To get it absolutely right, however, you need to resort to the \bibfield{sortname} field:
-
-\begin{lstlisting}[style=bibtex,upquote]{}
-author     = {Ba<<ß>>mann, Paul},
-sortname   = {Ba<<sszz>>mann, Paul},
-\end{lstlisting}
-%
-Not only \bibtex, \latex needs to know about the encoding as well. See \secref{bib:cav:enc:enc} on how to specify encodings.
-
-\paragraph{\biber}
-\biber handles Ascii, 8-bit encodings such as Latin\,1, and \utf. It features true Unicode support and is capable of reencoding the \file{bib} data on the fly in a robust way. For sorting, \biber uses a Perl implementation of the Unicode Collation Algorithm (\acr{UCA}), as outlined in Unicode Technical Standard \#10.\fnurl{http://unicode.org/reports/tr10/} Collation tailoring based on the Unicode Common Locale Data Repository (\acr{CLDR}) is also supported.\fnurl{http://cldr.unicode.org/} The bottom line is that \biber will deliver sorting results far superior to both \bibtex and \file{bibtex8} in many cases. If you are interested in the technical details, section 1.8 of Unicode Technical Standard \#10 will provide you with a very concise summary of why the inadequateness of traditional \bibtex and even \bin{bibtex8} is of a very general nature and not limited to the lack of \utf support.\fnurl{http://unicode.org/reports/tr10/#Common_Misperceptions}
-
-Supporting Unicode implies much more than handling \utf input. Unicode is a complex standard covering more than its most well-known parts, the Unicode character encoding and transport encodings such as \utf. It also standardizes aspects such as string collation, which is required for language-sensitive sorting. For example, by using the Unicode Collation Algorithm, \biber can handle the character <ß> mentioned as an example in \secref{bib:cav:enc:bt8} without any manual intervention. All you need to do to get localized sorting is specify the locale:
-
-\begin{lstlisting}[style=latex]{}
-\usepackage[backend=biber,sortlocale=de]{biblatex}
-\end{lstlisting}
-%
-or if you are using german as the main document language via Babel or Polyglossia:
-
-\begin{lstlisting}[style=latex]{}
-\usepackage[backend=biber,sortlocale=auto]{biblatex}
-\end{lstlisting}
-%
-This will make \biblatex pass the Babel/Polyglossia main document language
-as the locale which \biber will map into a suitable default locale. \biber
-will not try to get locale information from its environment as this makes
-document processing dependent on something not in the document which is
-against \tex's spirit of reproducibility. This also makes sense since
-Babel/Polyglossia are in fact the relevant environment for a document. Note
-that this will also work with 8-bit encodings such as Latin\,9, \ie you can
-take advantage of Unicode-based sorting even though you are not using \utf
-input. See \secref{bib:cav:enc:enc} on how to specify input and data
-encodings properly.
-
-\paragraph{Specifying Encodings}
+\paragraph{指定编码}
 \label{bib:cav:enc:enc}
-When using a non-Ascii encoding in the \file{bib} file, it is important to understand what \biblatex can do for you and what may require manual intervention. The package takes care of the \latex side, \ie it ensures that the data imported from the \file{bbl} file is interpreted correctly, provided that the \opt{bibencoding} package option is set properly. Depending on the backend, the \bibtex side may demand attention, too. When using \bin{bibtex8}, you need to supply \bin{bibtex8} with a matching \file{csf} file as it needs to know about the encoding of the \file{bib} file to be able to alphabetize the entries correctly. Unfortunately, there is no way for \biblatex to pass this information to \bin{bibtex8} automatically. The only way is setting its |--csfile| option on the command line when running \bin{bibtex8}. When using \biber, all of this is handled automatically and no further steps, apart from setting the \opt{bibencoding} option in certain cases, are required. Here are a few typical usage scenarios along with the relevant lines from the document preamble:
+
+%When using a non-Ascii encoding in the \file{bib} file, it is important to understand what \biblatex can do for you and what may require manual intervention. The package takes care of the \latex side, \ie it ensures that the data imported from the \file{bbl} file is interpreted correctly, provided that the \opt{bibencoding} package option is set properly. All of this is handled automatically and no further steps, apart from setting the \opt{bibencoding} option in certain cases, are required. Here are a few typical usage scenarios along with the relevant lines from the document preamble:
+
+当在 \file{bib} 中使用非Ascii编码时，重要的一点是要意识到，
+什么是 \biblatex 能做的，而什么是需要人工调整的。
+本宏包照顾 \LaTeX 一方，也就是说，只要 \opt{bibencoding} 宏包选项设置正确，
+本宏包确保从 \file{bbl} 文件导入的数据能被正确地解释执行。
+所有的这一切都会自动处理，除了在某些情况下设置 \opt{bibencoding} 选项外，不需要其它步骤。
+以下是一些典型的使用场景以及文件导言区中的相关部分：
 
 \begin{itemize}
 \setlength{\itemsep}{0pt}
 
-\item Ascii notation in both the \file{tex} and the \file{bib} file with \pdftex or traditional \tex (this will work with \bibtex, \file{bibtex8}, and \biber):
+\item 
+%Ascii notation in both the \file{tex} and the \file{bib} file with \pdftex or traditional \tex:
+\file{tex} 和 \file{bib} 文件中都使用 Ascii 记法，使用 \pdfTeX 或传统的 \TeX 编译：
 
-\begin{lstlisting}[style=latex]{}
+\begin{ltxexample}
 \usepackage{biblatex}
-\end{lstlisting}
+\end{ltxexample}
 
-\item Latin\,1 encoding (\acr{ISO}-8859-1) in the \file{tex} file, Ascii notation in the \file{bib} file with \pdftex or traditional \tex (\bibtex, \file{bibtex8}, \biber):
+\item 
+%Latin\,1 encoding (\acr{ISO}-8859-1) in the \file{tex} file, Ascii notation in the \file{bib} file with \pdftex or traditional \tex :
+\file{tex} 中使用 Latin\,1 编码（\acr{ISO}-8859-1），\file{bib} 文件中使用Ascii记法，
+用 \pdfTeX 或传统的 \TeX 编译：
 
-\begin{lstlisting}[style=latex]{}
+\begin{ltxexample}
 \usepackage[latin1]{inputenc}
 \usepackage[bibencoding=ascii]{biblatex}
-\end{lstlisting}
+\end{ltxexample}
 
-\item Latin\,9 encoding (\acr{ISO}-8859-15) in both the \file{tex} and the \file{bib} file with \pdftex or traditional \tex (\file{bibtex8}, \biber):
+\item 
+%Latin\,9 encoding (\acr{ISO}-8859-15) in both the \file{tex} and the \file{bib} file with \pdftex or traditional:
+\file{tex} 和 \file{bib} 文件中都使用 Latin\,9 编码（\acr{ISO}-8859-15），
+用 \pdfTeX 或传统的 \TeX 编译：
 
-\begin{lstlisting}[style=latex]{}
+\begin{ltxexample}
 \usepackage[latin9]{inputenc}
 \usepackage[bibencoding=auto]{biblatex}
-\end{lstlisting}
+\end{ltxexample}
 %
-Since \kvopt{bibencoding}{auto} is the default setting, the option is omissible. The following setup will have the same effect:
+%Since \kvopt{bibencoding}{auto} is the default setting, the option is omissible. The following setup will have the same effect:
+由于 \kvopt{bibencoding}{auto} 是默认设置，因此该选项可以省略。
+以下的设置具有相同效果：
 
-\begin{lstlisting}[style=latex]{}
+\begin{ltxexample}
 \usepackage[latin9]{inputenc}
 \usepackage{biblatex}
-\end{lstlisting}
+\end{ltxexample}
 
-\item \utf encoding in the \file{tex} file, Latin\,1 (\acr{ISO}-8859-1) in the \file{bib} file with \pdftex or traditional \tex (\file{bibtex8}, \biber):
+\item 
+%\utf encoding in the \file{tex} file, Latin\,1 (\acr{ISO}-8859-1) in the \file{bib} file with \pdftex or traditional \tex:
+\file{tex} 文件中使用 \utf 编码，\file{bib} 文件中使用 Latin\,1（\acr{ISO}-8859-1）编码，
+用 \pdfTeX 或传统的 \TeX 编译：
 
-\begin{lstlisting}[style=latex]{}
+\begin{ltxexample}
 \usepackage[utf8]{inputenc}
 \usepackage[bibencoding=latin1]{biblatex}
-\end{lstlisting}
+\end{ltxexample}
 
-The same scenario with \xetex or \luatex in native \utf mode:
+%The same scenario with \xetex or \luatex in native \utf mode:
+在原生 \utf 模式下使用 \XeTeX 或 \LuaTeX 编译的相同场景：
 
-\begin{lstlisting}[style=latex]{}
+\begin{ltxexample}
 \usepackage[bibencoding=latin1]{biblatex}
-\end{lstlisting}
-
-\item Using \utf encoding in both the \file{tex} and the \file{bib} file is not possible with traditional \bibtex or \bin{bibtex8} since neither of them is capable of handling \utf. Unless you switch to \biber, you need to use an 8-bit encoding such as Latin\,1 (see above) or resort to Ascii notation in this case:
-
-\begin{lstlisting}[style=latex]{}
-\usepackage[utf8]{inputenc}
-\usepackage[bibencoding=ascii]{biblatex}
-\end{lstlisting}
-
-The same scenario with \xetex or \luatex in native \utf mode:
-
-\begin{lstlisting}[style=latex]{}
-\usepackage[bibencoding=ascii]{biblatex}
-\end{lstlisting}
+\end{ltxexample}
 
 \end{itemize}
 
-\biber can handle Ascii notation, 8-bit encodings such as Latin\,1, and \utf. It is also capable of reencoding the \file{bib} data on the fly (replacing the limited macro-level reencoding feature of \biblatex). This will happen automatically if required, provided that you specify the encoding of the \file{bib} files properly. In addition to the scenarios discussed above, \biber can also handle the following cases:
+%\biber can handle Ascii notation, 8-bit encodings such as Latin\,1, and \utf. It is also capable of reencoding the \file{bib} data on the fly (replacing the limited macro-level reencoding feature of \biblatex). This will happen automatically if required, provided that you specify the encoding of the \file{bib} files properly. In addition to the scenarios discussed above, \biber can also handle the following cases:
+
+\biber 可以处理 Ascii 记法、Latin\,1等8比特编码以及\utf。
+它也能在运行中实时重新编码 \file{bib}
+（取代受限宏层面的重新编码是\biblatex 的特性）。
+如果你正确指定 \file{bib} 文件的编码，这一特性就会在需要时自动执行。
+除了以上讨论的场景外，\biber 还能够处理以下情况：
 
 \begin{itemize}
 
-\item Transparent \utf workflow, \ie \utf encoding in both the \file{tex} and the \file{bib} file with \pdftex or traditional \tex:
+\item 
+%Transparent \utf workflow, \ie \utf encoding in both the \file{tex} and the \file{bib} file with \pdftex or traditional \tex:
+直接的 \utf 工作流，即，在 \file{tex} 和 \file{bib} 文件中都使用 \utf 编码并使用 \pdfTeX 或传统的 \TeX 编译：
 
-\begin{lstlisting}[style=latex]{}
+\begin{ltxexample}
 \usepackage[utf8]{inputenc}
 \usepackage[bibencoding=auto]{biblatex}
-\end{lstlisting}
+\end{ltxexample}
 %
-Since \kvopt{bibencoding}{auto} is the default setting, the option is omissible:
+%Since \kvopt{bibencoding}{auto} is the default setting, the option is omissible:
+由于 \kvopt{bibencoding}{auto} 是默认设置，因此该选项可以省略：
 
-\begin{lstlisting}[style=latex]{}
+\begin{ltxexample}
 \usepackage[utf8]{inputenc}
 \usepackage{biblatex}
-\end{lstlisting}
+\end{ltxexample}
 
-The same scenario with \xetex or \luatex in native \utf mode:
+%The same scenario with \xetex or \luatex in native \utf mode:
+在原生 \utf 模式下使用 \XeTeX 或 \LuaTeX 编译的相同场景：
 
-\begin{lstlisting}[style=latex]{}
+\begin{ltxexample}
 \usepackage{biblatex}
-\end{lstlisting}
+\end{ltxexample}
 
-\item It is even possible to combine an 8-bit encoded \file{tex} file with \utf encoding in the \file{bib} file, provided that all characters in the \file{bib} file are also covered by the selected 8-bit encoding:
+\item 
+%It is even possible to combine an 8-bit encoded \file{tex} file with \utf encoding in the \file{bib} file, provided that all characters in the \file{bib} file are also covered by the selected 8-bit encoding:
+甚至可以在 \file{tex} 文件使用8比特编码，而在 \file{bib} 文件中使用 \utf 编码，只要 \file{bib} 文件中的所有字符都能被所选择的8比特编码覆盖：
 
-\begin{lstlisting}[style=latex]{}
+\begin{ltxexample}
 \usepackage[latin1]{inputenc}
 \usepackage[bibencoding=utf8]{biblatex}
-\end{lstlisting}
+\end{ltxexample}
 
 \end{itemize}
 
-Some workarounds may be required when using traditional \tex or \pdftex with \utf encoding because \sty{inputenc}'s \file{utf8} module does not cover all of Unicode. Roughly speaking, it only covers the Western European Unicode range. When loading \sty{inputenc} with the \file{utf8} option, \biblatex will normally instruct \biber to reencode the \file{bib} data to \utf. This may lead to \sty{inputenc} errors if some of the characters in the \file{bib} file are outside the limited Unicode range supported by \sty{inputenc}.
+%Some workarounds may be required when using traditional \tex or \pdftex with \utf encoding because \sty{inputenc}'s \file{utf8} module does not cover all of Unicode. Roughly speaking, it only covers the Western European Unicode range. When loading \sty{inputenc} with the \file{utf8} option, \biblatex will normally instruct \biber to reencode the \file{bib} data to \utf. This may lead to \sty{inputenc} errors if some of the characters in the \file{bib} file are outside the limited Unicode range supported by \sty{inputenc}.
+
+当对 \utf 编码使用传统的 \TeX 或 \pdfTeX 时，可能需要一些变通处理，
+因为 \sty{inputenc} 的 \file{utf8} 模块并不能覆盖所有的Unicode。
+粗略地讲，它只覆盖了西欧字符的Unicode范围。
+当载入带有 \file{utf8} 选项的 \sty{inputenc} 宏包时，
+\biblatex 通常会指示 \biber 将 \file{bib} 数据重新编码为 \utf。
+如果 \file{bib} 文件中的字符超出了 \sty{inputenc} 支持的Unicode范围
+这可能会导致一些 \sty{inputenc} 的错误，。
 
 \begin{itemize}
 
-\item If you are affected by this problem, try setting the \opt{safeinputenc} option:
+\item 
+%If you are affected by this problem, try setting the \opt{safeinputenc} option:
+如果你受到这个问题的影响，尝试设置 \opt{safeinputenc} 选项：
 
-\begin{lstlisting}[style=latex]{}
+\begin{ltxexample}
 \usepackage[utf8]{inputenc}
 \usepackage[safeinputenc]{biblatex}
-\end{lstlisting}
+\end{ltxexample}
 %
-If this option is enabled, \biblatex will ignore \sty{inputenc}'s \opt{utf8} option and use Ascii. \biber will then try to convert the \file{bib} data to Ascii notation. For example, it will convert \texttt{\k{S}} to |\k{S}|. This option is similar to setting \kvopt{texencoding}{ascii} but will only take effect in this specific scenario (\sty{inputenc}\slash \sty{inputenx} with \utf). This workaround takes advantage of the fact that both Unicode and the \utf transport encoding are backwards compatible with Ascii.
+%If this option is enabled, \biblatex will ignore \sty{inputenc}'s \opt{utf8} option and use Ascii. \biber will then try to convert the \file{bib} data to Ascii notation. For example, it will convert \k{S} to |\k{S}|. This option is similar to setting \kvopt{texencoding}{ascii} but will only take effect in this specific scenario (\sty{inputenc}\slash \sty{inputenx} with \utf). This workaround takes advantage of the fact that both Unicode and the \utf transport encoding are backwards compatible with Ascii.
+如果该选项被启用，\biblatex 会忽略 \sty{inputenc} 的 \opt{utf8} 选项而使用Ascii。
+\biber 随后会尝试将 \file{bib} 数据转化为Ascii记法。
+例如，它将 \k{S} 转化为 |\k{S}|。
+该选项类似于设置 \kvopt{texencoding}{ascii} 但是只影响这一特定场合
+（带有 \utf 的 \sty{inputenc}\slash \sty{inputenx} 宏包）。
+这一处理利用了这一事实：Unicode和\utf 传输编码都与Ascii向后兼容。
 
 \end{itemize}
 
-This solution may be acceptable as a workaround if the data in the \file{bib} file is mostly Ascii anyway, with only a few strings, such as some authors' names, causing problems. However, keep in mind that it will not magically make traditional \tex or \pdftex support Unicode. It may help if the occasional odd character is not supported by \sty{inputenc}, but may still be processed by \tex when using an accent command (\eg |\d{S}| instead of \texttt{\d{S}}). If you need full Unicode support, however, switch to \xetex or \luatex.
+%This solution may be acceptable as a workaround if the data in the \file{bib} file is mostly Ascii anyway, with only a few strings, such as some authors' names, causing problems. However, keep in mind that it will not magically make traditional \tex or \pdftex support Unicode. It may help if the occasional odd character is not supported by \sty{inputenc}, but may still be processed by \tex when using an accent command (\eg |\d{S}| instead of \d{S}). If you need full Unicode support, however, switch to \xetex or \luatex.
 
-Typical errors when \sty{inputenc} cannot handle a certain UTF-8 character are:
+如果 \file{bib} 文件中的数据主要是Ascii不过含有一些会导致问题的字符串（例如一些作者的名字），
+那么这一变通处理办法也是可行的。
+不过需要注意的是，它不会奇迹般地让传统的 \TeX 或 \pdfTeX 支持Unicode。
+如果偶尔遇到一些奇特字符不被 \sty{inputenc} 支持，
+当使用重音命令（例如用 |\d{S}| 取代 \d{S}）时，这些字符也可以被 \TeX 处理。
+然而，如果你需要完全的Unicode支持，请转向 \XeTeX 或 \LuaTeX 。
+
+%Typical errors when \sty{inputenc} cannot handle a certain UTF-8 character are:
+\sty{inputenc} 不能处理某些 \utf 字符的典型错误是：
 
 \begin{verbatim}
-Package inputenc Error: Unicode char \u8: not set up for use with LaTeX
+! Package inputenc Error: Unicode char <char> (U+<codepoint>)
+(inputenc)                not set up for use with LaTeX.
 \end{verbatim}
 %
-but also less obvious things like:
+%but also less obvious things like:
+但也可以不那么明显，如：
 
 \begin{verbatim}
 ! Argument of \UTFviii@three@octets has an extra }.
 \end{verbatim}
 
-\subsubsection{编纂者脚本 Editors and Compiler Scripts}
-\label{bib:cav:ide}
-本节需要更新以配合\biblatex 使用的新的脚本接口。目前，草稿内容可以参考\sty{logreq}包的说明文档\fnurl{http://www.ctan.org/tex-archive/macros/latex/contrib/logreq/}和Biblatex开发者百科\fnurl{http://sourceforge.net/apps/mediawiki/biblatex/index.php?title=Workflow_Automation}。
-%This section is in need of an update to match the new script interface used by \biblatex. For the time being, see the documentation of the \sty{logreq} package\fnurl{http://www.ctan.org/tex-archive/macros/latex/contrib/logreq/} and the Biblatex Developer's Wiki for a draft spec.\fnurl{http://sourceforge.net/apps/mediawiki/biblatex/index.php?title=Workflow_Automation}
-
-% FIXME: update!
+\endinput
+%% update
