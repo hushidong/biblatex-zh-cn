@@ -1,7 +1,7 @@
 \section{样式作者指南}
 \label{aut}
 
-This part of the manual documents the author interface of the \biblatex package. The author guide covers everything you need to know in order to write new citation and bibliography styles or localisation modules. You should read the user guide first before continuing with this part of the manual.
+%This part of the manual documents the author interface of the \biblatex package. The author guide covers everything you need to know in order to write new citation and bibliography styles or localisation modules. You should read the user guide first before continuing with this part of the manual.
 
 本节内容是样式作者指南，主要介绍\biblatex 包的接口。该指南囊括了设计参考文献著录和标注样式或者本地化模型所需知晓的所有内容。在阅读本部分内容前最好先阅读上一节的用户手册。
 
@@ -22,9 +22,9 @@ This part of the manual documents the author interface of the \biblatex package.
 \end{document}
 \end{ltxexample}
 %
-Processing this files requires that a certain procedure be followed. This procedure is as follows:
+%Processing this files requires that a certain procedure be followed. This procedure is as follows:
 
-处理这些文件存在一定的流程，其过程如下:
+处理这些文件遵循一定的流程，其过程如下:
 
 \begin{enumerate}
 
@@ -121,7 +121,7 @@ and Samarin}}}
 
 \begin{enumerate}
 
-\item 运行\bin{latex}:第一步类似于上述的传统方式:\cmd{bibstyle} 和 \cmd{bibdata}以及所有引用的\cmd{citation}命令写入到\file{aux}文件中(以\bibtex 为后端程序)或者写到\file{bcf}文件中(以\biber 为后端程序)。然后等待后端程序提供需要的数据。当以\bibtex 为后端程序时，\biblatex 使用一个特殊 \file{bst}的文件，该文件用于实现\bibtex 后端程序的数据接口，因此\cmd{bibstyle}命令则必须是|\bibstyle{biblatex}|。
+\item 运行\bin{latex}:第一步类似于上述的传统方式:\cmd{bibstyle} 和 \cmd{bibdata}以及所有引用的\cmd{citation}命令写入到\file{aux}文件中(以\bibtex 为后端程序)或者写到\file{bcf}文件中(以\biber 为后端程序)。然后等待后端程序提供需要的数据。当以\bibtex 为后端程序时，\biblatex 使用一个特殊 \file{bst}的文件，该文件用于实现\bibtex 后端程序的数据接口，因此\cmd{bibstyle} 命令则必须是|\bibstyle{biblatex}|。
     %Run \bin{latex}: The first step is similar to the traditional procedure described above: \cmd{bibstyle} and \cmd{bibdata} commands are written to the \file{aux} file (\bibtex backend) or \file{bcf} file (\biber backend), along with \cmd{citation} commands for all citations. We then wait for the backend to supply the required data. With \bibtex as a backend, since \biblatex uses a special \file{bst} file which implements its data interface on the \bibtex end, the \cmd{bibstyle} command is always |\bibstyle{biblatex}|.
 
 
@@ -176,16 +176,16 @@ and Samarin}}}
 由这一例子可见，某种程度上说结构化的数据构成了\file{bbl}文件内容\footnote{这里应该是bbl文件而不是原文的bib文件}。从这点上说，没有任何关于参考文献条目最终格式的决定。而参考文献表和引用标注的格式化由 \latex 宏控制，这些宏定义在参考文献和引用样式文件中。
 %As seen in this example, the data is presented in a structured format that resembles the structure of a \file{bib} file to some extent. At this point, no decision concerning the final format of the bibliography entry has been made. The formatting of the bibliography and all citations is controlled by \latex macros, which are defined in bibliography and citation style files.
 
-\subsection{参考文献样式}%Bibliography Styles
+\subsection{参考文献著录样式}%Bibliography Styles
 \label{aut:bbx}
 
-一个参考文献样式是用于控制打印参考文献表中条目的宏的集合，定义在扩展名为\file{bbx}的文件中。\biblatex 包在其结尾加载所选择的参考文献样式文件。需要注意:一些由多个标准样式文件共享的常用宏定义在\path{biblatex.def}文件中。该文件同样在包结尾加载，但先于参考文献样式文件。
+一个参考文献著录样式是用于控制打印参考文献表中条目的宏的集合，定义在扩展名为\file{bbx}的文件中。\biblatex 包在其结尾加载所选择的参考文献样式文件。需要注意:一些由多个标准样式文件共享的常用宏定义在\path{biblatex.def}文件中。该文件同样在包结尾加载，但先于参考文献样式文件。
 %A bibliography style is a set of macros which print the entries in the bibliography. Such styles are defined in files with the suffix \file{bbx}. The \biblatex package loads the selected bibliography style file at the end of the package. Note that a small repertory of frequently used macros shared by several of the standard bibliography styles is included in \path{biblatex.def}. This file is loaded at the end of the package as well, prior to the selected bibliography style.
 
-\subsubsection{参考文献样式文件 Bibliography Style Files}
+\subsubsection{参考文献著录样式文件}% Bibliography Style Files
 \label{aut:bbx:bbx}
 
-在我们讨论参考文献样式的各部分之前，考虑一个典型的\file{bbx}文件总体结构，如下:
+在我们讨论参考文献著录样式的各部分之前，考虑一个典型的\file{bbx}文件总体结构，如下:
 %Before we go over the individual components of a bibliography style, consider this example of the overall structure of a typical \file{bbx} file:
 
 \begin{ltxexample}
@@ -208,14 +208,14 @@ and Samarin}}}
 \endinput
 \end{ltxexample}
 %
-参考文献样式文件的主要结构包含如下命令:
+参考文献著录样式文件的主要结构包含如下命令:
 %The main structure of a bibliography style file consists of the following commands:
 
 \begin{ltxsyntax}
 
 \cmditem{RequireBibliographyStyle}{style}
 
-该命令是可选的，用于指定一些建立在更一般的参考文献样式上的特殊样式。该命令加载样式文件\path{style.bbx}。
+该命令是可选的，用于引入一些建立在更一般的参考文献样式上的特殊样式。该命令加载样式文件\path{style.bbx}。
 %This command is optional and intended for specialized bibliography styles built on top of a more generic style. It loads the bibliography style \path{style.bbx}.
 
 \cmditem{InitializeBibliographyStyle}{code}
@@ -231,18 +231,21 @@ and Samarin}}}
 \cmditem{DeclareBibliographyAlias}{alias}{entrytype}
 
 如果一个参考文献驱动用于处理多个参考文献条目类型，该命令可以用来定义某类已经定义驱动的\prm{entrytype}别名。\prm{alias}选项可以是一个星号，这种情况下，该驱动用于那些没有指定驱动的参考文献条目。
-If a bibliography driver covers more than one entry type, this command may be used to define an alias where \prm{entrytype} is the name of a defined driver. This command is optional. The \prm{alias} argument may also be an asterisk. In this case, the \prm{entrytype} driver serves as a fallback which is used if no specific driver for an entry has been defined.
+%If a bibliography driver covers more than one entry type, this command may be used to define an alias where \prm{entrytype} is the name of a defined driver. This command is optional. The \prm{alias} argument may also be an asterisk. In this case, the \prm{entrytype} driver serves as a fallback which is used if no specific driver for an entry has been defined.
 
 \cmditem{DeclareBibliographyOption}[datatype]{key}[value]{code}
 
-This command defines additional preamble options in \keyval format. The \prm{key} is the option key. The \prm{code} is arbitrary \tex code to be executed whenever the option is used. The value passed to the option is passed on to the \prm{code} as |#1|. The optional \prm{value} is a default value to be used if the bare key is given without any value. This is useful for boolean switches.
-The \prm{datatype} is a the datatype for the option. If omitted, it defaults to <boolean>. For example, with a definition like the following:
+该命令以\keyval 格式定义额外的导言区选项。\prm{key}是选项键。\prm{code}是当使用该选项时执行的任意\tex 代码。键值作为|#1|传递给\prm{code}。可选的\prm{value}是当该选项仅有键名而无键值给出时的默认键值。这对于布尔选项非常有用。\prm{datatype}是选项的数据类型(datatype)，如果缺省，那么默认为 <boolean>(布尔类型)，比如一个定义如下:
+
+%This command defines additional preamble options in \keyval format. The \prm{key} is the option key. The \prm{code} is arbitrary \tex code to be executed whenever the option is used. The value passed to the option is passed on to the \prm{code} as |#1|. The optional \prm{value} is a default value to be used if the bare key is given without any value. This is useful for boolean switches.
+%The \prm{datatype} is a the datatype for the option. If omitted, it defaults to <boolean>. For example, with a definition like the following:
 
 \begin{ltxexample}
 \DeclareBibliographyOption[boolean]{somekey}[true]{...}
 \end{ltxexample}
 %
-giving <\texttt{somekey}> without a value is equivalent to <\kvopt{somekey}{true}>. Valid \prm{datatype} values are defined in the default \biber Datamodel as:
+给出<\texttt{somekey}>而没有键值等价于<\kvopt{somekey}{true}>。有效的\prm{datatype}值定义默认的\biber 数据模型中，比如:
+%giving <\texttt{somekey}> without a value is equivalent to <\kvopt{somekey}{true}>. Valid \prm{datatype} values are defined in the default \biber Datamodel as:
 
 \begin{ltxexample}
 \DeclareDatamodelConstant[type=list]{optiondatatypes}{boolean,integer,string,xml}
@@ -250,15 +253,16 @@ giving <\texttt{somekey}> without a value is equivalent to <\kvopt{somekey}{true
 
 \cmditem{DeclareEntryOption}[datatype]{key}[value]{code}
 
-Similar to \cmd{DeclareBibliographyOption} but defines options which are settable on a per"=entry basis in the \bibfield{options} field from \secref{bib:fld:spc}. The \prm{code} is executed whenever \biblatex prepares the data of the entry for use by a citation command or a bibliography driver.
+类似于\cmd{DeclareBibliographyOption}，但用于定义\secref{bib:fld:spc}节的\bibfield{options}域中的选项，且仅基于per"=entry(条目)进行设置。当\biblatex 为标注命令和参考文献驱动准备数据时，执行\prm{code}。
+%Similar to \cmd{DeclareBibliographyOption} but defines options which are settable on a per"=entry basis in the \bibfield{options} field from \secref{bib:fld:spc}. The \prm{code} is executed whenever \biblatex prepares the data of the entry for use by a citation command or a bibliography driver.
 
 \end{ltxsyntax}
 
-\subsubsection{参考文献环境 Bibliography Environments}
+\subsubsection{参考文献表环境}%Bibliography Environments
 \label{aut:bbx:env}
 
-除了定义参考文献驱动，参考文献样式也要定义参考文献环境用于控制参考文献表的输出。这些环境由命令\cmd{defbibenvironment}名义。默认情况下，\cmd{printbibliography}使用\opt{bibliography}环境。下面是一个适用于不打印标签的参考文献样式的环境定义:
-Apart from defining bibliography drivers, the bibliography style is also responsible for the environments which control the layout of the bibliography and bibliography lists. These environments are defined with \cmd{defbibenvironment}. By default, \cmd{printbibliography} uses the environment \opt{bibliography}. Here is a definition suitable for a bibliography style which does not print any labels in the bibliography:
+除了定义参考文献驱动，参考文献著录样式也要定义参考文献表环境用于控制参考文献表的输出。这些环境由命令\cmd{defbibenvironment}名义。默认情况下，\cmd{printbibliography}使用\opt{bibliography}环境。下面是一个适用于不打印标签的参考文献表的环境定义:
+%Apart from defining bibliography drivers, the bibliography style is also responsible for the environments which control the layout of the bibliography and bibliography lists. These environments are defined with \cmd{defbibenvironment}. By default, \cmd{printbibliography} uses the environment \opt{bibliography}. Here is a definition suitable for a bibliography style which does not print any labels in the bibliography:
 
 \begin{ltxexample}
 \defbibenvironment{bibliography}
@@ -273,7 +277,7 @@ Apart from defining bibliography drivers, the bibliography style is also respons
 \end{ltxexample}
 %
 该定义使用\biblatex 提供的\cmd{bibhang}尺寸，应用了一个带悬挂缩进的\env{list}环境。它允许使用\cmd{bibitemsep} 和 \cmd{bibparsep}来实现一定程度的布局调整，\biblatex 提供的这两个尺寸就是为了该目的(见 \secref{aut:fmt:len})。作者年制(\texttt{authoryear})和作者题名制(\texttt{authortitle})的参考文献样式使用类似于该例的定义。
-This definition employs a \env{list} environment with hanging indentation, using the \cmd{bibhang} length register provided by \biblatex. It allows for a certain degree of configurability by using \cmd{bibitemsep} and \cmd{bibparsep}, two length registers provided by \biblatex for this very purpose (see \secref{aut:fmt:len}). The \texttt{authoryear} and \texttt{authortitle} bibliography styles use a definition similar to this example.
+%This definition employs a \env{list} environment with hanging indentation, using the \cmd{bibhang} length register provided by \biblatex. It allows for a certain degree of configurability by using \cmd{bibitemsep} and \cmd{bibparsep}, two length registers provided by \biblatex for this very purpose (see \secref{aut:fmt:len}). The \texttt{authoryear} and \texttt{authortitle} bibliography styles use a definition similar to this example.
 
 \begin{ltxexample}
 \defbibenvironment{bibliography}
@@ -291,10 +295,10 @@ This definition employs a \env{list} environment with hanging indentation, using
 \end{ltxexample}
 %
 一些参考文献样式在参考文献列表中打印标签。比如，设计一个顺序引用格式的参考文献样式需要在参考文献表的每个条目前面打印顺序数字，这样参考文献看起来就像一个顺序列表。在第一个例子中，\cmd{list}命令的第一个参数是空的。在这个例子中，我们需要在其中插入数字，这些数字由\biblatex 的\bibfield{labelnumber}域中的数字提供。我们也应用\biblatex 提供的几个尺寸和工具，详见 \secref{aut:fmt:ich, aut:fmt:ilc}。顺序制(\texttt{numeric})参考文献样式使用如上的定义。除\textsf{\texttt{labelnumber}}由\texttt{labelalpha}代替和\texttt{labelnumberwidth}由\texttt{labelalphawidth}代替外，顺序字母制(\texttt{alphabetic})的样式也是类似的。
-Some bibliography styles print labels in the bibliography. For example, a bibliography style designed for a numeric citation scheme will print the number of every entry such that the bibliography looks like a numbered list. In the first example, the first argument to \cmd{list} was empty. In this example, we need it to insert the number, which is provided by \biblatex in the \bibfield{labelnumber} field. We also employ several length registers and other facilities provided by \biblatex, see \secref{aut:fmt:ich, aut:fmt:ilc} for details. The \texttt{numeric} bibliography style uses the definition given above. The \texttt{alphabetic} style is similar, except that \textsf{\texttt{labelnumber}} is replaced by \texttt{labelalpha} and \texttt{labelnumberwidth} by \texttt{labelalphawidth}.
+%Some bibliography styles print labels in the bibliography. For example, a bibliography style designed for a numeric citation scheme will print the number of every entry such that the bibliography looks like a numbered list. In the first example, the first argument to \cmd{list} was empty. In this example, we need it to insert the number, which is provided by \biblatex in the \bibfield{labelnumber} field. We also employ several length registers and other facilities provided by \biblatex, see \secref{aut:fmt:ich, aut:fmt:ilc} for details. The \texttt{numeric} bibliography style uses the definition given above. The \texttt{alphabetic} style is similar, except that \textsf{\texttt{labelnumber}} is replaced by \texttt{labelalpha} and \texttt{labelnumberwidth} by \texttt{labelalphawidth}.
 
 各参考文献表以类似方式处理。\cmd{printbiblist}命令默认使用以bibliography list命名的环境(当使用\bibtex 时，\cmd{printshorthands}总是使用\texttt{shorthand}环境)。一个典型的例子如下，其中的尺寸和工具定义详见第\secref{aut:fmt:ich, aut:fmt:ilc}节。
-Bibliography lists are handled in a similar way. \cmd{printbiblist} uses the environment named after the bibliography list by default. A typical example is given below. See \secref{aut:fmt:ich, aut:fmt:ilc} for details on the length registers and facilities used in this example.
+%Bibliography lists are handled in a similar way. \cmd{printbiblist} uses the environment named after the bibliography list by default. A typical example is given below. See \secref{aut:fmt:ich, aut:fmt:ilc} for details on the length registers and facilities used in this example.
 
 \begin{ltxexample}
 \defbibenvironment{shorthand}
@@ -311,11 +315,11 @@ Bibliography lists are handled in a similar way. \cmd{printbiblist} uses the env
   {\item}
 \end{ltxexample}
 
-\subsubsection{参考文献驱动 Bibliography Drivers}
+\subsubsection{参考文献驱动} %Bibliography Drivers
 \label{aut:bbx:drv}
 
-在我们讨论\biblatex 包的数据接口命令前，了解一下参考文献驱动的结构是有益的。注意，虽然下面给出的例子是大为简化的，但仍具有说明意义。为可读性考虑，我们忽略了一些可能是\bibtype{book}条目的域，并且简化处理没有忽略的域。主要是为了说明驱动的结构。关于\bibtex 文件的格式域与\biblatex 包的数据类型的映射信息，见\secref{bib:fld}。
-Before we go over the commands which form the data interface of the \biblatex package, it may be instructive to have a look at the structure of a bibliography driver. Note that the example given below is greatly simplified, but still functional. For the sake of readability, we omit several fields which may be part of a \bibtype{book} entry and also simplify the handling of those which are considered. The main point is to give you an idea of how a driver is structured. For information about the mapping of the \bibtex file format fields to \biblatex's data types, see \secref{bib:fld}.
+在我们讨论\biblatex 包的数据接口命令前，了解一下参考文献驱动的结构是有益的。注意，虽然下面给出的例子是大为简化的，但仍具有说明价值。为可读性考虑，我们忽略了一些可能是\bibtype{book}条目的域，并且简化处理没有忽略的域。主要是为了说明驱动的结构。关于\bibtex 文件的格式域与\biblatex 包的数据类型的映射信息，见\secref{bib:fld}。
+%Before we go over the commands which form the data interface of the \biblatex package, it may be instructive to have a look at the structure of a bibliography driver. Note that the example given below is greatly simplified, but still functional. For the sake of readability, we omit several fields which may be part of a \bibtype{book} entry and also simplify the handling of those which are considered. The main point is to give you an idea of how a driver is structured. For information about the mapping of the \bibtex file format fields to \biblatex's data types, see \secref{bib:fld}.
 
 \begin{ltxexample}
 \DeclareBibliographyDriver{book}{%
@@ -332,7 +336,7 @@ Before we go over the commands which form the data interface of the \biblatex pa
 \end{ltxexample}
 %
 标准的参考文献样式应用两个参考文献宏\texttt{begentry}和\texttt{finentry}。
-The standard bibliography styles employ two bibliography macros \texttt{begentry} and \texttt{finentry}:
+%The standard bibliography styles employ two bibliography macros \texttt{begentry} and \texttt{finentry}:
 
 \begin{ltxexample}
 \DeclareBibliographyDriver{<<entrytype>>}{%
@@ -342,24 +346,24 @@ The standard bibliography styles employ two bibliography macros \texttt{begentry
 \end{ltxexample}
 %
 作为默认的定义。
-with the default definitions
+%with the default definitions
 \begin{ltxexample}
 \newbibmacro*{begentry}{}
 \newbibmacro*{finentry}{\finentry}
 \end{ltxexample}
 %
 推荐使用这两个宏，因为方便在驱动开始或结束时使用钩子。
-Use of these macros is recommended for easy hooks into the beginning and end of the driver.
+%Use of these macros is recommended for easy hooks into the beginning and end of the driver.
 
 回到上述给出\texttt{book}条目类型的驱动，我们发现有一些缺省:即\cmd{printnames}, \cmd{printlist}, 和 \cmd{printfield}命令所使用的格式命令。为了说明一个格式话指令是什么，这里给出上述驱动举例中所使用虚构指令。域的格式是直接的，域的值直接作为参数传递给格式命令，并根据需要格式化。下面的指令简单地将输入参数用一个\cmd{emph}命令包裹:
-Returning to the driver for the \texttt{book} entrytype above, there is still one piece missing: the formatting directives used by \cmd{printnames}, \cmd{printlist}, and \cmd{printfield}. To give you an idea of what a formatting directive looks like, here are some fictional ones used by our sample driver. Field formats are straightforward, the value of the field is passed to the formatting directive as an argument which may be formatted as desired. The following directive will simply wrap its argument in an \cmd{emph} command:
+%Returning to the driver for the \texttt{book} entrytype above, there is still one piece missing: the formatting directives used by \cmd{printnames}, \cmd{printlist}, and \cmd{printfield}. To give you an idea of what a formatting directive looks like, here are some fictional ones used by our sample driver. Field formats are straightforward, the value of the field is passed to the formatting directive as an argument which may be formatted as desired. The following directive will simply wrap its argument in an \cmd{emph} command:
 
 \begin{ltxexample}
 \DeclareFieldFormat{title}{\emph{#1}}
 \end{ltxexample}
 %
 列表格式则要复杂一些。在将列表划分为独立的项后，\biblatex 将对列表中的每一项执行格式化命令。各项作为参数传递给格式化命令。列表中各项间的分隔符由相应的命令控制，因此我们必须在插入分隔符前要检查是否在列表中或者是列表末尾。
-List formats are slightly more complex. After splitting up the list into individual items, \biblatex will execute the formatting directive once for every item in the list. The item is passed to the directive as an argument. The separator to be inserted between the individual items in the list is also handled by the corresponding directive, hence we have to check whether we are in the middle of the list or at the end when inserting it.
+%List formats are slightly more complex. After splitting up the list into individual items, \biblatex will execute the formatting directive once for every item in the list. The item is passed to the directive as an argument. The separator to be inserted between the individual items in the list is also handled by the corresponding directive, hence we have to check whether we are in the middle of the list or at the end when inserting it.
 
 \begin{ltxexample}
 \DeclareListFormat{location}{%
@@ -369,27 +373,33 @@ List formats are slightly more complex. After splitting up the list into individ
     {}}
 \end{ltxexample}
 %
-姓名(name)的格式化命令类似于这种抄录列表，但列表中的单个项是姓名，因此需要自动的解析为姓名的不同组成部分。列表格式化命令对列表中每个姓名都执行一次，信吗的各个部分以分开的参数传递给该命令。比如，|#1|是姓(last name)和|#3|是名(first name)。下面给出一个简化的格式化命令例子:
-上述各格式化命令调换了第一个作者的姓名前后顺序«Last, First»)，而其余姓名则是常规顺序(«First Last»)。注意:必须要保证提供的姓名部分是姓(last name)，因此我们必须要检查实际数据中姓名的哪些部分是存在的。如果姓名的一些部分不存在，则相关的变量就为空。如同抄录列表的命令，在各独立项之间插入的分隔符也由格式化命令控制，因为我们也要检查是否处于列表中还是在其末尾，这也是第二个\cmd{ifthenelse}命令做的事情。
-Formatting directives for names are similar to those for literal lists.
+%姓名(name)的格式化命令类似于这种抄录列表，但列表中的单个项是姓名，因此需要自动的解析为姓名的不同组成部分。列表格式化命令对列表中每个姓名都执行一次，信吗的各个部分以分开的参数传递给该命令。比如，|#1|是姓(last name)和|#3|是名(first name)。下面给出一个简化的格式化命令例子:
+%上述各格式化命令调换了第一个作者的姓名前后顺序«Last, First»)，而其余姓名则是常规顺序(«First Last»)。注意:必须要保证提供的姓名部分是姓(last name)，因此我们必须要检查实际数据中姓名的哪些部分是存在的。如果姓名的一些部分不存在，则相关的变量就为空。如同抄录列表的命令，在各独立项之间插入的分隔符也由格式化命令控制，因为我们也要检查是否处于列表中还是在其末尾，这也是第二个\cmd{ifthenelse}命令做的事情。
 
-Names depend on the datamodel constant <nameparts> which has the default definition:
+姓名(name)的格式化指令类似于抄录列表。
+%Formatting directives for names are similar to those for literal lists.
+
+依赖于数据模型常量<nameparts>的姓名有如下默认定义:
+%Names depend on the datamodel constant <nameparts> which has the default definition:
 
 \begin{ltxexample}
 \DeclareDatamodelConstant[type=list]{nameparts}
                                     {prefix,family,suffix,given}
 \end{ltxexample}
 %
-This can be customised to add more name parts to deal with things like patronymics (see the example file \file{93-nameparts.tex}). Naturally this needs an extended name format for data sources. \biblatexml (\secref{apx:biblatexml}) handles this natively and there is an extended name format which can handle custom nameparts available when using \biber (see \biber documentation).
+这可以通过定制或者添加更多的姓名成分来处理比如来自父系姓的问题(见文件\file{93-nameparts.tex})。自然的，数据源需要一个扩展的姓名格式。\biblatexml (\secref{apx:biblatexml})用来处理该问题，其中有一个扩展的姓名格式，可以处理自定义的姓名成分，当使用\biber 后端的时候(见\biber 文档)。
+%This can be customised to add more name parts to deal with things like patronymics (see the example file \file{93-nameparts.tex}). Naturally this needs an extended name format for data sources. \biblatexml (\secref{apx:biblatexml}) handles this natively and there is an extended name format which can handle custom nameparts available when using \biber (see \biber documentation).
 
-Inside name formats, the nameparts constant declaration makes available two macros for each name part defined in the datamodel:
+在姓名格式中，姓名成分常量声明将为每个姓名成分提供数据模型定义的宏:
+%Inside name formats, the nameparts constant declaration makes available two macros for each name part defined in the datamodel:
 
 \begin{ltxexample}
 \namepart<namepart>
 \namepart<namepart>i
 \end{ltxexample}
 %
-The name formatting directive is executed once for each name in the name list. Here is an example:
+姓名的格式化执行对姓名列表中的每一个姓名进行处理，看下面的例子:
+%The name formatting directive is executed once for each name in the name list. Here is an example:
 
 \begin{ltxexample}
 \DeclareNameFormat{author}{%
@@ -403,22 +413,24 @@ The name formatting directive is executed once for each name in the name list. H
     {}}
 \end{ltxexample}
 %
-The above directive reverses the name of the first author («Last, First») and prints the remaining names in their regular sequence («First Last»). Note that the only component which is guaranteed to be available is the last name, hence we have to check which parts of the name are actually present. If a certain name part is not available, the corresponding macro will be empty. As with directives for literal lists, the separator to be inserted between the individual items in the name list is also handled by the formatting directive, hence we have to check whether we are in the middle of the list or at the end when inserting it. This is what the second \cmd{ifthenelse} test does.
+上述各格式化命令调换了第一个作者的姓名前后顺序«Last, First»)，而其余姓名则是常规顺序(«First Last»)。注意:必须要保证提供的姓名部分是姓(last name)，因此我们必须要检查实际数据中姓名的哪些成分是存在的。如果姓名的一些成分不存在，则相关的变量就为空。如同抄录列表的命令，在各独立项之间插入的分隔符也由格式化命令控制，因为我们也要检查是否处于列表中还是在其末尾，这也是第二个\cmd{ifthenelse}命令做的事情。
+%The above directive reverses the name of the first author («Last, First») and prints the remaining names in their regular sequence («First Last»). Note that the only component which is guaranteed to be available is the last name, hence we have to check which parts of the name are actually present. If a certain name part is not available, the corresponding macro will be empty. As with directives for literal lists, the separator to be inserted between the individual items in the name list is also handled by the formatting directive, hence we have to check whether we are in the middle of the list or at the end when inserting it. This is what the second \cmd{ifthenelse} test does.
 
-\subsubsection{特殊域 Special Fields}
+\subsubsection{特殊域}%Special Fields
 \label{aut:bbx:fld}
-下面的列表和域用于\biblatex 传递数据给参考文献驱动和引用命令。它们由包自动定义，并不是用于\file{bib}文件。从参考文献和引用样式的角度，它们与\file{bib}中的域并没有什么不同。
+下面的列表和域用于\biblatex 给参考文献驱动和引用命令传递数据。它们由宏包自动定义，并不在\file{bib}文件中使用。从参考文献著录和标注样式的角度看，它们与\file{bib}文件中的域并没有什么不同。
 
-The following lists and fields are used by \biblatex to pass data to bibliography drivers and citation commands. They are not used in \file{bib} files but defined automatically by the package. From the perspective of a bibliography or citation style, they are not different from the fields in a \file{bib} file.
+%The following lists and fields are used by \biblatex to pass data to bibliography drivers and citation commands. They are not used in \file{bib} files but defined automatically by the package. From the perspective of a bibliography or citation style, they are not different from the fields in a \file{bib} file.
 
-\paragraph{一般域 Generic Fields}
+\paragraph{一般域} %Generic Fields
 \label{aut:bbx:fld:gen}
 
 \begin{fieldlist}
 
 \fielditem{$<$datetype$>$dateunspecified}{string}
 
-If $<$datetype$>$date held an EDTF 5.2.2 <unspecified>, this field will be set to one of \opt{yearindecade}, \opt{yearincentury}, \opt{monthinyear}, \opt{dayinmonth} or \opt{dayinyear} which specifies the granularity of the unspecified information. These strings can be tested for and along with the date ranges which are automatically created for such <unspecified> dates, a style may choose to format the date in a special way. See \secref{bib:use:dat}. For example, an entry with dates such as:
+如果$<$datetype$>$date具有一个EDTF 5.2.2 <unspecified>，该域将被设置为\opt{yearindecade}, \opt{yearincentury}, \opt{monthinyear}, \opt{dayinmonth}或\opt{dayinyear}之一，这些字符串指定了unspecified 信息的粒度。这些字符串可用于日期范围的判断，该日期范围自动为这些<unspecified>日期创建，一个样式可能选择一种特殊方式来格式化日期。参见\secref{bib:use:dat}。例如:一个条目的日期为:
+%If $<$datetype$>$date held an EDTF 5.2.2 <unspecified>, this field will be set to one of \opt{yearindecade}, \opt{yearincentury}, \opt{monthinyear}, \opt{dayinmonth} or \opt{dayinyear} which specifies the granularity of the unspecified information. These strings can be tested for and along with the date ranges which are automatically created for such <unspecified> dates, a style may choose to format the date in a special way. See \secref{bib:use:dat}. For example, an entry with dates such as:
 
 \begin{lstlisting}[style=bibtex]{}
 @book{key,
@@ -427,7 +439,8 @@ If $<$datetype$>$date held an EDTF 5.2.2 <unspecified>, this field will be set t
 }
 \end{lstlisting}
 %
-would result in the same information in the \file{.bbl} as:
+将在\file{.bbl}产生如下信息:
+%would result in the same information in the \file{.bbl} as:
 \begin{lstlisting}[style=bibtex]{}
 @book{key,
   date     = {1900/1999},
@@ -435,40 +448,45 @@ would result in the same information in the \file{.bbl} as:
 }
 \end{lstlisting}
 %
-but would additionally have the field \bibfield{dateunspecified} set to <yearincentury> and \bibfield{origdateunspecified} set to <yearindecade>. This information could be used to render the \bibfield{date} as perhaps <20th century> and \bibfield{origdate} as <The 1990s>, information which cannot be derived from the date ranges alone. Since such auto-generated ranges have a know values, given the <unspecified> meta-information, it is relatively easy to use the range values to format special cases. While the standard styles not do this, examples are given in the file \file{96-dates.tex}.
+但也会额外的将域\bibfield{dateunspecified}设置为<yearincentury>，将\bibfield{origdateunspecified}设置为<yearindecade>。这一信息可以用来给\bibfield{date}提供可能的信息<20th century>，给\bibfield{origdate}提供<The 1990s>，这一信息无法单独从日期范围推算。因为这种自动生成的范围具有一个已知值，给出<unspecified>元信息，因此使用该范围值来进行特殊的格式化相对容易。而标准样式不做此处理，\file{96-dates.tex}给出了一些例子。
+%but would additionally have the field \bibfield{dateunspecified} set to <yearincentury> and \bibfield{origdateunspecified} set to <yearindecade>. This information could be used to render the \bibfield{date} as perhaps <20th century> and \bibfield{origdate} as <The 1990s>, information which cannot be derived from the date ranges alone. Since such auto-generated ranges have a know values, given the <unspecified> meta-information, it is relatively easy to use the range values to format special cases. While the standard styles not do this, examples are given in the file \file{96-dates.tex}.
 
 \fielditem{entrykey}{string}
 
-	\file{bib}文件中某一项的entry key。这是一个字符串，用于\biblatex 及其后端程序确定\file{bib}文件中的一个条目。
-The entry key of an item in the \file{bib} file. This is the string used by \biblatex and the backend to identify an entry in the \file{bib} file.
+\file{bib}文件中某一项的条目关键词(entry key)。这是一个字符串，用于\biblatex 及其后端程序确定\file{bib}文件中的某一条目。
+%The entry key of an item in the \file{bib} file. This is the string used by \biblatex and the backend to identify an entry in the \file{bib} file.
 
 \fielditem{childentrykey}{string}
 
-	当引用一个条目集的子条目时，\biblatex 给引用数据提供了父\bibtype{set}条目的数据。这意味着\bibfield{entrykey}表示的是父条目的关键词。而子条目的关键词在\bibfield{childentrykey}域中提供。该域仅在引用一个条目集的某一子条目时使用。
-When citing a subentry of an entry set, \biblatex provides the data of the parent \bibtype{set} entry to citation commands. This implies that the \bibfield{entrykey} field holds the entry key of the parent. The entry key of the child entry being cited is provided in the \bibfield{childentrykey} field. This field is only available when citing a subentry of an entry set.
+当引用一个条目集的子条目时，\biblatex 给引用数据提供了父\bibtype{set}条目的数据。这意味着\bibfield{entrykey}表示的是父条目的关键词。而子条目的关键词在\bibfield{childentrykey}域中提供。该域仅在引用一个条目集的某一子条目时使用。
+%When citing a subentry of an entry set, \biblatex provides the data of the parent \bibtype{set} entry to citation commands. This implies that the \bibfield{entrykey} field holds the entry key of the parent. The entry key of the child entry being cited is provided in the \bibfield{childentrykey} field. This field is only available when citing a subentry of an entry set.
 
 \fielditem{labelnamesource}{literal}
 
-Holds the name of the field used to populate \bibfield{labelname},
-determined by \cmd{DeclareLabelname}.
+保存给\bibfield{labelname}提供信息的域的域名，由\cmd{DeclareLabelname}确定。
+%Holds the name of the field used to populate \bibfield{labelname},determined by \cmd{DeclareLabelname}.
 
 \fielditem{labeltitlesource}{literal}
 
-Holds the name of the field used to populate \bibfield{labeltitle},
-determined by \cmd{DeclareLabeltitle}.
+保存给\bibfield{labeltitle}提供信息的域的域名，由\cmd{DeclareLabeltitle}确定。
+%Holds the name of the field used to populate \bibfield{labeltitle},determined by \cmd{DeclareLabeltitle}.
 
 \fielditem{labeldatesource}{literal}
 
-Holds one of:
+保存如下之一:
+%Holds one of:
 
 \begin{itemize}
-\item The prefix coming before <date> of the date field name chosen by
-  \cmd{DeclareLabeldate}
-\item The name of a field
-\item A literal or localisation string
+\item 由\cmd{DeclareLabeldate}选择的日期域域名的<date>前的前缀。
+%The prefix coming before <date> of the date field name chosen by   \cmd{DeclareLabeldate}
+\item 一个域的域名。
+%The name of a field
+\item 一个抄录或本地化字符串。\footnote{literal 译为抄录}
+%A literal or localisation string
 \end{itemize}
 %
-Normally holds the prefix coming before <date> of the date field name chosen by \cmd{DeclareLabeldate}. For example, if the labeldate field is \bibfield{eventdate}, then \bibfield{labeldatesource} will be <event>. In case \cmd{DeclareLabeldate} selects the \bibfield{date} field, then \bibfield{labeldatesource} will be defined but will be an empty string as the prefix coming before <date> in the date label name is empty. This is so that the contents of \bibfield{labeldatesource} can be used in constructing references to the field which \cmd{DeclareLabeldate} chooses. Since \cmd{DeclareLabeldate} can also select literal strings for fallbacks, \bibfield{labeldatesource} may not refer to a field or may be undefined. Bear in mind that \cmd{DeclareLabeldate} can also be used to select non-date fields as a fallback and so \bibfield{labeldatesource} might contain a field name. So, in summary, the rules are
+一般情况下保存由\cmd{DeclareLabeldate}选择的日期域域名的<date>前的前缀。例如，如果labeldate域是\bibfield{eventdate}，那么\bibfield{labeldatesource}就是<event>。如果\cmd{DeclareLabeldate}命令选择了\bibfield{date}域，\bibfield{labeldatesource}将会定义为一个空字符串作为<date>的前缀，因为date label名中<date>前为空。这就是说\bibfield{labeldatesource}的内容可以用于构建对\cmd{DeclareLabeldate}选择的域的指针。因为\cmd{DeclareLabeldate}也可以选择抄录字符串作为备选，\bibfield{labeldatesource}可以指向一个域或者不进行定义。记住:\cmd{DeclareLabeldate}命令可以用于选择非日期域作为备选，所以\bibfield{labeldatesource}可能包含一个域名。所以，总结起来，规则如下:
+%Normally holds the prefix coming before <date> of the date field name chosen by \cmd{DeclareLabeldate}. For example, if the labeldate field is \bibfield{eventdate}, then \bibfield{labeldatesource} will be <event>. In case \cmd{DeclareLabeldate} selects the \bibfield{date} field, then \bibfield{labeldatesource} will be defined but will be an empty string as the prefix coming before <date> in the date label name is empty. This is so that the contents of \bibfield{labeldatesource} can be used in constructing references to the field which \cmd{DeclareLabeldate} chooses. Since \cmd{DeclareLabeldate} can also select literal strings for fallbacks, \bibfield{labeldatesource} may not refer to a field or may be undefined. Bear in mind that \cmd{DeclareLabeldate} can also be used to select non-date fields as a fallback and so \bibfield{labeldatesource} might contain a field name. So, in summary, the rules are
 
 \begin{ltxexample}
 \iffieldundef{labeldatesource}
@@ -489,65 +507,66 @@ Normally holds the prefix coming before <date> of the date field name chosen by 
 \fielditem{entrytype}{string}
 
 	条目类型(\bibtype{book}, \bibtype{inbook},等)，以小写字母给出。
-The entry type (\bibtype{book}, \bibtype{inbook}, etc.), given in lowercase letters.
+%The entry type (\bibtype{book}, \bibtype{inbook}, etc.), given in lowercase letters.
 
 \fielditem{childentrytype}{string}
 
 	当引用一个条目集的子条目时，\biblatex 给引用命令提供父集条目的数据。这意味着\bibfield{entrytype}保存父条目的类型。子条目的类型则由\bibfield{childentrytype}域提供。该域仅在引用一个条目集的子条目时使用。
-When citing a subentry of an entry set, \biblatex provides the data of the parent \bibtype{set} entry to citation commands. This implies that the \bibfield{entrytype} field holds the entry type of the parent. The entry type of the child entry being cited is provided in the \bibfield{childentrytype} field. This field is only available when citing a subentry of an entry set.
+%When citing a subentry of an entry set, \biblatex provides the data of the parent \bibtype{set} entry to citation commands. This implies that the \bibfield{entrytype} field holds the entry type of the parent. The entry type of the child entry being cited is provided in the \bibfield{childentrytype} field. This field is only available when citing a subentry of an entry set.
 
 \fielditem{entrysetcount}{integer}
 
 	该域保存的整数用于指明一个集中某个集成员的位置(起始值是\texttt{1})。该域仅对一个条目集的子条目有用。
-This field holds an integer indicating the position of a set member in the entry set (starting at \texttt{1}). This field is only available in the subentries of an entry set.
+%This field holds an integer indicating the position of a set member in the entry set (starting at \texttt{1}). This field is only available in the subentries of an entry set.
 
 \fielditem{hash}{string}
 
 	该域非常特殊，仅在姓名格式化命令中使用。它保存一个hash字符串，用于唯一的确定姓名列表中的单个姓名。该信息对于姓名列表中的所有姓名都有提供。另外参见\bibfield{namehash}和\bibfield{fullhash}。
-This field is special in that it is only available locally in name formatting directives. It holds a hash string which uniquely identifies individual names in a name list. This information is available for all names in all name lists. See also \bibfield{namehash} and \bibfield{fullhash}.
+%This field is special in that it is only available locally in name formatting directives. It holds a hash string which uniquely identifies individual names in a name list. This information is available for all names in all name lists. See also \bibfield{namehash} and \bibfield{fullhash}.
 
 \fielditem{namehash}{string}
 
 	一个hash字符串用于唯一确定\bibfield{labelname}列表。这对再现检查很有用。比如，一个将再次出现的作者和编者用一个类似<idem>的字符串代替的引用样式，可以用\cmd{savefield}命令保存\bibfield{namehash}域，并将其用于后面\cmd{iffieldequals}(见\secref{aut:aux:dat, aut:aux:tst})命令的比较中。\bibfield{namehash}域通过\bibfield{labelname}列表的截短得到，即它的结果与\opt{maxnames}和\opt{minnames}选项相关。另外参见\bibfield{hash}和\bibfield{fullhash}。
-A hash string which uniquely identifies the \bibfield{labelname} list. This is useful for recurrence checks. For example, a citation style which replaces recurrent authors or editors with a string like <idem> could save the \bibfield{namehash} field with \cmd{savefield} and use it in a comparison with \cmd{iffieldequals} later (see \secref{aut:aux:dat, aut:aux:tst}). The \bibfield{namehash} is derived from the truncated \bibfield{labelname} list, \ie it is responsive to \opt{maxnames} and \opt{minnames}. See also \bibfield{hash} and \bibfield{fullhash}.
+%A hash string which uniquely identifies the \bibfield{labelname} list. This is useful for recurrence checks. For example, a citation style which replaces recurrent authors or editors with a string like <idem> could save the \bibfield{namehash} field with \cmd{savefield} and use it in a comparison with \cmd{iffieldequals} later (see \secref{aut:aux:dat, aut:aux:tst}). The \bibfield{namehash} is derived from the truncated \bibfield{labelname} list, \ie it is responsive to \opt{maxnames} and \opt{minnames}. See also \bibfield{hash} and \bibfield{fullhash}.
 
 \fielditem{$<$namelist$>$namehash}{string}
 
-As \bibfield{namehash} for the name list called <namelist>.
+类似于\bibfield{namehash}，但用于 <namelist>姓名列表。
+%As \bibfield{namehash} for the name list called <namelist>.
 
 \fielditem{fullhash}{string}
 
 	一个hash字符串用于唯一确定\bibfield{labelname}列表。该域域\bibfield{namehash}有两点不同:1.产生hash时忽略\bibfield{shortauthor}和\bibfield{shorteditor}列表。2.该hash指的是完整的列表，忽略\opt{maxnames}和\opt{minnames}选项。另外见\bibfield{hash}和\bibfield{namehash}。
-A hash string which uniquely identifies the \bibfield{labelname} list. This fields differs from \bibfield{namehash} in two details: 1) The \bibfield{shortauthor} and \bibfield{shorteditor} lists are ignored when generating the hash. 2) The hash always refers to the full list, ignoring \opt{maxnames} and \opt{minnames}. See also \bibfield{hash} and \bibfield{namehash}.
+%A hash string which uniquely identifies the \bibfield{labelname} list. This fields differs from \bibfield{namehash} in two details: 1) The \bibfield{shortauthor} and \bibfield{shorteditor} lists are ignored when generating the hash. 2) The hash always refers to the full list, ignoring \opt{maxnames} and \opt{minnames}. See also \bibfield{hash} and \bibfield{namehash}.
 
 \fielditem{$<$namelist$>$fullhash}{string}
 
-As \bibfield{fullhash} for the name list called <namelist>.
+类似于\bibfield{fullhash}，，但用于 <namelist>姓名列表。
+%As \bibfield{fullhash} for the name list called <namelist>.
 
 \listitem{pageref}{literal}
 
 	如果\opt{backref}包选项打开，该域保存各被引用条目所在页的页码。如果文档中有\env{refsection}环境，反向引用是针对当前参考文献节的。
-If the \opt{backref} package option is enabled, this list holds the page numbers of the pages on which the respective bibliography entry is cited. If there are \env{refsection} environments in the document, the back references are local to the reference sections.
+%If the \opt{backref} package option is enabled, this list holds the page numbers of the pages on which the respective bibliography entry is cited. If there are \env{refsection} environments in the document, the back references are local to the reference sections.
 
 \fielditem{sortinit}{literal}
 
 	该域保存用于排序的信息首字符。使用\bibtex 时，该域也用来代替\bibfield{sortinithash}域。
-This field holds the initial character of the information used during sorting.
+%This field holds the initial character of the information used during sorting.
 
 \fielditem{sortinithash}{string}
 
 	使用\biber 时，该域保存排序字符串的第一个扩展字素集群(基本上是第一个字符)的Unicode排序规则算法主要权重的hash值。当按照字母表顺序划分参考文献列表时很有用，该域有内部\cmd{bibinitsep}所使用。(见\secref{use:fmt:len})
-This field holds a hash of the (locale-specific) Unicode Collation Algorithm primary weight of the first extended grapheme cluster (essentially the first character) of the string used during sorting. This is useful when subdividing the bibliography alphabetically and is used internally by \cmd{bibinitsep} (see \secref{use:fmt:len}).
+%This field holds a hash of the (locale-specific) Unicode Collation Algorithm primary weight of the first extended grapheme cluster (essentially the first character) of the string used during sorting. This is useful when subdividing the bibliography alphabetically and is used internally by \cmd{bibinitsep} (see \secref{use:fmt:len}).
 
 \fielditem{clonesourcekey}{string}
 
 	该域保存复制条目源条目的关键词。复制条目常用于处理相关条目和\bibfield{related}域。
-This field holds the entry key of the entry from which an entry was cloned. Clones are created for
-entries which are mentioned in \bibfield{related} fields as part of related entry processing, for example.
+%This field holds the entry key of the entry from which an entry was cloned. Clones are created for entries which are mentioned in \bibfield{related} fields as part of related entry processing, for example.
 
 \end{fieldlist}
 
-\paragraph{引用标签中使用的域}%Fields for Use in Citation Labels
+\paragraph{标注(引用)标签中使用的域}%Fields for Use in Citation Labels
 \label{aut:bbx:fld:lab}
 
 \begin{fieldlist}
@@ -555,95 +574,108 @@ entries which are mentioned in \bibfield{related} fields as part of related entr
 \fielditem{labelalpha}{literal}
 
 	当使用\bibtex 为后端程序时，生成一个类似于传统\bibtex 的\path{alpha.bst}样式的标签。这一默认标签由抽取\bibfield{labelname}列表的首字母加上出版年的最后两个数字构成。\bibfield{label}域可用来重写它的非数值部分(non"=numeric portion)。如果定义了\bibfield{label}域，\biblatex 将使用它的值加上出版年的后两个数字生成\bibfield{labelalpha}。\bibfield{shorthand}域也可用来重写整个标签。如果定义了该域，\bibfield{labelalpha}就是\bibfield{shorthand}域，而不是一个自动生成的标签。\BiberOnlyMark 使用\biber 时，用户可以定义用来构建字母顺序标签的模板(见\secref{aut:ctm:lab})，而默认的模板域上面bibtex后端程序使用的格式相同。一个完整的字母顺序(<alphabetic>)标签由以下域构成:
-A label similar to the labels generated by the \path{alpha.bst} style of traditional \bibtex. This default label consists of initials drawn from the \bibfield{labelname} list plus the last two digits of the publication year. The \bibfield{label} field may be used to override its non"=numeric portion. If the \bibfield{label} field is defined, \biblatex will use its value and append the last two digits of the publication year when generating \bibfield{labelalpha}. The \bibfield{shorthand} field may be used to override the entire label. If defined, \bibfield{labelalpha} is the \bibfield{shorthand} rather than an automatically generated label. Users can specify a template used to construct the alphabetic label (see \secref{aut:ctm:lab}) and the default template mirrors the format mentioned for bibtex above. A complete <alphabetic> label consists of the fields \bibfield{labelalpha} plus \bibfield{extraalpha}. Note that the \bibfield{labelalpha} and \bibfield{extraalpha} fields need to be requested with the package option \opt{labelalpha} (\secref{use:opt:pre:int}). See also \bibfield{extraalpha} as well as \cmd{labelalphaothers} in \secref{use:fmt:fmt}.
+%A label similar to the labels generated by the \path{alpha.bst} style of traditional \bibtex. This default label consists of initials drawn from the \bibfield{labelname} list plus the last two digits of the publication year. The \bibfield{label} field may be used to override its non"=numeric portion. If the \bibfield{label} field is defined, \biblatex will use its value and append the last two digits of the publication year when generating \bibfield{labelalpha}. The \bibfield{shorthand} field may be used to override the entire label. If defined, \bibfield{labelalpha} is the \bibfield{shorthand} rather than an automatically generated label. Users can specify a template used to construct the alphabetic label (see \secref{aut:ctm:lab}) and the default template mirrors the format mentioned for bibtex above. A complete <alphabetic> label consists of the fields \bibfield{labelalpha} plus \bibfield{extraalpha}. Note that the \bibfield{labelalpha} and \bibfield{extraalpha} fields need to be requested with the package option \opt{labelalpha} (\secref{use:opt:pre:int}). See also \bibfield{extraalpha} as well as \cmd{labelalphaothers} in \secref{use:fmt:fmt}.
 
 \fielditem{extraalpha}{integer}
 
-	当参考文献中包含同一作者同一年出版的多个引文时，<alphabetic>引用格式常需要一个额外的字母加入标签来区分。这种情况下\bibfield{extraalpha}域保存一个整数可用命令 \cmd{mknumalph} 转换成字母或以其他方式格式化。该域类似于在作者年(author"=year)格式中\bibfield{extrayear}的作用。完整的 <alphabetic>的标签由\bibfield{labelalpha} 加 \bibfield{extraalpha}构成。注意\bibfield{labelalpha}和 \bibfield{extraalpha}域需要打开包选项 \opt{labelalpha}(详见\secref{use:opt:pre:int})。另外参见 \bibfield{labelalpha}和 \secref{use:fmt:fmt}的\cmd{labelalphaothers}。表\ref{use:opt:tab1}总结了不同的\opt{extra*}非歧义计数器和他们追踪的信息。
-The <alphabetic> citation scheme usually requires a letter to be appended to the label if the bibliography contains two or more works by the same author which were all published in the same year. In this case, the \bibfield{extraalpha} field holds an integer which may be converted to a letter with \cmd{mknumalph} or formatted in some other way. This field is similar to the role of \bibfield{extrayear} in the author"=year scheme. A complete <alphabetic> label consists of the fields \bibfield{labelalpha} plus \bibfield{extraalpha}. Note that the \bibfield{labelalpha} and \bibfield{extraalpha} fields need to be requested with the package option \opt{labelalpha}, see \secref{use:opt:pre:int} for details. See also \bibfield{labelalpha} as well as \cmd{labelalphaothers} in \secref{use:fmt:fmt}. Table \ref{use:opt:tab1} summarises the various \opt{extra*} disambiguation counters and what they track.
+	当参考文献中包含同一作者同一年出版的多个引文时，<alphabetic>引用格式常需要一个额外的字母加入标签来区分。这种情况下\bibfield{extraalpha}域保存一个整数可用命令 \cmd{mknumalph} 转换成字母或以其他方式格式化。该域类似于在作者年(author"=year)格式中\bibfield{extrayear}的作用。完整的 <alphabetic>的标签由\bibfield{labelalpha} 加 \bibfield{extraalpha}构成。注意包选项 \opt{labelalpha}要求使用\bibfield{labelalpha}和 \bibfield{extraalpha}域(详见\secref{use:opt:pre:int})。另外参见 \bibfield{labelalpha}和 \secref{use:fmt:fmt}的\cmd{labelalphaothers}。表\ref{use:opt:tab1}总结了不同的\opt{extra*}非歧义计数器和他们追踪的信息。
+%The <alphabetic> citation scheme usually requires a letter to be appended to the label if the bibliography contains two or more works by the same author which were all published in the same year. In this case, the \bibfield{extraalpha} field holds an integer which may be converted to a letter with \cmd{mknumalph} or formatted in some other way. This field is similar to the role of \bibfield{extrayear} in the author"=year scheme. A complete <alphabetic> label consists of the fields \bibfield{labelalpha} plus \bibfield{extraalpha}. Note that the \bibfield{labelalpha} and \bibfield{extraalpha} fields need to be requested with the package option \opt{labelalpha}, see \secref{use:opt:pre:int} for details. See also \bibfield{labelalpha} as well as \cmd{labelalphaothers} in \secref{use:fmt:fmt}. Table \ref{use:opt:tab1} summarises the various \opt{extra*} disambiguation counters and what they track.
 
 \listitem{labelname}{name}
 
-	引用中打印的姓名。该列表可以是\bibfield{shortauthor}, \bibfield{author},  \bibfield{shorteditor}, \bibfield{editor}, 或\bibfield{translator}域的
-	复制值，正常情况以该顺序检测。如果没有作者(authors)和编者(authors)，该列表时未定义的。注意该列表也与\opt{use$<$name$>$}相关，见\secref{use:opt:bib}。引用样式打印引用中的姓名时使用这一列表。提供该列表仅为方便起见，没有附加的意义。\BiberOnlyMark 使用\biber 时，该域可以定制，详见\secref{aut:ctm:fld}。
-The name to be printed in citations. This list is a copy of either the \bibfield{shortauthor}, the \bibfield{author}, the \bibfield{shorteditor}, the \bibfield{editor}, or the \bibfield{translator} list, which are normally checked for in this order. If no authors and editors are available, this list is undefined. Note that this list is also responsive to the \opt{use$<$name$>$}, options, see \secref{use:opt:bib}. Citation styles should use this list when printing the name in a citation. This list is provided for convenience only and does not carry any additional meaning.
-This field may be customized. See \secref{aut:ctm:fld} for details.
+	引用中打印的姓名。该列表可以是\bibfield{shortauthor}, \bibfield{author},  \bibfield{shorteditor}, \bibfield{editor}, 或\bibfield{translator}域的复制值，正常情况以该顺序检测。如果没有作者(authors)和编者(authors)，该列表时未定义的。注意该列表也与\opt{use$<$name$>$}相关，见\secref{use:opt:bib}。引用样式打印引用中的姓名时使用这一列表。提供该列表仅为方便起见，没有附加的意义。\BiberOnlyMark 使用\biber 时，该域可以定制，详见\secref{aut:ctm:fld}。
+%The name to be printed in citations. This list is a copy of either the \bibfield{shortauthor}, the \bibfield{author}, the \bibfield{shorteditor}, the \bibfield{editor}, or the \bibfield{translator} list, which are normally checked for in this order. If no authors and editors are available, this list is undefined. Note that this list is also responsive to the \opt{use$<$name$>$}, options, see \secref{use:opt:bib}. Citation styles should use this list when printing the name in a citation. This list is provided for convenience only and does not carry any additional meaning.This field may be customized. See \secref{aut:ctm:fld} for details.
 
 \fielditem{labelnumber}{literal}
 
-参考文献条目的序号，用于顺序编码类的样式。如果定义了\bibfield{shorthand}域，\biblatex 不再给各条目赋予一个数值。这种情况下，\bibfield{labelnumber}就是shorthand而不是一个数字。顺序编码类的样式必须使用该域的值而不是一个计数器值。注意: 该域需要打开包选项\opt{labelnumber}，详见\secref{use:opt:pre:int}。另可参见\secref{use:opt:pre:gen}节的\opt{defernumbers}选项。
-The number of the bibliography entry, as required by numeric citation schemes. If the \bibfield{shorthand} field is defined, \biblatex does not assign a number to the respective entry. In this case \bibfield{labelnumber} is the shorthand rather than a number. Numeric styles must use the value of this field instead of a counter. Note that this field needs to be requested with the package option \opt{labelnumber}, see \secref{use:opt:pre:int} for details. Also see the package option \opt{defernumbers} in \secref{use:opt:pre:gen}.
+参考文献条目的序号，用于顺序编码类的样式。如果定义了\bibfield{shorthand}域，\biblatex 不再给各条目赋予一个数值。这种情况下，\bibfield{labelnumber}就是shorthand而不是一个数字。顺序编码类的样式必须使用该域的值而不是一个计数器值。注意: 包选项\opt{labelnumber}要求使用该域，详见\secref{use:opt:pre:int}。另可参见\secref{use:opt:pre:gen}节的\opt{defernumbers}选项。
+%The number of the bibliography entry, as required by numeric citation schemes. If the \bibfield{shorthand} field is defined, \biblatex does not assign a number to the respective entry. In this case \bibfield{labelnumber} is the shorthand rather than a number. Numeric styles must use the value of this field instead of a counter. Note that this field needs to be requested with the package option \opt{labelnumber}, see \secref{use:opt:pre:int} for details. Also see the package option \opt{defernumbers} in \secref{use:opt:pre:gen}.
 
 \fielditem{labelprefix}{literal}
 
-If the \opt{labelprefix} option of \cmd{newrefcontext} has been set in order to prefix all entries in a subbibliography with a fixed string, this string is available in the \bibfield{labelprefix} field of all affected entries. If no prefix has been set, the \bibfield{labelprefix} field of the respective entry is undefined. See the \opt{labelprefix} option of \cmd{newrefcontext} in \secref{use:bib:context} for details. If the \bibfield{shorthand} field is defined, \biblatex does not assign the prefix to the \bibfield{labelprefix} field of the respective entry. In this case, the \bibfield{labelprefix} field is undefined.
+如果为了在一个subbibliography文献表的所有条目前都添加一个固定的字符串，设置了\cmd{newrefcontext}命令的\opt{labelprefix}选项，那么所有受影响的\bibfield{labelprefix}域将提供该字符串。如果未设置前缀，相应条目的\bibfield{labelprefix}域是未定义的。详见\secref{use:bib:context}节\cmd{newrefcontext}命令的\opt{labelprefix}选项。如果定义了\bibfield{shorthand}域，\biblatex 不会给相应条目的\bibfield{labelprefix}域设置前缀。这种情况下\bibfield{labelprefix}是未定义的。
+%If the \opt{labelprefix} option of \cmd{newrefcontext} has been set in order to prefix all entries in a subbibliography with a fixed string, this string is available in the \bibfield{labelprefix} field of all affected entries. If no prefix has been set, the \bibfield{labelprefix} field of the respective entry is undefined. See the \opt{labelprefix} option of \cmd{newrefcontext} in \secref{use:bib:context} for details. If the \bibfield{shorthand} field is defined, \biblatex does not assign the prefix to the \bibfield{labelprefix} field of the respective entry. In this case, the \bibfield{labelprefix} field is undefined.
 
 \fielditem{labeltitle}{literal}
-
-The printable title of a work. In some circumstances, a style might need to choose a title from a list of a possible title fields. For example, citation styles printing short titles may want to print the \bibfield{shorttitle} field if it exists but otherwise print the \bibfield{title} field. The list of fields to be considered when constructing \bibfield{labeltitle} may be customized. See \secref{aut:ctm:fld} for details. Note that the \bibfield{extratitle} field needs to be requested with the package option \opt{labeltitle}, see \secref{use:opt:pre:int} for details. See also \bibfield{extratitle}. Note also that the \bibfield{extratitleyear} field needs to be requested with the package option \opt{labeltitleyear}. See also \bibfield{extratitleyear}.
+一篇文献可打印题名(或标题)。在一些环境中，一个样式可能需要在一些可能的标题域中选择一个标题。例如，标注样式打印短标题可能需要打印\bibfield{shorttitle}域，如果它存在的话，否则将打印\bibfield{title}域。构建\bibfield{labeltitle}时考虑的域的列表可以自定义。详见 \secref{aut:ctm:fld}。注意:\opt{labeltitle}包选项要求使用\bibfield{extratitle}域，详见\secref{use:opt:pre:int}。另可参见\bibfield{extratitle}。也要注意，\opt{labeltitleyear}需要包选项需要\bibfield{extratitleyear}域，另可参见\bibfield{extratitleyear}。
+%The printable title of a work. In some circumstances, a style might need to choose a title from a list of a possible title fields. For example, citation styles printing short titles may want to print the \bibfield{shorttitle} field if it exists but otherwise print the \bibfield{title} field. The list of fields to be considered when constructing \bibfield{labeltitle} may be customized. See \secref{aut:ctm:fld} for details. Note that the \bibfield{extratitle} field needs to be requested with the package option \opt{labeltitle}, see \secref{use:opt:pre:int} for details. See also \bibfield{extratitle}. Note also that the \bibfield{extratitleyear} field needs to be requested with the package option \opt{labeltitleyear}. See also \bibfield{extratitleyear}.
 
 \fielditem{extratitle}{integer}
 
-It is sometimes useful, for example in author"=title citation schemes, to be able to disambiguate works with the same title. For works by the same \bibfield{labelname} with the same \bibfield{labeltitle}, the \bibfield{extratitle} field holds an integer which may be converted to a letter with \cmd{mknumalph} or formatted in some other way (or it can be merely used as a flag to say that some other field such as a date should be used in conjunction with the \bibfield{labeltitle} field). This field is undefined if there is only one work with the same \bibfield{labeltitle} by the same \bibfield{labelname} in the bibliography. Note that the \bibfield{extratitle} field needs to be requested with the package option \opt{labeltitle}, see \secref{use:opt:pre:int} for details. See also \bibfield{labeltitle}. Table \ref{use:opt:tab1} summarises the various \opt{extra*} disambiguation counters and what they track.
+该命令有时很有用，比如在author"=title标注样式中，用于区别标题相同的文献。当有文献具有相同的\bibfield{labelname}和\bibfield{labeltitle}，\bibfield{extratitle}域保存一个整数，可以利用\cmd{mknumalph}转换为一个字母或者以其它方式格式化(或者可以仅仅作为一个标志，用于表示将一些其它域比如日期与\bibfield{labeltitle}域合并)。当文献表中具有相同\bibfield{labeltitle}和\bibfield{labelname}的文献只有一篇时，该域不定义。\footnote{there is only one work with the same \bibfield{labeltitle} by the same \bibfield{labelname} in the bibliography？}注意:\bibfield{extratitle}域是\opt{labeltitle}包选项所要求使用，详见\secref{use:opt:pre:int}。另可参见\bibfield{labeltitle}。\ref{use:opt:tab1} 总结了各种\opt{extra*}计数器及其作用。
+%It is sometimes useful, for example in author"=title citation schemes, to be able to disambiguate works with the same title. For works by the same \bibfield{labelname} with the same \bibfield{labeltitle}, the \bibfield{extratitle} field holds an integer which may be converted to a letter with \cmd{mknumalph} or formatted in some other way (or it can be merely used as a flag to say that some other field such as a date should be used in conjunction with the \bibfield{labeltitle} field). This field is undefined if there is only one work with the same \bibfield{labeltitle} by the same \bibfield{labelname} in the bibliography. Note that the \bibfield{extratitle} field needs to be requested with the package option \opt{labeltitle}, see \secref{use:opt:pre:int} for details. See also \bibfield{labeltitle}. Table \ref{use:opt:tab1} summarises the various \opt{extra*} disambiguation counters and what they track.
 
 \fielditem{extratitleyear}{integer}
 
-It is sometimes useful, for example in author"=title citation schemes, to be able to disambiguate works with the same title in the same year but with no author. For works with the same \bibfield{labeltitle} and with the same \bibfield{labelyear}, the \bibfield{extratitleyear} field holds an integer which may be converted to a letter with \cmd{mknumalph} or formatted in some other way (or it can be merely used as a flag to say that some other field such as a publisher should be used in conjunction with the \bibfield{labelyear} field). This field is undefined if there is only one work with the same \bibfield{labeltitle} and \bibfield{labelyear} in the bibliography. Note that the \bibfield{extratitleyear} field needs to be requested with the package option \opt{labeltitleyear}, see \secref{use:opt:pre:int} for details. See also \bibfield{labeltitleyear}. Table \ref{use:opt:tab1} summarises the various \opt{extra*} disambiguation counters and what they track.
+该命令有时很有用，比如在author"=title标注样式中，用于区别标题相同年份相同但没有责任者的文献。当有文献具有相同的\bibfield{labeltitle}和\bibfield{labelyear}，\bibfield{extratitleyear}域保存一个整数，可以利用\cmd{mknumalph}转换为一个字母或者以其它方式格式化(或者可以仅仅作为一个标志，用于表示将一些其它域比如出版者与\bibfield{labelyear}域合并)。当文献表中具有相同\bibfield{labeltitle}和\bibfield{labelyear}的文献只有一篇时，该域不定义。注意:\ bibfield{extratitle}域是\opt{labeltitleyear}包选项所要求使用，详见\secref{use:opt:pre:int}。另可参见\bibfield{labeltitleyear}。\ref{use:opt:tab1} 总结了各种\opt{extra*}计数器及其作用。
+%It is sometimes useful, for example in author"=title citation schemes, to be able to disambiguate works with the same title in the same year but with no author. For works with the same \bibfield{labeltitle} and with the same \bibfield{labelyear}, the \bibfield{extratitleyear} field holds an integer which may be converted to a letter with \cmd{mknumalph} or formatted in some other way (or it can be merely used as a flag to say that some other field such as a publisher should be used in conjunction with the \bibfield{labelyear} field). This field is undefined if there is only one work with the same \bibfield{labeltitle} and \bibfield{labelyear} in the bibliography. Note that the \bibfield{extratitleyear} field needs to be requested with the package option \opt{labeltitleyear}, see \secref{use:opt:pre:int} for details. See also \bibfield{labeltitleyear}. Table \ref{use:opt:tab1} summarises the various \opt{extra*} disambiguation counters and what they track.
 
 \fielditem{labelyear}{literal}
 
-The year of the date field selected by \cmd{DeclareLabeldate} (\secref{aut:ctm:fld}) or the \bibfield{year} field, for use in author-year labels. A complete author-year label consists of the fields \bibfield{labelyear} plus \bibfield{extrayear}. Note that the \bibfield{labelyear} and \bibfield{extrayear} fields need to be requested with the package option \opt{labeldateparts}, see \secref{use:opt:pre:int} for details. See also \bibfield{extrayear}.
+由\cmd{DeclareLabeldate}(\secref{aut:ctm:fld})命令选择的日期域的年或者\bibfield{year}域用于作者年制标签。一个完整的作者年标签由\bibfield{labelyear}加\bibfield{extrayear}域构成。注意\bibfield{labelyear}和\bibfield{extrayear}域是 \opt{labeldateparts}包选项要求使用的，详见\secref{use:opt:pre:int}。另可参见\bibfield{extrayear}。
+%The year of the date field selected by \cmd{DeclareLabeldate} (\secref{aut:ctm:fld}) or the \bibfield{year} field, for use in author-year labels. A complete author-year label consists of the fields \bibfield{labelyear} plus \bibfield{extrayear}. Note that the \bibfield{labelyear} and \bibfield{extrayear} fields need to be requested with the package option \opt{labeldateparts}, see \secref{use:opt:pre:int} for details. See also \bibfield{extrayear}.
 
 \fielditem{labelendyear}{literal}
 
-The end year of the date field selected by \cmd{DeclareLabeldate} (\secref{aut:ctm:fld}) if the selected date is a range.
+\cmd{DeclareLabeldate} (\secref{aut:ctm:fld})命令选择的日期域的终止年，如果选择的日期是一个范围。
+%The end year of the date field selected by \cmd{DeclareLabeldate} (\secref{aut:ctm:fld}) if the selected date is a range.
 
 \fielditem{labelmonth}{datepart}
 
-The month of the date field selected by \cmd{DeclareLabeldate} (\secref{aut:ctm:fld}), or the \bibfield{month} field for use in author-year labels. Note that the \bibfield{labelmonth} field needs to be requested with the package option \opt{labeldateparts}, see \secref{use:opt:pre:int} for details.
+由\cmd{DeclareLabeldate}(\secref{aut:ctm:fld})命令选择的日期域的月或者\bibfield{month}域用于作者年制标签。注意\bibfield{labelmonth}域是 \opt{labeldateparts}包选项要求使用的，详见\secref{use:opt:pre:int}。
+%The month of the date field selected by \cmd{DeclareLabeldate} (\secref{aut:ctm:fld}), or the \bibfield{month} field for use in author-year labels. Note that the \bibfield{labelmonth} field needs to be requested with the package option \opt{labeldateparts}, see \secref{use:opt:pre:int} for details.
 
 \fielditem{labelendmonth}{datepart}
 
-The end month of the date field selected by \cmd{DeclareLabeldate} (\secref{aut:ctm:fld}) if the selected date is a range.
+\cmd{DeclareLabeldate} (\secref{aut:ctm:fld})命令选择的日期域的终止月，如果选择的日期是一个范围。
+%The end month of the date field selected by \cmd{DeclareLabeldate} (\secref{aut:ctm:fld}) if the selected date is a range.
 
 \fielditem{labelday}{datepart}
 
-The month of the date field selected by \cmd{DeclareLabeldate} (\secref{aut:ctm:fld}) for use in author-year labels. Note that the \bibfield{labelday} field needs to be requested with the package option \opt{labeldateparts}, see \secref{use:opt:pre:int} for details.
+由\cmd{DeclareLabeldate}(\secref{aut:ctm:fld})命令选择的日期域的日或者\bibfield{month}域用于作者年制标签。注意 \bibfield{labelday}域是 \opt{labeldateparts}包选项要求使用的，详见\secref{use:opt:pre:int}。
+%The month of the date field selected by \cmd{DeclareLabeldate} (\secref{aut:ctm:fld}) for use in author-year labels. Note that the \bibfield{labelday} field needs to be requested with the package option \opt{labeldateparts}, see \secref{use:opt:pre:int} for details.
 
 \fielditem{labelendday}{datepart}
 
-The end day of the date field selected by \cmd{DeclareLabeldate} (\secref{aut:ctm:fld}) if the selected date is a range.
+\cmd{DeclareLabeldate} (\secref{aut:ctm:fld})命令选择的日期域的终止日，如果选择的日期是一个范围。
+%The end day of the date field selected by \cmd{DeclareLabeldate} (\secref{aut:ctm:fld}) if the selected date is a range.
 
 \fielditem{extrayear}{integer}
 
-The author"=year citation scheme usually requires a letter to be appended to the year if the bibliography contains two or more works by the same author which were all published in the same year. In this case, the \bibfield{extrayear} field holds an integer which may be converted to a letter with \cmd{mknumalph} or formatted in some other way. This field is undefined if there is only one work by the author in the bibliography or if all works by the author have different publication years. A complete author-year label consists of the fields \bibfield{labelyear} plus \bibfield{extrayear}. Note that the \bibfield{labelyear} and \bibfield{extrayear} fields need to be requested with the package option \opt{labeldateparts}, see \secref{use:opt:pre:int} for details. See also \bibfield{labelyear}. Table \ref{use:opt:tab1} summarises the various \opt{extra*} disambiguation counters and what they track.
+当参考文献表中包含两个或更多的具有相同作者的文献且出版年份也相同时，author"=year标注样式常需要在年后面附加一个字母以示区别。这种情况下，\bibfield{extrayear}域保存一个整数可以利用\cmd{mknumalph}转换为一个字母或者以其它方式格式化。当文献表中某作者的文献只有一篇或者所有该作者的文献的出版年不同时，该域不定义。完整的作者年标签由\bibfield{labelyear}加\bibfield{extrayear}域构成。注意\bibfield{labelyear} 和\bibfield{extrayear}域是\opt{labeldateparts}包选项所需要使用的，详见\secref{use:opt:pre:int}。另可参见\bibfield{labelyear}。\ref{use:opt:tab1} 总结了各种\opt{extra*}计数器及其作用。
+%The author"=year citation scheme usually requires a letter to be appended to the year if the bibliography contains two or more works by the same author which were all published in the same year. In this case, the \bibfield{extrayear} field holds an integer which may be converted to a letter with \cmd{mknumalph} or formatted in some other way. This field is undefined if there is only one work by the author in the bibliography or if all works by the author have different publication years. A complete author-year label consists of the fields \bibfield{labelyear} plus \bibfield{extrayear}. Note that the \bibfield{labelyear} and \bibfield{extrayear} fields need to be requested with the package option \opt{labeldateparts}, see \secref{use:opt:pre:int} for details. See also \bibfield{labelyear}. Table \ref{use:opt:tab1} summarises the various \opt{extra*} disambiguation counters and what they track.
 
 \end{fieldlist}
 
-\paragraph{date的组成域}%Date Component Fields
+\paragraph{Date的成分域}%Date Component Fields
 \label{aut:bbx:fld:dat}
 
-Note that it is possible to define new date fields in the datamodel which behave exactly like the default data model date fields described in this section.
+注意，可以在数据模型中定义新的日期域，这些新定义的日期域的使用方式与本节将介绍的默认的数据模型类似。
+%Note that it is possible to define new date fields in the datamodel which behave exactly like the default data model date fields described in this section.
 
-See \tabref{aut:bbx:fld:tab1} for an overview of how the date fields in \file{bib} files are related to the date fields provided by the style interface. When testing for a field like \bibfield{origdate} in a style, use code like:
+\file{bib}文件中的日期域与央视接口提供的日期域如何关联详见\tabref{aut:bbx:fld:tab1}。当对样式中像\bibfield{origdate}这样的域进行判断时，使用如下代码:
+%See \tabref{aut:bbx:fld:tab1} for an overview of how the date fields in \file{bib} files are related to the date fields provided by the style interface. When testing for a field like \bibfield{origdate} in a style, use code like:
 
 \begin{ltxcode}
 <<\iffieldundef>>{orig<<year>>}{...}{...}
 \end{ltxcode}
 %
-This will tell you if the corresponding date is defined at all. This test:
+它将告诉你相应的日期是否已定义。下面的判断:
+%This will tell you if the corresponding date is defined at all. This test:
 
 \begin{ltxcode}
 <<\iffieldundef>>{orig<<endyear>>}{...}{...}
 \end{ltxcode}
 %
-will tell you if the corresponding date is defined and a (fully specified) range. This test:
+将告诉你相应的日期和一个(完全确定的)范围是否已定义。下面的判断
+%will tell you if the corresponding date is defined and a (fully specified) range. This test:
 
 \begin{ltxcode}
 <<\iffieldequalstr>>{orig<<endyear>>}{}{...}{...}
 \end{ltxcode}
 %
-will tell you if the corresponding date is defined and an open"=ended range. Open"=ended ranges are indicated by an empty \texttt{endyear} component (as opposed to an undefined \texttt{endyear} component). See \secref{bib:use:dat} and \tabref{bib:use:tab1} on page~\pageref{bib:use:tab1} for further examples.
+将告诉你相应的日期和一个无终点的(open"=ended)范围已经定义。 Open"=ended范围由一个空的\texttt{endyear}成分表示(而不是一个未定义的\texttt{endyear}成分)。更多例子详见\secref{bib:use:dat}节和\pageref{bib:use:tab1}页的\tabref{bib:use:tab1}。
+%will tell you if the corresponding date is defined and an open"=ended range. Open"=ended ranges are indicated by an empty \texttt{endyear} component (as opposed to an undefined \texttt{endyear} component). See \secref{bib:use:dat} and \tabref{bib:use:tab1} on page~\pageref{bib:use:tab1} for further examples.
 
 \tablesetup
 \begin{longtable}[l]{%
@@ -790,7 +822,7 @@ eventdate	& 1995-01-31/1995-02-05	& eventday	& 31 \\
 		&			& eventendtimezone & undefined \\
 \bottomrule
 %\end{tabularx}
-\caption{Date Interface}
+\caption{日期接口(注意:biblatex3.7版提供的四个可解析日期接口，分别是date，origdate，eventdate，urldate，在多数场合已经够用)}%Date Interface
 \label{aut:bbx:fld:tab1}
 \end{longtable}
 
@@ -798,271 +830,335 @@ eventdate	& 1995-01-31/1995-02-05	& eventday	& 31 \\
 
 \fielditem{hour}{datepart}
 
-This field holds the hour component of the \bibfield{date} field. If the date is a range, it holds the hour component of the start date.
+该域保存\bibfield{date}域的小时(hour)成分，当日期是一个范围时，它保存开始日期的小时成分。
+%This field holds the hour component of the \bibfield{date} field. If the date is a range, it holds the hour component of the start date.
 
 \fielditem{minute}{datepart}
 
-This field holds the minute component of the \bibfield{date} field. If the date is a range, it holds the minute component of the start date.
+该域保存\bibfield{date}域的分钟成分，当日期是一个范围时，它保存开始日期的分钟成分。
+%This field holds the minute component of the \bibfield{date} field. If the date is a range, it holds the minute component of the start date.
 
 \fielditem{second}{datepart}
 
-This field holds the second component of the \bibfield{date} field. If the date is a range, it holds the second component of the start date.
+该域保存\bibfield{date}域的秒钟成分，当日期是一个范围时，它保存开始日期的秒钟成分。
+%This field holds the second component of the \bibfield{date} field. If the date is a range, it holds the second component of the start date.
 
 \fielditem{timezone}{datepart}
 
-This field holds the timezone component of the \bibfield{date} field. If the date is a range, it holds the timezone component of the start date.
+该域保存\bibfield{date}域的时区成分，当日期是一个范围时，它保存开始日期的时区成分。
+%This field holds the timezone component of the \bibfield{date} field. If the date is a range, it holds the timezone component of the start date.
 
 \fielditem{day}{datepart}
 
-This field holds the day component of the \bibfield{date} field. If the date is a range, it holds the day component of the start date.
+该域保存\bibfield{date}域的日成分，当日期是一个范围时，它保存开始日期的日成分。
+%This field holds the day component of the \bibfield{date} field. If the date is a range, it holds the day component of the start date.
 
 \fielditem{month}{datepart}
 
-This field is the \bibfield{month} as given in the database file or it holds the month component of the \bibfield{date} field. If the date is a range, it holds the month component of the start date.
+该域保存数据源文件中的\bibfield{month}域或者\bibfield{date}域的月成分，当日期是一个范围时，它保存开始日期的月成分。
+%This field is the \bibfield{month} as given in the database file or it holds the month component of the \bibfield{date} field. If the date is a range, it holds the month component of the start date.
 
 \fielditem{year}{datepart}
 
-This field is the \bibfield{year} as given in the database file or it holds the year component of the \bibfield{date} field. If the date is a range, it holds the year component of the start date.
+该域保存数据源文件中的\bibfield{year}域或者\bibfield{date}域的年成分，当日期是一个范围时，它保存开始日期的年成分。
+%This field is the \bibfield{year} as given in the database file or it holds the year component of the \bibfield{date} field. If the date is a range, it holds the year component of the start date.
 
 \fielditem{season}{datepart}
 
-This field holds the season component of the \bibfield{date} field as specified by \acr{EDTF} 5.2.5 (\secref{bib:use:dat}). It contains a season localisation string (\secref{aut:lng:key:dt}). If the date is a range, it holds the season component of the start date.
+该域保存由\acr{EDTF} 5.2.5(见\secref{bib:use:dat})规定的\bibfield{date}域的季节成分，它包含一个季节本地化字符串。当日期是一个范围时，它保存开始日期的季节成分。
+%This field holds the season component of the \bibfield{date} field as specified by \acr{EDTF} 5.2.5 (\secref{bib:use:dat}). It contains a season localisation string (\secref{aut:lng:key:dt}). If the date is a range, it holds the season component of the start date.
 
 \fielditem{endhour}{datepart}
 
-If the date specification in the \bibfield{date} field is a range, this field holds the hour component of the end date.
+如果\bibfield{date}域中给出的日期是一个范围，该域保存结束日期的小时成分。
+%If the date specification in the \bibfield{date} field is a range, this field holds the hour component of the end date.
 
 \fielditem{endminute}{datepart}
 
-If the date specification in the \bibfield{date} field is a range, this field holds the minute component of the end date.
+如果\bibfield{date}域中给出的日期是一个范围，该域保存结束日期的分钟成分。
+%If the date specification in the \bibfield{date} field is a range, this field holds the minute component of the end date.
 
 \fielditem{endsecond}{datepart}
 
-If the date specification in the \bibfield{date} field is a range, this field holds the second component of the end date.
+如果\bibfield{date}域中给出的日期是一个范围，该域保存结束日期的秒钟成分。
+%If the date specification in the \bibfield{date} field is a range, this field holds the second component of the end date.
 
 \fielditem{endtimezone}{datepart}
 
-If the date specification in the \bibfield{date} field is a range, this field holds the timezone component of the end date.
+如果\bibfield{date}域中给出的日期是一个范围，该域保存结束日期的时区成分。
+%If the date specification in the \bibfield{date} field is a range, this field holds the timezone component of the end date.
 
 \fielditem{endday}{datepart}
 
-If the date specification in the \bibfield{date} field is a range, this field holds the day component of the end date.
+如果\bibfield{date}域中给出的日期是一个范围，该域保存结束日期的日成分。
+%If the date specification in the \bibfield{date} field is a range, this field holds the day component of the end date.
 
 \fielditem{endmonth}{datepart}
 
-If the date specification in the \bibfield{date} field is a range, this field holds the month component of the end date.
+如果\bibfield{date}域中给出的日期是一个范围，该域保存结束日期的月成分。
+%If the date specification in the \bibfield{date} field is a range, this field holds the month component of the end date.
 
 \fielditem{endyear}{datepart}
 
-If the date specification in the \bibfield{date} field is a range, this field holds the year component of the end date. A blank (but defined) \bibfield{endyear} component indicates an open ended \bibfield{date} range.
+如果\bibfield{date}域中给出的日期是一个范围，该域保存结束日期的年成分。空的(但已定义)的\bibfield{endyear}成分表示无终点的日期范围。
+%If the date specification in the \bibfield{date} field is a range, this field holds the year component of the end date. A blank (but defined) \bibfield{endyear} component indicates an open ended \bibfield{date} range.
 
 \fielditem{endseason}{datepart}
 
-If the date specification in the \bibfield{date} field is a range, this field holds the season component of the end date as specified by \acr{EDTF} 5.2.5 (\secref{bib:use:dat}). It contains a season localisation string (\secref{aut:lng:key:dt}). A blank (but defined) \bibfield{endseason} component indicates an open ended \bibfield{date} range.
+如果\bibfield{date}域中给出的日期是一个范围，该域保存\acr{EDTF} 5.2.5 (\secref{bib:use:dat})规定的结束日期的季节成分。它包含一个季节本地化字符串(见\secref{aut:lng:key:dt})，空的(但已定义)的\bibfield{endseason}成分表示无终点的日期范围。
+%If the date specification in the \bibfield{date} field is a range, this field holds the season component of the end date as specified by \acr{EDTF} 5.2.5 (\secref{bib:use:dat}). It contains a season localisation string (\secref{aut:lng:key:dt}). A blank (but defined) \bibfield{endseason} component indicates an open ended \bibfield{date} range.
 
 \fielditem{orighour}{datepart}
 
-This field holds the hour component of the \bibfield{origdate} field. If the date is a range, it holds the hour component of the start date.
+该域保存\bibfield{origdate}域的小时(hour)成分，当日期是一个范围时，它保存开始日期的小时成分。
+%This field holds the hour component of the \bibfield{origdate} field. If the date is a range, it holds the hour component of the start date.
 
 \fielditem{origminute}{datepart}
 
-This field holds the minute component of the \bibfield{origdate} field. If the date is a range, it holds the minute component of the start date.
+该域保存\bibfield{origdate}域的分钟成分，当日期是一个范围时，它保存开始日期的分钟成分。
+%This field holds the minute component of the \bibfield{origdate} field. If the date is a range, it holds the minute component of the start date.
 
 \fielditem{origsecond}{datepart}
 
-This field holds the second component of the \bibfield{origdate} field. If the date is a range, it holds the second component of the start date.
+该域保存\bibfield{origdate}域的秒钟成分，当日期是一个范围时，它保存开始日期的秒钟成分。
+%This field holds the second component of the \bibfield{origdate} field. If the date is a range, it holds the second component of the start date.
 
 \fielditem{origtimezone}{datepart}
 
-This field holds the timezone component of the \bibfield{origdate} field. If the date is a range, it holds the timezone component of the start date.
+该域保存\bibfield{origdate}域的时区成分，当日期是一个范围时，它保存开始日期的时区成分。
+%This field holds the timezone component of the \bibfield{origdate} field. If the date is a range, it holds the timezone component of the start date.
 
 \fielditem{origday}{datepart}
 
-This field holds the day component of the \bibfield{origdate} field. If the date is a range, it holds the day component of the start date.
+该域保存\bibfield{origdate}域的日成分，当日期是一个范围时，它保存开始日期的日成分。
+%This field holds the day component of the \bibfield{origdate} field. If the date is a range, it holds the day component of the start date.
 
 \fielditem{origmonth}{datepart}
 
-This field holds the month component of the \bibfield{origdate} field. If the date is a range, it holds the month component of the start date.
+该域保存\bibfield{origdate}域的月成分，当日期是一个范围时，它保存开始日期的月成分。
+%This field holds the month component of the \bibfield{origdate} field. If the date is a range, it holds the month component of the start date.
 
 \fielditem{origyear}{datepart}
 
-This field holds the year component of the \bibfield{origdate} field. If the date is a range, it holds the year component of the start date.
+该域保存\bibfield{origdate}域的年成分，当日期是一个范围时，它保存开始日期的年成分。
+%This field holds the year component of the \bibfield{origdate} field. If the date is a range, it holds the year component of the start date.
 
 \fielditem{origseason}{datepart}
 
-This field holds the season component of the \bibfield{origdate} field as specified by \acr{EDTF} 5.2.5 (\secref{bib:use:dat}). It contains a season localisation string (\secref{aut:lng:key:dt}). If the date is a range, it holds the season component of the start date.
+该域保存由\acr{EDTF} 5.2.5(见\secref{bib:use:dat})规定的\bibfield{origdate}域的季节成分，它包含一个季节本地化字符串。当日期是一个范围时，它保存开始日期的季节成分。
+%This field holds the season component of the \bibfield{origdate} field as specified by \acr{EDTF} 5.2.5 (\secref{bib:use:dat}). It contains a season localisation string (\secref{aut:lng:key:dt}). If the date is a range, it holds the season component of the start date.
 
 \fielditem{origendhour}{datepart}
 
-If the date specification in the \bibfield{origdate} field is a range, this field holds the hour component of the end date.
+如果\bibfield{origdate}域中给出的日期是一个范围，该域保存结束日期的小时成分。
+%If the date specification in the \bibfield{origdate} field is a range, this field holds the hour component of the end date.
 
 \fielditem{origendminute}{datepart}
 
-If the date specification in the \bibfield{origdate} field is a range, this field holds the minute component of the end date.
+如果\bibfield{origdate}域中给出的日期是一个范围，该域保存结束日期的分钟成分。
+%If the date specification in the \bibfield{origdate} field is a range, this field holds the minute component of the end date.
 
 \fielditem{origendsecond}{datepart}
 
-If the date specification in the \bibfield{origdate} field is a range, this field holds the second component of the end date.
+如果\bibfield{origdate}域中给出的日期是一个范围，该域保存结束日期的秒钟成分。
+%If the date specification in the \bibfield{origdate} field is a range, this field holds the second component of the end date.
 
 \fielditem{origendtimezone}{datepart}
 
-If the date specification in the \bibfield{origdate} field is a range, this field holds the timezone component of the end date.
+如果\bibfield{origdate}域中给出的日期是一个范围，该域保存结束日期的时区成分。
+%If the date specification in the \bibfield{origdate} field is a range, this field holds the timezone component of the end date.
 
 \fielditem{origendday}{datepart}
 
-If the date specification in the \bibfield{origdate} field is a range, this field holds the day component of the end date.
+如果\bibfield{origdate}域中给出的日期是一个范围，该域保存结束日期的日成分。
+%If the date specification in the \bibfield{origdate} field is a range, this field holds the day component of the end date.
 
 \fielditem{origendmonth}{datepart}
 
-If the date specification in the \bibfield{origdate} field is a range, this field holds the month component of the end date.
+如果\bibfield{origdate}域中给出的日期是一个范围，该域保存结束日期的月成分。
+%If the date specification in the \bibfield{origdate} field is a range, this field holds the month component of the end date.
 
 \fielditem{origendyear}{datepart}
 
-If the date specification in the \bibfield{origdate} field is a range, this field holds the year component of the end date. A blank (but defined) \bibfield{origendyear} component indicates an open ended \bibfield{origdate} range.
+如果\bibfield{origdate} 域中给出的日期是一个范围，该域保存结束日期的年成分。空的(但已定义)的\bibfield{origendyear}成分表示无终点的日期范围。
+%If the date specification in the \bibfield{origdate} field is a range, this field holds the year component of the end date. A blank (but defined) \bibfield{origendyear} component indicates an open ended \bibfield{origdate} range.
 
 \fielditem{origendseason}{datepart}
 
-If the date specification in the \bibfield{origdate} field is a range, this field holds the season component of the end date as specified by \acr{EDTF} 5.2.5 (\secref{bib:use:dat}). It contains a season localisation string (\secref{aut:lng:key:dt}). A blank (but defined) \bibfield{origendseason} component indicates an open ended \bibfield{origdate} range.
+如果\bibfield{origdate}域中给出的日期是一个范围，该域保存\acr{EDTF} 5.2.5 (\secref{bib:use:dat})规定的结束日期的季节成分。它包含一个季节本地化字符串(见\secref{aut:lng:key:dt})，空的(但已定义)的\bibfield{origendseason}成分表示无终点的\bibfield{origdate}范围。
+%If the date specification in the \bibfield{origdate} field is a range, this field holds the season component of the end date as specified by \acr{EDTF} 5.2.5 (\secref{bib:use:dat}). It contains a season localisation string (\secref{aut:lng:key:dt}). A blank (but defined) \bibfield{origendseason} component indicates an open ended \bibfield{origdate} range.
 
 \fielditem{eventhour}{datepart}
 
-This field holds the hour component of the \bibfield{eventdate} field. If the date is a range, it holds the hour component of the start date.
+该域保存\bibfield{eventdate}域的小时(hour)成分，当日期是一个范围时，它保存开始日期的小时成分。
+%This field holds the hour component of the \bibfield{eventdate} field. If the date is a range, it holds the hour component of the start date.
 
 \fielditem{eventminute}{datepart}
 
-This field holds the minute component of the \bibfield{eventdate} field. If the date is a range, it holds the minute component of the start date.
+该域保存\bibfield{eventdate}域的分钟成分，当日期是一个范围时，它保存开始日期的分钟成分。
+%This field holds the minute component of the \bibfield{eventdate} field. If the date is a range, it holds the minute component of the start date.
 
 \fielditem{eventsecond}{datepart}
 
-This field holds the second component of the \bibfield{eventdate} field. If the date is a range, it holds the second component of the start date.
+该域保存\bibfield{eventdate}域的秒钟成分，当日期是一个范围时，它保存开始日期的秒钟成分。
+%This field holds the second component of the \bibfield{eventdate} field. If the date is a range, it holds the second component of the start date.
 
 \fielditem{eventtimezone}{datepart}
 
-This field holds the timezone component of the \bibfield{eventdate} field. If the date is a range, it holds the timezone component of the start date.
+该域保存\bibfield{eventdate}域的时区成分，当日期是一个范围时，它保存开始日期的时区成分。
+%This field holds the timezone component of the \bibfield{eventdate} field. If the date is a range, it holds the timezone component of the start date.
 
 \fielditem{eventday}{datepart}
 
-This field holds the day component of the \bibfield{eventdate} field. If the date is a range, it holds the day component of the start date.
+该域保存\bibfield{eventdate}域的日成分，当日期是一个范围时，它保存开始日期的日成分。
+%This field holds the day component of the \bibfield{eventdate} field. If the date is a range, it holds the day component of the start date.
 
 \fielditem{eventmonth}{datepart}
 
-This field holds the month component of the \bibfield{eventdate} field. If the date is a range, it holds the month component of the start date.
+该域保存\bibfield{eventdate}域的月成分，当日期是一个范围时，它保存开始日期的月成分。
+%This field holds the month component of the \bibfield{eventdate} field. If the date is a range, it holds the month component of the start date.
 
 \fielditem{eventyear}{datepart}
 
-This field holds the year component of the \bibfield{eventdate} field. If the date is a range, it holds the year component of the start date.
+该域保存\bibfield{eventdate}域的年成分，当日期是一个范围时，它保存开始日期的年成分
+%This field holds the year component of the \bibfield{eventdate} field. If the date is a range, it holds the year component of the start date.
 
 \fielditem{eventseason}{datepart}
 
-This field holds the season component of the \bibfield{eventdate} field as specified by \acr{EDTF} 5.2.5 (\secref{bib:use:dat}). It contains a season localisation string (\secref{aut:lng:key:dt}). If the date is a range, it holds the season component of the start date.
+该域保存由\acr{EDTF} 5.2.5(见\secref{bib:use:dat})规定的\bibfield{eventdate}域的季节成分，它包含一个季节本地化字符串。当日期是一个范围时，它保存开始日期的季节成分。
+%This field holds the season component of the \bibfield{eventdate} field as specified by \acr{EDTF} 5.2.5 (\secref{bib:use:dat}). It contains a season localisation string (\secref{aut:lng:key:dt}). If the date is a range, it holds the season component of the start date.
 
 \fielditem{eventendhour}{datepart}
 
-If the date specification in the \bibfield{eventdate} field is a range, this field holds the hour component of the end date.
+如果\bibfield{eventdate}域中给出的日期是一个范围，该域保存结束日期的小时成分。
+%If the date specification in the \bibfield{eventdate} field is a range, this field holds the hour component of the end date.
 
 \fielditem{eventendminute}{datepart}
 
-If the date specification in the \bibfield{eventdate} field is a range, this field holds the minute component of the end date.
+如果\bibfield{eventdate}域中给出的日期是一个范围，该域保存结束日期的分钟成分。
+%If the date specification in the \bibfield{eventdate} field is a range, this field holds the minute component of the end date.
 
 \fielditem{eventendsecond}{datepart}
 
-If the date specification in the \bibfield{eventdate} field is a range, this field holds the second component of the end date.
+如果\bibfield{eventdate}域中给出的日期是一个范围，该域保存结束日期的秒钟成分。
+%If the date specification in the \bibfield{eventdate} field is a range, this field holds the second component of the end date.
 
 \fielditem{eventendtimezone}{datepart}
 
-If the date specification in the \bibfield{eventdate} field is a range, this field holds the timezone component of the end date.
+如果\bibfield{eventdate}域中给出的日期是一个范围，该域保存结束日期的时区成分。
+%If the date specification in the \bibfield{eventdate} field is a range, this field holds the timezone component of the end date.
 
 \fielditem{eventendday}{datepart}
 
-If the date specification in the \bibfield{eventdate} field is a range, this field holds the day component of the end date.
+如果\bibfield{eventdate}域中给出的日期是一个范围，该域保存结束日期的日成分。
+%If the date specification in the \bibfield{eventdate} field is a range, this field holds the day component of the end date.
 
 \fielditem{eventendmonth}{datepart}
 
-If the date specification in the \bibfield{eventdate} field is a range, this field holds the month component of the end date.
+如果\bibfield{eventdate}域中给出的日期是一个范围，该域保存结束日期的月成分。
+%If the date specification in the \bibfield{eventdate} field is a range, this field holds the month component of the end date.
 
 \fielditem{eventendyear}{datepart}
 
-If the date specification in the \bibfield{eventdate} field is a range, this field holds the year component of the end date. A blank (but defined) \bibfield{eventendyear} component indicates an open ended \bibfield{eventdate} range.
+如果\bibfield{eventdate} 域中给出的日期是一个范围，该域保存结束日期的年成分。空的(但已定义)的\bibfield{eventendyear}成分表示无终点的日期范围。
+%If the date specification in the \bibfield{eventdate} field is a range, this field holds the year component of the end date. A blank (but defined) \bibfield{eventendyear} component indicates an open ended \bibfield{eventdate} range.
 
 \fielditem{eventendseason}{datepart}
 
-If the date specification in the \bibfield{eventdate} field is a range, this field holds the season component of the end date as specified by \acr{EDTF} 5.2.5 (\secref{bib:use:dat}). It contains a season localisation string (\secref{aut:lng:key:dt}). A blank (but defined) \bibfield{eventendseason} component indicates an open ended \bibfield{eventdate} range.
+如果\bibfield{eventdate}域中给出的日期是一个范围，该域保存\acr{EDTF} 5.2.5 (\secref{bib:use:dat})规定的结束日期的季节成分。它包含一个季节本地化字符串(见\secref{aut:lng:key:dt})，空的(但已定义)的\bibfield{eventendseason}成分表示无终点的\bibfield{eventdate}范围。
+%If the date specification in the \bibfield{eventdate} field is a range, this field holds the season component of the end date as specified by \acr{EDTF} 5.2.5 (\secref{bib:use:dat}). It contains a season localisation string (\secref{aut:lng:key:dt}). A blank (but defined) \bibfield{eventendseason} component indicates an open ended \bibfield{eventdate} range.
 
 \fielditem{urlhour}{datepart}
 
-This field holds the hour component of the \bibfield{urldate} field. If the date is a range, it holds the hour component of the start date.
+该域保存\bibfield{urldate}域的小时(hour)成分，当日期是一个范围时，它保存开始日期的小时成分。
+%This field holds the hour component of the \bibfield{urldate} field. If the date is a range, it holds the hour component of the start date.
 
 \fielditem{urlminute}{datepart}
 
-This field holds the minute component of the \bibfield{urldate} field. If the date is a range, it holds the minute component of the start date.
+该域保存\bibfield{urldate}域的分钟成分，当日期是一个范围时，它保存开始日期的分钟成分。
+%This field holds the minute component of the \bibfield{urldate} field. If the date is a range, it holds the minute component of the start date.
 
 \fielditem{urlsecond}{datepart}
 
-This field holds the second component of the \bibfield{urldate} field. If the date is a range, it holds the second component of the start date.
+该域保存\bibfield{urldate}域的秒钟成分，当日期是一个范围时，它保存开始日期的秒钟成分。
+%This field holds the second component of the \bibfield{urldate} field. If the date is a range, it holds the second component of the start date.
 
 \fielditem{timezone}{urldatepart}
 
-This field holds the timezone component of the \bibfield{urldate} field. If the date is a range, it holds the timezone component of the start date.
+该域保存\bibfield{urldate}域的时区成分，当日期是一个范围时，它保存开始日期的时区成分。
+%This field holds the timezone component of the \bibfield{urldate} field. If the date is a range, it holds the timezone component of the start date.
 
 \fielditem{urlday}{datepart}
 
-This field holds the day component of the \bibfield{urldate} field.
+该域保存\bibfield{urldate}域的日成分。
+%This field holds the day component of the \bibfield{urldate} field.
 
 \fielditem{urlmonth}{datepart}
 
-This field holds the month component of the \bibfield{urldate} field.
+该域保存\bibfield{urldate}域的月成分。
+%This field holds the month component of the \bibfield{urldate} field.
 
 \fielditem{urlyear}{datepart}
 
-This field holds the year component of the \bibfield{urldate} field.
+该域保存\bibfield{urldate}域的年成分。
+%This field holds the year component of the \bibfield{urldate} field.
 
 \fielditem{urlseason}{datepart}
 
-This field holds the season component of the \bibfield{urldate} field as specified by \acr{EDTF} 5.2.5 (\secref{bib:use:dat}). It contains a season localisation string (\secref{aut:lng:key:dt}). If the date is a range, it holds the season component of the start date.
+该域保存由\acr{EDTF} 5.2.5(见\secref{bib:use:dat})规定的 \bibfield{urldate} 域的季节成分，它包含一个季节本地化字符串。当日期是一个范围时，它保存开始日期的季节成分。
+%This field holds the season component of the \bibfield{urldate} field as specified by \acr{EDTF} 5.2.5 (\secref{bib:use:dat}). It contains a season localisation string (\secref{aut:lng:key:dt}). If the date is a range, it holds the season component of the start date.
 
 \fielditem{urlendhour}{datepart}
 
-If the date specification in the \bibfield{urldate} field is a range, this field holds the hour component of the end date.
+如果\bibfield{urldate}域中给出的日期是一个范围，该域保存结束日期的小时成分
+%If the date specification in the \bibfield{urldate} field is a range, this field holds the hour component of the end date.
 
 \fielditem{urlendminute}{datepart}
 
-If the date specification in the \bibfield{urldate} field is a range, this field holds the minute component of the end date.
+如果\bibfield{urldate}域中给出的日期是一个范围，该域保存结束日期的分钟成分
+%If the date specification in the \bibfield{urldate} field is a range, this field holds the minute component of the end date.
 
 \fielditem{urlendsecond}{datepart}
 
-If the date specification in the \bibfield{urldate} field is a range, this field holds the second component of the end date.
+如果\bibfield{urldate}域中给出的日期是一个范围，该域保存结束日期的秒钟成分
+%If the date specification in the \bibfield{urldate} field is a range, this field holds the second component of the end date.
 
 \fielditem{urlendtimezone}{datepart}
 
-If the date specification in the \bibfield{urldate} field is a range, this field holds the timezone component of the end date.
+如果\bibfield{urldate}域中给出的日期是一个范围，该域保存结束日期的时区成分
+%If the date specification in the \bibfield{urldate} field is a range, this field holds the timezone component of the end date.
 
 \fielditem{urlendday}{datepart}
 
-If the date specification in the \bibfield{urldate} field is a range, this field holds the day component of the end date.
+如果\bibfield{urldate}域中给出的日期是一个范围，该域保存结束日期的日成分
+%If the date specification in the \bibfield{urldate} field is a range, this field holds the day component of the end date.
 
 \fielditem{urlendmonth}{datepart}
 
-If the date specification in the \bibfield{urldate} field is a range, this field holds the month component of the end date.
+如果\bibfield{urldate}域中给出的日期是一个范围，该域保存结束日期的月成分
+%If the date specification in the \bibfield{urldate} field is a range, this field holds the month component of the end date.
 
 \fielditem{urlendyear}{datepart}
 
-If the date specification in the \bibfield{urldate} field is a range, this field holds the year component of the end date. A blank (but defined) \bibfield{urlendyear} component indicates an open ended \bibfield{urldate} range.
+如果\bibfield{urldate} 域中给出的日期是一个范围，该域保存结束日期的年成分。空的(但已定义)的\bibfield{urlendyear}成分表示无终点的日期范围。
+%If the date specification in the \bibfield{urldate} field is a range, this field holds the year component of the end date. A blank (but defined) \bibfield{urlendyear} component indicates an open ended \bibfield{urldate} range.
 
 \fielditem{urlendseason}{datepart}
 
-If the date specification in the \bibfield{urldate} field is a range, this field holds the season component of the end date as specified by \acr{EDTF} 5.2.5 (\secref{bib:use:dat}). It contains a season localisation string (\secref{aut:lng:key:dt}). A blank (but defined) \bibfield{urlendseason} component indicates an open ended \bibfield{urldate} range.
+如果\bibfield{urldate}域中给出的日期是一个范围，该域保存\acr{EDTF} 5.2.5 (\secref{bib:use:dat})规定的结束日期的季节成分。它包含一个季节本地化字符串(见\secref{aut:lng:key:dt})，空的(但已定义)的\bibfield{urlendseason}成分表示无终点的\bibfield{eventdate}范围。
+%If the date specification in the \bibfield{urldate} field is a range, this field holds the season component of the end date as specified by \acr{EDTF} 5.2.5 (\secref{bib:use:dat}). It contains a season localisation string (\secref{aut:lng:key:dt}). A blank (but defined) \bibfield{urlendseason} component indicates an open ended \bibfield{urldate} range.
 
 \end{fieldlist}
 
-\subsection{标注样式 Citation Styles}
+\subsection{标注样式}%Citation Styles
 \label{aut:cbx}
 标注样式是诸如\cmd{cite}等用于打印不同类型标注的命令集。这些样式定义在后缀为\file{cbx}的文件中。\biblatex 在包末尾加载它们。注意:一些标准标注样式所共享的常用的宏集在\path{biblatex.def}文件中。这一文件也再包末尾加载，先于选择的标注样式。它也包含来自\secref{use:cit:txt}节的命令的定义。
-A citation style is a set of commands such as \cmd{cite} which print different types of citations. Such styles are defined in files with the suffix \file{cbx}. The \biblatex package loads the selected citation style file at the end of the package. Note that a small repertory of frequently used macros shared by several of the standard citation styles is also included in \path{biblatex.def}. This file is loaded at the end of the package as well, prior to the selected citation style. It also contains the definitions of the commands from \secref{use:cit:txt}.
+%A citation style is a set of commands such as \cmd{cite} which print different types of citations. Such styles are defined in files with the suffix \file{cbx}. The \biblatex package loads the selected citation style file at the end of the package. Note that a small repertory of frequently used macros shared by several of the standard citation styles is also included in \path{biblatex.def}. This file is loaded at the end of the package as well, prior to the selected citation style. It also contains the definitions of the commands from \secref{use:cit:txt}.
 
 \subsubsection{标注样式文件 Citation Style Files}
 \label{aut:cbx:cbx}
 在讨论标注样式文件提供的各个命令前，考虑如下一个典型的\file{cbx}文件的整体结构:
-Before we go over the individual commands available in citation style files, consider this example of the overall structure of a typical \file{cbx} file:
+%Before we go over the individual commands available in citation style files, consider this example of the overall structure of a typical \file{cbx} file:
 
 \begin{ltxexample}
 \ProvidesFile{example.cbx}[2006/03/15 v1.0 biblatex citation style]
@@ -1079,16 +1175,16 @@ Before we go over the individual commands available in citation style files, con
 \cmditem{RequireCitationStyle}{style}
 
 这个命令是可选的，用于在一些更一般的样式基础上构建特殊的标注样式。它加载标注样式\path{style.cbx}。
-This command is optional and intended for specialized citation styles built on top of a more generic style. It loads the citation style \path{style.cbx}.
+%This command is optional and intended for specialized citation styles built on top of a more generic style. It loads the citation style \path{style.cbx}.
 
 \cmditem{InitializeCitationStyle}{code}
 
 指定初始化或重设标注样式需要的任意\prm{code}。这个钩子将在包加载的时候执行一次，并且每次都使用\secref{use:cit:msc}节的\cmd{citereset}命令。\cmd{citereset}命令也重设本宏包的内部标注追踪器。它会影响\secref{aut:aux:tst}节中列出的\ cmd{ifciteseen}, \cmd{ifentryseen}, \cmd{ifciteibid}, 和\cmd{ifciteidem}等判断。当使用\env{refsection}环境时，标注追踪器重设当前的\env{refsection}局部环境。
-Specifies arbitrary \prm{code} required to initialize or reset the citation style. This hook will be executed once at package load-time and every time the \cmd{citereset} command from \secref{use:cit:msc} is used. The \cmd{citereset} command also resets the internal citation trackers of this package. The reset will affect the \cmd{ifciteseen}, \cmd{ifentryseen}, \cmd{ifciteibid}, and \cmd{ifciteidem} tests discussed in \secref{aut:aux:tst}. When used in a \env{refsection} environment, the reset of the citation tracker is local to the current \env{refsection} environment.
+%Specifies arbitrary \prm{code} required to initialize or reset the citation style. This hook will be executed once at package load-time and every time the \cmd{citereset} command from \secref{use:cit:msc} is used. The \cmd{citereset} command also resets the internal citation trackers of this package. The reset will affect the \cmd{ifciteseen}, \cmd{ifentryseen}, \cmd{ifciteibid}, and \cmd{ifciteidem} tests discussed in \secref{aut:aux:tst}. When used in a \env{refsection} environment, the reset of the citation tracker is local to the current \env{refsection} environment.
 
 \cmditem{OnManualCitation}{code}
-指定标注样式部分重设需要的任意\prm{code}。这一钩子将在\secref{use:cit:msc}中的\cmd{mancite}命令使用时调用。它有时特别有用，可以代替像 <ibidem>或<op. cit.>等缩写表示的重复标注，因为当自动生成和人工产生的标注混合使用的时候这些缩写可能会有歧义。\cmd{mancite}命令也会重设宏包的内部<ibidem>和<idem>追踪器，进而影响\secref{aut:aux:tst}讨论的\cmd{ifciteibid}和\cmd{ifciteidem}判断。
-Specifies arbitrary \prm{code} required for a partial reset of the citation style. This hook will be executed every time the \cmd{mancite} command from \secref{use:cit:msc} is used. It is particularly useful in citation styles which replace repeated citations by abbreviations like <ibidem> or <op. cit.> which may get ambiguous if automatically generated and manual citations are mixed. The \cmd{mancite} command also resets the internal <ibidem> and <idem> trackers of this package. The reset will affect the \cmd{ifciteibid} and \cmd{ifciteidem} tests discussed in \secref{aut:aux:tst}.
+指定标注样式部分重设需要的任意\prm{code}。这一钩子将在\secref{use:cit:msc}中的\cmd{mancite}命令使用时调用。它有时特别有用，可以代替像 <ibidem>或<op. cit.>等缩写表示的重复标注，因为当自动生成和人工产生的标注混合使用的时候这些缩写可能会有歧义。\cmd{mancite}命令也会重设宏包的内部<ibidem>和<idem>追踪器，进而影响\secref{aut:aux:tst}节讨论的\cmd{ifciteibid}和\cmd{ifciteidem}判断。
+%Specifies arbitrary \prm{code} required for a partial reset of the citation style. This hook will be executed every time the \cmd{mancite} command from \secref{use:cit:msc} is used. It is particularly useful in citation styles which replace repeated citations by abbreviations like <ibidem> or <op. cit.> which may get ambiguous if automatically generated and manual citations are mixed. The \cmd{mancite} command also resets the internal <ibidem> and <idem> trackers of this package. The reset will affect the \cmd{ifciteibid} and \cmd{ifciteidem} tests discussed in \secref{aut:aux:tst}.
 
 \cmditem{DeclareCiteCommand}{command}[wrapper]{precode}{loopcode}{sepcode}{postcode} \cmditem*{DeclareCiteCommand*}{command}[wrapper]{precode}{loopcode}{sepcode}{postcode}
 
