@@ -677,6 +677,7 @@ and Samarin}}}
 将告诉你相应的日期和一个无终点的(open"=ended)范围已经定义。 Open"=ended范围由一个空的\texttt{endyear}成分表示(而不是一个未定义的\texttt{endyear}成分)。更多例子详见\secref{bib:use:dat}节和\pageref{bib:use:tab1}页的\tabref{bib:use:tab1}。
 %will tell you if the corresponding date is defined and an open"=ended range. Open"=ended ranges are indicated by an empty \texttt{endyear} component (as opposed to an undefined \texttt{endyear} component). See \secref{bib:use:dat} and \tabref{bib:use:tab1} on page~\pageref{bib:use:tab1} for further examples.
 
+{
 \tablesetup
 \begin{longtable}[l]{%
 	@{}V{0.15\textwidth}%
@@ -825,6 +826,7 @@ eventdate	& 1995-01-31/1995-02-05	& eventday	& 31 \\
 \caption{日期接口(注意:biblatex3.7版提供的四个可解析日期接口，分别是date，origdate，eventdate，urldate，在多数场合已经够用)}%Date Interface
 \label{aut:bbx:fld:tab1}
 \end{longtable}
+}
 
 \begin{fieldlist}
 
@@ -1152,12 +1154,12 @@ eventdate	& 1995-01-31/1995-02-05	& eventday	& 31 \\
 
 \subsection{标注样式}%Citation Styles
 \label{aut:cbx}
-标注样式是诸如\cmd{cite}等用于打印不同类型标注的命令集。这些样式定义在后缀为\file{cbx}的文件中。\biblatex 在包末尾加载它们。注意:一些标准标注样式所共享的常用的宏集在\path{biblatex.def}文件中。这一文件也再包末尾加载，先于选择的标注样式。它也包含来自\secref{use:cit:txt}节的命令的定义。
+标注样式是诸如\cmd{cite}等用于打印不同类型标注的命令集。这些样式定义在后缀为\file{cbx}的文件中。\biblatex 在包末尾加载它们。注意:一些标准标注样式的常用共享宏集放在\path{biblatex.def}文件中。这一文件也在包末尾加载，先于选择的标注样式。它也包含由来自\secref{use:cit:txt}节的命令的定义。
 %A citation style is a set of commands such as \cmd{cite} which print different types of citations. Such styles are defined in files with the suffix \file{cbx}. The \biblatex package loads the selected citation style file at the end of the package. Note that a small repertory of frequently used macros shared by several of the standard citation styles is also included in \path{biblatex.def}. This file is loaded at the end of the package as well, prior to the selected citation style. It also contains the definitions of the commands from \secref{use:cit:txt}.
 
-\subsubsection{标注样式文件 Citation Style Files}
+\subsubsection{标注样式文件}% Citation Style Files
 \label{aut:cbx:cbx}
-在讨论标注样式文件提供的各个命令前，考虑如下一个典型的\file{cbx}文件的整体结构:
+在讨论标注样式文件提供的各个命令前，考虑如下一个典型\file{cbx}文件的整体结构:
 %Before we go over the individual commands available in citation style files, consider this example of the overall structure of a typical \file{cbx} file:
 
 \begin{ltxexample}
@@ -1183,16 +1185,25 @@ eventdate	& 1995-01-31/1995-02-05	& eventday	& 31 \\
 %Specifies arbitrary \prm{code} required to initialize or reset the citation style. This hook will be executed once at package load-time and every time the \cmd{citereset} command from \secref{use:cit:msc} is used. The \cmd{citereset} command also resets the internal citation trackers of this package. The reset will affect the \cmd{ifciteseen}, \cmd{ifentryseen}, \cmd{ifciteibid}, and \cmd{ifciteidem} tests discussed in \secref{aut:aux:tst}. When used in a \env{refsection} environment, the reset of the citation tracker is local to the current \env{refsection} environment.
 
 \cmditem{OnManualCitation}{code}
-指定标注样式部分重设需要的任意\prm{code}。这一钩子将在\secref{use:cit:msc}中的\cmd{mancite}命令使用时调用。它有时特别有用，可以代替像 <ibidem>或<op. cit.>等缩写表示的重复标注，因为当自动生成和人工产生的标注混合使用的时候这些缩写可能会有歧义。\cmd{mancite}命令也会重设宏包的内部<ibidem>和<idem>追踪器，进而影响\secref{aut:aux:tst}节讨论的\cmd{ifciteibid}和\cmd{ifciteidem}判断。
+指定重设部分标注样式需要的任意\prm{code}。这一钩子将在\secref{use:cit:msc}中的\cmd{mancite}命令使用时调用。它有时特别有用，可以代替像 <ibidem>或<op. cit.>等缩写表示的重复标注，因为当自动生成和人工产生的标注混合使用的时候这些缩写可能会有歧义。\cmd{mancite}命令也会重设宏包的内部<ibidem>和<idem>追踪器，进而影响\secref{aut:aux:tst}节讨论的\cmd{ifciteibid}和\cmd{ifciteidem}判断。
 %Specifies arbitrary \prm{code} required for a partial reset of the citation style. This hook will be executed every time the \cmd{mancite} command from \secref{use:cit:msc} is used. It is particularly useful in citation styles which replace repeated citations by abbreviations like <ibidem> or <op. cit.> which may get ambiguous if automatically generated and manual citations are mixed. The \cmd{mancite} command also resets the internal <ibidem> and <idem> trackers of this package. The reset will affect the \cmd{ifciteibid} and \cmd{ifciteidem} tests discussed in \secref{aut:aux:tst}.
 
 \cmditem{DeclareCiteCommand}{command}[wrapper]{precode}{loopcode}{sepcode}{postcode} \cmditem*{DeclareCiteCommand*}{command}[wrapper]{precode}{loopcode}{sepcode}{postcode}
 
-This is the core command used to define all citation commands. It takes one optional and five mandatory arguments. The \prm{command} is the command to be defined, for example \cmd{cite}. If the optional \prm{wrapper} argument is given, the entire citation will be passed to the \prm{wrapper} as an argument, \ie the wrapper command must take one mandatory argument.\footnote{Typical examples of wrapper commands are \cmd{mkbibparens} and \cmd{mkbibfootnote}.} The \prm{precode} is arbitrary code to be executed at the beginning of the citation. It will typically handle the \prm{prenote} argument which is available in the \bibfield{prenote} field. It may also be used to initialize macros required by the \prm{loopcode}. The \prm{loopcode} is arbitrary code to be executed for each entry key passed to the \prm{command}. This is the core code which prints the citation labels or any other data. The \prm{sepcode} is arbitrary code to be executed after each iteration of the \prm{loopcode}. It will only be executed if a list of entry keys is passed to the \prm{command}. The \prm{sepcode} will usually insert some kind of separator, such as a comma or a semicolon. The \prm{postcode} is arbitrary code to be executed at the end of the citation. The \prm{postcode} will typically handle the \prm{postnote} argument which is available in the \bibfield{postnote} field.\footnote{The bibliographic data available to the \prm{loopcode} is the data of the entry currently being processed. In addition to that, the data of the first entry is available to the \prm{precode} and the data of the last one is available to the \prm{postcode}. <First> and <last> refer to the order in which the citations are printed. If the \opt{sortcites} package option is active, this is the order of the list after sorting. Note that no bibliographic data is available to the \prm{sepcode}.} The starred variant of \cmd{DeclareCiteCommand} defines a starred \prm{command}. For example, |\DeclareCiteCommand*{cite}| would define |\cite*|.\footnote{Note that the regular variant of \cmd{DeclareCiteCommand} defines a starred version of the \prm{command} implicitly, unless the starred version has been defined before. This is intended as a fallback. The implicit definition is an alias for the regular variant.}
+这是用于定义所有标注(引用)命令的核心命令。它有1个可选参数和5个必选参数。\prm{command}是要定义的命令，比如\cmd{cite}。如果给出可选的\prm{wrapper}参数，整个标注将会作为一个参数传递给\prm{wrapper}，即包围(wrapper)命令必须要取得一个必选参数。\footnote{典型的包围命令是\cmd{mkbibparens}和\cmd{mkbibfootnote}。}
+%This is the core command used to define all citation commands. It takes one optional and five mandatory arguments. The \prm{command} is the command to be defined, for example \cmd{cite}. If the optional \prm{wrapper} argument is given, the entire citation will be passed to the \prm{wrapper} as an argument, \ie the wrapper command must take one mandatory argument.\footnote{Typical examples of wrapper commands are \cmd{mkbibparens} and \cmd{mkbibfootnote}.}
+\prm{precode}是在标注开始时执行的任意代码。典型地，它将处理由\bibfield{prenote}域提供的\prm{prenote}参数。它可以可用来对\prm{loopcode}所需的宏进行初始化。\prm{loopcode}是每个条目关键词传递给\prm{command}命令时执行的任意代码。它是打印标注标签或其它任意数据的核心代码。\prm{sepcode}是每次执行\prm{loopcode}完成后执行的代码。它仅在条目关键词列表传递给\prm{command}时起作用。\prm{sepcode}常用于插入一些分隔符，比如逗号或分号等。
+%The \prm{precode} is arbitrary code to be executed at the beginning of the citation. It will typically handle the \prm{prenote} argument which is available in the \bibfield{prenote} field. It may also be used to initialize macros required by the \prm{loopcode}. The \prm{loopcode} is arbitrary code to be executed for each entry key passed to the \prm{command}. This is the core code which prints the citation labels or any other data. The \prm{sepcode} is arbitrary code to be executed after each iteration of the \prm{loopcode}. It will only be executed if a list of entry keys is passed to the \prm{command}. The \prm{sepcode} will usually insert some kind of separator, such as a comma or a semicolon.
+\prm{postcode}是在标注结束时执行的代码。典型地，它将处理由\bibfield{postnote}域提供的\prm{postnote}参数。\footnote{能给\prm{loopcode}提供的参考文献数据是正在处理的条目的数据。此外，第一个(<First>)条目的数据可以用于\prm{precode}，最后一个(<last>)条目的数据可以用于\prm{postcode}。<First> and <last>指的是标注的打印顺序。如果\opt{sortcites}包选项打开，这是经过排序处理后的顺序。注意: 没有任何参考文献数据可用于\prm{sepcode}。}
+%The \prm{postcode} is arbitrary code to be executed at the end of the citation. The \prm{postcode} will typically handle the \prm{postnote} argument which is available in the \bibfield{postnote} field.\footnote{The bibliographic data available to the \prm{loopcode} is the data of the entry currently being processed. In addition to that, the data of the first entry is available to the \prm{precode} and the data of the last one is available to the \prm{postcode}. <First> and <last> refer to the order in which the citations are printed. If the \opt{sortcites} package option is active, this is the order of the list after sorting. Note that no bibliographic data is available to the \prm{sepcode}.}
+带星号的\cmd{DeclareCiteCommand}命令定义了一个带星号的\prm{command}。例如|\DeclareCiteCommand*{cite}|命令将定义|\cite*|。
+\footnote{注意:无星号的\cmd{DeclareCiteCommand}命令也将定义隐式的定义一个带星号的标注命令，除非该标注命令前面已经定义。这只是用于提供备选。这种隐式方式定义的命令将等同于不带星号的命令。}
+%The starred variant of \cmd{DeclareCiteCommand} defines a starred \prm{command}. For example, |\DeclareCiteCommand*{cite}| would define |\cite*|.\footnote{Note that the regular variant of \cmd{DeclareCiteCommand} defines a starred version of the \prm{command} implicitly, unless the starred version has been defined before. This is intended as a fallback. The implicit definition is an alias for the regular variant.}
 
 \cmditem{DeclareMultiCiteCommand}{command}[wrapper]{cite}{delimiter}
 
-This command defines <multicite> commands (\secref{use:cit:mlt}). The \prm{command} is the multicite command to be defined, for example \cmd{cites}. It is automatically made robust. Multicite commands are built on top of backend commands defined with \cmd{DeclareCiteCommand} and the \prm{cite} argument specifies the name of the backend command to be used. Note that the wrapper of the backend command (\ie the \prm{wrapper} argument passed to \cmd{DeclareCiteCommand}) is ignored. Use the optional \prm{wrapper} argument to specify an alternative wrapper. The \prm{delimiter} is the string to be printed as a separator between the individual citations in the list. This will typically be \cmd{multicitedelim}. The following examples are real definitions taken from \path{biblatex.def}:
+该命令定义<multicite>类命令(见\secref{use:cit:mlt})。\prm{command}是要定义的multicite命令，比如\cmd{cites}。它自动在由\cmd{DeclareCiteCommand}定义的后端命令基础上构建鲁棒的命令，其中\prm{cite}参数用于指定使用的后端命令名。注意后端命令的包围命令(封套)(即传递给\cmd{DeclareCiteCommand}命令的\prm{wrapper}参数)自动忽略。使用可选\prm{wrapper}参数作为其替换。\prm{delimiter}是列表中单个标注之间的分隔字符串。下面给出的例子是典型的\cmd{multicitedelim}命令，取自\path{biblatex.def}中的实际定义:
+%This command defines <multicite> commands (\secref{use:cit:mlt}). The \prm{command} is the multicite command to be defined, for example \cmd{cites}. It is automatically made robust. Multicite commands are built on top of backend commands defined with \cmd{DeclareCiteCommand} and the \prm{cite} argument specifies the name of the backend command to be used. Note that the wrapper of the backend command (\ie the \prm{wrapper} argument passed to \cmd{DeclareCiteCommand}) is ignored. Use the optional \prm{wrapper} argument to specify an alternative wrapper. The \prm{delimiter} is the string to be printed as a separator between the individual citations in the list. This will typically be \cmd{multicitedelim}. The following examples are real definitions taken from \path{biblatex.def}:
 
 \begin{ltxexample}
 \DeclareMultiCiteCommand{\cites}%
@@ -1205,7 +1216,10 @@ This command defines <multicite> commands (\secref{use:cit:mlt}). The \prm{comma
 
 \cmditem{DeclareAutoCiteCommand}{name}[position]{cite}{multicite}
 
-This command provides definitions for the \cmd{autocite} and \cmd{autocites} commands from \secref{use:cit:aut}. The definitions are enabled with the \opt{autocite} package option from \secref{use:opt:pre:gen}. The \prm{name} is an identifier which serves as the value passed to the package option. The autocite commands are built on top of backend commands like \cmd{parencite} and \cmd{parencites}. The arguments \prm{cite} and \prm{multicite} specify the backend commands to use. The \prm{cite} argument refers to \cmd{autocite} and \prm{multicite} refers to \cmd{autocites}. The \prm{position} argument controls the handling of any punctuation marks after the citation. Possible values are \texttt{l}, \texttt{r}, \texttt{f}. \texttt{r} means that the punctuation is placed to the right of the citation, \ie it will not be moved around. \texttt{l} means that any punctuation after the citation is moved to the left of the citation. \texttt{f} is like \texttt{r} in a footnote and like \texttt{l} otherwise. This argument is optional and defaults to \texttt{r}. See also \cmd{DeclareAutoPunctuation} in \secref{aut:pct:cfg} and the \opt{autopunct} package option in \secref{use:opt:pre:gen}. The following examples are real definitions taken from \path{biblatex.def}:
+该命令为\cmd{autocite}和\cmd{autocites}类命令提供定义(见\secref{use:cit:aut})。要使定义生效需要打开 \secref{use:opt:pre:gen}节的\opt{autocite}包选项。\prm{name}是一个标识向包选项传递一个值。autocite类命令是在\cmd{parencite}和\cmd{parencites}等后端命令基础上构建的。\prm{cite}和\prm{multicite}参数指定了使用的后端命令。\prm{cite}参数用于\cmd{autocite}，而\prm{multicite}用于\cmd{autocites}。
+%This command provides definitions for the \cmd{autocite} and \cmd{autocites} commands from \secref{use:cit:aut}. The definitions are enabled with the \opt{autocite} package option from \secref{use:opt:pre:gen}. The \prm{name} is an identifier which serves as the value passed to the package option. The autocite commands are built on top of backend commands like \cmd{parencite} and \cmd{parencites}. The arguments \prm{cite} and \prm{multicite} specify the backend commands to use. The \prm{cite} argument refers to \cmd{autocite} and \prm{multicite} refers to \cmd{autocites}.
+\prm{position}参数控制标注后的任何标点符号的处理。可能的值是\texttt{l}, \texttt{r}, \texttt{f}。\texttt{r}表示标点置于标注的右侧，即它不会移动。 \texttt{l}表示将标点移动到标注的左侧。\texttt{f}在脚注中的作用类似于\texttt{r}，在其它情况下则类似于\texttt{l}。该参数是可选的默认是\texttt{r}。另可参见\secref{aut:pct:cfg}节的\cmd{DeclareAutoPunctuation}命令和\secref{use:opt:pre:gen}节的\opt{autopunct}包选项。下面的例子取自\path{biblatex.def}中的实际定义:
+%The \prm{position} argument controls the handling of any punctuation marks after the citation. Possible values are \texttt{l}, \texttt{r}, \texttt{f}. \texttt{r} means that the punctuation is placed to the right of the citation, \ie it will not be moved around. \texttt{l} means that any punctuation after the citation is moved to the left of the citation. \texttt{f} is like \texttt{r} in a footnote and like \texttt{l} otherwise. This argument is optional and defaults to \texttt{r}. See also \cmd{DeclareAutoPunctuation} in \secref{aut:pct:cfg} and the \opt{autopunct} package option in \secref{use:opt:pre:gen}. The following examples are real definitions taken from \path{biblatex.def}:
 
 \begin{ltxexample}
 \DeclareAutoCiteCommand{plain}{\cite}{\cites}
@@ -1214,7 +1228,8 @@ This command provides definitions for the \cmd{autocite} and \cmd{autocites} com
 \DeclareAutoCiteCommand{footnote}[f]{\smartcite}{\smartcites}
 \end{ltxexample}
 %
-A definition provided in the document preamble can be subsequently adopted with the following: (see \secref{use:cfg:opt}).
+文档导言区提供的定义可以利用如下方式随后采用(见\secref{use:cfg:opt}):
+%A definition provided in the document preamble can be subsequently adopted with the following: (see \secref{use:cfg:opt}).
 
 \begin{ltxexample}
 \ExecuteBibliographyOptions{autocite=<<name>>}
@@ -1222,44 +1237,51 @@ A definition provided in the document preamble can be subsequently adopted with 
 
 \end{ltxsyntax}
 
-\subsubsection{特殊域 Special Fields}
+\subsubsection{特殊域}%Special Fields
 \label{aut:cbx:fld}
 
-The following fields are used by \biblatex to pass data to citation commands. They are not used in \file{bib} files but defined automatically by the package. From the perspective of a citation style, they are not different from the fields in a \file{bib} file. See also \secref{aut:bbx:fld}.
+下面的域用于向标注命令传递数据。它们不用于\file{bib}文件中而由宏包自动定义。从标注样式的角度看，它们与\file{bib}中的域并无区别。另可参见\secref{aut:bbx:fld}。
+%The following fields are used by \biblatex to pass data to citation commands. They are not used in \file{bib} files but defined automatically by the package. From the perspective of a citation style, they are not different from the fields in a \file{bib} file. See also \secref{aut:bbx:fld}.
 
 \begin{fieldlist}
 
 \fielditem{prenote}{literal}
 
-The \prm{prenote} argument passed to a citation command. This field is specific to citations and not available in the bibliography. If the \prm{prenote} argument is missing or empty, this field is undefined.
+作为\prm{prenote}参数向标注命令传递。该域仅用于标注而不能用在参考文献表中。如果\prm{prenote}参数缺省或为空，该域不定义。
+%The \prm{prenote} argument passed to a citation command. This field is specific to citations and not available in the bibliography. If the \prm{prenote} argument is missing or empty, this field is undefined.
 
 \fielditem{postnote}{literal}
 
-The \prm{postnote} argument passed to a citation command. This field is specific to citations and not available in the bibliography. If the \prm{postnote} argument is missing or empty, this field is undefined.
+作为\prm{postnote}参数向标注命令传递。该域仅用于标注而不能用在参考文献表中。如果\prm{postnote}参数缺省或为空，该域不定义。
+%The \prm{postnote} argument passed to a citation command. This field is specific to citations and not available in the bibliography. If the \prm{postnote} argument is missing or empty, this field is undefined.
 
 \fielditem{multiprenote}{literal}
 
-The \prm{multiprenote} argument passed to a multicite command. This field is specific to citations and not available in the bibliography. If the \prm{multiprenote} argument is missing or empty, this field is undefined.
+作为\prm{multiprenote}参数向multicite类标注命令传递。该域仅用于标注而不能用在参考文献表中。如果\prm{multiprenote}参数缺省或为空，该域不定义。
+%The \prm{multiprenote} argument passed to a multicite command. This field is specific to citations and not available in the bibliography. If the \prm{multiprenote} argument is missing or empty, this field is undefined.
 
 \fielditem{multipostnote}{literal}
 
-The \prm{multipostnote} argument passed to a multicite command. This field is specific to citations and not available in the bibliography. If the \prm{multipostnote} argument is missing or empty, this field is undefined.
+作为\prm{multipostnote}参数向ulticite类标注命令传递。该域仅用于标注而不能用在参考文献表中。如果\prm{multipostnote}参数缺省或为空，该域不定义。
+%The \prm{multipostnote} argument passed to a multicite command. This field is specific to citations and not available in the bibliography. If the \prm{multipostnote} argument is missing or empty, this field is undefined.
 
 \fielditem{postpunct}{punctuation command}
 
-The trailing punctuation argument implicitly passed to a citation command. This field is specific to citations and not available in the bibliography. If the character following a given citation command is not specified in \cmd{DeclareAutoPunctuation} (\secref{aut:pct:cfg}), this field is undefined.
+作为拖尾的标点参数隐式地向标注命令传递。该域仅用于标注而不能用在参考文献表中。如果一个标注命令后面跟着的字符不在\cmd{DeclareAutoPunctuation} (\secref{aut:pct:cfg})命令的定义中，该域不定义。
+%The trailing punctuation argument implicitly passed to a citation command. This field is specific to citations and not available in the bibliography. If the character following a given citation command is not specified in \cmd{DeclareAutoPunctuation} (\secref{aut:pct:cfg}), this field is undefined.
 
 \end{fieldlist}
 
-\subsection{数据接口 Data Interface}
+\subsection{数据接口}%Data Interface
 \label{aut:bib}
 
-The data interface are the facilities used to format and print all bibliographic data. These facilities are available in both bibliography and citation styles.
+数据接口是用于格式化和打印全部参考文献数据的工具。这些工具均可在著录和标注样式中使用。
+%The data interface are the facilities used to format and print all bibliographic data. These facilities are available in both bibliography and citation styles.
 
-\subsubsection{数据命令 Data Commands}
+\subsubsection{数据命令}%Data Commands
 \label{aut:bib:dat}
-
-This section introduces the main data interface of the \biblatex package. These are the commands doing most of the work, \ie they actually print the data provided in lists and fields.
+本节介绍\biblatex 包的主要数据接口。这些命令处理了绝大部分工作，即实际上由它们来对列表和域提供的数据进行打印。
+%This section introduces the main data interface of the \biblatex package. These are the commands doing most of the work, \ie they actually print the data provided in lists and fields.
 
 \begin{ltxsyntax}
 
@@ -1267,30 +1289,36 @@ This section introduces the main data interface of the \biblatex package. These 
 \cmditem{DeprecateList}{list}{message}
 \cmditem{DeprecateName}{name}{message}
 
-When an attempt is made to print \prm{field}, \prm{list}, \prm{name}, a
-deprecation warning issued with the additional \prm{message}.  This aids
-style authors who are changing field names in their style. Note that the
-deprecated item must no longer be defined in the datamodel for this work;
-\prm{field}, \prm{list} or \prm{name} cannot be listed anywhere as an
-argument to \cmd{DeclareDatamodelFields}.
+
+用于在打印\prm{field}, \prm{list}, \prm{name}时给出表示不允许的警告信息\prm{message}。它帮助那些需要在样式中修改域名的样式作者。注意: 不允许的项只能是未在当前工作的数据模型中定义的项，\prm{field}, \prm{list}或\prm{name}不能出现在\cmd{DeclareDatamodelFields}命令的参数中。
+%When an attempt is made to print \prm{field}, \prm{list}, \prm{name}, a
+%deprecation warning issued with the additional \prm{message}.  This aids
+%style authors who are changing field names in their style. Note that the
+%deprecated item must no longer be defined in the datamodel for this work;
+%\prm{field}, \prm{list} or \prm{name} cannot be listed anywhere as an
+%argument to \cmd{DeclareDatamodelFields}.
 
 \cmditem{printfield}[format]{field}
 
-This command prints a \prm{field} using the formatting directive \prm{format}, as defined with \cmd{DeclareFieldFormat}. If a type"=specific \prm{format} has been declared, the type"=specific formatting directive takes precedence over the generic one. If the \prm{field} is undefined, nothing is printed. If the \prm{format} is omitted, \cmd{printfield} tries using the name of the field as a format name. For example, if the \bibfield{title} field is to be printed and the \prm{format} is not specified, it will try to use the field format \texttt{title}.\footnote{In other words, \texttt{\textbackslash printfield\{title\}} is equivalent to \texttt{\textbackslash printfield[title]\{title\}}.} In this case, any type"=specific formatting directive will also take precedence over the generic one. If all of these formats are undefined, it falls back to \texttt{default} as a last resort. Note that \cmd{printfield} provides the name of the field currently being processed in \cmd{currentfield} for use in field formatting directives.
+该命令使用由\cmd{DeclareFieldFormat}定义的格式化指令\prm{format}打印\prm{field}。如果声明了type"=specific的格式指令，其将优先于设置的通用格式指令。如果\prm{field}未定义则不作打印。如果\prm{format}缺省，\cmd{printfield}将尝试域名作为格式化指令名进行格式化。例如:要打印\bibfield{title}域，且\prm{format}未指定，它将尝试用于域格式\texttt{title}。\footnote{换句话说，\texttt{\textbackslash printfield\{title\}}等价于\texttt{\textbackslash printfield[title]\{title\}}。}
+%This command prints a \prm{field} using the formatting directive \prm{format}, as defined with \cmd{DeclareFieldFormat}. If a type"=specific \prm{format} has been declared, the type"=specific formatting directive takes precedence over the generic one. If the \prm{field} is undefined, nothing is printed. If the \prm{format} is omitted, \cmd{printfield} tries using the name of the field as a format name. For example, if the \bibfield{title} field is to be printed and the \prm{format} is not specified, it will try to use the field format \texttt{title}.\footnote{In other words, \texttt{\textbackslash printfield\{title\}} is equivalent to \texttt{\textbackslash printfield[title]\{title\}}.}
+这种情况下，任何type"=specific(具体类型的)格式化指令将优先于通用指令采用。如果所有的这类格式都未定义，它将返回到\texttt{default}作为最后的方式。注意:\cmd{printfield}为格式化指令提供当前正在\cmd{currentfield}中处理的域名。
+%In this case, any type"=specific formatting directive will also take precedence over the generic one. If all of these formats are undefined, it falls back to \texttt{default} as a last resort. Note that \cmd{printfield} provides the name of the field currently being processed in \cmd{currentfield} for use in field formatting directives.
 
 \cmditem{printlist}[format][start\ensuremath\rangle--\ensuremath\langle stop]{literal list}
-
-This command loops over all items in a \prm{literal list}, starting at item number \prm{start} and stopping at item number \prm{stop}, including \prm{start} and \prm{stop} (all lists are numbered starting at~1). Each item is printed using the formatting directive \prm{format}, as defined with \cmd{DeclareListFormat}. If a type"=specific \prm{format} has been declared, the type"=specific formatting directive takes precedence over the generic one. If the \prm{literal list} is undefined, nothing is printed. If the \prm{format} is omitted, \cmd{printlist} tries using the name of the list as a format name. In this case, any type"=specific formatting directive will also take precedence over the generic one. If all of these formats are undefined, it falls back to \texttt{default} as a last resort. The \prm{start} argument defaults to 1; \prm{stop} defaults to the total number of items in the list. If the total number is greater than \prm{maxitems}, \prm{stop} defaults to \prm{minitems} (see \secref{use:opt:pre:gen}). See \cmd{printnames} for further details. Note that \cmd{printlist} provides the name of the literal list currently being processed in \cmd{currentlist} for use in list formatting directives.
+该命令对所有在\prm{literal list}中的项进行循环处理，从项数\prm{start}开始，到项数\prm{stop}结束，包括\prm{start}和\prm{stop}(所有的列表中项以1开始计数)。每一项都用由\cmd{DeclareListFormat}定义的格式化指令\prm{format}打印。如果声明了type"=specific的格式指令，其将优先于设置的通用格式指令。如果\prm{literal list}未定义则不作打印。如果\prm{format}缺省，\cmd{printlist}将尝试列表名作为格式化指令名进行格式化。这种情况下，任何type"=specific(具体类型的)格式化指令将优先于通用指令采用。如果所有的这类格式都未定义，它将返回到\texttt{default}作为最后的方式。\prm{start}参数默认是1，\prm{stop}默认是列表中项的总数。如果项的总数大于\prm{maxitems}，\prm{stop}默认为\prm{minitems}(见\secref{use:opt:pre:gen})。更多细节参见\cmd{printnames}。注意:\cmd{printlist}为格式化指令提供当前正在\cmd{currentlist}中处理的域名。
+%This command loops over all items in a \prm{literal list}, starting at item number \prm{start} and stopping at item number \prm{stop}, including \prm{start} and \prm{stop} (all lists are numbered starting at~1). Each item is printed using the formatting directive \prm{format}, as defined with \cmd{DeclareListFormat}. If a type"=specific \prm{format} has been declared, the type"=specific formatting directive takes precedence over the generic one. If the \prm{literal list} is undefined, nothing is printed. If the \prm{format} is omitted, \cmd{printlist} tries using the name of the list as a format name. In this case, any type"=specific formatting directive will also take precedence over the generic one. If all of these formats are undefined, it falls back to \texttt{default} as a last resort. The \prm{start} argument defaults to 1; \prm{stop} defaults to the total number of items in the list. If the total number is greater than \prm{maxitems}, \prm{stop} defaults to \prm{minitems} (see \secref{use:opt:pre:gen}). See \cmd{printnames} for further details. Note that \cmd{printlist} provides the name of the literal list currently being processed in \cmd{currentlist} for use in list formatting directives.
 
 \cmditem{printnames}[format][start\ensuremath\rangle--\ensuremath\langle stop]{name list}
-
-This command loops over all items in a \prm{name list}, starting at item number \prm{start} and stopping at item number \prm{stop}, including \prm{start} and \prm{stop} (all lists are numbered starting at~1). Each item is printed using the formatting directive \prm{format}, as defined with \cmd{DeclareNameFormat}. If a type"=specific \prm{format} has been declared, the type"=specific formatting directive takes precedence over the generic one. If the \prm{name list} is undefined, nothing is printed. If the \prm{format} is omitted, \cmd{printnames} tries using the name of the list as a format name. In this case, any type"=specific formatting directive will also take precedence over the generic one. If all of these formats are undefined, it falls back to \texttt{default} as a last resort. The \prm{start} argument defaults to 1; \prm{stop} defaults to the total number of items in the list. If the total number is greater than \prm{maxnames}, \prm{stop} defaults to \prm{minnames} (see \secref{use:opt:pre:gen}). If you want to select a range but use the default list format, the first optional argument must still be given, but is left empty:
+该命令对所有在\prm{name list}中的项进行循环处理，从项数\prm{start}开始，到项数\prm{stop}结束，包括\prm{start}和\prm{stop}(所有的列表中项以1开始计数)。每一项都用由\cmd{DeclareNameFormat}定义的格式化指令\prm{format}打印。如果声明了type"=specific的格式指令，其将优先于设置的通用格式指令。如果\prm{name list}未定义则不作打印。如果\prm{format}缺省， \cmd{printnames}将尝试列表名作为格式化指令名进行格式化。这种情况下，任何type"=specific(具体类型的)格式化指令将优先于通用指令采用。如果所有的这类格式都未定义，它将返回到\texttt{default}作为最后的方式。\prm{start}参数默认是1，\prm{stop}默认是列表中项的总数。如果项的总数大于\prm{maxnames}，\prm{stop}默认为\prm{minnames}(见\secref{use:opt:pre:gen})。如果你要自己制定一个范围而又要使用默认的列表格式，第一个可选参数必须给出但要留空:
+%This command loops over all items in a \prm{name list}, starting at item number \prm{start} and stopping at item number \prm{stop}, including \prm{start} and \prm{stop} (all lists are numbered starting at~1). Each item is printed using the formatting directive \prm{format}, as defined with \cmd{DeclareNameFormat}. If a type"=specific \prm{format} has been declared, the type"=specific formatting directive takes precedence over the generic one. If the \prm{name list} is undefined, nothing is printed. If the \prm{format} is omitted, \cmd{printnames} tries using the name of the list as a format name. In this case, any type"=specific formatting directive will also take precedence over the generic one. If all of these formats are undefined, it falls back to \texttt{default} as a last resort. The \prm{start} argument defaults to 1; \prm{stop} defaults to the total number of items in the list. If the total number is greater than \prm{maxnames}, \prm{stop} defaults to \prm{minnames} (see \secref{use:opt:pre:gen}). If you want to select a range but use the default list format, the first optional argument must still be given, but is left empty:
 
 \begin{ltxexample}
 \printnames[][1-3]{...}
 \end{ltxexample}
 
-One of \prm{start} and \prm{stop} may be omitted, hence the following arguments are all valid:
+\prm{start}和\prm{stop}之一可以缺省，因此下面的参数都是有效的:
+%One of \prm{start} and \prm{stop} may be omitted, hence the following arguments are all valid:
 
 \begin{ltxexample}
 \printnames[...][-1]{...}
@@ -1298,202 +1326,236 @@ One of \prm{start} and \prm{stop} may be omitted, hence the following arguments 
 \printnames[...][1-3]{...}
 \end{ltxexample}
 
-If you want to override \prm{maxnames} and \prm{minnames} and force printing of the entire list, you may refer to the \cnt{listtotal} counter in the second optional argument:
+如果你要覆盖\prm{maxnames}和\prm{minnames}并打印整个列表，你可以在第二个可选参数中以如下方式设置\cnt{listtotal}计数器。
+%If you want to override \prm{maxnames} and \prm{minnames} and force printing of the entire list, you may refer to the \cnt{listtotal} counter in the second optional argument:
 
 \begin{ltxexample}
 \printnames[...][-\value{listtotal}]{...}
 \end{ltxexample}
 
-Whenever \cmd{printnames} and \cmd{printlist} process a list, information concerning the current state is accessible by way of four counters: the \cnt{listtotal} counter holds the total number of items in the current list, \cnt{listcount} holds the number of the item currently being processed, \cnt{liststart} is the \prm{start} argument passed to \cmd{printnames} or \cmd{printlist}, \cnt{liststop} is the \prm{stop} argument. These counters are intended for use in list formatting directives. \cnt{listtotal} may also be used in the second optional argument to \cmd{printnames} and \cmd{printlist}. Note that these counters are local to list formatting directives and do not hold meaningful values when used anywhere else. For every list, there is also a counter by the same name which holds the total number of items in the corresponding list. For example, the \cnt{author} counter holds the total number of items in the \bibfield{author} list. These counters are similar to \cnt{listtotal} except that they may also be used independently of list formatting directives. There are also \cnt{maxnames} and \cnt{minnames} as well as \cnt{maxitems} and \cnt{minitems} counters which hold the values of the corresponding package options. See \secref{aut:fmt:ilc} for a complete list of such internal counters. Note that \cmd{printnames} provides the name of the name list currently being processed in \cmd{currentname} for use in name formatting directives.
+当\cmd{printnames}和\cmd{printlist}处理一个列表时，当前状态的信息可以通过4个计数器获知: \cnt{listtotal} 计数器保存当前列表中项的总数，\cnt{listcount}保存当前正在处理的项的序号，\cnt{liststart}是传递给\cmd{printnames} 或\cmd{printlist}命令的 \prm{start}参数，\cnt{liststop} 则是 \prm{stop}参数。这些计数器用于列表的格式化指令。\cnt{listtotal}也可以在第二个可选参数中使用。注意，这些计数器仅在列表格式化指令中有意义在其它任何地方都无效。对于每类列表，都有一个具有相同名字的计数器保存该类列表的项的总数。例如，\cnt{author}计数器保存\bibfield{author}列表中的项的总数。这些计数器类似于\cnt{listtotal}，但可用于列表格式化指令之外。还有\cnt{maxnames} ，\cnt{minnames}， \cnt{maxitems}和\cnt{minitems}计数器，用于保存相应的包选项的值。这些内部计数器的完整列表详见\secref{aut:fmt:ilc}。注意: \cmd{printnames}为格式化指令提供当前正在\cmd{currentname}中处理的域名。
+%Whenever \cmd{printnames} and \cmd{printlist} process a list, information concerning the current state is accessible by way of four counters: the \cnt{listtotal} counter holds the total number of items in the current list, \cnt{listcount} holds the number of the item currently being processed, \cnt{liststart} is the \prm{start} argument passed to \cmd{printnames} or \cmd{printlist}, \cnt{liststop} is the \prm{stop} argument. These counters are intended for use in list formatting directives. \cnt{listtotal} may also be used in the second optional argument to \cmd{printnames} and \cmd{printlist}. Note that these counters are local to list formatting directives and do not hold meaningful values when used anywhere else. For every list, there is also a counter by the same name which holds the total number of items in the corresponding list. For example, the \cnt{author} counter holds the total number of items in the \bibfield{author} list. These counters are similar to \cnt{listtotal} except that they may also be used independently of list formatting directives. There are also \cnt{maxnames} and \cnt{minnames} as well as \cnt{maxitems} and \cnt{minitems} counters which hold the values of the corresponding package options. See \secref{aut:fmt:ilc} for a complete list of such internal counters. Note that \cmd{printnames} provides the name of the name list currently being processed in \cmd{currentname} for use in name formatting directives.
 
 \cmditem{printtext}[format]{text}
-该命令用于打印\prm{text}，可以是可打印的文本或者任意产生可打印文本的代码。它清除插入\prm{text}之前的标点缓存并且通知\biblatex 打印文本已经插入。这保证了所有之前和之后的\cmd{newblock}和\cmd{newunit}命令能产生期望的作用。\cmd{printfield}、\cmd{printnames} 、\cmd{bibstring}及其相关命令都这般自动处理(见\secref{aut:str})。如果一个参考文献样式需要如实插入文本（包括来自\secref{aut:pct:pct, aut:pct:spc}的命令），需要使用该命令来确保block 和unit标点在\secref{aut:pct:new}节中所述正常功能。可选参数\prm{format}指定一个域格式指令用于格式化\prm{text}。当需要把若干个域打印为某一格式的集合块，这就会很有用，比如把集合块用括号或引号包起来。如果声明了type"=specific的格式指令，则覆盖设置的一般格式指令。如果\prm{format}缺省，那么\prm{text}如实输出(原样打印)。更多实用细节见第\secref{aut:cav:pct}节。
-
-This command prints \prm{text}, which may be printable text or arbitrary code generating printable text. It clears the punctuation buffer before inserting \prm{text} and informs \biblatex that printable text has been inserted. This ensures that all preceding and following \cmd{newblock} and \cmd{newunit} commands have the desired effect. \cmd{printfield} and \cmd{printnames} as well as \cmd{bibstring} and its companion commands (see \secref{aut:str}) do that automatically. Using this command is required if a bibliography styles inserts literal text (including the commands from \secref{aut:pct:pct, aut:pct:spc}) to ensure that block and unit punctuation works as advertised in \secref{aut:pct:new}. The optional \prm{format} argument specifies a field formatting directive to be used to format \prm{text}. This may also be useful when several fields are to be printed as one chunk, for example, by enclosing the entire chunk in parentheses or quotation marks. If a type"=specific \prm{format} has been declared, the type"=specific formatting directive takes precedence over the generic one. If the \prm{format} is omitted, the \prm{text} is printed as is. See also \secref{aut:cav:pct} for some practical hints.
+该命令用于打印\prm{text}，可以是可打印的文本或者产生可打印文本的任意代码。它清除插入\prm{text}之前的标点缓存并且通知\biblatex 打印文本已经插入。这保证了所有之前和之后的\cmd{newblock}和\cmd{newunit}命令能产生预期的作用。\cmd{printfield}、\cmd{printnames} 、\cmd{bibstring}及其相关命令都这般自动处理(见\secref{aut:str})。如果一个参考文献样式需要插入抄录文本（包括来自\secref{aut:pct:pct, aut:pct:spc}的命令），需要使用该命令来确保block 和unit标点在\secref{aut:pct:new}节中所述正常功能。可选参数\prm{format}指定一个域格式指令用于格式化\prm{text}。当需要把若干个域打印为某一格式的集合块，这就会很有用，比如把集合块用括号或引号包起来。如果声明了type"=specific的格式指令，其将优先于设置的通用格式指令。如果\prm{format}缺省，那么\prm{text}如实输出(原样打印)。更多实用细节见第\secref{aut:cav:pct}节。
+%This command prints \prm{text}, which may be printable text or arbitrary code generating printable text. It clears the punctuation buffer before inserting \prm{text} and informs \biblatex that printable text has been inserted. This ensures that all preceding and following \cmd{newblock} and \cmd{newunit} commands have the desired effect. \cmd{printfield} and \cmd{printnames} as well as \cmd{bibstring} and its companion commands (see \secref{aut:str}) do that automatically. Using this command is required if a bibliography styles inserts literal text (including the commands from \secref{aut:pct:pct, aut:pct:spc}) to ensure that block and unit punctuation works as advertised in \secref{aut:pct:new}. The optional \prm{format} argument specifies a field formatting directive to be used to format \prm{text}. This may also be useful when several fields are to be printed as one chunk, for example, by enclosing the entire chunk in parentheses or quotation marks. If a type"=specific \prm{format} has been declared, the type"=specific formatting directive takes precedence over the generic one. If the \prm{format} is omitted, the \prm{text} is printed as is. See also \secref{aut:cav:pct} for some practical hints.
 
 \cmditem{printfile}[format]{file}
-
-This command is similar to \cmd{printtext} except that the second argument is a file name rather than literal text. The \prm{file} argument must be the name of a valid \latex file found in \tex's search path. \cmd{printfile} will use \cmd{input} to load this \prm{file}. If there is no such file, \cmd{printfile} does nothing. The optional \prm{format} argument specifies a field formatting directive to be applied to the \prm{file}. If a type"=specific \prm{format} has been declared, the type"=specific formatting directive takes precedence over the generic one. If the \prm{format} is omitted, the \prm{file} is printed as is. Note that this feature needs to be enabled explicitly by setting the package option \opt{loadfiles} from \secref{use:opt:pre:gen}. By default, \cmd{printfile} will not input any files.
+该命令类似于\cmd{printtext}，差别在于第二个参数是一个文件名而不是抄录文本。\prm{file}参数必须是一个能在\tex 搜索路径找到的有效的\latex 文件。\cmd{printfile}将使用\cmd{input}来加载该\prm{file}。如果指定文件不存在，\cmd{printfile}不做任何操作。可选的\prm{format}参数指定了一个域格式化指令应用于该\prm{file}。如果声明了type"=specific的格式指令，其将优先于设置的通用格式指令。如果\prm{format}缺省，那么\prm{file}如实输出(原样打印)。注意该功能需要显式的打开\secref{use:opt:pre:gen}节的包选项\opt{loadfiles}。默认情况下，\cmd{printfile}不加载任何文件。
+%This command is similar to \cmd{printtext} except that the second argument is a file name rather than literal text. The \prm{file} argument must be the name of a valid \latex file found in \tex's search path. \cmd{printfile} will use \cmd{input} to load this \prm{file}. If there is no such file, \cmd{printfile} does nothing. The optional \prm{format} argument specifies a field formatting directive to be applied to the \prm{file}. If a type"=specific \prm{format} has been declared, the type"=specific formatting directive takes precedence over the generic one. If the \prm{format} is omitted, the \prm{file} is printed as is. Note that this feature needs to be enabled explicitly by setting the package option \opt{loadfiles} from \secref{use:opt:pre:gen}. By default, \cmd{printfile} will not input any files.
 
 \csitem{printdate}
 
-This command prints the date of the entry, as specified in the fields \bibfield{date} or \bibfield{month}\slash \bibfield{year}. The date format is controlled by the package option \opt{date} from \secref{use:opt:pre:gen}. Additional formatting (fonts etc.) may be applied by adjusting the field format \texttt{date} (\secref{aut:fmt:ich}). Note that this command interfaces with the punctuation tracker. There is no need to wrap it in a \cmd{printtext} command.
+该命令打印条目定义在\bibfield{date}或\bibfield{month}\slash\bibfield{year}域中的日期。日期格式由\secref{use:opt:pre:gen}节中的\opt{date}包选项控制。另外也可以通过调整域格式\texttt{date} (见\secref{aut:fmt:ich})来进一步格式化(比如设置字体等)。注意:该命令与标点追踪器自动交互，不必使用\cmd{printtext}命令将其包围起来。
+%This command prints the date of the entry, as specified in the fields \bibfield{date} or \bibfield{month}\slash \bibfield{year}. The date format is controlled by the package option \opt{date} from \secref{use:opt:pre:gen}. Additional formatting (fonts etc.) may be applied by adjusting the field format \texttt{date} (\secref{aut:fmt:ich}). Note that this command interfaces with the punctuation tracker. There is no need to wrap it in a \cmd{printtext} command.
 
 \csitem{printdateextra}
 
-Similar to \cmd{printdate} but incorporates the \bibfield{extrayear} field in the date specification. This is useful for bibliography styles designed for author-year citations.
+类似于\cmd{printdate}，但指定的日期域是\bibfield{extrayear}域。用于设计作者年制的参考文献样式。
+%Similar to \cmd{printdate} but incorporates the \bibfield{extrayear} field in the date specification. This is useful for bibliography styles designed for author-year citations.
 
 \csitem{printlabeldate}
 
-Similar to \cmd{printdate} but prints the date field determined by \cmd{DeclareLabeldate}. The date format is controlled by the package option \opt{labeldate} from \secref{use:opt:pre:gen}. Additional formatting may be applied by adjusting the field format \texttt{labeldate} (\secref{aut:fmt:ich}).
+类似于\cmd{printdate}，但打印的是日期域由\cmd{DeclareLabeldate}决定。日期格式由\secref{use:opt:pre:gen}节中的\opt{labeldate}包选项控制。另外也可以通过调整域格式\texttt{labeldate} (见\secref{aut:fmt:ich})来进一步格式化。
+%Similar to \cmd{printdate} but prints the date field determined by \cmd{DeclareLabeldate}. The date format is controlled by the package option \opt{labeldate} from \secref{use:opt:pre:gen}. Additional formatting may be applied by adjusting the field format \texttt{labeldate} (\secref{aut:fmt:ich}).
 
 \csitem{printlabeldateextra}
 
-Similar to \cmd{printlabeldate} but incorporates the \bibfield{extrayear} field in the date specification. This is useful for bibliography styles designed for author-year citations.
+类似于\cmd{printlabeldate}，但指定的日期域是\bibfield{extrayear}域，用于设计作者年制的参考文献样式。
+%Similar to \cmd{printlabeldate} but incorporates the \bibfield{extrayear} field in the date specification. This is useful for bibliography styles designed for author-year citations.
 
 \csitem{print$<$datetype$>$date}
 
-As \cmd{printdate} but prints the \bibfield{$<$datetype$>$date} of the entry. The date format is controlled by the package option \opt{$<$datetype$>$date} from \secref{use:opt:pre:gen}. Additional formatting may be applied by adjusting the field format \texttt{$<$datetype$>$date} (\secref{aut:fmt:ich}). The $<$datetype$>$s in the default data model are <> (for the main \bibfield{date} field), <orig>, <event> and <url>.
+类似于\cmd{printdate}，但打印的是日期域是条目的由\bibfield{$<$datetype$>$date}域。日期格式由\secref{use:opt:pre:gen}节中的\opt{$<$datetype$>$date}包选项控制。另外也可以通过调整域格式\texttt{$<$datetype$>$date} (见\secref{aut:fmt:ich})来进一步格式化。$<$datetype$>$在默认的数据模型中有:<> (用于\bibfield{date}域), <orig>, <event> 和<url>。
+%As \cmd{printdate} but prints the \bibfield{$<$datetype$>$date} of the entry. The date format is controlled by the package option \opt{$<$datetype$>$date} from \secref{use:opt:pre:gen}. Additional formatting may be applied by adjusting the field format \texttt{$<$datetype$>$date} (\secref{aut:fmt:ich}). The $<$datetype$>$s in the default data model are <> (for the main \bibfield{date} field), <orig>, <event> and <url>.
 
 \csitem{printtime}
 
-This command prints the time range of the entry, as specified in the \bibfield{date} field (see \secref{bib:use:dat}). The time format is controlled by the package option \opt{time} from \secref{use:opt:pre:gen}. Additional formatting (fonts etc.) may be applied by adjusting the field format \texttt{time} (\secref{aut:fmt:ich}). Relevant to time formatting are the \opt{timezeros} option and the \cmd{bibtimesep} and \cmd{bibtimezonesep} macros (\secref{use:fmt:lng}). Note that this command interfaces with the punctuation tracker. There is no need to wrap it in a \cmd{printtext} command. Note that this command prints a stand-alone time range apart from the date elements. With the \opt{$<$datepart$>$dateusetime} option, you can have the printed along with a date when printing a date range instead of printing the time range completely separately, which is what this command allows for.
+该命令打印条目定义在\bibfield{date}域 (见\secref{bib:use:dat})中的时间范围，时间格式由\secref{use:opt:pre:gen}节中的\opt{time}包选项控制。另外也可以通过调整域格式\texttt{time} (见\secref{aut:fmt:ich})来进一步格式化(比如设置字体等)。时间格式化相关内容还包括\opt{timezeros}选项，\cmd{bibtimesep}和\cmd{bibtimezonesep}宏(\secref{use:fmt:lng})。注意:该命令与标点追踪器自动交互，不必使用\cmd{printtext}命令将其包围起来。注意该命令打印的是独立于日期元素的时间范围。当\opt{$<$datepart$>$dateusetime}选项打开时，也可以与日期范围一起打印，而不是各自分别打印。
+%This command prints the time range of the entry, as specified in the \bibfield{date} field (see \secref{bib:use:dat}). The time format is controlled by the package option \opt{time} from \secref{use:opt:pre:gen}. Additional formatting (fonts etc.) may be applied by adjusting the field format \texttt{time} (\secref{aut:fmt:ich}). Relevant to time formatting are the \opt{timezeros} option and the \cmd{bibtimesep} and \cmd{bibtimezonesep} macros (\secref{use:fmt:lng}). Note that this command interfaces with the punctuation tracker. There is no need to wrap it in a \cmd{printtext} command. Note that this command prints a stand-alone time range apart from the date elements. With the \opt{$<$datepart$>$dateusetime} option, you can have the printed along with a date when printing a date range instead of printing the time range completely separately, which is what this command allows for.
 
 \csitem{print$<$datetype$>$time}
 
-As \cmd{printtime} but prints the \bibfield{$<$datetype$>$time} of the entry. The time format is controlled by the package option \opt{$<$datetype$>$time} from \secref{use:opt:pre:gen}. Additional formatting may be applied by adjusting the field format \texttt{$<$datetype$>$time} (\secref{aut:fmt:ich}). The $<$datetype$>$s in the default data model are <> (for the main \bibfield{date} field), <orig>, <event> and <url>.
+类似于\cmd{printtime}，但打印的条目的\bibfield{$<$datetype$>$time}域。时间格式由\secref{use:opt:pre:gen}节中的\opt{$<$datetype$>$time}包选项控制。另外也可以通过调整域格式\texttt{$<$datetype$>$time}  (见\secref{aut:fmt:ich})来进一步格式化。$<$datetype$>$在默认的数据模型中有:<> (用于\bibfield{date}域), <orig>, <event> 和<url>。
+%As \cmd{printtime} but prints the \bibfield{$<$datetype$>$time} of the entry. The time format is controlled by the package option \opt{$<$datetype$>$time} from \secref{use:opt:pre:gen}. Additional formatting may be applied by adjusting the field format \texttt{$<$datetype$>$time} (\secref{aut:fmt:ich}). The $<$datetype$>$s in the default data model are <> (for the main \bibfield{date} field), <orig>, <event> and <url>.
 
 \cmditem{indexfield}[format]{field}
 
-This command is similar to \cmd{printfield} except that the \prm{field} is not printed but added to the index using the formatting directive \prm{format}, as defined with \cmd{DeclareIndexFieldFormat}. If a type"=specific \prm{format} has been declared, it takes precedence over the generic one. If the \prm{field} is undefined, this command does nothing. If the \prm{format} is omitted, \cmd{indexfield} tries using the name of the field as a format name. In this case, any type"=specific formatting directive will also take precedence over the generic one. If all of these formats are undefined, it falls back to \texttt{default} as a last resort.
+该命令类似于\cmd{printfield}，差别在于不是打印\prm{field}而是将其添加到索引中，其格式化指令\prm{format}由\cmd{DeclareIndexFieldFormat}命令定义。如果声明了type"=specific的格式指令，其将优先于设置的通用格式指令。如果\prm{field}域未定义，该命令不做任何操作。如果\prm{format}缺省，那么\cmd{indexfield}将采用与域名相同的格式名。这种情况下任何type"=specific的格式指令都将优先于通用的格式指令。若所有的这些格式都未定义，那么将采用\texttt{default}格式作为最后的选择。
+%This command is similar to \cmd{printfield} except that the \prm{field} is not printed but added to the index using the formatting directive \prm{format}, as defined with \cmd{DeclareIndexFieldFormat}. If a type"=specific \prm{format} has been declared, it takes precedence over the generic one. If the \prm{field} is undefined, this command does nothing. If the \prm{format} is omitted, \cmd{indexfield} tries using the name of the field as a format name. In this case, any type"=specific formatting directive will also take precedence over the generic one. If all of these formats are undefined, it falls back to \texttt{default} as a last resort.
 
 \cmditem{indexlist}[format][start\ensuremath\rangle--\ensuremath\langle stop]{literal list}
 
-This command is similar to \cmd{printlist} except that the items in the list are not printed but added to the index using the formatting directive \prm{format}, as defined with \cmd{DeclareIndexListFormat}. If a type"=specific \prm{format} has been declared, the type"=specific formatting directive takes precedence over the generic one. If the \prm{literal list} is undefined, this command does nothing. If the \prm{format} is omitted, \cmd{indexlist} tries using the name of the list as a format name. In this case, any type"=specific formatting directive will also take precedence over the generic one. If all of these formats are undefined, it falls back to \texttt{default} as a last resort.
+该命令类似于\cmd{printlist}，差别在于不是打印列表的项而是将其添加到索引中，其格式化指令\prm{format}由\cmd{DeclareIndexListFormat}命令定义。如果声明了type"=specific的格式指令，其将优先于设置的通用格式指令。如果\prm{literal list}未定义，该命令不做任何操作。如果\prm{format}缺省，那么\cmd{indexlist}将采用与列表名相同的格式名。这种情况下任何type"=specific的格式指令都将优先于通用的格式指令。若所有的这些格式都未定义，那么将采用\texttt{default}格式作为最后的选择。
+%This command is similar to \cmd{printlist} except that the items in the list are not printed but added to the index using the formatting directive \prm{format}, as defined with \cmd{DeclareIndexListFormat}. If a type"=specific \prm{format} has been declared, the type"=specific formatting directive takes precedence over the generic one. If the \prm{literal list} is undefined, this command does nothing. If the \prm{format} is omitted, \cmd{indexlist} tries using the name of the list as a format name. In this case, any type"=specific formatting directive will also take precedence over the generic one. If all of these formats are undefined, it falls back to \texttt{default} as a last resort.
 
 \cmditem{indexnames}[format][start\ensuremath\rangle--\ensuremath\langle stop]{name list}
 
-This command is similar to \cmd{printnames} except that the items in the list are not printed but added to the index using the formatting directive \prm{format}, as defined with \cmd{DeclareIndexNameFormat}. If a type"=specific \prm{format} has been declared, the type"=specific formatting directive takes precedence over the generic one. If the \prm{name list} is undefined, this command does nothing. If the \prm{format} is omitted, \cmd{indexnames} tries using the name of the list as a format name. In this case, any type"=specific formatting directive will also take precedence over the generic one. If all of these formats are undefined, it falls back to \texttt{default} as a last resort.
+该命令类似于\cmd{printnames}，差别在于不是打印姓名列表的项而是将其添加到索引中，其格式化指令\prm{format}由\cmd{DeclareIndexNameFormat}命令定义。如果声明了type"=specific的格式指令，其将优先于设置的通用格式指令。如果\prm{name list}未定义，该命令不做任何操作。如果\prm{format}缺省，那么\cmd{indexnames}将采用与列表名相同的格式名。这种情况下任何type"=specific的格式指令都将优先于通用的格式指令。若所有的这些格式都未定义，那么将采用\texttt{default}格式作为最后的选择。
+%This command is similar to \cmd{printnames} except that the items in the list are not printed but added to the index using the formatting directive \prm{format}, as defined with \cmd{DeclareIndexNameFormat}. If a type"=specific \prm{format} has been declared, the type"=specific formatting directive takes precedence over the generic one. If the \prm{name list} is undefined, this command does nothing. If the \prm{format} is omitted, \cmd{indexnames} tries using the name of the list as a format name. In this case, any type"=specific formatting directive will also take precedence over the generic one. If all of these formats are undefined, it falls back to \texttt{default} as a last resort.
 
 \cmditem{entrydata}{key}{code}
 \cmditem*{entrydata*}{key}{code}
 
-Data commands like \cmd{printfield} normally use the data of the entry currently being processed. You may use \cmd{entrydata} to switch contexts locally. The \prm{key} is the entry key of the entry to use locally. The \prm{code} is arbitrary code to be executed in this context. This code will be executed in a group. See \secref{aut:cav:mif} for an example. Note that this command will automatically switch languages if the \opt{autolang} package option is enabled. The starred version \cmd{entrydata*} will clone all fields of the enclosing entry, using field, counter, and other resource names prefixed with the string <\texttt{saved}>. This is useful when comparing two data sets. For example, inside the \prm{code} argument, the \bibfield{author} field holds the author of entry \prm{key} and the author of the enclosing entry is available as \bibfield{savedauthor}. The \cnt{author} counter holds the number of names in the \bibfield{author} field of \prm{key}; the \bibfield{savedauthor} counter refers to the author count of the enclosing entry.
+像\cmd{printfield}之类的数据命令正常情况下应用当前正在处理的条目的数据。可以使用\cmd{entrydata}在局部环境中转换应用数据。\prm{key}是要局部使用条目的关键词。\prm{code}是在当前局部环境执行的任意代码。这一地面将在一个编组中执行。举例见\secref{aut:cav:mif}节。注意该命令自动转换语言，如果\opt{autolang}包选项打开的话。带星号的命令\cmd{entrydata*}将复制封装条目(the enclosing entry)的所有域，使用域，计数器，和其它以字符串<\texttt{saved}>为前缀命名的资源。这在比较两个数据集是很有用。例如，在\prm{code}的参数中，\bibfield{author}域保存了条目\prm{key}的作者，而封装条目的作者保存在\bibfield{savedauthor}域中。\cnt{author}计数器保存了\prm{key}条目的\bibfield{author}域的姓名数量，而封装条目的作者数量由\bibfield{savedauthor}计数器计数。
+%Data commands like \cmd{printfield} normally use the data of the entry currently being processed. You may use \cmd{entrydata} to switch contexts locally. The \prm{key} is the entry key of the entry to use locally. The \prm{code} is arbitrary code to be executed in this context. This code will be executed in a group. See \secref{aut:cav:mif} for an example. Note that this command will automatically switch languages if the \opt{autolang} package option is enabled. The starred version \cmd{entrydata*} will clone all fields of the enclosing entry, using field, counter, and other resource names prefixed with the string <\texttt{saved}>. This is useful when comparing two data sets. For example, inside the \prm{code} argument, the \bibfield{author} field holds the author of entry \prm{key} and the author of the enclosing entry is available as \bibfield{savedauthor}. The \cnt{author} counter holds the number of names in the \bibfield{author} field of \prm{key}; the \bibfield{savedauthor} counter refers to the author count of the enclosing entry.
 
 \cmditem{entryset}{precode}{postcode}
 
-This command is intended for use in bibliography drivers handling \bibtype{set} entries. It will loop over all members of the set, as indicated by the \bibfield{entryset} field, and execute the appropriate driver for the respective set member. This is similar to executing the \cmd{usedriver} command from \secref{aut:aux:msc} for each set member. The \prm{precode} is arbitrary code to be executed prior to processing each item in the set. The \prm{postcode} is arbitrary code to be executed immediately after processing each item. Both arguments are mandatory in terms of the syntax but may be left empty. See \secref{aut:cav:set} for usage examples.
+该命令用在处理\bibtype{set}条目集的参考文献驱动中。它将对由\bibfield{entryset}域指出的集的所有成员进行循环处理，对集的各个成员执行相应的驱动。这相当于对每个集成员执行\secref{aut:aux:msc}节的\cmd{usedriver}命令。\prm{precode}是在集的每项处理之前执行的任意代码。\prm{postcode}是在集的每项处理之后执行的任意代码。两个参数语法上必须的，但可以留空。用法举例见\secref{aut:cav:set}节。
+%This command is intended for use in bibliography drivers handling \bibtype{set} entries. It will loop over all members of the set, as indicated by the \bibfield{entryset} field, and execute the appropriate driver for the respective set member. This is similar to executing the \cmd{usedriver} command from \secref{aut:aux:msc} for each set member. The \prm{precode} is arbitrary code to be executed prior to processing each item in the set. The \prm{postcode} is arbitrary code to be executed immediately after processing each item. Both arguments are mandatory in terms of the syntax but may be left empty. See \secref{aut:cav:set} for usage examples.
 
 \cmditem{DeclareFieldInputHandler}{field}{code}
 
-This command can be used to define a data input handler for \prm{field} when it is read from the \file{.bbl}. Within the \prm{code}, the macro \cmd{NewValue} contains the value of the field. For example, to ignore the \bibfield{volumes} field when it appears, you could do
+给命令用于定义从\file{.bbl}读取数据所采用的域的数据输入处理器。在\prm{code}内，宏\cmd{NewValue}包含了域的值。比如，要忽略出现的\bibfield{volumes}域，可以作:
+%This command can be used to define a data input handler for \prm{field} when it is read from the \file{.bbl}. Within the \prm{code}, the macro \cmd{NewValue} contains the value of the field. For example, to ignore the \bibfield{volumes} field when it appears, you could do
 
 \begin{ltxexample}
 \DeclareFieldInputHandler{volumes}{\def\NewValue{}}
 \end{ltxexample}
 %
-Generally, you would want to use \cmd{DeclareSourcemap} (see \secref{aut:ctm:map}) to remove and modify fields but this alternative method may be useful in some circumstances when the emphasis is on appearance rather than data since the \prm{code} can be arbitraty \tex.
+一般情况下，要删除和修改域需要使用\cmd{DeclareSourcemap}(见\secref{aut:ctm:map}节)，而这一替代方法在一些情形下会很有用，例如当强调的是数据的外观而不是数据本身时，因为\prm{code}可以是任意的\tex 代码。
+%Generally, you would want to use \cmd{DeclareSourcemap} (see \secref{aut:ctm:map}) to remove and modify fields but this alternative method may be useful in some circumstances when the emphasis is on appearance rather than data since the \prm{code} can be arbitraty \tex.
 
 \cmditem{DeclareListInputHandler}{list}{code}
 
-As \cmd{DeclareFieldInputHandler} but for lists. Within the \prm{code}, the macro \cmd{NewValue}
-contains the value of the list and \cmd{NewCount} contains the number of items in the list.
+类似于\cmd{DeclareFieldInputHandler}，但用于列表。在\prm{code}内，宏\cmd{NewValue}包含了列表的值，而\cmd{NewCount}保存列表中项的序号。
+%As \cmd{DeclareFieldInputHandler} but for lists. Within the \prm{code}, the macro \cmd{NewValue} contains the value of the list and \cmd{NewCount} contains the number of items in the list.
 
 \cmditem{DeclareNameInputHandler}{name}{code}
 
-As \cmd{DeclareFieldInputHandler} but for names. Within the \prm{code}, the macro \cmd{NewValue}
-contains the value of the name, \cmd{NewCount} contains the number of individual names in the name and \cmd{NewOption} contains any per-name options passed in the \file{.bbl}.
+类似于\cmd{DeclareFieldInputHandler}，但用于姓名列表。在\prm{code}内，宏\cmd{NewValue}包含了姓名列表的值，而\cmd{NewCount}保存列表中姓名的序号，\cmd{NewOption}保存了\file{.bbl}文件传递的任意姓名所属的选项。
+%As \cmd{DeclareFieldInputHandler} but for names. Within the \prm{code}, the macro \cmd{NewValue} contains the value of the name, \cmd{NewCount} contains the number of individual names in the name and \cmd{NewOption} contains any per-name options passed in the \file{.bbl}.
 
 \end{ltxsyntax}
 
-\subsubsection{格式化指令 Formatting Directives}
+\subsubsection{格式化指令}%Formatting Directives
 \label{aut:bib:fmt}
 
-This section introduces the commands used to define the formatting directives required by the data commands from \secref{aut:bib:dat}. Note that all standard formats are defined in \path{biblatex_.def}.
+本节介绍用于定义\secref{aut:bib:dat}节的数据命令所需的格式化指令的命令。注意:所有标注的格式定义在\path{biblatex_.def}文件中。
+%This section introduces the commands used to define the formatting directives required by the data commands from \secref{aut:bib:dat}. Note that all standard formats are defined in \path{biblatex_.def}.
 
 \begin{ltxsyntax}
 
 \cmditem{DeclareFieldFormat}[entrytype, \dots]{format}{code}
 \cmditem*{DeclareFieldFormat}*{format}{code}
 
-Defines the field format \prm{format}. This formatting directive is arbitrary \prm{code} to be executed by \cmd{printfield}. The value of the field will be passed to the \prm{code} as its first and only argument. The name of the field currently being processed is available to the \prm{code} as \cmd{currentfield}. If an \prm{entrytype} is specified, the format is specific to that type. The \prm{entrytype} argument may be a comma"=separated list of values. The starred variant of this command is similar to the regular version, except that all type-specific formats are cleared.
+定义域格式\prm{format}。该格式化指令是由\cmd{printfield}命令执行的任意\prm{code}。域的值作为仅有的第一个参数传递给\prm{code}。正在处理的域名在\prm{code}中以\cmd{currentfield}表示。如果指定一种条目类型(\prm{entrytype})，那么格式是该类型专属的。\prm{entrytype}可以是一个逗号分隔(comma"=separated)的值列表。带星的命令类似于不带星的命令，区别在于它还将清除所有对条目类型做的格式定义。
+%Defines the field format \prm{format}. This formatting directive is arbitrary \prm{code} to be executed by \cmd{printfield}. The value of the field will be passed to the \prm{code} as its first and only argument. The name of the field currently being processed is available to the \prm{code} as \cmd{currentfield}. If an \prm{entrytype} is specified, the format is specific to that type. The \prm{entrytype} argument may be a comma"=separated list of values. The starred variant of this command is similar to the regular version, except that all type-specific formats are cleared.
 
 \cmditem{DeclareListFormat}[entrytype, \dots]{format}{code}
 \cmditem*{DeclareListFormat}*{format}{code}
 
-Defines the literal list format \prm{format}. This formatting directive is arbitrary \prm{code} to be executed for every item in a list processed by \cmd{printlist}. The current item will be passed to the \prm{code} as its first and only argument. The name of the literal list currently being processed is available to the \prm{code} as \cmd{currentlist}. If an \prm{entrytype} is specified, the format is specific to that type. The \prm{entrytype} argument may be a comma"=separated list of values. Note that the formatting directive also handles the punctuation to be inserted between the individual items in the list. You need to check whether you are in the middle of or at the end of the list, \ie whether \cnt{listcount} is smaller than or equal to \cnt{liststop}. The starred variant of this command is similar to the regular version, except that all type-specific formats are cleared.
+定义文本列表\footnote{literal 译为文本}的格式\prm{format}。格式化指令是\cmd{printlist}命令处理列表中每一项时执行的任意\prm{code}。当前正在处理的项作为第一个和唯一的参数传递给\prm{code}。正在处理的文本列表名在\prm{code}中以\cmd{currentlist}表示。如果指定了\prm{entrytype}，那么格式是该类型专属的。\prm{entrytype}参数可以是一个逗号分隔(comma"=separated)的值列表。注意格式化指令也会处理在列表各项间插入的标点。需要对当前项是在列表中间或者末尾进行检测，即检查\cnt{listcount}是否小于或等于\cnt{liststop}。带星的命令类似于不带星的命令，区别在于它还将清除所有对条目类型做的格式定义。
+%Defines the literal list format \prm{format}. This formatting directive is arbitrary \prm{code} to be executed for every item in a list processed by \cmd{printlist}. The current item will be passed to the \prm{code} as its first and only argument. The name of the literal list currently being processed is available to the \prm{code} as \cmd{currentlist}. If an \prm{entrytype} is specified, the format is specific to that type. The \prm{entrytype} argument may be a comma"=separated list of values. Note that the formatting directive also handles the punctuation to be inserted between the individual items in the list. You need to check whether you are in the middle of or at the end of the list, \ie whether \cnt{listcount} is smaller than or equal to \cnt{liststop}. The starred variant of this command is similar to the regular version, except that all type-specific formats are cleared.
 
 \cmditem{DeclareNameFormat}[entrytype, \dots]{format}{code}
 \cmditem*{DeclareNameFormat}*{format}{code}
 
-Defines the name list format \prm{format}. This formatting directive is arbitrary \prm{code} to be executed for every name in a list processed by \cmd{printnames}. If an \prm{entrytype} is specified, the format is specific to that type. The \prm{entrytype} argument may be a comma"=separated list of values. The individual parts of a name will be available in automatically created macros (see below). The default data mode defines four name part which correspond to the standard \bibtex name parts arguments:
+定义姓名列表的格式\prm{format}。格式化指令是\cmd{printnames}命令处理列表中每一项时执行的任意\prm{code}。如果指定了\prm{entrytype}，那么格式是该类型专属的。\prm{entrytype}参数可以是一个逗号分隔(comma"=separated)的值列表。单个姓名的各个组成部分由自动创建的宏表示(见下)。默认的数据模型定义了四个组成部分对应于标准的\bibtex 姓名成分参数。
+%Defines the name list format \prm{format}. This formatting directive is arbitrary \prm{code} to be executed for every name in a list processed by \cmd{printnames}. If an \prm{entrytype} is specified, the format is specific to that type. The \prm{entrytype} argument may be a comma"=separated list of values. The individual parts of a name will be available in automatically created macros (see below). The default data mode defines four name part which correspond to the standard \bibtex name parts arguments:
 
 \begin{argumentlist}{00}
-\item[family] The family name(s), know as <last> in \bibtex.  If a name consists of a single part only (for example, <Aristotle>), this part will be treated as the family name.
-\item[given] The given name(s). Note that given names are referred to as the <first> names in the \bibtex file format documentation.
-\item[prefix] Any name prefices, for example von, van, of, da, de, del, della, etc. Note that name prefices are referred to as the <von> part of the name in the \bibtex file format documentation.
-\item[suffix] Any name suffices, for example Jr, Sr. Note that name suffices are referred to as the <Jr> part of the name in the \bibtex file format documentation.
+\item[family] 姓，\bibtex 中为<last> name部分。当一个姓名只有一个部分组成时(比如 <Aristotle>)，这一部分将被处理为姓。
+%The family name(s), know as <last> in \bibtex.  If a name consists of a single part only (for example, <Aristotle>), this part will be treated as the family name.
+\item[given] 名。注意名在\bibtex 中为<first> name部分。
+%The given name(s). Note that given names are referred to as the <first> names in the \bibtex file format documentation.
+\item[prefix] 前缀，比如von, van, of, da, de, del, della等。注意前缀在\bibtex 格式文件中为<von>部分。
+%Any name prefices, for example von, van, of, da, de, del, della, etc. Note that name prefices are referred to as the <von> part of the name in the \bibtex file format documentation.
+\item[suffix] 后缀，比如Jr, Sr等。注意后缀在\bibtex 格式文件中为<Jr>部分。
+%Any name suffices, for example Jr, Sr. Note that name suffices are referred to as the <Jr> part of the name in the \bibtex file format documentation.
 \end{argumentlist}
 %
-The value of the datamodel <nameparts> constant (see \secref{aut:bbx:drv}) creates two macros for each name part in the datamodel for the name. So, for example, in the default data model, name formats will have defined the following macros:
+数据模型<nameparts>常量的值(见\secref{aut:bbx:drv})在姓名的数据模型中为每个姓名组成部分创建了两个宏。比如，在默认的数据模型中，姓名格式由如下宏定义:
+%The value of the datamodel <nameparts> constant (see \secref{aut:bbx:drv}) creates two macros for each name part in the datamodel for the name. So, for example, in the default data model, name formats will have defined the following macros:
 
 \begin{ltxexample}
-\namepartprefix
-\namepartprefixi
-\namepartfamily
-\namepartfamilyi
-\namepartsuffix
-\namepartsuffixi
-\namepartgiven
-\namepartgiveni
+\namepartprefix %表示前缀部分
+\namepartprefixi %表示前缀首字母
+\namepartfamily %表示姓
+\namepartfamilyi %表示姓首字母
+\namepartsuffix %表示后缀
+\namepartsuffixi %表示后缀首字母
+\namepartgiven %表示名
+\namepartgiveni %表示名首字母
 \end{ltxexample}
 %
-If a certain part of a name is not available, the corresponding macro will be empty, hence you may use, for example, the \sty{etoolbox} tests like \cmd{ifdefvoid} to check for the individual parts of a name. The name of the name list currently being processed is available to the \prm{code} as \cmd{currentname}. Note that the formatting directive also handles the punctuation to be inserted between separate names and between the individual parts of a name. You need to check whether you are in the middle of or at the end of the list, \ie whether \cnt{listcount} is smaller than or equal to \cnt{liststop}. See also \secref{use:cav:nam}. The starred variant of this command is similar to the regular version, except that all type-specific formats are cleared.
+如果一个姓名的某些部分没有给出，相应的宏将为空，因此可以使用，比如\sty{etoolbox}中\cmd{ifdefvoid}这类的判断来检查姓名的各个组成部分。正在处理的姓名列表名在\prm{code}中以\cmd{currentname}表示。注意格式化指令也会处理在列表各项间插入的标点。需要对当前项是在列表中间或者末尾进行检测，即检查\cnt{listcount}是否小于或等于\cnt{liststop}(见\secref{use:cav:nam}节)。带星的命令类似于不带星的命令，区别在于它还将清除所有对条目类型做的格式定义。
+%If a certain part of a name is not available, the corresponding macro will be empty, hence you may use, for example, the \sty{etoolbox} tests like \cmd{ifdefvoid} to check for the individual parts of a name. The name of the name list currently being processed is available to the \prm{code} as \cmd{currentname}. Note that the formatting directive also handles the punctuation to be inserted between separate names and between the individual parts of a name. You need to check whether you are in the middle of or at the end of the list, \ie whether \cnt{listcount} is smaller than or equal to \cnt{liststop}. See also \secref{use:cav:nam}. The starred variant of this command is similar to the regular version, except that all type-specific formats are cleared.
 
 \cmditem{DeclareIndexFieldFormat}[entrytype, \dots]{format}{code}
 \cmditem*{DeclareIndexFieldFormat}*{format}{code}
 
-Defines the field format \prm{format}. This formatting directive is arbitrary \prm{code} to be executed by \cmd{indexfield}. The value of the field will be passed to the \prm{code} as its first and only argument. The name of the field currently being processed is available to the \prm{code} as \cmd{currentfield}. If an \prm{entrytype} is specified, the format is specific to that type. The \prm{entrytype} argument may be a comma"=separated list of values. This command is similar to \cmd{DeclareFieldFormat} except that the data handled by the \prm{code} is not intended to be printed but written to the index. Note that \cmd{indexfield} will execute the \prm{code} as is, \ie the \prm{code} must include \cmd{index} or a similar command. The starred variant of this command is similar to the regular version, except that all type-specific formats are cleared.
+定义域格式\prm{format}。该格式化指令是由\cmd{indexfield}命令执行的任意\prm{code}。域的值作为仅有的第一个参数传递给\prm{code}。正在处理的域名在\prm{code}中以\cmd{currentfield}表示。如果指定一种条目类型(\prm{entrytype})，那么格式是该类型专属的。\prm{entrytype}可以是一个逗号分隔(comma"=separated)的值列表。该命令类似于\cmd{DeclareFieldFormat}，差别在于\prm{code}处理的数据不是用于打印而是用于索引。注意\cmd{indexfield}将执行\prm{code}本身，即\prm{code}必须包含\cmd{index}或类似命令。带星的命令类似于不带星的命令，区别在于它还将清除所有对条目类型做的格式定义。
+%Defines the field format \prm{format}. This formatting directive is arbitrary \prm{code} to be executed by \cmd{indexfield}. The value of the field will be passed to the \prm{code} as its first and only argument. The name of the field currently being processed is available to the \prm{code} as \cmd{currentfield}. If an \prm{entrytype} is specified, the format is specific to that type. The \prm{entrytype} argument may be a comma"=separated list of values. This command is similar to \cmd{DeclareFieldFormat} except that the data handled by the \prm{code} is not intended to be printed but written to the index. Note that \cmd{indexfield} will execute the \prm{code} as is, \ie the \prm{code} must include \cmd{index} or a similar command. The starred variant of this command is similar to the regular version, except that all type-specific formats are cleared.
 
 \cmditem{DeclareIndexListFormat}[entrytype, \dots]{format}{code}
 \cmditem*{DeclareIndexListFormat}*{format}{code}
 
-Defines the literal list format \prm{format}. This formatting directive is arbitrary \prm{code} to be executed for every item in a list processed by \cmd{indexlist}. The current item will be passed to the \prm{code} as its only argument. The name of the literal list currently being processed is available to the \prm{code} as \cmd{currentlist}. If an \prm{entrytype} is specified, the format is specific to that type. The \prm{entrytype} argument may be a comma"=separated list of values. This command is similar to \cmd{DeclareListFormat} except that the data handled by the \prm{code} is not intended to be printed but written to the index. Note that \cmd{indexlist} will execute the \prm{code} as is, \ie the \prm{code} must include \cmd{index} or a similar command. The starred variant of this command is similar to the regular version, except that all type-specific formats are cleared.
+定义文本列表格式\prm{format}。该格式化指令是由\cmd{indexlist}命令执行的任意\prm{code}。列表中当前值作为唯一参数传递给\prm{code}。正在处理的列表名在\prm{code}中以\cmd{currentlist}表示。如果指定一种条目类型(\prm{entrytype})，那么格式是该类型专属的。\prm{entrytype}可以是一个逗号分隔(comma"=separated)的值列表。该命令类似于\cmd{DeclareListFormat}，差别在于\prm{code}处理的数据不是用于打印而是用于索引。注意\cmd{indexlist}将执行\prm{code}本身，即\prm{code}必须包含\cmd{index}或类似命令。带星的命令类似于不带星的命令，区别在于它还将清除所有对条目类型做的格式定义。
+%Defines the literal list format \prm{format}. This formatting directive is arbitrary \prm{code} to be executed for every item in a list processed by \cmd{indexlist}. The current item will be passed to the \prm{code} as its only argument. The name of the literal list currently being processed is available to the \prm{code} as \cmd{currentlist}. If an \prm{entrytype} is specified, the format is specific to that type. The \prm{entrytype} argument may be a comma"=separated list of values. This command is similar to \cmd{DeclareListFormat} except that the data handled by the \prm{code} is not intended to be printed but written to the index. Note that \cmd{indexlist} will execute the \prm{code} as is, \ie the \prm{code} must include \cmd{index} or a similar command. The starred variant of this command is similar to the regular version, except that all type-specific formats are cleared.
 
 \cmditem{DeclareIndexNameFormat}[entrytype, \dots]{format}{code}
 \cmditem*{DeclareIndexNameFormat}*{format}{code}
 
-Defines the name list format \prm{format}. This formatting directive is arbitrary \prm{code} to be executed for every name in a list processed by \cmd{indexnames}. The name of the name list currently being processed is available to the \prm{code} as \cmd{currentname}. If an \prm{entrytype} is specified, the format is specific to that type. The \prm{entrytype} argument may be a comma"=separated list of values. The parts of the name will be passed to the \prm{code} as separate arguments. This command is very similar to \cmd{DeclareNameFormat} except that the data handled by the \prm{code} is not intended to be printed but written to the index. Note that \cmd{indexnames} will execute the \prm{code} as is, \ie the \prm{code} must include \cmd{index} or a similar command. The starred variant of this command is similar to the regular version, except that all type-specific formats are cleared.
+定义姓名列表格式\prm{format}。该格式化指令是由\cmd{indexnames}命令执行的任意\prm{code}。列表中当前值作为唯一参数传递给\prm{code}。正在处理的列表名在\prm{code}中以\cmd{currentname}表示。如果指定一种条目类型(\prm{entrytype})，那么格式是该类型专属的。\prm{entrytype}可以是一个逗号分隔(comma"=separated)的值列表。该命令类似于\cmd{DeclareNameFormat}，差别在于\prm{code}处理的数据不是用于打印而是用于索引。注意\cmd{indexnames}将执行\prm{code}本身，即\prm{code}必须包含\cmd{index}或类似命令。带星的命令类似于不带星的命令，区别在于它还将清除所有对条目类型做的格式定义。
+%Defines the name list format \prm{format}. This formatting directive is arbitrary \prm{code} to be executed for every name in a list processed by \cmd{indexnames}. The name of the name list currently being processed is available to the \prm{code} as \cmd{currentname}. If an \prm{entrytype} is specified, the format is specific to that type. The \prm{entrytype} argument may be a comma"=separated list of values. The parts of the name will be passed to the \prm{code} as separate arguments. This command is very similar to \cmd{DeclareNameFormat} except that the data handled by the \prm{code} is not intended to be printed but written to the index. Note that \cmd{indexnames} will execute the \prm{code} as is, \ie the \prm{code} must include \cmd{index} or a similar command. The starred variant of this command is similar to the regular version, except that all type-specific formats are cleared.
 
 \cmditem{DeclareFieldAlias}[entry type]{alias}[format entry type]{format}
 
-Declares \prm{alias} to be an alias for the field format \prm{format}. If an \prm{entrytype} is specified, the alias is specific to that type. The \prm{format entry type} is the entry type of the backend format. This is only required when declaring an alias for a type"=specific formatting directive.
+声明\prm{alias}作为域格式\prm{format}的别名。如果指定一种条目类型(\prm{entrytype})，别名是该类型专属的。\prm{format entry type}是后端格式的条目类型。这仅在声明某一具体条目类型的格式化指令的别名时需要。
+%Declares \prm{alias} to be an alias for the field format \prm{format}. If an \prm{entrytype} is specified, the alias is specific to that type. The \prm{format entry type} is the entry type of the backend format. This is only required when declaring an alias for a type"=specific formatting directive.
 
 \cmditem{DeclareListAlias}[entry type]{alias}[format entry type]{format}
 
-Declares \prm{alias} to be an alias for the literal list format \prm{format}. If an \prm{entrytype} is specified, the alias is specific to that type. The \prm{format entry type} is the entry type of the backend format. This is only required when declaring an alias for a type"=specific formatting directive.
+声明\prm{alias}作为文本列表格式\prm{format}的别名。如果指定一种条目类型(\prm{entrytype})，别名是该类型专属的。\prm{format entry type}是后端格式的条目类型。这仅在声明某一具体条目类型的格式化指令的别名时需要。
+%Declares \prm{alias} to be an alias for the literal list format \prm{format}. If an \prm{entrytype} is specified, the alias is specific to that type. The \prm{format entry type} is the entry type of the backend format. This is only required when declaring an alias for a type"=specific formatting directive.
 
 \cmditem{DeclareNameAlias}[entry type]{alias}[format entry type]{format}
 
-Declares \prm{alias} to be an alias for the name list format \prm{format}. If an \prm{entrytype} is specified, the alias is specific to that type. The \prm{format entry type} is the entry type of the backend format. This is only required when declaring an alias for a type"=specific formatting directive.
+声明\prm{alias}作为姓名列表格式\prm{format}的别名。如果指定一种条目类型(\prm{entrytype})，别名是该类型专属的。\prm{format entry type}是后端格式的条目类型。这仅在声明某一具体条目类型的格式化指令的别名时需要。
+%Declares \prm{alias} to be an alias for the name list format \prm{format}. If an \prm{entrytype} is specified, the alias is specific to that type. The \prm{format entry type} is the entry type of the backend format. This is only required when declaring an alias for a type"=specific formatting directive.
 
 \cmditem{DeclareIndexFieldAlias}[entry type]{alias}[format entry type]{format}
 
-Declares \prm{alias} to be an alias for the field format \prm{format}. If an \prm{entrytype} is specified, the alias is specific to that type. The \prm{format entry type} is the entry type of the backend format. This is only required when declaring an alias for a type"=specific formatting directive.
+声明\prm{alias}作为域格式\prm{format}的别名。如果指定一种条目类型(\prm{entrytype})，别名是该类型专属的。\prm{format entry type}是后端格式的条目类型。这仅在声明某一具体条目类型的格式化指令的别名时需要。
+%Declares \prm{alias} to be an alias for the field format \prm{format}. If an \prm{entrytype} is specified, the alias is specific to that type. The \prm{format entry type} is the entry type of the backend format. This is only required when declaring an alias for a type"=specific formatting directive.
 
 \cmditem{DeclareIndexListAlias}[entry type]{alias}[format entry type]{format}
 
-Declares \prm{alias} to be an alias for the literal list format \prm{format}. If an \prm{entrytype} is specified, the alias is specific to that type. The \prm{format entry type} is the entry type of the backend format. This is only required when declaring an alias for a type"=specific formatting directive.
+声明\prm{alias}作为文本列表格式\prm{format}的别名。如果指定一种条目类型(\prm{entrytype})，别名是该类型专属的。\prm{format entry type}是后端格式的条目类型。这仅在声明某一具体条目类型的格式化指令的别名时需要。
+%Declares \prm{alias} to be an alias for the literal list format \prm{format}. If an \prm{entrytype} is specified, the alias is specific to that type. The \prm{format entry type} is the entry type of the backend format. This is only required when declaring an alias for a type"=specific formatting directive.
 
 \cmditem{DeclareIndexNameAlias}[entry type]{alias}[format entry type]{format}
 
-Declares \prm{alias} to be an alias for the name list format \prm{format}. If an \prm{entrytype} is specified, the alias is specific to that type. The \prm{format entry type} is the entry type of the backend format. This is only required when declaring an alias for a type"=specific formatting directive.
+声明\prm{alias}作为姓名列表格式\prm{format}的别名。如果指定一种条目类型(\prm{entrytype})，别名是该类型专属的。\prm{format entry type}是后端格式的条目类型。这仅在声明某一具体条目类型的格式化指令的别名时需要。
+%Declares \prm{alias} to be an alias for the name list format \prm{format}. If an \prm{entrytype} is specified, the alias is specific to that type. The \prm{format entry type} is the entry type of the backend format. This is only required when declaring an alias for a type"=specific formatting directive.
 
 \end{ltxsyntax}
 
-\subsection{自定义 Customization}
+\subsection{定制}%Customization
 \label{aut:ctm}
 
-\subsubsection{关联条目 Related Entries}
+\subsubsection{关联条目}%Related Entries
 \label{aut:ctm:rel}
-The related entries feature comprises the following components:
+%The related entries feature comprises the following components:
 关联条目功能由如下部分构成:\footnote{这里related data用关联而不是相关，其它地方用到相关的应一并改过来 }
 \begin{itemize}
-\item 可将条目中的特殊域用于建立和描述关系
-\item Special fields in an entry to set up and describe relationships
-\item 可把本地化字符串作为关联数据的前缀(可选)
-\item Optionally, localisation strings to prefix the related data
-\item 提供用于抽取和打印关联数据的宏
-\item Macros to extract and print the related data
-\item 提供给本地化字符串和关联数据格式化的格式
-\item Formats to format the localisation string and related data
+\item 条目中的特殊域用于建立和描述关系
+%\item Special fields in an entry to set up and describe relationships
+\item 本地化字符串作为关联数据的前缀(可选)
+%\item Optionally, localisation strings to prefix the related data
+\item 抽取和打印关联数据的宏
+%\item Macros to extract and print the related data
+\item 用于本地化字符串和关联数据格式化的格式
+%\item Formats to format the localisation string and related data
 \end{itemize}
 %
 特殊域是\bibfield{related}, \bibfield{relatedtype}, \bibfield{relatedstring}和 \bibfield{relatedoptions}:
-The special fields are \bibfield{related}, \bibfield{relatedtype}, \bibfield{relatedstring} and \bibfield{relatedoptions}:
+%The special fields are \bibfield{related}, \bibfield{relatedtype}, \bibfield{relatedstring} and \bibfield{relatedoptions}:
 \begin{keymarglist}
-\item[related] 与当前文献某种程度关联的文献的关键词的分离列表\footnote{这里separated list用分离列表有没有更好的说法}。注意:关键词\footnote{这里的key关键词应该是引用关键词，即bibtex键}的顺序很重要。来自多个关联文献的数据是按该域中关键词的顺序打印。
-\item[related] A separated list of keys of entries which are related to this entry in some way. Note the the order of the keys is important. The data from multiple related entries is printed in the order of the keys listed in this field.
+\item[related] 与当前条目某种程度关联的条目的条目关键词列表\footnote{这里separated list用分离列表有没有更好的说法}。注意:条目关键词\footnote{这里的key关键词应该是引用关键词，即bibtex键}的顺序很重要。来自多个关联条目的数据是按该域中关键词的顺序打印。
+%\item[related] A separated list of keys of entries which are related to this entry in some way. Note the the order of the keys is important. The data from multiple related entries is printed in the order of the keys listed in this field.
 \item[relatedtype] The type of relationship. This serves three purposes. If the value of this field resolves to a localisation string identifier, then the resulting localised string is printed before the data from the related entries. Secondly, if there is a macro called \texttt{related:\prm{relatedtype}}, this is used to format the data from the related entries. If no such macro exists, then the macro \texttt{related:default} is used. Lastly, if there is a format named \texttt{related:\prm{relatedtype}}, then it is used to format both the localised string and related entry data. If there is no related type specific format, the \texttt{related} format is used.
 \item[relatedstring] If an entry contains this field, then if value of the field resolves to a localisation string identifier, the localisation key value specified is printed before data from the related entries. If the field does not specify a localisation key, its value is printed literally. If both \bibfield{relatedtype} and \bibfield{relatedstring} are present in an entry, \bibfield{relatedstring} is used for the pre-data string (but \bibfield{relatedtype} is still used to determine the macro and format to use when printing the data).
 \item[relatedoptions] A list of per"=entry options to set on the related entry (actually on the clone of the related entry which is used as a data source---the actual related entry is not modified because it might be cited directly itself).
@@ -1501,27 +1563,31 @@ The special fields are \bibfield{related}, \bibfield{relatedtype}, \bibfield{rel
 
 The related entry feature is enabled by default by the package option \opt{related} from \secref{use:opt:pre:gen}. The related information entry data from the related entries is included via a \cmd{usebibmacro\{related\}} call. Standard styles call this macro towards the end of each driver. Style authors should ensure the existence of (or take note of existing) localisation strings which are useful as values for the \bibfield{relatedtype} field, such as \texttt{translationof} or perhaps \texttt{translatedas}. A plural variant can be identified with the localisation key \prm{relatedtype}\texttt{s}. This key's corresponding string is printed whenever more than one entry is specified in \bibfield{related}. Bibliography macros and formatting directives for printing entries related by \prm{relatedtype} should be defined using the name \texttt{related:\prm{relatedtype}}. The file \path{biblatex.def} contains macros and formats for some common relation types which can be used as templates. In particular, the \cmd{entrydata*} command is essential in such macros in order to make the data of the related entries available. Examples of entries using this feature can be found in the \biblatex distribution examples file \path{biblatex-examples.bib}. There are some specific formatting macros for this feature which control delimiters and separators in related entry information, see \secref{aut:fmt:fmt}.
 
-\subsubsection{Datasource Sets}
+\subsubsection{数据源集}%Datasource Sets
 \label{aut:ctm:dsets}
 
-It is useful to be able to define named sets of datasource field names for use in loops etc. In addition, \biber can use such sets in order to apply options and perform operations on particular sets of datasource fields. The following macros allow the user to define arbitrary sets of datasource fields, exposed to \biblatex as \sty{etoolbox} lists and to \biber in the \file{.bcf}.
+能够定义在循环等中的使用的数据源(datasource)域名的集是有用的。而且，\biber 可以利用这种集来应用选项或者对某些数据源域的特定集进行操作。下面的宏允许用来定义数据源域的任意集合，这些数据源域以\sty{etoolbox}列表的形式提供给\biblatex 并通过\file{.bcf}文件中提供给\biber 。
+%It is useful to be able to define named sets of datasource field names for use in loops etc. In addition, \biber can use such sets in order to apply options and perform operations on particular sets of datasource fields. The following macros allow the user to define arbitrary sets of datasource fields, exposed to \biblatex as \sty{etoolbox} lists and to \biber in the \file{.bcf}.
 
 
 \begin{ltxsyntax}
 
 \cmditem{DeclareDatafieldSet}{name}{specification}
 
-Declare a set of datasource fields with name \prm{name}.
+声明一个数据源域的集，其名为\prm{name}。
+%Declare a set of datasource fields with name \prm{name}.
 
 \begin{optionlist*}
 
 \valitem{name}{set name}
 
-The name of the set.
+集的名。
+%The name of the set.
 
 \end{optionlist*}
 
-The \prm{specification} is one or more \cmd{member} items:
+\prm{specification}是1个或更多的\cmd{member}(成员)项:
+%The \prm{specification} is one or more \cmd{member} items:
 
 \cmditem{member}
 
@@ -1533,9 +1599,11 @@ The \prm{specification} is one or more \cmd{member} items:
 
 \end{optionlist*}
 
-A \cmd{member} specification appends fields to the set. Fields can be specified by datamodel \prm{fieldtype} and/or \prm{datatype} (see \secref{aut:ctm:dm}). Alternatively, fields can be explicitly added by name using the \prm{field} option. Once defined, the set is available as an \sty{etoolbox} list called \cmd{datafieldset<setname>} and is also passed via the \file{.bcf} to \biber.
+一个\cmd{member}说明将域添加到集中。域可以由数据模型\prm{fieldtype} 和/或 \prm{datatype}指定 (见 \secref{aut:ctm:dm})。或者，域也可以通过使用\prm{field}选项显式的以名字添加。一旦完成定义，集就以\sty{etoolbox}列表的形式存在，命名为 \cmd{datafieldset<setname>}并通过\file{.bcf}文件传递给\biber。
+%A \cmd{member} specification appends fields to the set. Fields can be specified by datamodel \prm{fieldtype} and/or \prm{datatype} (see \secref{aut:ctm:dm}). Alternatively, fields can be explicitly added by name using the \prm{field} option. Once defined, the set is available as an \sty{etoolbox} list called \cmd{datafieldset<setname>} and is also passed via the \file{.bcf} to \biber.
 
-For example, here are the default sets defined by \biblatex for name fields and title fields:
+下面的例子就是\biblatex 为姓名域和标题域定义的默认集:
+%For example, here are the default sets defined by \biblatex for name fields and title fields:
 
 \end{ltxsyntax}
 
@@ -1555,59 +1623,76 @@ For example, here are the default sets defined by \biblatex for name fields and 
 }
 \end{ltxexample}
 %
-This defines the macros \cmd{datafieldsetsetnames} and \cmd{datafieldsetsettitles} as \sty{etoolbox} lists containing the names of the member datasource fields specified.
+这将定义\cmd{datafieldsetsetnames}和\cmd{datafieldsetsettitles}宏以\sty{etoolbox}列表形式包含指定的成员数据源域的名。
+%This defines the macros \cmd{datafieldsetsetnames} and \cmd{datafieldsetsettitles} as \sty{etoolbox} lists containing the names of the member datasource fields specified.
 
-\subsubsection{数据动态修改 Dynamic Modification of Data}
+\subsubsection{数据动态修改}%Dynamic Modification of Data
 \label{aut:ctm:map}
 
-Bibliographic data sources which are automatically generated or which you have no control over can be a problem if you need to edit them in some way. For this reason, \biber has the ability to modify data as it is read so that you can apply modifications to the source data stream without actually changing it. The modification can be defined in \biber's config file (see \biber docs), or via \biblatex macros in which case you can apply the modification only for specific documents, styles or globally.
+对自动生成或者你无法控制的参考文献数据源进行修改在某种程度上会是一个问题。因此，\biber 提供了对它所读取的数据进行修改的能力，这样你可以对源数据流进行修改二不必实际改变它。这种改变可以在\biber 的配置文件(见\biber 文档)定义，或者通过\biblatex 宏进行定义，通过宏定义的方法你可以在样式中或者以全局定义的方式，将修改应用在具体的文档中。
+%Bibliographic data sources which are automatically generated or which you have no control over can be a problem if you need to edit them in some way. For this reason, \biber has the ability to modify data as it is read so that you can apply modifications to the source data stream without actually changing it. The modification can be defined in \biber's config file (see \biber docs), or via \biblatex macros in which case you can apply the modification only for specific documents, styles or globally.
 
-Source mapping happens during data parsing and therefore before any other operation such as inheritance and sorting.
+源映射发生在数据解析过程中，因此也在诸如继承和排序等任何其它操作之前。
+%Source mapping happens during data parsing and therefore before any other operation such as inheritance and sorting.
 
-Source mappings can be defined at different «levels» which are applied
-in a defined order. See the \biblatex\ manual regarding these macros:\\[2ex]
+源映射可以在不同的层( «levels» )进行定义，各层以某一定义的顺序进行处理。见\biblatex\ 手册，考虑这些宏:\\[2ex]
+%Source mappings can be defined at different «levels» which are applied
+%in a defined order. See the \biblatex\ manual regarding these macros:\\[2ex]
 
-\noindent \texttt{user}-level maps defined with \cmd{DeclareSourcemap}$\rightarrow$\\
-\hspace*{1em}\texttt{user}-level maps defined in the \biber config file (see \biber docs)$\rightarrow$\\
-\hspace*{2em}\texttt{style}-level maps defined with \cmd{DeclareStyleSourcemap}$\rightarrow$\\
-\hspace*{3em}\texttt{driver}-level maps defined with \cmd{DeclareDriverSourcemap}\\[2ex]
+\noindent \cmd{DeclareSourcemap}命令定义的\texttt{user}-层映射$\rightarrow$\\
+\hspace*{1em}在\biber 配置文件定义的\texttt{user}-层映射(见 \biber 文档)$\rightarrow$\\
+\hspace*{2em}\cmd{DeclareStyleSourcemap}定义的\texttt{style}-层映射$\rightarrow$\\
+\hspace*{3em}\cmd{DeclareDriverSourcemap}定义的\texttt{driver}-层映射\\[2ex]
+%\noindent \texttt{user}-level maps defined with \cmd{DeclareSourcemap}$\rightarrow$\\
+%\hspace*{1em}\texttt{user}-level maps defined in the \biber config file (see \biber docs)$\rightarrow$\\
+%\hspace*{2em}\texttt{style}-level maps defined with \cmd{DeclareStyleSourcemap}$\rightarrow$\\
+%\hspace*{3em}\texttt{driver}-level maps defined with \cmd{DeclareDriverSourcemap}\\[2ex]
 
 \begin{ltxsyntax}
 
 \cmditem{DeclareSourcemap}{specification}
 
-Defines source data modification (mapping) rules which can be used to perform any combination of the following tasks:
+定义源数据修改(映射)规则，可以用于执行如下任务或其任意组合:
+%Defines source data modification (mapping) rules which can be used to perform any combination of the following tasks:
 
 \begin{itemize}
-\item Map data source entrytypes to different entrytypes
-\item Map datasource fields to different fields
-\item Add new fields to an entry
-\item Remove fields from an entry
-\item Modify the contents of a field using standard Perl regular expression
-  match and replace
-\item Restrict any of the above operations to entries coming from
-  particular datasources which you defined in \cmd{addresource} macros
-\item Restrict any of the above operations to entries only of a certain
-  entrytype
-\item Restrict any of the above operations to entries in a particular
-  reference section
+\item 将数据源条目类型映射为其它类型
+%Map data source entrytypes to different entrytypes
+\item 将数据源域映射为其它其它域
+%Map datasource fields to different fields
+\item 给条目添加新域
+%Add new fields to an entry
+\item 从条目移除域
+%Remove fields from an entry
+\item 用标准的Perl 正则表达式匹配和替换修改域的内容。
+%Modify the contents of a field using standard Perl regular expression match and replace
+\item 将上述操作限制在来自特定数据源的条目，这些特定数据源可以在\cmd{addresource}宏中定义。
+%Restrict any of the above operations to entries coming from particular datasources which you defined in \cmd{addresource} macros
+\item 将上述操作限制在某些条目类型。
+%Restrict any of the above operations to entries only of a certain entrytype
+\item 将上述操作限制在某一特定的参考文献节。
+%Restrict any of the above operations to entries in a particular reference section
 \end{itemize}
 
-The \prm{specification} is an undelimited list of \cmd{maps} directives which specify containers for mappings rules applying to a particular data source type (\secref{use:bib:res}). Spaces, tabs, and line endings may be used freely to visually arrange the \prm{specification}. Blank lines are not permissible. This command may only be used in the preamble and may only be used once---subsequent uses will overwrite earlier definitions.
+\prm{specification}是一个不限范围的\cmd{maps}指令列表，这些指令说明了应用于某一特定数据源类型的映射规则的容器(\secref{use:bib:res})。可以自由地使用空格、制表符和行末符号来整理\prm{specification}内容达到视觉效果。\footnote{visually arrange the \prm{specification}} 但空行是不允许的。这一命令仅能用于导言区并且只能使用一次---后面的命令将覆盖前面的定义。
+%The \prm{specification} is an undelimited list of \cmd{maps} directives which specify containers for mappings rules applying to a particular data source type (\secref{use:bib:res}). Spaces, tabs, and line endings may be used freely to visually arrange the \prm{specification}. Blank lines are not permissible. This command may only be used in the preamble and may only be used once---subsequent uses will overwrite earlier definitions.
 
 \cmditem{maps}[options]{elements}
 
-Contains an ordered set of \cmd{map} elements each of which is a logically related set of mapping steps to apply to the data source. The \prm{options} are:
+包含\cmd{map}元素的有序集，每个\cmd{map}都是应用于数据源的映射步的逻辑相关集。\prm{options}包括:
+%Contains an ordered set of \cmd{map} elements each of which is a logically related set of mapping steps to apply to the data source. The \prm{options} are:
 
 \begin{optionlist*}
 
 \choitem[bibtex]{datatype}{bibtex, biblatexml}
 
-Data source type to which the contained \cmd{map} directives apply (\secref{use:bib:res}).
+包含的\cmd{map}应用的数据源的类型(见\secref{use:bib:res})
+%Data source type to which the contained \cmd{map} directives apply (\secref{use:bib:res}).
 
 \boolitem[false]{overwrite}
 
-Specify whether a mapping rule is allowed to overwrite already existing data in an entry. If this option is not specified, the default is \texttt{false}. The short form \opt{overwrite} is equivalent to \kvopt{overwrite}{true}.
+具体说明一个映射规则是否允许覆盖条目中已经存在数据。如果该选项未指定，默认是\texttt{false}。简易形式\opt{overwrite}等价于\kvopt{overwrite}{true}。
+%Specify whether a mapping rule is allowed to overwrite already existing data in an entry. If this option is not specified, the default is \texttt{false}. The short form \opt{overwrite} is equivalent to \kvopt{overwrite}{true}.
 
 \end{optionlist*}
 
@@ -2090,10 +2175,10 @@ These maps, respectively,
 \item Set the per-namelist \opt{useprefix} option on the \bibfield{author} name list to <false>
 \end{itemize}
 
-\subsubsection{Data Model Specification}
+\subsubsection{数据模型规范}%Data Model Specification
 \label{aut:ctm:dm}
-
-The data model which \biblatex uses consists of four main elements:
+\biblatex 使用的数据模型包括4个主要元素:
+%The data model which \biblatex uses consists of four main elements:
 
 \begin{itemize}
 \item Specification of constant strings and lists of strings
@@ -2335,10 +2420,10 @@ This model specifies:
 \item For any entrytype, if \bibfield{field2} is not present, \bibfield{field3} and \bibfield{field4} must be present
 \end{itemize}
 
-\subsubsection{标签 Labels}
+\subsubsection{标签}%Labels
 \label{aut:ctm:lab}
-字母顺序制样式使用一个标签来区分参考文献条目。这个标签由条目的内容使用一个描述怎么构建标签的模板构建。该模板可以全局自定义或者分条目类型定义。标签的自定义需要用\biber 后端程序而不能用其它后端程序。
-Alphabetic styles use a label to identify bibliography entries. This label is constructed from components of the entry using a template which describes how to build the label. The template can be customised on a global or per-type basis. A separate template is used to specify how to extract parts of name fields for labels, since names can be quite complex fields.
+字母顺序制样式使用一个标签来区分参考文献条目。这个标签由条目的内容使用一个描述怎么构建标签的模板构建。该模板可以全局自定义或者分条目类型定义。如何抽取姓名域的部分作为标签使用一个独立的模板，因为姓名域是相当复杂的域。标签的自定义需要用\biber 后端程序而不能用其它后端程序。
+%Alphabetic styles use a label to identify bibliography entries. This label is constructed from components of the entry using a template which describes how to build the label. The template can be customised on a global or per-type basis. A separate template is used to specify how to extract parts of name fields for labels, since names can be quite complex fields.
 
 \begin{ltxsyntax}
 
@@ -2718,7 +2803,7 @@ There is no default \cmd{DeclareNolabelwidthcount} specification. Note that
 this setting is only taken into account when using fixed-width substrings
 (non-varwidth) during label part generation. See \secref{aut:ctm:lab}.
 
-\subsubsection{Sorting}
+\subsubsection{排序}%Sorting
 \label{aut:ctm:srt}
 
 In addition to the predefined sorting schemes discussed in \secref{use:srt}, it is possible to define new ones or modify the default definitions. The sorting process may be customized further by excluding certain fields from sorting on a per-type basis and by automatically populating the \bibfield{presort} field on a per-type basis.
@@ -4032,7 +4117,7 @@ Here, \bibfield{b1} will not inherit any of \bibfield{endyear}, \bibfield{endmon
 %This counter refers to the \bibfield{labelname} list. It is set on a per-name basis. Its value is \texttt{0} if the base name (by default the <family> part of the name) is unique, \texttt{1} if adding the other parts of the name (as specified in the uniquename template defined by \cmd{DeclareUniquenameTemplate})as initials will make it unique, and \texttt{2} if the full name is required to disambiguate the name. This information is required by author-year and author-title citation schemes which add additional parts of the name when citing different authors with the same last name. For example, (given the default \cmd{DeclareUniquenameTemplate} definition) if there is one <John Doe> and one <Edward Doe> in the list of references, this counter will be set to \texttt{1}. If there is one <John Doe> and one <Jane Doe>, the value of the counter will be \texttt{2}. If the option is set to \texttt{init}\slash \texttt{allinit}\slash \texttt{mininit}, the counter will be limited to \texttt{1}. This is useful for citations styles which use initials to disambiguate names but never print the full name in citations. If adding the initials is not sufficient to disambiguate the name, \cnt{uniquename} will also be set to \texttt{0} for that name. This feature needs to be enabled explicitly with the package option \opt{uniquename}. Note that the \cnt{uniquename} counter is local to \cmd{printnames} and that it is only set for the \bibfield{labelname} list and to the name list \bibfield{labelname} has been derived from (typically \bibfield{author} or \bibfield{editor}). Its value is zero in any other context, i.e., it must be evaluated in the name formatting directives handling name lists. See \secref{aut:cav:amb} for further details and practical examples.
 
 \cntitem{uniquelist}
-该计数器用于\bibfield{labelname}列表。它以每个域为基础进行设置。它的值表示当使用\cnt{maxnames}\slash \cnt{minnames}自动将姓名列表截短后导致标注歧义时，消除歧义最小需要的姓名数。比如，有一篇作者是<Doe\slash Smith\slash Johnson>的文献和另一篇作者是<Doe\slash Edwards\slash Williams>的文献，设置\kvopt{maxnames}{1}将导致两篇的作者都是<Doe et al.>。这种情况下，两个条目的\bibfield{labelname}列表的\cnt{uniquelist}将设置成\texttt{2}，因为至少需要两个名字来区分。注意\cnt{uniquelist}是对\cmd{printnames}命令局部的，仅根据\bibfield{labelname}列表或其来源姓名列表(典型如\bibfield{author} 或\bibfield{editor})设置。它的值在任何正文中都是0,即它仅在处理姓名的格式化指令中计算，如果该值存在，则\cmd{printnames}命令在处理姓名列表时将自动应用，即自动覆盖\cnt{maxnames}\slash \cnt{minnames}。该功能需要以包选项\opt{uniquelist}显式的打开。更多细节和实例见\secref{aut:cav:amb}。
+该计数器用于\bibfield{labelname}列表。它以每个域为基础进行设置。它的值表示当使用\cnt{maxnames}\slash \cnt{minnames}自动将姓名列表截短后导致标注歧义时，消除歧义需要的最小姓名数。比如，有一篇作者是<Doe\slash Smith\slash Johnson>的文献和另一篇作者是<Doe\slash Edwards\slash Williams>的文献，设置\kvopt{maxnames}{1}将导致两篇的作者都是<Doe et al.>。这种情况下，两个条目的\bibfield{labelname}列表的\cnt{uniquelist}将设置成\texttt{2}，因为至少需要两个名字来区分。注意\cnt{uniquelist}是对\cmd{printnames}命令局部的，仅根据\bibfield{labelname}列表或其来源姓名列表(典型如\bibfield{author} 或\bibfield{editor})设置。它的值在任何正文中都是0,即它仅在处理姓名的格式化指令中计算，如果该值存在，则\cmd{printnames}命令在处理姓名列表时将自动应用，即自动覆盖\cnt{maxnames}\slash \cnt{minnames}。该功能需要以包选项\opt{uniquelist}显式的打开。更多细节和实例见\secref{aut:cav:amb}。
 %This counter refers to the \bibfield{labelname} list. It is set on a per-field basis. Its value indicates the number of names required to disambiguate the name list if automatic \cnt{maxnames}\slash \cnt{minnames} truncation would lead to ambiguous citations. For example, if there is one work by <Doe\slash Smith\slash Johnson> and another one by <Doe\slash Edwards\slash Williams>, setting \kvopt{maxnames}{1} would lead to <Doe et al.> in both cases. In this case, \cnt{uniquelist} would be set to \texttt{2} on the \bibfield{labelname} lists of both entries because at least the first two names are required to disambiguate them. Note that the \cnt{uniquelist} counter is local to \cmd{printnames} and that it is only set for the \bibfield{labelname} list and to the name list \bibfield{labelname} has been derived from (typically \bibfield{author} or \bibfield{editor}). Its value is zero in any other context. If available, the \cnt{uniquelist} value will be used automatically by \cmd{printnames} when processing the name list, \ie it will automatically override \cnt{maxnames}\slash \cnt{minnames}. This feature needs to be enabled explicitly with the package option \opt{uniquelist}. See \secref{aut:cav:amb} for further details and practical examples.
 
 \cntitem{parenlevel}
@@ -6091,7 +6176,7 @@ The name of the name list currently being processed by \cmd{printnames}. This in
 
 \end{ltxsyntax}
 
-\subsubsection{一般目的的钩子 General Purpose Hooks}
+\subsubsection{多用途钩子 General Purpose Hooks}
 \label{aut:fmt:hok}
 
 \begin{ltxsyntax}
@@ -6280,11 +6365,13 @@ If the \bibfield{abstract}\slash \bibfield{annotation} field is undefined, the a
 
 \subsubsection[消除姓名歧义 Name Disambiguation]{消除姓名歧义 Name Disambiguation\BiberOnlyMark}
 \label{aut:cav:amb}
+在\secref{use:opt:pre:int}节引入的\opt{uniquename}和\opt{uniquelist}选项支持多种操作模式。本节用举例方式介绍不同模式的差别。\opt{uniquename}选项消除\bibfield{labelname}列表中各姓名间的歧义，\opt{uniquelist}消除因\opt{maxnames}\slash \opt{minnames}截短导致的\bibfield{labelname}列表歧义。两个选项可以单独使用也可以联合使用:
+%The \opt{uniquename} and \opt{uniquelist} options introduced in \secref{use:opt:pre:int} support various modes of operation. This section explains the differences between these modes by way of example. The \opt{uniquename} option disambiguates individual names in the \bibfield{labelname} list. The \opt{uniquelist} option disambiguates the \bibfield{labelname} list if it has become ambiguous after \opt{maxnames}\slash \opt{minnames} truncation. You can use either option stand-alone or combine both.
 
-The \opt{uniquename} and \opt{uniquelist} options introduced in \secref{use:opt:pre:int} support various modes of operation. This section explains the differences between these modes by way of example. The \opt{uniquename} option disambiguates individual names in the \bibfield{labelname} list. The \opt{uniquelist} option disambiguates the \bibfield{labelname} list if it has become ambiguous after \opt{maxnames}\slash \opt{minnames} truncation. You can use either option stand-alone or combine both.
+
 
 Name disambiguation works by taking a <base> which is composed of one or more nameparts and then determining what needs to be added, if anything, to this <base> to make the name unique in the current refsection. Name disambiguation is controlled by the uniquename template declared with the following command:
-在\secref{use:opt:pre:int}节引入的\opt{uniquename}和\opt{uniquelist}选项支持多种操作模式。本节用举例方式介绍不同模式的差别。\opt{uniquename}选项消除\bibfield{labelname}列表中各姓名间的歧义，\opt{uniquelist}消除因\opt{maxnames}\slash \opt{minnames}截短导致的\bibfield{labelname}列表歧义。两个选项可以单独使用也可以联合使用:
+
 \begin{ltxsyntax}
 
 \cmditem{DeclareUniquenameTemplate}{specification}

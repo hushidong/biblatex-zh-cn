@@ -2,15 +2,16 @@
 \section*{附录 Appendix}
 \addcontentsline{toc}{section}{附录}
 
-\section{默认的驱动源映射}
+\section{驱动层的默认数据源映射}%默认的驱动源映射
+%\section{Default Driver Source Mappings}
 \label{apx:maps}
 
-These are the driver default source mappings. For drivers other than \opt{bibtex} and \opt{ris}, they are highly experimental and subject to change (because the driver datatype itself is unstable or not well suited to bibliographic data).
+These are the driver default source mappings.
 
 \subsection{\opt{bibtex}}
 The \opt{bibtex} driver is of course the most comprehensive and mature of the \biblatex/\biber supported data formats. These source mapping defaults are how the aliases from sections \secref{bib:typ:als} and \secref{bib:fld:als} are implemented.
 
-\begin{lstlisting}[style=latex]{}
+\begin{ltxexample}
 \DeclareDriverSourcemap[datatype=bibtex]{
   \map{
     \step[typesource=conference, typetarget=inproceedings]
@@ -40,315 +41,9 @@ The \opt{bibtex} driver is of course the most comprehensive and mature of the \b
     \step[fieldsource=pdf,           fieldtarget=file]
   }
 }
-\end{lstlisting}
+\end{ltxexample}
 
-\subsection{\opt{endnotexml}}
-
-The \opt{endnotexml} driver for \biber uses the following mappings. This format is quite messy and not well suited to robust typesetting of bibliographic data. It is presented largely as an example of \biber's modular datasource abilities and also of how to map foreign data models into the \biblatex data model. Mappings from such messy and relatively simple data models are inevitably fragile and are of limited use.
-
-\begin{lstlisting}[style=latex]{}
-\DeclareDriverSourcemap[datatype=endnotexml]{
-  \map{
-    \step[typesource={Aggregated Database},      typetarget=misc]
-    \step[typesource={Ancient Text},             typetarget=misc]
-    \step[typesource=Artwork,                    typetarget=artwork]
-    \step[typesource={Audiovisual Material},     typetarget=misc]
-    \step[typesource=Bill,                       typetarget=jurisdiction]
-    \step[typesource=Blog,                       typetarget=online]
-    \step[typesource=Book,                       typetarget=book]
-    \step[typesource={Book Section},             typetarget=inbook]
-    \step[typesource=Case,                       typetarget=jurisdiction]
-    \step[typesource=Catalog,                    typetarget=misc]
-    \step[typesource={Chart or Table},           typetarget=misc]
-    \step[typesource={Classical Work},           typetarget=misc]
-    \step[typesource={Computer Program},         typetarget=software]
-    \step[typesource={Conference Paper},         typetarget=inproceedings]
-    \step[typesource={Conference Proceedings},   typetarget=proceedings]
-    \step[typesource=Dictionary,                 typetarget=inreference]
-    \step[typesource={Edited Book},              typetarget=collection]
-    \step[typesource={Electronic Article},       typetarget=article]
-    \step[typesource={Electronic Book},          typetarget=book]
-    \step[typesource={Encyclopedia},             typetarget=reference]
-    \step[typesource=Equation,                   typetarget=misc]
-    \step[typesource=Figure,                     typetarget=misc]
-    \step[typesource={Film or Broadcast},        typetarget=movie]
-    \step[typesource={Government Document},      typetarget=report]
-    \step[typesource=Grant,                      typetarget=misc]
-    \step[typesource=Hearing,                    typetarget=jurisdiction]
-    \step[typesource={Journal Article},          typetarget=article]
-    \step[typesource={Legal Rule or Regulation}, typetarget=legislation]
-    \step[typesource={Magazine Article},         typetarget=article]
-    \step[typesource=Manuscript,                 typetarget=unpublished]
-    \step[typesource=Map,                        typetarget=misc]
-    \step[typesource={Newspaper Article},        typetarget=article]
-    \step[typesource={Online Database},          typetarget=online]
-    \step[typesource={Online Multimedia},        typetarget=online]
-    \step[typesource=Pamphlet,                   typetarget=booklet]
-    \step[typesource=Patent,                     typetarget=patent]
-    \step[typesource={Personal Communication},   typetarget=letter]
-    \step[typesource=Report,                     typetarget=report]
-    \step[typesource=Serial,                     typetarget=periodical]
-    \step[typesource=Standard,                   typetarget=standard]
-    \step[typesource=Statute,                    typetarget=legislation]
-    \step[typesource=Thesis,                     typetarget=thesis]
-    \step[typesource={Unpublished Work},         typetarget=unpublished]
-    \step[typesource={Web Page},                 typetarget=online]
-  }
-  \map{
-    \step[fieldsource={electronic-resource-num}, fieldtarget=eprint]
-    \step[fieldsource={alt-title},               fieldtarget=shorttitle]
-    \step[fieldsource={meeting-place},           fieldtarget=venue]
-    \step[fieldsource={pub-location},            fieldtarget=location]
-    \step[fieldsource={orig-pub},                fieldtarget=origpublisher]
-    \step[fieldsource={authors},                 fieldtarget=author]
-    \step[fieldsource={secondary-authors},       fieldtarget=editor]
-    \step[fieldsource={tertiary-authors},        fieldtarget=commentator]
-    \step[fieldsource={subsidiary-authors},      fieldtarget=translator]
-    \step[fieldsource={year},                    fieldtarget=date]
-    \step[fieldsource={pub-dates},               fieldtarget=date]
-    \step[fieldsource={num-vols},                fieldtarget=volumes]
-    \step[fieldsource={call-num},                fieldtarget=library]
-    \step[fieldsource={notes},                   fieldtarget=note]
-    \step[fieldsource={secondary-title},         fieldtarget=subtitle]
-    \step[fieldsource={work-type},               fieldtarget=type]
-  }
-  \map{
-    \pertype{Edited Book}
-    \step[fieldsource=contributors/authors, fieldtarget=contributors/editor]
-  }
-  \map{
-    \pertype{Electronic Article}
-    \pertype{Journal Article}
-    \pertype{Magazine Article}
-    \pertype{Newspaper Article}
-    \step[fieldsource=isbn, fieldtarget=issn]
-  }
-  \map{
-    \pertype{Patent}
-    \pertype{Report}
-    \pertype{Government Document}
-    \pertype{Legal Rule or Regulation}
-    \step[fieldsource=isbn, fieldtarget=number]
-  }
-  \map{
-    \pertype{Blog}
-    \pertype{Online Database}
-    \pertype{Online Multimedia}
-    \pertype{Web Page}
-    \step[fieldsource={titles/secondary-title}, fieldtarget={titles/title}]
-  }
-  \map{
-    \pertype{Book Section}
-    \step[fieldsource={titles/secondary-title}, fieldtarget={titles/booktitle}]
-  }
-  \map{
-    \pertype{Book}
-    \pertype{Electronic Book}
-    \pertype{Manuscript}
-    \pertype{Unpublished Work}
-    \step[fieldsource={titles/secondary-title}, fieldtarget={titles/series}]
-  }
-  \map{
-    \pertype{Conference Paper}
-    \pertype{Conference Proceedings}
-    \step[fieldsource={titles/secondary-title}, fieldtarget={titles/eventtitle}]
-  }
-  \map{
-    \pertype{Electronic Article}
-    \pertype{Journal Article}
-    \pertype{Magazine Article}
-    \pertype{Newspaper Article}
-    \step[fieldsource={titles/secondary-title}, fieldtarget={titles/journaltitle}]
-  }
-  \map{
-    \pertype{Book Section}
-    \step[fieldsource={titles/tertiary-title}, fieldtarget={titles/booktitle}]
-  }
-  \map{
-    \pertype{Conference Proceedings}
-    \pertype{periodical}
-    \step[fieldsource={titles/tertiary-title}, fieldtarget={titles/series}]
-  }
-}
-\end{lstlisting}
-
-\subsection{\opt{ris}}
-
-The \opt{ris} driver reflects the fact that \opt{ris} itself is a very simple and stable format. It is in fact so simple, it's hardly of any use for most \biblatex users. Again, here more as a proof of concept example.
-
-\begin{lstlisting}[style=latex]{}
-\DeclareDriverSourcemap[datatype=ris]{
-  \map{
-    \step[typesource=ART,    typetarget=artwork]
-    \step[typesource=BILL,   typetarget=jurisdiction]
-    \step[typesource=BOOK,   typetarget=book]
-    \step[typesource=CHAP,   typetarget=inbook]
-    \step[typesource=COMP,   typetarget=software]
-    \step[typesource=CONF,   typetarget=proceedings]
-    \step[typesource=GEN,    typetarget=misc]
-    \step[typesource=JFULL,  typetarget=article]
-    \step[typesource=JOUR,   typetarget=article]
-    \step[typesource=MGZN,   typetarget=misc]
-    \step[typesource=MPCT,   typetarget=movie]
-    \step[typesource=NEWS,   typetarget=misc]
-    \step[typesource=PAMP,   typetarget=misc]
-    \step[typesource=PAT,    typetarget=patent]
-    \step[typesource=PCOMM,  typetarget=misc]
-    \step[typesource=RPRT,   typetarget=report]
-    \step[typesource=SER,    typetarget=misc]
-    \step[typesource=SLIDE,  typetarget=misc]
-    \step[typesource=SOUND,  typetarget=audio]
-    \step[typesource=STAT,   typetarget=legal]
-    \step[typesource=THES,   typetarget=thesis]
-    \step[typesource=UNBILL, typetarget=jurisdiction]
-    \step[typesource=UNPB,   typetarget=unpublished]
-  }
-  \map{
-    \step[fieldsource=Y1,       fieldtarget=date]
-    \step[fieldsource=PY,       fieldtarget=date]
-    \step[fieldsource=Y2,       fieldtarget=eventdate]
-    \step[fieldsource=A1,       fieldtarget=author]
-    \step[fieldsource=AU,       fieldtarget=author]
-    \step[fieldsource=A2,       fieldtarget=editor]
-    \step[fieldsource=A3,       fieldtarget=editor]
-    \step[fieldsource=ED,       fieldtarget=editor]
-    \step[fieldsource=SPEP,     fieldtarget=pages]
-    \step[fieldsource=N1,       fieldtarget=note]
-    \step[fieldsource=N2,       fieldtarget=abstract]
-    \step[fieldsource=AB,       fieldtarget=abstract]
-    \step[fieldsource=JO,       fieldtarget=journaltitle]
-    \step[fieldsource=JF,       fieldtarget=journaltitle]
-    \step[fieldsource=JA,       fieldtarget=shortjournal]
-    \step[fieldsource=VL,       fieldtarget=volume]
-    \step[fieldsource=IS,       fieldtarget=issue]
-    \step[fieldsource=CP,       fieldtarget=issue]
-    \step[fieldsource=CY,       fieldtarget=location]
-    \step[fieldsource=SN,       fieldtarget=isbn]
-    \step[fieldsource=PB,       fieldtarget=publisher]
-    \step[fieldsource=KW,       fieldtarget=keywords]
-    \step[fieldsource=TI,       fieldtarget=title]
-    \step[fieldsource=U1,       fieldtarget=usera]
-    \step[fieldsource=U2,       fieldtarget=userb]
-    \step[fieldsource=U3,       fieldtarget=userc]
-    \step[fieldsource=U4,       fieldtarget=userd]
-    \step[fieldsource=U5,       fieldtarget=usere]
-    \step[fieldsource=UR,       fieldtarget=url]
-    \step[fieldsource=L1,       fieldtarget=file]
-  }
-}
-\end{lstlisting}
-
-\subsection{\opt{zoterordfxml}}
-
-The \opt{zoterordfxml} driver reads the Zotero\footnote{\url{www.zotero.org}} XML representation of its RDF format. From the \biblatex point of view, it suffers from a lack of the notion of a citation key and so is of limited use. The format may include a citation key in the future at which point the \biber driver and these default mappings will be updated. As with \opt{endnotexml}, the format is somewhat messy with, in particular, a very limited way of dealing with related entries which makes the driver setup rather ugly. As can be seen below, it is possible to map into a field prefixed with «BIBERCUSTOM» which is not a real field in the data model but can be detected in the \biber driver itself and used to process a source field which does not map naturally to any \biblatex data model field as it needs special treatment. This is messy but is due largely due to messy source data models.
-
-\begin{lstlisting}[style=latex]{}
-\DeclareDriverSourcemap[datatype=zoterordfxml]{
-  \map{
-    \step[typesource=conferencePaper,     typetarget=inproceedings]
-    \step[typesource=bookSection,         typetarget=inbook]
-    \step[typesource=journalArticle,      typetarget=article]
-    \step[typesource=magazineArticle,     typetarget=article]
-    \step[typesource=newspaperArticle,    typetarget=article]
-    \step[typesource=encyclopediaArticle, typetarget=inreference]
-    \step[typesource=manuscript,          typetarget=unpublished]
-    \step[typesource=document,            typetarget=misc]
-    \step[typesource=dictionaryEntry,     typetarget=inreference]
-    \step[typesource=interview,           typetarget=misc]
-    \step[typesource=film,                typetarget=movie]
-    \step[typesource=webpage,             typetarget=online]
-    \step[typesource=note,                typetarget=misc]
-    \step[typesource=attachment,          typetarget=misc]
-    \step[typesource=bill,                typetarget=legislation]
-    \step[typesource=case,                typetarget=jurisdiction]
-    \step[typesource=hearing,             typetarget=jurisdiction]
-    \step[typesource=statute,             typetarget=legislation]
-    \step[typesource=email,               typetarget=letter]
-    \step[typesource=map,                 typetarget=image]
-    \step[typesource=blogPost,            typetarget=online]
-    \step[typesource=instantMessage,      typetarget=letter]
-    \step[typesource=forumPost,           typetarget=online]
-    \step[typesource=audioRecording,      typetarget=audio]
-    \step[typesource=presentation,        typetarget=inproceedings]
-    \step[typesource=videoRecording,      typetarget=video]
-    \step[typesource=tvBroadcast,         typetarget=misc]
-    \step[typesource=radioBroadcast,      typetarget=misc]
-    \step[typesource=podcast,             typetarget=online]
-    \step[typesource=computerProgram,     typetarget=software]
-  }
-  \map{
-    \step[fieldsource=bib:contributors,    fieldtarget=author]
-    \step[fieldsource=bib:authors,         fieldtarget=author]
-    \step[fieldsource=z:interviewers,      fieldtarget=author]
-    \step[fieldsource=z:directors,         fieldtarget=author]
-    \step[fieldsource=z:scriptwriters,     fieldtarget=author]
-    \step[fieldsource=z:bookAuthor,        fieldtarget=author]
-    \step[fieldsource=z:inventors,         fieldtarget=author]
-    \step[fieldsource=z:recipients,        fieldtarget=author]
-    \step[fieldsource=z:counsels,          fieldtarget=author]
-    \step[fieldsource=z:artists,           fieldtarget=author]
-    \step[fieldsource=z:podcasters,        fieldtarget=author]
-    \step[fieldsource=z:presenters,        fieldtarget=author]
-    \step[fieldsource=z:commenters,        fieldtarget=author]
-    \step[fieldsource=z:programers,        fieldtarget=author]
-    \step[fieldsource=z:composers,         fieldtarget=author]
-    \step[fieldsource=z:producers,         fieldtarget=author]
-    \step[fieldsource=z:performers,        fieldtarget=author]
-    \step[fieldsource=bib:editors,         fieldtarget=editor]
-    \step[fieldsource=z:translators,       fieldtarget=translator]
-    \step[fieldsource=z:seriesEditors,     fieldtarget=editor]
-    \step[fieldsource=dc:date,             fieldtarget=date]
-    \step[fieldsource=bib:pages,           fieldtarget=pages]
-    \step[fieldsource=dc:title,            fieldtarget=title]
-    \step[fieldsource=z:proceedingsTitle,  fieldtarget=title]
-    \step[fieldsource=z:encyclopediaTitle, fieldtarget=title]
-    \step[fieldsource=z:dictionaryTitle,   fieldtarget=title]
-    \step[fieldsource=z:websiteTitle,      fieldtarget=title]
-    \step[fieldsource=z:forumTitle,        fieldtarget=title]
-    \step[fieldsource=z:blogTitle,         fieldtarget=title]
-    \step[fieldsource=z:nameOfAct,         fieldtarget=title]
-    \step[fieldsource=z:caseName,          fieldtarget=title]
-    \step[fieldsource=z:meetingName,       fieldtarget=eventtitle]
-    \step[fieldsource=prism:volume,        fieldtarget=volume]
-    \step[fieldsource=numberOfVolumes,     fieldtarget=volumes]
-    \step[fieldsource=z:numPages,          fieldtarget=pagetotal]
-    \step[fieldsource=prism:edition,       fieldtarget=edition]
-    \step[fieldsource=dc:description,      fieldtarget=note]
-    \step[fieldsource=dc:alternative,      fieldtarget=shortjournal]
-    \step[fieldsource=dcterms:abstract,    fieldtarget=abstract]
-    \step[fieldsource=dc:type,             fieldtarget=type]
-    \step[fieldsource=z:shortTitle,        fieldtarget=shorttitle]
-    \step[fieldsource=z:bookTitle,         fieldtarget=booktitle]
-    \step[fieldsource=prism:number,        fieldtarget=number]
-    \step[fieldsource=z:patentNumber,      fieldtarget=number]
-    \step[fieldsource=z:codeNumber,        fieldtarget=number]
-    \step[fieldsource=z:reportNumber,      fieldtarget=number]
-    \step[fieldsource=z:billNumber,        fieldtarget=number]
-    \step[fieldsource=z:documentNumber,    fieldtarget=number]
-    \step[fieldsource=z:publicLawNumber,   fieldtarget=number]
-    \step[fieldsource=z:applicationNumber, fieldtarget=number]
-    \step[fieldsource=z:episodeNumber,     fieldtarget=number]
-    \step[fieldsource=dc:coverage,         fieldtarget=location]
-    \step[fieldsource=z:university,        fieldtarget=institution]
-    \step[fieldsource=z:language,          fieldtarget=language]
-    \step[fieldsource=z:version,           fieldtarget=version]
-    \step[fieldsource=z:libraryCatalog,    fieldtarget=library]
-    \step[fieldsource=dcterms:isPartOf,    fieldtarget=BIBERCUSTOMpartof]
-    \step[fieldsource=dc:identifier,       fieldtarget=BIBERCUSTOMidentifier]
-    \step[fieldsource=dc:publisher,        fieldtarget=BIBERCUSTOMpublisher]
-    \step[fieldsource=dc:presentedAt,      fieldtarget=BIBERCUSTOMpresentedat]
-    \step[fieldsource=dc:subject,          fieldtarget=BIBERCUSTOMsubject]
-    \step[fieldsource={dcterms:BIBERCUSTOMpartof/bib:Journal},
-          fieldtarget={dcterms:BIBERCUSTOMpartof/periodical}]
-    \step[fieldsource={dcterms:BIBERCUSTOMpartof/bib:Book},
-          fieldtarget={dcterms:BIBERCUSTOMpartof/book}]
-    \step[fieldsource={dcterms:BIBERCUSTOMpartof/bib:ConferenceProceedings},
-          fieldtarget={dcterms:BIBERCUSTOMpartof/proceedings}]
-  }
-}
-\end{lstlisting}
-
-\section{默认的继承设置}
+\section{默认继承设置 Default Inheritance Setup}
 \label{apx:ref}
 
 The following table shows the \biber cross-referencing rules defined by default.
@@ -362,8 +57,8 @@ Please refer to \secref{bib:cav:ref, aut:ctm:ref} for explanation.
 \begin{longtable}[l]{%
 	@{}V{0.2\textwidth}%
 	@{}V{0.4\textwidth}%
-	@{}V{0.2\textwidth}%
-	@{}V{0.2\textwidth}@{}}
+	@{}V{0.3\textwidth}%
+	@{}V{0.3\textwidth}@{}}
 \toprule
 \multicolumn{2}{@{}H}{Types} & \multicolumn{2}{@{}H}{Fields} \\
 \cmidrule(r){1-2}\cmidrule{3-4}
@@ -444,6 +139,7 @@ periodical &
 \endgroup
 
 \section{默认的排序方式}
+%\section{Default Sorting Schemes}
 \label{apx:srt}
 
 \subsection[Alphabetic 1]{Alphabetic Schemes 1}
@@ -470,16 +166,16 @@ nty &	presort\alt mm &
 	\new sortname\alt author\alt editor\alt translator\alt sorttitle\alt title &
 	\new sorttitle\alt title &
 	\new sortyear\alt year &
-	\new volume\alt 0000 \\
+	\new volume\\
 nyt &	presort\alt mm &
 	\new sortname\alt author\alt editor\alt translator\alt sorttitle\alt title &
 	\new sortyear\alt year &
 	\new sorttitle\alt title &
-	\new volume\alt 0000 \\
+	\new volume\\
 nyvt &	presort\alt mm &
 	\new sortname\alt author\alt editor\alt translator\alt sorttitle\alt title &
 	\new sortyear\alt year &
-	\new volume\alt 0000 &
+	\new volume &
 	\new sorttitle\alt title \\
 \textrm{all} & presort\alt mm &
 	\new sortkey \\
@@ -512,12 +208,12 @@ anyt &	presort\alt mm &
 	\new sortname\alt author\alt editor\alt translator\alt sorttitle\alt title &
 	\new sortyear\alt year &
 	\new sorttitle\alt title &
-	\new volume\alt 0000 \\
+	\new volume\\
 anyvt &	presort\alt mm &
 	\new labelalpha &
 	\new sortname\alt author\alt editor\alt translator\alt sorttitle\alt title &
 	\new sortyear\alt year &
-	\new volume\alt 0000 &
+	\new volume &
 	\new sorttitle\alt title \\
 \textrm{all} & presort\alt mm &
 	\new labelalpha &
@@ -557,7 +253,222 @@ ydnt &	presort\alt mm &
 \end{longtable}
 \endgroup
 
-\section{选项集合}
+\section{\biblatexml}
+\label{apx:biblatexml}
+The \biblatexml\ XML datasource format is designed to be an extensible and modern data source format for \biblatex\ users. There are limitations with \bibtex\ format \file{.bib} files, in particular one might mention UTF-8 support and name formats. \biber\ goes some way to addressing the UTF-8 limitations by using a modified version of the \texttt{btparse} C library but the rather archaic name parsing rules for \bibtex\ are hard-coded and specific to simple Western names.
+
+\biblatexml is an XML format for bibliographic data. When \biber\ either reads or writes \biblatexml\ format datasources, it automatically writes a RelaXNG XML schema for the datasources which is dynamically generated from the active \biblatex\ datamodel. There is no static schema for \biblatexml\ datasources because the allowable fields etc. depend on the data model. The format of \biblatexml\ datasources is relatively self-explanatory---it is usually only necessary to generate a \biblatexml\ datasource from existing \bibtex\ format datasources (using \biber's <tool> mode) in order to understand the format. \biber also allows users to validate \biblatexml\ datasources against the data model generated schema.
+
+Since the \biblatexml\ format is XML and depends on the data model and the data model is extensible by the user (see \secref{aut:ctm:dm}), the \biblatexml\ format can deal with extensions that \bibtex\ format data sources cannot, e.g. new nameparts, options at sub-entry scope. Since it is an XML format, it is relatively easy to transform it into other XML formats or HTML using standard XML processing libraries and tools.
+
+Here is an explanation of the format with examples. By convention, \biblatexml\ files have a \file{.bltxml} extension and \file{kpsewhich} understands this file extension.
+
+\subsection{Header}
+\biblatexml\ files begin with the standard XML header:
+
+\begin{lstlisting}[language=xml]
+<?xml version="1.0" encoding="UTF-8"?>
+\end{lstlisting}
+%
+The schema model, type and schema type namespace are given in the following line:
+
+\begin{lstlisting}[language=xml]
+<?xml-model href="biblatexml.rng"
+            type="application/xml"
+            schematypens="http://relaxng.org/ns/structure/1.0"?>
+\end{lstlisting}
+%
+When \biber\ generates \biblatexml\ data sources, it automatically adds this line and points the schema model (href) attribute at the automatically generated RelaXNG XML schema for ease of validation.
+
+\subsection{Body}
+
+The body of a \biblatexml\ data source looks like:
+
+\begin{lstlisting}[language=xml]
+<bltx:entries
+  xmlns:bltx="http://biblatex-biber.sourceforge.net/biblatexml">
+
+  <bltx:entry id="" entrytype="">
+  </bltx:entry>
+       .
+       .
+       .
+  <bltx:entry id="" entrytype="">
+  </bltx:entry>
+
+</bltx:entries>
+\end{lstlisting}
+%
+The body is one or more \bibfield{entry} elements inside the top-level \bibfield{entries} element and everything is in the \bibfield{bltx} namespace. An entry has an \bibfield{id} attribute corresponding to a \bibtex\ entry key and a \bibfield{entrytype} attribute corresponding to a \bibtex\ entrytype. For example, the \biblatexml\
+
+\begin{lstlisting}[language=xml]
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="biblatexml.rng"
+            type="application/xml"
+            schematypens="http://relaxng.org/ns/structure/1.0"?>
+<bltx:entries
+  xmlns:bltx="http://biblatex-biber.sourceforge.net/biblatexml">
+  <bltx:entry id="key1" entrytype="book">
+  </bltx:entry>
+</bltx:entries>
+\end{lstlisting}
+%
+Corresponds to the \bibtex\ \file{.bib}
+
+\begin{lstlisting}[style=bibtex]{}
+@book{key1,
+}
+\end{lstlisting}
+%
+In general, the XML elements in a \biblatexml\ format datasource file have names corresponding to the fields in the datamodel, just like \bibtex\ format datasources. So for example, the \bibtex\ format source
+
+\begin{lstlisting}[style=bibtex]{}
+@book{key1,
+  TITLE = {...},
+  ISSUE = {...},
+  NOTE = {...}
+}
+\end{lstlisting}
+%
+would be, in \biblatexml
+
+\begin{lstlisting}[language=xml]
+  <bltx:entry id="key1" entrytype="book">
+    <bltx:title>...</bltx:title>
+    <bltx:issue>...</bltx:issue>
+    <bltx:note>...</bltx:note>
+  </bltx:entry>
+\end{lstlisting}
+%
+The following exceptions to this simple mapping are to be noted
+
+\subsubsection{Key aliases}
+Citation key aliases are specified like this:
+
+\begin{lstlisting}[language=xml]
+    <bltx:ids>
+      <bltx:key>alias1</bltx:key>
+      <bltx:key>alias2</bltx:key>
+    </bltx:ids>
+\end{lstlisting}
+%
+this corresponds to the \bibtex\ format
+
+\begin{lstlisting}[style=bibtex]{}
+@book{key1,
+  IDS = {alias1,alias2}
+}
+\end{lstlisting}
+
+\subsubsection{Names}
+
+Name specifications in \biblatexml\ are somewhat more complex in order to generalise the name handling abilities of \biblatex. The user has to be more explicit about the name parts and this allows a much great scope for the handling of different types of names and name parts. A name in \biblatexml\ format looks like this
+
+\begin{lstlisting}[language=xml]
+    <bltx:names type="author" morenames="1" useprefix="true">
+      <bltx:name gender="sm">
+        <bltx:namepart type="given">
+          <bltx:namepart initial="J">John</bltx:namepart>
+          <bltx:namepart initial="A">Arthur</bltx:namepart>
+        </bltx:namepart>
+        <bltx:namepart type="family">Smith</bltx:namepart>
+        <bltx:namepart type="prefix" initial="v">von</bltx:namepart>
+      </bltx:name>
+      <bltx:name useprefix="false">
+        <bltx:namepart type="given">
+          <bltx:namepart>Raymond</bltx:namepart>
+        </bltx:namepart>
+        <bltx:namepart type="family">Brown</bltx:namepart>
+      </bltx:name>
+    </bltx:names>
+\end{lstlisting}
+%
+A name list field is contained in the \bibfield{names} element with the mandatory \bibfield{type} attribute giving the name of the name list. Things to note:
+
+\begin{itemize}
+  \item The optional \bibfield{morenames} attribute performs the same task as the \bibtex\ datasource format <and others> string at the end of a name.
+  \item Note that optional \opt{useprefix} option can be specified can be specified at the level of a name list or an individual name in the name list. This is impossible with \bibtex\ datasources.
+  \item Individual names may have an optional \bibfield{gender} attribute which must be one of those defined in the datamodel <gender> constant list. This is currently not used by standard styles but is available in \biblatex name formats if necessary.
+  \item A name list is composed of one or more \bibfield{name} elements.
+  \item Each name is composed of name parts of a \bibfield{type} defined by the data model <nameparts> constant.
+  \item Each name part may have an option \bibfield{initial} attribute which makes explicit the initial of the name part. If this is not present, \biber\ attempts to automatically determine the initial from the name part.
+  \item Name parts may have name parts so that compound names can be handled.
+\end{itemize}
+%
+Ignoring the \biblatexml-only features, a corresponding \bibtex\ format datasource would look like this:
+
+\begin{lstlisting}[style=bibtex]{}
+  AUTHOR = {von Smith, John Arthur and Brown, Raymond and others}
+\end{lstlisting}
+
+\subsubsection{Lists}
+Datasource list fields (see \secref{bib:fld:typ}) can be represented in two ways, depending on whether there is more than one element in the list:
+
+\begin{lstlisting}[language=xml]
+    <bltx:publisher>London</bltx:publisher>
+    <bltx:location>
+      <bltx:item>London</bltx:item>
+      <bltx:item>Moscow</bltx:item>
+    </bltx:location>
+\end{lstlisting}
+
+\subsubsection{Ranges}
+Datasource range fields (see \secref{bib:fld:typ}) are represented like this:
+
+\begin{lstlisting}[language=xml]
+    <bltx:pages>
+      <bltx:item>
+        <bltx:start>1</bltx:start>
+        <bltx:end>10</bltx:end>
+      </bltx:item>
+      <bltx:item>
+        <bltx:start>30</bltx:start>
+        <bltx:end>34</bltx:end>
+      </bltx:item>
+    </bltx:pages>
+\end{lstlisting}
+%
+A range field is a list of ranges, each with its own \bibfield{item}. A range item has a \bibfield{start} element and an optional \bibfield{end} element, since ranges can be open-ended.
+
+\subsubsection{Dates}
+Datasource date fields (see \secref{bib:fld:typ}) can be represented in two ways, depending on whether they constitute a date range:
+
+\begin{lstlisting}[language=xml]
+    <bltx:date>1985-04-02</bltx:date>
+    <bltx:date type="event">
+      <bltx:start>1990-05-16</bltx:start>
+      <bltx:end>1990-05-17</bltx:end>
+    </bltx:date>
+\end{lstlisting}
+%
+The \bibfield{type} attribute on a date element corresponds to a particular type of date defined in the data model.
+
+\subsubsection{Related Entries}
+
+Related entries are specified as follows:
+\begin{lstlisting}[language=xml]
+    <bltx:related>
+      <bltx:item type="reprint"
+                 ids="rel1,rel2"
+                 string="Somestring"
+                 options="skipbiblist"/>
+    </bltx:related>
+\end{lstlisting}
+%
+This corresponds to the \bibtex\ format:
+
+\begin{lstlisting}[style=bibtex]{}
+@book{key1,
+  RELATED         = {rel2,rel2},
+  RELATEDTYPE     = {reprint},
+  RELATEDSTRING   = {Somestring},
+  RELATEDOPTIONS  = {skipbiblist}
+}
+\end{lstlisting}
+%
+As per \secref{aut:ctm:rel}, the \bibfield{string} and \bibfield{options} attributes are optional.
+
+\section{选项范围 Option Scope}
 \label{apx:opt}
 
 The following table provides an overview of the scope (global\slash per-type\slash per-entry) of various package options.
@@ -586,6 +497,8 @@ The following table provides an overview of the scope (global\slash per-type\sla
 \endfoot
 abbreviate	&\+&\+&\_&\_\\
 alldates	&\+&\+&\_&\_\\
+alldatesusetime	&\+&\+&\_&\_\\
+alltimes	&\+&\+&\_&\_\\
 arxiv		&\+&\+&\_&\_\\
 autocite	&\+&\+&\_&\_\\
 autopunct	&\+&\+&\_&\_\\
@@ -606,25 +519,36 @@ clearlang	&\+&\+&\_&\_\\
 datamodel &\+&\_&\_&\_\\
 dataonly	&\_&\_&\+&\+\\
 date		&\+&\+&\_&\_\\
+labeldate		&\+&\+&\_&\_\\
+$<$datetype$>$date		&\+&\+&\_&\_\\
 dateabbrev	&\+&\+&\_&\_\\
+datecirca &\+&\+&\_&\_\\
+dateera &\+&\+&\_&\_\\
+dateerauto &\+&\+&\_&\_\\
+dateuncertain &\+&\+&\_&\_\\
 datezeros	&\+&\+&\_&\_\\
 defernumbers	&\+&\+&\_&\_\\
 doi		&\+&\+&\_&\_\\ % style
 eprint		&\+&\+&\_&\_\\ % style
-eventdate	&\+&\+&\_&\_\\
-firstinits	&\+&\+&\_&\_\\
+$<$namepart$>$inits	&\+&\+&\_&\_\\
+gregorianstart &\+&\+&\_&\_\\
 hyperref	&\+&\+&\_&\_\\
 ibidtracker	&\+&\+&\_&\_\\
 idemtracker	&\+&\+&\_&\_\\
 indexing	&\+&\+&\+&\+\\
 isbn		&\+&\+&\_&\_\\ % style
+julian &\+&\+&\_&\_\\
 labelalpha	&\+&\+&\+&\_\\
 labelnamefield  &\_&\_&\_&\+\\
 labelnumber	&\+&\+&\+&\_\\
 labeltitle	&\+&\+&\+&\_\\
 labeltitlefield &\_&\_&\_&\+\\
 labeltitleyear	&\+&\+&\+&\_\\
-labeldate	&\+&\+&\+&\_\\
+labeldateparts	&\+&\+&\+&\_\\
+labeltime	&\+&\+&\_&\_\\
+labeldateusetime	&\+&\+&\_&\_\\
+$<$datetype$>$time	&\+&\+&\_&\_\\
+$<$datetype$>$dateusetime	&\+&\+&\_&\_\\
 language	&\+&\+&\_&\_\\
 loadfiles	&\+&\+&\_&\_\\
 loccittracker	&\+&\+&\_&\_\\
@@ -639,37 +563,43 @@ minalphanames	&\+&\+&\+&\+\\
 minbibnames	&\+&\+&\+&\+\\
 mincitenames	&\+&\+&\+&\+\\
 mincrossrefs	&\+&\+&\_&\_\\
+minxrefs	&\+&\+&\_&\_\\
 minitems	&\+&\+&\+&\+\\
 minnames	&\+&\+&\+&\+\\
 natbib		&\+&\_&\_&\_\\
+noinherit		&\_&\_&\_&\+\\
 notetype	&\+&\+&\_&\_\\
 opcittracker	&\+&\+&\_&\_\\
 openbib		&\+&\+&\_&\_\\
-origdate	&\+&\+&\_&\_\\
 pagetracker	&\+&\+&\_&\_\\
 parentracker	&\+&\+&\_&\_\\
 punctfont	&\+&\+&\_&\_\\
 refsection	&\+&\+&\_&\_\\
 refsegment	&\+&\+&\_&\_\\
 safeinputenc	&\+&\+&\_&\_\\
+seconds	&\+&\+&\_&\_\\
 singletitle	&\+&\+&\+&\_\\
 skipbib		&\_&\_&\+&\+\\
 skipbiblist	&\_&\_&\+&\+\\
 skiplab		&\_&\_&\+&\+\\
-skiplos		&\_&\_&\+&\+\\
 sortcase	&\+&\+&\_&\_\\
 sortcites	&\+&\+&\_&\_\\
-sortfirstinits  &\+&\+&\_&\_\\
 sorting		&\+&\+&\_&\_\\
+sortnamekeyscheme 	&\_&\_&\_&\+\\
 sortlocale	&\+&\+&\_&\_\\
 sortlos		&\+&\+&\_&\_\\
 sortupper	&\+&\+&\_&\_\\
 style		&\+&\_&\_&\_\\
 terseinits	&\+&\+&\_&\_\\
 texencoding	&\+&\+&\_&\_\\
+timezeros	&\+&\+&\_&\_\\
+timezones	&\+&\+&\_&\_\\
 uniquelist	&\+&\+&\+&\+\\
 uniquename	&\+&\+&\+&\+\\
-urldate		&\+&\+&\_&\_\\
+uniquetitle	&\+&\+&\+&\_\\
+uniquebaretitle	&\+&\+&\+&\_\\
+uniquework	&\+&\+&\+&\_\\
+uniqueprimaryauthor	&\+&\+&\_&\_\\
 url		&\+&\+&\_&\_\\
 useprefix	&\+&\+&\+&\+\\
 use$<$name$>$	&\+&\+&\+&\+\\
@@ -677,11 +607,95 @@ use$<$name$>$	&\+&\+&\+&\+\\
 \endgroup
 
 \section{更新历史}
+%\section{Revision History}
 \label{apx:log}
 
-This revision history is a list of changes relevant to users of this package. Changes of a more technical nature which do not affect the user interface or the behavior of the package are not included in the list. If an entry in the revision history states that a feature has been \emph{improved} or \emph{extended}, this indicates a modification which either does not affect the syntax and behavior of the package or is syntactically backwards compatible (such as the addition of an optional argument to an existing command). Entries stating that a feature has been \emph{modified}, \emph{renamed}, or \emph{removed}  demand attention. They indicate a modification which may require changes to existing styles or documents in some, hopefully rare, cases. The numbers on the right indicate the relevant section of this manual.
+This revision history is a list of changes relevant to users of this package. Changes of a more technical nature which do not affect the user interface or the behavior of the package are not included in the list. More technical details are to be found in the \file{CHANGES.org} file. The numbers on the right indicate the relevant section of this manual.
 
 \begin{changelog}
+
+\begin{release}{3.7}{2016-12-08}
+\item Corrected default for \cmd{bibdateeraprefix}\see{aut:fmt:lng}
+\item Added \cmd{DeclareSortInclusion}\see{aut:ctm:srt}
+\item Added \cmd{relateddelim$<$relatedtype$>$}\see{use:fmt:fmt}
+\end{release}
+
+\begin{release}{3.6}{2016-09-15}
+\item Corrected some documentation and fixed a bug with labeldate
+  localisation strings.
+\end{release}
+
+\begin{release}{3.5}{2016-09-10}
+\item Added \cmd{ifuniquebaretitle} test\see{aut:aux:tst}
+\item Documented \cmd{labelnamesource} and \cmd{labeltitlesource}\see{aut:bbx:fld:gen}
+\item Added \cmd{bibdaterangesep}\see{use:fmt:lng}
+\item Added \opt{refsection} option to \cmd{DeclareSourcemap}\see{aut:ctm:map}
+\item Added \opt{suppress} option to inheritance specifications\see{aut:ctm:ref}
+\item Added \cmd{ifuniquework}\see{aut:aux:tst}
+\item Changed \cmd{DeclareStyleSourcemap} so that it can be used multiple times\see{aut:ctm:map}
+\item Added \cmd{forcezerosy} and \cmd{forcezerosmdt}\see{aut:fmt:ich}
+\item Changed \cmd{mkdatezeros} to \cmd{mkyearzeros}, \cmd{mkmonthszeros}
+  and \cmd{mkdayzeros}\see{aut:fmt:ich}
+\item Added \bibfield{namehash} and \bibfield{fullhash} for all name list fields\see{aut:bbx:fld:gen}
+\item Generalised \opt{giveninits} option to all nameparts\see{use:opt:pre:int}
+\item Added \opt{inits} option to \cmd{DeclareSortingNamekeyScheme}\see{aut:ctm:srt}
+\item Added \cmd{DeclareLabelalphaNameTemplate}\see{aut:ctm:lab}
+\item Added full \acr{EDTF} Levels 0 and 1 compliance for parsing and printing times\see{bib:use:dat}
+\item Changed dates to be fully \acr{EDTF} Levels 0 and 1 compliant. Associated tests and localisation strings\see{bib:use:dat}
+\item Added \opt{timezeros}\see{use:opt:pre:gen}
+\item Added \opt{mktimezeros}\see{aut:fmt:ich}
+\item Changed \opt{iso8601} to \opt{edtf}\see{use:opt:pre:gen}
+\item Added \cmd{DeclareUniquenameTemplate}\see{aut:cav:amb}
+\item Removed experimental RIS support
+\item \opt{sortnamekeyscheme} and \opt{useprefix} can be now be set per-namelist and per-name for
+  \bibtex datasources\see{aut:ctm:srt}
+\item Added \cmd{DeclareDelimcontextAlias}\see{use:fmt:csd}
+\item Added Estonian localisation (Benson Muite)
+\item Reference contexts may now be named\see{use:bib:context}
+\item Added \opt{notfield} step in Sourcemaps\see{aut:ctm:map}
+\end{release}
+
+\begin{release}{3.4}{2016-05-10}
+\item Added \cmd{ifcrossrefsource} and \cmd{ifxrefsource}\see{aut:aux:tst}
+\item Added data annotation feature\see{use:annote}
+\item Added package option \opt{minxrefs}\see{use:opt:pre:gen}
+\item Added \cmd{ifuniqueprimaryauthor} and associated global option\see{aut:aux:tst}
+\item Added \cmd{DeprecateField}, \cmd{DeprecateList} and \cmd{DeprecateName}\see{aut:bib:dat}
+\item Added \cmd{ifcaselang}\see{aut:aux:tst}
+\item Added \cmd{DeclareSortTranslit}\see{aut:ctm:srt}
+\item Added \opt{uniquetitle} test\see{aut:aux:tst}
+\item Added \cmd{namelabeldelim}\see{use:fmt:fmt}
+\item New starred variants of the \cmd{assignrefcontext*} macros\see{use:bib:context}
+\item New context-sensitive delimiter interface\see{use:fmt:csd}
+\item Moved \opt{prefixnumbers} option to \cmd{newrefcontext} and renamed to \opt{labelprefix}\see{use:bib:context}
+\item Added \cmd{DeclareDatafieldSet}\see{aut:ctm:dsets}
+\end{release}
+
+\begin{release}{3.3}{2016-03-01}
+\item New macros for auto-assignment of refcontexts\see{use:bib:context}
+\item Schema documentation for \biblatexml\see{apx:biblatexml}
+\item Sourcemapping documentation and examples for \biblatexml\see{aut:ctm:map}
+\item Changes for name formats to generalise available name parts\see{aut:bib:fmt}
+\item \opt{useprefix} can now be specified per-namelist and per-name in \biblatexml datasources
+\item New sourcemapping options for creating new entries dynamically and looping over map steps\see{aut:ctm:map}
+\item Added \opt{noalphaothers} and enhanced name range selection in \cmd{DeclareLabelalphaTemplate}\see{aut:ctm:lab}
+\item Added \cmd{DeclareDatamodelConstant}\see{aut:ctm:dm}
+\item Renamed \opt{firstinits} and \opt{sortfirstinits}
+\item Added \cmd{DeclareSortingNamekeyScheme}\see{aut:ctm:srt}
+\item Removed messy experimental endnote and zoterordf support for \biber
+\item Added \cmd{nonameyeardelim}\see{use:fmt:fmt}
+\item Added \cmd{extpostnotedelim}\see{use:fmt:fmt}
+\end{release}
+
+\begin{release}{3.2}{2015-12-28}
+\item Added \opt{pstrwidth} and \opt{pcompound} to \cmd{DeclareLabelalphaTemplate}\see{aut:ctm:lab}
+\item Added \cmd{AtEachCitekey}\see{aut:fmt:hok}
+\end{release}
+
+\begin{release}{3.1}{2015-09}
+\item Added \cmd{DeclareNolabel}\see{aut:ctm:lab}
+\item Added \cmd{DeclareNolabelwidthcount}\see{aut:ctm:lab}
+\end{release}
 
 \begin{release}{3.0}{2015-04-20}
 \item Improved Danish (Jonas Nyrup) and Spanish (ludenticus) translations
@@ -698,20 +712,20 @@ This revision history is a list of changes relevant to users of this package. Ch
 \end{release}
 
 \begin{release}{2.9}{2014-02-25}
-\item Generalised shorthands facility\see{use:bib:biblist}\BiberOnlyMark
-\item Sorting locales can now be defined as part of a sorting scheme\see{aut:ctm:srt}\BiberOnlyMark
-\item Added \bibfield{sortinithash}\see{aut:bbx:fld:gen}\BiberOnlyMark
+\item Generalised shorthands facility\see{use:bib:biblist}
+\item Sorting locales can now be defined as part of a sorting scheme\see{aut:ctm:srt}
+\item Added \bibfield{sortinithash}\see{aut:bbx:fld:gen}
 \item Added Slovene localisation (Tea Tušar and Bogdan Filipič)
 \item Added \cmd{mkbibitalic}\see{aut:fmt:ich}
 \item Recommend \texttt{begentry} and \texttt{finentry} bibliography macros\see{aut:bbx:drv}
 \end{release}
 
 \begin{release}{2.8a}{2013-11-25}
-\item Split option \opt{language=auto} into \opt{language=autocite} and \opt{language=autobib}\see{use:opt:pre:gen}\BiberOnlyMark
+\item Split option \opt{language=auto} into \opt{language=autocite} and \opt{language=autobib}\see{use:opt:pre:gen}
 \end{release}
 
 \begin{release}{2.8}{2013-10-21}
-\item New \bibfield{langidopts}\see{bib:fld:spc}\BiberOnlyMark
+\item New \bibfield{langidopts}\see{bib:fld:spc}
 \item \bibfield{hyphenation} field renamed to \bibfield{langid}\see{bib:fld:spc}
 \item \sty{polyglossia} support
 \item Renamed \opt{babel} option to \opt{autolang}\see{use:opt:pre:gen}
@@ -734,54 +748,54 @@ This revision history is a list of changes relevant to users of this package. Ch
 \item Added multicite variants of \cmd{volcite} and related commands\see{use:cit:spc}
 \item Added \cmd{finalandsemicolon}\see{use:fmt:lng}
 \item Added citation delimiter \cmd{textcitedelim} for \cmd{textcite} and related commands to styles\see{aut:fmt:fmt}
-\item Updated Russian localization (Oleg Domanov)
-\item Fixed Brazilian and Finnish localization
+\item Updated Russian localisation (Oleg Domanov)
+\item Fixed Brazilian and Finnish localisation
 \end{release}
 
 \begin{release}{2.6}{2013-04-30}
 \item Added \cmd{printunit}\see{aut:pct:new}
-\item Added field \bibfield{clonesourcekey}\see{aut:bbx:fld:gen}\BiberOnlyMark
-\item New options for \cmd{DeclareLabelalphaTemplate}\see{aut:ctm:lab}\BiberOnlyMark
-\item Added \cmd{DeclareLabeldate} and retired \cmd{DeclareLabelyear}\see{aut:ctm:fld}\BiberOnlyMark
-\item Added \texttt{nodate} localization string\see{aut:lng:key:msc}
+\item Added field \bibfield{clonesourcekey}\see{aut:bbx:fld:gen}
+\item New options for \cmd{DeclareLabelalphaTemplate}\see{aut:ctm:lab}
+\item Added \cmd{DeclareLabeldate} and retired \cmd{DeclareLabelyear}\see{aut:ctm:fld}
+\item Added \texttt{nodate} localisation string\see{aut:lng:key:msc}
 \item Added \cmd{rangelen}\see{aut:aux:msc}
 \item Added starred variants of \cmd{citeauthor} and \cmd{Citeauthor}\see{use:cit:txt}
-\item Restored original \texttt{url} format. Added \texttt{urlfrom} localization key\see{aut:lng:key:lab}
+\item Restored original \texttt{url} format. Added \texttt{urlfrom} localisation key\see{aut:lng:key:lab}
 \item Added \cmd{AtNextBibliography}\see{aut:fmt:hok}
 \item Fixed related entry processing to allow nested and cyclic related entries
-\item Added Croatian localization (Ivo Pletikosić)
-\item Added Polish localization (Anastasia Kandulina, Yuriy Chernyshov)
-\item Fixed Catalan localization
-\item Added smart ``of'' for titles to Catalan and French localization
+\item Added Croatian localisation (Ivo Pletikosić)
+\item Added Polish localisation (Anastasia Kandulina, Yuriy Chernyshov)
+\item Fixed Catalan localisation
+\item Added smart ``of'' for titles to Catalan and French localisation
 \item Misc bug fixes
 \end{release}
 
 \begin{release}{2.5}{2013-01-10}
-\item Made \texttt{url} work as a localization string, defaulting to previously hard-coded value <\textsc{URL}>.
+\item Made \texttt{url} work as a localisation string, defaulting to previously hard-coded value <\textsc{URL}>.
 \item Changed some \biber\ option names to cohere with \biber\ 1.5.
-\item New sourcemap step for conditionally removing entire entries\see{aut:ctm:map}\BiberOnlyMark
-\item Updated Catalan localization (Sebastià Vila-Marta)
+\item New sourcemap step for conditionally removing entire entries\see{aut:ctm:map}
+\item Updated Catalan localisation (Sebastià Vila-Marta)
 \end{release}
 
 \begin{release}{2.4}{2012-11-28}
-\item Added \bibfield{relatedoptions} field\see{aut:ctm:rel}\BiberOnlyMark
-\item Added \cmd{DeclareStyleSourcemap}\see{aut:ctm:map}\BiberOnlyMark
-\item Renamed \cmd{DeclareDefaultSourcemap} to \cmd{DeclareDriverSourcemap}\see{aut:ctm:map}\BiberOnlyMark
+\item Added \bibfield{relatedoptions} field\see{aut:ctm:rel}
+\item Added \cmd{DeclareStyleSourcemap}\see{aut:ctm:map}
+\item Renamed \cmd{DeclareDefaultSourcemap} to \cmd{DeclareDriverSourcemap}\see{aut:ctm:map}
 \item Documented \cmd{DeclareFieldInputHandler}, \cmd{DeclareListInputHandler} and \cmd{DeclareNameInputHandler}.
-\item Added Czech localization (Michal Hoftich)
-\item Updated Catalan localization (Sebastià Vila-Marta)
+\item Added Czech localisation (Michal Hoftich)
+\item Updated Catalan localisation (Sebastià Vila-Marta)
 \end{release}
 
 \begin{release}{2.3}{2012-11-01}
 \item Better detection of situations which require a \biber\ or \LaTeX\ re-run
-\item New append mode for \cmd{DeclareSourcemap} so that fields can be combined\see{aut:ctm:map}\BiberOnlyMark
+\item New append mode for \cmd{DeclareSourcemap} so that fields can be combined\see{aut:ctm:map}
 \item Extended auxiliary indexing macros
-\item Added support for plural localization strings with \bibfield{relatedtype}\see{aut:ctm:rel}\BiberOnlyMark
+\item Added support for plural localisation strings with \bibfield{relatedtype}\see{aut:ctm:rel}
 \item Added \cmd{csfield} and \cmd{usefield}\see{aut:aux:dat}
 \item Added starred variant of \cmd{usebibmacro}\see{aut:aux:msc}
 \item Added \cmd{ifbibmacroundef}, \cmd{iffieldformatundef}, \cmd{iflistformatundef}
   and \cmd{ifnameformatundef}\see{aut:aux:msc}
-\item Added Catalan localization (Sebastià Vila-Marta)
+\item Added Catalan localisation (Sebastià Vila-Marta)
 \item Misc bug fixes
 \end{release}
 
@@ -793,42 +807,42 @@ This revision history is a list of changes relevant to users of this package. Ch
 
 \begin{release}{2.1}{2012-08-01}
 \item Misc bug fixes
-\item Updated Norwegian localization (Håkon Malmedal)
-\item Increased data model auto-loading possibilities\see{aut:ctm:dm}\BiberOnlyMark
+\item Updated Norwegian localisation (Håkon Malmedal)
+\item Increased data model auto-loading possibilities\see{aut:ctm:dm}
 \end{release}
 
 \begin{release}{2.0}{2012-07-01}
 \item Misc bug fixes
-\item Generalised \opt{singletitle} test a little\see{aut:aux:tst}\BiberOnlyMark
-\item Added new special field \bibfield{extratitleyear}\see{aut:bbx:fld}\BiberOnlyMark
-\item Customisable data model\see{aut:ctm:dm}\BiberOnlyMark
-\item Added \cmd{DeclareDefaultSourcemap}\see{aut:ctm:map}\BiberOnlyMark
-\item Added \opt{labeltitle} option\see{use:opt:pre:int}\BiberOnlyMark
-\item Added new special field \bibfield{extratitle}\see{aut:bbx:fld}\BiberOnlyMark
-\item Made special field \bibfield{labeltitle} customisable\see{aut:bbx:fld}\BiberOnlyMark
-\item Removed field \bibfield{reprinttitle}\see{use:rel}\BiberOnlyMark
-\item Added related entry feature\see{use:rel}\BiberOnlyMark
-\item Added \cmd{DeclareNoinit}\see{aut:ctm:noinit}\BiberOnlyMark
-\item Added \cmd{DeclareNosort}\see{aut:ctm:nosort}\BiberOnlyMark
-\item Added \opt{sorting} option for \cmd{printbibliography} and \cmd{printshorthands}\see{use:bib:bib}\BiberOnlyMark
-\item Added \texttt{ids} field for citekey aliasing\see{bib:fld}\BiberOnlyMark
-\item Added \opt{sortfirstinits} option\see{use:opt:pre:int}\BiberOnlyMark
-\item Added data stream modification feature\see{aut:ctm:map}\BiberOnlyMark
-\item Added customisable labels feature\see{aut:ctm:lab}\BiberOnlyMark
+\item Generalised \opt{singletitle} test a little\see{aut:aux:tst}
+\item Added new special field \bibfield{extratitleyear}\see{aut:bbx:fld}
+\item Customisable data model\see{aut:ctm:dm}
+\item Added \cmd{DeclareDefaultSourcemap}\see{aut:ctm:map}
+\item Added \opt{labeltitle} option\see{use:opt:pre:int}
+\item Added new special field \bibfield{extratitle}\see{aut:bbx:fld}
+\item Made special field \bibfield{labeltitle} customisable\see{aut:bbx:fld}
+\item Removed field \bibfield{reprinttitle}\see{use:rel}
+\item Added related entry feature\see{use:rel}
+\item Added \cmd{DeclareNoinit}\see{aut:ctm:noinit}
+\item Added \cmd{DeclareNosort}\see{aut:ctm:nosort}
+\item Added \opt{sorting} option for \cmd{printbibliography} and \cmd{printshorthands}\see{use:bib:bib}
+\item Added \texttt{ids} field for citekey aliasing\see{bib:fld}
+\item Added \opt{sortfirstinits} option\see{use:opt:pre:int}
+\item Added data stream modification feature\see{aut:ctm:map}
+\item Added customisable labels feature\see{aut:ctm:lab}
 \item Added \cmd{citeyear*} and \cmd{citedate*}\see{use:cit:txt}
 \end{release}
 
 % \begin{release}{1.7}{2011-11-13}
-% \item Added \texttt{xdata} containers\see{use:use:xdat}\BiberOnlyMark
-% \item Added special entry type \bibfield{xdata}\see{bib:typ:blx}\BiberOnlyMark
-% \item Added special field \bibfield{xdata}\see{bib:fld:spc}\BiberOnlyMark
-% \item Support \opt{maxnames}/\opt{minnames} globally/per-type/per-entry\see{use:opt:pre:gen}\BiberOnlyMark
-% \item Support \opt{maxbibnames}/\opt{minbibnames} globally/per-type/per-entry\see{use:opt:pre:gen}\BiberOnlyMark
-% \item Support \opt{maxcitenames}/\opt{mincitenames} globally/per-type/per-entry\see{use:opt:pre:gen}\BiberOnlyMark
-% \item Support \opt{maxitems}/\opt{minitems} globally/per-type/per-entry\see{use:opt:pre:gen}\BiberOnlyMark
-% \item Support \opt{maxalphanames}/\opt{minalphanames} globally/per-type/per-entry\see{use:opt:pre:int}\BiberOnlyMark
-% \item Support \opt{uniquelist} globally/per-type/per-entry\see{use:opt:pre:int}\BiberOnlyMark
-% \item Support \opt{uniquename} globally/per-type/per-entry\see{use:opt:pre:int}\BiberOnlyMark
+% \item Added \texttt{xdata} containers\see{use:use:xdat}
+% \item Added special entry type \bibfield{xdata}\see{bib:typ:blx}
+% \item Added special field \bibfield{xdata}\see{bib:fld:spc}
+% \item Support \opt{maxnames}/\opt{minnames} globally/per-type/per-entry\see{use:opt:pre:gen}
+% \item Support \opt{maxbibnames}/\opt{minbibnames} globally/per-type/per-entry\see{use:opt:pre:gen}
+% \item Support \opt{maxcitenames}/\opt{mincitenames} globally/per-type/per-entry\see{use:opt:pre:gen}
+% \item Support \opt{maxitems}/\opt{minitems} globally/per-type/per-entry\see{use:opt:pre:gen}
+% \item Support \opt{maxalphanames}/\opt{minalphanames} globally/per-type/per-entry\see{use:opt:pre:int}
+% \item Support \opt{uniquelist} globally/per-type/per-entry\see{use:opt:pre:int}
+% \item Support \opt{uniquename} globally/per-type/per-entry\see{use:opt:pre:int}
 % \item Added \cmd{textcite} and \cmd{textcites} to all \texttt{verbose} citation styles\see{use:xbx:cbx}
 % \item Added special field formats \texttt{date}, \texttt{urldate}, \texttt{origdate}, \texttt{eventdate}\see{aut:fmt:ich}
 % \item Added \cmd{mkcomprange*}\see{aut:aux:msc}
@@ -839,8 +853,8 @@ This revision history is a list of changes relevant to users of this package. Ch
 % \item Added counter \cnt{biburlnumpenalty}\see{aut:fmt:len}
 % \item Added counter \cnt{biburlucpenalty}\see{aut:fmt:len}
 % \item Added counter \cnt{biburllcpenalty}\see{aut:fmt:len}
-% \item Added localization keys \texttt{book}, \texttt{part}, \texttt{issue}, \texttt{forthcoming}\see{aut:lng:key}
-% \item Added some \texttt{lang...} and \texttt{from...} localization keys\see{aut:lng:key}
+% \item Added localisation keys \texttt{book}, \texttt{part}, \texttt{issue}, \texttt{forthcoming}\see{aut:lng:key}
+% \item Added some \texttt{lang...} and \texttt{from...} localisation keys\see{aut:lng:key}
 % \item Expanded documentation\see{apx:opt}
 % \item Added support for Russian (Oleg Domanov)
 % \item Updated support for Dutch (Pieter Belmans)
@@ -849,11 +863,11 @@ This revision history is a list of changes relevant to users of this package. Ch
 % \end{release}
 
 % \begin{release}{1.6}{2011-07-29}
-% \item Added special field \bibfield{sortshorthand}\see{bib:fld:spc}\BiberOnlyMark
+% \item Added special field \bibfield{sortshorthand}\see{bib:fld:spc}
 % \item Revised options \opt{maxnames}/\opt{minnames}\see{use:opt:pre:gen}
-% \item Options \opt{maxcitenames}/\opt{mincitenames} now supported by backend\see{use:opt:pre:gen}\BiberOnlyMark
-% \item Options \opt{maxbibnames}/\opt{minbibnames} now supported by backend\see{use:opt:pre:gen}\BiberOnlyMark
-% \item Added options \opt{maxalphanames}/\opt{minalphanames}\see{use:opt:pre:int}\BiberOnlyMark
+% \item Options \opt{maxcitenames}/\opt{mincitenames} now supported by backend\see{use:opt:pre:gen}
+% \item Options \opt{maxbibnames}/\opt{minbibnames} now supported by backend\see{use:opt:pre:gen}
+% \item Added options \opt{maxalphanames}/\opt{minalphanames}\see{use:opt:pre:int}
 % \item Removed local options \opt{maxnames}/\opt{minnames} from \cmd{printbibliography}\see{use:bib:bib}
 % \item Removed local options \opt{maxitems}/\opt{minitems} from \cmd{printbibliography}\see{use:bib:bib}
 % \item Removed local options \opt{maxnames}/\opt{minnames} from \cmd{bibbysection}\see{use:bib:bib}
@@ -866,7 +880,7 @@ This revision history is a list of changes relevant to users of this package. Ch
 % \item Removed local options \opt{maxitems}/\opt{minitems} from \cmd{printshorthands}\see{use:bib:biblist}
 % \item Added special field format \bibfield{volcitevolume}\see{use:cit:spc}
 % \item Added special field format \bibfield{volcitepages}\see{use:cit:spc}
-% \item Added special field \bibfield{hash}\see{aut:bbx:fld:gen}\BiberOnlyMark
+% \item Added special field \bibfield{hash}\see{aut:bbx:fld:gen}
 % \item Added \cmd{mkcomprange}\see{aut:aux:msc}
 % \item Added \cmd{mkfirstpage}\see{aut:aux:msc}
 % \item Removed \cmd{mkpagefirst}\see{aut:aux:msc}
@@ -878,13 +892,13 @@ This revision history is a list of changes relevant to users of this package. Ch
 % \end{release}
 
 % \begin{release}{1.5}{2011-06-08}
-% \item Added option \kvopt{uniquename}{mininit/minfull}\see{use:opt:pre:int}\BiberOnlyMark
-% \item Added option \kvopt{uniquelist}{minyear}\see{use:opt:pre:int}\BiberOnlyMark
-% \item Updated documentation of \cnt{uniquename} counter\see{aut:aux:tst}\BiberOnlyMark
-% \item Updated documentation of \cnt{uniquelist} counter\see{aut:aux:tst}\BiberOnlyMark
-% \item Expanded documentation for \opt{uniquename/uniquelist} options\see{aut:cav:amb}\BiberOnlyMark
+% \item Added option \kvopt{uniquename}{mininit/minfull}\see{use:opt:pre:int}
+% \item Added option \kvopt{uniquelist}{minyear}\see{use:opt:pre:int}
+% \item Updated documentation of \cnt{uniquename} counter\see{aut:aux:tst}
+% \item Updated documentation of \cnt{uniquelist} counter\see{aut:aux:tst}
+% \item Expanded documentation for \opt{uniquename/uniquelist} options\see{aut:cav:amb}
 % \item Added editorial role \texttt{reviser}\see{bib:use:edr}
-% \item Added localization keys \texttt{reviser}, \texttt{revisers}, \texttt{byreviser}\see{aut:lng:key}
+% \item Added localisation keys \texttt{reviser}, \texttt{revisers}, \texttt{byreviser}\see{aut:lng:key}
 % \item Added bibliography heading \texttt{none}\see{use:bib:hdg}
 % \item Fixed some \sty{memoir} compatibility issues
 % \end{release}
@@ -904,11 +918,11 @@ This revision history is a list of changes relevant to users of this package. Ch
 % \end{release}
 
 % \begin{release}{1.4}{2011-03-31}
-% \item Added package option \opt{uniquelist}\see{use:opt:pre:int}\BiberOnlyMark
-% \item Added special counter \cnt{uniquelist}\see{aut:aux:tst}\BiberOnlyMark
-% \item Revised and improved package option \opt{uniquename}\see{use:opt:pre:int}\BiberOnlyMark
-% \item Revised and improved special counter \cnt{uniquename}\see{aut:aux:tst}\BiberOnlyMark
-% \item Added \cmd{bibnamedelimi}\see{use:fmt:fmt}\BiberOnlyMark
+% \item Added package option \opt{uniquelist}\see{use:opt:pre:int}
+% \item Added special counter \cnt{uniquelist}\see{aut:aux:tst}
+% \item Revised and improved package option \opt{uniquename}\see{use:opt:pre:int}
+% \item Revised and improved special counter \cnt{uniquename}\see{aut:aux:tst}
+% \item Added \cmd{bibnamedelimi}\see{use:fmt:fmt}
 % \item Added \cmd{bibindexnamedelima}\see{use:fmt:fmt}
 % \item Added \cmd{bibindexnamedelimb}\see{use:fmt:fmt}
 % \item Added \cmd{bibindexnamedelimc}\see{use:fmt:fmt}
@@ -929,20 +943,20 @@ This revision history is a list of changes relevant to users of this package. Ch
 % \item Updated \opt{terseinits} option\see{use:opt:pre:gen}
 % \item Allow macros in argument to \cmd{addbibresource} and friends\see{use:bib:res}
 % \item Allow macros in argument to \cmd{bibliography}\see{use:bib:res}
-% \item Introducing experimental support for Zotero \acr{RDF}/\acr{XML}\see{use:bib:res}\BiberOnlyMark
-% \item Introducing experimental support for EndNote \acr{XML}\see{use:bib:res}\BiberOnlyMark
+% \item Introducing experimental support for Zotero \acr{RDF}/\acr{XML}\see{use:bib:res}
+% \item Introducing experimental support for EndNote \acr{XML}\see{use:bib:res}
 % \item Added option \opt{citecounter}\see{use:opt:pre:int}
 % \item Added \cnt{citecounter}\see{aut:aux:tst}
 % \item Added \cmd{smartcite} and \cmd{Smartcite}\see{use:cit:cbx}
 % \item Added \cmd{smartcites} and \cmd{Smartcites}\see{use:cit:mlt}
 % \item Added \cmd{svolcite} and \cmd{Svolcite}\see{use:cit:spc}
-% \item Added \cmd{bibnamedelima}\see{use:fmt:fmt}\BiberOnlyMark
-% \item Added \cmd{bibnamedelimb}\see{use:fmt:fmt}\BiberOnlyMark
+% \item Added \cmd{bibnamedelima}\see{use:fmt:fmt}
+% \item Added \cmd{bibnamedelimb}\see{use:fmt:fmt}
 % \item Added \cmd{bibnamedelimc}\see{use:fmt:fmt}
 % \item Added \cmd{bibnamedelimd}\see{use:fmt:fmt}
-% \item Added \cmd{bibinitperiod}\see{use:fmt:fmt}\BiberOnlyMark
-% \item Added \cmd{bibinitdelim}\see{use:fmt:fmt}\BiberOnlyMark
-% \item Added \cmd{bibinithyphendelim}\see{use:fmt:fmt}\BiberOnlyMark
+% \item Added \cmd{bibinitperiod}\see{use:fmt:fmt}
+% \item Added \cmd{bibinitdelim}\see{use:fmt:fmt}
+% \item Added \cmd{bibinithyphendelim}\see{use:fmt:fmt}
 % \item Expanded documentation\see{use:cav:nam}
 % \item Added \prm{position} parameter \texttt{f} to \cmd{DeclareAutoCiteCommand}\see{aut:cbx:cbx}
 % \end{release}
@@ -956,18 +970,18 @@ This revision history is a list of changes relevant to users of this package. Ch
 % \item Added entry type \bibtype{mvcollection}\see{bib:typ:blx}
 % \item Added entry type \bibtype{mvproceedings}\see{bib:typ:blx}
 % \item Added entry type \bibtype{mvreference}\see{bib:typ:blx}
-% \item Introducing remote resources\see{use:bib:res}\BiberOnlyMark
-% \item Introducing experimental \acr{RIS} support\see{use:bib:res}\BiberOnlyMark
+% \item Introducing remote resources\see{use:bib:res}
+% \item Introducing experimental \acr{RIS} support\see{use:bib:res}
 % \item Added \cmd{addbibresource}\see{use:bib:res}
 % \item \cmd{bibliography} now deprecated\see{use:bib:res}
 % \item \cmd{bibliography*} replaced by \cmd{addglobalbib}\see{use:bib:res}
 % \item Added \cmd{addsectionbib}\see{use:bib:res}
 % \item Updated and expanded documentation\see{bib:cav:ref}
-% \item Introducing smart \bibfield{crossref} data inheritance\see{bib:cav:ref:bbr}\BiberOnlyMark
-% \item Introducing \bibfield{crossref} configuration interface\see{aut:ctm:ref}\BiberOnlyMark
-% \item Added \cmd{DefaultInheritance}\see{aut:ctm:ref}\BiberOnlyMark
-% \item Added \cmd{DeclareDataInheritance}\see{aut:ctm:ref}\BiberOnlyMark
-% \item Added \cmd{ResetDataInheritance}\see{aut:ctm:ref}\BiberOnlyMark
+% \item Introducing smart \bibfield{crossref} data inheritance\see{bib:cav:ref:bbr}
+% \item Introducing \bibfield{crossref} configuration interface\see{aut:ctm:ref}
+% \item Added \cmd{DefaultInheritance}\see{aut:ctm:ref}
+% \item Added \cmd{DeclareDataInheritance}\see{aut:ctm:ref}
+% \item Added \cmd{ResetDataInheritance}\see{aut:ctm:ref}
 % \item Added \cmd{ifkeyword}\see{aut:aux:tst}
 % \item Added \cmd{ifentrykeyword}\see{aut:aux:tst}
 % \item Added \cmd{ifcategory}\see{aut:aux:tst}
@@ -977,16 +991,16 @@ This revision history is a list of changes relevant to users of this package. Ch
 % \item Extended \cmd{mkpageprefix}\see{aut:aux:msc}
 % \item Extended \cmd{mkpagetotal}\see{aut:aux:msc}
 % \item Extended \cmd{mkpagefirst}\see{aut:aux:msc}
-% \item Added localization key \texttt{inpreparation}\see{aut:lng:key}
+% \item Added localisation key \texttt{inpreparation}\see{aut:lng:key}
 % \item Rearranged manual slightly, moving some tables to the appendix
 % \end{release}
 
 % \begin{release}{1.1b}{2011-02-04}
-% \item Added option \opt{texencoding}\see{use:opt:pre:gen}\BiberOnlyMark
-% \item Added option \opt{safeinputenc}\see{use:opt:pre:gen}\BiberOnlyMark
+% \item Added option \opt{texencoding}\see{use:opt:pre:gen}
+% \item Added option \opt{safeinputenc}\see{use:opt:pre:gen}
 % \item Expanded documentation\see{bib:cav:enc:enc}
 % \item Improved \opt{mergedate} option of bibliography style \texttt{authoryear}\see{use:xbx:bbx}
-% \item Removed \opt{pass} option of \cmd{DeclareSortingScheme}\see{aut:ctm:srt}\BiberOnlyMark
+% \item Removed \opt{pass} option of \cmd{DeclareSortingScheme}\see{aut:ctm:srt}
 % \item Fixed some bugs
 % \end{release}
 
@@ -1004,29 +1018,29 @@ This revision history is a list of changes relevant to users of this package. Ch
 % \item Fixed \kvopt{idemtracker}{strict} and \kvopt{idemtracker}{constrict}\see{use:opt:pre:int}
 % \item Added option \opt{mergedate} to bibliography style \texttt{authoryear}\see{use:xbx:bbx}
 % \item Added support for \opt{prefixnumbers} to bibliography style \texttt{alphabetic}\see{use:xbx:bbx}
-% \item Made option \bibfield{useprefix} settable on a per-type basis\see{use:opt:bib}\BiberOnlyMark
-% \item Made option \bibfield{useauthor} settable on a per-type basis\see{use:opt:bib}\BiberOnlyMark
-% \item Made option \bibfield{useeditor} settable on a per-type basis\see{use:opt:bib}\BiberOnlyMark
-% \item Made option \opt{usetranslator} settable on a per-type basis\see{use:opt:bib}\BiberOnlyMark
-% \item Made option \opt{skipbib} settable on a per-type basis\see{use:opt:bib}\BiberOnlyMark
-% \item Made option \opt{skiplos} settable on a per-type basis\see{use:opt:bib}\BiberOnlyMark
-% \item Made option \opt{skiplab} settable on a per-type basis\see{use:opt:bib}\BiberOnlyMark
-% \item Made option \opt{dataonly} settable on a per-type basis\see{use:opt:bib}\BiberOnlyMark
-% \item Made option \opt{labelalpha} settable on a per-type basis\see{use:opt:pre:int}\BiberOnlyMark
+% \item Made option \bibfield{useprefix} settable on a per-type basis\see{use:opt:bib}
+% \item Made option \bibfield{useauthor} settable on a per-type basis\see{use:opt:bib}
+% \item Made option \bibfield{useeditor} settable on a per-type basis\see{use:opt:bib}
+% \item Made option \opt{usetranslator} settable on a per-type basis\see{use:opt:bib}
+% \item Made option \opt{skipbib} settable on a per-type basis\see{use:opt:bib}
+% \item Made option \opt{skiplos} settable on a per-type basis\see{use:opt:bib}
+% \item Made option \opt{skiplab} settable on a per-type basis\see{use:opt:bib}
+% \item Made option \opt{dataonly} settable on a per-type basis\see{use:opt:bib}
+% \item Made option \opt{labelalpha} settable on a per-type basis\see{use:opt:pre:int}
 % \item Made option \opt{labelnumber} settable on a per-type basis\see{use:opt:pre:int}
-% \item Made option \opt{labelyear} settable on a per-type basis\see{use:opt:pre:int}\BiberOnlyMark
-% \item Made option \opt{singletitle} settable on a per-type basis\see{use:opt:pre:int}\BiberOnlyMark
-% \item Made option \opt{uniquename} settable on a per-type basis\see{use:opt:pre:int}\BiberOnlyMark
+% \item Made option \opt{labelyear} settable on a per-type basis\see{use:opt:pre:int}
+% \item Made option \opt{singletitle} settable on a per-type basis\see{use:opt:pre:int}
+% \item Made option \opt{uniquename} settable on a per-type basis\see{use:opt:pre:int}
 % \item Made option \opt{indexing} settable on a per-type basis\see{use:opt:pre:gen}
 % \item Made option \opt{indexing} settable on a per-entry basis\see{use:opt:pre:gen}
 % \item Extended \cmd{ExecuteBibliographyOptions}\see{use:cfg:opt}
 % \item Added \cmd{citedate}\see{use:cit:txt}
-% \item Improved static entry sets\see{use:use:set}\BiberOnlyMark
-% \item Introducing dynamic entry sets\see{use:use:set}\BiberOnlyMark
-% \item Added \cmd{defbibentryset}\see{use:bib:set}\BiberOnlyMark
-% \item Added option \opt{mcite}\see{use:opt:ldt}\BiberOnlyMark
-% \item Added \sty{mcite}\slash\sty{mciteplus}-like commands\see{use:cit:mct}\BiberOnlyMark
-% \item Added \cmd{sortalphaothers}\see{use:fmt:fmt}\BiberOnlyMark
+% \item Improved static entry sets\see{use:use:set}
+% \item Introducing dynamic entry sets\see{use:use:set}
+% \item Added \cmd{defbibentryset}\see{use:bib:set}
+% \item Added option \opt{mcite}\see{use:opt:ldt}
+% \item Added \sty{mcite}\slash\sty{mciteplus}-like commands\see{use:cit:mct}
+% \item Added \cmd{sortalphaothers}\see{use:fmt:fmt}
 % \item Extended \cmd{DeclareNameFormat}\see{aut:bib:fmt}
 % \item Extended \cmd{DeclareIndexNameFormat}\see{aut:bib:fmt}
 % \item Extended \cmd{DeclareListFormat}\see{aut:bib:fmt}
@@ -1039,14 +1053,14 @@ This revision history is a list of changes relevant to users of this package. Ch
 % \item Added \cmd{DeclareIndexListFormat*}\see{aut:bib:fmt}
 % \item Added \cmd{DeclareFieldFormat*}\see{aut:bib:fmt}
 % \item Added \cmd{DeclareIndexFieldFormat*}\see{aut:bib:fmt}
-% \item Introducing configurable sorting schemes\BiberOnlyMark
-% \item Added \cmd{DeclareSortingScheme}\see{aut:ctm:srt}\BiberOnlyMark
-% \item Added \cmd{DeclarePresort}\see{aut:ctm:srt}\BiberOnlyMark
-% \item Added \cmd{DeclareSortExclusion}\see{aut:ctm:srt}\BiberOnlyMark
-% \item Added \cmd{DeclareLabelname}\see{aut:ctm:fld}\BiberOnlyMark
-% \item Added \cmd{DeclareLabelyear}\see{aut:ctm:fld}\BiberOnlyMark
-% \item Improved special field \bibfield{labelname}\see{aut:bbx:fld}\BiberOnlyMark
-% \item Improved special field \bibfield{labelyear}\see{aut:bbx:fld}\BiberOnlyMark
+% \item Introducing configurable sorting schemes
+% \item Added \cmd{DeclareSortingScheme}\see{aut:ctm:srt}
+% \item Added \cmd{DeclarePresort}\see{aut:ctm:srt}
+% \item Added \cmd{DeclareSortExclusion}\see{aut:ctm:srt}
+% \item Added \cmd{DeclareLabelname}\see{aut:ctm:fld}
+% \item Added \cmd{DeclareLabelyear}\see{aut:ctm:fld}
+% \item Improved special field \bibfield{labelname}\see{aut:bbx:fld}
+% \item Improved special field \bibfield{labelyear}\see{aut:bbx:fld}
 % \item Added \cmd{entrydata*}\see{aut:bib:dat}
 % \item Added \cmd{RequireBiber}\see{aut:aux:msc}
 % \item Added option \opt{check} to \cmd{printbibliography}\see{use:bib:bib}
@@ -1193,8 +1207,8 @@ This revision history is a list of changes relevant to users of this package. Ch
 %\item Added \cmd{ifnatbibmode}\see{aut:aux:tst}
 %\item Added missing documentation of \cmd{ifbibxstring}\see{aut:aux:tst}
 %\item Added \cmd{providebibmacro}\see{aut:aux:msc}
-%\item Added localization key \texttt{backrefpage}\see{aut:lng:key}
-%\item Added localization key \texttt{backrefpages}\see{aut:lng:key}
+%\item Added localisation key \texttt{backrefpage}\see{aut:lng:key}
+%\item Added localisation key \texttt{backrefpages}\see{aut:lng:key}
 %\item Slightly expanded documentation\see{bib:use:dat}
 %\item Slightly expanded documentation\see{aut:bbx:fld:dat}
 %\item Added support for Finnish (translations by Hannu Väisänen)
@@ -1313,28 +1327,28 @@ This revision history is a list of changes relevant to users of this package. Ch
 %\item Added \cmd{iffieldpages}\see{aut:aux:tst}
 %\item Added \cmd{DeclarePageCommands} and \cmd{DeclarePageCommands*}\see{aut:aux:msc}
 %\item Improved \cmd{NewBibliographyString}\see{aut:lng:cmd}
-%\item Removed localization key \texttt{editor}\see{aut:lng:key}
-%\item Removed localization key \texttt{editors}\see{aut:lng:key}
-%\item Renamed localization key \texttt{typeeditor} to \texttt{editor}\see{aut:lng:key}
-%\item Renamed localization key \texttt{typeeditors} to \texttt{editors}\see{aut:lng:key}
-%\item Renamed localization key \texttt{typecompiler} to \texttt{compiler}\see{aut:lng:key}
-%\item Renamed localization key \texttt{typecompilers} to \texttt{compilers}\see{aut:lng:key}
-%\item Added localization key \texttt{founder}\see{aut:lng:key}
-%\item Added localization key \texttt{founders}\see{aut:lng:key}
-%\item Added localization key \texttt{continuator}\see{aut:lng:key}
-%\item Added localization key \texttt{continuators}\see{aut:lng:key}
-%\item Added localization key \texttt{collaborator}\see{aut:lng:key}
-%\item Added localization key \texttt{collaborators}\see{aut:lng:key}
-%\item Removed localization key \texttt{byauthor}\see{aut:lng:key}
-%\item Renamed localization key \texttt{bytypeauthor} to \texttt{byauthor}\see{aut:lng:key}
-%\item Removed localization key \texttt{byeditor}\see{aut:lng:key}
-%\item Renamed localization key \texttt{bytypeeditor} to \texttt{byeditor}\see{aut:lng:key}
-%\item Renamed localization key \texttt{bytypecompiler} to \texttt{bycompiler}\see{aut:lng:key}
-%\item Added localization key \texttt{byfounder}\see{aut:lng:key}
-%\item Added localization key \texttt{bycontinuator}\see{aut:lng:key}
-%\item Added localization key \texttt{bycollaborator}\see{aut:lng:key}
-%\item Added localization key \texttt{inpress}\see{aut:lng:key}
-%\item Added localization key \texttt{submitted}\see{aut:lng:key}
+%\item Removed localisation key \texttt{editor}\see{aut:lng:key}
+%\item Removed localisation key \texttt{editors}\see{aut:lng:key}
+%\item Renamed localisation key \texttt{typeeditor} to \texttt{editor}\see{aut:lng:key}
+%\item Renamed localisation key \texttt{typeeditors} to \texttt{editors}\see{aut:lng:key}
+%\item Renamed localisation key \texttt{typecompiler} to \texttt{compiler}\see{aut:lng:key}
+%\item Renamed localisation key \texttt{typecompilers} to \texttt{compilers}\see{aut:lng:key}
+%\item Added localisation key \texttt{founder}\see{aut:lng:key}
+%\item Added localisation key \texttt{founders}\see{aut:lng:key}
+%\item Added localisation key \texttt{continuator}\see{aut:lng:key}
+%\item Added localisation key \texttt{continuators}\see{aut:lng:key}
+%\item Added localisation key \texttt{collaborator}\see{aut:lng:key}
+%\item Added localisation key \texttt{collaborators}\see{aut:lng:key}
+%\item Removed localisation key \texttt{byauthor}\see{aut:lng:key}
+%\item Renamed localisation key \texttt{bytypeauthor} to \texttt{byauthor}\see{aut:lng:key}
+%\item Removed localisation key \texttt{byeditor}\see{aut:lng:key}
+%\item Renamed localisation key \texttt{bytypeeditor} to \texttt{byeditor}\see{aut:lng:key}
+%\item Renamed localisation key \texttt{bytypecompiler} to \texttt{bycompiler}\see{aut:lng:key}
+%\item Added localisation key \texttt{byfounder}\see{aut:lng:key}
+%\item Added localisation key \texttt{bycontinuator}\see{aut:lng:key}
+%\item Added localisation key \texttt{bycollaborator}\see{aut:lng:key}
+%\item Added localisation key \texttt{inpress}\see{aut:lng:key}
+%\item Added localisation key \texttt{submitted}\see{aut:lng:key}
 %\item Added support for Dutch (translations by Alexander van Loon)
 %\item Added support for Greek (translations by Apostolos Syropoulos)
 %\item Added notes on Greek\see{use:loc:grk}
@@ -1370,12 +1384,12 @@ This revision history is a list of changes relevant to users of this package. Ch
 %\item Added \cmd{mkbibordedition}\see{use:fmt:lng}
 %\item Added \cmd{mkbibordseries}\see{use:fmt:lng}
 %\item Added \cmd{mkbibendnote}\see{aut:fmt:ich}
-%\item Added several localization keys related to \texttt{editor}\see{aut:lng:key}
-%\item Added several localization keys related to \texttt{translator}\see{aut:lng:key}
-%\item Added localization key \texttt{thiscite}\see{aut:lng:key}
-%\item Removed several \texttt{country...} localization keys\see{aut:lng:key}
-%\item Removed several \texttt{patent...} localization keys\see{aut:lng:key}
-%\item Removed several \texttt{patreq...} localization keys\see{aut:lng:key}
+%\item Added several localisation keys related to \texttt{editor}\see{aut:lng:key}
+%\item Added several localisation keys related to \texttt{translator}\see{aut:lng:key}
+%\item Added localisation key \texttt{thiscite}\see{aut:lng:key}
+%\item Removed several \texttt{country...} localisation keys\see{aut:lng:key}
+%\item Removed several \texttt{patent...} localisation keys\see{aut:lng:key}
+%\item Removed several \texttt{patreq...} localisation keys\see{aut:lng:key}
 %\item Updated and clarified documentation\see{aut:lng:key}
 %\item Added support for Brazilian Portuguese (by Augusto Ritter Stoffel)
 %\item Added preliminary support for Portuguese/Portugal\see{use:opt:pre:gen}
@@ -1402,7 +1416,7 @@ This revision history is a list of changes relevant to users of this package. Ch
 %\item Added \cmd{addabthinspace}\see{aut:pct:spc}
 %\item Disable citation and page trackers in \acr{TOC}/\acr{LOT}/\acr{LOF}\see{aut:cav:flt}
 %\item Disable citation and page trackers in floats\see{aut:cav:flt}
-%\item Improved on-demand loading of localization modules
+%\item Improved on-demand loading of localisation modules
 %\item Fixed some bugs
 %
 %\end{release}
@@ -1461,7 +1475,7 @@ This revision history is a list of changes relevant to users of this package. Ch
 %\item Improved punctuation tracker\see{aut:pct:pct}
 %\item Added \cmd{DeclarePunctuationPairs}\see{aut:pct:cfg}
 %\item Added \cmd{DeclareLanguageMapping}\see{aut:lng:cmd}
-%\item Added support for custom localization modules\see{aut:cav:lng}
+%\item Added support for custom localisation modules\see{aut:cav:lng}
 %\item Added extended \pdf bookmarks to this manual
 %\item Fixed various bugs
 %
@@ -1478,8 +1492,8 @@ This revision history is a list of changes relevant to users of this package. Ch
 %\item Added \cmd{ifmemoirbibintoc}\see{use:cav:mem}
 %\item Updated documentation\see{use:bib:hdg}
 %\item Updated documentation of \cmd{iffootnote}\see{aut:aux:tst}
-%\item Added several new localization keys\see{aut:lng:key}
-%\item Rearranged some localization keys (\texttt{section} vs. \texttt{paragraph})\see{aut:lng:key}
+%\item Added several new localisation keys\see{aut:lng:key}
+%\item Rearranged some localisation keys (\texttt{section} vs. \texttt{paragraph})\see{aut:lng:key}
 %\item Added unsupported entry type \bibtype{letter}\see{bib:typ:ctm}
 %\item Added entry type \bibtype{suppbook}\see{bib:typ:blx}
 %\item Added entry type \bibtype{suppcollection}\see{bib:typ:blx}
@@ -1553,7 +1567,7 @@ This revision history is a list of changes relevant to users of this package. Ch
 %\item Added \cmd{DeclareRangeChars}\see{aut:aux:msc}
 %\item Added \cmd{DeclareRangeCommands}\see{aut:aux:msc}
 %\item Added support for Swedish (translations by Per Starbäck and others)
-%\item Updated various localization files
+%\item Updated various localisation files
 %\item Various minor improvements throughout
 %\item Fixed some bugs
 %
@@ -1777,7 +1791,7 @@ This revision history is a list of changes relevant to users of this package. Ch
 %\item Added \cmd{AtNextCite}\see{aut:fmt:hok}
 %\item Added \cmd{AtNextCitekey}\see{aut:fmt:hok}
 %\item Added \cmd{AtDataInput}\see{aut:fmt:hok}
-%\item Added several new localization keys\see{aut:lng:key}
+%\item Added several new localisation keys\see{aut:lng:key}
 %\item Added support for Norwegian (translations by Johannes Wilm)
 %\item Added support for Danish (translations by Johannes Wilm)
 %\item Expanded documentation\see{aut:cav:grp}
@@ -1870,7 +1884,7 @@ This revision history is a list of changes relevant to users of this package. Ch
 %\item Added \cmd{savecommand}\see{aut:aux:msc}
 %\item Added \cmd{restorecommand}\see{aut:aux:msc}
 %\item Added documentation of \texttt{shorthands} driver\see{aut:bbx:bbx}
-%\item Rearranged, renamed, and extended localization keys\see{aut:lng:key}
+%\item Rearranged, renamed, and extended localisation keys\see{aut:lng:key}
 %\item Renamed counter \cnt{citecount} to \cnt{instcount}\see{aut:fmt:ilc}
 %\item Added new counter \cnt{citecount}\see{aut:fmt:ilc}
 %\item Added counter \cnt{citetotal}\see{aut:fmt:ilc}
@@ -1974,30 +1988,30 @@ This revision history is a list of changes relevant to users of this package. Ch
 %\item Added \cmd{UndefineBibliographyExtras}\see{use:lng}
 %\item Added \cmd{UndeclareBibliographyExtras}\see{aut:lng:cmd}
 %\item Added \cmd{finalandcomma}\see{use:fmt:lng}
-%\item Added localization key \texttt{citedas}\see{aut:lng:key}
-%\item Renamed localization key \texttt{editby} to \texttt{edited}\see{aut:lng:key}
-%\item Renamed localization key \texttt{transby} to \texttt{translated}\see{aut:lng:key}
-%\item Added localization key \texttt{annotated}\see{aut:lng:key}
-%\item Added localization key \texttt{commented}\see{aut:lng:key}
-%\item Added localization key \texttt{introduced}\see{aut:lng:key}
-%\item Added localization key \texttt{foreworded}\see{aut:lng:key}
-%\item Added localization key \texttt{afterworded}\see{aut:lng:key}
-%\item Added localization key \texttt{commentary}\see{aut:lng:key}
-%\item Added localization key \texttt{annotations}\see{aut:lng:key}
-%\item Added localization key \texttt{introduction}\see{aut:lng:key}
-%\item Added localization key \texttt{foreword}\see{aut:lng:key}
-%\item Added localization key \texttt{afterword}\see{aut:lng:key}
-%\item Added localization key \texttt{doneby}\see{aut:lng:key}
-%\item Added localization key \texttt{itemby}\see{aut:lng:key}
-%\item Added localization key \texttt{spanish}\see{aut:lng:key}
-%\item Added localization key \texttt{latin}\see{aut:lng:key}
-%\item Added localization key \texttt{greek}\see{aut:lng:key}
-%\item Modified localization key \texttt{fromenglish}\see{aut:lng:key}
-%\item Modified localization key \texttt{fromfrench}\see{aut:lng:key}
-%\item Modified localization key \texttt{fromgerman}\see{aut:lng:key}
-%\item Added localization key \texttt{fromspanish}\see{aut:lng:key}
-%\item Added localization key \texttt{fromlatin}\see{aut:lng:key}
-%\item Added localization key \texttt{fromgreek}\see{aut:lng:key}
+%\item Added localisation key \texttt{citedas}\see{aut:lng:key}
+%\item Renamed localisation key \texttt{editby} to \texttt{edited}\see{aut:lng:key}
+%\item Renamed localisation key \texttt{transby} to \texttt{translated}\see{aut:lng:key}
+%\item Added localisation key \texttt{annotated}\see{aut:lng:key}
+%\item Added localisation key \texttt{commented}\see{aut:lng:key}
+%\item Added localisation key \texttt{introduced}\see{aut:lng:key}
+%\item Added localisation key \texttt{foreworded}\see{aut:lng:key}
+%\item Added localisation key \texttt{afterworded}\see{aut:lng:key}
+%\item Added localisation key \texttt{commentary}\see{aut:lng:key}
+%\item Added localisation key \texttt{annotations}\see{aut:lng:key}
+%\item Added localisation key \texttt{introduction}\see{aut:lng:key}
+%\item Added localisation key \texttt{foreword}\see{aut:lng:key}
+%\item Added localisation key \texttt{afterword}\see{aut:lng:key}
+%\item Added localisation key \texttt{doneby}\see{aut:lng:key}
+%\item Added localisation key \texttt{itemby}\see{aut:lng:key}
+%\item Added localisation key \texttt{spanish}\see{aut:lng:key}
+%\item Added localisation key \texttt{latin}\see{aut:lng:key}
+%\item Added localisation key \texttt{greek}\see{aut:lng:key}
+%\item Modified localisation key \texttt{fromenglish}\see{aut:lng:key}
+%\item Modified localisation key \texttt{fromfrench}\see{aut:lng:key}
+%\item Modified localisation key \texttt{fromgerman}\see{aut:lng:key}
+%\item Added localisation key \texttt{fromspanish}\see{aut:lng:key}
+%\item Added localisation key \texttt{fromlatin}\see{aut:lng:key}
+%\item Added localisation key \texttt{fromgreek}\see{aut:lng:key}
 %\item Expanded documentation\see{bib:use}
 %\item Updated documentation\see{use:xbx:cbx}
 %\item Updated documentation\see{use:xbx:bbx}
@@ -2184,4 +2198,4 @@ This revision history is a list of changes relevant to users of this package. Ch
 %
 %\end{release}
 
-\end{changelog}
+\end{changelog} 
