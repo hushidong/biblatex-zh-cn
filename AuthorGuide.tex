@@ -32,7 +32,7 @@
     %Run \bin{latex}: On the first run, \cmd{bibstyle} and \cmd{bibdata} commands are written to the \file{aux} file, along with \cmd{citation} commands for all citations. At this point, the references are undefined because \latex is waiting for \bibtex to supply the required data. There is also no bibliography yet.
 
 
-\item 运行 \bin{bibtex}:\bibtex 在\file{bbl}文件中写入一个\env{thebibliography}环境，用以提供\file{aux}文件中\cmd{citation}命令所需求的所有条目，这些条目的数据来自\file{bib}文件。
+\item 运行 \bin{bibtex}:\bibtex 在\file{bbl}文件中写入一个\env{thebibliography}环境，用以提供\file{aux}文件中\cmd{citation}命令所需求的所有\gls{条目}，这些条目的数据来自\file{bib}文件。
     %Run \bin{bibtex}: \bibtex writes a \env{thebibliography} environment to the \file{bbl} file, supplying all entries from the \file{bib} file which were requested by the \cmd{citation} commands in the \file{aux} file.
 
 
@@ -179,7 +179,7 @@ and Samarin}}}
 \subsection{参考文献著录样式}%Bibliography Styles
 \label{aut:bbx}
 
-一个参考文献著录样式是用于控制打印参考文献表中条目的宏的集合，定义在扩展名为\file{bbx}的文件中。\biblatex 包在其结尾加载所选择的参考文献样式文件。需要注意:一些由多个标准样式文件共享的常用宏定义在\path{biblatex.def}文件中。该文件同样在包结尾加载，但先于参考文献样式文件。
+一个\gls{参考文献著录样式}是用于控制打印参考文献表中条目的宏的集合，定义在扩展名为\file{bbx}的文件中。\biblatex 包在其结尾加载所选择的参考文献样式文件。需要注意:一些由多个标准样式文件共享的常用宏定义在\path{biblatex.def}文件中。该文件同样在包结尾加载，但先于参考文献样式文件。
 %A bibliography style is a set of macros which print the entries in the bibliography. Such styles are defined in files with the suffix \file{bbx}. The \biblatex package loads the selected bibliography style file at the end of the package. Note that a small repertory of frequently used macros shared by several of the standard bibliography styles is included in \path{biblatex.def}. This file is loaded at the end of the package as well, prior to the selected bibliography style.
 
 \subsubsection{参考文献著录样式文件}% Bibliography Style Files
@@ -1154,7 +1154,7 @@ eventdate	& 1995-01-31/1995-02-05	& eventday	& 31 \\
 
 \subsection{标注样式}%Citation Styles
 \label{aut:cbx}
-标注样式是诸如\cmd{cite}等用于打印不同类型标注的命令集。这些样式定义在后缀为\file{cbx}的文件中。\biblatex 在包末尾加载它们。注意:一些标准标注样式的常用共享宏集放在\path{biblatex.def}文件中。这一文件也在包末尾加载，先于选择的标注样式。它也包含由来自\secref{use:cit:txt}节的命令的定义。
+\gls{参考文献标注样式}是诸如\cmd{cite}等用于打印不同类型标注的命令集。这些样式定义在后缀为\file{cbx}的文件中。\biblatex 在包末尾加载它们。注意:一些标准标注样式的常用共享宏集放在\path{biblatex.def}文件中。这一文件也在包末尾加载，先于选择的标注样式。它也包含由来自\secref{use:cit:txt}节的命令的定义。
 %A citation style is a set of commands such as \cmd{cite} which print different types of citations. Such styles are defined in files with the suffix \file{cbx}. The \biblatex package loads the selected citation style file at the end of the package. Note that a small repertory of frequently used macros shared by several of the standard citation styles is also included in \path{biblatex.def}. This file is loaded at the end of the package as well, prior to the selected citation style. It also contains the definitions of the commands from \secref{use:cit:txt}.
 
 \subsubsection{标注样式文件}% Citation Style Files
@@ -6287,15 +6287,17 @@ Locally un-defines the internal hook specified by \cmd{AtNextCitekey}. This esse
 
 \end{ltxsyntax}
 
-\subsection{提示与警告 Hints and Caveats}
+\subsection{提示与警告}%Hints and Caveats
 \label{aut:cav}
 
-This section provides some additional hints concerning the author interface of this package. It also addresses common problems and potential misconceptions.
+本节提供了关于biblatex宏包接口的一些附加提示，也将论述一些普遍性的问题和容易误解的概念。
+%This section provides some additional hints concerning the author interface of this package. It also addresses common problems and potential misconceptions.
 
-\subsubsection{条目集 Entry Sets}
+\subsubsection{条目集}%Entry Sets
 \label{aut:cav:set}
 
-Entry sets have already been introduced in \secref{use:use:set}. This section discusses how to process entry sets in a bibliography style. From the perspective of the driver, there is no difference between static and dynamic entry sets. Both types are handled in the same way. You will normally use the \cmd{entryset} command from \secref{aut:bib:dat} to loop over all set members (in the order in which they are listed in the \bibfield{entryset} field of the \bibtype{set} entry, or in the order in which they were passed to \cmd{defbibentryset}, respectively) and append \cmd{finentry} at the end. That's it. The formatting is handled by the drivers for the entry types of the individual set members:
+条目集已经在\secref{use:use:set}节介绍过，本节主要讨论怎么在著录样式中处理条目集。从驱动的角度看，静态和动态的条目集并无差别。两者都以相同方式处理。只需要使用\secref{aut:bib:dat}的\cmd{entryset}命令遍历集的所有成员(以在\bibtype{set}条目的\bibfield{entryset}域中的出现的顺序，或者它们传递给\cmd{defbibentryset}命令的顺序进行遍历)，并在最后加上\cmd{finentry}命令即可。格式化则有集的成员各自的条目类型的驱动控制。
+%Entry sets have already been introduced in \secref{use:use:set}. This section discusses how to process entry sets in a bibliography style. From the perspective of the driver, there is no difference between static and dynamic entry sets. Both types are handled in the same way. You will normally use the \cmd{entryset} command from \secref{aut:bib:dat} to loop over all set members (in the order in which they are listed in the \bibfield{entryset} field of the \bibtype{set} entry, or in the order in which they were passed to \cmd{defbibentryset}, respectively) and append \cmd{finentry} at the end. That's it. The formatting is handled by the drivers for the entry types of the individual set members:
 
 \begin{ltxexample}
 \DeclareBibliographyDriver{set}{%
@@ -6303,7 +6305,8 @@ Entry sets have already been introduced in \secref{use:use:set}. This section di
   \finentry}
 \end{ltxexample}
 %
-You may have noticed that the \texttt{numeric} styles which ship with this package support subdivided entry sets, \ie the members of the set are marked with a letter or some other marker such that citations may either refer to the entire set or to a specific set member. The markers are generated as follows by the bibliography style:
+需要注意: 本宏包附带的\texttt{numeric}样式支持条目集细分，即集成员以一个字母或者其他记号来标记，标注命令可以引用整个集或者其中的某一具体成员。记号由样式文件以如下方式生成:
+%You may have noticed that the \texttt{numeric} styles which ship with this package support subdivided entry sets, \ie the members of the set are marked with a letter or some other marker such that citations may either refer to the entire set or to a specific set member. The markers are generated as follows by the bibliography style:
 
 \begin{ltxexample}
 \DeclareBibliographyDriver{set}{%
@@ -6314,18 +6317,20 @@ You may have noticed that the \texttt{numeric} styles which ship with this packa
   \finentry}
 \end{ltxexample}
 %
-The \bibfield{entrysetcount} field holds an integer indicating the position of a set member in the entry set. The conversion of this number to a letter or some other marker is handled by the formatting directive of the \bibfield{entrysetcount} field. All the driver needs to do is print the field and add some white space (or start a new line). Printing the markers in citations works in a similar way. Where a numeric style normally says |\printfield{labelnumber}|, you simply append the \bibfield{entrysetcount} field:
+\bibfield{entrysetcount}域保存了一个整数用于指示集成员在整个集中的位置。数字是转换为一个字母还是其他记号由域格式\bibfield{entrysetcount}控制。所有驱动需要做的是打印域和一些空格(或者换行)。在标注中打印记号的方式类似。当顺序编码制样式给出|\printfield{labelnumber}|时，可以简单地加上\bibfield{entrysetcount}域。
+%The \bibfield{entrysetcount} field holds an integer indicating the position of a set member in the entry set. The conversion of this number to a letter or some other marker is handled by the formatting directive of the \bibfield{entrysetcount} field. All the driver needs to do is print the field and add some white space (or start a new line). Printing the markers in citations works in a similar way. Where a numeric style normally says |\printfield{labelnumber}|, you simply append the \bibfield{entrysetcount} field:
 
 \begin{ltxexample}
 \printfield{labelnumber}<<\printfield{entrysetcount}>>
 \end{ltxexample}
 %
-Since this field is only defined when processing citations referring to a set member, there is no need to add any additional tests.
+因为该域仅在处理标注指向一个集成员时定义，所以没有必要添加任何更多的判断。
+%Since this field is only defined when processing citations referring to a set member, there is no need to add any additional tests.
 
-\subsubsection{电子出版信息 Electronic Publishing Information}
+\subsubsection{电子出版信息}%Electronic Publishing Information
 \label{aut:cav:epr}
-
-The standard styles feature dedicated support for arXiv references. Support for other resources is easily added. The standard styles handle the \bibfield{eprint} field as follows:
+标准样式主要支持arXiv网站的文献\footnote{译者:arXiv 原先是由物理学家保罗·金斯巴格在1991年建立的网站，本意在收集物理学的论文预印本，随后括及天文、数学等其它领域。金斯巴格因为这个网站获得了2002年的麦克阿瑟奖。arXiv 原先挂在洛斯阿拉莫斯国家实验室，是故早期被称为「LANL 预印本数据库」。目前的 arXiv 落脚于康乃尔大学[1]，并在全球各地设有镜像站点。网站在1999年改名为 arXiv.org 。}。其它资源的支持很容易增加。标准样式以如下方式处理\bibfield{eprint}域:
+%The standard styles feature dedicated support for arXiv references. Support for other resources is easily added. The standard styles handle the \bibfield{eprint} field as follows:
 
 \begin{ltxexample}
 \iffieldundef{eprinttype}
@@ -6333,19 +6338,22 @@ The standard styles feature dedicated support for arXiv references. Support for 
   {\printfield[<<eprint:\strfield{eprinttype}>>]{eprint}}
 \end{ltxexample}
 %
-If an \bibfield{eprinttype} field is available, the above code tries to use the field format \texttt{eprint:\prm{eprinttype}}. If this format is undefined, \cmd{printfield} automatically falls back to the field format \texttt{eprint}. There are two predefined field formats, the type"=specific format \texttt{eprint:arxiv} and the fallback format \texttt{eprint}:
+如果\bibfield{eprinttype}域存在，上述代码将使用域格式\texttt{eprint:\prm{eprinttype}}。如果该格式未定义，\cmd{printfield}自动退回到使用域格式\texttt{eprint}。有两种预定义的域格式，type"=specific(具体类型的)域格式\texttt{eprint:arxiv}和通用域格式\texttt{eprint}。
+%If an \bibfield{eprinttype} field is available, the above code tries to use the field format \texttt{eprint:\prm{eprinttype}}. If this format is undefined, \cmd{printfield} automatically falls back to the field format \texttt{eprint}. There are two predefined field formats, the type"=specific format \texttt{eprint:arxiv} and the fallback format \texttt{eprint}:
 
 \begin{ltxexample}
 \DeclareFieldFormat{<<eprint>>}{...}
 \DeclareFieldFormat{<<eprint:arxiv>>}{...}
 \end{ltxexample}
 %
-In other words, adding support for additional resources is as easy as defining a field format named \texttt{eprint:\prm{resource}} where \prm{resource} is an identifier to be used in the \bibfield{eprinttype} field.
+换句话说，增加其他数据源的支持只需要定义一个名为\texttt{eprint:\prm{resource}}的与格式，其中\prm{resource}是在\bibfield{eprinttype}域中使用的标识。
+%In other words, adding support for additional resources is as easy as defining a field format named \texttt{eprint:\prm{resource}} where \prm{resource} is an identifier to be used in the \bibfield{eprinttype} field.
 
-\subsubsection{额外的摘要和注释 External Abstracts and Annotations}
+\subsubsection{外部摘要和注释}% External Abstracts and Annotations
 \label{aut:cav:prf}
 
-External abstracts and annotations have been discussed in \secref{use:use:prf}. This section provides some more background for style authors. The standard styles use the following macros (from \path{biblatex.def}) to handle abstracts and annotations:
+外部摘要和注释已经在\secref{use:use:prf}节讨论过，本节为样式作者提供更多的背景知识。标准样式使用如下的宏(来自 \path{biblatex.def})来处理摘要和注释:
+%External abstracts and annotations have been discussed in \secref{use:use:prf}. This section provides some more background for style authors. The standard styles use the following macros (from \path{biblatex.def}) to handle abstracts and annotations:
 
 \begin{ltxexample}
 \newbibmacro*{annotation}{%
@@ -6361,42 +6369,47 @@ External abstracts and annotations have been discussed in \secref{use:use:prf}. 
 \newcommand*{<<\bibabstractprefix>>}{bibabstract-}
 \end{ltxexample}
 %
-If the \bibfield{abstract}\slash \bibfield{annotation} field is undefined, the above code tries to load the abstracts\slash annotations from an external file. The \cmd{printfile} commands also incorporate file name prefixes which may be redefined by users. Note that you must enable \cmd{printfile} explicitly by setting the \opt{loadfiles} package option from \secref{use:opt:pre:gen}. This feature is disabled by default for performance reasons.
+如果\bibfield{abstract}\slash \bibfield{annotation}域未定义，上述代码将从外部文件中加载摘要和注释。\cmd{printfile}将根据用户定义的前缀来搜索文件名。注意:必须显式地设置\secref{use:opt:pre:gen}节的\opt{loadfiles}包选项来打开\cmd{printfile}功能。基于性能原因该功能默认是关闭的。
+%If the \bibfield{abstract}\slash \bibfield{annotation} field is undefined, the above code tries to load the abstracts\slash annotations from an external file. The \cmd{printfile} commands also incorporate file name prefixes which may be redefined by users. Note that you must enable \cmd{printfile} explicitly by setting the \opt{loadfiles} package option from \secref{use:opt:pre:gen}. This feature is disabled by default for performance reasons.
 
-\subsubsection[消除姓名歧义 Name Disambiguation]{消除姓名歧义 Name Disambiguation\BiberOnlyMark}
+\subsubsection[消除姓名歧义]{消除姓名歧义}%Name Disambiguation
 \label{aut:cav:amb}
 在\secref{use:opt:pre:int}节引入的\opt{uniquename}和\opt{uniquelist}选项支持多种操作模式。本节用举例方式介绍不同模式的差别。\opt{uniquename}选项消除\bibfield{labelname}列表中各姓名间的歧义，\opt{uniquelist}消除因\opt{maxnames}\slash \opt{minnames}截短导致的\bibfield{labelname}列表歧义。两个选项可以单独使用也可以联合使用:
 %The \opt{uniquename} and \opt{uniquelist} options introduced in \secref{use:opt:pre:int} support various modes of operation. This section explains the differences between these modes by way of example. The \opt{uniquename} option disambiguates individual names in the \bibfield{labelname} list. The \opt{uniquelist} option disambiguates the \bibfield{labelname} list if it has become ambiguous after \opt{maxnames}\slash \opt{minnames} truncation. You can use either option stand-alone or combine both.
 
-
-
-Name disambiguation works by taking a <base> which is composed of one or more nameparts and then determining what needs to be added, if anything, to this <base> to make the name unique in the current refsection. Name disambiguation is controlled by the uniquename template declared with the following command:
+消除姓名歧义原理是根据由一个或多个姓名成分构成的<base>来确定需要在其基础上添加什么(如果存在的话)使得姓名在当前参考文献节中是唯一的。消除姓名歧义由如下命令声明的uniquename模板控制:
+%Name disambiguation works by taking a <base> which is composed of one or more nameparts and then determining what needs to be added, if anything, to this <base> to make the name unique in the current refsection. Name disambiguation is controlled by the uniquename template declared with the following command:
 
 \begin{ltxsyntax}
 
 \cmditem{DeclareUniquenameTemplate}{specification}
 
-The \prm{specification} is a list of \cmd{namepart} commands which define the nameparts to use in determining the uniquename information
+\prm{specification}是\cmd{namepart}命令列表，定义了确定uniquename信息使用的姓名成分。
+%The \prm{specification} is a list of \cmd{namepart} commands which define the nameparts to use in determining the uniquename information
 
 \cmditem{namepart}[options]{namepart}
 
-\prm{namepart} is one of the datamodel nameparts defined with the \cmd{DeclareDatamodelConstant} command (see \secref{aut:bbx:drv}). The \opt{options} are:
+\prm{namepart}是数据模型中的姓名成分，由\cmd{DeclareDatamodelConstant}命令定义(见\secref{aut:bbx:drv})。选项包括:
+%\prm{namepart} is one of the datamodel nameparts defined with the \cmd{DeclareDatamodelConstant} command (see \secref{aut:bbx:drv}). The \opt{options} are:
 
 \begin{optionlist*}
 
 \boolitem[false]{use}
 
-Only use the \prm{namepart} in constructing the uniquename information if there is a corresponding option \opt{use<namepart>} and that option is true.
+在构建uniquename信息中仅使用\prm{namepart}，如果存在相应的选项\opt{use<namepart>}并且值为true。
+%Only use the \prm{namepart} in constructing the uniquename information if there is a corresponding option \opt{use<namepart>} and that option is true.
 
 \boolitem[false]{base}
 
-The \prm{namepart} is part of the <base> which is the main piece of namepart(s) information which is being disambiguated by uniqueness information.
+\prm{namepart}是<base>的部分，<base>是用作唯一性区分的namepart(s)信息的主段。
+%The \prm{namepart} is part of the <base> which is the main piece of namepart(s) information which is being disambiguated by uniqueness information.
 
 \end{optionlist*}
 
 \end{ltxsyntax}
 %
-The default uniquename template is:
+默认的uniquename模板是:
+%The default uniquename template is:
 
 \begin{ltxexample}
 \DeclareUniquenameTemplate{
@@ -6406,11 +6419,12 @@ The default uniquename template is:
 }
 \end{ltxexample}
 %
-This means that the <base> to be disambiguated consists of the <family> namepart, along with any prefix, if the \opt{useprefix} option is true. The disambiguation is performed by adding aspects of any non <base> nameparts in the specification, here just the <given> namepart.
+这意味着要区分的<base>由姓(<family>)和前缀(如果\opt{useprefix}选项是true)构成。消除歧义主要通过增加模板中任何非<base>姓名成分来实现，这里就是名(<given>)成分。
+%This means that the <base> to be disambiguated consists of the <family> namepart, along with any prefix, if the \opt{useprefix} option is true. The disambiguation is performed by adding aspects of any non <base> nameparts in the specification, here just the <given> namepart.
 
-\paragraph{Individual Names (\opt{uniquename})}
+\paragraph{单个姓名(姓名间的区分)(\opt{uniquename})}%Individual Names (\opt{uniquename})
 
-Let's start off with some \opt{uniquename} examples. Consider the following data:
+%Let's start off with some \opt{uniquename} examples. Consider the following data:
 下面从一些\opt{uniquename}例子开始，考虑如下数据:
 
 \begin{lstlisting}{}
@@ -6420,8 +6434,7 @@ John Smith 2008
 Jane Smith 2008
 \end{lstlisting}
 %
-Let's assume we're using an author-year style and set \kvopt{uniquename}{false}. In this case, we would get the following citations:
-
+%Let's assume we're using an author-year style and set \kvopt{uniquename}{false}. In this case, we would get the following citations:
 假设我们使用作者年制且设置\kvopt{uniquename}{false}，这种情况下，我们得到如下引用标注:
 \begin{lstlisting}{}
 Doe 2008a
@@ -6430,8 +6443,7 @@ Smith 2008a
 Smith 2008b
 \end{lstlisting}
 %
-Since the family names are ambiguous and all works have been published in the same year, an extra letter is appended to the year to disambiguate the citations. Many style guides, however, mandate that the extra letter be used to disambiguate works by the same authors only, not works by different authors with the same family name. In order to disambiguate the author's family name, you are expected to add additional parts of the name, either as initials or in full. This requirement is addressed by the \opt{uniquename} option. Here are the same citations with \kvopt{uniquename}{init}:
-
+%Since the family names are ambiguous and all works have been published in the same year, an extra letter is appended to the year to disambiguate the citations. Many style guides, however, mandate that the extra letter be used to disambiguate works by the same authors only, not works by different authors with the same family name. In order to disambiguate the author's family name, you are expected to add additional parts of the name, either as initials or in full. This requirement is addressed by the \opt{uniquename} option. Here are the same citations with \kvopt{uniquename}{init}:
 因为姓有歧义，且所有的年都相同，所以年后附加的字符用来区分并消除歧义。然而，很多样式指南强制要求附加字符只能用于相同作者的区分，而不能用于作者相同的姓的区分。为了消除作者姓的歧义，需要增加姓名的其它完整部分或者缩写来区分。这一需要由\opt{uniquename}选项处理，下面是使用了\kvopt{uniquename}{init}的引用标注:
 \begin{lstlisting}{}
 J. Doe 2008
@@ -6440,8 +6452,7 @@ Smith 2008a
 Smith 2008b
 \end{lstlisting}
 %
-\kvopt{uniquename}{init} restricts name disambiguation to initials. Since <J. Smith> would still be ambiguous, no additional name parts are added for the <Smiths>. With \kvopt{uniquename}{full}, names are printed in full where required:
-
+%\kvopt{uniquename}{init} restricts name disambiguation to initials. Since <J. Smith> would still be ambiguous, no additional name parts are added for the <Smiths>. With \kvopt{uniquename}{full}, names are printed in full where required:
 \kvopt{uniquename}{init}限制了用缩写来区分姓名。但因为<J. Smith>仍然有歧义，所以没有增加。而使用\kvopt{uniquename}{full}，标注如下:
 \begin{lstlisting}{}
 J. Doe 2008
@@ -6450,26 +6461,23 @@ John Smith 2008
 Jane Smith 2008
 \end{lstlisting}
 %
-In order to illustrate the difference between \kvopt{uniquename}{init\slash full} and \texttt{allinit\slash allfull}, we need to introduce the notion of a <visible> name. In the following, <visible> names are all names at a position before the \opt{maxnames}\slash \opt{minnames}\slash \opt{uniquelist} truncation point. For example, given this data:
-
-为了说明\kvopt{uniquename}{init\slash full}和\texttt{allinit\slash allfull}的差别，我们下面介绍 <visible> 姓名的概念。<visible> 姓名时位于\opt{maxnames}\slash \opt{minnames}\slash \opt{uniquelist}截短点前的姓名，比如，给出数据:
+%In order to illustrate the difference between \kvopt{uniquename}{init\slash full} and \texttt{allinit\slash allfull}, we need to introduce the notion of a <visible> name. In the following, <visible> names are all names at a position before the \opt{maxnames}\slash \opt{minnames}\slash \opt{uniquelist} truncation point. For example, given this data:
+为了说明\kvopt{uniquename}{init\slash full}和\texttt{allinit\slash allfull}的差别，我们下面介绍 <visible> 姓名的概念。<visible> 姓名是位于\opt{maxnames}\slash \opt{minnames}\slash \opt{uniquelist}截短点前的姓名，比如，给出数据:
 \begin{lstlisting}{}
 William Jones/Edward Doe/Jane Smith
 John Doe
 John Smith
 \end{lstlisting}
 %
-and \kvopt{maxnames}{1}, \kvopt{minnames}{1}, \kvopt{uniquename}{init/full}, we would get the following names in citations:
-
-\kvopt{maxnames}{1}, \kvopt{minnames}{1}, \kvopt{uniquename}{init/full}，我们得到如下的引用标注:
+%and \kvopt{maxnames}{1}, \kvopt{minnames}{1}, \kvopt{uniquename}{init/full}, we would get the following names in citations:
+当\kvopt{maxnames}{1}, \kvopt{minnames}{1}, \kvopt{uniquename}{init/full}时，我们得到如下的引用标注:
 \begin{lstlisting}{}
 Jones et al.
 Doe
 Smith
 \end{lstlisting}
 %
-When disambiguating names, \kvopt{uniquename}{init/full} only consider the visible names. Since all visible last names are distinct in this example, no further name parts are added. Let's compare that to the output of \kvopt{uniquename}{allinit}:
-
+%When disambiguating names, \kvopt{uniquename}{init/full} only consider the visible names. Since all visible last names are distinct in this example, no further name parts are added. Let's compare that to the output of \kvopt{uniquename}{allinit}:
 在消除歧义的时候，\kvopt{uniquename}{init/full}仅考虑可见的姓名。因为本例中所有的可见姓名的姓都是不同的，所有没有姓名的其他部分附加进来。比较一下使用\kvopt{uniquename}{allinit}的输出:
 \begin{lstlisting}{}
 Jones et al.
@@ -6477,8 +6485,7 @@ J. Doe
 Smith
 \end{lstlisting}
 %
-\texttt{allinit} considers all names in all \bibfield{labelname} lists, including those which are hidden and replaced by <et al.> as the list is truncated. In this example, <John Doe> is disambiguated from <Edward Doe>. Since the ambiguity of the two <Smiths> can't be resolved by adding initials, no initials are added in this case. Now let's compare that to the output of \kvopt{uniquename}{allfull} which also disambiguates <John Smith> from <Jane Smith>:
-
+%\texttt{allinit} considers all names in all \bibfield{labelname} lists, including those which are hidden and replaced by <et al.> as the list is truncated. In this example, <John Doe> is disambiguated from <Edward Doe>. Since the ambiguity of the two <Smiths> can't be resolved by adding initials, no initials are added in this case. Now let's compare that to the output of \kvopt{uniquename}{allfull} which also disambiguates <John Smith> from <Jane Smith>:
 \texttt{allinit}认为所有在\bibfield{labelname}列表中的姓名，包括列表截短后已经隐藏并且由<et al.>代替的姓名。在本例中，<John Doe> 与 <Edward Doe>存在歧义。因为两个 <Smiths> 无法通过添加缩写的方式区分，所以没有添加。现在来比较一下\kvopt{uniquename}{allfull}的输出:
 \begin{lstlisting}{}
 Jones et al.
@@ -6486,8 +6493,7 @@ J. Doe
 John Smith
 \end{lstlisting}
 %
-The options \kvopt{uniquename}{mininit/minfull} are similar to \texttt{init\slash full} in that they only consider visible names, but they perform minimal disambiguation. That is, they will disambiguate individual names only if they occur in identical lists of last names. Consider the following data:
-
+%The options \kvopt{uniquename}{mininit/minfull} are similar to \texttt{init\slash full} in that they only consider visible names, but they perform minimal disambiguation. That is, they will disambiguate individual names only if they occur in identical lists of last names. Consider the following data:
 \kvopt{uniquename}{mininit/minfull}选项类似于\texttt{init\slash full}仅考虑可见姓名，但仅执行最小的歧义消除。即，仅对姓列表的歧义进行处理，考虑如下数据:
 \begin{lstlisting}{}
 John Doe/William Jones
@@ -6496,8 +6502,7 @@ John Smith/William Edwards
 Edward Smith/Allan Johnson
 \end{lstlisting}
 %
-With \kvopt{uniquename}{init/full}, we would get:
-
+%With \kvopt{uniquename}{init/full}, we would get:
 使用\kvopt{uniquename}{init/full}，得到:
 \begin{lstlisting}{}
 J. Doe and Jones
@@ -6506,9 +6511,8 @@ J. Smith and Edwards
 E. Smith and Johnson
 \end{lstlisting}
 %
-With \kvopt{uniquename}{mininit/minfull}:
+%With \kvopt{uniquename}{mininit/minfull}:
 使用\kvopt{uniquename}{mininit/minfull}，得到:
-
 \begin{lstlisting}{}
 J. Doe and Jones
 E. Doe and Jones
@@ -6516,15 +6520,14 @@ Smith and Edwards
 Smith and Johnson
 \end{lstlisting}
 %
-The <Smiths> are not disambiguated because the visible name lists are not ambiguous and the \opt{mininit/minfull} options serve to disambiguate names occurring in identical last name lists only. Another way of looking at this is that they globally disambiguate family name lists. When it comes to ambiguous lists, note that a truncated list is considered to be distinct from an untruncated one even if the visible names are identical. For example, consider the following data:
-
+%The <Smiths> are not disambiguated because the visible name lists are not ambiguous and the \opt{mininit/minfull} options serve to disambiguate names occurring in identical last name lists only. Another way of looking at this is that they globally disambiguate family name lists. When it comes to ambiguous lists, note that a truncated list is considered to be distinct from an untruncated one even if the visible names are identical. For example, consider the following data:
 <Smiths> 并无歧义，因为姓名列表时没有歧义。\opt{mininit/minfull}选项仅对姓的列表相同情况进行处理。全局的看姓的列表，注意当未截短的列表的可见名相同的时候，截短的列表时也可能是不同的，比如下面的数据:
 \begin{lstlisting}{}
 John Doe/William Jones
 Edward Doe
 \end{lstlisting}
 %
-With \kvopt{maxnames}{1}, \kvopt{uniquename}{init/full}, we would get:
+%With \kvopt{maxnames}{1}, \kvopt{uniquename}{init/full}, we would get:
 使用\kvopt{maxnames}{1}, \kvopt{uniquename}{init/full}:
 
 \begin{lstlisting}{}
@@ -6532,7 +6535,7 @@ J. Doe et al.
 E. Doe
 \end{lstlisting}
 %
-With \kvopt{uniquename}{mininit/minfull}:
+%With \kvopt{uniquename}{mininit/minfull}:
 使用\kvopt{uniquename}{mininit/minfull}:
 
 \begin{lstlisting}{}
@@ -6540,13 +6543,12 @@ Doe et al.
 Doe
 \end{lstlisting}
 %
-Because the lists differ in the <et al.>, the names are not disambiguated.
+%Because the lists differ in the <et al.>, the names are not disambiguated.
 因为列表有 <et al.> 的不同，姓名列表就不歧义。
 
-\paragraph{Lists of Names (\opt{uniquelist})}
-\paragraph{姓名列表(独立姓名外的处理) (\opt{uniquelist})}
+\paragraph{姓名列表(列表间的区分) (\opt{uniquelist})}%Lists of Names (\opt{uniquelist})
 
-Ambiguity is also an issue with name lists. If the \bibfield{labelname} list is truncated by the \opt{maxnames}\slash \opt{minnames} options, it may become ambiguous. This type of ambiguity is addressed by the \opt{uniquelist} option. Consider the following data:
+%Ambiguity is also an issue with name lists. If the \bibfield{labelname} list is truncated by the \opt{maxnames}\slash \opt{minnames} options, it may become ambiguous. This type of ambiguity is addressed by the \opt{uniquelist} option. Consider the following data:
 
 姓名列表也可能存在歧义问题。如果\bibfield{labelname}列表由\opt{maxnames}\slash \opt{minnames}选项截短就可能产生歧义。这类问题由\opt{uniquelist}选处理，考虑如下数据:
 \begin{lstlisting}{}
@@ -6556,7 +6558,7 @@ Smith/Doe/Edwards 2005
 Smith/Doe/Jones   2005
 \end{lstlisting}
 %
-Many author-year styles truncate long author/editor lists in citations. For example, with \kvopt{maxnames}{1} we would get:
+%Many author-year styles truncate long author/editor lists in citations. For example, with \kvopt{maxnames}{1} we would get:
 
 很多作者年制样式需要在标注中截短，比如使用\kvopt{maxnames}{1}选项，得到:
 \begin{lstlisting}{}
@@ -6566,7 +6568,7 @@ Smith et al. 2005b
 Smith et al. 2005c
 \end{lstlisting}
 %
-Since the authors are ambiguous after truncation, the extra letter is added to the year to ensure unique citations. Here again, many style guides mandate that the extra letter be used to disambiguate works by the same authors only. In order to disambiguate author lists, you are usually required to add more names, exceeding the \opt{maxnames}\slash \opt{minnames} truncation point. The \opt{uniquelist} feature addresses this requirement. With \kvopt{uniquelist}{true}, we would get:
+%Since the authors are ambiguous after truncation, the extra letter is added to the year to ensure unique citations. Here again, many style guides mandate that the extra letter be used to disambiguate works by the same authors only. In order to disambiguate author lists, you are usually required to add more names, exceeding the \opt{maxnames}\slash \opt{minnames} truncation point. The \opt{uniquelist} feature addresses this requirement. With \kvopt{uniquelist}{true}, we would get:
 因为截短后作者存在歧义，所以添加额外字符确保引用标注的唯一性。同样的，一些样式强制要求额外字符只能用于所有作者都相同的情况。为了区分作者列表，必须增加更多的姓名，这样就会超出\opt{maxnames}\slash \opt{minnames}选项设定的截短点。\opt{uniquelist}选项即描述这一需求，当\kvopt{uniquelist}{true}，有:
 
 \begin{lstlisting}{}
@@ -6576,7 +6578,7 @@ Smith, Doe and Edwards 2005
 Smith, Doe and Jones 2005
 \end{lstlisting}
 %
-The \opt{uniquelist} option overrides \opt{maxnames}\slash \opt{minnames} on a per-entry basis. Essentially, what happens is that the <et al.> part of the citation is expanded to the point of no ambiguity~-- but no further than that. \opt{uniquelist} may also be combined with \opt{uniquename}. Consider the following data:
+%The \opt{uniquelist} option overrides \opt{maxnames}\slash \opt{minnames} on a per-entry basis. Essentially, what happens is that the <et al.> part of the citation is expanded to the point of no ambiguity~-- but no further than that. \opt{uniquelist} may also be combined with \opt{uniquename}. Consider the following data:
 \opt{uniquelist}选项以条目为限重设\opt{maxnames}\slash \opt{minnames}。大体上，标注的 <et al.> 部分扩展到无歧义的点--而且也基本到此为止。\opt{uniquelist}也可以与\opt{uniquename}联合使用，考虑如下数据:
 
 \begin{lstlisting}{}
@@ -6588,7 +6590,7 @@ John Doe/John Edwards/William Jones   2009
 John Doe/John Edwards/Jack Johnson    2009
 \end{lstlisting}
 %
-With \kvopt{maxnames}{1}:
+%With \kvopt{maxnames}{1}:
 使用\kvopt{maxnames}{1}，得到:
 
 \begin{lstlisting}{}
@@ -6600,7 +6602,7 @@ Doe et al. 2009e
 Doe et al. 2009f
 \end{lstlisting}
 %
-With \kvopt{maxnames}{1}, \kvopt{uniquename}{full}, \kvopt{uniquelist}{true}:
+%With \kvopt{maxnames}{1}, \kvopt{uniquename}{full}, \kvopt{uniquelist}{true}:
 使用\kvopt{maxnames}{1}, \kvopt{uniquename}{full}, \kvopt{uniquelist}{true}则有:
 
 \begin{lstlisting}{}
@@ -6612,7 +6614,7 @@ Doe, Edwards and Jones 2009
 Doe, Edwards and Johnson 2009
 \end{lstlisting}
 %
-With \kvopt{uniquelist}{minyear}, list disambiguation only happens if the visible list is identical to another visible list with the same \bibfield{labelyear}. This is useful for author-year styles which only require that the citation as a whole be unique, but do not guarantee unambiguous authorship information in citations. This mode is conceptually related to \kvopt{uniquename}{mininit/minfull}. Consider this example:
+%With \kvopt{uniquelist}{minyear}, list disambiguation only happens if the visible list is identical to another visible list with the same \bibfield{labelyear}. This is useful for author-year styles which only require that the citation as a whole be unique, but do not guarantee unambiguous authorship information in citations. This mode is conceptually related to \kvopt{uniquename}{mininit/minfull}. Consider this example:
 
 使用\kvopt{uniquelist}{minyear}，消除列表歧义仅在可见列表和\bibfield{labelyear}相同的时候。这对于仅仅需要整个标注整体具有唯一性的作者年制样式是很有用的，但是不保证作者姓名的非歧义性。这一模式概念上域\kvopt{uniquename}{mininit/minfull}选项相关。考虑如下例子:
 \begin{lstlisting}{}
@@ -6620,7 +6622,7 @@ Smith/Jones   2000
 Smith/Johnson 2001
 \end{lstlisting}
 %
-With \kvopt{maxnames}{1} and \kvopt{uniquelist}{true}, we would get:
+%With \kvopt{maxnames}{1} and \kvopt{uniquelist}{true}, we would get:
 使用\kvopt{maxnames}{1}和\kvopt{uniquelist}{true}，得到:
 
 \begin{lstlisting}{}
@@ -6628,7 +6630,7 @@ Smith and Jones 2000
 Smith and Johnson 2001
 \end{lstlisting}
 %
-With \kvopt{uniquelist}{minyear}:
+%With \kvopt{uniquelist}{minyear}:
 使用\kvopt{uniquelist}{minyear}，则得到:
 
 \begin{lstlisting}{}
@@ -6636,7 +6638,7 @@ Smith et al. 2000
 Smith et al. 2001
 \end{lstlisting}
 %
-With \kvopt{uniquelist}{minyear}, it is not clear that the authors are different for the two works but the citations as a whole are still unambiguous since the year is different. In contrast to that, \kvopt{uniquelist}{true} disambiguates the authorship even if this information is not required to uniquely locate the works in the bibliography. Let's consider another example:
+%With \kvopt{uniquelist}{minyear}, it is not clear that the authors are different for the two works but the citations as a whole are still unambiguous since the year is different. In contrast to that, \kvopt{uniquelist}{true} disambiguates the authorship even if this information is not required to uniquely locate the works in the bibliography. Let's consider another example:
 
 使用\kvopt{uniquelist}{minyear}，两个文献的作者是否相同并不清楚，但标注的整体是非歧义的，因为年份的不同。与此相反，\kvopt{uniquelist}{true}需要消除作者列表的歧义即便这一信息对于参考文献表的唯一引用是不必要的，看看如下例子:
 \begin{lstlisting}{}
@@ -6645,7 +6647,7 @@ Vogel/Beast/Tremble/Bite 2000
 Vogel/Beast/Acid/Squeeze 2001
 \end{lstlisting}
 %
-With \kvopt{maxnames}{3}, \kvopt{minnames}{1}, \kvopt{uniquelist}{true}, we would get:
+%With \kvopt{maxnames}{3}, \kvopt{minnames}{1}, \kvopt{uniquelist}{true}, we would get:
 使用\kvopt{maxnames}{3}, \kvopt{minnames}{1}, \kvopt{uniquelist}{true}，得到
 
 \begin{lstlisting}{}
@@ -6654,7 +6656,7 @@ Vogel, Beast, Tremble et al. 2000
 Vogel, Beast, Acid et al. 2001
 \end{lstlisting}
 %
-With \kvopt{uniquelist}{minyear}:
+%With \kvopt{uniquelist}{minyear}:
 使用\kvopt{uniquelist}{minyear}选项，则有:
 
 \begin{lstlisting}{}
@@ -6663,20 +6665,21 @@ Vogel, Beast, Tremble et al. 2000
 Vogel et al. 2001
 \end{lstlisting}
 %
-In the last citation, \kvopt{uniquelist}{minyear} does not override \opt{maxnames}\slash \opt{minnames} as the citation does not need disambiguating from the other two because the year is different.
-
+%In the last citation, \kvopt{uniquelist}{minyear} does not override \opt{maxnames}\slash \opt{minnames} as the citation does not need disambiguating from the other two because the year is different.
 在最后一个引用中，\kvopt{uniquelist}{minyear}不重写\opt{maxnames}\slash \opt{minnames}，因为年份的不同，所以不需要消除与其它两个间的歧义。
-\subsubsection{浮动体和\acr{TOC}/\acr{LOT}/\acr{LOF}中的追踪器 Trackers in Floats and \acr{TOC}/\acr{LOT}/\acr{LOF}}
+
+\subsubsection{浮动体和\acr{TOC}/\acr{LOT}/\acr{LOF}中的追踪器}%Trackers in Floats and \acr{TOC}/\acr{LOT}/\acr{LOF}
 \label{aut:cav:flt}
 
-If a citation is given in a float (typically in the caption of a figure or table), scholarly back references like <ibidem> or back references based on the page tracker get ambiguous because floats are objects which are (physically and logically) placed outside the flow of text, hence the logic of such references applies poorly to them. To avoid any such ambiguities, the citation and page trackers are temporarily disabled in all floats. In addition to that, these trackers plus the back reference tracker (\opt{backref}) are temporarily disabled in the table of contents, the list of figures, and the list of tables.
+当引用命令出现在浮动体(比如图和表的题注)中，因为浮动体无论是物理上还是逻辑上都在文本流之外，这会导致的学术反向引用(比如<ibidem>)和基于页码追踪器的反向引用难以区分，因此这种引用的逻辑很难在其中应用。为避免这种问题，引用和页码追踪器在所有的浮动体中临时关闭。而且，这些追踪器加上反向引用追踪器(\opt{backref})在目录，图和表目录中也临时关闭。\footnote{译者:reference 引用，链接，引文？从交叉引用角度看呢？}\footnote{译者:citation 引用，标注？}\footnote{译者:ibidem 也需要看一下前面，到底什么意义}
+%If a citation is given in a float (typically in the caption of a figure or table), scholarly back references like <ibidem> or back references based on the page tracker get ambiguous because floats are objects which are (physically and logically) placed outside the flow of text, hence the logic of such references applies poorly to them. To avoid any such ambiguities, the citation and page trackers are temporarily disabled in all floats. In addition to that, these trackers plus the back reference tracker (\opt{backref}) are temporarily disabled in the table of contents, the list of figures, and the list of tables.
 
-\subsubsection{混合编程接口 Mixing Programming Interfaces}
+\subsubsection{混合编程接口}%Mixing Programming Interfaces
 \label{aut:cav:mif}
 
-The \biblatex package provides two main programming interfaces for style authors. The \cmd{DeclareBibliographyDriver} command, which defines a handler for an entry type, is typically used in \file{bbx} files. \cmd{DeclareCiteCommand}, which defines a new citation command, is typically used in \file{cbx} files. However, in some cases it is convenient to mix these two interfaces. For example, the \cmd{fullcite} command prints a verbose citation similar to the full bibliography entry. It is essentially defined as follows:
+%The \biblatex package provides two main programming interfaces for style authors. The \cmd{DeclareBibliographyDriver} command, which defines a handler for an entry type, is typically used in \file{bbx} files. \cmd{DeclareCiteCommand}, which defines a new citation command, is typically used in \file{cbx} files. However, in some cases it is convenient to mix these two interfaces. For example, the \cmd{fullcite} command prints a verbose citation similar to the full bibliography entry. It is essentially defined as follows:
 
-\biblatex 宏包给样式作者提供了2个主要的编程接口即: \file{bbx}文件中使用的\cmd{DeclareBibliographyDriver} 命令用来定义各类参考文献条目的驱动(格式处理器，handler)，\file{cbx}文件中使用的\cmd{DeclareCiteCommand}命令用来定义新的引用命令。然而有时候，混合使用这两个接口会很方便。比如\cmd{fullcite}命令就可以打印类似于完整参考文献条目的长串引用，该命令定义大体如下:
+\biblatex 宏包给样式作者提供了2个主要的编程接口即: \file{bbx}文件中使用的\cmd{DeclareBibliographyDriver} 命令用来定义各类参考文献条目的驱动(即条目的格式处理器)，\file{cbx}文件中使用的\cmd{DeclareCiteCommand}命令用来定义新的标注命令。然而有时候，混合使用这两个接口会很方便。比如\cmd{fullcite}命令就可以打印类似于完整参考文献条目的长串引用，该命令定义大体如下:
 \begin{ltxexample}
 \DeclareCiteCommand{\fullcite}
   {...}
@@ -6685,8 +6688,8 @@ The \biblatex package provides two main programming interfaces for style authors
   {...}
 \end{ltxexample}
 %
-As you can see, the core code which prints the citations simply executes the bibliography driver defined with \cmd{DeclareBibliographyDriver} for the type of the current entry. When writing a citation style for a verbose citation scheme, it is often convenient to use the following structure:
-如上所见，打印引用的核心代码简单地为当前的条目类型执行了\cmd{DeclareBibliographyDriver}定义的参考文献驱动命令。当为长引用样式(a verbose citation scheme)编写引用样式文件的时候，使用下面的结构是非常方便的:
+%As you can see, the core code which prints the citations simply executes the bibliography driver defined with \cmd{DeclareBibliographyDriver} for the type of the current entry. When writing a citation style for a verbose citation scheme, it is often convenient to use the following structure:
+如上所见，打印标注的核心代码简单地为当前的条目类型执行了\cmd{DeclareBibliographyDriver}定义的驱动命令。当为长标注格式\footnote{译者:verbose:冗长的}编写标注样式文件的时候，使用下面的结构是非常方便的:
 
 \begin{ltxexample}
 \ProvidesFile{example.cbx}[2007/06/09 v1.0 biblatex citation style]
@@ -6703,10 +6706,10 @@ As you can see, the core code which prints the citations simply executes the bib
 ...
 \end{ltxexample}
 %
-Another case in which mixing interfaces is helpful are styles using cross"=references within the bibliography. For example, when printing an \bibtype{incollection} entry, the data inherited from the \bibtype{collection} parent entry would be replaced by a short pointer to the respective parent entry:
+%Another case in which mixing interfaces is helpful are styles using cross"=references within the bibliography. For example, when printing an \bibtype{incollection} entry, the data inherited from the \bibtype{collection} parent entry would be replaced by a short pointer to the respective parent entry:
 
 混合接口的另一个有用情况是在参考文献表中使用交叉引用(cross"=references)时。比如当打印\bibtype{incollection}
-类型的条目，数据继承自\bibtype{collection}父条目，将会由一个简短的指向对应父条目的指针来代替。
+类型的条目，数据继承自\bibtype{collection}父条目，可由一个指向对应父条目的简短指针来代替。
 \begin{enumerate}
 \renewcommand*\labelenumi{[\theenumi]}
 \setlength{\leftskip}{0.5em}
@@ -6714,8 +6717,8 @@ Another case in which mixing interfaces is helpful are styles using cross"=refer
 \item Edward Editor, ed.: \emph{Title of collection}. Publisher: Location, 1995.
 \end{enumerate}
 
-One way to implement such cross"=references within the bibliography is to think of them as citations which use the value of the \bibfield{xref} or \bibfield{crossref} field as the entry key. Here is an example:
-实现这种参考文献的交叉引用的一种方法是认为他们是引用关系，使用\bibfield{xref} 或 \bibfield{crossref}域的值作为条目关键字(bibtex条目键，entry key)，例子如下:
+%One way to implement such cross"=references within the bibliography is to think of them as citations which use the value of the \bibfield{xref} or \bibfield{crossref} field as the entry key. Here is an example:
+实现参考文献表内的这种交叉引用的一种方法是将它们当成标注，并使用\bibfield{xref} 或 \bibfield{crossref}域的值作为条目关键词(条目bibtex键)，示例如下:
 
 \begin{ltxexample}
 \ProvidesFile{example.bbx}[2007/06/09 v1.0 biblatex bibliography style]
@@ -6735,7 +6738,7 @@ One way to implement such cross"=references within the bibliography is to think 
 }
 \end{ltxexample}
 %
-When defining \cmd{bbx@xref}, the \prm{precode}, \prm{postcode}, and \prm{sepcode} arguments of \cmd{DeclareCiteCommand} are left empty in the above example because they will not be used anyway. The cross"=reference is printed by the \prm{loopcode} of \cmd{bbx@xref}. For further details on the \bibfield{xref} field, refer to \secref{bib:fld:spc} and to the hints in \secref{bib:cav:ref}. Also see the \cmd{iffieldxref}, \cmd{iflistxref}, and \cmd{ifnamexref} tests in \secref{aut:aux:tst}. The above could also be implemented using the \cmd{entrydata} command from \secref{aut:bib:dat}:
+%When defining \cmd{bbx@xref}, the \prm{precode}, \prm{postcode}, and \prm{sepcode} arguments of \cmd{DeclareCiteCommand} are left empty in the above example because they will not be used anyway. The cross"=reference is printed by the \prm{loopcode} of \cmd{bbx@xref}. For further details on the \bibfield{xref} field, refer to \secref{bib:fld:spc} and to the hints in \secref{bib:cav:ref}. Also see the \cmd{iffieldxref}, \cmd{iflistxref}, and \cmd{ifnamexref} tests in \secref{aut:aux:tst}. The above could also be implemented using the \cmd{entrydata} command from \secref{aut:bib:dat}:
 当定义\cmd{bbx@xref}命令时，\cmd{DeclareCiteCommand}命令的\prm{precode}, \prm{postcode}, 和 \prm{sepcode}参数留空，是因为上面例子中没有用到。交叉引用由\cmd{bbx@xref}命令的\prm{loopcode}参数打印。更多的关于\bibfield{xref}域的细节见\secref{bib:fld:spc}节以及\secref{bib:cav:ref}节中的注意事项。在\secref{aut:aux:tst}节我们也看到了\cmd{iffieldxref}, \cmd{iflistxref}, 和\cmd{ifnamexref}测试命令。这些都也可以用\secref{aut:bib:dat}节的\cmd{entrydata}命令来实现。
 
 \begin{ltxexample}
@@ -6753,14 +6756,14 @@ When defining \cmd{bbx@xref}, the \prm{precode}, \prm{postcode}, and \prm{sepcod
 }
 \end{ltxexample}
 
-\subsubsection{使用标点追踪 Using the Punctuation Tracker}
+\subsubsection{使用标点追踪}%Using the Punctuation Tracker
 \label{aut:cav:pct}
 
-\paragraph{标点基础 The Basics}
+\paragraph{标点基础}%The Basics
 
-There is one fundamental principle style authors should keep in mind when designing a bibliography driver: block and unit punctuation is handled asynchronously. This is best explained by way of example. Consider the following code snippet:
+%There is one fundamental principle style authors should keep in mind when designing a bibliography driver: block and unit punctuation is handled asynchronously. This is best explained by way of example. Consider the following code snippet:
 
-样式作者设计参考文献驱动时需要记住一点:块和单元的标点是异步处理的。用例子最容易解释这一点，看下面一段代码:
+样式作者设计参考文献驱动时需要记住一点原则:块和单元的标点是异步处理的。用例子最容易解释这一点，看下面一段代码:
 \begin{ltxexample}
 \printfield{title}%
 \newunit
@@ -6769,14 +6772,14 @@ There is one fundamental principle style authors should keep in mind when design
 \printfield{note}%
 \end{ltxexample}
 %
-If there is no \bibfield{edition} field, this piece of code will not print:
+%If there is no \bibfield{edition} field, this piece of code will not print:
 如果没有\bibfield{edition}域，那么这段代码的打印结果不会是:
 
 \begin{lstlisting}[style=highlight]{}
 Title. . Note
 \end{lstlisting}
 %
-but rather:
+%but rather:
 而会是
 
 \begin{lstlisting}[style=highlight]{}
@@ -6784,26 +6787,29 @@ Title. Note
 \end{lstlisting}
 %
 因为单元的标点追踪器是异步方式工作的。\cmd{newunit}命令将不会立即打印标点。它仅是记录一个单元的边界并且将\cmd{newunitpunct}命令放入标点缓存中。该缓存会有\emph{接下来的}\cmd{printfield}、\cmd{printlist}或类似命令进行处理，且仅当这些命令各自处理的域或列表已定义的时候才会处理。像\cmd{printfield}这样的命令在插入任何块和单元的标点之前将首先考虑3个因素:
-because the unit punctuation tracker works asynchronously. \cmd{newunit} will not print the unit punctuation immediately. It merely records a unit boundary and puts \cmd{newunitpunct} on the punctuation buffer. This buffer will be handled by \emph{subsequent} \cmd{printfield}, \cmd{printlist}, or similar commands but only if the respective field or list is defined. Commands like \cmd{printfield} will consider three factors prior to inserting any block or unit punctuation:
+%because the unit punctuation tracker works asynchronously. \cmd{newunit} will not print the unit punctuation immediately. It merely records a unit boundary and puts \cmd{newunitpunct} on the punctuation buffer. This buffer will be handled by \emph{subsequent} \cmd{printfield}, \cmd{printlist}, or similar commands but only if the respective field or list is defined. Commands like \cmd{printfield} will consider three factors prior to inserting any block or unit punctuation:
 
 \begin{itemize}
-\item Has a new unit/block been requested at all?\par
-= Is there any preceding \cmd{newunit} or \cmd{newblock} command?
-是否有新的单元/块的输出请求？\par
+\item 是否有新的单元/块的输出请求？\par
 =前面是否有\cmd{newunit}或者\cmd{newblock}命令？
-\item Did the preceding commands print anything?\par
-= Is there any preceding \cmd{printfield} or similar command?\par
-= Did this command actually print anything?\par
-前面的命令是否有打印输出？\par
+%Has a new unit/block been requested at all?\par
+%= Is there any preceding \cmd{newunit} or \cmd{newblock} command?
+
+\item 前面的命令是否有打印输出？\par
 =前面是否有\cmd{printfield}或者相似命令？\par
 =该命令是否实际打印了任何东西？\par
-\item Are we about to print anything now?\par
-= Is the field/list to be processed now defined?
-现在是否要打印一些东西？\par
+%Did the preceding commands print anything?\par
+%= Is there any preceding \cmd{printfield} or similar command?\par
+%= Did this command actually print anything?\par
+
+\item 现在是否要打印一些东西？\par
 要进行打印处理的域或列表是否已定义？
+%Are we about to print anything now?\par
+%= Is the field/list to be processed now defined?
+
 \end{itemize}
 %
-Block and unit punctuation will only be inserted if \emph{all} of these conditions apply. Let's reconsider the above example:
+%Block and unit punctuation will only be inserted if \emph{all} of these conditions apply. Let's reconsider the above example:
 块和单元的标点只会在上述\emph{所有}条件满足的时候才会输出。让我们再次考虑上面的例子:
 \begin{ltxexample}
 \printfield{title}%
@@ -6814,10 +6820,10 @@ Block and unit punctuation will only be inserted if \emph{all} of these conditio
 \end{ltxexample}
 %
 如果\bibfield{edition}域没有定义会发生什么呢？第一个\cmd{printfield}命令打印了标题并设置一个内部的<new~text>标志。第一个\cmd{newunit}命令设置一个内部的<new~unit>标志。这使没有任何标点输出。第二个\cmd{printfield}命令不进行任何处理因为\bibfield{edition}域未定义。接下来的\cmd{newunit}命令再次设置<new unit>标志，仍然没有标点输出。第三个\cmd{printfield}命令检测\bibfield{note}域是否已定义，如果是，它会寻找<new~text>和<new~unit>标志。如果两个标志都存在，那么它会在打印note前插入标点缓存。然后它会清除<new~unit>标志然后再次设置<new~text>标志。
-Here's what happens if the \bibfield{edition} field is undefined. The first \cmd{printfield} command prints the title and sets an internal <new~text> flag. The first \cmd{newunit} sets an internal <new~unit> flag. No punctuation has been printed at this point. The second \cmd{printfield} does nothing because the \bibfield{edition} field is undefined. The next \cmd{newunit} command sets the internal flag <new unit> again. Still no punctuation has been printed. The third \cmd{printfield} checks if the \bibfield{note} field is defined. If so, it looks at the <new~text> and <new~unit> flags. If both are set, it inserts the punctuation buffer before printing the note. It then clears the <new~unit> flag and sets the <new~text> flag again.
+%Here's what happens if the \bibfield{edition} field is undefined. The first \cmd{printfield} command prints the title and sets an internal <new~text> flag. The first \cmd{newunit} sets an internal <new~unit> flag. No punctuation has been printed at this point. The second \cmd{printfield} does nothing because the \bibfield{edition} field is undefined. The next \cmd{newunit} command sets the internal flag <new unit> again. Still no punctuation has been printed. The third \cmd{printfield} checks if the \bibfield{note} field is defined. If so, it looks at the <new~text> and <new~unit> flags. If both are set, it inserts the punctuation buffer before printing the note. It then clears the <new~unit> flag and sets the <new~text> flag again.
 
 所有这些听起来似乎很复杂，但实际上，这意味着可以用顺序的方式写一个具有很多部件的参考文献驱动。这种方法的优势在不使用标点追踪而实现上述代码功能时会体现的很明显。如果不用标点追踪，那么会因为大量对所有可能存在域的判断产生一个复杂的\cmd{iffieldundef}判断命令集合。
-This may all sound more complicated than it is. In practice, it means that it is possible to write large parts of a bibliography driver in a sequential way. The advantage of this approach becomes obvious when trying to write the above code without using the punctuation tracker. Such an attempt will lead to a rather convoluted set of \cmd{iffieldundef} tests required to check for all possible field combinations (note that the code below handles three fields; a typical driver may need to cater for some two dozen fields):
+%This may all sound more complicated than it is. In practice, it means that it is possible to write large parts of a bibliography driver in a sequential way. The advantage of this approach becomes obvious when trying to write the above code without using the punctuation tracker. Such an attempt will lead to a rather convoluted set of \cmd{iffieldundef} tests required to check for all possible field combinations (note that the code below handles three fields; a typical driver may need to cater for some two dozen fields):
 
 \begin{ltxexample}
 \iffieldundef{title}%
@@ -6836,10 +6842,10 @@ This may all sound more complicated than it is. In practice, it means that it is
      {. \printfield{note}}}%
 \end{ltxexample}
 
-\paragraph{常见错误 Common Mistakes}
+\paragraph{常见错误}%Common Mistakes
 
-把单元的标点处理认为是同步处理的是一个相当常见的误解。这会导致当驱动中包含原样文本\footnote{这里literal text 理解为原样文本，如实文本，逐字文本}时出现一些典型错误。考虑下面导致标点错位的错误代码段:
-It is a fairly common misconception to think of the unit punctuation as something that is handled synchronously. This typically causes problems if the driver includes any literal text. Consider this erroneous code snippet which will generate misplaced unit punctuation:
+把单元的标点处理认为是同步处理的是一个相当常见的误解。这会导致当驱动中包含抄录文本\footnote{这里literal text 理解为原样文本，如实文本，逐字文本，抄录文本，照抄文本}时出现一些典型错误。考虑下面导致标点错位的错误代码段:
+%It is a fairly common misconception to think of the unit punctuation as something that is handled synchronously. This typically causes problems if the driver includes any literal text. Consider this erroneous code snippet which will generate misplaced unit punctuation:
 
 \begin{ltxexample}
 \printfield{title}%
@@ -6847,7 +6853,7 @@ It is a fairly common misconception to think of the unit punctuation as somethin
 <<(>>\printfield{series} \printfield{number}<<)>>%
 \end{ltxexample}
 %
-This code will yield the following result:
+%This code will yield the following result:
 这段代码将产生下面的结果:
 
 \begin{lstlisting}[style=highlight]{}
@@ -6857,7 +6863,7 @@ Title <<(.>> Series Number<<)>>
 这里发生了什么呢？第一个\cmd{printfield}命令打印了标题，然后\cmd{newunit}命令标记了一个新的单元边界但不打印任何内容。单元的标点由\emph{下一个}\cmd{printfield}命令打印。这是前面提过的异步机制。然而因为左括号在下一个
 \cmd{printfield}命令插入标点前立即打印，所以导致了错误的句点。当插入\emph{任何}原样文本比如括号(还包括由
 \cmd{bibopenparen}和\cmd{mkbibparens}命令打印的括号)时，总需要将这些文本用\cmd{printtext}命令包起来。要让标点追踪正常运转，需要让驱动知道所有插入的原样文本。这是\cmd{printtext}命令的作用所在。\cmd{printtext}命令联系标点追踪器确保标点缓存在原样文本打印前插入。它也设定内部 <new~text> 标志。注意本例中还有第三处原样文本即|\printfield{series}|后面的空格。在改正的例子中，我们将使用标点追踪器来处理该空格。
-Here's what happens. The first \cmd{printfield} prints the title. Then \cmd{newunit} marks a unit boundary but does not print anything. The unit punctuation is printed by the \emph{next} \cmd{printfield} command. That's the asynchronous part mentioned before. However, the opening parenthesis is printed immediately before the next \cmd{printfield} inserts the unit punctuation, leading to a misplaced period. When inserting \emph{any} literal text such as parentheses (including those printed by commands such as \cmd{bibopenparen} and \cmd{mkbibparens}), always wrap the text in a \cmd{printtext} command. For the punctuation tracker to work as expected, it needs to know about all literal text inserted by a driver. This is what \cmd{printtext} is all about. \cmd{printtext} interfaces with the punctuation tracker and ensures that the punctuation buffer is inserted before the literal text gets printed. It also sets the internal <new~text> flag. Note there is in fact a third piece of literal text in this example: the space after |\printfield{series}|. In the corrected example, we will use the punctuation tracker to handle that space.
+%Here's what happens. The first \cmd{printfield} prints the title. Then \cmd{newunit} marks a unit boundary but does not print anything. The unit punctuation is printed by the \emph{next} \cmd{printfield} command. That's the asynchronous part mentioned before. However, the opening parenthesis is printed immediately before the next \cmd{printfield} inserts the unit punctuation, leading to a misplaced period. When inserting \emph{any} literal text such as parentheses (including those printed by commands such as \cmd{bibopenparen} and \cmd{mkbibparens}), always wrap the text in a \cmd{printtext} command. For the punctuation tracker to work as expected, it needs to know about all literal text inserted by a driver. This is what \cmd{printtext} is all about. \cmd{printtext} interfaces with the punctuation tracker and ensures that the punctuation buffer is inserted before the literal text gets printed. It also sets the internal <new~text> flag. Note there is in fact a third piece of literal text in this example: the space after |\printfield{series}|. In the corrected example, we will use the punctuation tracker to handle that space.
 
 \begin{ltxexample}
 \printfield{title}%
@@ -6870,14 +6876,14 @@ Here's what happens. The first \cmd{printfield} prints the title. Then \cmd{newu
 \end{ltxexample}
 %
 尽管上面的代码能够如常工作，但处理括号、引号和其它包围某个域的标点是，推荐的方式是定义一个域格式:
-While the above code will work as expected, the recommended way to handle parentheses, quotes, and other things which enclose more than one field, is to define a field format:
+%While the above code will work as expected, the recommended way to handle parentheses, quotes, and other things which enclose more than one field, is to define a field format:
 
 \begin{ltxexample}
 \DeclareFieldFormat{<<parens>>}{<<\mkbibparens{#1}>>}
 \end{ltxexample}
 %
 域格式可以同时用于\cmd{printfield}和\cmd{printtext}命令，因此我们可以利用它对若干个域用一堆括号进行包裹。
-Field formats may be used with both \cmd{printfield} and \cmd{printtext}, hence we can use them to enclose several fields in a single pair of parentheses:
+%Field formats may be used with both \cmd{printfield} and \cmd{printtext}, hence we can use them to enclose several fields in a single pair of parentheses:
 
 \begin{ltxexample}
 <<\printtext[parens]{>>%
@@ -6888,7 +6894,7 @@ Field formats may be used with both \cmd{printfield} and \cmd{printtext}, hence 
 \end{ltxexample}
 %
 这里我们还需要处理没有series信息时的情况，因此进一步改进代码如下:
-We still need to handle cases in which there is no series information at all, so let's improve the code some more:
+%We still need to handle cases in which there is no series information at all, so let's improve the code some more:
 
 \begin{ltxexample}
 <<\iffieldundef{series}>>
@@ -6900,11 +6906,11 @@ We still need to handle cases in which there is no series information at all, so
 \end{ltxexample}
 %
 最后的一点提示: 本地化字符串对于标点追踪器来说不是原样文本。因为\cmd{bibstring}和相似命令能联系标点追踪器，因此就不需要用\cmd{printtext}包裹起来。
-One final hint: localisation strings are not literal text as far as the punctuation tracker is concerned. Since \cmd{bibstring} and similar commands interface with the punctuation tracker, there is no need to wrap them in a \cmd{printtext} command.
+%One final hint: localisation strings are not literal text as far as the punctuation tracker is concerned. Since \cmd{bibstring} and similar commands interface with the punctuation tracker, there is no need to wrap them in a \cmd{printtext} command.
 
-\paragraph{高级应用 Advanced Usage}
+\paragraph{高级用法}%Advanced Usage
 标点追踪器也可用来处理更复杂的情况。比如，考虑需要对\bibfield{location}、 \bibfield{publisher}和 \bibfield{year}根据数据是否提供以如下的格式打印：
-The punctuation tracker may also be used to handle more complex scenarios. For example, suppose that we want the fields \bibfield{location}, \bibfield{publisher}, and \bibfield{year} to be rendered in one of the following formats, depending on the available data:
+%The punctuation tracker may also be used to handle more complex scenarios. For example, suppose that we want the fields \bibfield{location}, \bibfield{publisher}, and \bibfield{year} to be rendered in one of the following formats, depending on the available data:
 
 \begin{ltxexample}
 ...text<<. Location: Publisher, Year.>> Text...
@@ -6917,7 +6923,7 @@ The punctuation tracker may also be used to handle more complex scenarios. For e
 \end{ltxexample}
 %
 这个问题可以用一个相当复杂的\cmd{iflistundef}和\cmd{iffieldundef}判断集进行处理，通过这些判断可以确定所有可能的域的组合：
-This problem can be solved with a rather convoluted set of \cmd{iflistundef} and \cmd{iffieldundef} tests which check for all possible field combinations:
+%This problem can be solved with a rather convoluted set of \cmd{iflistundef} and \cmd{iffieldundef} tests which check for all possible field combinations:
 
 \begin{ltxexample}
 \iflistundef{location}
@@ -6939,7 +6945,7 @@ This problem can be solved with a rather convoluted set of \cmd{iflistundef} and
 \end{ltxexample}
 %
 可以应用\cmd{ifthenelse}命令和\secref{aut:aux:ife}讨论的布尔运算可使上面的代码更具可读性。但本质上是一样的。然而，也可以按顺序写成如下方式:
-The above could be written in a somewhat more readable way by employing \cmd{ifthenelse} and the boolean operators discussed in \secref{aut:aux:ife}. The approach would still be essentially the same. However, it may also be written sequentially:
+%The above could be written in a somewhat more readable way by employing \cmd{ifthenelse} and the boolean operators discussed in \secref{aut:aux:ife}. The approach would still be essentially the same. However, it may also be written sequentially:
 
 \begin{ltxexample}
 \newunit
@@ -6952,7 +6958,7 @@ The above could be written in a somewhat more readable way by employing \cmd{ift
 \end{ltxexample}
 %
 在实际使用中，你会经常使用标点追踪器执行一些显式或隐式的组合判断，比如，考虑如下格式(注意当没有publisher时location后面的标点)
-In practice, you will often use a combination of explicit tests and the implicit tests performed by the punctuation tracker. For example, consider the following format (note the punctuation after the location if there is no publisher):
+%In practice, you will often use a combination of explicit tests and the implicit tests performed by the punctuation tracker. For example, consider the following format (note the punctuation after the location if there is no publisher):
 
 \begin{ltxexample}
 ...text. Location: Publisher, Year. Text...
@@ -6965,7 +6971,7 @@ In practice, you will often use a combination of explicit tests and the implicit
 \end{ltxexample}
 %
 这可以用如下代码进行处理:
-This can be handled by the following code:
+%This can be handled by the following code:
 
 \begin{ltxexample}
 \newunit
@@ -6980,24 +6986,27 @@ This can be handled by the following code:
 \end{ltxexample}
 %
 因为当没有publisher时location后面的标点的特殊性，我们需要用一个\cmd{iflistundef}判断来确保正确性。剩下其它的则有标点追踪器处理。
-Since the punctuation after the location is special if there is no publisher, we need one \cmd{iflistundef} test to catch this case. Everything else is handled by the punctuation tracker.
+%Since the punctuation after the location is special if there is no publisher, we need one \cmd{iflistundef} test to catch this case. Everything else is handled by the punctuation tracker.
 
-\subsubsection{定制本地化模型 Custom Localization Modules}
+\subsubsection{本地化定制模型}%Custom Localization Modules
 \label{aut:cav:lng}
 
-Style guides may include provisions as to how strings like <edition> should be abbreviated or they may mandate certain fixed expressions. For example, the \acr{mla} style guide requires authors to use the term <Works~Cited> rather than <Bibliography> or <References> in the heading of the bibliography. Localization commands such as \cmd{DefineBibliographyStrings} from \secref{use:lng} may indeed be used in \file{cbx} and \file{bbx} files to handle such cases. However, overloading style files with translations is rather inconvenient. This is where \cmd{DeclareLanguageMapping} from \secref{aut:lng:cmd} comes into play. This command maps an \file{lbx} file with alternative translations to a \sty{babel}/\sty{polyglossia} language. For example, you could create a file named \path{french-humanities.lbx} which provides French translations adapted for use in the humanities and map it to the \sty{babel}/\sty{polyglossia} language \texttt{french} in the preamble or in the configuration file:
+样式规则可能包含某些规定，比如像<edition>之类的字符串怎么缩写或者需要表示成一些固定的形式。例如\acr{mla}样式指南要求作者在参考文献表的标题中使用<Works~Cited>而不是<Bibliography>或<References>。本地化命令比如\secref{use:lng}节的\cmd{DefineBibliographyStrings}可以在\file{cbx}和\file{bbx}文件中处理这些情况。然而，重载样式文件及其翻译内容是相当不便的。这是\secref{aut:lng:cmd}节的\cmd{DeclareLanguageMapping}命令发挥作用的地方。这一命令将一个\file{lbx}文件映射为某一\sty{babel}/\sty{polyglossia}语言的替代翻译。例如，可以创建一个名为\path{french-humanities.lbx}的文件提供适用于人文学科的法语翻译并在导言区或者配置文件中将其映射为\sty{babel}/\sty{polyglossia}语言\texttt{french}。
+%Style guides may include provisions as to how strings like <edition> should be abbreviated or they may mandate certain fixed expressions. For example, the \acr{mla} style guide requires authors to use the term <Works~Cited> rather than <Bibliography> or <References> in the heading of the bibliography. Localization commands such as \cmd{DefineBibliographyStrings} from \secref{use:lng} may indeed be used in \file{cbx} and \file{bbx} files to handle such cases. However, overloading style files with translations is rather inconvenient. This is where \cmd{DeclareLanguageMapping} from \secref{aut:lng:cmd} comes into play. This command maps an \file{lbx} file with alternative translations to a \sty{babel}/\sty{polyglossia} language. For example, you could create a file named \path{french-humanities.lbx} which provides French translations adapted for use in the humanities and map it to the \sty{babel}/\sty{polyglossia} language \texttt{french} in the preamble or in the configuration file:
 
 \begin{ltxexample}
 \DeclareLanguageMapping{french}{french-humanities}
 \end{ltxexample}
 %
-If the document language is set to \texttt{french}, \path{french-humanities.lbx} will replace \path{french.lbx}. Coming back to the \acr{mla} example mentioned above, an \acr{mla} style may come with an \path{american-mla.lbx} file to provide strings which comply with the \acr{mla} style guide. It would declare the following mapping in the \file{cbx} and/or \file{bbx} file:
+如果正文的语言设置为\texttt{french}，\path{french-humanities.lbx}将替换\path{french.lbx}。回到前述的\acr{mla}示例，一个\acr{mla}样式可能带有一个\path{american-mla.lbx}文件来提供符合\acr{mla}样式规则的字符串。它将在\file{cbx}和/或 \file{bbx} 文件中声明如下映射:
+%If the document language is set to \texttt{french}, \path{french-humanities.lbx} will replace \path{french.lbx}. Coming back to the \acr{mla} example mentioned above, an \acr{mla} style may come with an \path{american-mla.lbx} file to provide strings which comply with the \acr{mla} style guide. It would declare the following mapping in the \file{cbx} and/or \file{bbx} file:
 
 \begin{ltxexample}
 \DeclareLanguageMapping{american}{american-mla}
 \end{ltxexample}
 %
-Since the alternative \file{lbx} file can inherit strings from the standard \path{american.lbx} module, \path{american-mla.lbx} may be as short as this:
+因为替换的\file{lbx}文件可以从标准的\path{american.lbx}模型中继承字符串，所以\path{american-mla.lbx}可以简化为:
+%Since the alternative \file{lbx} file can inherit strings from the standard \path{american.lbx} module, \path{american-mla.lbx} may be as short as this:
 
 \begin{ltxexample}
 \ProvidesFile{american-mla.lbx}[2008/10/01 v1.0 biblatex localization]
@@ -7010,49 +7019,64 @@ Since the alternative \file{lbx} file can inherit strings from the standard \pat
 \endinput
 \end{ltxexample}
 %
-Alternative \file{lbx} files must ensure that the localisation module is complete. They should do so by inheriting data from the corresponding standard module. If the language \texttt{american} is mapped to \path{american-mla.lbx}, \biblatex will not load \path{american.lbx} unless this module is requested explicitly. In the above example, inheriting <strings> and <extras> will cause \biblatex to load \path{american.lbx} before applying the modifications in \path{american-mla.lbx}.
+替换的\file{lbx}文件必须保证本地化模型是完整的。这可以通过从相应的标准模型中继承来实现。如果语言\texttt{american}映射为\path{american-mla.lbx}，\biblatex 将不会加载\path{american.lbx}触发该模型被明确要求加载。在上述示例中，继承<strings>和<extras>将导致\biblatex 在\path{american-mla.lbx}中应用修改前加载\path{american.lbx}。
+%Alternative \file{lbx} files must ensure that the localisation module is complete. They should do so by inheriting data from the corresponding standard module. If the language \texttt{american} is mapped to \path{american-mla.lbx}, \biblatex will not load \path{american.lbx} unless this module is requested explicitly. In the above example, inheriting <strings> and <extras> will cause \biblatex to load \path{american.lbx} before applying the modifications in \path{american-mla.lbx}.
 
-Note that \cmd{DeclareLanguageMapping} is not intended to handle language variants (\eg American English vs. British English) or \sty{babel}/\sty{polyglossia} language aliases (\eg \texttt{USenglish} vs. \texttt{american}). For example, \sty{babel}/\sty{polyglossia} offers the \texttt{USenglish} option which is similar to \texttt{american}. Therefore, \biblatex ships with an \path{USenglish.lbx} file which simply inherits all data from \path{american.lbx} (which in turn gets the <strings> from \path{english.lbx}). In other words, the mapping of language variants and \sty{babel}/\sty{polyglossia} language aliases happens on the file level, the point being that \biblatex's language support can be extended simply by adding additional \file{lbx} files. There is no need for centralized mapping. If you need support for, say, Portuguese (babel/polyglossia: \file{portuges}), you create a file named \path{portuges.lbx}. If \sty{babel}/\sty{polyglossia} offered an alias named \texttt{brasil}, you would create \path{brasil.lbx} and inherit the data from \path{portuges.lbx}. In contrast to that, the point of \cmd{DeclareLanguageMapping} is handling \emph{stylistic} variants like <humanities vs. natural sciences> or <\acr{mla} vs. \acr{apa}> etc. which will typically be built on top of existing \file{lbx} files.
+注意:\cmd{DeclareLanguageMapping}不用于处理语言的变体(比如American English 和 British English))或者\sty{babel}/\sty{polyglossia}语言别名(比如\texttt{USenglish} vs. \texttt{american})。例如，\sty{babel}/\sty{polyglossia}提供了\texttt{USenglish}选项类似于\texttt{american}。因此\biblatex 附带一个\path{USenglish.lbx}文件，该文件简单的从\path{american.lbx}文件中继承所有数据(而该文件又从\path{english.lbx}文件中获取字符串)。换句话说，语言变体和\sty{babel}/\sty{polyglossia} 语言别名的映射发射在文件层，因此\biblatex 的语言支持可以简单地增加额外的\file{lbx}文件来实现拓展。没有必要进行集中的映射，如果需要支持比如Portuguese (babel/polyglossia: \file{portuges})，可以创建一个名为\path{portuges.lbx}的文件。如果\sty{babel}/\sty{polyglossia}提供一个名为\texttt{brasil}的别名，可以创建一个\path{brasil.lbx}文件并可从\path{portuges.lbx}中继承数据。相比之下，\cmd{DeclareLanguageMapping}主要用于处理\emph{文体}上的变化，像<humanities 对 natural sciences> or <\acr{mla} 对 \acr{apa}>等，这通常是建立在现有的\file{lbx}文件基础上的。
+%Note that \cmd{DeclareLanguageMapping} is not intended to handle language variants (\eg American English vs. British English) or \sty{babel}/\sty{polyglossia} language aliases (\eg \texttt{USenglish} vs. \texttt{american}). For example, \sty{babel}/\sty{polyglossia} offers the \texttt{USenglish} option which is similar to \texttt{american}. Therefore, \biblatex ships with an \path{USenglish.lbx} file which simply inherits all data from \path{american.lbx} (which in turn gets the <strings> from \path{english.lbx}). In other words, the mapping of language variants and \sty{babel}/\sty{polyglossia} language aliases happens on the file level, the point being that \biblatex's language support can be extended simply by adding additional \file{lbx} files. There is no need for centralized mapping. If you need support for, say, Portuguese (babel/polyglossia: \file{portuges}), you create a file named \path{portuges.lbx}. If \sty{babel}/\sty{polyglossia} offered an alias named \texttt{brasil}, you would create \path{brasil.lbx} and inherit the data from \path{portuges.lbx}. In contrast to that, the point of \cmd{DeclareLanguageMapping} is handling \emph{stylistic} variants like <humanities vs. natural sciences> or <\acr{mla} vs. \acr{apa}> etc. which will typically be built on top of existing \file{lbx} files.
 
-\subsubsection{编组 Grouping}
+\subsubsection{编组}%Grouping
 \label{aut:cav:grp}
 
-In a citation or bibliography style, you may need to set flags or store certain values for later use. In this case, it is crucial to understand the basic grouping structure imposed by this package. As a rule of thumb, you are working in a large group whenever author commands such as those discussed in \secref{aut:aux} are available because the author interface of this package is only enabled locally. If any bibliographic data is available, there is at least one additional group. Here are some general rules:
+在标注和著录样式中，可能需要设置标志或保存一些值以便后面使用。这种情况下，理解宏包执行的基本编组结构很关键。一条经验法则是，无论诸如\secref{aut:aux}节讨论的样式作者命令是否存在，所有的工作都是在一个大的编组内进行的，因为本宏包的作者接口都是局部的。当存在参考文献数据时，至少存在一个额外的编组，下面是一些基本规则:
+%In a citation or bibliography style, you may need to set flags or store certain values for later use. In this case, it is crucial to understand the basic grouping structure imposed by this package. As a rule of thumb, you are working in a large group whenever author commands such as those discussed in \secref{aut:aux} are available because the author interface of this package is only enabled locally. If any bibliographic data is available, there is at least one additional group. Here are some general rules:
 
 \begin{itemize}
 
-\item The entire list of references printed by \cmd{printbibliography} and similar commands is processed in a group. Each entry in the list is processed in an additional group which encloses the \prm{item code} of \cmd{defbibenvironment} as well as all driver code.
+\item 由\cmd{printbibliography}或类似命令打印的整个文献表是在一个编组中处理。表中的每个条目都是在一个额外的编组中，这一编组包含了\cmd{defbibenvironment}的\prm{item code}和所有的驱动代码。
+%The entire list of references printed by \cmd{printbibliography} and similar commands is processed in a group. Each entry in the list is processed in an additional group which encloses the \prm{item code} of \cmd{defbibenvironment} as well as all driver code.
 
-\item The entire bibliography list printed by \cmd{printbiblist} is processed in a group. Each entry in the list is processed in an additional group which encloses the \prm{item code} of \cmd{defbibenvironment} as well as all driver code.
+\item 由\cmd{printbiblist}命令打印的整个文献表是在一个编组中处理。表中的每个条目都是在一个额外的编组中，这一编组包含了\cmd{defbibenvironment}的\prm{item code}和所有的驱动代码。
+%The entire bibliography list printed by \cmd{printbiblist} is processed in a group. Each entry in the list is processed in an additional group which encloses the \prm{item code} of \cmd{defbibenvironment} as well as all driver code.
 
-\item All citation commands defined with \cmd{DeclareCiteCommand} are processed in a group holding the complete citation code consisting of the \prm{precode}, \prm{sepcode}, \prm{loopcode}, and \prm{postcode} arguments. The \prm{loopcode} is enclosed in an additional group every time it is executed. If any \prm{wrapper} code has been specified, the entire unit consisting of the wrapper code and the citation code is wrapped in an additional group.
+\item 所有由\cmd{DeclareCiteCommand}命令定义的标注命令都是在一个编组中处理，该编组包含由\prm{precode}, \prm{sepcode}, \prm{loopcode}, 和\prm{postcode}等参数构成的完整标注代码。每词执行的\prm{loopcode}都包含在一个额外的编组中。如果指定了任何的\prm{wrapper}，包含\prm{wrapper}代码和标注代码的整个单元都在一个额外的编组中。
+%All citation commands defined with \cmd{DeclareCiteCommand} are processed in a group holding the complete citation code consisting of the \prm{precode}, \prm{sepcode}, \prm{loopcode}, and \prm{postcode} arguments. The \prm{loopcode} is enclosed in an additional group every time it is executed. If any \prm{wrapper} code has been specified, the entire unit consisting of the wrapper code and the citation code is wrapped in an additional group.
 
-\item In addition to the grouping imposed by all backend commands defined with \cmd{DeclareCiteCommand}, all <autocite> and <multicite> definitions imply an additional group.
+\item 除了由\cmd{DeclareCiteCommand}定义的所有后端命令会产生编组外，所有的<autocite> 和 <multicite>定义也都会产生一个额外的编组。
+%In addition to the grouping imposed by all backend commands defined with \cmd{DeclareCiteCommand}, all <autocite> and <multicite> definitions imply an additional group.
 
-\item \cmd{printfile}, \cmd{printtext}, \cmd{printfield}, \cmd{printlist}, and \cmd{printnames} form groups. This implies that all formatting directives will be processed within a group of their own.
+\item \cmd{printfile}, \cmd{printtext}, \cmd{printfield}, \cmd{printlist}, 和\cmd{printnames}命令也形成编组。这意味着所有的格式化指令都是在它们自身的编组中处理。
+%\cmd{printfile}, \cmd{printtext}, \cmd{printfield}, \cmd{printlist}, and \cmd{printnames} form groups. This implies that all formatting directives will be processed within a group of their own.
 
-\item All \file{lbx} files are loaded and processed in a group. If an \file{lbx} file contains any code which is not part of \cmd{DeclareBibliographyExtras}, the definitions must be global.
+\item 所有的\file{lbx}文件都是在一个编组中加载和处理。如果一个\file{lbx}文件包含的代码不是\cmd{DeclareBibliographyExtras}的一部分，那么该定义是全局的。
+%All \file{lbx} files are loaded and processed in a group. If an \file{lbx} file contains any code which is not part of \cmd{DeclareBibliographyExtras}, the definitions must be global.
 
 \end{itemize}
 
-Note that using \cmd{aftergroup} in citation and bibliography styles is unreliable because the precise number of groups employed in a certain context may change in future versions of this package. If the above list states that something is processed in a group, this means that there is \emph{at least one} group. There may also be several nested ones.
+注意:在标注和著录样式中使用\cmd{aftergroup}是不可靠的，因为在一定环境中应用的编组的精确层数在宏包的未来版本中可能发生变化。上述说明中如果说某些东西在一个编组中处理，这意味着至少存在一个编组，也可能存在多层嵌套的编组。
+%Note that using \cmd{aftergroup} in citation and bibliography styles is unreliable because the precise number of groups employed in a certain context may change in future versions of this package. If the above list states that something is processed in a group, this means that there is \emph{at least one} group. There may also be several nested ones.
 
-\subsubsection{命名空间 Namespaces}
+\subsubsection{命名空间}%Namespaces
 \label{aut:cav:nam}
-
-In order to minimize the risk of name clashes, \latex packages typically prefix the names of internal macros with a short string specific to the package. For example, if the \sty{foobar} package requires a macro for internal use, it would typically be called \cmd{FB@macro} or \cmd{foo@macro} rather than \cmd{macro} or \cmd{@macro}. Here is a list of the prefixes used or recommended by \biblatex:
+为减小命名冲突的风险， \latex 宏包通常在其内部宏名前加上一个代表该宏包的短字符串。例如: 如果\sty{foobar}宏包需要一个内部使用的宏，它通常会命名为\cmd{FB@macro}或\cmd{foo@macro}而不是\cmd{macro} or \cmd{@macro}。下面是\biblatex 使用或推荐使用的前缀字符串:
+%In order to minimize the risk of name clashes, \latex packages typically prefix the names of internal macros with a short string specific to the package. For example, if the \sty{foobar} package requires a macro for internal use, it would typically be called \cmd{FB@macro} or \cmd{foo@macro} rather than \cmd{macro} or \cmd{@macro}. Here is a list of the prefixes used or recommended by \biblatex:
 
 \begin{marglist}
 
-\item[\texttt{blx}] All macros with names like \cmd{blx@name} are strictly reserved for internal use. This also applies to counter names, length registers, boolean switches, and so on. These macros may be altered in backwards"=incompatible ways, they may be renamed or even removed at any time without further notice. Such changes will not even be mentioned in the revision history or the release notes. In short: never use any macros with the string \texttt{blx} in their name in any styles.
+\item[\texttt{blx}] 所有的宏名像\cmd{blx@name}的宏严格作为内部使用。这也应用于计数器名，长度名，布尔开关等。这些宏可能会以非后向兼容的方式改变，它们可能会重命名设置删除掉而不会有更多的说明。这种改变也不会在版本修改历史和版本发布信息中出现。简而言之: 不要在任何样式中使用以\texttt{blx}字符串开头的宏。
+%All macros with names like \cmd{blx@name} are strictly reserved for internal use. This also applies to counter names, length registers, boolean switches, and so on. These macros may be altered in backwards"=incompatible ways, they may be renamed or even removed at any time without further notice. Such changes will not even be mentioned in the revision history or the release notes. In short: never use any macros with the string \texttt{blx} in their name in any styles.
 
-\item[\texttt{abx}] Macros prefixed with \texttt{abx} are also internal macros but they are fairly stable. It is always preferable to use the facilities provided by the official author interface, but there may be cases in which using an \texttt{abx} macro is convenient.
+\item[\texttt{abx}] 以\texttt{abx}为前缀的宏也是内部使用，但会相当稳定。但仍应优先使用正式的作者接口提供的工具，当有些情况下使用某一\texttt{abx}宏可能会比较方便。
+%Macros prefixed with \texttt{abx} are also internal macros but they are fairly stable. It is always preferable to use the facilities provided by the official author interface, but there may be cases in which using an \texttt{abx} macro is convenient.
 
-\item[\texttt{bbx}] This is the recommended prefix for internal macros defined in bibliography styles.
+\item[\texttt{bbx}] 建议在著录样式中内部使用的宏名的前缀
+%This is the recommended prefix for internal macros defined in bibliography styles.
 
-\item[\texttt{cbx}] This is the recommended prefix for internal macros defined in citation styles.
+\item[\texttt{cbx}] 建议在标注样式中内部使用的宏名的前缀
+%This is the recommended prefix for internal macros defined in citation styles.
 
-\item[\texttt{lbx}] This is the recommended base prefix for internal macros defined in localisation modules. The localisation module should add a second prefix to specify the language. For example, an internal macro defined by the Spanish localisation module would be named \cmd{lbx@es@macro}.
+\item[\texttt{lbx}] 建议在本地化模型中内部使用的宏名的前缀。本地化模型需要添加第二个前缀来指定语言，比如一个为西班牙语本地化模型定义的内部宏可以命名为\cmd{lbx@es@macro}。
+%This is the recommended base prefix for internal macros defined in localisation modules. The localisation module should add a second prefix to specify the language. For example, an internal macro defined by the Spanish localisation module would be named \cmd{lbx@es@macro}.
 
 \end{marglist}
 

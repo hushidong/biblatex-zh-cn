@@ -9,7 +9,7 @@
 本节描述 \file{blx-dm.def} 中定义的默认数据模型。该文件是宏包的一部分。
 该数据模型的定义由\secref{aut:ctm:dm}节中的宏实现。
 因此，可以重新定义 \biblatex 和 \biber 所用的数据模型，
-使得数据源可以包括新的条目类型和域（当然这需要样式文件支持）。
+使得数据源可以包括新的\gls{条目类型}和\gls{域}（当然这需要\gls{样式}文件支持）。
 数据模型规范还允许定义约束，使得数据源可以根据数据模型进行校验
 （使用 \biber 的 \path{--validate_datamodel} 选项）。
 若需要定制数据模型，请参考 \file{blx-dm.def} 文件和 \secref{aut:ctm:dm} 节。
@@ -195,7 +195,7 @@
 专利或专利申请。号码或记录号在 \bibfield{number} 域中给出。
 \bibfield{type} 域用于描述类型，
 \bibfield{location} 域则用于描述专利范围，如果存在与 \bibfield{type} 领域不同的情况。
-注意，\bibfield{location} 在本条目中以键值列表的方式处理，详见 \secref{bib:fld:typ} 节。
+注意，\bibfield{location} 在本条目类型中以键值列表的方式处理，详见 \secref{bib:fld:typ} 节。
 
 \reqitem{author, title, number, year/date}
 \optitem{holder, subtitle, titleaddon, type, version, location, note, date, month, year, addendum, pubstate, doi, eprint, eprintclass, eprinttype, url, urldate}
@@ -218,7 +218,7 @@
 
 \bibtype{periodical} 的补充材料，
 类似于 \bibtype{suppbook} 之于 \bibtype{book}。
-如果你意识到 \bibtype{article} 类型其实就是 \bibtype{inperiodical}，那么本条目的作用显而易见了。
+如果你意识到 \bibtype{article} 类型其实就是 \bibtype{inperiodical}，那么本条目类型的作用显而易见了。
 该类型应用于只有一般性题目的栏目，例如固定专栏、讣告、致编辑的信等。
 一些样式指南会严格定制该类型的格式区别于 \bibtype{article}。
 不过标准样式则认为它是 \bibtype{article} 的别名。
@@ -550,7 +550,7 @@
 如果不包括范围，那么范围域将被忽略并生成警告信息。
 可以使用 \cmd{DeclareSourcemap} 命令在解析范围域之前对其进行整理（见 \secref{aut:ctm:map} 节）。
 
-%\item[Integer fields] hold integers which may be converted to ordinals or strings as they are printed. A typical example is the \bibfield{extrayear} or \bibfield{volume} field. Such fields are sorted as integers. \biber makes a (quite serious) effort to map non-arabic representations (roman numerals for example) to integers for sorting purposes. 
+%\item[Integer fields] hold integers which may be converted to ordinals or strings as they are printed. A typical example is the \bibfield{extrayear} or \bibfield{volume} field. Such fields are sorted as integers. \biber makes a (quite serious) effort to map non-arabic representations (roman numerals for example) to integers for sorting purposes.
 
 \item[整数域（integer field）] 包含的整数当打印时会转化为序数或者字符串。
 典型的例子是 \bibfield{extrayear} 和 \bibfield{volume} 域。
@@ -592,7 +592,7 @@
 
 %\item[Separated value fields] A separated list of literal values. Examples are the \bibfield{keywords} and \bibfield{options} fields. The separator can be configured to be any Perl regular expression via the \opt{xsvsep} option which defaults to the usual \bibtex comma surrounded by optional whitespace.
 
-\item[分隔值域（separated value field）]  
+\item[分隔值域（separated value field）]
 被分隔的文本值列表。
 例子是 \bibfield{keywords} 和 \bibfield{options} 域。
 通过 \opt{xsvsep} 选项可以将分隔符配置成任何Perl正则表达式，
@@ -2055,7 +2055,7 @@ langidopts     = {variant=british},
 
 %\fielditem{archiveprefix}{literal}
 
-%An alias for \bibfield{eprinttype}, provided for arXiv compatibility. See \secref{bib:fld:dat,use:use:epr}. 
+%An alias for \bibfield{eprinttype}, provided for arXiv compatibility. See \secref{bib:fld:dat,use:use:epr}.
 
 \fielditem{archiveprefix}{文本}
 
@@ -2091,7 +2091,7 @@ langidopts     = {variant=british},
 
 \fielditem{primaryclass}{literal}
 
-An alias for \bibfield{eprintclass}, provided for arXiv compatibility. See \secref{bib:fld:dat,use:use:epr}. 
+An alias for \bibfield{eprintclass}, provided for arXiv compatibility. See \secref{bib:fld:dat,use:use:epr}.
 
 \fielditem{primaryclass}{文本}
 
@@ -2550,8 +2550,8 @@ organization = {<<{American Society for Photogrammetry and Remote Sensing}>>
 %Date fields such as the default data model dates \bibfield{date}, \bibfield{origdate}, \bibfield{eventdate}, and \bibfield{urldate} adhere to  \acr{EDTF}\footnote{\url{https://www.loc.gov/standards/datetime/pre-submission.html}} (Extended Date/Time Format) specification levels 0 and 1. Also supported are the open-ended range specifications in section 4.5 of the current working draft of ISO8601-2\footnote{\url{http://www.loc.gov/standards/datetime/iso-tc154-wg5_n0039_iso_wd_8601-2_2016-02-16.pdf}}. \acr{EDTF} is a stricter subset of the somewhat messy formats allowed by \acr{ISO8601v2004} and is better suited to bibliographic data. In addition to the \acr{EDTF} empty date range markers, you may also specify an open ended/start date range by giving the range separator and omitting the end/start date (\eg \texttt{YYYY/}, \texttt{/YYYY}). See \tabref{bib:use:tab1} for some examples of valid date specifications and the formatted dates automatically generated by \biblatex. The formatted date is language specific and will be adapted automatically. If there is no \bibfield{date} field in an entry, \biblatex will also consider the fields \bibfield{year} and \bibfield{month} for backwards compatibility with traditional \bibtex but this is not encouraged as explicit \bibfield{year} and \bibfield{month} are not parsed for date meta-information markers or times and are used as-is. Style authors should note that date fields like \bibfield{date} or \bibfield{origdate} are only available in the \file{bib} file. All dates are parsed and dissected into their components as the \file{bib} file is processed. The date and time components are made available to styles by way of the special fields discussed in \secref{aut:bbx:fld:dat}. See this section and \tabref{aut:bbx:fld:tab1} on page~\pageref{aut:bbx:fld:tab1} for further information.
 
 日期域遵循扩展日期时间格式%
-\footnote{\url{https://www.loc.gov/standards/datetime/pre-submission.html}} 
-（Extended Date/Time Format, \acr{EDTF}） 
+\footnote{\url{https://www.loc.gov/standards/datetime/pre-submission.html}}
+（Extended Date/Time Format, \acr{EDTF}）
 标准0和标准1，
 例如默认数据模型的日期域 \bibfield{date}、\bibfield{origdate}、\bibfield{eventdate} 和 \bibfield{urldate}。
 此外也支持ISO8601-2的当前草案%
@@ -2893,7 +2893,7 @@ Unicode是一个复杂的标准，不仅仅涵盖了它最著名的的部分—�
 \begin{itemize}
 \setlength{\itemsep}{0pt}
 
-\item 
+\item
 %Ascii notation in both the \file{tex} and the \file{bib} file with \pdftex or traditional \tex:
 \file{tex} 和 \file{bib} 文件中都使用 Ascii 记法，使用 \pdfTeX 或传统的 \TeX 编译：
 
@@ -2901,7 +2901,7 @@ Unicode是一个复杂的标准，不仅仅涵盖了它最著名的的部分—�
 \usepackage{biblatex}
 \end{ltxexample}
 
-\item 
+\item
 %Latin\,1 encoding (\acr{ISO}-8859-1) in the \file{tex} file, Ascii notation in the \file{bib} file with \pdftex or traditional \tex :
 \file{tex} 中使用 Latin\,1 编码（\acr{ISO}-8859-1），\file{bib} 文件中使用Ascii记法，
 用 \pdfTeX 或传统的 \TeX 编译：
@@ -2911,7 +2911,7 @@ Unicode是一个复杂的标准，不仅仅涵盖了它最著名的的部分—�
 \usepackage[bibencoding=ascii]{biblatex}
 \end{ltxexample}
 
-\item 
+\item
 %Latin\,9 encoding (\acr{ISO}-8859-15) in both the \file{tex} and the \file{bib} file with \pdftex or traditional:
 \file{tex} 和 \file{bib} 文件中都使用 Latin\,9 编码（\acr{ISO}-8859-15），
 用 \pdfTeX 或传统的 \TeX 编译：
@@ -2930,7 +2930,7 @@ Unicode是一个复杂的标准，不仅仅涵盖了它最著名的的部分—�
 \usepackage{biblatex}
 \end{ltxexample}
 
-\item 
+\item
 %\utf encoding in the \file{tex} file, Latin\,1 (\acr{ISO}-8859-1) in the \file{bib} file with \pdftex or traditional \tex:
 \file{tex} 文件中使用 \utf 编码，\file{bib} 文件中使用 Latin\,1（\acr{ISO}-8859-1）编码，
 用 \pdfTeX 或传统的 \TeX 编译：
@@ -2959,7 +2959,7 @@ Unicode是一个复杂的标准，不仅仅涵盖了它最著名的的部分—�
 
 \begin{itemize}
 
-\item 
+\item
 %Transparent \utf workflow, \ie \utf encoding in both the \file{tex} and the \file{bib} file with \pdftex or traditional \tex:
 直接的 \utf 工作流，即，在 \file{tex} 和 \file{bib} 文件中都使用 \utf 编码并使用 \pdfTeX 或传统的 \TeX 编译：
 
@@ -2983,7 +2983,7 @@ Unicode是一个复杂的标准，不仅仅涵盖了它最著名的的部分—�
 \usepackage{biblatex}
 \end{ltxexample}
 
-\item 
+\item
 %It is even possible to combine an 8-bit encoded \file{tex} file with \utf encoding in the \file{bib} file, provided that all characters in the \file{bib} file are also covered by the selected 8-bit encoding:
 甚至可以在 \file{tex} 文件使用8比特编码，而在 \file{bib} 文件中使用 \utf 编码，只要 \file{bib} 文件中的所有字符都能被所选择的8比特编码覆盖：
 
@@ -3006,7 +3006,7 @@ Unicode是一个复杂的标准，不仅仅涵盖了它最著名的的部分—�
 
 \begin{itemize}
 
-\item 
+\item
 %If you are affected by this problem, try setting the \opt{safeinputenc} option:
 如果你受到这个问题的影响，尝试设置 \opt{safeinputenc} 选项：
 
