@@ -9,6 +9,16 @@
 % set Chinese formats
 \RequirePackage[UTF8, scheme=chinese, heading=false]{ctex}
 \RequirePackage{indentfirst}
+
+\RequirePackage[xindy]{glossaries}
+\RequirePackage{glossary-longragged}
+
+\newglossary[glg2]{trans}{gls2}{glo2}{中英文术语对照表}
+\makeglossaries
+
+\loadglsentries{biblatex-localcnstring}
+
+
 \ctexset{listtablename=表格}%还是用两个字和目录两字对应
 
 % environment patches for btxdockit.sty
