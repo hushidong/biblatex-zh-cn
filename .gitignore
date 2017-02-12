@@ -81,8 +81,11 @@ acs-*.bib
 *.acn
 *.acr
 *.glg
+*.glg2
 *.glo
+*.glo2
 *.gls
+*.gls2
 *.glsdefs
 
 # gnuplottex
