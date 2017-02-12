@@ -1601,7 +1601,7 @@ labeltitleyear & \rmfamily{---}   & extratitleyear &  labeltitle+labelyear\\
 
 \end{optionlist}
 
-\subsubsection{遗留选项 Legacy Options}
+\subsubsection{遗留选项}
 
 %The following legacy option may be used globally in the optional argument to \cmd{documentclass} or locally in the optional argument to \cmd{usepackage}:
 下面的遗留选项可以全局地在 \cmd{documentclass} 的可选项中使用，
@@ -1615,28 +1615,42 @@ labeltitleyear & \rmfamily{---}   & extratitleyear &  labeltitle+labelyear\\
 
 \end{optionlist}
 
-
-\subsection{全局定制 Global Customization}
+\subsection{全局定制}%\subsection{Global Customization}
 \label{use:cfg}
-除了写新的标注和参考文献样式，还有多种方式来定制本宏包提供的样式。定制可以在导言区中进行，也可以在配置文件中进行以便长期使用。配置文件也用来初始化与默认值不同的包选项。
 
 %Apart from writing new citation and bibliography styles, there are numerous ways to customize the styles which ship with this package. Customization will usually take place in the preamble, but there is also a configuration file for permanent adaptions. The configuration file may also be used to initialize the package options to a value different from the package default.
 
-\subsubsection{配置文件 Configuration File}
+除了编写新的引用和文献样式，本宏包中还有很多定制样式的方法。
+定制通常在导言区中进行，但也可以在配置文件中进行以便长期使用。
+配置文件也可以用于将宏包选项从默认值初始化为不同的值。
+
+\subsubsection{配置文件}%\subsubsection{Configuration File}
 \label{use:cfg:cfg}
-如果提供该文件，则包将加载该配置文件\path{biblatex.cfg}。该文件在包末尾读入，紧跟在标注和参考文献样式后面。
+
 %If available, this package will load the configuration file \path{biblatex.cfg}. This file is read at the end of the package, immediately after the citation and bibliography styles have been loaded.
 
-\subsubsection{设置包选项 Setting Package Options}
+当可用时，本宏包会导入配置文件 \path{biblatex.cfg}。
+该文件会在宏包的末尾，紧跟在引用和文献样式导入之后立即被读取。
+
+\subsubsection{设置宏包选项}%\subsubsection{Setting Package Options}
 \label{use:cfg:opt}
-\secref{use:opt:ldt}节的加载用包选项必须在\cmd{usepackage}的可选参数中给出。\secref{use:opt:pre}给出的包选项也需要在导言区给出。这些选项与如下命令一起使用:
+
 %The load-time package options in \secref{use:opt:ldt} must be given in the optional argument to \cmd{usepackage}. The package options in \secref{use:opt:pre} may also be given in the preamble. The options are executed with the following command:
+
+\secref{use:opt:ldt} 节中的实时载入宏包选项必须在 \cmd{usepackage} 的可选项中给出。
+\secref{use:opt:pre} 节中的宏包选项同样可以在导言区中给出。
+以下命令用于执行选项：
 
 \begin{ltxsyntax}
 
 \cmditem{ExecuteBibliographyOptions}[entrytype, \dots]{key=value, \dots}
 
-This command may also be used in the configuration file to modify the default setting of a package option. Certain options are also settable on a per-type basis. In this case, the optional \prm{entrytype} argument specifies the entry type. The \prm{entrytype} argument may be a comma"=separated list of values.
+%This command may also be used in the configuration file to modify the default setting of a package option. Certain options are also settable on a per-type basis. In this case, the optional \prm{entrytype} argument specifies the entry type. The \prm{entrytype} argument may be a comma"=separated list of values.
+
+该命令也可以在配置文件中使用，以修改宏包选项的默认设置。
+某些选项还可以基于每一条目而设置。
+此时，可选的 \prm{entrytype} 选项用来确定条目类型。
+\prm{entrytype} 选项可以是逗号分隔的值列表。
 
 \end{ltxsyntax}
 
