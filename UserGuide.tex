@@ -1654,147 +1654,383 @@ labeltitleyear & \rmfamily{---}   & extratitleyear &  labeltitle+labelyear\\
 
 \end{ltxsyntax}
 
-\subsection{标准样式 Standard Styles}
+\subsection{标准样式}
 \label{use:xbx}
 
-This section provides a short description of all bibliography and citation styles which ship with the \biblatex package. If you want to write your own styles, see \secref{aut}.
+%This section provides a short description of all bibliography and citation styles which ship with the \biblatex package. If you want to write your own styles, see \secref{aut}.
 
-\subsubsection{标注样式 Citation Styles}
+本节简要地描述了本宏包所带的所有文献和引用样式。
+如果你想自己写样式文件，请参考 \secref{aut} 节。
+
+\subsubsection{标注样式}%\subsubsection{Citation Styles}
 \label{use:xbx:cbx}
 
-The citation styles which come with this package implement several common citation schemes. All standard styles cater for the \bibfield{shorthand} field and support hyperlinks as well as indexing.
+%The citation styles which come with this package implement several common citation schemes. All standard styles cater for the \bibfield{shorthand} field and support hyperlinks as well as indexing.
+
+本宏包所带的引用样式实现了一些常见的引用格式。
+所有的标准样式都支持 \bibfield{shorthand} 域，并且支持超链接和索引。
+
 
 \begin{marglist}
 
 \item[numeric]
-This style implements a numeric citation scheme similar to the standard bibliographic facilities of \latex. It should be employed in conjunction with a numeric bibliography style which prints the corresponding labels in the bibliography. It is intended for in-text citations. The style will set the following package options at load time: \kvopt{autocite}{inline}, \kvopt{labelnumber}{true}. This style also provides an additional preamble option called \opt{subentry} which affects the handling of entry sets. If this option is disabled, citations referring to a member of a set will point to the entire set. If it is enabled, the style supports citations like «[5c]» which point to a subentry in a set (the third one in this example). See the style example for details.
+%This style implements a numeric citation scheme similar to the standard bibliographic facilities of \latex. It should be employed in conjunction with a numeric bibliography style which prints the corresponding labels in the bibliography. It is intended for in-text citations. The style will set the following package options at load time: \kvopt{autocite}{inline}, \kvopt{labelnumber}{true}. This style also provides an additional preamble option called \opt{subentry} which affects the handling of entry sets. If this option is disabled, citations referring to a member of a set will point to the entire set. If it is enabled, the style supports citations like «[5c]» which point to a subentry in a set (the third one in this example). See the style example for details.
+该样式实现与 \LaTeX 的标准文献工具类似的数值式引用格式。
+它应当与某种能在参考文献中打印出相应标签的数值式文献样式一起使用，
+并用于文内引用。
+该样式在宏包载入时设置如下的宏包选项：\kvopt{autocite}{inline}、\kvopt{labelnumber}{true}。
+该样式还额外提供了一个导言区选项 \opt{subentry}，这会影响条目集的处理。
+如果该选项被禁止，指向条目集中某一成员的引用会指向整个的条目集。
+如果该选项被激活，该样式会支持类似于“[5c]”这样指向条目集中的子条目的引用（这个例子是第三个条目）。
+详见样式例子。
 
 \item[numeric-comp]
-A compact variant of the \texttt{numeric} style which prints a list of more than two consecutive numbers as a range. This style is similar to the \sty{cite} package and the \opt{sort\&compress} option of the \sty{natbib} package in numerical mode. For example, instead of «[8, 3, 1, 7, 2]» this style would print «[1--3, 7, 8]». It is intended for in-text citations. The style will set the following package options at load time: \kvopt{autocite}{inline}, \kvopt{sortcites}{true}, \kvopt{labelnumber}{true}. It also provides the \opt{subentry} option.
+%A compact variant of the \texttt{numeric} style which prints a list of more than two consecutive numbers as a range. This style is similar to the \sty{cite} package and the \opt{sort\&compress} option of the \sty{natbib} package in numerical mode. For example, instead of «[8, 3, 1, 7, 2]» this style would print «[1--3, 7, 8]». It is intended for in-text citations. The style will set the following package options at load time: \kvopt{autocite}{inline}, \kvopt{sortcites}{true}, \kvopt{labelnumber}{true}. It also provides the \opt{subentry} option.
+\texttt{numeric} 样式紧凑形式的变种，会将两个以上的连续数字打印成一个区间。
+该样式类似于 \sty{cite} 宏包和数值模式中的 \sty{natbib} 宏包的 \opt{sort\&compress} 选项。
+例如，“[8, 3, 1, 7, 2]”会变成“[1--3, 7, 8]”。
+它用于文中引用。
+该样式在宏包载入时设置如下的宏包选项：
+\kvopt{autocite}{inline}、\kvopt{sortcites}{true}、\kvopt{labelnumber}{true}。
+它也提供了 \opt{subentry} 选项。
 
 \item[numeric-verb]
-A verbose variant of the \texttt{numeric} style. The difference affects the handling of a list of citations and is only apparent when multiple entry keys are passed to a single citation command. For example, instead of «[2, 5, 6]» this style would print «[2]; [5]; [6]». It is intended for in-text citations. The style will set the following package options at load time: \kvopt{autocite}{inline}, \kvopt{labelnumber}{true}. It also provides the \opt{subentry} option.
+%A verbose variant of the \texttt{numeric} style. The difference affects the handling of a list of citations and is only apparent when multiple entry keys are passed to a single citation command. For example, instead of «[2, 5, 6]» this style would print «[2]; [5]; [6]». It is intended for in-text citations. The style will set the following package options at load time: \kvopt{autocite}{inline}, \kvopt{labelnumber}{true}. It also provides the \opt{subentry} option.
+\texttt{numeric} 样式详细形式的变种。
+不同之处在于对一组引用的处理，
+并且只当不同的条目键值传递给单个引用命令时才会显示差异。
+例如，“[2, 5, 6]”会变成“[2]; [5]; [6]”。
+它用于文中引用。
+该样式在宏包载入时设置如下的宏包选项：
+\kvopt{autocite}{inline}、\kvopt{labelnumber}{true}。
+它也提供了 \opt{subentry} 选项。
 
 \item[alphabetic]
-This style implements an alphabetic citation scheme similar to the \path{alpha.bst} style of traditional \bibtex. The alphabetic labels resemble a compact author"=year style to some extent, but the way they are employed is similar to a numeric citation scheme. For example, instead of «Jones 1995» this style would use the label «[Jon95]». «Jones and Williams 1986» would be rendered as «[JW86]». This style should be employed in conjunction with an alphabetic bibliography style which prints the corresponding labels in the bibliography. It is intended for in-text citations. The style will set the following package options at load time: \kvopt{autocite}{inline}, \kvopt{labelalpha}{true}.
+%This style implements an alphabetic citation scheme similar to the \path{alpha.bst} style of traditional \bibtex. The alphabetic labels resemble a compact author"=year style to some extent, but the way they are employed is similar to a numeric citation scheme. For example, instead of «Jones 1995» this style would use the label «[Jon95]». «Jones and Williams 1986» would be rendered as «[JW86]». This style should be employed in conjunction with an alphabetic bibliography style which prints the corresponding labels in the bibliography. It is intended for in-text citations. The style will set the following package options at load time: \kvopt{autocite}{inline}, \kvopt{labelalpha}{true}.
+
+该样式实现的字母顺序引用格式类似于传统 \BibTeX 的 \path{alpha.bst} 样式。
+字母标签某种程度上类似于紧凑的作者---年份样式，但是使用的方式类似于数字引用格式。
+例如，“Jones 1995” 会是“[Jon95]”；而“Jones and Williams 1986”会缩写为“[JW86]”。
+该样式应当与一种字母顺序文献样式一起使用，从而可以在参考文献中打印出相应的标签。
+它用于文内引用。
+该样式在载入时设置如下的宏包选项：\kvopt{autocite}{inline}、\kvopt{labelalpha}{true}。
 
 \item[alphabetic-verb]
-A verbose variant of the \texttt{alphabetic} style. The difference affects the handling of a list of citations and is only apparent when multiple entry keys are passed to a single citation command. For example, instead of «[Doe92; Doe95; Jon98]» this style would print «[Doe92]; [Doe95]; [Jon98]». It is intended for in-text citations. The style will set the following package options at load time: \kvopt{autocite}{inline}, \kvopt{labelalpha}{true}.
+%A verbose variant of the \texttt{alphabetic} style. The difference affects the handling of a list of citations and is only apparent when multiple entry keys are passed to a single citation command. For example, instead of «[Doe92; Doe95; Jon98]» this style would print «[Doe92]; [Doe95]; [Jon98]». It is intended for in-text citations. The style will set the following package options at load time: \kvopt{autocite}{inline}, \kvopt{labelalpha}{true}.
+\texttt{alphabetic} 样式详细格式的变种。
+不同之处在于对一组引用的处理，
+并且只当不同的条目键值传递给单个引用命令时才会显示差异。
+例如“[Doe92; Doe95; Jon98]”会变成“[Doe92]; [Doe95]; [Jon98]”。
+它用于文内引用。
+该样式在载入时设置如下的宏包选项：\kvopt{autocite}{inline}、\kvopt{labelalpha}{true}。
 
 \item[authoryear]
-This style implements an author"=year citation scheme. If the bibliography contains two or more works by the same author which were all published in the same year, a letter is appended to the year. For example, this style would print citations such as «Doe 1995a; Doe 1995b; Jones 1998». This style should be employed in conjunction with an author"=year bibliography style which prints the corresponding labels in the bibliography. It is primarily intended for in-text citations, but it could also be used with citations given in footnotes. The style will set the following package options at load time: \kvopt{autocite}{inline}, \kvopt{labeldate}{true}, \kvopt{uniquename}{full}, \kvopt{uniquelist}{true}.
+%This style implements an author"=year citation scheme. If the bibliography contains two or more works by the same author which were all published in the same year, a letter is appended to the year. For example, this style would print citations such as «Doe 1995a; Doe 1995b; Jones 1998». This style should be employed in conjunction with an author"=year bibliography style which prints the corresponding labels in the bibliography. It is primarily intended for in-text citations, but it could also be used with citations given in footnotes. The style will set the following package options at load time: \kvopt{autocite}{inline}, \kvopt{labeldate}{true}, \kvopt{uniquename}{full}, \kvopt{uniquelist}{true}.
+该样式实现了作者---年份引用格式。
+如果参考文献中包含多个由同一作者同一年份发表的作品，那么年份后会附加一个字母用以区分。
+例如该样式会打印出“Doe 1995a; Doe 1995b; Jones 1998”这样的引用。
+该样式应当与一种作者---年份文献样式一起使用，从而可以在参考文献中打印出相应的标签。
+它起初用于文内引用，但也可以用在脚注中。
+该样式在载入时设置如下的宏包选项：
+\kvopt{autocite}{inline}、\kvopt{labeldate}{true}、\kvopt{uniquename}{full}、\kvopt{uniquelist}{true}。
 
 \item[authoryear-comp]
-A compact variant of the \texttt{authoryear} style which prints the author only once if subsequent references passed to a single citation command share the same author. If they share the same year as well, the year is also printed only once. For example, instead of «Doe 1995b; Doe 1992; Jones 1998; Doe 1995a» this style would print «Doe 1992, 1995a,b; Jones 1998». It is primarily intended for in-text citations, but it could also be used with citations given in footnotes. The style will set the following package options at load time: \kvopt{autocite}{inline}, \kvopt{sortcites}{true}, \kvopt{labeldate}{true}, \kvopt{uniquename}{full}, \kvopt{uniquelist}{true}.
+%A compact variant of the \texttt{authoryear} style which prints the author only once if subsequent references passed to a single citation command share the same author. If they share the same year as well, the year is also printed only once. For example, instead of «Doe 1995b; Doe 1992; Jones 1998; Doe 1995a» this style would print «Doe 1992, 1995a,b; Jones 1998». It is primarily intended for in-text citations, but it could also be used with citations given in footnotes. The style will set the following package options at load time: \kvopt{autocite}{inline}, \kvopt{sortcites}{true}, \kvopt{labeldate}{true}, \kvopt{uniquename}{full}, \kvopt{uniquelist}{true}.
+\texttt{authoryear} 样式紧凑格式的变种。
+如果传递给单个引用命令的一列文献作者相同，那么该作者只会打印一次。
+如果它们年份也相同，那么年份也只会打印一次。
+例如，“Doe 1995b; Doe 1992; Jones 1998; Doe 1995a”在该样式下会变成“Doe 1992, 1995a,b; Jones 1998”。
+它起初用于文中引用，但也可以用在脚注中。
+该样式在载入时设置如下的宏包选项：
+\kvopt{autocite}{inline}、\kvopt{sortcites}{true}、\kvopt{labeldate}{true}、\kvopt{uniquename}{full}、\kvopt{uniquelist}{true}。
 
 \item[authoryear-ibid]
-A variant of the \texttt{authoryear} style which replaces repeated citations by the abbreviation \emph{ibidem} unless the citation is the first one on the current page or double-page spread, or the \emph{ibidem} would be ambiguous in the sense of the package option \kvopt{ibidtracker}{constrict}. The style will set the following package options at load time: \kvopt{autocite}{inline}, \kvopt{labeldate}{true}, \kvopt{uniquename}{full}, \kvopt{uniquelist}{true}, \kvopt{ibidtracker}{constrict}, \kvopt{pagetracker}{true}. This style also provides an additional preamble option called \opt{ibidpage}. See the style example for details.
+%A variant of the \texttt{authoryear} style which replaces repeated citations by the abbreviation \emph{ibidem} unless the citation is the first one on the current page or double-page spread, or the \emph{ibidem} would be ambiguous in the sense of the package option \kvopt{ibidtracker}{constrict}. The style will set the following package options at load time: \kvopt{autocite}{inline}, \kvopt{labeldate}{true}, \kvopt{uniquename}{full}, \kvopt{uniquelist}{true}, \kvopt{ibidtracker}{constrict}, \kvopt{pagetracker}{true}. This style also provides an additional preamble option called \opt{ibidpage}. See the style example for details.
+\texttt{authoryear} 样式的变种，会用缩略语 \emph{ibidem} 替代重复的引用，
+除非该引用在当前页或跨页是第一次出现，
+或者 \emph{ibidem} 在宏包选项 \kvopt{ibidtracker}{constrict} 的意义下表意不清。
+该样式在载入时设置如下的宏包选项：
+\kvopt{autocite}{inline}、\kvopt{labeldate}{true}、\kvopt{uniquename}{full}、\kvopt{uniquelist}{true}、\kvopt{ibidtracker}{constrict}、\kvopt{pagetracker}{true}。
+该样式还额外提供了一个导言区选项 \opt{ibidpage}。
+详见样式例子。
 
 \item[authoryear-icomp]
-A style combining \texttt{authoryear-comp} and \texttt{authoryear-ibid}. The style will set the following package options at load time: \kvopt{autocite}{inline}, \kvopt{labeldate}{true}, \kvopt{uniquename}{full}, \kvopt{uniquelist}{true}, \kvopt{ibidtracker}{constrict}, \kvopt{pagetracker}{true}, \kvopt{sortcites}{true}. This style also provides an additional preamble option called \opt{ibidpage}. See the style example for details.
+%A style combining \texttt{authoryear-comp} and \texttt{authoryear-ibid}. The style will set the following package options at load time: \kvopt{autocite}{inline}, \kvopt{labeldate}{true}, \kvopt{uniquename}{full}, \kvopt{uniquelist}{true}, \kvopt{ibidtracker}{constrict}, \kvopt{pagetracker}{true}, \kvopt{sortcites}{true}. This style also provides an additional preamble option called \opt{ibidpage}. See the style example for details.
+一个结合了 \texttt{authoryear-comp} 和 \texttt{authoryear-ibid} 的样式。
+该样式在载入时设置如下的宏包选项：
+\kvopt{autocite}{inline}、\kvopt{labeldate}{true}、\kvopt{uniquename}{full}、\kvopt{uniquelist}{true}、\kvopt{ibidtracker}{constrict}、\kvopt{pagetracker}{true}、\kvopt{sortcites}{true}。
+该样式还额外提供了一个导言区选项 \opt{ibidpage}。
+详见样式例子。
 
 \item[authortitle]
-This style implements a simple author"=title citation scheme. It will make use of the \bibfield{shorttitle} field, if available. It is intended for citations given in footnotes. The style will set the following package options at load time: \kvopt{autocite}{footnote}, \kvopt{uniquename}{full}, \kvopt{uniquelist}{true}.
+%This style implements a simple author"=title citation scheme. It will make use of the \bibfield{shorttitle} field, if available. It is intended for citations given in footnotes. The style will set the following package options at load time: \kvopt{autocite}{footnote}, \kvopt{uniquename}{full}, \kvopt{uniquelist}{true}.
+该样式实现了一个简单的作者---标题引用格式。
+如果可用的话，它会使用 \bibfield{shorttitle} 域。
+它用于脚注中给出的引用。
+该样式在载入时设置如下的宏包选项：
+\kvopt{autocite}{footnote}、\kvopt{uniquename}{full}、\kvopt{uniquelist}{true}。
 
 \item[authortitle-comp]
-A compact variant of the \texttt{authortitle} style which prints the author only once if subsequent references passed to a single citation command share the same author. For example, instead of «Doe, \emph{First title}; Doe, \emph{Second title}» this style would print «Doe, \emph{First title}, \emph{Second title}». It is intended for citations given in footnotes. The style will set the following package options at load time: \kvopt{autocite}{footnote}, \kvopt{sortcites}{true}, \kvopt{uniquename}{full}, \kvopt{uniquelist}{true}.
+%A compact variant of the \texttt{authortitle} style which prints the author only once if subsequent references passed to a single citation command share the same author. For example, instead of «Doe, \emph{First title}; Doe, \emph{Second title}» this style would print «Doe, \emph{First title}, \emph{Second title}». It is intended for citations given in footnotes. The style will set the following package options at load time: \kvopt{autocite}{footnote}, \kvopt{sortcites}{true}, \kvopt{uniquename}{full}, \kvopt{uniquelist}{true}.
+\texttt{authortitle} 样式紧凑格式的变种。
+如果传递给单个引用命令的一列文献作者相同，那么该作者只会打印一次。
+例如，“Doe, \emph{First title}; Doe, \emph{Second title}”在此样式下会变成“Doe, \emph{First title}, \emph{Second title}”。
+它用于脚注中给出的引用。
+该样式在载入时设置如下的宏包选项：
+\kvopt{autocite}{footnote}、\kvopt{sortcites}{true}、\kvopt{uniquename}{full}、\kvopt{uniquelist}{true}。
 
 \item[authortitle-ibid]
-A variant of the \texttt{authortitle} style which replaces repeated citations by the abbreviation \emph{ibidem} unless the citation is the first one on the current page or double-page spread, or the \emph{ibidem} would be ambiguous in the sense of the package option \kvopt{ibidtracker}{constrict}. It is intended for citations given in footnotes. The style will set the following package options at load time: \kvopt{autocite}{footnote}, \kvopt{uniquename}{full}, \kvopt{uniquelist}{true}, \kvopt{ibidtracker}{constrict}, \kvopt{pagetracker}{true}. This style also provides an additional preamble option called \opt{ibidpage}. See the style example for details.
+%A variant of the \texttt{authortitle} style which replaces repeated citations by the abbreviation \emph{ibidem} unless the citation is the first one on the current page or double-page spread, or the \emph{ibidem} would be ambiguous in the sense of the package option \kvopt{ibidtracker}{constrict}. It is intended for citations given in footnotes. The style will set the following package options at load time: \kvopt{autocite}{footnote}, \kvopt{uniquename}{full}, \kvopt{uniquelist}{true}, \kvopt{ibidtracker}{constrict}, \kvopt{pagetracker}{true}. This style also provides an additional preamble option called \opt{ibidpage}. See the style example for details.
+\texttt{authortitle} 样式的变种，会用缩略语 \emph{ibidem} 替代重复的引用，
+除非该引用在当前页或跨页是第一次出现，
+或者 \emph{ibidem} 在宏包选项 \kvopt{ibidtracker}{constrict} 的意义下表意不清。
+它用于脚注中给出的引用。
+该样式在载入时设置如下的宏包选项：
+\kvopt{autocite}{footnote}、\kvopt{uniquename}{full}、\kvopt{uniquelist}{true}、\kvopt{ibidtracker}{constrict}、\kvopt{pagetracker}{true}。
+该样式还额外提供了一个导言区选项 \opt{ibidpage}。
+详见样式例子。
 
 \item[authortitle-icomp]
-A style combining the features of \texttt{authortitle-comp} and \texttt{authortitle-ibid}. The style will set the following package options at load time: \kvopt{autocite}{footnote}, \kvopt{uniquename}{full}, \kvopt{uniquelist}{true}, \kvopt{ibidtracker}{constrict}, \kvopt{pagetracker}{true}, \kvopt{sortcites}{true}. This style also provides an additional preamble option called \opt{ibidpage}. See the style example for details.
+%A style combining the features of \texttt{authortitle-comp} and \texttt{authortitle-ibid}. The style will set the following package options at load time: \kvopt{autocite}{footnote}, \kvopt{uniquename}{full}, \kvopt{uniquelist}{true}, \kvopt{ibidtracker}{constrict}, \kvopt{pagetracker}{true}, \kvopt{sortcites}{true}. This style also provides an additional preamble option called \opt{ibidpage}. See the style example for details.
+结合了 \texttt{authortitle-comp} 和 \texttt{authortitle-ibid} 特性的样式。
+该样式在载入时设置如下的宏包选项：
+\kvopt{autocite}{footnote}、\kvopt{uniquename}{full}、\kvopt{uniquelist}{true}、\kvopt{ibidtracker}{constrict}、\kvopt{pagetracker}{true}、\kvopt{sortcites}{true}。
+该样式还额外提供了一个导言区选项 \opt{ibidpage}。
+详见样式例子。
 
 \item[authortitle-terse]
-A terse variant of the \texttt{authortitle} style which only prints the title if the bibliography contains more than one work by the respective author\slash editor. This style will make use of the \bibfield{shorttitle} field, if available. It is suitable for in-text citations as well as citations given in footnotes. The style will set the following package options at load time: \kvopt{autocite}{inline}, \kvopt{singletitle}{true}, \kvopt{uniquename}{full}, \kvopt{uniquelist}{true}.
+%A terse variant of the \texttt{authortitle} style which only prints the title if the bibliography contains more than one work by the respective author\slash editor. This style will make use of the \bibfield{shorttitle} field, if available. It is suitable for in-text citations as well as citations given in footnotes. The style will set the following package options at load time: \kvopt{autocite}{inline}, \kvopt{singletitle}{true}, \kvopt{uniquename}{full}, \kvopt{uniquelist}{true}.
+\texttt{authortitle} 样式简明格式的变种，
+如果文献中包含多个相应作者/编辑的作品，那么只会打印出标题。
+如果可用的话，该样式会使用 \bibfield{shorttitle} 域。
+它在文中引用和脚注中引用都适用。
+该样式在载入时设置如下的宏包选项：\kvopt{autocite}{inline}、\kvopt{singletitle}{true}、\kvopt{uniquename}{full}、\kvopt{uniquelist}{true}。
 
 \item[authortitle-tcomp]
-A style combining the features of \texttt{authortitle-comp} and \texttt{authortitle-terse}. This style will make use of the \bibfield{shorttitle} field, if available. It is suitable for in-text citations as well as citations given in footnotes. The style will set the following package options at load time: \kvopt{autocite}{inline}, \kvopt{sortcites}{true}, \kvopt{singletitle}{true}, \kvopt{uniquename}{full}, \kvopt{uniquelist}{true}.
+%A style combining the features of \texttt{authortitle-comp} and \texttt{authortitle-terse}. This style will make use of the \bibfield{shorttitle} field, if available. It is suitable for in-text citations as well as citations given in footnotes. The style will set the following package options at load time: \kvopt{autocite}{inline}, \kvopt{sortcites}{true}, \kvopt{singletitle}{true}, \kvopt{uniquename}{full}, \kvopt{uniquelist}{true}.
+结合了 \texttt{authortitle-comp} 和 \texttt{authortitle-terse} 特性的样式。
+如果可用的话，该样式会使用 \bibfield{shorttitle} 域。
+它在文内引用和脚注中引用都适用。
+该样式在载入时设置如下的宏包选项：
+\kvopt{autocite}{inline}、\kvopt{sortcites}{true}、\kvopt{singletitle}{true}、\kvopt{uniquename}{full}、\kvopt{uniquelist}{true}。
 
 \item[authortitle-ticomp]
-A style combining the features of \texttt{authortitle-icomp} and \texttt{authortitle-terse}. In other words: a variant of the \texttt{authortitle-tcomp} style with an \emph{ibidem} feature. This style is suitable for in-text citations as well as citations given in footnotes. It will set the following package options at load time: \kvopt{autocite}{inline}, \kvopt{ibidtracker}{constrict}, \kvopt{pagetracker}{true}, \kvopt{sortcites}{true}, \kvopt{singletitle}{true}, \kvopt{uniquename}{full}, \kvopt{uniquelist}{true}. This style also provides an additional preamble option called \opt{ibidpage}. See the style example for details.
+%A style combining the features of \texttt{authortitle-icomp} and \texttt{authortitle-terse}. In other words: a variant of the \texttt{authortitle-tcomp} style with an \emph{ibidem} feature. This style is suitable for in-text citations as well as citations given in footnotes. It will set the following package options at load time: \kvopt{autocite}{inline}, \kvopt{ibidtracker}{constrict}, \kvopt{pagetracker}{true}, \kvopt{sortcites}{true}, \kvopt{singletitle}{true}, \kvopt{uniquename}{full}, \kvopt{uniquelist}{true}. This style also provides an additional preamble option called \opt{ibidpage}. See the style example for details.
+结合了 \texttt{authortitle-icomp} 和 \texttt{authortitle-terse} 特性的样式。
+换句话说就是带有 \emph{ibidem} 特性的 \texttt{authortitle-tcomp} 样式变种。
+它在文中引用和脚注中引用都适用。
+该样式在载入时设置如下的宏包选项：
+\kvopt{autocite}{inline}、\kvopt{ibidtracker}{constrict}、\kvopt{pagetracker}{true}、\kvopt{sortcites}{true}、\kvopt{singletitle}{true}、\kvopt{uniquename}{full}、\kvopt{uniquelist}{true}。
+该样式还额外提供了一个导言区选项 \opt{ibidpage}。
+详见样式例子。
 
 \item[verbose]
-A verbose citation style which prints a full citation similar to a bibliography entry when an entry is cited for the first time, and a short citation afterwards. If available, the \bibfield{shorttitle} field is used in all short citations. If the \bibfield{shorthand} field is defined, the shorthand is introduced on the first citation and used as the short citation thereafter. This style may be used without a list of references and shorthands since all bibliographic data is provided on the first citation. It is intended for citations given in footnotes. The style will set the following package options at load time: \kvopt{autocite}{footnote}, \kvopt{citetracker}{context}. This style also provides an additional preamble option called \opt{citepages}. See the style example for details.
+%A verbose citation style which prints a full citation similar to a bibliography entry when an entry is cited for the first time, and a short citation afterwards. If available, the \bibfield{shorttitle} field is used in all short citations. If the \bibfield{shorthand} field is defined, the shorthand is introduced on the first citation and used as the short citation thereafter. This style may be used without a list of references and shorthands since all bibliographic data is provided on the first citation. It is intended for citations given in footnotes. The style will set the following package options at load time: \kvopt{autocite}{footnote}, \kvopt{citetracker}{context}. This style also provides an additional preamble option called \opt{citepages}. See the style example for details.
+详细的引用样式，在第一次引用某条目时会打印出类似于参考文献那样的长引用格式，并且在之后打印出短格式。
+如果可用的话，\bibfield{shorttitle} 域会用在所有的短格式中。
+如果 \bibfield{shorthand} 域有定义，该shorthand会在第一次引用时被引入并在之后作为短格式被使用。
+由于在第一次引用时提供了所有的文献数据，因此该样式的使用不需要参考文献和shorthand列表。
+它用于脚注中给出的引用。
+该样式在载入时设置如下的宏包选项：\kvopt{autocite}{footnote}、\kvopt{citetracker}{context}。
+该样式还额外提供了一个导言区选项 \opt{citepages}。
+详见样式例子。
 
 \item[verbose-ibid]
-A variant of the \texttt{verbose} style which replaces repeated citations by the abbreviation \emph{ibidem} unless the citation is the first one on the current page or double-page spread, or the \emph{ibidem} would be ambiguous in the sense of \kvopt{ibidtracker}{strict}. This style is intended for citations given in footnotes. The style will set the following package options at load time: \kvopt{autocite}{footnote}, \kvopt{citetracker}{context}, \kvopt{ibidtracker}{constrict}, \kvopt{pagetracker}{true}. This style also provides additional preamble options called \opt{ibidpage} and \opt{citepages}. See the style example for details.
+%A variant of the \texttt{verbose} style which replaces repeated citations by the abbreviation \emph{ibidem} unless the citation is the first one on the current page or double-page spread, or the \emph{ibidem} would be ambiguous in the sense of \kvopt{ibidtracker}{strict}. This style is intended for citations given in footnotes. The style will set the following package options at load time: \kvopt{autocite}{footnote}, \kvopt{citetracker}{context}, \kvopt{ibidtracker}{constrict}, \kvopt{pagetracker}{true}. This style also provides additional preamble options called \opt{ibidpage} and \opt{citepages}. See the style example for details.
+\texttt{verbose} 样式的变种，会用缩略语 \emph{ibidem} 替代重复的引用，
+除非该引用在当前页或跨页是第一次出现，
+或者 \emph{ibidem} 在宏包选项 \kvopt{ibidtracker}{strict} 的意义下表意不清。
+它用于脚注中给出的引用。
+该样式在载入时设置如下的宏包选项：
+\kvopt{autocite}{footnote}、\kvopt{citetracker}{context}、\kvopt{ibidtracker}{constrict}、\kvopt{pagetracker}{true}。
+该样式还额外提供了导言区选项 \opt{ibidpage} 和 \opt{citepages}。
+详见样式例子。
 
 \item[verbose-note]
-This style is similar to the \texttt{verbose} style in that it prints a full citation similar to a bibliography entry when an entry is cited for the first time, and a short citation afterwards. In contrast to the \texttt{verbose} style, the short citation is a pointer to the footnote with the full citation. If the bibliography contains more than one work by the respective author\slash editor, the pointer also includes the title. If available, the \bibfield{shorttitle} field is used in all short citations. If the \bibfield{shorthand} field is defined, it is handled as with the \texttt{verbose} style. This style may be used without a list of references and shorthands since all bibliographic data is provided on the first citation. It is exclusively intended for citations given in footnotes. The style will set the following package options at load time: \kvopt{autocite}{footnote}, \kvopt{citetracker}{context}, \kvopt{singletitle}{true}. This style also provides additional preamble options called \opt{pageref} and \opt{citepages}. See the style example for details.
+%This style is similar to the \texttt{verbose} style in that it prints a full citation similar to a bibliography entry when an entry is cited for the first time, and a short citation afterwards. In contrast to the \texttt{verbose} style, the short citation is a pointer to the footnote with the full citation. If the bibliography contains more than one work by the respective author\slash editor, the pointer also includes the title. If available, the \bibfield{shorttitle} field is used in all short citations. If the \bibfield{shorthand} field is defined, it is handled as with the \texttt{verbose} style. This style may be used without a list of references and shorthands since all bibliographic data is provided on the first citation. It is exclusively intended for citations given in footnotes. The style will set the following package options at load time: \kvopt{autocite}{footnote}, \kvopt{citetracker}{context}, \kvopt{singletitle}{true}. This style also provides additional preamble options called \opt{pageref} and \opt{citepages}. See the style example for details.
+该样式与 \texttt{verbose} 样式类似，
+会在第一次引用某条目时打印出类似于参考文献那样的长格式，并且在之后打印出短格式。
+与 \texttt{verbose} 样式不同的是，短格式会指向带有长格式的脚注。
+如果文献包含了多个同一作者/编辑的作品，该短格式会带有标题。
+如果可用的话，所有的短格式会使用 \bibfield{shorttitle} 域。
+如果 \bibfield{shorthand} 域有定义，它会被 \texttt{verbose} 样式处理。
+由于在第一次引用时提供了所有的文献数据，因此该样式的使用不需要参考文献和shorthand列表。
+该样式仅仅用于脚注中给出的引用。
+该样式在载入时设置如下的宏包选项：
+\kvopt{autocite}{footnote}、\kvopt{citetracker}{context}、\kvopt{singletitle}{true}。
+该样式还额外提供了导言区选项 \opt{pageref} 和 \opt{citepages}。
+详见样式例子。
 
 \item[verbose-inote]
-A variant of the \texttt{verbose"=note} style which replaces repeated citations by the abbreviation \emph{ibidem} unless the citation is the first one on the current page or double-page spread, or the \emph{ibidem} would be ambiguous in the sense of \kvopt{ibidtracker}{strict}. This style is exclusively intended for citations given in footnotes. It will set the following package options at load time: \kvopt{autocite}{footnote}, \kvopt{citetracker}{context}, \kvopt{ibidtracker}{constrict}, \kvopt{singletitle}{true}, \kvopt{pagetracker}{true}. This style also provides additional preamble options called \opt{ibidpage}, \opt{pageref}, and \opt{citepages}. See the style example for details.
+%A variant of the \texttt{verbose"=note} style which replaces repeated citations by the abbreviation \emph{ibidem} unless the citation is the first one on the current page or double-page spread, or the \emph{ibidem} would be ambiguous in the sense of \kvopt{ibidtracker}{strict}. This style is exclusively intended for citations given in footnotes. It will set the following package options at load time: \kvopt{autocite}{footnote}, \kvopt{citetracker}{context}, \kvopt{ibidtracker}{constrict}, \kvopt{singletitle}{true}, \kvopt{pagetracker}{true}. This style also provides additional preamble options called \opt{ibidpage}, \opt{pageref}, and \opt{citepages}. See the style example for details.
+\texttt{verbose"=note} 样式的变种，会用缩略语 \emph{ibidem} 替代重复的引用，
+除非该引用在当前页或跨页是第一次出现，
+或者 \emph{ibidem} 在宏包选项 \kvopt{ibidtracker}{strict} 的意义下表意不清。
+该样式仅仅用于脚注中给出的引用。
+该样式在载入时设置如下的宏包选项：
+\kvopt{autocite}{footnote}、\kvopt{citetracker}{context}、\kvopt{ibidtracker}{constrict}、\kvopt{singletitle}{true}、\kvopt{pagetracker}{true}。
+该样式还额外提供了导言区选项 \opt{ibidpage}、\opt{pageref} 和 \opt{citepages}。
+详见样式例子。
 
 \item[verbose-trad1]
-This style implements a traditional citation scheme. It is similar to the \texttt{verbose} style in that it prints a full citation similar to a bibliography entry when an item is cited for the first time, and a short citation afterwards. Apart from that, it uses the scholarly abbreviations \emph{ibidem}, \emph{idem}, \emph{op.~cit.}, and \emph{loc.~cit.} to replace recurrent authors, titles, and page numbers in repeated citations in a special way. If the \bibfield{shorthand} field is defined, the shorthand is introduced on the first citation and used as the short citation thereafter. This style may be used without a list of references and shorthands since all bibliographic data is provided on the first citation. It is intended for citations given in footnotes. The style will set the following package options at load time: \kvopt{autocite}{footnote}, \kvopt{citetracker}{context}, \kvopt{ibidtracker}{constrict}, \kvopt{idemtracker}{constrict}, \kvopt{opcittracker}{context}, \kvopt{loccittracker}{context}. This style also provides additional preamble options called \opt{ibidpage}, \opt{strict}, and \opt{citepages}. See the style example for details.
+%This style implements a traditional citation scheme. It is similar to the \texttt{verbose} style in that it prints a full citation similar to a bibliography entry when an item is cited for the first time, and a short citation afterwards. Apart from that, it uses the scholarly abbreviations \emph{ibidem}, \emph{idem}, \emph{op.~cit.}, and \emph{loc.~cit.} to replace recurrent authors, titles, and page numbers in repeated citations in a special way. If the \bibfield{shorthand} field is defined, the shorthand is introduced on the first citation and used as the short citation thereafter. This style may be used without a list of references and shorthands since all bibliographic data is provided on the first citation. It is intended for citations given in footnotes. The style will set the following package options at load time: \kvopt{autocite}{footnote}, \kvopt{citetracker}{context}, \kvopt{ibidtracker}{constrict}, \kvopt{idemtracker}{constrict}, \kvopt{opcittracker}{context}, \kvopt{loccittracker}{context}. This style also provides additional preamble options called \opt{ibidpage}, \opt{strict}, and \opt{citepages}. See the style example for details.
+该样式实现了传统的引用格式。
+与 \texttt{verbose} 样式类似，
+它会在第一次引用某条目时打印出类似于参考文献那样的长格式，并且在之后打印出短格式。
+此外，它在重复的引用中使用学术性缩略语 \emph{ibidem}、\emph{idem}、\emph{op.~cit.} 和 \emph{loc.~cit.} 来代替重复的作者、标题、页码数。
+如果 \bibfield{shorthand} 域有定义，那么会在第一次引用时被引入并在之后作为短格式被使用。
+由于在第一次引用时提供了所有的文献数据，因此该样式的使用不需要参考文献和shorthand列表。
+它用于脚注中给出的引用。
+该样式在载入时设置如下的宏包选项：
+\kvopt{autocite}{footnote}、\kvopt{citetracker}{context}、\kvopt{ibidtracker}{constrict}、\kvopt{idemtracker}{constrict}、\kvopt{opcittracker}{context}、\kvopt{loccittracker}{context}。
+该样式还额外提供了导言区选项 \opt{ibidpage}、\opt{strict} 和 \opt{citepages}。
+详见样式例子。
 
 \item[verbose-trad2]
-Another traditional citation scheme. It is also similar to the \texttt{verbose} style but uses scholarly abbreviations like \emph{ibidem} and \emph{idem} in repeated citations. In contrast to the \texttt{verbose-trad1} style, the logic of the \emph{op.~cit.} abbreviations is different in this style and \emph{loc.~cit.} is not used at all. It is in fact more similar to \texttt{verbose-ibid} and \texttt{verbose-inote} than to \texttt{verbose-trad1}. The style will set the following package options at load time: \kvopt{autocite}{footnote}, \kvopt{citetracker}{context}, \kvopt{ibidtracker}{constrict}, \kvopt{idemtracker}{constrict}. This style also provides additional preamble options called \opt{ibidpage}, \opt{strict}, and \opt{citepages}. See the style example for details.
+%Another traditional citation scheme. It is also similar to the \texttt{verbose} style but uses scholarly abbreviations like \emph{ibidem} and \emph{idem} in repeated citations. In contrast to the \texttt{verbose-trad1} style, the logic of the \emph{op.~cit.} abbreviations is different in this style and \emph{loc.~cit.} is not used at all. It is in fact more similar to \texttt{verbose-ibid} and \texttt{verbose-inote} than to \texttt{verbose-trad1}. The style will set the following package options at load time: \kvopt{autocite}{footnote}, \kvopt{citetracker}{context}, \kvopt{ibidtracker}{constrict}, \kvopt{idemtracker}{constrict}. This style also provides additional preamble options called \opt{ibidpage}, \opt{strict}, and \opt{citepages}. See the style example for details.
+另外一种传统引用格式。
+它同样类似于 \texttt{verbose} 样式但是在重复的引用中使用 \emph{ibidem} 和 \emph{idem} 等学术性缩略语。
+与 \texttt{verbose-trad1} 样式不同的是，
+\emph{op.~cit.} 缩略语的逻辑有所不同，并且不使用 \emph{loc.~cit.}。
+事实上它更类似于 \texttt{verbose-ibid} 和 \texttt{verbose-inote} 而不是 \texttt{verbose-trad1}。
+该样式在载入时设置如下的宏包选项：
+\kvopt{autocite}{footnote}、\kvopt{citetracker}{context}、\kvopt{ibidtracker}{constrict}、\kvopt{idemtracker}{constrict}。
+该样式还额外提供了导言区选项 \opt{ibidpage}、\opt{strict} 和 \opt{citepages}。
+详见样式例子。
 
 \item[verbose-trad3]
-Yet another traditional citation scheme. It is similar to the \texttt{verbose-trad2} style but uses the scholarly abbreviations \emph{ibidem} and \emph{op.~cit.} in a slightly different way. The style will set the following package options at load time: \kvopt{autocite}{footnote}, \kvopt{citetracker}{context}, \kvopt{ibidtracker}{constrict}, \kvopt{loccittracker}{constrict}. This style also provides additional preamble options called \opt{strict} and \opt{citepages}. See the style example for details.
+%Yet another traditional citation scheme. It is similar to the \texttt{verbose-trad2} style but uses the scholarly abbreviations \emph{ibidem} and \emph{op.~cit.} in a slightly different way. The style will set the following package options at load time: \kvopt{autocite}{footnote}, \kvopt{citetracker}{context}, \kvopt{ibidtracker}{constrict}, \kvopt{loccittracker}{constrict}. This style also provides additional preamble options called \opt{strict} and \opt{citepages}. See the style example for details.
+仍然是一种传统的引用格式。
+它类似于 \texttt{verbose-trad2} 样式，
+但是使用缩略语 \emph{ibidem} 和 \emph{op.~cit.} 的方式稍有不同。
+该样式在载入时设置如下的宏包选项：
+\kvopt{autocite}{footnote}、\kvopt{citetracker}{context}、\kvopt{ibidtracker}{constrict}、\kvopt{loccittracker}{constrict}。
+该样式也额外提供了导言区选项 \opt{strict} 和 \opt{citepages}。
+详见样式例子。
 
 \item[reading]
-A citation style which goes with the bibliography style by the same name. It simply loads the \texttt{authortitle} style.
+%A citation style which goes with the bibliography style by the same name. It simply loads the \texttt{authortitle} style.
+一个同名的文献样式所带的引用样式，会载入 \texttt{authortitle} 样式。
 
 \end{marglist}
 
-The following citation styles are special purpose styles. They are not intended for the final version of a document:
+%The following citation styles are special purpose styles. They are not intended for the final version of a document:
+下列样式具有特殊目的，不用于文档的最终版本。
 
 \begin{marglist}
 
 \item[draft]
-A draft style which uses the entry keys in citations. The style will set the following package options at load time: \kvopt{autocite}{plain}.
+%A draft style which uses the entry keys in citations. The style will set the following package options at load time: \kvopt{autocite}{plain}.
+在引用中使用条目键的草稿样式。
+该样式在载入时设置如下的宏包选项：\kvopt{autocite}{plain}。
 
 \item[debug]
-This style prints the entry key rather than some kind of label. It is intended for debugging only and will set the following package options at load time: \kvopt{autocite}{plain}.
+%This style prints the entry key rather than some kind of label. It is intended for debugging only and will set the following package options at load time: \kvopt{autocite}{plain}.
+该样式会打印出条目键而不是标签。
+它只用于调试，在载入时设置如下的宏包选项：\kvopt{autocite}{plain}。
 
 \end{marglist}
 
-\subsubsection{参考文献样式 Bibliography Styles}
+\subsubsection{参考文献样式}%\subsubsection{Bibliography Styles}
 \label{use:xbx:bbx}
 
-All bibliography styles which come with this package use the same basic format for the individual bibliography entries. They only differ in the kind of label printed in the bibliography and the overall formatting of the list of references. There is a matching bibliography style for every citation style. Note that some bibliography styles are not mentioned below because they simply load a more generic style. For example, the bibliography style \texttt{authortitle-comp} will load the \texttt{authortitle} style.
+%All bibliography styles which come with this package use the same basic format for the individual bibliography entries. They only differ in the kind of label printed in the bibliography and the overall formatting of the list of references. There is a matching bibliography style for every citation style. Note that some bibliography styles are not mentioned below because they simply load a more generic style. For example, the bibliography style \texttt{authortitle-comp} will load the \texttt{authortitle} style.
+
+本宏包所带的所有文献样式对于每一文献条目都使用相同的基本格式。
+不同之处仅仅在于参考文献中打印的标签种类和文献列表的总体格式。
+每一个引用样式都有一个对应的文献样式。
+请注意，一些文献样式仅仅载入了另外更一般的样式，因此这里没有提及。
+例如，文献样式 \texttt{authortitle-comp} 会载入 \texttt{authortitle} 样式。
 
 \begin{marglist}
 
 \item[numeric]
-This style prints a numeric label similar to the standard bibliographic facilities of \latex. It is intended for use in conjunction with a numeric citation style. Note that the \bibfield{shorthand} field overrides the default label. The style will set the following package options at load time: \kvopt{labelnumber}{true}. This style also provides an additional preamble option called \opt{subentry} which affects the formatting of entry sets. If this option is enabled, all members of a set are marked with a letter which may be used in citations referring to a set member rather than the entire set. See the style example for details.
+%This style prints a numeric label similar to the standard bibliographic facilities of \latex. It is intended for use in conjunction with a numeric citation style. Note that the \bibfield{shorthand} field overrides the default label. The style will set the following package options at load time: \kvopt{labelnumber}{true}. This style also provides an additional preamble option called \opt{subentry} which affects the formatting of entry sets. If this option is enabled, all members of a set are marked with a letter which may be used in citations referring to a set member rather than the entire set. See the style example for details.
+该样式打印出类似于 \LaTeX 标准文献功能的数值标签。
+它应与数值引用样式结合使用。
+请注意，\bibfield{shorthand} 域会覆盖默认标签。
+该样式在载入时设置如下的宏包选项：\kvopt{labelnumber}{true}。
+该样式还额外提供了一个导言区选项 \opt{subentry}，这会影响条目集的处理。
+如果该选项被激活，条目集中的所有成员都会用一个字母标记，这可用于集成员的引用而不是整个条目集。
+详见样式例子。
 
 \item[alphabetic]
-This style prints an alphabetic label similar to the \path{alpha.bst} style of traditional \bibtex. It is intended for use in conjunction with an alphabetic citation style. Note that the \bibfield{shorthand} field overrides the default label. The style will set the following package options at load time: \kvopt{labelalpha}{true}, \kvopt{sorting}{anyt}.
+%This style prints an alphabetic label similar to the \path{alpha.bst} style of traditional \bibtex. It is intended for use in conjunction with an alphabetic citation style. Note that the \bibfield{shorthand} field overrides the default label. The style will set the following package options at load time: \kvopt{labelalpha}{true}, \kvopt{sorting}{anyt}.
+该样式打印的字母顺序标签类似于传统 \BibTeX 的 \path{alpha.bst} 样式。
+它应与字母顺序引用样式结合使用。
+请注意，\bibfield{shorthand} 域会覆盖默认标签。
+该样式在载入时设置如下的宏包选项：\kvopt{labelalpha}{true}、\kvopt{sorting}{anyt}。
 
 \item[authoryear]
-This style differs from the other styles in that the publication date is not printed towards the end of the entry but rather after the author\slash editor. It is intended for use in conjunction with an author"=year citation style. Recurring author and editor names are replaced by a dash unless the entry is the first one on the current page or double-page spread. This style provides an additional preamble option called \opt{dashed} which controls this feature. It also provided a preamble option called \opt{mergedate}. See the style example for details. The style will set the following package options at load time: \kvopt{labeldate}{true}, \kvopt{sorting}{nyt}, \kvopt{pagetracker}{true}, \kvopt{mergedate}{true}.
+%This style differs from the other styles in that the publication date is not printed towards the end of the entry but rather after the author\slash editor. It is intended for use in conjunction with an author"=year citation style. Recurring author and editor names are replaced by a dash unless the entry is the first one on the current page or double-page spread. This style provides an additional preamble option called \opt{dashed} which controls this feature. It also provided a preamble option called \opt{mergedate}. See the style example for details. The style will set the following package options at load time: \kvopt{labeldate}{true}, \kvopt{sorting}{nyt}, \kvopt{pagetracker}{true}, \kvopt{mergedate}{true}.
+该样式不同于其它样式之处在于，发表日期不是在条目的末尾而是在作者/编辑之后。
+它应与一个作者---年份引用样式结合使用。
+重复的作者和编辑名会用短横线代替，除非该条目是当前页或跨页的第一个。
+该样式额外提供了导言区选项 \opt{dashed} 来控制该特征。
+此外还额外提供了导言区选项 \opt{mergedate}。
+详见样式例子。
+该样式在载入时设置如下的宏包选项：
+\kvopt{labeldate}{true}、\kvopt{sorting}{nyt}、\kvopt{pagetracker}{true}、 \kvopt{mergedate}{true}。
 
 \item[authortitle]
-This style does not print any label at all. It is intended for use in conjunction with an author"=title citation style. Recurring author and editor names are replaced by a dash unless the entry is the first one on the current page or double-page spread. This style also provides an additional preamble option called \opt{dashed} which controls this feature. See the style example for details. The style will set the following package options at load time: \kvopt{pagetracker}{true}.
+%This style does not print any label at all. It is intended for use in conjunction with an author"=title citation style. Recurring author and editor names are replaced by a dash unless the entry is the first one on the current page or double-page spread. This style also provides an additional preamble option called \opt{dashed} which controls this feature. See the style example for details. The style will set the following package options at load time: \kvopt{pagetracker}{true}.
+该样式不会打印出任何标签。
+它应与一个作者---年份引用样式结合使用。
+重复的作者和编辑名会用短横线代替，除非该条目是当前页或跨页的第一个。
+该样式额外提供了一个导言区选项 \opt{dashed} 来控制该特征。
+详见样式例子。
+该样式在载入时设置如下的宏包选项：\kvopt{pagetracker}{true}。
 
 \item[verbose]
-This style is similar to the \texttt{authortitle} style. It also provides an additional preamble option called \opt{dashed}. See the style example for details. The style will set the following package options at load time: \kvopt{pagetracker}{true}.
+%This style is similar to the \texttt{authortitle} style. It also provides an additional preamble option called \opt{dashed}. See the style example for details. The style will set the following package options at load time: \kvopt{pagetracker}{true}.
+该样式类似于 \texttt{authortitle} 样式。
+该样式额外提供了一个导言区选项 \opt{dashed}。
+详见样式例子。
+该样式在载入时设置如下的宏包选项：\kvopt{pagetracker}{true}。
 
 \item[reading]
-This special bibliography style is designed for personal reading lists, annotated bibliographies, and similar applications. It optionally includes the fields \bibfield{annotation}, \bibfield{abstract}, \bibfield{library}, and \bibfield{file} in the bibliography. If desired, it also adds various kinds of short headers to the bibliography. This style also provides the additional preamble options \opt{entryhead}, \opt{entrykey}, \opt{annotation}, \opt{abstract}, \opt{library}, and \opt{file} which control whether or not the corresponding items are printed in the bibliography. See the style example for details. See also \secref{use:use:prf}. The style will set the following package options at load time: \kvopt{loadfiles}{true}, \kvopt{entryhead}{true}, \kvopt{entrykey}{true}, \kvopt{annotation}{true}, \kvopt{abstract}{true}, \kvopt{library}{true}, \kvopt{file}{true}.
+%This special bibliography style is designed for personal reading lists, annotated bibliographies, and similar applications. It optionally includes the fields \bibfield{annotation}, \bibfield{abstract}, \bibfield{library}, and \bibfield{file} in the bibliography. If desired, it also adds various kinds of short headers to the bibliography. This style also provides the additional preamble options \opt{entryhead}, \opt{entrykey}, \opt{annotation}, \opt{abstract}, \opt{library}, and \opt{file} which control whether or not the corresponding items are printed in the bibliography. See the style example for details. See also \secref{use:use:prf}. The style will set the following package options at load time: \kvopt{loadfiles}{true}, \kvopt{entryhead}{true}, \kvopt{entrykey}{true}, \kvopt{annotation}{true}, \kvopt{abstract}{true}, \kvopt{library}{true}, \kvopt{file}{true}.
+这一特殊的文献样式是为个人阅读列表、带有注释的文献和类似应用而设计的。
+它选择性地在参考文献中包含 \bibfield{annotation}、\bibfield{abstract}、\bibfield{library} 和 \bibfield{file} 等域。
+如果需要的话，它还会在参考文献中添加不同种类的短标题。
+该样式还额外提供了导言区选项 \opt{entryhead}、\opt{entrykey}、\opt{annotation}、\opt{abstract}、\opt{library} 和 \opt{file} 来控制是否在参考文献中打印相应的项目。
+详见样式例子。见 \secref{use:use:prf} 节。
+该样式在载入时设置如下的宏包选项：
+\kvopt{loadfiles}{true}、\kvopt{entryhead}{true}、\kvopt{entrykey}{true}、\kvopt{annotation}{true}、\kvopt{abstract}{true}、\kvopt{library}{true}、\kvopt{file}{true}。
 
 \end{marglist}
 
-The following bibliography styles are special purpose styles. They are not intended for the final version of a document:
+%The following citation styles are special purpose styles. They are not intended for the final version of a document:
+下列样式具有特殊目的，不用于文档的最终版本。
 
 \begin{marglist}
 
 \item[draft]
-This draft style includes the entry keys in the bibliography. The bibliography will be sorted by entry key. The style will set the following package options at load time: \kvopt{sorting}{debug}.
+%This draft style includes the entry keys in the bibliography. The bibliography will be sorted by entry key. The style will set the following package options at load time: \kvopt{sorting}{debug}.
+草稿样式会在参考文献中包含条目键。
+文献会按照条目键排序。
+该样式在载入时设置如下的宏包选项：\kvopt{sorting}{debug}。
 
 \item[debug]
-This style prints all bibliographic data in tabular format. It is intended for debugging only and will set the following package options at load time: \kvopt{sorting}{debug}.
+%This style prints all bibliographic data in tabular format. It is intended for debugging only and will set the following package options at load time: \kvopt{sorting}{debug}.
+该样式会以表格形式打印出所有的文献数据。
+它只用于调试，在载入时设置如下的宏包选项：\kvopt{sorting}{debug}。
 
 \end{marglist}
 
-\subsection{相关条目 Related Entries}
+\subsection{关联条目}%\subsection{Related Entries}
 \label{use:rel}
 
-Almost all bibliography styles require authors to specify certain types of relationship between entries such as «Reprint of», «Reprinted in» etc. It is impossible to provide data fields to cover all of these relationships and so \biblatex provides a general mechanism for this using the entry fields \bibfield{related}, \bibfield{relatedtype} and \bibfield{relatedstring}. A related entry does not need to be cited and does not appear in the bibliography itself (unless of course it is also cited itself independently) as a clone is taken of the related entry to be used as a data source. The \bibfield{relatedtype} field should specify a localization string which will be printed before the information from the related entries is printed, for example «Orig. Pub. as». The \bibfield{relatedstring} field can be used to override the string determined via \bibfield{relatedtype}. Some examples:
+%Almost all bibliography styles require authors to specify certain types of relationship between entries such as «Reprint of», «Reprinted in» etc. It is impossible to provide data fields to cover all of these relationships and so \biblatex provides a general mechanism for this using the entry fields \bibfield{related}, \bibfield{relatedtype} and \bibfield{relatedstring}. A related entry does not need to be cited and does not appear in the bibliography itself (unless of course it is also cited itself independently) as a clone is taken of the related entry to be used as a data source. The \bibfield{relatedtype} field should specify a localization string which will be printed before the information from the related entries is printed, for example «Orig. Pub. as». The \bibfield{relatedstring} field can be used to override the string determined via \bibfield{relatedtype}. Some examples:
+
+几乎所有的文献样式都需要作者去确定条目之间的某些关系类型，例如“Reprint of”、“Reprinted in”等等。
+当然不可能通过提供数据域来覆盖所有的关系，
+为此，\biblatex 通过使用条目域 \bibfield{related}、\bibfield{relatedtype} 和 \bibfield{relatedstring} 提供了一种一般性的机制。
+被关联的条目不需要被引用，本身也不会出现在参考文献中（当然，除非它自己另外单独被引用），
+而是作为数据源被拷贝一份副本。
+\bibfield{relatedtype} 域需要确定在相关联条目的信息前打印的本地化字符串，例如“Orig. Pub. as”。
+\bibfield{relatedstring} 域可以用于覆盖那些通过 \bibfield{relatedtype} 确定的字符串。
+一些例子如下：
 
 \begin{lstlisting}[style=bibtex]{}
 @Book{key1,
@@ -1809,15 +2045,27 @@ Almost all bibliography styles require authors to specify certain types of relat
 }
 \end{lstlisting}
 %
-Here we specify that entry \texttt{key1} is a reprint of entry \texttt{key2}. In the bibliography driver for \texttt{Book} entries, when \cmd{usebibmacro\{related\}} is called for entry \texttt{key1}:
+%Here we specify that entry \texttt{key1} is a reprint of entry \texttt{key2}. In the bibliography driver for \texttt{Book} entries, when \cmd{usebibmacro\{related\}} is called for entry \texttt{key1}:
+这里我们指定条目 \texttt{key1} 是条目 \texttt{key2} 的重印本。
+在 \texttt{Book} 条目的文献驱动里，
+当为条目 \texttt{key1} 而调用 \cmd{usebibmacro\{related\}} 时：
 
 \begin{itemize}
-\item If the localization string «\texttt{reprintof}» is defined, it is printed in the \texttt{relatedstring:reprintof} format. If this formatting directive is undefined, the string is printed in the \texttt{relatedstring:default} format.
-\item If the \texttt{related:reprintof} macro is defined, it is used to format the information contained in entry \texttt{key2}, otherwise the \texttt{related:default} macro is used
-\item If the \texttt{related:reprintof} format is defined, it is used to format both the localization string and data. If this format is not defined, then the \texttt{related} format is used instead.
+\item % If the localization string «\texttt{reprintof}» is defined, it is printed in the \texttt{relatedstring:reprintof} format. If this formatting directive is undefined, the string is printed in the \texttt{relatedstring:default} format.
+如果本地化字符串 “\texttt{reprintof}” 有定义，
+那么将以 \texttt{relatedstring:reprintof} 格式打印出来。
+如果该格式指令没有定义，这些字符串将以 \texttt{relatedstring:default} 格式打印。
+\item %If the \texttt{related:reprintof} macro is defined, it is used to format the information contained in entry \texttt{key2}, otherwise the \texttt{related:default} macro is used
+如果宏 \texttt{related:reprintof} 有定义，
+那么将用于确定条目 \texttt{key2} 包含的信息的格式，否则将使用宏 \texttt{related:default}。
+\item %If the \texttt{related:reprintof} format is defined, it is used to format both the localization string and data. If this format is not defined, then the \texttt{related} format is used instead.
+如果 \texttt{related:reprintof} 格式有定义，
+那么将用于确定本地化字符串和数据的格式；
+如果该格式没有定义，将使用 \texttt{related} 格式。
 \end{itemize}
 %
-It is also supported to have cascading and/or circular relations:
+%It is also supported to have cascading and/or circular relations:
+也支持串联或者循环关系：
 
 \begin{lstlisting}[style=bibtex]{}
 @Book{key1,
@@ -1842,7 +2090,8 @@ It is also supported to have cascading and/or circular relations:
 }
 \end{lstlisting}
 %
-Multiple relations to the same entry are also possible:
+%Multiple relations to the same entry are also possible:
+也可以实现同一条目的多重关系：
 \begin{lstlisting}[style=bibtex]{}
 @MVBook{key1,
   ...
@@ -1860,20 +2109,242 @@ Multiple relations to the same entry are also possible:
 }
 \end{lstlisting}
 %
-Note the the order of the keys in lists of multiple related entries is important. The data from multiple related entries is printed in the order of the keys listed in this field. See \secref{aut:ctm:rel} for a more details on the mechanisms behind this feature. You can turn this feature off using the package option \opt{related} from \secref{use:opt:pre:gen}.
+%Note the the order of the keys in lists of multiple related entries is important. The data from multiple related entries is printed in the order of the keys listed in this field. See \secref{aut:ctm:rel} for a more details on the mechanisms behind this feature. You can turn this feature off using the package option \opt{related} from \secref{use:opt:pre:gen}.
+请注意，多重关联条目列表中的顺序是很重要的。
+多重关联条目的数据将按照该域中所列的顺序打印。
+关于该特征背后的机制请参考 \secref{aut:ctm:rel} 节。
+可以通过 \secref{use:opt:pre:gen} 中的宏包选项 \opt{related} 来关闭该特征。
 
-You can use the \bibfield{relatedoptions} to set options on the related entry data clone. This is useful if you need to override the \opt{dataonly} option which is set by default on all related entry clones. For example, if you will expose some of the names in the related clone in your document, you may want to have them disambiguated from names in other entries but normally this won't happen as related clones have the per"=entry \opt{dataonly} option set and this in turn sets \kvopt{uniquename}{false} and \kvopt{uniquelist}{false}. In such a case, you can set \bibfield{relatedoptions} to just \opt{skiplab, skipbib, skiplos/skipbiblist}.
+%You can use the \bibfield{relatedoptions} to set options on the related entry data clone. This is useful if you need to override the \opt{dataonly} option which is set by default on all related entry clones. For example, if you will expose some of the names in the related clone in your document, you may want to have them disambiguated from names in other entries but normally this won't happen as related clones have the per"=entry \opt{dataonly} option set and this in turn sets \kvopt{uniquename}{false} and \kvopt{uniquelist}{false}. In such a case, you can set \bibfield{relatedoptions} to just \opt{skiplab, skipbib, skipbiblist}.
 
-\subsection{排序选项 Sorting Options}
+可以使用 \bibfield{relatedoptions} 域来设置关联条目数据克隆的选项。
+如果你需要覆盖默认设置的关于所有关联条目克隆的 \opt{dataonly} 选项，那么该域是很有用的。
+例如，如果你想在文档中展示一些相关联克隆体的名称，同时想要它们不与其它条目的名称相混淆，
+但是正常情况下这不会发生的，因为相关联克隆体由基于每一条目的 \opt{dataonly} 选项设置，
+这反过来又设置了 \kvopt{uniquename}{false} 和 \kvopt{uniquelist}{false}。
+此时，你只需设置 \bibfield{relatedoptions} 为 \opt{skiplab, skipbib}。
+
+\subsection{排序选项}
 \label{use:srt}
 
-This package supports various sorting schemes for the bibliography. The sorting scheme is selected with the \opt{sorting} package option from \secref{use:opt:pre:gen}. Apart from the regular data fields there are also some special fields which may be used to optimize the sorting of the bibliography. \Apxref{apx:srt:a1, apx:srt:a2} give an outline of the alphabetic sorting schemes supported by \biblatex. Chronological sorting schemes are listed in \apxref{apx:srt:chr}. A few explanations concerning these schemes are in order.
+%This package supports various sorting schemes for the bibliography. The sorting scheme is selected with the \opt{sorting} package option from \secref{use:opt:pre:gen}. Apart from the regular data fields there are also some special fields which may be used to optimize the sorting of the bibliography. \Apxref{apx:srt:a1, apx:srt:a2} give an outline of the alphabetic sorting schemes supported by \biblatex. Chronological sorting schemes are listed in \apxref{apx:srt:chr}. A few explanations concerning these schemes are in order.
 
-The first item considered in the sorting process is always the \bibfield{presort} field of the entry. If this field is undefined, \biblatex will use the default value <\texttt{mm}> as a presort string. The next item considered is the \bibfield{sortkey} field. If this field is defined, it serves as the master sort key. Apart from the \bibfield{presort} field, no further data is considered in this case. If the \bibfield{sortkey} field is undefined, sorting continues with the name. The package will try using the \bibfield{sortname}, \bibfield{author}, \bibfield{editor}, and \bibfield{translator} fields, in this order. Which fields are considered also depends on the setting of the \opt{use$<$name$>$} options. If all such options are disabled, the \bibfield{sortname} field is ignored as well. Note that all name fields are responsive to \opt{maxnames} and \opt{minnames}. If no name field is available, either because all of them are undefined or because all \opt{use$<$name$>$} options are disabled, \biblatex will fall back to the \bibfield{sorttitle} and \bibfield{title} fields as a last resort. The remaining items are, in various order: the \bibfield{sortyear} field, if defined, or the first four digits of the \bibfield{year} field otherwise; the \bibfield{sorttitle} field, if defined, or the \bibfield{title} field otherwise; the \bibfield{volume} field, which is padded to four digits with leading zeros, or the string \texttt{0000} otherwise. Note that the sorting schemes shown in \apxref{apx:srt:a2} include an additional item: \bibfield{labelalpha} is the label used by <alphabetic> bibliography styles. Strictly speaking, the string used for sorting is \bibfield{labelalpha}~+ \bibfield{extraalpha}. The sorting schemes in \apxref{apx:srt:a2} are intended to be used in conjunction with alphabetic styles only.
+本宏包支持多种文献排序格式。
+排序格式由 \secref{use:opt:pre:gen} 节中的 \opt{sorting} 宏包选项确定。
+除了常规的数据域之外，还有一些特殊域也可用于优化文献排序。
+\Apxref{apx:srt:a1, apx:srt:a2} 大致概述了 \biblatex 支持的字母顺序排序格式。
+而年代顺序排序格式则列在 \apxref{apx:srt:chr} 中。
+以下依次是这些格式的一些解释。
 
-The chronological sorting schemes presented in \apxref{apx:srt:chr} also make use of the \bibfield{presort} and \bibfield{sortkey} fields, if defined. The next item considered is the \bibfield{sortyear} or the \bibfield{year} field, depending on availability. The \opt{ynt} scheme extracts the first four Arabic figures from the field. If both fields are undefined, the string \texttt{9999} is used as a fallback value. This means that all entries without a year will be moved to the end of the list. The \opt{ydnt} scheme is similar in concept but sorts the year in descending order. As with the \opt{ynt} scheme, the string \texttt{9999} is used as a fallback value. The remaining items are similar to the alphabetic sorting schemes discussed above. Note that the \opt{ydnt} sorting scheme will only sort the date in descending order. All other items are sorted in ascending order as usual.
+%The first item considered in the sorting process is always the \bibfield{presort} field of the entry. If this field is undefined, \biblatex will use the default value <\texttt{mm}> as a presort string. The next item considered is the \bibfield{sortkey} field. If this field is defined, it serves as the master sort key. Apart from the \bibfield{presort} field, no further data is considered in this case. If the \bibfield{sortkey} field is undefined, sorting continues with the name. The package will try using the \bibfield{sortname}, \bibfield{author}, \bibfield{editor}, and \bibfield{translator} fields, in this order. Which fields are considered also depends on the setting of the \opt{use$<$name$>$} options. If all such options are disabled, the \bibfield{sortname} field is ignored as well. Note that all name fields are responsive to \opt{maxnames} and \opt{minnames}. If no name field is available, either because all of them are undefined or because all \opt{use$<$name$>$} options are disabled, \biblatex will fall back to the \bibfield{sorttitle} and \bibfield{title} fields as a last resort. The remaining items are, in various order: the \bibfield{sortyear} field, if defined, or the first four digits of the \bibfield{year} field otherwise; the \bibfield{sorttitle} field, if defined, or the \bibfield{title} field otherwise; the \bibfield{volume} field. Note that the sorting schemes shown in \apxref{apx:srt:a2} include an additional item: \bibfield{labelalpha} is the label used by <alphabetic> bibliography styles. Strictly speaking, the string used for sorting is \bibfield{labelalpha}~+ \bibfield{extraalpha}. The sorting schemes in \apxref{apx:srt:a2} are intended to be used in conjunction with alphabetic styles only.
 
-Using special fields such as \bibfield{sortkey}, \bibfield{sortname}, or \bibfield{sorttitle} is usually not required. The \biblatex package is quite capable of working out the desired sorting order by using the data found in the regular fields of an entry. You will only need them if you want to manually modify the sorting order of the bibliography or if any data required for sorting is missing. Please refer to the field descriptions in \secref{bib:fld:spc} for details on possible uses of the special fields. Also note that using \biber instead of legacy \bibtex is strongly recommended.
+在排序过程中首先要考虑的事项总是条目的 \bibfield{presort} 域。
+如果该域没有定义，\biblatex 会使用缺省值“\texttt{mm}”作为预排序字符串。
+其次考虑的是 \bibfield{sortkey} 域。
+如果该域有定义，它将作为主要的排序关键字。
+此时除了 \bibfield{presort} 域，将不考虑其它信息。
+如果 \bibfield{sortkey} 域没有定义，排序将使用姓名信息。
+本宏包将依次尝试使用 \bibfield{sortname}、\bibfield{author}、\bibfield{editor} 和 \bibfield{translator} 等域。
+考虑哪些域也取决于 \opt{useauthor}、\opt{useeditor} 和 \opt{usetranslator} 选项的设置。
+如果这三个选项都没有启用，那么 \bibfield{sortname} 也将被忽略。
+请注意，所有的名称域都与 \opt{maxnames} 和 \opt{minnames} 有关。
+如果没有名称域是合适的，或者由于它们没有定义、或者由于 \opt{use\prm{name}} 域都未启用，
+那么 \biblatex 将采用  \bibfield{sorttitle} 和 \bibfield{title} 作为最后的备选。
+余下考虑的诸项依次是：\bibfield{sortyear} 域（如果给出的话），否则考虑 \bibfield{year} 域的前四个数字；
+\bibfield{sorttitle} 域（如果给出的话），否则考虑  \bibfield{title} 域；
+\bibfield{volume} 域。
+请注意，\apxref{apx:srt:a2} 展示的排序格式包括了额外一项：
+\bibfield{labelalpha} 域是“alphabetic”文献样式所使用的标签。
+严格地讲，用于排序的字符串是 \bibfield{labelalpha}~+ \bibfield{extraalpha}。
+\apxref{apx:srt:a2} 中的排序格式只可以与字母顺序样式联合使用。
+
+%The chronological sorting schemes presented in \apxref{apx:srt:chr} also make use of the \bibfield{presort} and \bibfield{sortkey} fields, if defined. The next item considered is the \bibfield{sortyear} or the \bibfield{year} field, depending on availability. The \opt{ynt} scheme extracts the first four Arabic figures from the field. If both fields are undefined, the string \texttt{9999} is used as a fallback value. This means that all entries without a year will be moved to the end of the list. The \opt{ydnt} scheme is similar in concept but sorts the year in descending order. As with the \opt{ynt} scheme, the string \texttt{9999} is used as a fallback value. The remaining items are similar to the alphabetic sorting schemes discussed above. Note that the \opt{ydnt} sorting scheme will only sort the date in descending order. All other items are sorted in ascending order as usual.
+
+\apxref{apx:srt:chr} 展示的年代排序格式同样使用域 \bibfield{presort} 和 \bibfield{sortkey} （如果有定义的话）。
+其次考虑的是 \bibfield{sortyear} 或者 \bibfield{year} 域，这当然取决于是否可用。
+\opt{ynt} 格式将从该域中提取前四个数字。
+如果这两个域都没有定义，那么将使用后备值 \texttt{9999}。
+这意味着没有年份的条目都会移动到列表末尾。
+\opt{ydnt} 格式从概念上也是类似的，不过是用降序排列年份。
+与 \opt{ynt} 格式一样，后备值是 \texttt{9999}。
+余下考虑的项与上面讨论的字母排序格式类似。
+请注意，\opt{ydnt} 排序格式只对日期按照降序排列。
+其它项仍和平常一样按照升序排列。
+
+%Using special fields such as \bibfield{sortkey}, \bibfield{sortname}, or \bibfield{sorttitle} is usually not required. The \biblatex package is quite capable of working out the desired sorting order by using the data found in the regular fields of an entry. You will only need them if you want to manually modify the sorting order of the bibliography or if any data required for sorting is missing. Please refer to the field descriptions in \secref{bib:fld:spc} for details on possible uses of the special fields.
+
+通常来说不需要使用 \bibfield{sortkey}、\bibfield{sortname} 或 \bibfield{sorttitle} 等特殊域。
+\biblatex 宏包通过使用条目常规域的数据就很容易得到所需的排列顺序。
+只有当你想手动修改文献排序或者所需的数据缺失时，你才需要使用这些特殊域。
+关于特殊域的可能用法请参考 \secref{bib:fld:spc} 节中的描述。
+
+
+\subsection{数据注解}%\subsection{Data Annotations}
+\label{use:annote}
+%Ideally, there should be no formatting information in a bibliography data file, however, sometimes such questionable practice seems to the only way in which the desired results can be achieved. Data annotations are a way of addressing this by allowing users to attach semantic information (rather than typographical markup) to information in a bibliography data source so that the information can be used at markup time by a style. For example, if you wanted to highlight certain names in a work depending on whether they were a student author (indicated by a superscript asterisk in the references) or a corresponding author (indicated by bold face), then you might be tempted to try:
+理想状态下，文献数据文件中不应当有格式信息。
+然而，有时只有通过这种有争议的做法才能实现想要的结果。
+数据注解（data annotations） 就是一种解决该问题的方法。
+通过允许用户在文献数据源中添加某种语义信息（而不是排版标记），
+使得文献样式可以在标记时使用该信息。
+例如，如果想要按照如下规则高亮某些作品中的姓名：学生作者在文献中用上标星号表示，而通讯作者用粗体表示；
+那么，可以尝试如下方法：
+
+\begin{lstlisting}[style=bibtex]{}
+@MISC{Article1,
+  AUTHOR = {Last1\textsuperscript{*}, First1 and \textbf{Last2}, \textbf{First2} and Last3, First3}
+}
+\end{lstlisting}
+%
+%There are several problems with this. Firstly, it will break \bibtex's fragile name parsing routines and probably won't compile at all. Secondly, it is not only mixing up data with markup, it does so in a hard-coded way: this data can't easily be shared and used with other styles. While it is possible to achieve this formatting using \biblatex internals in a style or document, this is a complex and unreliable method which many users will not wish to use.
+这一做法有一些问题。
+首先，它会打断 \BibTeX 脆弱的姓名解析程序指令，可能根本不能编译。
+其次，数据与标记的混合是硬编码的：其它样式不易共享和使用该数据。
+当然，在样式或者文件中使用 \biblatex 内部指令可能实现该格式，
+但是这一做法比较复杂而且不可靠，很多用户不愿意使用。
+
+%In order to address these issues, \biblatex has a general data annotation facility which allows you to attach a comma"=separated list of annotations to data fields, items within data field lists (like names) and even parts of specific items such as parts of names (given name, family name etc.). There are macros provided to check for annotations which can be used in formatting directives.
+为了处理这些问题，\biblatex 提供了一般性的数据注解功能，
+使得可以向数据域、数据域列表中的项目（例如姓名），以及某些项目的一部分（例如姓、名等姓名部分）中附加逗号分隔列表作为注解。
+此外还提供了一些宏来检查可以用于格式指令的注解。
+
+%There are three «scopes» for data annotations, in order of increasing specificity:
+数据注解有三种“尺度”，按照特性增加的顺序依次为：
+\begin{itemize}
+\item \opt{field}---%applied to top-level fields in a data source entry
+用于数据源条目中的顶层域
+\item \opt{item}---%applied to items within a list field in a data source entry
+用于数据源条目中列表域中的项目
+\item \opt{part}---%applied to parts within items within a list field in a data source entry
+用于数据源条目中列表域中项目的一部分
+\end{itemize}
+%
+%Data annotations are supported for \bibtex and \biblatexml data sources.
+\BibTeX 和 \biblatexml 数据源都支持数据注解。
+
+%Attaching annotations to data is easy in \biblatexml data sources as they are specified by simple XML attributes. Continuing with the example above, we would have:
+在 \biblatexml 数据源中添加数据注解是很容易的，
+因为可以通过简单的XML属性来指定。
+继续上面的例子，我们有：
+
+\begin{lstlisting}[language=xml]
+<bltx:entries xmlns:bltx="http://biblatex-biber.sourceforge.net/biblatexml">
+  <bltx:entry id="test" entrytype="misc">
+    <bltx:names type="author">
+      <bltx:name>
+        <bltx:namepart type="given" initial="F">First1</bltx:namepart>
+        <bltx:namepart type="family" initial="L" annotation="student">Last1</bltx:namepart>
+      </bltx:name>
+      <bltx:name annotation="corresponding">
+        <bltx:namepart type="given" initial="F">First2</bltx:namepart>
+        <bltx:namepart type="family" initial="L">Last2</bltx:namepart>
+      </bltx:name>
+      <bltx:name>
+        <bltx:namepart type="given" initial="F">First3</bltx:namepart>
+        <bltx:namepart type="family" initial="L">Last3</bltx:namepart>
+      </bltx:name>
+    </bltx:names>
+  </bltx:entry>
+</bltx:entries>
+\end{lstlisting}
+%
+%Here the annotations are attached in an obvious way to the data items. With \bibtex data sources, the format for annotations is not quite as intuitive:
+这里，向数据项目中添加注解的方式是很显然的。
+而在 \BibTeX 数据源中，注解的格式就没有那么直观了：
+
+\begin{lstlisting}[style=bibtex]{}
+@MISC{ann1,
+  AUTHOR    = {Last1, First1 and Last2, First2 and Last3, First3},
+  AUTHOR+an = {1:family=student;2=corresponding},
+}
+\end{lstlisting}
+%
+%Here the field name suffix \texttt{+an} is a user-definable\footnote{See \biber's \opt{--annotation-marker} option.} suffix which marks a data field as an annotation of the unsuffixed field. The format of annotation fields in \bibtex data sources is is as follows:
+这里域姓名后缀 \texttt{+an} 可以由用户定义\footnote{
+	见 \biber 的 \opt{--annotation-marker} 选项。}，
+用于标记某个数据域为去掉后缀的域的注解。
+\BibTeX 注解域的格式如下：
+
+\begin{lstlisting}
+<annotationspecs> ::= <annotationspec> [ ";" <annotationspec> ]
+<annotationspec>  ::= [ <itemcount> [ ":" <part> ] ] "=" <annotations>
+<annotations>     ::= <annotation> [ "," <annotation> ]
+<annotation>      ::= (string)
+\end{lstlisting}
+%
+%That is, one or more specifications separated by semi-colons. Each specification is an equals sign followed by a comma"=separated list of annotation keywords. To annotation a specific item in a list, put the number of the list item before the equals sign (lists start at 1). If you need to annotate a specific part of the list item, give its name after the list item number, preceded by a colon. Name part names are defined in the data model, see \secref{aut:bbx:drv}. Some examples:
+也就是说，多个特性之间由分号分隔。
+每一特性是一个等号后跟一个逗号分隔的注解关键字列表。
+为了为列表中某一项作注解，需要将该列表项的编号放在等号前面（列表从1开始编号）。
+如果需要为列表项的某一部分做注解，需要将该部分名放在编号之后，并且前接一个冒号。
+姓名部分的名称在数据模型中有定义，见 \secref{aut:bbx:drv} 节。
+以下是一些例子：
+
+\begin{lstlisting}[style=bibtex]{}
+AUTHOR      = {Last1, First1 and Last2, First2 and Last3, First3},
+AUTHOR+an   = {3:given=annotation1, annotation2},
+TITLE       = {A title},
+TITLE+an    = {=a title annotation, another title annotation},
+LANGUAGE    = {english and french},
+LANGUAGE+an = {1=annotation3; 2=annotation4}
+}
+\end{lstlisting}
+%
+%To access the annotation information when formatting bibliography data, three macros are provided, corresponding to the three annotation scopes:
+为了在文献格式中获取注解信息，
+这里提供了三个宏，分别对应与相应的注解尺度：
+
+\begin{ltxsyntax}
+
+\cmditem{iffieldannotation}{annotation}{true}{false}
+
+%Executes \prm{true} if the current data field has an annotation \prm{annotation} and false otherwise.
+
+如果当前数据域有注解，那么执行 \prm{true}，否则为 false。
+
+\cmditem{ifitemannotation}{annotation}{true}{false}
+
+%Executes \prm{true} if the current item in the current data field has an annotation \prm{annotation} and false otherwise.
+
+如果当前数据域的当前项目有注解，那么执行 \prm{true}，否则为 false。
+
+\cmditem{ifpartannotation}{part}{annotation}{true}{false}
+
+%Executes \prm{true} if the part named \prm{part} in current item in the current data field has an annotation \prm{annotation} and false otherwise.
+
+如果当前数据域中当前项目中名为 \prm{part} 的部分有注解，那么执行 \prm{true}，否则为 false。
+
+\end{ltxsyntax}
+%
+%These macros are available in the same places as \cmd{currentfield}, \cmd{currentlist} and \cmd{currentname} (see \secref{aut:bib:fmt}), that is, inside formatting directives. They automatically determine the name of the current data field being processed and also the current \opt{listcount} value which determines the current item in list fields. Parts such as name parts need to be named explicitly. As an example of how to use the annotation information to solve the problem originally presented in this section, this could be used in the name formatting directives to put an asterisk after all family names annotated as «student»:
+这些宏的使用场合与 \cmd{currentfield}, \cmd{currentlist} 和 \cmd{currentname} 等命令相同（见 \secref{aut:bib:fmt} 节），
+即，在格式指令内部。
+它们自动确定当前被处理的数据域的名称，以及能够确定列表域中当前项目的 \opt{listcount} 值。
+姓名部分等项目部分需要显式地指明。
+下面的例子可以用于姓名格式指令，说明如何使用注解信息来解决本节之前提出的问题：
+在所有注解为“student”的姓之后加上星号：
+
+\begin{lstlisting}[style=latex]{}
+  \ifpartannotation{family}{student}
+    {\textsuperscript{*}}
+    {}%
+\end{lstlisting}
+%
+%To put the given and family names of name list items annotated as «corresponding» in boldface:
+将标记为 “corresponding”的姓名列表项中的姓和名加粗：
+
+\begin{lstlisting}[style=latex]{}
+\renewcommand*{\mkbibnamegiven}[1]{%
+  \ifitemannotation{corresponding}
+    {\textbf{#1}}
+    {#1}}
+
+\renewcommand*{\mkbibnamefamily}[1]{%
+  \ifitemannotation{corresponding}
+    {\textbf{#1}}
+    {#1}}
+\end{lstlisting}
+
 
 \subsection{参考文献命令 Bibliography Commands}
 \label{use:bib}

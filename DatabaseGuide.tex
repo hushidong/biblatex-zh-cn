@@ -448,7 +448,7 @@
 
 \end{typelist}
 
-\subsection{条目域 Entry Fields}
+\subsection{条目域}%\subsection{Entry Fields}
 \label{bib:fld}
 
 %This section gives an overview of the fields supported by the \biblatex default data model. See \secref{bib:fld:typ} for an introduction to the data types used by the data model specification and \secref{bib:fld:dat, bib:fld:spc} for the actual field listings.
@@ -457,7 +457,7 @@
 数据模型使用的数据类型的介绍请参考\secref{bib:fld:typ} 小节，
 实际的域列表见\secref{bib:fld:dat, bib:fld:spc} 小节。
 
-\subsubsection{数据类型 Data Types}
+\subsubsection{数据类型}%\subsubsection{Data Types}
 \label{bib:fld:typ}
 
 %In datasources such as a \file{bib} file, all bibliographic data is specified in fields. Some of those fields, for example \bibfield{author} and \bibfield{editor}, may contain a list of items. This list structure is implemented by the \bibtex file format via the keyword <|and|>, which is used to separate the individual items in the list. The \biblatex package implements three distinct data types to handle bibliographic data: name lists, literal lists, and fields. There are also several list and field subtypes and a content type which can be used to semantically distinguish fields which are otherwise not distinguishable on the basis of only their datatype (see \secref{aut:ctm:dm}). This section gives an overview of the data types supported by this package. See \secref{bib:fld:dat, bib:fld:spc} for information about the mapping of the \bibtex file format fields to \biblatex's data types.
@@ -617,7 +617,7 @@
 \end{description}
 \end{description}
 
-\subsubsection{数据域 Data Fields}
+\subsubsection{数据域}%\subsubsection{Data Fields}
 \label{bib:fld:dat}
 
 %The fields listed in this section are the regular ones holding printable data in the default data model. The name on the left is the default data model name of the field as used by \biblatex and its backend. The \biblatex data type is given to the right of the name. See \secref{bib:fld:typ} for explanation of the various data types.
@@ -1561,7 +1561,7 @@
 
 \end{fieldlist}
 
-\subsubsection{特殊域 Special Fields}
+\subsubsection{特殊域}%\subsubsection{Special Fields}
 \label{bib:fld:spc}
 
 %The fields listed in this section do not hold printable data but serve a different purpose. They apply to all entry types in the default data model.
@@ -1971,7 +1971,7 @@ langidopts     = {variant=british},
 
 \end{fieldlist}
 
-\subsubsection{自定义域 Custom Fields}
+\subsubsection{可定制域}%\subsubsection{Custom Fields}
 \label{bib:fld:ctm}
 
 %The fields listed in this section are intended for special bibliography styles. They are not used by the standard bibliography styles.
@@ -2024,7 +2024,7 @@ langidopts     = {variant=british},
 
 \end{fieldlist}
 
-\subsubsection{域的别名 Field Aliases}
+\subsubsection{域的别名}%\subsubsection{Field Aliases}
 \label{bib:fld:als}
 
 %The aliases listed in this section are provided for backwards compatibility with traditional \bibtex and other applications based on traditional \bibtex styles. Note that these aliases are immediately resolved as the \file{bib} file is processed. All bibliography and citation styles must use the names of the fields they point to, not the alias. In \file{bib} files, you may use either the alias or the field name but not both at the same time.
@@ -2113,7 +2113,7 @@ An alias for \bibfield{eprintclass}, provided for arXiv compatibility. See \secr
 \end{fieldlist}
 
 
-\subsection{使用注意事项 Usage Notes}
+\subsection{使用注意事项}%\subsection{Usage Notes}
 \label{bib:use}
 
 %The entry types and fields supported by this package should for the most part be intuitive to use for anyone familiar with \bibtex. However, apart from the additional types and fields provided by this package, some of the familiar ones are handled in a way which is in need of explanation.
@@ -2152,7 +2152,7 @@ An alias for \bibfield{eprintclass}, provided for arXiv compatibility. See \secr
 \sty{jurabib} 宏包的用户请注意，\bibfield{shortauthor} 域被 \biblatex 视作姓名列表，
 详见 \secref{bib:use:inc} 节。
 
-\subsubsection{\bibtype{inbook} 条目类型}
+\subsubsection[\texttt{@inbook} 条目类型]{\bibtype{inbook} 条目类型}
 \label{bib:use:inb}
 
 %Use the \bibtype{inbook} entry type for a self"=contained part of a book with its own title only. It relates to \bibtype{book} just like \bibtype{incollection} relates to \bibtype{collection}. See \secref{bib:use:ttl} for examples. If you want to refer to a chapter or section of a book, simply use the \bibfield{book} type and add a \bibfield{chapter} and\slash or \bibfield{pages} field. Whether a bibliography should at all include references to chapters or sections is controversial because a chapter is not a bibliographic entity.
@@ -2164,7 +2164,7 @@ An alias for \bibfield{eprintclass}, provided for arXiv compatibility. See \secr
 使用 \bibfield{book} 类型并添加 \bibfield{chapter} 或 \bibfield{pages} 域即可。
 究竟参考文献是否可以引用章节是有争议的，因为章并不是文献实体。
 
-\subsubsection{缺失和可忽略数据 Missing and Omissible Data}
+\subsubsection{缺失和可忽略数据}%\subsubsection{Missing and Omissible Data}
 \label{bib:use:key}
 
 %The fields marked as <required> in \secref{bib:typ:blx} are not strictly required in all cases. The bibliography styles which ship with this package can get by with as little as a \bibfield{title} field for most entry types. A book published anonymously, a periodical without an explicit editor, or a software manual without an explicit author should pose no problem as far as the bibliography is concerned. Citation styles, however, may have different requirements. For example, an author"=year citation scheme obviously requires an \bibfield{author}\slash \bibfield{editor} and a \bibfield{year} field.
@@ -2198,7 +2198,7 @@ An alias for \bibfield{eprintclass}, provided for arXiv compatibility. See \secr
 \sty{natbab} 宏包使用 \bibfield{key} 域作为后备的引用标签。
 使用 \bibfield{label} 域来代替它。
 
-\subsubsection{集体作者和编者 Corporate Authors and Editors}
+\subsubsection{集体作者和编者}%\subsubsection{Corporate Authors and Editors}
 \label{bib:use:inc}
 
 %Corporate authors and editors are given in the \bibfield{author} or \bibfield{editor} field, respectively. Note that they must be wrapped in an extra pair of curly braces to prevent data parsing from treating them as personal names which are to be dissected into their components. Use the \bibfield{shortauthor} field if you want to give an abbreviated form of the name or an acronym for use in citations.
@@ -2228,7 +2228,7 @@ shorteditor  = {NASA and Doe, John},
 从 \sty{jurabib} 宏包切换到 \biblatex 宏包的用户需要注意，
 \bibfield{shortauthor} 域被视作姓名列表。
 
-\subsubsection{文本列表 Literal Lists}
+\subsubsection{文本列表}%\subsubsection{Literal Lists}
 \label{bib:use:and}
 
 %The fields \bibfield{institution}, \bibfield{organization}, \bibfield{publisher}, and \bibfield{location} are literal lists in terms of \secref{bib:fld}. This also applies to \bibfield{origlocation}, \bibfield{origpublisher} and to the field aliases \bibfield{address} and \bibfield{school}. All of these fields may contain a list of items separated by the keyword <|and|>. If they contain a literal <|and|>, it must be wrapped in braces.
@@ -2269,8 +2269,6 @@ organization = {<<{American Society for Photogrammetry and Remote Sensing}>>
 %The following examples demonstrate how to handle different types of titles. Let's start with a five"=volume work which is referred to as a whole:
 以下例子展示了如何处理不同类型的标题。
 首先是一个作为整体的五卷本作品：
-
-
 
 \begin{lstlisting}[style=bibtex]{}
 @MvBook{works,
@@ -2341,7 +2339,7 @@ organization = {<<{American Society for Photogrammetry and Remote Sensing}>>
 %See \secref{bib:use:ser} for further examples.
 更多例子请参考 \secref{bib:use:ser} 节。
 
-\subsubsection{编辑角色 Editorial Roles}
+\subsubsection{编辑角色}%\subsubsection{Editorial Roles}
 \label{bib:use:edr}
 
 %The type of editorial role performed by an editor in one of the \bibfield{editor} fields (\ie \bibfield{editor}, \bibfield{editora}, \bibfield{editorb}, \bibfield{editorc}) may be specified in the corresponding \bibfield{editor...type} field. The following roles are supported by default. The role <\texttt{editor}> is the default. In this case, the \bibfield{editortype} field is omissible.
@@ -2424,7 +2422,7 @@ organization = {<<{American Society for Photogrammetry and Remote Sensing}>>
 关键字的名称对应于 \bibfield{editor...type} 域中的标识符。
 详见 \secref{use:lng,aut:lng:cmd} 节。
 
-\subsubsection{出版物和期刊系列 Publication and Journal Series}
+\subsubsection{出版物和期刊系列}%\subsubsection{Publication and Journal Series}
 \label{bib:use:ser}
 
 %The \bibfield{series} field is used by traditional \bibtex styles both for the main title of a multi"=volume work and for a publication series, \ie a loosely related sequence of books by the same publisher which deal with the same general topic or belong to the same field of research. This may be ambiguous. This package introduces a \bibfield{maintitle} field for multi"=volume works and employs \bibfield{series} for publication series only. The volume or number of a book in the series goes in the \bibfield{number} field in this case:
@@ -2480,7 +2478,7 @@ organization = {<<{American Society for Photogrammetry and Remote Sensing}>>
 该条目会打印成“\emph{Journal Name}. New ser. 9 (1998)”。
 默认定义的本地化关键字列表请参考 \secref{aut:lng:key} 节。
 
-\subsubsection{日期和时间规范 Date and Time Specifications}
+\subsubsection{日期和时间规范}%\subsubsection{Date and Time Specifications}
 \label{bib:use:dat}
 
 %\begin{table}
@@ -2705,7 +2703,7 @@ organization = {<<{American Society for Photogrammetry and Remote Sensing}>>
 	\label{bib:use:tab2}
 \end{table}
 
-\subsubsection{月份和期刊的卷号 Months and Journal Issues}
+\subsubsection{月份和期刊的卷号}%\subsubsection{Months and Journal Issues}
 \label{bib:use:iss}
 
 %The \bibfield{month} field is an integer field. The bibliography style converts the month to a language"=dependent string as required. For backwards compatibility, you may also use the following three"=letter abbreviations in the \bibfield{month} field: \texttt{jan}, \texttt{feb}, \texttt{mar}, \texttt{apr}, \texttt{may}, \texttt{jun}, \texttt{jul}, \texttt{aug}, \texttt{sep}, \texttt{oct}, \texttt{nov}, \texttt{dec}. Note that these abbreviations are \bibtex strings which must be given without any braces or quotes. When using them, don't say |month={jan}| or |month="jan"| but |month=jan|. It is not possible to specify a month such as |month={8/9}|. Use the \bibfield{date} field for date ranges instead. Quarterly journals are typically identified by a designation such as <Spring> or <Summer> which should be given in the \bibfield{issue} field. The placement of the \bibfield{issue} field in \bibtype{article} entries is similar to and overrides the \bibfield{month} field.
@@ -2718,7 +2716,7 @@ organization = {<<{American Society for Photogrammetry and Remote Sensing}>>
 季刊通常由“Spring”或“Summer”等标识符确定，这些标识符应在 \bibfield{issue} 域中给出。
 在 \bibtype{article} 条目中，\bibfield{issue} 域的位置与 \bibfield{month} 域类似，并且会覆盖后者。
 
-\subsubsection{标记页码 Pagination}
+\subsubsection{标记页码}%\subsubsection{Pagination}
 \label{bib:use:pag}
 
 %When specifying a page or page range, either in the \bibfield{pages} field of an entry or in the \prm{postnote} argument to a citation command, it is convenient to have \biblatex add prefixes like <p.> or <pp.> automatically and this is indeed what this package does by default. However, some works may use a different pagination scheme or may not be cited by page but rather by verse or line number. This is when the \bibfield{pagination} and \bibfield{bookpagination} fields come into play. As an example, consider the following entry:
@@ -2763,13 +2761,13 @@ organization = {<<{American Society for Photogrammetry and Remote Sensing}>>
 具体例子可以参考 \secref{aut:lng:key} 节的预定义关键字。
 
 
-\subsection{提示与警告 Hints and Caveats}
+\subsection{提示与警告}%\subsection{Hints and Caveats}
 \label{bib:cav}
 
 %This section provides some additional hints concerning the data interface of this package. It also addresses some common problems.
 本节提供了一些关于本宏包数据层面上的额外提示，另外也说明了一些常见问题。
 
-\subsubsection{交叉引用 Cross-referencing}
+\subsubsection{交叉引用}%\subsubsection{Cross-referencing}
 \label{bib:cav:ref}
 
 %\biber features a highly customizable cross-referencing mechanism with flexible data inheritance rules. Duplicating certain fields in the parent entry or adding empty fields to the child entry is no longer required. Entries are specified in a natural way:
@@ -2830,7 +2828,7 @@ pages		= {5--25},
 相关子条目数量的阈值由 \secref{use:opt:pre:gen} 节的 \opt{mincrossrefs} 宏包选项所控制。
 参考 \secref{bib:fld:spc} 一节。
 
-\subsubsection{排序和编码问题 Sorting and Encoding Issues}
+\subsubsection{排序和编码问题}%\subsubsection{Sorting and Encoding Issues}
 \label{bib:cav:enc}
 
 %\biber handles Ascii, 8-bit encodings such as Latin\,1, and \utf. It features true Unicode support and is capable of reencoding the \file{bib} data on the fly in a robust way. For sorting, \biber uses a Perl implementation of the Unicode Collation Algorithm (\acr{UCA}), as outlined in Unicode Technical Standard \#10.\fnurl{http://unicode.org/reports/tr10/} Collation tailoring based on the Unicode Common Locale Data Repository (\acr{CLDR}) is also supported.\fnurl{http://cldr.unicode.org/}
