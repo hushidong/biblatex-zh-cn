@@ -2345,18 +2345,24 @@ LANGUAGE+an = {1=annotation3; 2=annotation4}
     {#1}}
 \end{lstlisting}
 
-
-\subsection{参考文献命令 Bibliography Commands}
+\subsection{参考文献命令}%\subsection{Bibliography Commands}
 \label{use:bib}
 
-\subsubsection{文献数据源 Resources}
+\subsubsection{数据源}%\subsubsection{Resources}
 \label{use:bib:res}
 
 \begin{ltxsyntax}
 
 \cmditem{addbibresource}[options]{resource}
 
-Adds a \prm{resource}, such as a \file{.bib} file, to the default resource list. This command is only available in the preamble. It replaces the \cmd{bibliography} legacy command. Note that files must be specified with their full name, including the extension. Do not omit the \file{.bib} extension from the filename. Also note that the \prm{resource} is a single resource. Invoke \cmd{addbibresource} multiple times to add more resources, for example:
+%Adds a \prm{resource}, such as a \file{.bib} file, to the default resource list. This command is only available in the preamble. It replaces the \cmd{bibliography} legacy command. Note that files must be specified with their full name, including the extension. Do not omit the \file{.bib} extension from the filename. Also note that the \prm{resource} is a single resource. Invoke \cmd{addbibresource} multiple times to add more resources, for example:
+
+将 \prm{resource} 添加到默认资源列表中，例如 \file{.bib} 文件。
+该命令只能在导言区中使用。
+它取代了过时的 \cmd{bibliography} 命令。
+请注意，文件名包括扩展名，所以不要省略文件名中的 \file{.bib} 扩展名。
+另外要注意的是，\prm{resource} 只能是一个单独的数据源。
+添加更多的资源需要多次调用 \cmd{addbibresource} 命令，例如：
 
 \begin{lstlisting}[style=latex]{}
 \addbibresource{bibfile1.bib}
@@ -2365,58 +2371,101 @@ Adds a \prm{resource}, such as a \file{.bib} file, to the default resource list.
 \addbibresource[location=remote,label=lan]{ftp://192.168.1.57/~user/file.bib}
 \end{lstlisting}
 %
-Since the \prm{resource} string is read in a verbatim-like mode, it may contain arbitrary characters. The only restriction is that any curly braces must be balanced. The following \prm{options} are available:
+%Since the \prm{resource} string is read in a verbatim-like mode, it may contain arbitrary characters. The only restriction is that any curly braces must be balanced. The following \prm{options} are available:
+由于 \prm{resource} 字符串的读取类似于抄录模式，因此它可以包含任意的字符。
+唯一的限制是其中任何的花括号必须左右匹配。
+可用的 \prm{options} 如下：
 
 \begin{optionlist*}
 
 \valitem{label}{identifier}
 
-Assigns a label to a resource. The \prm{identifier} may be used in place of the full resource name in the optional argument of \env{refsection} (see \secref{use:bib:sec}).
+%Assigns a label to a resource. The \prm{identifier} may be used in place of the full resource name in the optional argument of \env{refsection} (see \secref{use:bib:sec}).
+
+给该数据源分配一个标签。
+\prm{identifier} 可以用于在 \env{refsection} 环境的可选参数中以取代该数据源的全名
+（见 \secref{use:bib:sec} 节）。
 
 \valitem[local]{location}{location}
 
-The location of the resource. The \prm{location} may be either \texttt{local} for local resources or \texttt{remote} for \acr{URL}s. Remote resources require \biber. The protocols \acr{HTTP} and \acr{FTP} are supported. The remote \acr{URL} must be a fully qualified path to a \file{bib} file or a \acr{URL} which returns a \file{bib} file.
+%The location of the resource. The \prm{location} may be either \texttt{local} for local resources or \texttt{remote} for \acr{URL}s. Remote resources require \biber. The protocols \acr{HTTP} and \acr{FTP} are supported. The remote \acr{URL} must be a fully qualified path to a \file{bib} file or a \acr{URL} which returns a \file{bib} file.
+
+数据源的地址。
+\prm{location} 可以是 \texttt{local} 或者 \texttt{remote}，
+分别对应本地数据和在线 \acr{URL} 数据。
+远程资源需要 \biber{} 程序。
+支持 \acr{HTTP} 和 \acr{FTP} 协议。
+远程的 \acr{URL} 必须是 \file{bib} 文件的合法路径全称或者是返回 \file{bib} 文件的 \acr{URL}。
 
 \valitem[file]{type}{type}
 
-The type of resource. Currently, the only supported type is \texttt{file}.
+%The type of resource. Currently, the only supported type is \texttt{file}.
+
+资源的类型。目前唯一支持的类型是 \texttt{file}。
 
 \valitem[bibtex]{datatype}{datatype}
 
-The data type (format) of the resource. The following formats are currently supported:
+%The data type (format) of the resource. The following formats are currently supported:
+
+资源的数据类型（格式）。目前支持以下格式：
 
 \begin{valuelist}[zoterordfxml]
 
-\item[bibtex] \bibtex format.
+\item[bibtex] %\bibtex format.
+\BibTeX 格式。
 
-\item[ris]\BiberOnlyMark Research Information Systems (\acr{RIS}) format.\fnurl{http://en.wikipedia.org/wiki/RIS_(file_format)} Note that an \texttt{ID} tag is required in all \acr{RIS} records. The \texttt{ID} value corresponds to the entry key. Support for this format is experimental.
-
-\item[zoterordfxml]\BiberOnlyMark Zotero \acr{RDF}/\acr{XML} format. Support for this format is experimental. Refer to the \biber manual for details.
-
-\item[endnotexml]\BiberOnlyMark EndNote \acr{XML} format. Support for this format is experimental. Refer to the \biber manual for details.
+\item[biblatexml] %Experimental XML format for \biblatex. See \secref{apx:biblatexml}.
+针对 \biblatex 的实验性 XML 格式。见 \secref{apx:biblatexml}。
 
 \end{valuelist}
 
 \end{optionlist*}
 
+
 \cmditem{addglobalbib}[options]{resource}
 
-This command differs from \cmd{addbibresource} in that the \prm{resource} is added to the global resource list. The difference between default resources and global resources is only relevant if there are reference sections in the document and the optional argument of \env{refsection} (\secref{use:bib:sec}) is used to specify alternative resources which replace the default resource list. Any global resources are added to all reference sections.
+%This command differs from \cmd{addbibresource} in that the \prm{resource} is added to the global resource list. The difference between default resources and global resources is only relevant if there are reference sections in the document and the optional argument of \env{refsection} (\secref{use:bib:sec}) is used to specify alternative resources which replace the default resource list. Any global resources are added to all reference sections.
+
+该命令不同于 \cmd{addbibresource} 之处在于将 \prm{resource} 添加到全局数据源列表中。
+不过，只有当文档中有参考文献章节并且使用 \env{refsection} 环境的可选参数（见 \secref{use:bib:sec} 节）
+作为确定代替默认资源列表的备选资源时，考虑默认数据源和全局数据源的不同才是有意义的。
+任何全局资源将被添加到所有的参考文件章节中。
 
 \cmditem{addsectionbib}[options]{resource}
 
-This command differs from \cmd{addbibresource} in that the resource \prm{options} are registered but the \prm{resource} not added to any resource list. This is only required for resources which 1) are given exclusively in the optional argument of \env{refsection} (\secref{use:bib:sec}) and 2) require options different from the default settings. In this case, \cmd{addsectionbib} is employed to qualify the \prm{resource} prior to using it by setting the appropriate \prm{options} in the preamble. The \opt{label} option may be useful to assign a short name to the resource.
+%This command differs from \cmd{addbibresource} in that the resource \prm{options} are registered but the \prm{resource} not added to any resource list. This is only required for resources which 1) are given exclusively in the optional argument of \env{refsection} (\secref{use:bib:sec}) and 2) require options different from the default settings. In this case, \cmd{addsectionbib} is employed to qualify the \prm{resource} prior to using it by setting the appropriate \prm{options} in the preamble. The \opt{label} option may be useful to assign a short name to the resource.
+
+该命令与 \cmd{addbibresource} 的不同之处在于，会记录数据源的 \prm{options} 但是 \prm{resource} 没有添加到任何数据源列表中。
+有该需求的场合是 (1) 该数据源仅仅用于 \env{refsection} 环境的可选参数中（\secref{use:bib:sec} 节）；
+(2) 该数据源需要不同于默认设置的选项。
+此时，\cmd{addsectionbib} 会在导言区中设置合适的 \prm{options}，从而在其使用前声明 \prm{resource}。
+\opt{label} 选项可以用于分配给该资源一个简短的名称。
 
 \cmditem{bibliography}{bibfile, \dots}|\DeprecatedMark|
 
-The legacy command for adding bibliographic resources, supported for backwards compatibility. Like \cmd{addbibresource}, this command is only available in the preamble and adds resources to the default resource list. Its argument is a comma"=separated list of \file{bib} files. The \file{.bib} extension may be omitted from the filename. Invoking this command multiple times to add more files is permissible. This command is deprecated. Please consider using \cmd{addbibresource} instead.
+%The legacy command for adding bibliographic resources, supported for backwards compatibility. Like \cmd{addbibresource}, this command is only available in the preamble and adds resources to the default resource list. Its argument is a comma"=separated list of \file{bib} files. The \file{.bib} extension may be omitted from the filename. Invoking this command multiple times to add more files is permissible. This command is deprecated. Please consider using \cmd{addbibresource} instead.
 
-\subsubsection{参考文献表 The Bibliography}
+添加文献资源的过时命令，仅处于向后兼容性而支持。
+类似 \cmd{addbibresource}，该命令只能在导言区中使用，并将资源添加到默认资源列表中。
+它的选项是逗号分隔的 \file{bib} 文件列表。
+文件名中的 \file{.bib} 扩展名可以省略。
+也可以通过多次调用该命令来添加更多文件。
+该命令已过时，请考虑使用 \cmd{addbibresource} 来取代。
+
+\end{ltxsyntax}
+
+\subsubsection{参考文献}%\subsubsection{The Bibliography}
 \label{use:bib:bib}
+
+\begin{ltxsyntax}
 
 \cmditem{printbibliography}[key=value, \dots]
 
-This command prints the bibliography. It takes one optional argument, which is a list of options given in \keyval notation. The following options are available:
+%This command prints the bibliography. It takes one optional argument, which is a list of options given in \keyval notation. The following options are available:
+
+该命令可以打印出参考文献。
+它的可选参数是以 \keyval 形式给出的一列选项。
+可用的选项如下：
 
 \end{ltxsyntax}
 
@@ -2424,83 +2473,153 @@ This command prints the bibliography. It takes one optional argument, which is a
 
 \valitem[bibliography/shorthands]{env}{name}
 
-The <high-level> layout of the bibliography and the list of shorthands is controlled by environments defined with \cmd{defbibenvironment}. This option selects an environment. The \prm{name} corresponds to the identifier used when defining the environment with \cmd{defbibenvironment}. By default, the \cmd{printbibliography} command uses the identifier \texttt{bibliography}; \cmd{printbiblist} uses \texttt{shorthands}. See also \secref{use:bib:biblist,use:bib:hdg}.
+%The <high-level> layout of the bibliography and the list of shorthands is controlled by environments defined with \cmd{defbibenvironment}. This option selects an environment. The \prm{name} corresponds to the identifier used when defining the environment with \cmd{defbibenvironment}. By default, the \cmd{printbibliography} command uses the identifier \texttt{bibliography}; \cmd{printbiblist} uses \texttt{shorthands}. See also \secref{use:bib:biblist,use:bib:hdg}.
+
+可以用 \cmd{defbibenvironment} 定义的环境来控制参考文献和shorthands列表的高层次布局。
+该选项选择了一个环境。
+\prm{name} 对应于用 \cmd{defbibenvironment} 定义环境时的标识符。
+缺省状态下，\cmd{printbibliography} 命令使用标识符 \texttt{bibliography}；
+而 \cmd{printshorthands} 使用 \texttt{shorthands}。
+另见 \secref{use:bib:los,use:bib:hdg} 节。
+
 
 \valitem[bibliography/shorthands]{heading}{name}
 
-The bibliography and the list of shorthands typically have a chapter or section heading. This option selects the heading \prm{name}, as defined with \cmd{defbibheading}. By default, the \cmd{printbibliography} command uses the heading \texttt{bibliography}; \cmd{printbiblist} uses \texttt{shorthands}. See also \secref{use:bib:biblist,use:bib:hdg}.
+%The bibliography and the list of shorthands typically have a chapter or section heading. This option selects the heading \prm{name}, as defined with \cmd{defbibheading}. By default, the \cmd{printbibliography} command uses the heading \texttt{bibliography}; \cmd{printbiblist} uses \texttt{shorthands}. See also \secref{use:bib:biblist,use:bib:hdg}.
+
+参考文献和shorthand列表通常有一个章标题或者节标题。
+该选项选择由 \cmd{defbibheading} 定义的标题名 \prm{name}。
+缺省状态下，\cmd{printbibliography} 命令使用标题名 \texttt{bibliography}；
+而 \cmd{printshorthands} 使用 \texttt{shorthands}。
+另见 \secref{use:bib:los,use:bib:hdg} 节。
 
 \valitem{title}{text}
 
-This option overrides the default title provided by the heading selected with the \opt{heading} option, if supported by the heading definition. See \secref{use:bib:hdg} for details.
+%This option overrides the default title provided by the heading selected with the \opt{heading} option, if supported by the heading definition. See \secref{use:bib:hdg} for details.
+
+如果标题定义支持的话，该选项覆盖由 \opt{heading} 选项提供的缺省标题名。
+详见 \secref{use:bib:hdg} 节。
 
 \valitem{prenote}{name}
 
-The prenote is an arbitrary piece of text to be printed after the heading but before the list of references. This option selects the prenote \prm{name}, as defined with \cmd{defbibnote}. By default, no prenote is printed. The note is printed in the standard text font. It is not affected by \cmd{bibsetup} and \cmd{bibfont} but it may contain its own font declarations. See \secref{use:bib:nts} for details.
+%The prenote is an arbitrary piece of text to be printed after the heading but before the list of references. This option selects the prenote \prm{name}, as defined with \cmd{defbibnote}. By default, no prenote is printed. The note is printed in the standard text font. It is not affected by \cmd{bibsetup} and \cmd{bibfont} but it may contain its own font declarations. See \secref{use:bib:nts} for details.
+
+前注是打印在标题之后、文献列表之前的任意文本片段。
+该选项选择由 \cmd{defbibnote} 所定义的前注 \prm{name}。
+缺省状态下不打印任何前注。
+该注记使用标准正文字体。
+它不受 \cmd{bibsetup} 和 \cmd{bibfont} 的影响但可以包含自己的字体声明。
+详见 \secref{use:bib:nts} 节。
 
 \valitem{postnote}{name}
 
-The postnote is an arbitrary piece of text to be printed after the list of references. This option selects the postnote \prm{name}, as defined with \cmd{defbibnote}. By default, no postnote is printed. The note is printed in the standard text font. It is not affected by \cmd{bibsetup} and \cmd{bibfont} but it may contain its own font declarations. See \secref{use:bib:nts} for details.
+%The postnote is an arbitrary piece of text to be printed after the list of references. This option selects the postnote \prm{name}, as defined with \cmd{defbibnote}. By default, no postnote is printed. The note is printed in the standard text font. It is not affected by \cmd{bibsetup} and \cmd{bibfont} but it may contain its own font declarations. See \secref{use:bib:nts} for details.
+
+后注是打印在参考文献列表之后的任意文本片段。
+该选项选择由 \cmd{defbibnote} 所定义的后注 \prm{name}。
+缺省状态下不打印任何后注。
+该注记使用标准正文字体。
+它不受 \cmd{bibsetup} 和 \cmd{bibfont} 的影响但可以包含自己的字体声明。
+详见 \secref{use:bib:nts}。
 
 \intitem[current section]{section}
 
-Print only entries cited in reference section \prm{integer}. The reference sections are numbered starting at~1. All citations given outside a \env{refsection} environment are assigned to section~0. See \secref{use:bib:sec} for details and \secref{use:use:mlt} for usage examples.
+%Print only entries cited in reference section \prm{integer}. The reference sections are numbered starting at~1. All citations given outside a \env{refsection} environment are assigned to section~0. See \secref{use:bib:sec} for details and \secref{use:use:mlt} for usage examples.
+
+只打印在第 \prm{integer} 文节中引用的条目。
+该参考文献节从~1 开始编号。
+所有在 \env{refsection} 环境外给出的引用标记为第零节。
+详见 \secref{use:bib:sec} 和 \secref{use:use:mlt} 节中的使用例子。
 
 \intitem[0]{segment}
 
-Print only entries cited in reference segment \prm{integer}. The reference segments are numbered starting at~1. All citations given outside a \env{refsegment} environment are assigned to segment~0. See \secref{use:bib:seg} for details and \secref{use:use:mlt} for usage examples. Remember that segments within a section are numbered local to the section so the segment you request will be the nth segment in the requested (or currently active enclosing) section.
+%Print only entries cited in reference segment \prm{integer}. The reference segments are numbered starting at~1. All citations given outside a \env{refsegment} environment are assigned to segment~0. See \secref{use:bib:seg} for details and \secref{use:use:mlt} for usage examples. Remember that segments within a section are numbered local to the section so the segment you request will be the nth segment in the requested (or currently active enclosing) section.
+
+只打印在第 \prm{integer} 文献段中引用的条目。
+参考文献段从~1 开始编号。
+所有在 \env{refsection} 环境外给出的引用标记为第零段。
+详见 \secref{use:bib:sec} 和 \secref{use:use:mlt} 节中的使用例子。
+请注意，一节内部的片段是在该节中局部编号的，故而需要的片段是被查询（或者当前激活的）节的第 n 段。
 
 \valitem{type}{entrytype}
 
-Print only entries whose entry type is \prm{entrytype}.
+%Print only entries whose entry type is \prm{entrytype}.
+
+只打印类型为 \prm{entrytype} 的条目。
 
 \valitem{nottype}{entrytype}
 
-Print only entries whose entry type is not \prm{entrytype}. This option may be used multiple times.
+%Print only entries whose entry type is not \prm{entrytype}. This option may be used multiple times.
+
+只打印类型不为 \prm{entrytype} 的条目。该选项可以使用多次。
 
 \valitem{subtype}{subtype}
 
-Print only entries whose \bibfield{entrysubtype} is defined and \prm{subtype}.
+%Print only entries whose \bibfield{entrysubtype} is defined and \prm{subtype}.
+
+只打印域 \bibfield{entrysubtype} 定义为 \prm{subtype} 的条目。
 
 \valitem{notsubtype}{subtype}
 
-Print only entries whose \bibfield{entrysubtype} is undefined or not \prm{subtype}. This option may be used multiple times.
+%Print only entries whose \bibfield{entrysubtype} is undefined or not \prm{subtype}. This option may be used multiple times.
+
+只打印域 \bibfield{entrysubtype} 没有定义或者不为 \prm{subtype} 的条目。该选项可以使用多次。
 
 \valitem{keyword}{keyword}
 
-Print only entries whose \bibfield{keywords} field includes \prm{keyword}. This option may be used multiple times.
+%Print only entries whose \bibfield{keywords} field includes \prm{keyword}. This option may be used multiple times.
+
+只打印域 \bibfield{keywords} 包括 \prm{keyword} 的条目。该选项可以使用多次。
 
 \valitem{notkeyword}{keyword}
 
-Print only entries whose \bibfield{keywords} field does not include \prm{keyword}. This option may be used multiple times.
+%Print only entries whose \bibfield{keywords} field does not include \prm{keyword}. This option may be used multiple times.
+
+只打印域 \bibfield{keywords} 不包括 \prm{keyword} 的条目。该选项可以使用多次。
 
 \valitem{category}{category}
 
-Print only entries assigned to category \prm{category}. This option may be used multiple times.
+%Print only entries assigned to category \prm{category}. This option may be used multiple times.
+
+只打印属于 \prm{category} 类型的条目。该选项可以使用多次。
 
 \valitem{notcategory}{category}
 
-Print only entries not assigned to category \prm{category}. This option may be used multiple times.
+%Print only entries not assigned to category \prm{category}. This option may be used multiple times.
+
+只打印不属于 \prm{category} 类型的条目。该选项可以使用多次。
 
 \valitem{filter}{name}
 
-Filter the entries with filter \prm{name}, as defined with \cmd{defbibfilter}. See \secref{use:bib:flt} for details.
+%Filter the entries with filter \prm{name}, as defined with \cmd{defbibfilter}. See \secref{use:bib:flt} for details.
+
+使用由 \cmd{defbibfilter} 定义的 filter \prm{name} 来过滤条目。详见 \secref{use:bib:flt} 节。
 
 \valitem{check}{name}
 
-Filter the entries with check \prm{name}, as defined with \cmd{defbibcheck}. See \secref{use:bib:flt} for details.
+%Filter the entries with check \prm{name}, as defined with \cmd{defbibcheck}. See \secref{use:bib:flt} for details.
 
-\valitem{prefixnumbers}{string}
-
-This option applies to numerical citation\slash bibliography styles only and requires that the \opt{defernumbers} option from \secref{use:opt:pre:gen} be enabled globally. Setting this option will implicitly enable \opt{resetnumbers} for the current bibliography. The option assigns the \prm{string} as a prefix to all entries in the respective bibliography. For example, if the \prm{string} is \texttt{A}, the numerical labels printed will be \texttt{[A1]}, \texttt{[A2]}, \texttt{[A3]}, etc. This is useful for subdivided numerical bibliographies where each subbibliography uses a different prefix. The \prm{string} is available to styles in the \bibfield{prefixnumber} field of all affected entries. See \secref{aut:bbx:fld:lab} for details.
+使用由 \cmd{defbibcheck} 定义的 check \prm{name} 来过滤条目。详见  \secref{use:bib:flt} 节。
 
 \valitem{resetnumbers}{true,false,number}
 
-This option applies to numerical citation\slash bibliography styles only and requires that the \opt{defernumbers} option from \secref{use:opt:pre:gen} be enabled globally. If enabled, it will reset the numerical labels assigned to the entries in the respective bibliography, \ie the numbering will restart at~1. You can also pass a number to this option, for example: \texttt{resetnumbers=10} to reset numbering to the specified number to aid numbering continuity across documents. Use this option with care as \biblatex can not guarantee unique labels globally if they are reset manually.
+%This option applies to numerical citation\slash bibliography styles only and requires that the \opt{defernumbers} option from \secref{use:opt:pre:gen} be enabled globally. If enabled, it will reset the numerical labels assigned to the entries in the respective bibliography, \ie the numbering will restart at~1. You can also pass a number to this option, for example: \texttt{resetnumbers=10} to reset numbering to the specified number to aid numbering continuity across documents. Use this option with care as \biblatex can not guarantee unique labels globally if they are reset manually.
+
+该选项只用于数值引用/参考文献样式，
+并且要求 \secref{use:opt:pre:gen} 中的 \opt{defernumbers} 选项全局启用。
+如果启用的话，它将重新设置分配给相应文献中条目的数值标签，即，编号会重新从 1 开始。
+此外还可以传递数值给该选项以重置编号为给定的数值，例如 \texttt{resetnumbers=10}，
+这样可以改进整个文档中编号的连续性。
+请小心使用本选项，因为在手动重新设置下，\biblatex 不能保证标签是全局唯一的。
 
 \boolitem{omitnumbers}
 
-This option applies to numerical citation\slash bibliography styles only and requires that the \opt{defernumbers} option from \secref{use:opt:pre:gen} be enabled globally. If enabled, \biblatex will not assign a numerical label to the entries in the respective bibliography. This is useful when mixing a numerical subbibliography with one or more subbibliographies using a different scheme (\eg author-title or author-year).
+%This option applies to numerical citation\slash bibliography styles only and requires that the \opt{defernumbers} option from \secref{use:opt:pre:gen} be enabled globally. If enabled, \biblatex will not assign a numerical label to the entries in the respective bibliography. This is useful when mixing a numerical subbibliography with one or more subbibliographies using a different scheme (\eg author-title or author-year).
+
+该选项只用于数值引用/参考文献样式，
+并且要求 \secref{use:opt:pre:gen} 中的 \opt{defernumbers} 选项全局启用。
+如果启用的话，\biblatex 不会为相应文献中的条目分配数值标签。
+当数值型子文献和其它不同格式（例如作者-标题或者作者-年份）的子文献相混合时，这是很有用的。
 
 \end{optionlist*}
 
@@ -2508,23 +2627,64 @@ This option applies to numerical citation\slash bibliography styles only and req
 
 \cmditem{bibbysection}[key=value, \dots]
 
-This command automatically loops over all reference sections. This is equivalent to giving one \cmd{printbibliography} command for every section but has the additional benefit of automatically skipping sections without references. Note that \cmd{bibbysection} starts looking for references in section \texttt{1}. It will ignore references given outside of \env{refsection} environments since they are assigned to section~0. See \secref{use:use:mlt} for usage examples. The options are a subset of those supported by \cmd{printbibliography}. Valid options are \opt{env}, \opt{heading}, \opt{prenote}, \opt{postnote}. The current bibliography context sorting scheme is used for all sections (see \secref{use:bib:context}).
+%This command automatically loops over all reference sections. This is equivalent to giving one \cmd{printbibliography} command for every section but has the additional benefit of automatically skipping sections without references. Note that \cmd{bibbysection} starts looking for references in section \texttt{1}. It will ignore references given outside of \env{refsection} environments since they are assigned to section~0. See \secref{use:use:mlt} for usage examples. The options are a subset of those supported by \cmd{printbibliography}. Valid options are \opt{env}, \opt{heading}, \opt{prenote}, \opt{postnote}. The current bibliography context sorting scheme is used for all sections (see \secref{use:bib:context}).
+
+该命令会自动遍历所有的参考文献节。
+这等价于为每一节给出一个 \cmd{printbibliography} 命令，
+不过会有额外好处：自动跳过不含参考文献的节。
+请注意，\cmd{bibbysection} 一开始寻找第 \texttt{1} 节中的文献。
+它会忽略 \env{refsection} 外给出的文献，因为它们被分配给第零节。
+使用例子请参考 \secref{use:use:mlt} 节。
+选项可以是由 \cmd{printbibliography} 支持的一个子集。
+有效选项是 \opt{env}、\opt{heading}、\opt{prenote} 和 \opt{postnote}。
+当前文献内容排序格式会应用在所有的节中（见 \secref{use:bib:context} 节）。
 
 \cmditem{bibbysegment}[key=value, \dots]
 
-This command automatically loops over all reference segments. This is equivalent to giving one \cmd{printbibliography} command for every segment in the current \env{refsection} but has the additional benefit of automatically skipping segments without references. Note that \cmd{bibbysegment} starts looking for references in segment \texttt{1}. It will ignore references given outside of \env{refsegment} environments since they are assigned to segment~0. See \secref{use:use:mlt} for usage examples. The options are a subset of those supported by \cmd{printbibliography}. Valid options are \opt{env}, \opt{heading}, \opt{prenote}, \opt{postnote}. The current bibliography context sorting scheme is used for all segments (see \secref{use:bib:context}).
+%This command automatically loops over all reference segments. This is equivalent to giving one \cmd{printbibliography} command for every segment in the current \env{refsection} but has the additional benefit of automatically skipping segments without references. Note that \cmd{bibbysegment} starts looking for references in segment \texttt{1}. It will ignore references given outside of \env{refsegment} environments since they are assigned to segment~0. See \secref{use:use:mlt} for usage examples. The options are a subset of those supported by \cmd{printbibliography}. Valid options are \opt{env}, \opt{heading}, \opt{prenote}, \opt{postnote}. The current bibliography context sorting scheme is used for all segments (see \secref{use:bib:context}).
+
+该命令会自动遍历所有的参考文献段。
+这等价于为当前 \env{refsection} 的每一段给出一个 \cmd{printbibliography} 命令，不过会有额外好处：自动跳过不含参考文献的片段。
+请注意，\cmd{bibbysection} 一开始寻找第 \texttt{1} 段中的文献。
+它会忽略 \env{refsection} 外给出的文献，因为它们被分配给第 0 段。
+使用例子请参考 \secref{use:use:mlt}。
+选项可以是由 \cmd{printbibliography} 支持的一个子集。
+有效选项是 \opt{env}、\opt{heading}、\opt{prenote} 和 \opt{postnote}。
+当前文献内容排序格式会用于所有的段中（见 \secref{use:bib:context} 节）。
 
 \cmditem{bibbycategory}[key=value, \dots]
 
-This command loops over all bibliography categories. This is equivalent to giving one \cmd{printbibliography} command for every category but has the additional benefit of automatically skipping empty categories. The categories are processed in the order in which they were declared. See \secref{use:use:mlt} for usage examples. The options are a subset of those supported by \cmd{printbibliography}. Valid options are \opt{env}, \opt{prenote}, \opt{postnote}, \opt{section}. Note that \opt{heading} is not available with this command. The name of the current category is automatically used as the heading name. This is equivalent to passing \texttt{heading=\prm{category}} to \cmd{printbibliography} and implies that there must be a matching heading definition for every category. The current bibliography context sorting scheme is used for all categories (see \secref{use:bib:context}).
+%This command loops over all bibliography categories. This is equivalent to giving one \cmd{printbibliography} command for every category but has the additional benefit of automatically skipping empty categories. The categories are processed in the order in which they were declared. See \secref{use:use:mlt} for usage examples. The options are a subset of those supported by \cmd{printbibliography}. Valid options are \opt{env}, \opt{prenote}, \opt{postnote}, \opt{section}. Note that \opt{heading} is not available with this command. The name of the current category is automatically used as the heading name. This is equivalent to passing \texttt{heading=\prm{category}} to \cmd{printbibliography} and implies that there must be a matching heading definition for every category. The current bibliography context sorting scheme is used for all categories (see \secref{use:bib:context}).
+
+该命令遍历所有的文献类型。
+这等价于为每一类型给出一个 \cmd{printbibliography} 命令，
+不过会有额外好处：自动跳过空类型。
+类型按照声明的顺序处理。
+示例见 \secref{use:use:mlt} 节。
+选项可以是由 \cmd{printbibliography} 支持的一个子集。
+有效选项是 \opt{env}、\opt{heading}、\opt{prenote} 和 \opt{postnote}。
+请注意，\opt{heading} 对于该命令是无效的。
+当前类型的名字会自动作为标题名。
+这等价于传递 \texttt{heading=\prm{category}} 给 \cmd{printbibliography}，
+并且意味着对于每一类型都必须有一个匹配的标题定义。
+当前文献内容排序格式会用于所有的类型中（见 \secref{use:bib:context} 节）。
 
 \cmditem{printbibheading}[key=value, \dots]
 
-This command prints a bibliography heading defined with \cmd{defbibheading}. It takes one optional argument, which is a list of options given in \keyval notation. The options are a small subset of those supported by \cmd{printbibliography}. Valid options are \opt{heading} and \opt{title}. By default, this command uses the heading \texttt{bibliography}. See \secref{use:bib:hdg} for details. Also see \secref{use:use:mlt,use:use:div} for usage examples.
+%This command prints a bibliography heading defined with \cmd{defbibheading}. It takes one optional argument, which is a list of options given in \keyval notation. The options are a small subset of those supported by \cmd{printbibliography}. Valid options are \opt{heading} and \opt{title}. By default, this command uses the heading \texttt{bibliography}. See \secref{use:bib:hdg} for details. Also see \secref{use:use:mlt,use:use:div} for usage examples.
+
+该命令打印出由 \cmd{defbibheading} 定义的参考文献标题。
+它有一个可选项，是用 \keyval 记号给出的选项列表。
+选项是 \cmd{printbibliography} 支持的一个小子集。
+有效选项是 \opt{heading} 和 \opt{title}。
+缺省情况下，该命令使用标题 \texttt{bibliography}。
+详见 \secref{use:bib:hdg} 节。实例也可见 \secref{use:use:mlt,use:use:div} 节。
 
 \end{ltxsyntax}
 %
-To print a bibliography with a different sorting scheme than the global sorting scheme, use the bibliography context switching commands from \secref{use:bib:context}.
+%To print a bibliography with a different sorting scheme than the global sorting scheme, use the bibliography context switching commands from \secref{use:bib:context}.
+如果想要在参考文献中使用非全局排序格式的另外一种排序格式，
+使用 \secref{use:bib:context} 节提供的文献内容切换命令。
 
 \subsubsection{缩略表 The List of Shorthands}
 \label{use:bib:los}
