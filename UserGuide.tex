@@ -2686,108 +2686,168 @@ LANGUAGE+an = {1=annotation3; 2=annotation4}
 如果想要在参考文献中使用非全局排序格式的另外一种排序格式，
 使用 \secref{use:bib:context} 节提供的文献内容切换命令。
 
-\subsubsection{缩略表 The List of Shorthands}
-\label{use:bib:los}
+%\subsubsection{缩略表 The List of Shorthands}
+%\label{use:bib:los}
+%
+%\BibTeXOnlyMark This section applies only to \bibtex. When using \biber, the list of shorthands is just a special case of a bibliography list. See \secref{use:bib:biblist}.\footnote{本节需要重点关注一下，之前没有搞清楚}
+%
+%If any entry includes a \bibfield{shorthand} field, \sty{biblatex} automatically builds a list of shorthands which may be printed in addition to the regular bibliography. The following command prints the list of shorthands.
+%
+%\begin{ltxsyntax}
+%
+%\cmditem{printshorthands}[key=value, \dots]
+%
+%This command prints the list of shorthands. It takes one optional argument, which is a list of options given in \keyval notation. Valid options are all options supported by \cmd{printbibliography} (\secref{use:bib:bib}) except \opt{prefixnumbers}, \opt{resetnumbers}, and \opt{omitnumbers}. If there are any \env{refsection} environments in the document, the list of shorthands will be local to these environments; see \secref{use:bib:sec} for details. By default, this command uses the heading \texttt{shorthands}. See \secref{use:bib:hdg} for details.
+%
+%The \opt{sorting} option differs from \cmd{printbibliography} in that if omitted, the default is to sort by shorthand.
+%
+%\end{ltxsyntax}
 
-\BibTeXOnlyMark This section applies only to \bibtex. When using \biber, the list of shorthands is just a special case of a bibliography list. See \secref{use:bib:biblist}.\footnote{本节需要重点关注一下，之前没有搞清楚}
 
-If any entry includes a \bibfield{shorthand} field, \sty{biblatex} automatically builds a list of shorthands which may be printed in addition to the regular bibliography. The following command prints the list of shorthands.
 
-\begin{ltxsyntax}
 
-\cmditem{printshorthands}[key=value, \dots]
-
-This command prints the list of shorthands. It takes one optional argument, which is a list of options given in \keyval notation. Valid options are all options supported by \cmd{printbibliography} (\secref{use:bib:bib}) except \opt{prefixnumbers}, \opt{resetnumbers}, and \opt{omitnumbers}. If there are any \env{refsection} environments in the document, the list of shorthands will be local to these environments; see \secref{use:bib:sec} for details. By default, this command uses the heading \texttt{shorthands}. See \secref{use:bib:hdg} for details.
-
-The \opt{sorting} option differs from \cmd{printbibliography} in that if omitted, the default is to sort by shorthand.
-
-\end{ltxsyntax}
-
-\subsubsection{各类参考文献表 Bibliography Lists}
+\subsubsection{参考文献列表} %\subsubsection{Bibliography Lists}
 \label{use:bib:biblist}
 
-\BiberOnlyMark This section applies only to \biber. It is a generalisation of the shorthands facility available in earlier versions and with \bibtex. When using \bibtex as the backend, please refer to section \secref{use:bib:los}.
+%\biblatex can, in addition to printing normal bibliographies, also print arbitrary lists of information derived from the bibliography data such as a list of shorthand abbreviations for particular entries or a list of abbreviations of journal titles.
 
-\biblatex can, in addition to printing normal bibliographies, also print arbitrary lists of information derived from the bibliography data such as a list of shorthand abbreviations for particular entries or a list of abbreviations of journal titles.
+\biblatex 除了可以打印常规参考文献之外，还能根据文献数据打印任意文献信息列表，
+例如，与特定条目或者期刊标题缩写有关的速记缩写列表。
 
-A bibliography list differs from a normal bibliography in that the same bibliography driver is used to print all entries rather than a specific driver being used for each entry depending on the entry type.
+%A bibliography list differs from a normal bibliography in that the same bibliography driver is used to print all entries rather than a specific driver being used for each entry depending on the entry type.
+
+文献列表与常规参考文献不同的是，
+使用同一文献驱动打印所有条目，
+而不是根据条目类型使用特定于条目的驱动。
 
 \begin{ltxsyntax}
 
-\cmditem{printbiblist}[key=value, \dots]{<biblistname>}
+\cmditem{printbiblist}[key=value, \dots]{biblistname}
 
-This command prints a bibliography list. It takes an optional argument, which is a list of options given in \keyval notation. Valid options are all options supported by \cmd{printbibliography} (\secref{use:bib:bib}) except \opt{prefixnumbers}, \opt{resetnumbers}, and \opt{omitnumbers}. If there are any \env{refsection} environments in the document, the bibliography list will be local to these environments; see \secref{use:bib:sec} for details. By default, this command uses the heading \texttt{biblist}. See \secref{use:bib:hdg} for details.
+%This command prints a bibliography list. It takes an optional argument, which is a list of options given in \keyval notation. Valid options are all options supported by \cmd{printbibliography} (\secref{use:bib:bib}) except \opt{resetnumbers} and \opt{omitnumbers}. If there are any \env{refsection} environments in the document, the bibliography list will be local to these environments; see \secref{use:bib:sec} for details. By default, this command uses the heading \texttt{biblist}. See \secref{use:bib:hdg} for details.
 
-The \prm{biblistname} is a mandatory argument which names the bibliography list. This name is used to identify:
+该命令用于打印文献列表。
+其可选项是 \keyval 形式的一列选项。
+除了 \opt{resetnumbers} 和 \opt{omitnumbers}，
+\cmd{printbibliography} 命令（见 \secref{use:bib:bib} 节）支持的其它选项在这里都是有效的。
+如果文档中有任何 \env{refsection} 环境，
+那么文献列表只针对于这些环境，详见 \secref{use:bib:sec} 节。
+默认情况下该命令使用标题 \texttt{biblist}，详见 \secref{use:bib:hdg} 节。
+
+%The \prm{biblistname} is a mandatory argument which names the bibliography list. This name is used to identify:
+必选项 \prm{biblistname} 是文献列表的标题，用于确定如下项目：
 \begin{itemize}
-\item The default bibliography driver used to print the list entries
-\item A default filter declared with \cmd{DeclareBiblistFilter} (see \secref{aut:ctm:bibfilt}) used to filter the entries returned from \biber
-\item A default check declared with \cmd{defbibcheck} (see \secref{use:bib:flt}) used to post-process the list entries
-\item The default bib environment to use
-\item The default sorting scheme name to use
+\item %The default bibliography driver used to print the list entries
+用于打印列表条目的默认文献驱动。
+\item %A default filter declared with \cmd{DeclareBiblistFilter} (see \secref{aut:ctm:bibfilt}) used to filter the entries returned from \biber
+使用 \cmd{DeclareBiblistFilter} 声明的默认filter（见 \secref{aut:ctm:bibfilt} 节），
+用于过滤 \biber 返回的条目。
+\item %A default check declared with \cmd{defbibcheck} (see \secref{use:bib:flt}) used to post-process the list entries
+使用 \cmd{defbibcheck} 命令声明的默认check（见 \secref{use:bib:flt} 节），
+用于后置处理列表条目。
+\item %The default bib environment to use
+默认使用的bib 环境。
+\item %The default sorting scheme name to use
+默认使用的排序格式名称。
 \end{itemize}
 
-In terms of sorting the list, the default is to sort use the sorting scheme named after the bibliography list (if it exists) and only then to fall back to the current context sorting scheme is this is not defined (see \secref{use:bib:context}).
+%In terms of sorting the list, the default is to sort use the sorting scheme named after the bibliography list (if it exists) and only then to fall back to the current context sorting scheme is this is not defined (see \secref{use:bib:context}).
 
-The most common bibliography list is a list of shorthand abbreviations for certain entries and so this has a convenience alias \cmd{printshorthands[\dots]} for backwards compatibility which is defined as:
+在列表的排序方面，默认使用与该文献列表同名的排序格式（如果存在的话）。
+只有当未定义时才会切换到备选的当前内容排序格式（见 \secref{use:bib:context} 节）。
+
+%The most common bibliography list is a list of shorthand abbreviations for certain entries and so this has a convenience alias \cmd{printshorthands[\dots]} for backwards compatibility which is defined as:
+
+最常用的文献列表是关于某些条目的速记列表，
+出于向后兼容性专门有一个别名 \cmd{printshorthands[\dots]}，定义如下：
 
 \begin{lstlisting}[style=latex]{}
 \printbiblist[...]{shorthand}
 \end{lstlisting}
 
-\biblatex provides automatic support for data source fields in the default data model marked as <Label fields> (See \secref{bib:fld:dat}). Such fields automatically have defined for them:
+%\biblatex provides automatic support for data source fields in the default data model marked as <Label fields> (See \secref{bib:fld:dat}). Such fields automatically have defined for them:
+
+\biblatex 自动支持默认数据模型中标记为“Label fields”的数据域（见 \secref{bib:fld:dat} 节）。
+这些域已经自动为其定义了如下项目：
 
 \begin{itemize}
-\item A default bib environment (See \secref{use:bib:hdg})
-\item A bibliography list filter (See \secref{aut:ctm:bibfilt})
-\item Some supporting formats and lengths (See \secref{aut:fmt:ilc} and \secref{aut:fmt:ich})
+\item %A default bib environment (See \secref{use:bib:hdg})
+默认的 bib 环境（见 \secref{use:bib:hdg} 节）。
+\item %A bibliography list filter (See \secref{aut:ctm:bibfilt})
+文献列表filter（见 \secref{aut:ctm:bibfilt} 节）
+\item %Some supporting formats and lengths (See \secref{aut:fmt:ilc} and \secref{aut:fmt:ich})
+一些支持的格式和长度（见 \secref{aut:fmt:ilc} 和 \secref{aut:fmt:ich} 节）。
 \end{itemize}
 %
-Therefore only a minimal setup is required to print bibliography lists with such fields. For example, to print a list of journal title abbreviations, you can minimally put this in your preamble:
+%Therefore only a minimal setup is required to print bibliography lists with such fields. For example, to print a list of journal title abbreviations, you can minimally put this in your preamble:
+因此，打印带有这些域的文献列表只需要很少的设置。
+例如，想要打印出期刊标题缩写列表，
+只需要将如下一小段代码放在导言区中：
 
-\begin{lstlisting}[style=latex]{}
+\begin{ltxexample}
 \DeclareBibliographyDriver{shortjournal}{%
   \printfield{journaltitle}}
-\end{lstlisting}
+\end{ltxexample}
 %
-Then you can put this in your document where you want to print the list:
+%Then you can put this in your document where you want to print the list:
+然后在正文中想要打印列表的地方使用如下代码：
 
-\begin{lstlisting}[style=latex]{}
+\begin{ltxexample}
 \printbiblist[title={Journal Shorthands}]{shortjournal}
-\end{lstlisting}
+\end{ltxexample}
 %
-Since \bibfield{shortjournal} is defined in the default data model as a <Label field>, this example:
+%Since \bibfield{shortjournal} is defined in the default data model as a <Label field>, this example:
+由于默认数据模型将 \bibfield{shortjournal} 定义为“标签域”，
+因此在这个例子中：
 \begin{itemize}
-\item Uses the automatically created <shortjournal> bib environment
-\item Uses the automatically created <shortjournal> bibliography list filter to return only entries with a \bibfield{shortjournal} field in the \file{.bbl}
-\item Uses the defined <shortjournal> bibliography driver to print the entries
-\item Uses the default <biblist> heading but overrides the title with <Journal Shorthands>
-\item Uses the current bibliography context sorting scheme no scheme exists with the name \bibfield{shortjournal}
+\item %Uses the automatically created <shortjournal> bib environment
+使用自动创建的“shortjournal”bib环境。
+\item %Uses the automatically created <shortjournal> bibliography list filter to return only entries with a \bibfield{shortjournal} field in the \file{.bbl}
+使用自动创建的“shortjournal”文献列表filter，
+返回 \file{.bbl} 文件中只带有 \bibfield{shortjournal} 域的条目。
+\item %Uses the defined <shortjournal> bibliography driver to print the entries
+使用定义的“shortjournal”文献驱动来打印条目。
+\item %Uses the default <biblist> heading but overrides the title with <Journal Shorthands>
+使用默认的“biblist”标题，但是这里用“Journal Shorthands”来代替。
+\item %Uses the current bibliography context sorting scheme if no scheme exists with the name \bibfield{shortjournal}
+如果没有名为 \bibfield{shortjournal} 的格式，那么使用当前文献内容排序格式。
 \end{itemize}
 %
-Often, you will want to sort on the label field of the list and since a sorting scheme is automatically picked up if it is named after the list, in this case you could simply do:
+%Often, you will want to sort on the label field of the list and since a sorting scheme is automatically picked up if it is named after the list, in this case you could simply do:
+很多情况下想要根据列表中标签域进行排序。
+由于根据列表名可以自动获取排序格式，因此此时可以简单地使用如下代码：
 
-\begin{lstlisting}[style=latex]{}
+\begin{ltxexample}
 \DeclareSortingScheme{shortjournal}{
   \sort{
         \field{shortjournal}
   }
 }
-\end{lstlisting}
+\end{ltxexample}
 
-Naturally all defaults can be overridden by options to \cmd{printbiblist} and definitions of the environments, filters etc. and in this way arbitrary types of bibliography lists can be printed containing a variety of information from the bibliography data.
+%Naturally all defaults can be overridden by options to \cmd{printbiblist} and definitions of the environments, filters etc. and in this way arbitrary types of bibliography lists can be printed containing a variety of information from the bibliography data.
+
+自然地，\cmd{printbiblist} 命令的选项以及环境、filters等的定义可以覆盖所有的默认设置。
+因此通过这种方法可以从文献数据中打印任意类型的文献列表，并且包含各式信息。 
 \end{ltxsyntax}
 
-Bibliography lists are often used to print lists of various kinds of shorthands and this can result in duplicate entries if more than one bibliography entry has the same shorthand. For example, several journal articles in the same journal would result in duplicate entries in a list of journal shorthands. You can use the fact that such lists automatically pick up a \cmd{bibcheck} with the same name as the list to define a check to remove duplicates. If you are defining a list to print all of the journal shorthands using the \bibfield{shortjournal} field, you could define a \cmd{bibcheck} like this:
+%Bibliography lists are often used to print lists of various kinds of shorthands and this can result in duplicate entries if more than one bibliography entry has the same shorthand. For example, several journal articles in the same journal would result in duplicate entries in a list of journal shorthands. You can use the fact that such lists automatically pick up a \cmd{bibcheck} with the same name as the list to define a check to remove duplicates. If you are defining a list to print all of the journal shorthands using the \bibfield{shortjournal} field, you could define a \cmd{bibcheck} like this:
 
-\begin{lstlisting}[style=latex]{}
+文献列表通常用于打印各类shorthand列表。
+如果多个条目有相同的shorthand就会导致重复的条目。
+例如，如果有几篇论文在同一期刊上，那么期刊缩写列表中就会出现重复条目。
+不过，这样的列表会自动获取与列表同名的 \cmd{bibcheck}，进而定义相应的check来删除重复项目。
+如果使用 \bibfield{shortjournal} 域来定义打印所有期刊缩写的列表，
+那么需要定义如下的 \cmd{bibcheck}：
+
+\begin{ltxexample}
 \defbibcheck{shortjournal}{%
    \iffieldundef{shortjournal}{\skipentry}{%
     \iffieldundef{journal}{\skipentry}{%
      \ifcsdef{\strfield{shortjournal}=\strfield{journal}}
        {\skipentry}
        {\savefieldcs{journal}{\strfield{shortjournal}=\strfield{journal}}}}}}
-\end{lstlisting}
+\end{ltxexample}
 
 \subsubsection{参考文献分节 Bibliography Sections}
 \label{use:bib:sec}
