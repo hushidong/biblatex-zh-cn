@@ -2849,68 +2849,137 @@ LANGUAGE+an = {1=annotation3; 2=annotation4}
        {\savefieldcs{journal}{\strfield{shortjournal}=\strfield{journal}}}}}}
 \end{ltxexample}
 
-\subsubsection{参考文献分节 Bibliography Sections}
+\subsubsection{参考文献分节}% \subsubsection{Bibliography Sections}
 \label{use:bib:sec}
 
-The \env{refsection} environment is used in the document body to mark a reference section. This environment is useful if you want separate, independent bibliographies and bibliography lists in each chapter, section, or any other part of a document. Within a reference section, all cited works are assigned labels which are local to the environment. Technically, reference sections are completely independent from document divisions such as \cmd{chapter} and \cmd{section} even though they will most likely be used per chapter or section. See the \opt{refsection} package option in \secref{use:opt:pre:gen} for a way to automate this. Also see \secref{use:use:mlt} for usage examples.
+%The \env{refsection} environment is used in the document body to mark a reference section. This environment is useful if you want separate, independent bibliographies and bibliography lists in each chapter, section, or any other part of a document. Within a reference section, all cited works are assigned labels which are local to the environment. Technically, reference sections are completely independent from document divisions such as \cmd{chapter} and \cmd{section} even though they will most likely be used per chapter or section. See the \opt{refsection} package option in \secref{use:opt:pre:gen} for a way to automate this. Also see \secref{use:use:mlt} for usage examples.
+
+在文档中，\env{refsection} 环境用于标记参考文献分节。
+该环境主要用于在文档的每一章、节或其它部分中实现各自独立的参考文献和shorthand列表。
+在一个文献分节内部，所有引用文献分配的标签都局部在该环境中。
+技术上，尽管文献分节通常在每一章或每一节中使用，
+但它们与 \cmd{chapter} 和 \cmd{section} 等文档划分是完全独立的。
+关于自动实现这一功能请参考 \secref{use:opt:pre:gen} 中的 \opt{refsection} 宏包选项。
+使用例子也可以参见 \secref{use:use:mlt}。
 
 \begin{ltxsyntax}
 
 \envitem{refsection}[resource, \dots]
 
-The optional argument is a comma"=separated list of resources specific to the reference section. If the argument is omitted, the reference section will use the default resource list, as specified with \cmd{addbibresource} in the preamble. If the argument is provided, it replaces the default resource list. Global resources specified with \cmd{addglobalbib} are always considered. \env{refsection} environments may not be nested, but you may use \env{refsegment} environments within a \env{refsection} to subdivide it into segments. Use the \opt{section} option of \cmd{printbibliography} to select a section when printing the bibliography, and the corresponding option of \cmd{printbiblist} when printing bibliography lists. Bibliography sections are numbered starting at~\texttt{1}. The number of the current section is also written to the transcript file. All citations given outside a \env{refsection} environment are assigned to section~0. If \cmd{printbibliography} is used within a \env{refsection}, it will automatically select the current section. The \opt{section} option is not required in this case. This also applies to \cmd{printbiblist}.
+%The optional argument is a comma"=separated list of resources specific to the reference section. If the argument is omitted, the reference section will use the default resource list, as specified with \cmd{addbibresource} in the preamble. If the argument is provided, it replaces the default resource list. Global resources specified with \cmd{addglobalbib} are always considered. \env{refsection} environments may not be nested, but you may use \env{refsegment} environments within a \env{refsection} to subdivide it into segments. Use the \opt{section} option of \cmd{printbibliography} to select a section when printing the bibliography, and the corresponding option of \cmd{printbiblist} when printing bibliography lists. Bibliography sections are numbered starting at~\texttt{1}. The number of the current section is also written to the transcript file. All citations given outside a \env{refsection} environment are assigned to section~0. If \cmd{printbibliography} is used within a \env{refsection}, it will automatically select the current section. The \opt{section} option is not required in this case. This also applies to \cmd{printbiblist}.
+
+可选项是特定于该参考文献分节的逗号分隔资源列表。
+如果省略了该选项，参考文献节会使用缺省的数据源列表，由导言区的 \cmd{addbibresource} 指定。
+如果提供了该选项，它会替代缺省的资源列表。
+不过，由 \cmd{addglobalbib} 指定的全局文献资源总是包含在内的。
+\env{refsection} 环境不可以相互嵌套，
+但是可以在 \env{refsection} 环境内使用 \env{refsegment} 环境来进一步分段。
+当打印参考文献时，使用 \cmd{printbibliography} 的 \opt{section} 选项来选择节；
+同样地当打印文献列表时使用 \cmd{printbiblist} 对应的选项。
+参考文献分节从~\texttt{1} 开始编号。当前节的编号也被写入副本文件中。
+所有在 \env{refsection} 环境外给出的引用都归到第~0 节中。
+如果在 \env{refsection} 内部使用 \cmd{printbibliography} 环境，它会自动选择当前节。
+此时不需要 \opt{section} 选项。这也适用于 \cmd{printbiblist}。
 
 \cmditem{newrefsection}[resource, \dots]
 
-This command is similar to the \env{refsection} environment except that it is a stand"=alone command rather than an environment. It automatically ends the previous reference section (if any) and immediately starts a new one. Note that the reference section started by the last \cmd{newrefsection} command in the document will extend to the very end of the document. Use \cmd{endrefsection} if you want to terminate it earlier.
+%This command is similar to the \env{refsection} environment except that it is a stand"=alone command rather than an environment. It automatically ends the previous reference section (if any) and immediately starts a new one. Note that the reference section started by the last \cmd{newrefsection} command in the document will extend to the very end of the document. Use \cmd{endrefsection} if you want to terminate it earlier.
+
+该命令类似于 \env{refsection} 环境，不同之处在于它是单独命令而不是一个环境。
+它会自动结束之前的文献分节（如果有的话）并立即开始新的一节。
+请注意，文档中由最后一个 \cmd{newrefsection} 开始的文献节会延续到文档的最后。
+如果你想提前终止的话可以使用 \cmd{endrefsection}。
 
 \end{ltxsyntax}
 
-\subsubsection{参考文献分部 Bibliography Segments}
+\subsubsection{参考文献分段}%\subsubsection{Bibliography Segments}
 \label{use:bib:seg}
 
-The \env{refsegment} environment is used in the document body to mark a reference segment. This environment is useful if you want one global bibliography which is subdivided by chapter, section, or any other part of the document. Technically, reference segments are completely independent from document divisions such as \cmd{chapter} and \cmd{section} even though they will typically be used per chapter or section. See the \opt{refsegment} package option in \secref{use:opt:pre:gen} for a way to automate this. Also see \secref{use:use:mlt} for usage examples.
+%The \env{refsegment} environment is used in the document body to mark a reference segment. This environment is useful if you want one global bibliography which is subdivided by chapter, section, or any other part of the document. Technically, reference segments are completely independent from document divisions such as \cmd{chapter} and \cmd{section} even though they will typically be used per chapter or section. See the \opt{refsegment} package option in \secref{use:opt:pre:gen} for a way to automate this. Also see \secref{use:use:mlt} for usage examples.
+
+在文档中，\env{refsegment} 环境用来标记参考文献片段。
+该环境用于实现在文档的每一章、节或其它部分中将全局的参考文献分成片段。
+技术上，尽管文献分段通常在每一章或每一节中使用，
+但它们与 \cmd{chapter} 和 \cmd{section} 等文档划分是完全独立的。
+关于自动实现这一功能请参考 \secref{use:opt:pre:gen} 中的 \opt{refsegment} 宏包选项。
+使用例子也可以参见 \secref{use:use:mlt}。
 
 \begin{ltxsyntax}
 
 \envitem{refsegment}
 
-The difference between a \env{refsection} and a \env{refsegment} environment is that the former creates labels which are local to the environment whereas the latter provides a target for the \opt{segment} filter of \cmd{printbibliography} without affecting the labels. They will be unique across the entire document. \env{refsegment} environments may not be nested, but you may use them in conjunction with \env{refsection} to subdivide a reference section into segments. In this case, the segments are local to the enclosing \env{refsection} environment. Use the \env{segment} option of \cmd{printbibliography} to select a segment when printing the bibliography. Within a section, the reference segments are numbered starting at~\texttt{1} and the number of the current segment will be written to the transcript file. All citations given outside a \env{refsegment} environment are assigned to segment~0. In contrast to the \env{refsection} environment, the current segment is not selected automatically if \cmd{printbibliography} is used within a \env{refsegment} environment.
+%The difference between a \env{refsection} and a \env{refsegment} environment is that the former creates labels which are local to the environment whereas the latter provides a target for the \opt{segment} filter of \cmd{printbibliography} without affecting the labels. They will be unique across the entire document. \env{refsegment} environments may not be nested, but you may use them in conjunction with \env{refsection} to subdivide a reference section into segments. In this case, the segments are local to the enclosing \env{refsection} environment. Use the \env{segment} option of \cmd{printbibliography} to select a segment when printing the bibliography. Within a section, the reference segments are numbered starting at~\texttt{1} and the number of the current segment will be written to the transcript file. All citations given outside a \env{refsegment} environment are assigned to segment~0. In contrast to the \env{refsection} environment, the current segment is not selected automatically if \cmd{printbibliography} is used within a \env{refsegment} environment.
+
+\env{regsection} 与 \env{refsegment} 环境的不同之处在于，
+前者创建局部于该环境的标签而后者仅为 \cmd{printbibliography} 命令的 \opt{segment} filter 提供目标而不影响标签。
+在整个文档中它们是唯一确定的。
+\env{refsegment} 环境不可以嵌套，
+但是你可以将其与 \env{refsection} 环境结合使用来将文献节细分为段。
+此时，这些文献分段是局部于被包含的 \env{refsection} 环境的。
+当打印参考文献时，使用 \cmd{printbibliography} 的 \opt{segment} 选项来选择文献分段。
+在一节内，文献段从~\texttt{1} 开始编号，并且当前段的编号会被写入到一个副本文件中。
+所有在 \env{refsegment} 环境之外的引用都归到第~0 段。
+与 \env{refsection} 环境相反，
+当 \cmd{printbibliography} 在一个 \env{refsegment} 环境内使用时，当前文献分段并不自动选定。
 
 \csitem{newrefsegment}
 
-This command is similar to the \env{refsegment} environment except that it is a stand"=alone command rather than an environment. It automatically ends the previous reference segment (if any) and immediately starts a new one. Note that the reference segment started by the last \cmd{newrefsegment} command will extend to the end of the document. Use \cmd{endrefsegment} if you want to terminate it earlier.
+%This command is similar to the \env{refsegment} environment except that it is a stand"=alone command rather than an environment. It automatically ends the previous reference segment (if any) and immediately starts a new one. Note that the reference segment started by the last \cmd{newrefsegment} command will extend to the end of the document. Use \cmd{endrefsegment} if you want to terminate it earlier.
+
+该命令类似于 \env{refsegment} 环境，不同之处在于它是单独命令而不是一个环境。
+它会自动结束之前的文献分段（如果有的话）并立即开始新的一段。
+请注意，由最后一个 \cmd{newrefsegment} 开始的文献分段会延续到文档结束。
+如果你想提前终止的话可以使用 \cmd{endrefsegment}。
 
 \end{ltxsyntax}
 
-\subsubsection{参考文献分类 Bibliography Categories}
+\subsubsection{参考文献分类}%\subsubsection{Bibliography Categories}
 \label{use:bib:cat}
 
-Bibliography categories allow you to split the bibliography into multiple parts dedicated to different topics or different types of references, for example primary and secondary sources. See \secref{use:use:div} for usage examples.
+%Bibliography categories allow you to split the bibliography into multiple parts dedicated to different topics or different types of references, for example primary and secondary sources. See \secref{use:use:div} for usage examples.
+
+参考文献分类允许将参考文献针对不同主题或不同文献类型分成若干部分，例如分成主要文献和次要文献。
+使用例子参见 \secref{use:use:div} 节。
 
 \begin{ltxsyntax}
 
 \cmditem{DeclareBibliographyCategory}{category}
 
-Declares a new \prm{category}, to be used in conjunction with \cmd{addtocategory} and the
-\opt{category} and \opt{notcategory} filters of \cmd{printbibliography}. This command is used in the document preamble.
+%Declares a new \prm{category}, to be used in conjunction with \cmd{addtocategory} and the \opt{category} and \opt{notcategory} filters of \cmd{printbibliography}. This command is used in the document preamble.
+
+声明一个新的 \prm{category}，
+可以和 \cmd{addtocategory} 以及 \cmd{printbibliography} 的 \opt{category}、\opt{notcategory} filter结合使用。
+该命令在导言区中使用。
 
 \cmditem{addtocategory}{category}{key}
 
-Assigns a \prm{key} to a \prm{category}, to be used in conjunction with the \opt{category} and \opt{notcategory} filters of \cmd{printbibliography}. This command may be used in the preamble and in the document body. The \prm{key} may be a single entry key or a comma"=separated list of keys. The assignment is global.
+%Assigns a \prm{key} to a \prm{category}, to be used in conjunction with the \opt{category} and \opt{notcategory} filters of \cmd{printbibliography}. This command may be used in the preamble and in the document body. The \prm{key} may be a single entry key or a comma"=separated list of keys. The assignment is global.
+
+将 \prm{key} 关键字分配给 \prm{category} 类，
+可以和 \cmd{addtocategory} 以及 \cmd{printbibliography} 的 \opt{category}、\opt{notcategory} filter结合使用。
+该命令可以在导言区和正文中使用。
+\prm{key} 可以是一个单独条目关键字或者逗号分隔的键值列表。该分配是全局的。
 
 \end{ltxsyntax}
 
-\subsubsection{参考文献标题和环境 Bibliography Headings and Environments}
+\subsubsection{参考文献标题与环境}%\subsubsection{Bibliography Headings and Environments}
 \label{use:bib:hdg}
 
 \begin{ltxsyntax}
 
 \cmditem{defbibenvironment}{name}{begin code}{end code}{item code}
 
-This command defines bibliography environments. The \prm{name} is an identifier passed to the \opt{env} option of \cmd{printbibliography} and \cmd{printbiblist} when selecting the environment. The \prm{begin code} is \latex code to be executed at the beginning of the environment; the \prm{end code} is executed at the end of the environment; the \prm{item code} is code to be executed at the beginning of each entry in the bibliography or a bibliography list. Here is an example of a definition based on the standard \latex \env{list} environment:
+%This command defines bibliography environments. The \prm{name} is an identifier passed to the \opt{env} option of \cmd{printbibliography} and \cmd{printbiblist} when selecting the environment. The \prm{begin code} is \latex code to be executed at the beginning of the environment; the \prm{end code} is executed at the end of the environment; the \prm{item code} is code to be executed at the beginning of each entry in the bibliography or a bibliography list. Here is an example of a definition based on the standard \latex \env{list} environment:
 
-\begin{lstlisting}[style=latex]{}
+该命令定义参考文献环境。
+其中 \prm{name} 是标识符，
+当选择该环境时会传递给 \cmd{printbibliography} 和 \cmd{printshorthands} 的 \opt{env} 选项。
+\prm{begin code} 是该环境开始时执行的 \LaTeX 代码；
+而 \prm{end code} 在该环境结束时执行；
+\prm{item code} 是在参考文献或者shorthand列表的每一条目开始时执行的代码。
+如下是基于 \LaTeX 标准 \env{list} 环境定义的例子。
+
+\begin{ltxexample}
 \defbibenvironment{bibliography}
   {\list{}
      {\setlength{\leftmargin}{\bibhang}%
@@ -2919,72 +2988,122 @@ This command defines bibliography environments. The \prm{name} is an identifier 
       \setlength{\parsep}{\bibparsep}}}
   {\endlist}
   {\item}
-\end{lstlisting}
+\end{ltxexample}
 %
-As seen in the above example, usage of \cmd{defbibenvironment} is roughly similar to \cmd{newenvironment} except that there is an additional mandatory argument for the \prm{item code}.
+%As seen in the above example, usage of \cmd{defbibenvironment} is roughly similar to \cmd{newenvironment} except that there is an additional mandatory argument for the \prm{item code}.
+如上述例子所示，\cmd{defbibenvironment} 的使用大体类似于 \cmd{newenvironment}，
+不同之处在于有一个额外的必选项 \prm{item code}。
 
 \cmditem{defbibheading}{name}[title]{code}
 
-This command defines bibliography headings. The \prm{name} is an identifier to be passed to the \opt{heading} option of \cmd{printbibliography} or \cmd{printbibheading} and \cmd{printbiblist} when selecting the heading. The \prm{code} should be \latex code generating a fully"=fledged heading, including page headers and an entry in the table of contents, if desired. If \cmd{printbibliography} or \cmd{printbiblist} are invoked with a \opt{title} option, the title will be passed to the heading definition as |#1|. If not, the default title specified by the optional \prm{title} argument is passed as |#1| instead. The \prm{title} argument will typically be \cmd{bibname}, \cmd{refname}, or \cmd{biblistname} (see \secref{aut:lng:key:bhd}). This command is often needed after changes to document headers in the preamble. Here is an example of a simple heading definition:
+%This command defines bibliography headings. The \prm{name} is an identifier to be passed to the \opt{heading} option of \cmd{printbibliography} or \cmd{printbibheading} and \cmd{printbiblist} when selecting the heading. The \prm{code} should be \latex code generating a fully"=fledged heading, including page headers and an entry in the table of contents, if desired. If \cmd{printbibliography} or \cmd{printbiblist} are invoked with a \opt{title} option, the title will be passed to the heading definition as |#1|. If not, the default title specified by the optional \prm{title} argument is passed as |#1| instead. The \prm{title} argument will typically be \cmd{bibname}, \cmd{refname}, or \cmd{biblistname} (see \secref{aut:lng:key:bhd}). This command is often needed after changes to document headers in the preamble. Here is an example of a simple heading definition:
 
-\begin{lstlisting}[style=latex]{}
+该命令定义参考文献标题。
+其中 \prm{name} 是标识符，
+当选择该标题时会传递给 \cmd{printbibliography} 和 \cmd{printshorthands} 的 \opt{env} 选项。
+\prm{code} 是能生成完整标题的 \LaTeX 代码，包括页眉和目录中的条目（如果必要的话）。
+如果 \cmd{printbibliography} 或 \cmd{printshorthands} 带有 \opt{title} 选项，
+那么 \opt{title} 将作为 |#1| 传递给标题定义；
+否则由可选的 \prm{title} 确定的标题将作为 |#1| 传递给标题定义。
+\prm{title} 选项通常是 \cmd{bibname}、\cmd{refname} 或者 \cmd{biblistname}
+（见 \secref{aut:lng:key:bhd} 节）。
+如果在导言区中改变文档标题时，那么之后通常需要该命令。
+如下是一个简单标题定义的例子：
+
+\begin{ltxexample}
 \defbibheading{bibliography}[\bibname]{%
   \chapter*{#1}%
   \markboth{#1}{#1}}
-\end{lstlisting}
+\end{ltxexample}
 
 \end{ltxsyntax}
 
-The following headings, which are intended for use with \cmd{printbibliography} and \cmd{printbibheading}, are predefined:
+%The following headings, which are intended for use with \cmd{printbibliography} and \cmd{printbibheading}, are predefined:
+
+以下预定义的标题与 \cmd{printbibliography} 和 \cmd{printbibheading} 结合使用：
 
 \begin{valuelist*}
 
 \item[bibliography]
-This is the default heading used by \cmd{printbibliography} if the \opt{heading} option is not given. Its default definition depends on the document class. If the class provides a \cmd{chapter} command, the heading is similar to the bibliography heading of the standard \latex \texttt{book} class, \ie it uses \cmd{chapter*} to create an unnumbered chapter heading which is not included in the table of contents. If there is no \cmd{chapter} command, it is similar to the bibliography heading of the standard \latex \texttt{article} class, \ie it uses \cmd{section*} to create an unnumbered section heading which is not included in the table of contents. The string used in the heading also depends on the document class. With \texttt{book}-like classes the localization string \texttt{bibliography} is used, with other classes it is \texttt{references} (see \secref{aut:lng:key}). See also \secref{use:cav:scr, use:cav:mem} for class-specific hints.
+%This is the default heading used by \cmd{printbibliography} if the \opt{heading} option is not given. Its default definition depends on the document class. If the class provides a \cmd{chapter} command, the heading is similar to the bibliography heading of the standard \latex \texttt{book} class, \ie it uses \cmd{chapter*} to create an unnumbered chapter heading which is not included in the table of contents. If there is no \cmd{chapter} command, it is similar to the bibliography heading of the standard \latex \texttt{article} class, \ie it uses \cmd{section*} to create an unnumbered section heading which is not included in the table of contents. The string used in the heading also depends on the document class. With \texttt{book}-like classes the localisation string \texttt{bibliography} is used, with other classes it is \texttt{references} (see \secref{aut:lng:key}). See also \secref{use:cav:scr, use:cav:mem} for class-specific hints.
+如果没有给出 \opt{heading} 选项，那么这是 \cmd{printbibliography} 使用的默认标题。
+缺省定义取决于文档类。
+如果文类提供 \cmd{chapter} 命令，那么该标题就类似于标准 \LaTeX 的 \texttt{book} 文类的参考文献标题，
+即使用 \cmd{chapter*} 来创建不带编号的章，并且不包含在目录中。
+如果没有 \cmd{chapter} 命令，那么它将类似于标准 \LaTeX 的 \texttt{article} 文类的参考文献标题，
+即使用 \cmd{section*} 来创建不带编号的节，并且不包含在目录中。
+标题中使用的字符串也取决于文档类。
+\texttt{book} 文档类使用本地化字符串 \texttt{bibliography}，
+在其它文档类中则是 \texttt{references}（见 \secref{aut:lng:key} 节）。
+关于文档类的提示也可以见 \secref{use:cav:scr, use:cav:mem} 节。
 
 \item[subbibliography]
-Similar to \texttt{bibliography} but one sectioning level lower. This heading definition uses \cmd{section*} instead of \cmd{chapter*} with a \texttt{book}-like class and \cmd{subsection*} instead of \cmd{section*} otherwise.
+%Similar to \texttt{bibliography} but one sectioning level lower. This heading definition uses \cmd{section*} instead of \cmd{chapter*} with a \texttt{book}-like class and \cmd{subsection*} instead of \cmd{section*} otherwise.
+类似于 \texttt{bibliography}，但是标题格式低一级。
+即，在 \texttt{book} 文档类中使用 \cmd{section*} 而不是 \cmd{chapter*}，
+其它情况使用 \cmd{subsection*} 而不是 \cmd{section*}。
 
 \item[bibintoc]
-Similar to \texttt{bibliography} above but adds an entry to the table of contents.
+%Similar to \texttt{bibliography} above but adds an entry to the table of contents.
+类似于 \texttt{bibliography} 但是在目录中添加条目。
 
 \item[subbibintoc]
-Similar to \texttt{subbibliography} above but adds an entry to the table of contents.
+%Similar to \texttt{subbibliography} above but adds an entry to the table of contents.
+类似于 \texttt{subbibliography} 但是在目录中添加条目。
 
 \item[bibnumbered]
-Similar to \texttt{bibliography} above but uses \cmd{chapter} or \cmd{section} to create a numbered heading which is also added to the table of contents.
+%Similar to \texttt{bibliography} above but uses \cmd{chapter} or \cmd{section} to create a numbered heading which is also added to the table of contents.
+类似于 \texttt{bibliography} 但是使用 \cmd{chapter} 或 \cmd{section} 来创建带编号的条目，
+同时也添加到目录中。
 
 \item[subbibnumbered]
-Similar to \texttt{subbibliography} above but uses \cmd{section} or \cmd{subsection} to create a numbered heading which is also added to the table of contents.
+%Similar to \texttt{subbibliography} above but uses \cmd{section} or \cmd{subsection} to create a numbered heading which is also added to the table of contents.
+类似于 \texttt{bibliography} 但是使用 \cmd{section} 或 \cmd{subsection} 来创建带编号的条目，
+同时也添加到目录中。
 
 \item[none]
-A blank heading definition. Use this to suppress the heading.
+%A blank heading definition. Use this to suppress the heading.
+空白的标题定义，用来取消标题。
 
 \end{valuelist*}
 
-The following headings intended for use with \cmd{printbiblist} are predefined:
+%The following headings intended for use with \cmd{printbiblist} are predefined:
+以下预定义的标题与 \cmd{printshorthands} 结合使用：
 
 \begin{valuelist*}
 
 \item[biblist]
-This is the default heading used by \cmd{printbiblist} if the \opt{heading} option is not given. It is similar to \texttt{bibliography} above except that it uses the localization string \texttt{shorthands} instead of \texttt{bibliography} or \texttt{references} (see \secref{aut:lng:key}). See also \secref{use:cav:scr, use:cav:mem} for class-specific hints.
+%This is the default heading used by \cmd{printbiblist} if the \opt{heading} option is not given. It is similar to \texttt{bibliography} above except that it uses the localisation string \texttt{shorthands} instead of \texttt{bibliography} or \texttt{references} (see \secref{aut:lng:key}). See also \secref{use:cav:scr, use:cav:mem} for class-specific hints.
+如果没有给出 \opt{heading} 选项，那么这是 \cmd{printbiblist} 使用的缺省标题。
+类似于上面的 \texttt{bibliography}，
+不过是使用本地化字符串 \texttt{shorthands} 而不是 \texttt{bibliography} 或 \texttt{references}
+（见 \secref{aut:lng:key} 节）。
+关于文档类的提示另见 \secref{use:cav:scr, use:cav:mem} 节。
 
 \item[biblistintoc]
-Similar to \texttt{biblist} above but adds an entry to the table of contents.
+%Similar to \texttt{biblist} above but adds an entry to the table of contents.
+类似于 \texttt{shorthands} 但是在目录中添加条目。
 
 \item[biblistnumbered]
-Similar to \texttt{biblist} above but uses \cmd{chapter} or \cmd{section} to create a numbered heading which is also added to the table of contents.
+%Similar to \texttt{biblist} above but uses \cmd{chapter} or \cmd{section} to create a numbered heading which is also added to the table of contents.
+类似于上面的 \texttt{biblist} 但是使用 \cmd{chapter} 或 \cmd{section} 来创建带编号的标题，
+同时也添加到目录中。
 
 \end{valuelist*}
 
-\subsubsection{参考文献注释 Bibliography Notes}
+\subsubsection{参考文献注记}%\subsubsection{Bibliography Notes}
 \label{use:bib:nts}
 
 \begin{ltxsyntax}
 
 \cmditem{defbibnote}{name}{text}
 
-Defines the bibliography note \prm{name}, to be used via the \opt{prenote} and \opt{postnote} options of \cmd{printbibliography} and \cmd{printbiblist}. The \prm{text} may be any arbitrary piece of text, possibly spanning several paragraphs and containing font declarations. Also see \secref{use:cav:act}.
+%Defines the bibliography note \prm{name}, to be used via the \opt{prenote} and \opt{postnote} options of \cmd{printbibliography} and \cmd{printbiblist}. The \prm{text} may be any arbitrary piece of text, possibly spanning several paragraphs and containing font declarations. Also see \secref{use:cav:act}.
+
+定义名为 \prm{name} 的参考文献注记 ，
+通过 \cmd{printbibliography} 和 \cmd{printbiblist} 的 \opt{prenote} 和 \opt{postnote} 选项使用。
+\prm{text} 可以是任意文本片段，通常包含若干段落和字体声明。
+另见 \secref{use:cav:act} 节。
 
 \end{ltxsyntax}
 
