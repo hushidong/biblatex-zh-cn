@@ -3107,14 +3107,19 @@ LANGUAGE+an = {1=annotation3; 2=annotation4}
 
 \end{ltxsyntax}
 
-\subsubsection{参考文献过滤和检查 Bibliography Filters and Checks}
+\subsubsection{参考文献过滤和检查} %\subsubsection{Bibliography Filters and Checks}
 \label{use:bib:flt}
 
 \begin{ltxsyntax}
 
 \cmditem{defbibfilter}{name}{expression}
 
-Defines the custom bibliography filter \prm{name}, to be used via the \opt{filter} option of \cmd{printbibliography}. The \prm{expression} is a complex test based on the logical operators \texttt{and}, \texttt{or}, \texttt{not}, the group separator \texttt{(...)}, and the following atomic tests:
+%Defines the custom bibliography filter \prm{name}, to be used via the \opt{filter} option of \cmd{printbibliography}. The \prm{expression} is a complex test based on the logical operators \texttt{and}, \texttt{or}, \texttt{not}, the group separator \texttt{(...)}, and the following atomic tests:
+
+定义一个可定制的文献过滤 \prm{name}，
+可以通过 \cmd{printbibliography} 的 \opt{filter} 选项使用。
+\prm{expression} 是复合测试，
+基于逻辑运算符 \texttt{and}、\texttt{or}、\texttt{not}，组运算符 \texttt{(...)}，以及以下的基本测试：
 
 \end{ltxsyntax}
 
@@ -3122,133 +3127,347 @@ Defines the custom bibliography filter \prm{name}, to be used via the \opt{filte
 
 \valitem{segment}{integer}
 
-Matches all entries cited in reference segment \prm{integer}.
+%Matches all entries cited in reference segment \prm{integer}.
+
+匹配所有在参考文献分段 \prm{integer} 中引用的条目。
 
 \valitem{type}{entrytype}
 
-Matches all entries whose entry type is \prm{entrytype}.
+%Matches all entries whose entry type is \prm{entrytype}.
+
+匹配所有类型为 \prm{entrytype} 的条目。
 
 \valitem{subtype}{subtype}
 
-Matches all entries whose \bibfield{entrysubtype} is \prm{subtype}.
+%Matches all entries whose \bibfield{entrysubtype} is \prm{subtype}.
+
+匹配所有 \bibfield{entrysubtype} 域为 \prm{subtype} 的条目。
 
 \valitem{keyword}{keyword}
 
-Matches all entries whose \bibfield{keywords} field includes \prm{keyword}. If the \prm{keyword} contains spaces, it needs to be wrapped in braces.
+%Matches all entries whose \bibfield{keywords} field includes \prm{keyword}. If the \prm{keyword} contains spaces, it needs to be wrapped in braces.
+
+匹配所有 \bibfield{keywords} 域包含 \prm{keyword} 的条目。
+如果 \prm{keyword} 包含空格，那么需要用括号括起来。
 
 \valitem{category}{category}
 
-Matches all entries assigned to \prm{category} with \cmd{addtocategory}.
+%Matches all entries assigned to \prm{category} with \cmd{addtocategory}.
+
+匹配所有由 \cmd{addtocategory} 归入 \prm{category} 类的条目。
 
 \end{optionlist*}
 
-Here is an example of a filter expression:
+%Here is an example of a filter expression:
+如下是一个 filter 表达式的例子：
 
-\begin{lstlisting}[style=latex,keywords={and,or,not,type,keyword}]{}
+\begin{ltxexample}[style=latex,keywords={and,or,not,type,keyword}]{}
 \defbibfilter{example}{%
   ( type=book or type=inbook )
   and keyword=abc
   and not keyword={x y z}
 }
-\end{lstlisting}
+\end{ltxexample}
 %
-This filter will match all entries whose entry type is either \bibtype{book} or \bibtype{inbook} and whose \bibfield{keywords} field includes the keyword <\texttt{abc}> but not <\texttt{x y z}>. As seen in the above example, all elements are separated by whitespace (spaces, tabs, or line endings). There is no spacing around the equal sign. The logical operators are evaluated with the \cmd{ifboolexpr} command from the \sty{etoolbox} package. See the \sty{etoolbox} manual for details about the syntax. The syntax of the \cmd{ifthenelse} command from the \sty{ifthen} package, which has been employed in older versions of \biblatex, is still supported. This is the same test using \sty{ifthen}-like syntax:
+%This filter will match all entries whose entry type is either \bibtype{book} or \bibtype{inbook} and whose \bibfield{keywords} field includes the keyword <\texttt{abc}> but not <\texttt{x y z}>. As seen in the above example, all elements are separated by whitespace (spaces, tabs, or line endings). There is no spacing around the equal sign. The logical operators are evaluated with the \cmd{ifboolexpr} command from the \sty{etoolbox} package. See the \sty{etoolbox} manual for details about the syntax. The syntax of the \cmd{ifthenelse} command from the \sty{ifthen} package, which has been employed in older versions of \biblatex, is still supported. This is the same test using \sty{ifthen}-like syntax:
+该 filter 匹配的条目规则是，条目类型是 \bibtype{book} 或 \bibtype{inbook}，\bibfield{keywords} 域包含关键词 “\texttt{abc}”但不包含“\texttt{x y z}”。
+从以上例子可以看出，所有的元素由空白分开（空格、制表符或者换行）。
+等号周围没有空白。逻辑运算使用 \sty{etoolbox} 宏包的 \cmd{ifboolexpr} 执行。
+关于该语法详见 \sty{etoolbox} 手册。
+\biblatex 旧版本中使用的 \sty{ifthen} 宏包的 \cmd{ifthenelse} 语法这里仍然支持。
+如下是相同的测试，使用 \sty{ifthen} 样式的语法：
 
-\begin{lstlisting}[style=ifthen,morekeywords={\\type,\\keyword}]{}
+\begin{ltxexample}[style=ifthen,morekeywords={\\type,\\keyword}]{}
 \defbibfilter{example}{%
   \( \type{book} \or \type{inbook} \)
   \and \keyword{abc}
   \and \not \keyword{x y z}
 }
-\end{lstlisting}
+\end{ltxexample}
 %
-Note that custom filters are local to the reference section in which they are used. Use the \texttt{section} filter of \cmd{printbibliography} to select a different section. This is not possible from within a custom filter.
+%Note that custom filters are local to the reference section in which they are used. Use the \texttt{section} filter of \cmd{printbibliography} to select a different section. This is not possible from within a custom filter.
+请注意，定制的 filter 对于所在的参考文献分节是局部的。
+使用 \cmd{printbibliography} 的 \texttt{section} filter 来选择不同的分节。
+这在定制filter中是不可能的。
 
 \begin{ltxsyntax}
 
 \cmditem{defbibcheck}{name}{code}
 
-Defines the custom bibliography filter \prm{name}, to be used via the \opt{check} option of \cmd{printbibliography}. \cmd{defbibcheck} is similar in concept to \cmd{defbibfilter} but much more low-level. Rather than a high-level expression, the \prm{code} is \latex code, much like the code used in driver definitions, which may perform arbitrary tests to decide whether or not a given entry is to be printed. The bibliographic data of the respective entry is available when the \prm{code} is executed. Issuing the command \cmd{skipentry} in the \prm{code} will cause the current entry to be skipped. For example, the following filter will only output entries with an \bibfield{abstract} field:
+%Defines the custom bibliography filter \prm{name}, to be used via the \opt{check} option of \cmd{printbibliography}. \cmd{defbibcheck} is similar in concept to \cmd{defbibfilter} but much more low-level. Rather than a high-level expression, the \prm{code} is \latex code, much like the code used in driver definitions, which may perform arbitrary tests to decide whether or not a given entry is to be printed. The bibliographic data of the respective entry is available when the \prm{code} is executed. Issuing the command \cmd{skipentry} in the \prm{code} will cause the current entry to be skipped. For example, the following filter will only output entries with an \bibfield{abstract} field:
 
-\begin{lstlisting}[style=latex]{}
+定义了可定制的参考文献 check \prm{name}，
+可以通过 \cmd{printbibliography} 的 \opt{check} 选项使用。
+\cmd{defbibcheck} 从概念上类似于 \cmd{defbibfilter} 不过更加低层。
+与高层次表达式不同，\prm{code} 是 \LaTeX 代码，更像是驱动定义中使用的代码，
+可以执行任意测试来决定是否打印某个给定的条目。
+当执行 \prm{code} 时，相应条目的文献数据是可用的。
+在 \prm{code} 中使用 \cmd{skipentry} 命令会跳过当前条目。
+例如，下面的 check 只会输出带有 \bibfield{abstract} 域的条目：
+
+\begin{ltxexample}
 \defbibcheck{<<abstract>>}{%
   \iffieldundef{abstract}{<<\skipentry>>}{}}
 ...
 \printbibliography[<<check=abstract>>]
-\end{lstlisting}
+\end{ltxexample}
 %
-The following check will exclude all entries published before the year 2000:
+%The following check will exclude all entries published before the year 2000:
+下面的 check 会排除所有在2000年之前出版的条目：
 
-\begin{lstlisting}[style=latex]{}
+\begin{ltxexample}
 \defbibcheck{recent}{%
   \iffieldint{year}
     {\ifnumless{\thefield{year}}{2000}
        {\skipentry}
        {}}
     {\skipentry}}
-\end{lstlisting}
+\end{ltxexample}
 %
-See the author guide, in particular \secref{aut:aux:tst,aut:aux:ife}, for further details.
+%See the author guide, in particular \secref{aut:aux:tst,aut:aux:ife}, for further details.
+更多细节请参见作者指南，特别是 \secref{aut:aux:tst,aut:aux:ife} 节。
 
 \end{ltxsyntax}
 
 \subsubsection{参考文献表内容 Bibliography Contexts}
 \label{use:bib:context}
 
-References in a bibliography are cited and printed in a <context>. The context determines the data which is actually used for an entry. A context consists currently of the following information (the <context> concept is designed for future extensibility):
+References in a bibliography are cited and printed in a <context>. The context determines the data which is actually used to cite or provide bibliographic data for an entry. A context consists of the following information (the <context> concept is designed for future extensibility):
 
 \begin{itemize}
- \item A specific sorting scheme
+ \item A sorting scheme
+ \item A scheme for constructing the sorting keys for names
+ \item A string prefix for citation schemes which use alphabetic or numeric
+ labels
 \end{itemize}
 %
-The data for an entry can vary depending on the context. This is most obvious in the case of the \opt{extra*} fields like \opt{extrayear} which are generated by the backend according to the order of entries \emph{after} sorting so that they come out in the expected <a, b, c> order. This clearly shows that the \emph{data} in an entry can be different between sorting schemes. If a document contains more than one bibliography list with different sorting schemes, it can happen then that the \file{.bbl} contains sorting lists with the same entry but containing different data (a different value for \bibfield{extrayear}, for example). The purpose of bibliography contexts is to encapsulate things inside a context so that \biblatex can use the correct entry data. An example is printing a bibliography list with a different sorting order to the global sorting order:
+%The data for an entry can vary depending on the context. This is most obvious in the case of the \opt{extra*} fields like \opt{extrayear} which are generated by the backend according to the order of entries \emph{after} sorting so that they come out in the expected <a, b, c> order. This clearly shows that the \emph{data} in an entry can be different between sorting schemes. If a document contains more than one bibliography list with different sorting schemes, it can happen then that the \file{.bbl} contains sorting lists with the same entry but containing different data (a different value for \bibfield{extrayear}, for example). The purpose of bibliography contexts is to encapsulate things inside a context so that \biblatex can use the correct entry data. An example is printing a bibliography list with a different sorting order to the global sorting order:
 
-\begin{lstlisting}[style=latex]{}
-\usepackage[sorting=nyt]{biblatex}
-\cite{one}
-\cite{two}
-\printbibliography
-\newrefcontext[sorting=yndt]
-\cite{one}
-\cite{two}
-\printbibliography
-\end{lstlisting}
 %
-Here, the second use of the citations, along with the \cmd{printbibliography} command will use data from the context of the <yndt> sorting scheme which may well be different from the data associated with the default <nyt> scheme.
+The point of bibliography contexts is twofold. Firstly, they are used to set options which influence a printed bibliography and secondly to influence the data printed by citation commands.
+The former use is the most common when one needs to print more than one bibliography list with different, for example, sorting.
+
+\begin{ltxexample}
+\usepackage[sorting=nyt]{biblatex}
+\begin{document}
+\cite{one}
+\cite{two}
+\printbibliography
+\newrefcontext[sorting=ydnt]
+\printbibliography
+\end{ltxexample}
+%
+Here we print two bibliographies, one with the default <nyt> sorting scheme and one with the <ydnt> sorting scheme.
+
+To demonstrate the second type of use of bibliography contexts, we have to understand that the actual data for an entry can vary depending on the context. This is most obvious in the case of the \opt{extra*} fields like \opt{extrayear} which are generated by the backend according to the order of entries \emph{after} sorting so that they come out in the expected <a, b, c> order. This clearly shows that the \emph{data} in an entry can be different between sorting schemes. If a document contains more than one bibliography list with different sorting schemes, it can happen then that the \file{.bbl} contains sorting lists with the same entry but containing different data (a different value for \bibfield{extrayear}, for example). The purpose of bibliography contexts is to encapsulate things inside a context so that \biblatex can use the correct entry data. An example is printing a bibliography list with a different sorting order to the global sorting order where the \opt{extra*} fields are different for the same entry between sorting lists:
+
+\begin{ltxexample}
+\usepackage[sorting=nyt,style=authoryear]{biblatex}
+\DeclareSortingScheme{yntd}{
+  \sort{
+    \field[strside=left,strwidth=4]{sortyear}
+    \field[strside=left,strwidth=4]{year}
+    \literal{9999}
+  }
+  \sort{
+    \field{sortname}
+    \field{author}
+    \field{editor}
+  }
+  \sort[direction=descending]{
+    \field{sorttitle}
+    \field{title}
+  }
+}
+\begin{document}
+\cite{one}
+\cite{two}
+\printbibliography
+\newrefcontext[sorting=yntd]
+\cite{one}
+\cite{two}
+\printbibliography
+\end{ltxexample}
+%
+Here, the second use of the citations, along with the \cmd{printbibliography} command will use data from the context of the custom <yntd> sorting scheme which may well be different from the data associated with the default <nyt> scheme. That is, the citation labels (in an authoryear style which uses \opt{extrayear}) may be different \emph{for the exact same entries} between different bibliography contexts and so the citations themselves may look different.
+
+Reference contexts can be declared with \cmd{DeclareRefcontext} and referred to by name, see below.
+
+By default, data for a citation is drawn from the reference context of the last bibliography in which it was printed. For example:
+
+\begin{ltxexample}[style=latex]{}
+\DeclareRefcontext{ap}{labelprefix=A}
+\begin{document}
+
+\cite{book, article, misc}
+
+\printbibliography[type=book]
+
+\newrefcontext{ap}
+\printbibliography[type=article]
+
+\newrefcontext[sorting=ydnt]
+\printbibliography[type=misc]
+
+\end{document}
+\end{ltxexample}
+%
+This example also shows the declaration and use of a named reference context. Assuming the entrykeys are indicative of their entrytypes, this is the default situation for the citations which corresponds to what users normally expect:
+
+\begin{itemize}
+\item The citation of entry \bibfield{book} would draw its data from the global reference context, because the last bibliography in which it was printed was the one in the global reference context.
+\item The citation of entry \bibfield{article} would draw its data from reference context with \opt{labelprefix=A} and would therefore have a <A> prefix when cited.
+\item The citation of entry \bibfield{misc} would draw its data from the reference context with \opt{sorting=ydnt}
+\end{itemize}
+%
+In cases where the user has entries which occur in multiple bibliographies in different forms or with potentially different labels (in a numeric scheme with different \bibfield{labelprefix} values for example), it may be necessary to tell \biblatex from which reference context you wish to draw the citation information. As shown above this can be done by explicitly putting citations inside reference contexts. This can be onerous in a large document and so there is specific functionality for assigning citations to reference contexts programatically, see the \cmd{assignrefcontext*} macros below.
 
 \begin{ltxsyntax}
 
-\envitem{refcontext}[key=value, \dots]
+\cmditem{DeclareRefcontext}{name}{key=value, \dots}
 
-Wraps a bibliography context environment. The options define the context attributes. All context attributes are optional and default to the global settings if absent. The current options are:
+Declares a named reference context with name \prm{name}. The \prm{key=value} options define the context attributes. All context attributes are optional and default to the global settings if absent. The valid options are:
 
 \begin{optionlist*}
 
 \valitem{sorting}{name}
 
-Specify a sorting scheme defined previously with \cmd{DeclareSortingScheme}. This scheme is used to determine which data to retrieve and/or print for an entry in the commands inside the context.
+Specify a sorting scheme defined previously with \cmd{DeclareSortingScheme}. This scheme is used to determine which data to retrieve and/or print for an entry in the commands inside the context. 
+
+\valitem{sortingnamekeyscheme}{name}
+
+Specify a sorting name key scheme defined previously with \cmd{DeclareSortingNamekeyScheme}. This scheme is used to construct sorting keys for names inside the context.
+
+\valitem{labelprefix}{string}
+
+This option applies to numerical citation\slash bibliography styles only and requires that the \opt{defernumbers} option from \secref{use:opt:pre:gen} be enabled globally. Setting this option will implicitly enable \opt{resetnumbers} for the any \cmd{printbibliography} in the scope of the context (unless overridden by a user-specified value for \opt{resetnumbers}). The option assigns the \prm{string} as a prefix to all entries in the reference context. For example, if the \prm{string} is \texttt{A}, the numerical labels printed will be \texttt{[A1]}, \texttt{[A2]}, \texttt{[A3]}, etc. This is useful for subdivided numerical bibliographies where each subbibliography uses a different prefix. The \prm{string} is available to styles in the \bibfield{labelprefix} field of all affected entries. See \secref{aut:bbx:fld:lab} for details.
 
 \end{optionlist*}
 %
+
+\envitem{refcontext}[key=value, \dots]{name}
+
+Wraps a reference context environment. The possible \prm{key=value} optional arguments are as for \cmd{DeclareRefcontext} and override options given for the named reference context \prm{name}. \prm{name} can also be omitted as \verb+{}+ or by omitting even the empty braces\footnote{This slightly odd syntax possibility is a result of backwards compatibility with \biblatex $<$3.5}.
+
 The \opt{refcontext} environment cannot be nested and \biblatex will generate an error if you try to do so.
 
-\cmditem{newrefcontext}[key=value, \dots]
+\cmditem{newrefcontext}[key=value, \dots]{name}
 
-This command is similar to the \env{refcontext} environment except that it is a stand"=alone command rather than an environment. It automatically ends the previous context section (if any) and immediately starts a new one. Note that the context section started by the last \cmd{newrefcontext} command in the document will extend to the very end of the document. Use \cmd{endrefcontext} if you want to terminate it earlier.
+This command is similar to the \env{refcontext} environment except that it is a stand"=alone command rather than an environment. It automatically ends any previous reference context section begun with \cmd{newrefcontext} (if any) and immediately starts a new one. Note that the context section started by the last \cmd{newrefcontext} command in the document will extend to the very end of the document. Use \cmd{endrefcontext} if you want to terminate it earlier.
 \end{ltxsyntax}
 %
-At the beginning of the document, there is always a global context containing global settings for each of the context attributes.
+At the beginning of the document, there is always a global context containing global settings for each of the reference context options. Here is an example summarising the reference contexts with various settings:
 
-\subsubsection{动态条目集 Dynamic Entry Sets}
-\label{use:bib:set}
 
-In addition to the \bibtype{set} entry type, \biblatex also supports dynamic entry sets defined on a per-document\slash per-refsection basis. The following command, which may be used in the document preamble or the document body, defines the set \prm{key}:
+\begin{ltxexample}[style=latex]{}
+\usepackage[sorting=nty]{biblatex}
+
+\DeclareRefcontext{testrc}{sorting=nyt}
+
+% Global reference context:
+%   sorting=nty
+%   sortingnamekeyscheme=global
+%   labelprefix=
+
+\begin{document}
+
+\begin{refcontext}{testrc}
+% reference context:
+%   sorting=nyt
+%   sortingnamekeyscheme=global
+%   labelprefix=
+\end{refcontext}
+
+\begin{refcontext}[labelprefix=A]{testrc}
+% reference context:
+%   sorting=nyt
+%   sortingnamekeyscheme=global
+%   labelprefix=A
+\end{refcontext}
+
+\begin{refcontext}[sorting=ydnt,labelprefix=A]
+% reference context:
+%   sorting=ydnt
+%   sortingnamekeyscheme=global
+%   labelprefix=A
+\end{refcontext}
+
+\newrefcontext}[labelprefix=B]
+% reference context:
+%   sorting=nty
+%   sortingnamekeyscheme=global
+%   labelprefix=B
+\endrefcontext
+
+\newrefcontext}[sorting=ynt,labelprefix=C]{testrc}
+% reference context:
+%   sorting=ynt
+%   sortingnamekeyscheme=global
+%   labelprefix=C
+\endrefcontext
+\end{ltxexample}
 
 \begin{ltxsyntax}
 
-\cmditem{defbibentryset}{key}{key1,key2,key3, \dots}\BiberOnlyMark
+\cmditem{assignrefcontextkeyws}[key=value, \dots]{keyword1,keyword2, ...}
+\cmditem{assignrefcontextkeyws*}[key=value, \dots]{keyword1,keyword2, ...}
+\cmditem{assignrefcontextcats}[key=value, \dots]{category1, category2, ...}
+\cmditem{assignrefcontextcats*}[key=value, \dots]{category1, category2, ...}
+\cmditem{assignrefcontextentries}[key=value, \dots]{entrykey1, entrykey2, ...}
+\cmditem{assignrefcontextentries*}[key=value, \dots]{entrykey1, entrykey2, ...}
+\cmditem{assignrefcontextentries}[key=value, \dots]{*}
+\cmditem{assignrefcontextentries*}[key=value, \dots]{*}
 
-The \prm{key} is the entry key of the set, which is used like any other entry key when referring to the set. The \prm{key} must be unique and it must not conflict with any other entry key. The second argument is a comma"=separated list of the entry keys which make up the set. \cmd{defbibentryset} implies the equivalent of a \cmd{nocite} command, \ie all sets which are declared are also added to the bibliography. When declaring the same set more than once, only the first invocation of \cmd{defbibentryset} will define the set. Subsequent definitions of the same \prm{key} are ignored and work like \cmd{nocite}\prm{key}. Dynamic entry sets defined in the document body are local to the enclosing \env{refsection} environment, if any. Otherwise, they are assigned to reference section~0. Those defined in the preamble are assigned to reference section~0. Note that dynamic entry sets require \biber. They will not work with any other backend. See \secref{use:use:set} for further details.
+\end{ltxsyntax}
+These commands automate putting citations into refcontexts when the default behaviour is not sufficient. The default behaviour is that the data for a citation is drawn from the refcontext of the last bibliography in which it was printed. For citations that are used in some way but not printed in a bibliography or bibliography list, they default to drawing their data from the global refcontext established at the beginning of the document. To override this behaviour, instead of manually wrapping citation commands in \env{refcontext} environments, which might be error-prone and tedious, you can register a comma"=separated list of \prm{keywords}, \prm{categories} or \prm{entrykeys} which, respectively, make the entries with any of the specified keywords, entries in any of the specified categories (see \secref{use:use:div}) or entries with any of the specified citation keys draw their data from a particular refcontext specified by the \prm{refcontext key/values} which are parsed as the per the corresponding \env{refcontext} options. Such refcontext auto-assignments are specific to the current refsection. You may specify the same citation key in any of these commands but be aware that assignment is done in the order \prm{keywords}, \prm{categories}, \prm{entrykeys} with the later specifications overriding the earlier. \cmd{assignrefcontextentries} accepts a single asterisk instead of a list of entrykeys which allows the assignment of all keys in a refsection to a refcontext with having to explicitly list them. An example:
+
+\begin{ltxexample}[style=latex]{}
+\assignrefcontextentries[labelprefix=A]{key2}
+\cite{key1}
+\begin{refcontext}[labelprefix=B]
+\cite{key2}
+\end{refcontext}
+\end{ltxexample}
+%
+Here, the data for the citation of \bibfield{key2} will be drawn from refcontext \opt{labelprefix=A} and not \opt{labelprefix=B} (resulting in a label with prefix <A> and not <B>).
+The starred versions do not override a local refcontext and so with:
+
+\begin{ltxexample}[style=latex]{}
+\assignrefcontextentries*[labelprefix=A]{key2}
+\cite{key1}
+\begin{refcontext}[labelprefix=B]
+\cite{key2}
+\end{refcontext}
+\end{ltxexample}
+%
+the data for the citation of \bibfield{key2} will be drawn from refcontext \opt{labelprefix=B}. Note that these commands are rarely necessary unless you have multiple bibliographies in which the same citations occur and \biblatex\ cannot by default tell which bibliography list a citation should refer to. See the example file \file{94-labelprefix.tex} for more details.
+
+
+\subsubsection{动态条目集}%\subsubsection{Dynamic Entry Sets}
+\label{use:bib:set}
+
+%In addition to the \bibtype{set} entry type, \biblatex also supports dynamic entry sets defined on a per-document\slash per-refsection basis. The following command, which may be used in the document preamble or the document body, defines the set \prm{key}:
+
+除了 \bibtype{set} 条目类型之外，\biblatex 也支持基于文档或参考文献分节定义的动态条目集。
+下面的命令定义了 \prm{key} 集合，可以用在导言区或正文中：
+
+\begin{ltxsyntax}
+
+\cmditem{defbibentryset}{key}{key1,key2,key3, \dots}
+
+%The \prm{key} is the entry key of the set, which is used like any other entry key when referring to the set. The \prm{key} must be unique and it must not conflict with any other entry key. The second argument is a comma"=separated list of the entry keys which make up the set. \cmd{defbibentryset} implies the equivalent of a \cmd{nocite} command, \ie all sets which are declared are also added to the bibliography. When declaring the same set more than once, only the first invocation of \cmd{defbibentryset} will define the set. Subsequent definitions of the same \prm{key} are ignored and work like \cmd{nocite}\prm{key}. Dynamic entry sets defined in the document body are local to the enclosing \env{refsection} environment, if any. Otherwise, they are assigned to reference section~0. Those defined in the preamble are assigned to reference section~0. See \secref{use:use:set} for further details.
+
+\prm{key} 是集合的条目键，像其它条目键一样用于指向该集合。
+\prm{key} 必须是唯一的，并且不能与其它条目键名冲突。
+第二个选项是组成该集合的逗号分隔条目键列表。
+\cmd{defbibentryset} 也蕴含了与 \cmd{nocite} 命令的等价性，
+即，所有声明的集合也都添加到参考文献表中。
+当多次声明相同集合时，只有第一次调用的 \cmd{defbibentryset} 会定义该集合。
+接下来的对于相同 \prm{key} 的定义将被忽略并如同 \cmd{nocite}\prm{key} 一样处理。
+在正文中定义的动态条目集如果包含在 \env{refsection} 环境中，那么是局部的。
+否则它们会归到第~0 文献分节中。
+在导言区中定义的动态条目集也归到第~0 文献分节中。
+详见 \secref{use:use:set} 节。
 
 \end{ltxsyntax}
 
