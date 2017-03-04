@@ -2345,18 +2345,24 @@ LANGUAGE+an = {1=annotation3; 2=annotation4}
     {#1}}
 \end{lstlisting}
 
-
-\subsection{参考文献命令 Bibliography Commands}
+\subsection{参考文献命令}%\subsection{Bibliography Commands}
 \label{use:bib}
 
-\subsubsection{文献数据源 Resources}
+\subsubsection{数据源}%\subsubsection{Resources}
 \label{use:bib:res}
 
 \begin{ltxsyntax}
 
 \cmditem{addbibresource}[options]{resource}
 
-Adds a \prm{resource}, such as a \file{.bib} file, to the default resource list. This command is only available in the preamble. It replaces the \cmd{bibliography} legacy command. Note that files must be specified with their full name, including the extension. Do not omit the \file{.bib} extension from the filename. Also note that the \prm{resource} is a single resource. Invoke \cmd{addbibresource} multiple times to add more resources, for example:
+%Adds a \prm{resource}, such as a \file{.bib} file, to the default resource list. This command is only available in the preamble. It replaces the \cmd{bibliography} legacy command. Note that files must be specified with their full name, including the extension. Do not omit the \file{.bib} extension from the filename. Also note that the \prm{resource} is a single resource. Invoke \cmd{addbibresource} multiple times to add more resources, for example:
+
+将 \prm{resource} 添加到默认资源列表中，例如 \file{.bib} 文件。
+该命令只能在导言区中使用。
+它取代了过时的 \cmd{bibliography} 命令。
+请注意，文件名包括扩展名，所以不要省略文件名中的 \file{.bib} 扩展名。
+另外要注意的是，\prm{resource} 只能是一个单独的数据源。
+添加更多的资源需要多次调用 \cmd{addbibresource} 命令，例如：
 
 \begin{lstlisting}[style=latex]{}
 \addbibresource{bibfile1.bib}
@@ -2365,58 +2371,101 @@ Adds a \prm{resource}, such as a \file{.bib} file, to the default resource list.
 \addbibresource[location=remote,label=lan]{ftp://192.168.1.57/~user/file.bib}
 \end{lstlisting}
 %
-Since the \prm{resource} string is read in a verbatim-like mode, it may contain arbitrary characters. The only restriction is that any curly braces must be balanced. The following \prm{options} are available:
+%Since the \prm{resource} string is read in a verbatim-like mode, it may contain arbitrary characters. The only restriction is that any curly braces must be balanced. The following \prm{options} are available:
+由于 \prm{resource} 字符串的读取类似于抄录模式，因此它可以包含任意的字符。
+唯一的限制是其中任何的花括号必须左右匹配。
+可用的 \prm{options} 如下：
 
 \begin{optionlist*}
 
 \valitem{label}{identifier}
 
-Assigns a label to a resource. The \prm{identifier} may be used in place of the full resource name in the optional argument of \env{refsection} (see \secref{use:bib:sec}).
+%Assigns a label to a resource. The \prm{identifier} may be used in place of the full resource name in the optional argument of \env{refsection} (see \secref{use:bib:sec}).
+
+给该数据源分配一个标签。
+\prm{identifier} 可以用于在 \env{refsection} 环境的可选参数中以取代该数据源的全名
+（见 \secref{use:bib:sec} 节）。
 
 \valitem[local]{location}{location}
 
-The location of the resource. The \prm{location} may be either \texttt{local} for local resources or \texttt{remote} for \acr{URL}s. Remote resources require \biber. The protocols \acr{HTTP} and \acr{FTP} are supported. The remote \acr{URL} must be a fully qualified path to a \file{bib} file or a \acr{URL} which returns a \file{bib} file.
+%The location of the resource. The \prm{location} may be either \texttt{local} for local resources or \texttt{remote} for \acr{URL}s. Remote resources require \biber. The protocols \acr{HTTP} and \acr{FTP} are supported. The remote \acr{URL} must be a fully qualified path to a \file{bib} file or a \acr{URL} which returns a \file{bib} file.
+
+数据源的地址。
+\prm{location} 可以是 \texttt{local} 或者 \texttt{remote}，
+分别对应本地数据和在线 \acr{URL} 数据。
+远程资源需要 \biber{} 程序。
+支持 \acr{HTTP} 和 \acr{FTP} 协议。
+远程的 \acr{URL} 必须是 \file{bib} 文件的合法路径全称或者是返回 \file{bib} 文件的 \acr{URL}。
 
 \valitem[file]{type}{type}
 
-The type of resource. Currently, the only supported type is \texttt{file}.
+%The type of resource. Currently, the only supported type is \texttt{file}.
+
+资源的类型。目前唯一支持的类型是 \texttt{file}。
 
 \valitem[bibtex]{datatype}{datatype}
 
-The data type (format) of the resource. The following formats are currently supported:
+%The data type (format) of the resource. The following formats are currently supported:
+
+资源的数据类型（格式）。目前支持以下格式：
 
 \begin{valuelist}[zoterordfxml]
 
-\item[bibtex] \bibtex format.
+\item[bibtex] %\bibtex format.
+\BibTeX 格式。
 
-\item[ris]\BiberOnlyMark Research Information Systems (\acr{RIS}) format.\fnurl{http://en.wikipedia.org/wiki/RIS_(file_format)} Note that an \texttt{ID} tag is required in all \acr{RIS} records. The \texttt{ID} value corresponds to the entry key. Support for this format is experimental.
-
-\item[zoterordfxml]\BiberOnlyMark Zotero \acr{RDF}/\acr{XML} format. Support for this format is experimental. Refer to the \biber manual for details.
-
-\item[endnotexml]\BiberOnlyMark EndNote \acr{XML} format. Support for this format is experimental. Refer to the \biber manual for details.
+\item[biblatexml] %Experimental XML format for \biblatex. See \secref{apx:biblatexml}.
+针对 \biblatex 的实验性 XML 格式。见 \secref{apx:biblatexml}。
 
 \end{valuelist}
 
 \end{optionlist*}
 
+
 \cmditem{addglobalbib}[options]{resource}
 
-This command differs from \cmd{addbibresource} in that the \prm{resource} is added to the global resource list. The difference between default resources and global resources is only relevant if there are reference sections in the document and the optional argument of \env{refsection} (\secref{use:bib:sec}) is used to specify alternative resources which replace the default resource list. Any global resources are added to all reference sections.
+%This command differs from \cmd{addbibresource} in that the \prm{resource} is added to the global resource list. The difference between default resources and global resources is only relevant if there are reference sections in the document and the optional argument of \env{refsection} (\secref{use:bib:sec}) is used to specify alternative resources which replace the default resource list. Any global resources are added to all reference sections.
+
+该命令不同于 \cmd{addbibresource} 之处在于将 \prm{resource} 添加到全局数据源列表中。
+不过，只有当文档中有参考文献章节并且使用 \env{refsection} 环境的可选参数（见 \secref{use:bib:sec} 节）
+作为确定代替默认资源列表的备选资源时，考虑默认数据源和全局数据源的不同才是有意义的。
+任何全局资源将被添加到所有的参考文件章节中。
 
 \cmditem{addsectionbib}[options]{resource}
 
-This command differs from \cmd{addbibresource} in that the resource \prm{options} are registered but the \prm{resource} not added to any resource list. This is only required for resources which 1) are given exclusively in the optional argument of \env{refsection} (\secref{use:bib:sec}) and 2) require options different from the default settings. In this case, \cmd{addsectionbib} is employed to qualify the \prm{resource} prior to using it by setting the appropriate \prm{options} in the preamble. The \opt{label} option may be useful to assign a short name to the resource.
+%This command differs from \cmd{addbibresource} in that the resource \prm{options} are registered but the \prm{resource} not added to any resource list. This is only required for resources which 1) are given exclusively in the optional argument of \env{refsection} (\secref{use:bib:sec}) and 2) require options different from the default settings. In this case, \cmd{addsectionbib} is employed to qualify the \prm{resource} prior to using it by setting the appropriate \prm{options} in the preamble. The \opt{label} option may be useful to assign a short name to the resource.
+
+该命令与 \cmd{addbibresource} 的不同之处在于，会记录数据源的 \prm{options} 但是 \prm{resource} 没有添加到任何数据源列表中。
+有该需求的场合是 (1) 该数据源仅仅用于 \env{refsection} 环境的可选参数中（\secref{use:bib:sec} 节）；
+(2) 该数据源需要不同于默认设置的选项。
+此时，\cmd{addsectionbib} 会在导言区中设置合适的 \prm{options}，从而在其使用前声明 \prm{resource}。
+\opt{label} 选项可以用于分配给该资源一个简短的名称。
 
 \cmditem{bibliography}{bibfile, \dots}|\DeprecatedMark|
 
-The legacy command for adding bibliographic resources, supported for backwards compatibility. Like \cmd{addbibresource}, this command is only available in the preamble and adds resources to the default resource list. Its argument is a comma"=separated list of \file{bib} files. The \file{.bib} extension may be omitted from the filename. Invoking this command multiple times to add more files is permissible. This command is deprecated. Please consider using \cmd{addbibresource} instead.
+%The legacy command for adding bibliographic resources, supported for backwards compatibility. Like \cmd{addbibresource}, this command is only available in the preamble and adds resources to the default resource list. Its argument is a comma"=separated list of \file{bib} files. The \file{.bib} extension may be omitted from the filename. Invoking this command multiple times to add more files is permissible. This command is deprecated. Please consider using \cmd{addbibresource} instead.
 
-\subsubsection{参考文献表 The Bibliography}
+添加文献资源的过时命令，仅处于向后兼容性而支持。
+类似 \cmd{addbibresource}，该命令只能在导言区中使用，并将资源添加到默认资源列表中。
+它的选项是逗号分隔的 \file{bib} 文件列表。
+文件名中的 \file{.bib} 扩展名可以省略。
+也可以通过多次调用该命令来添加更多文件。
+该命令已过时，请考虑使用 \cmd{addbibresource} 来取代。
+
+\end{ltxsyntax}
+
+\subsubsection{参考文献}%\subsubsection{The Bibliography}
 \label{use:bib:bib}
+
+\begin{ltxsyntax}
 
 \cmditem{printbibliography}[key=value, \dots]
 
-This command prints the bibliography. It takes one optional argument, which is a list of options given in \keyval notation. The following options are available:
+%This command prints the bibliography. It takes one optional argument, which is a list of options given in \keyval notation. The following options are available:
+
+该命令可以打印出参考文献。
+它的可选参数是以 \keyval 形式给出的一列选项。
+可用的选项如下：
 
 \end{ltxsyntax}
 
@@ -2424,83 +2473,153 @@ This command prints the bibliography. It takes one optional argument, which is a
 
 \valitem[bibliography/shorthands]{env}{name}
 
-The <high-level> layout of the bibliography and the list of shorthands is controlled by environments defined with \cmd{defbibenvironment}. This option selects an environment. The \prm{name} corresponds to the identifier used when defining the environment with \cmd{defbibenvironment}. By default, the \cmd{printbibliography} command uses the identifier \texttt{bibliography}; \cmd{printbiblist} uses \texttt{shorthands}. See also \secref{use:bib:biblist,use:bib:hdg}.
+%The <high-level> layout of the bibliography and the list of shorthands is controlled by environments defined with \cmd{defbibenvironment}. This option selects an environment. The \prm{name} corresponds to the identifier used when defining the environment with \cmd{defbibenvironment}. By default, the \cmd{printbibliography} command uses the identifier \texttt{bibliography}; \cmd{printbiblist} uses \texttt{shorthands}. See also \secref{use:bib:biblist,use:bib:hdg}.
+
+可以用 \cmd{defbibenvironment} 定义的环境来控制参考文献和shorthands列表的高层次布局。
+该选项选择了一个环境。
+\prm{name} 对应于用 \cmd{defbibenvironment} 定义环境时的标识符。
+缺省状态下，\cmd{printbibliography} 命令使用标识符 \texttt{bibliography}；
+而 \cmd{printshorthands} 使用 \texttt{shorthands}。
+另见 \secref{use:bib:los,use:bib:hdg} 节。
+
 
 \valitem[bibliography/shorthands]{heading}{name}
 
-The bibliography and the list of shorthands typically have a chapter or section heading. This option selects the heading \prm{name}, as defined with \cmd{defbibheading}. By default, the \cmd{printbibliography} command uses the heading \texttt{bibliography}; \cmd{printbiblist} uses \texttt{shorthands}. See also \secref{use:bib:biblist,use:bib:hdg}.
+%The bibliography and the list of shorthands typically have a chapter or section heading. This option selects the heading \prm{name}, as defined with \cmd{defbibheading}. By default, the \cmd{printbibliography} command uses the heading \texttt{bibliography}; \cmd{printbiblist} uses \texttt{shorthands}. See also \secref{use:bib:biblist,use:bib:hdg}.
+
+参考文献和shorthand列表通常有一个章标题或者节标题。
+该选项选择由 \cmd{defbibheading} 定义的标题名 \prm{name}。
+缺省状态下，\cmd{printbibliography} 命令使用标题名 \texttt{bibliography}；
+而 \cmd{printshorthands} 使用 \texttt{shorthands}。
+另见 \secref{use:bib:los,use:bib:hdg} 节。
 
 \valitem{title}{text}
 
-This option overrides the default title provided by the heading selected with the \opt{heading} option, if supported by the heading definition. See \secref{use:bib:hdg} for details.
+%This option overrides the default title provided by the heading selected with the \opt{heading} option, if supported by the heading definition. See \secref{use:bib:hdg} for details.
+
+如果标题定义支持的话，该选项覆盖由 \opt{heading} 选项提供的缺省标题名。
+详见 \secref{use:bib:hdg} 节。
 
 \valitem{prenote}{name}
 
-The prenote is an arbitrary piece of text to be printed after the heading but before the list of references. This option selects the prenote \prm{name}, as defined with \cmd{defbibnote}. By default, no prenote is printed. The note is printed in the standard text font. It is not affected by \cmd{bibsetup} and \cmd{bibfont} but it may contain its own font declarations. See \secref{use:bib:nts} for details.
+%The prenote is an arbitrary piece of text to be printed after the heading but before the list of references. This option selects the prenote \prm{name}, as defined with \cmd{defbibnote}. By default, no prenote is printed. The note is printed in the standard text font. It is not affected by \cmd{bibsetup} and \cmd{bibfont} but it may contain its own font declarations. See \secref{use:bib:nts} for details.
+
+前注是打印在标题之后、文献列表之前的任意文本片段。
+该选项选择由 \cmd{defbibnote} 所定义的前注 \prm{name}。
+缺省状态下不打印任何前注。
+该注记使用标准正文字体。
+它不受 \cmd{bibsetup} 和 \cmd{bibfont} 的影响但可以包含自己的字体声明。
+详见 \secref{use:bib:nts} 节。
 
 \valitem{postnote}{name}
 
-The postnote is an arbitrary piece of text to be printed after the list of references. This option selects the postnote \prm{name}, as defined with \cmd{defbibnote}. By default, no postnote is printed. The note is printed in the standard text font. It is not affected by \cmd{bibsetup} and \cmd{bibfont} but it may contain its own font declarations. See \secref{use:bib:nts} for details.
+%The postnote is an arbitrary piece of text to be printed after the list of references. This option selects the postnote \prm{name}, as defined with \cmd{defbibnote}. By default, no postnote is printed. The note is printed in the standard text font. It is not affected by \cmd{bibsetup} and \cmd{bibfont} but it may contain its own font declarations. See \secref{use:bib:nts} for details.
+
+后注是打印在参考文献列表之后的任意文本片段。
+该选项选择由 \cmd{defbibnote} 所定义的后注 \prm{name}。
+缺省状态下不打印任何后注。
+该注记使用标准正文字体。
+它不受 \cmd{bibsetup} 和 \cmd{bibfont} 的影响但可以包含自己的字体声明。
+详见 \secref{use:bib:nts}。
 
 \intitem[current section]{section}
 
-Print only entries cited in reference section \prm{integer}. The reference sections are numbered starting at~1. All citations given outside a \env{refsection} environment are assigned to section~0. See \secref{use:bib:sec} for details and \secref{use:use:mlt} for usage examples.
+%Print only entries cited in reference section \prm{integer}. The reference sections are numbered starting at~1. All citations given outside a \env{refsection} environment are assigned to section~0. See \secref{use:bib:sec} for details and \secref{use:use:mlt} for usage examples.
+
+只打印在第 \prm{integer} 文节中引用的条目。
+该参考文献节从~1 开始编号。
+所有在 \env{refsection} 环境外给出的引用标记为第零节。
+详见 \secref{use:bib:sec} 和 \secref{use:use:mlt} 节中的使用例子。
 
 \intitem[0]{segment}
 
-Print only entries cited in reference segment \prm{integer}. The reference segments are numbered starting at~1. All citations given outside a \env{refsegment} environment are assigned to segment~0. See \secref{use:bib:seg} for details and \secref{use:use:mlt} for usage examples. Remember that segments within a section are numbered local to the section so the segment you request will be the nth segment in the requested (or currently active enclosing) section.
+%Print only entries cited in reference segment \prm{integer}. The reference segments are numbered starting at~1. All citations given outside a \env{refsegment} environment are assigned to segment~0. See \secref{use:bib:seg} for details and \secref{use:use:mlt} for usage examples. Remember that segments within a section are numbered local to the section so the segment you request will be the nth segment in the requested (or currently active enclosing) section.
+
+只打印在第 \prm{integer} 文献段中引用的条目。
+参考文献段从~1 开始编号。
+所有在 \env{refsection} 环境外给出的引用标记为第零段。
+详见 \secref{use:bib:sec} 和 \secref{use:use:mlt} 节中的使用例子。
+请注意，一节内部的片段是在该节中局部编号的，故而需要的片段是被查询（或者当前激活的）节的第 n 段。
 
 \valitem{type}{entrytype}
 
-Print only entries whose entry type is \prm{entrytype}.
+%Print only entries whose entry type is \prm{entrytype}.
+
+只打印类型为 \prm{entrytype} 的条目。
 
 \valitem{nottype}{entrytype}
 
-Print only entries whose entry type is not \prm{entrytype}. This option may be used multiple times.
+%Print only entries whose entry type is not \prm{entrytype}. This option may be used multiple times.
+
+只打印类型不为 \prm{entrytype} 的条目。该选项可以使用多次。
 
 \valitem{subtype}{subtype}
 
-Print only entries whose \bibfield{entrysubtype} is defined and \prm{subtype}.
+%Print only entries whose \bibfield{entrysubtype} is defined and \prm{subtype}.
+
+只打印域 \bibfield{entrysubtype} 定义为 \prm{subtype} 的条目。
 
 \valitem{notsubtype}{subtype}
 
-Print only entries whose \bibfield{entrysubtype} is undefined or not \prm{subtype}. This option may be used multiple times.
+%Print only entries whose \bibfield{entrysubtype} is undefined or not \prm{subtype}. This option may be used multiple times.
+
+只打印域 \bibfield{entrysubtype} 没有定义或者不为 \prm{subtype} 的条目。该选项可以使用多次。
 
 \valitem{keyword}{keyword}
 
-Print only entries whose \bibfield{keywords} field includes \prm{keyword}. This option may be used multiple times.
+%Print only entries whose \bibfield{keywords} field includes \prm{keyword}. This option may be used multiple times.
+
+只打印域 \bibfield{keywords} 包括 \prm{keyword} 的条目。该选项可以使用多次。
 
 \valitem{notkeyword}{keyword}
 
-Print only entries whose \bibfield{keywords} field does not include \prm{keyword}. This option may be used multiple times.
+%Print only entries whose \bibfield{keywords} field does not include \prm{keyword}. This option may be used multiple times.
+
+只打印域 \bibfield{keywords} 不包括 \prm{keyword} 的条目。该选项可以使用多次。
 
 \valitem{category}{category}
 
-Print only entries assigned to category \prm{category}. This option may be used multiple times.
+%Print only entries assigned to category \prm{category}. This option may be used multiple times.
+
+只打印属于 \prm{category} 类型的条目。该选项可以使用多次。
 
 \valitem{notcategory}{category}
 
-Print only entries not assigned to category \prm{category}. This option may be used multiple times.
+%Print only entries not assigned to category \prm{category}. This option may be used multiple times.
+
+只打印不属于 \prm{category} 类型的条目。该选项可以使用多次。
 
 \valitem{filter}{name}
 
-Filter the entries with filter \prm{name}, as defined with \cmd{defbibfilter}. See \secref{use:bib:flt} for details.
+%Filter the entries with filter \prm{name}, as defined with \cmd{defbibfilter}. See \secref{use:bib:flt} for details.
+
+使用由 \cmd{defbibfilter} 定义的 filter \prm{name} 来过滤条目。详见 \secref{use:bib:flt} 节。
 
 \valitem{check}{name}
 
-Filter the entries with check \prm{name}, as defined with \cmd{defbibcheck}. See \secref{use:bib:flt} for details.
+%Filter the entries with check \prm{name}, as defined with \cmd{defbibcheck}. See \secref{use:bib:flt} for details.
 
-\valitem{prefixnumbers}{string}
-
-This option applies to numerical citation\slash bibliography styles only and requires that the \opt{defernumbers} option from \secref{use:opt:pre:gen} be enabled globally. Setting this option will implicitly enable \opt{resetnumbers} for the current bibliography. The option assigns the \prm{string} as a prefix to all entries in the respective bibliography. For example, if the \prm{string} is \texttt{A}, the numerical labels printed will be \texttt{[A1]}, \texttt{[A2]}, \texttt{[A3]}, etc. This is useful for subdivided numerical bibliographies where each subbibliography uses a different prefix. The \prm{string} is available to styles in the \bibfield{prefixnumber} field of all affected entries. See \secref{aut:bbx:fld:lab} for details.
+使用由 \cmd{defbibcheck} 定义的 check \prm{name} 来过滤条目。详见  \secref{use:bib:flt} 节。
 
 \valitem{resetnumbers}{true,false,number}
 
-This option applies to numerical citation\slash bibliography styles only and requires that the \opt{defernumbers} option from \secref{use:opt:pre:gen} be enabled globally. If enabled, it will reset the numerical labels assigned to the entries in the respective bibliography, \ie the numbering will restart at~1. You can also pass a number to this option, for example: \texttt{resetnumbers=10} to reset numbering to the specified number to aid numbering continuity across documents. Use this option with care as \biblatex can not guarantee unique labels globally if they are reset manually.
+%This option applies to numerical citation\slash bibliography styles only and requires that the \opt{defernumbers} option from \secref{use:opt:pre:gen} be enabled globally. If enabled, it will reset the numerical labels assigned to the entries in the respective bibliography, \ie the numbering will restart at~1. You can also pass a number to this option, for example: \texttt{resetnumbers=10} to reset numbering to the specified number to aid numbering continuity across documents. Use this option with care as \biblatex can not guarantee unique labels globally if they are reset manually.
+
+该选项只用于数值引用/参考文献样式，
+并且要求 \secref{use:opt:pre:gen} 中的 \opt{defernumbers} 选项全局启用。
+如果启用的话，它将重新设置分配给相应文献中条目的数值标签，即，编号会重新从 1 开始。
+此外还可以传递数值给该选项以重置编号为给定的数值，例如 \texttt{resetnumbers=10}，
+这样可以改进整个文档中编号的连续性。
+请小心使用本选项，因为在手动重新设置下，\biblatex 不能保证标签是全局唯一的。
 
 \boolitem{omitnumbers}
 
-This option applies to numerical citation\slash bibliography styles only and requires that the \opt{defernumbers} option from \secref{use:opt:pre:gen} be enabled globally. If enabled, \biblatex will not assign a numerical label to the entries in the respective bibliography. This is useful when mixing a numerical subbibliography with one or more subbibliographies using a different scheme (\eg author-title or author-year).
+%This option applies to numerical citation\slash bibliography styles only and requires that the \opt{defernumbers} option from \secref{use:opt:pre:gen} be enabled globally. If enabled, \biblatex will not assign a numerical label to the entries in the respective bibliography. This is useful when mixing a numerical subbibliography with one or more subbibliographies using a different scheme (\eg author-title or author-year).
+
+该选项只用于数值引用/参考文献样式，
+并且要求 \secref{use:opt:pre:gen} 中的 \opt{defernumbers} 选项全局启用。
+如果启用的话，\biblatex 不会为相应文献中的条目分配数值标签。
+当数值型子文献和其它不同格式（例如作者-标题或者作者-年份）的子文献相混合时，这是很有用的。
 
 \end{optionlist*}
 
@@ -2508,189 +2627,359 @@ This option applies to numerical citation\slash bibliography styles only and req
 
 \cmditem{bibbysection}[key=value, \dots]
 
-This command automatically loops over all reference sections. This is equivalent to giving one \cmd{printbibliography} command for every section but has the additional benefit of automatically skipping sections without references. Note that \cmd{bibbysection} starts looking for references in section \texttt{1}. It will ignore references given outside of \env{refsection} environments since they are assigned to section~0. See \secref{use:use:mlt} for usage examples. The options are a subset of those supported by \cmd{printbibliography}. Valid options are \opt{env}, \opt{heading}, \opt{prenote}, \opt{postnote}. The current bibliography context sorting scheme is used for all sections (see \secref{use:bib:context}).
+%This command automatically loops over all reference sections. This is equivalent to giving one \cmd{printbibliography} command for every section but has the additional benefit of automatically skipping sections without references. Note that \cmd{bibbysection} starts looking for references in section \texttt{1}. It will ignore references given outside of \env{refsection} environments since they are assigned to section~0. See \secref{use:use:mlt} for usage examples. The options are a subset of those supported by \cmd{printbibliography}. Valid options are \opt{env}, \opt{heading}, \opt{prenote}, \opt{postnote}. The current bibliography context sorting scheme is used for all sections (see \secref{use:bib:context}).
+
+该命令会自动遍历所有的参考文献节。
+这等价于为每一节给出一个 \cmd{printbibliography} 命令，
+不过会有额外好处：自动跳过不含参考文献的节。
+请注意，\cmd{bibbysection} 一开始寻找第 \texttt{1} 节中的文献。
+它会忽略 \env{refsection} 外给出的文献，因为它们被分配给第零节。
+使用例子请参考 \secref{use:use:mlt} 节。
+选项可以是由 \cmd{printbibliography} 支持的一个子集。
+有效选项是 \opt{env}、\opt{heading}、\opt{prenote} 和 \opt{postnote}。
+当前文献内容排序格式会应用在所有的节中（见 \secref{use:bib:context} 节）。
 
 \cmditem{bibbysegment}[key=value, \dots]
 
-This command automatically loops over all reference segments. This is equivalent to giving one \cmd{printbibliography} command for every segment in the current \env{refsection} but has the additional benefit of automatically skipping segments without references. Note that \cmd{bibbysegment} starts looking for references in segment \texttt{1}. It will ignore references given outside of \env{refsegment} environments since they are assigned to segment~0. See \secref{use:use:mlt} for usage examples. The options are a subset of those supported by \cmd{printbibliography}. Valid options are \opt{env}, \opt{heading}, \opt{prenote}, \opt{postnote}. The current bibliography context sorting scheme is used for all segments (see \secref{use:bib:context}).
+%This command automatically loops over all reference segments. This is equivalent to giving one \cmd{printbibliography} command for every segment in the current \env{refsection} but has the additional benefit of automatically skipping segments without references. Note that \cmd{bibbysegment} starts looking for references in segment \texttt{1}. It will ignore references given outside of \env{refsegment} environments since they are assigned to segment~0. See \secref{use:use:mlt} for usage examples. The options are a subset of those supported by \cmd{printbibliography}. Valid options are \opt{env}, \opt{heading}, \opt{prenote}, \opt{postnote}. The current bibliography context sorting scheme is used for all segments (see \secref{use:bib:context}).
+
+该命令会自动遍历所有的参考文献段。
+这等价于为当前 \env{refsection} 的每一段给出一个 \cmd{printbibliography} 命令，不过会有额外好处：自动跳过不含参考文献的片段。
+请注意，\cmd{bibbysection} 一开始寻找第 \texttt{1} 段中的文献。
+它会忽略 \env{refsection} 外给出的文献，因为它们被分配给第 0 段。
+使用例子请参考 \secref{use:use:mlt}。
+选项可以是由 \cmd{printbibliography} 支持的一个子集。
+有效选项是 \opt{env}、\opt{heading}、\opt{prenote} 和 \opt{postnote}。
+当前文献内容排序格式会用于所有的段中（见 \secref{use:bib:context} 节）。
 
 \cmditem{bibbycategory}[key=value, \dots]
 
-This command loops over all bibliography categories. This is equivalent to giving one \cmd{printbibliography} command for every category but has the additional benefit of automatically skipping empty categories. The categories are processed in the order in which they were declared. See \secref{use:use:mlt} for usage examples. The options are a subset of those supported by \cmd{printbibliography}. Valid options are \opt{env}, \opt{prenote}, \opt{postnote}, \opt{section}. Note that \opt{heading} is not available with this command. The name of the current category is automatically used as the heading name. This is equivalent to passing \texttt{heading=\prm{category}} to \cmd{printbibliography} and implies that there must be a matching heading definition for every category. The current bibliography context sorting scheme is used for all categories (see \secref{use:bib:context}).
+%This command loops over all bibliography categories. This is equivalent to giving one \cmd{printbibliography} command for every category but has the additional benefit of automatically skipping empty categories. The categories are processed in the order in which they were declared. See \secref{use:use:mlt} for usage examples. The options are a subset of those supported by \cmd{printbibliography}. Valid options are \opt{env}, \opt{prenote}, \opt{postnote}, \opt{section}. Note that \opt{heading} is not available with this command. The name of the current category is automatically used as the heading name. This is equivalent to passing \texttt{heading=\prm{category}} to \cmd{printbibliography} and implies that there must be a matching heading definition for every category. The current bibliography context sorting scheme is used for all categories (see \secref{use:bib:context}).
+
+该命令遍历所有的文献类型。
+这等价于为每一类型给出一个 \cmd{printbibliography} 命令，
+不过会有额外好处：自动跳过空类型。
+类型按照声明的顺序处理。
+示例见 \secref{use:use:mlt} 节。
+选项可以是由 \cmd{printbibliography} 支持的一个子集。
+有效选项是 \opt{env}、\opt{heading}、\opt{prenote} 和 \opt{postnote}。
+请注意，\opt{heading} 对于该命令是无效的。
+当前类型的名字会自动作为标题名。
+这等价于传递 \texttt{heading=\prm{category}} 给 \cmd{printbibliography}，
+并且意味着对于每一类型都必须有一个匹配的标题定义。
+当前文献内容排序格式会用于所有的类型中（见 \secref{use:bib:context} 节）。
 
 \cmditem{printbibheading}[key=value, \dots]
 
-This command prints a bibliography heading defined with \cmd{defbibheading}. It takes one optional argument, which is a list of options given in \keyval notation. The options are a small subset of those supported by \cmd{printbibliography}. Valid options are \opt{heading} and \opt{title}. By default, this command uses the heading \texttt{bibliography}. See \secref{use:bib:hdg} for details. Also see \secref{use:use:mlt,use:use:div} for usage examples.
+%This command prints a bibliography heading defined with \cmd{defbibheading}. It takes one optional argument, which is a list of options given in \keyval notation. The options are a small subset of those supported by \cmd{printbibliography}. Valid options are \opt{heading} and \opt{title}. By default, this command uses the heading \texttt{bibliography}. See \secref{use:bib:hdg} for details. Also see \secref{use:use:mlt,use:use:div} for usage examples.
+
+该命令打印出由 \cmd{defbibheading} 定义的参考文献标题。
+它有一个可选项，是用 \keyval 记号给出的选项列表。
+选项是 \cmd{printbibliography} 支持的一个小子集。
+有效选项是 \opt{heading} 和 \opt{title}。
+缺省情况下，该命令使用标题 \texttt{bibliography}。
+详见 \secref{use:bib:hdg} 节。实例也可见 \secref{use:use:mlt,use:use:div} 节。
 
 \end{ltxsyntax}
 %
-To print a bibliography with a different sorting scheme than the global sorting scheme, use the bibliography context switching commands from \secref{use:bib:context}.
+%To print a bibliography with a different sorting scheme than the global sorting scheme, use the bibliography context switching commands from \secref{use:bib:context}.
+如果想要在参考文献中使用非全局排序格式的另外一种排序格式，
+使用 \secref{use:bib:context} 节提供的文献内容切换命令。
 
-\subsubsection{缩略表 The List of Shorthands}
-\label{use:bib:los}
+%\subsubsection{缩略表 The List of Shorthands}
+%\label{use:bib:los}
+%
+%\BibTeXOnlyMark This section applies only to \bibtex. When using \biber, the list of shorthands is just a special case of a bibliography list. See \secref{use:bib:biblist}.\footnote{本节需要重点关注一下，之前没有搞清楚}
+%
+%If any entry includes a \bibfield{shorthand} field, \sty{biblatex} automatically builds a list of shorthands which may be printed in addition to the regular bibliography. The following command prints the list of shorthands.
+%
+%\begin{ltxsyntax}
+%
+%\cmditem{printshorthands}[key=value, \dots]
+%
+%This command prints the list of shorthands. It takes one optional argument, which is a list of options given in \keyval notation. Valid options are all options supported by \cmd{printbibliography} (\secref{use:bib:bib}) except \opt{prefixnumbers}, \opt{resetnumbers}, and \opt{omitnumbers}. If there are any \env{refsection} environments in the document, the list of shorthands will be local to these environments; see \secref{use:bib:sec} for details. By default, this command uses the heading \texttt{shorthands}. See \secref{use:bib:hdg} for details.
+%
+%The \opt{sorting} option differs from \cmd{printbibliography} in that if omitted, the default is to sort by shorthand.
+%
+%\end{ltxsyntax}
 
-\BibTeXOnlyMark This section applies only to \bibtex. When using \biber, the list of shorthands is just a special case of a bibliography list. See \secref{use:bib:biblist}.\footnote{本节需要重点关注一下，之前没有搞清楚}
 
-If any entry includes a \bibfield{shorthand} field, \sty{biblatex} automatically builds a list of shorthands which may be printed in addition to the regular bibliography. The following command prints the list of shorthands.
 
-\begin{ltxsyntax}
 
-\cmditem{printshorthands}[key=value, \dots]
-
-This command prints the list of shorthands. It takes one optional argument, which is a list of options given in \keyval notation. Valid options are all options supported by \cmd{printbibliography} (\secref{use:bib:bib}) except \opt{prefixnumbers}, \opt{resetnumbers}, and \opt{omitnumbers}. If there are any \env{refsection} environments in the document, the list of shorthands will be local to these environments; see \secref{use:bib:sec} for details. By default, this command uses the heading \texttt{shorthands}. See \secref{use:bib:hdg} for details.
-
-The \opt{sorting} option differs from \cmd{printbibliography} in that if omitted, the default is to sort by shorthand.
-
-\end{ltxsyntax}
-
-\subsubsection{各类参考文献表 Bibliography Lists}
+\subsubsection{参考文献列表} %\subsubsection{Bibliography Lists}
 \label{use:bib:biblist}
 
-\BiberOnlyMark This section applies only to \biber. It is a generalisation of the shorthands facility available in earlier versions and with \bibtex. When using \bibtex as the backend, please refer to section \secref{use:bib:los}.
+%\biblatex can, in addition to printing normal bibliographies, also print arbitrary lists of information derived from the bibliography data such as a list of shorthand abbreviations for particular entries or a list of abbreviations of journal titles.
 
-\biblatex can, in addition to printing normal bibliographies, also print arbitrary lists of information derived from the bibliography data such as a list of shorthand abbreviations for particular entries or a list of abbreviations of journal titles.
+\biblatex 除了可以打印常规参考文献之外，还能根据文献数据打印任意文献信息列表，
+例如，与特定条目或者期刊标题缩写有关的速记缩写列表。
 
-A bibliography list differs from a normal bibliography in that the same bibliography driver is used to print all entries rather than a specific driver being used for each entry depending on the entry type.
+%A bibliography list differs from a normal bibliography in that the same bibliography driver is used to print all entries rather than a specific driver being used for each entry depending on the entry type.
+
+文献列表与常规参考文献不同的是，
+使用同一文献驱动打印所有条目，
+而不是根据条目类型使用特定于条目的驱动。
 
 \begin{ltxsyntax}
 
-\cmditem{printbiblist}[key=value, \dots]{<biblistname>}
+\cmditem{printbiblist}[key=value, \dots]{biblistname}
 
-This command prints a bibliography list. It takes an optional argument, which is a list of options given in \keyval notation. Valid options are all options supported by \cmd{printbibliography} (\secref{use:bib:bib}) except \opt{prefixnumbers}, \opt{resetnumbers}, and \opt{omitnumbers}. If there are any \env{refsection} environments in the document, the bibliography list will be local to these environments; see \secref{use:bib:sec} for details. By default, this command uses the heading \texttt{biblist}. See \secref{use:bib:hdg} for details.
+%This command prints a bibliography list. It takes an optional argument, which is a list of options given in \keyval notation. Valid options are all options supported by \cmd{printbibliography} (\secref{use:bib:bib}) except \opt{resetnumbers} and \opt{omitnumbers}. If there are any \env{refsection} environments in the document, the bibliography list will be local to these environments; see \secref{use:bib:sec} for details. By default, this command uses the heading \texttt{biblist}. See \secref{use:bib:hdg} for details.
 
-The \prm{biblistname} is a mandatory argument which names the bibliography list. This name is used to identify:
+该命令用于打印文献列表。
+其可选项是 \keyval 形式的一列选项。
+除了 \opt{resetnumbers} 和 \opt{omitnumbers}，
+\cmd{printbibliography} 命令（见 \secref{use:bib:bib} 节）支持的其它选项在这里都是有效的。
+如果文档中有任何 \env{refsection} 环境，
+那么文献列表只针对于这些环境，详见 \secref{use:bib:sec} 节。
+默认情况下该命令使用标题 \texttt{biblist}，详见 \secref{use:bib:hdg} 节。
+
+%The \prm{biblistname} is a mandatory argument which names the bibliography list. This name is used to identify:
+必选项 \prm{biblistname} 是文献列表的标题，用于确定如下项目：
 \begin{itemize}
-\item The default bibliography driver used to print the list entries
-\item A default filter declared with \cmd{DeclareBiblistFilter} (see \secref{aut:ctm:bibfilt}) used to filter the entries returned from \biber
-\item A default check declared with \cmd{defbibcheck} (see \secref{use:bib:flt}) used to post-process the list entries
-\item The default bib environment to use
-\item The default sorting scheme name to use
+\item %The default bibliography driver used to print the list entries
+用于打印列表条目的默认文献驱动。
+\item %A default filter declared with \cmd{DeclareBiblistFilter} (see \secref{aut:ctm:bibfilt}) used to filter the entries returned from \biber
+使用 \cmd{DeclareBiblistFilter} 声明的默认filter（见 \secref{aut:ctm:bibfilt} 节），
+用于过滤 \biber 返回的条目。
+\item %A default check declared with \cmd{defbibcheck} (see \secref{use:bib:flt}) used to post-process the list entries
+使用 \cmd{defbibcheck} 命令声明的默认check（见 \secref{use:bib:flt} 节），
+用于后置处理列表条目。
+\item %The default bib environment to use
+默认使用的bib 环境。
+\item %The default sorting scheme name to use
+默认使用的排序格式名称。
 \end{itemize}
 
-In terms of sorting the list, the default is to sort use the sorting scheme named after the bibliography list (if it exists) and only then to fall back to the current context sorting scheme is this is not defined (see \secref{use:bib:context}).
+%In terms of sorting the list, the default is to sort use the sorting scheme named after the bibliography list (if it exists) and only then to fall back to the current context sorting scheme is this is not defined (see \secref{use:bib:context}).
 
-The most common bibliography list is a list of shorthand abbreviations for certain entries and so this has a convenience alias \cmd{printshorthands[\dots]} for backwards compatibility which is defined as:
+在列表的排序方面，默认使用与该文献列表同名的排序格式（如果存在的话）。
+只有当未定义时才会切换到备选的当前内容排序格式（见 \secref{use:bib:context} 节）。
+
+%The most common bibliography list is a list of shorthand abbreviations for certain entries and so this has a convenience alias \cmd{printshorthands[\dots]} for backwards compatibility which is defined as:
+
+最常用的文献列表是关于某些条目的速记列表，
+出于向后兼容性专门有一个别名 \cmd{printshorthands[\dots]}，定义如下：
 
 \begin{lstlisting}[style=latex]{}
 \printbiblist[...]{shorthand}
 \end{lstlisting}
 
-\biblatex provides automatic support for data source fields in the default data model marked as <Label fields> (See \secref{bib:fld:dat}). Such fields automatically have defined for them:
+%\biblatex provides automatic support for data source fields in the default data model marked as <Label fields> (See \secref{bib:fld:dat}). Such fields automatically have defined for them:
+
+\biblatex 自动支持默认数据模型中标记为“Label fields”的数据域（见 \secref{bib:fld:dat} 节）。
+这些域已经自动为其定义了如下项目：
 
 \begin{itemize}
-\item A default bib environment (See \secref{use:bib:hdg})
-\item A bibliography list filter (See \secref{aut:ctm:bibfilt})
-\item Some supporting formats and lengths (See \secref{aut:fmt:ilc} and \secref{aut:fmt:ich})
+\item %A default bib environment (See \secref{use:bib:hdg})
+默认的 bib 环境（见 \secref{use:bib:hdg} 节）。
+\item %A bibliography list filter (See \secref{aut:ctm:bibfilt})
+文献列表filter（见 \secref{aut:ctm:bibfilt} 节）
+\item %Some supporting formats and lengths (See \secref{aut:fmt:ilc} and \secref{aut:fmt:ich})
+一些支持的格式和长度（见 \secref{aut:fmt:ilc} 和 \secref{aut:fmt:ich} 节）。
 \end{itemize}
 %
-Therefore only a minimal setup is required to print bibliography lists with such fields. For example, to print a list of journal title abbreviations, you can minimally put this in your preamble:
+%Therefore only a minimal setup is required to print bibliography lists with such fields. For example, to print a list of journal title abbreviations, you can minimally put this in your preamble:
+因此，打印带有这些域的文献列表只需要很少的设置。
+例如，想要打印出期刊标题缩写列表，
+只需要将如下一小段代码放在导言区中：
 
-\begin{lstlisting}[style=latex]{}
+\begin{ltxexample}
 \DeclareBibliographyDriver{shortjournal}{%
   \printfield{journaltitle}}
-\end{lstlisting}
+\end{ltxexample}
 %
-Then you can put this in your document where you want to print the list:
+%Then you can put this in your document where you want to print the list:
+然后在正文中想要打印列表的地方使用如下代码：
 
-\begin{lstlisting}[style=latex]{}
+\begin{ltxexample}
 \printbiblist[title={Journal Shorthands}]{shortjournal}
-\end{lstlisting}
+\end{ltxexample}
 %
-Since \bibfield{shortjournal} is defined in the default data model as a <Label field>, this example:
+%Since \bibfield{shortjournal} is defined in the default data model as a <Label field>, this example:
+由于默认数据模型将 \bibfield{shortjournal} 定义为“标签域”，
+因此在这个例子中：
 \begin{itemize}
-\item Uses the automatically created <shortjournal> bib environment
-\item Uses the automatically created <shortjournal> bibliography list filter to return only entries with a \bibfield{shortjournal} field in the \file{.bbl}
-\item Uses the defined <shortjournal> bibliography driver to print the entries
-\item Uses the default <biblist> heading but overrides the title with <Journal Shorthands>
-\item Uses the current bibliography context sorting scheme no scheme exists with the name \bibfield{shortjournal}
+\item %Uses the automatically created <shortjournal> bib environment
+使用自动创建的“shortjournal”bib环境。
+\item %Uses the automatically created <shortjournal> bibliography list filter to return only entries with a \bibfield{shortjournal} field in the \file{.bbl}
+使用自动创建的“shortjournal”文献列表filter，
+返回 \file{.bbl} 文件中只带有 \bibfield{shortjournal} 域的条目。
+\item %Uses the defined <shortjournal> bibliography driver to print the entries
+使用定义的“shortjournal”文献驱动来打印条目。
+\item %Uses the default <biblist> heading but overrides the title with <Journal Shorthands>
+使用默认的“biblist”标题，但是这里用“Journal Shorthands”来代替。
+\item %Uses the current bibliography context sorting scheme if no scheme exists with the name \bibfield{shortjournal}
+如果没有名为 \bibfield{shortjournal} 的格式，那么使用当前文献内容排序格式。
 \end{itemize}
 %
-Often, you will want to sort on the label field of the list and since a sorting scheme is automatically picked up if it is named after the list, in this case you could simply do:
+%Often, you will want to sort on the label field of the list and since a sorting scheme is automatically picked up if it is named after the list, in this case you could simply do:
+很多情况下想要根据列表中标签域进行排序。
+由于根据列表名可以自动获取排序格式，因此此时可以简单地使用如下代码：
 
-\begin{lstlisting}[style=latex]{}
+\begin{ltxexample}
 \DeclareSortingScheme{shortjournal}{
   \sort{
         \field{shortjournal}
   }
 }
-\end{lstlisting}
+\end{ltxexample}
 
-Naturally all defaults can be overridden by options to \cmd{printbiblist} and definitions of the environments, filters etc. and in this way arbitrary types of bibliography lists can be printed containing a variety of information from the bibliography data.
+%Naturally all defaults can be overridden by options to \cmd{printbiblist} and definitions of the environments, filters etc. and in this way arbitrary types of bibliography lists can be printed containing a variety of information from the bibliography data.
+
+自然地，\cmd{printbiblist} 命令的选项以及环境、filters等的定义可以覆盖所有的默认设置。
+因此通过这种方法可以从文献数据中打印任意类型的文献列表，并且包含各式信息。 
 \end{ltxsyntax}
 
-Bibliography lists are often used to print lists of various kinds of shorthands and this can result in duplicate entries if more than one bibliography entry has the same shorthand. For example, several journal articles in the same journal would result in duplicate entries in a list of journal shorthands. You can use the fact that such lists automatically pick up a \cmd{bibcheck} with the same name as the list to define a check to remove duplicates. If you are defining a list to print all of the journal shorthands using the \bibfield{shortjournal} field, you could define a \cmd{bibcheck} like this:
+%Bibliography lists are often used to print lists of various kinds of shorthands and this can result in duplicate entries if more than one bibliography entry has the same shorthand. For example, several journal articles in the same journal would result in duplicate entries in a list of journal shorthands. You can use the fact that such lists automatically pick up a \cmd{bibcheck} with the same name as the list to define a check to remove duplicates. If you are defining a list to print all of the journal shorthands using the \bibfield{shortjournal} field, you could define a \cmd{bibcheck} like this:
 
-\begin{lstlisting}[style=latex]{}
+文献列表通常用于打印各类shorthand列表。
+如果多个条目有相同的shorthand就会导致重复的条目。
+例如，如果有几篇论文在同一期刊上，那么期刊缩写列表中就会出现重复条目。
+不过，这样的列表会自动获取与列表同名的 \cmd{bibcheck}，进而定义相应的check来删除重复项目。
+如果使用 \bibfield{shortjournal} 域来定义打印所有期刊缩写的列表，
+那么需要定义如下的 \cmd{bibcheck}：
+
+\begin{ltxexample}
 \defbibcheck{shortjournal}{%
    \iffieldundef{shortjournal}{\skipentry}{%
     \iffieldundef{journal}{\skipentry}{%
      \ifcsdef{\strfield{shortjournal}=\strfield{journal}}
        {\skipentry}
        {\savefieldcs{journal}{\strfield{shortjournal}=\strfield{journal}}}}}}
-\end{lstlisting}
+\end{ltxexample}
 
-\subsubsection{参考文献分节 Bibliography Sections}
+\subsubsection{参考文献分节}% \subsubsection{Bibliography Sections}
 \label{use:bib:sec}
 
-The \env{refsection} environment is used in the document body to mark a reference section. This environment is useful if you want separate, independent bibliographies and bibliography lists in each chapter, section, or any other part of a document. Within a reference section, all cited works are assigned labels which are local to the environment. Technically, reference sections are completely independent from document divisions such as \cmd{chapter} and \cmd{section} even though they will most likely be used per chapter or section. See the \opt{refsection} package option in \secref{use:opt:pre:gen} for a way to automate this. Also see \secref{use:use:mlt} for usage examples.
+%The \env{refsection} environment is used in the document body to mark a reference section. This environment is useful if you want separate, independent bibliographies and bibliography lists in each chapter, section, or any other part of a document. Within a reference section, all cited works are assigned labels which are local to the environment. Technically, reference sections are completely independent from document divisions such as \cmd{chapter} and \cmd{section} even though they will most likely be used per chapter or section. See the \opt{refsection} package option in \secref{use:opt:pre:gen} for a way to automate this. Also see \secref{use:use:mlt} for usage examples.
+
+在文档中，\env{refsection} 环境用于标记参考文献分节。
+该环境主要用于在文档的每一章、节或其它部分中实现各自独立的参考文献和shorthand列表。
+在一个文献分节内部，所有引用文献分配的标签都局部在该环境中。
+技术上，尽管文献分节通常在每一章或每一节中使用，
+但它们与 \cmd{chapter} 和 \cmd{section} 等文档划分是完全独立的。
+关于自动实现这一功能请参考 \secref{use:opt:pre:gen} 中的 \opt{refsection} 宏包选项。
+使用例子也可以参见 \secref{use:use:mlt}。
 
 \begin{ltxsyntax}
 
 \envitem{refsection}[resource, \dots]
 
-The optional argument is a comma"=separated list of resources specific to the reference section. If the argument is omitted, the reference section will use the default resource list, as specified with \cmd{addbibresource} in the preamble. If the argument is provided, it replaces the default resource list. Global resources specified with \cmd{addglobalbib} are always considered. \env{refsection} environments may not be nested, but you may use \env{refsegment} environments within a \env{refsection} to subdivide it into segments. Use the \opt{section} option of \cmd{printbibliography} to select a section when printing the bibliography, and the corresponding option of \cmd{printbiblist} when printing bibliography lists. Bibliography sections are numbered starting at~\texttt{1}. The number of the current section is also written to the transcript file. All citations given outside a \env{refsection} environment are assigned to section~0. If \cmd{printbibliography} is used within a \env{refsection}, it will automatically select the current section. The \opt{section} option is not required in this case. This also applies to \cmd{printbiblist}.
+%The optional argument is a comma"=separated list of resources specific to the reference section. If the argument is omitted, the reference section will use the default resource list, as specified with \cmd{addbibresource} in the preamble. If the argument is provided, it replaces the default resource list. Global resources specified with \cmd{addglobalbib} are always considered. \env{refsection} environments may not be nested, but you may use \env{refsegment} environments within a \env{refsection} to subdivide it into segments. Use the \opt{section} option of \cmd{printbibliography} to select a section when printing the bibliography, and the corresponding option of \cmd{printbiblist} when printing bibliography lists. Bibliography sections are numbered starting at~\texttt{1}. The number of the current section is also written to the transcript file. All citations given outside a \env{refsection} environment are assigned to section~0. If \cmd{printbibliography} is used within a \env{refsection}, it will automatically select the current section. The \opt{section} option is not required in this case. This also applies to \cmd{printbiblist}.
+
+可选项是特定于该参考文献分节的逗号分隔资源列表。
+如果省略了该选项，参考文献节会使用缺省的数据源列表，由导言区的 \cmd{addbibresource} 指定。
+如果提供了该选项，它会替代缺省的资源列表。
+不过，由 \cmd{addglobalbib} 指定的全局文献资源总是包含在内的。
+\env{refsection} 环境不可以相互嵌套，
+但是可以在 \env{refsection} 环境内使用 \env{refsegment} 环境来进一步分段。
+当打印参考文献时，使用 \cmd{printbibliography} 的 \opt{section} 选项来选择节；
+同样地当打印文献列表时使用 \cmd{printbiblist} 对应的选项。
+参考文献分节从~\texttt{1} 开始编号。当前节的编号也被写入副本文件中。
+所有在 \env{refsection} 环境外给出的引用都归到第~0 节中。
+如果在 \env{refsection} 内部使用 \cmd{printbibliography} 环境，它会自动选择当前节。
+此时不需要 \opt{section} 选项。这也适用于 \cmd{printbiblist}。
 
 \cmditem{newrefsection}[resource, \dots]
 
-This command is similar to the \env{refsection} environment except that it is a stand"=alone command rather than an environment. It automatically ends the previous reference section (if any) and immediately starts a new one. Note that the reference section started by the last \cmd{newrefsection} command in the document will extend to the very end of the document. Use \cmd{endrefsection} if you want to terminate it earlier.
+%This command is similar to the \env{refsection} environment except that it is a stand"=alone command rather than an environment. It automatically ends the previous reference section (if any) and immediately starts a new one. Note that the reference section started by the last \cmd{newrefsection} command in the document will extend to the very end of the document. Use \cmd{endrefsection} if you want to terminate it earlier.
+
+该命令类似于 \env{refsection} 环境，不同之处在于它是单独命令而不是一个环境。
+它会自动结束之前的文献分节（如果有的话）并立即开始新的一节。
+请注意，文档中由最后一个 \cmd{newrefsection} 开始的文献节会延续到文档的最后。
+如果你想提前终止的话可以使用 \cmd{endrefsection}。
 
 \end{ltxsyntax}
 
-\subsubsection{参考文献分部 Bibliography Segments}
+\subsubsection{参考文献分段}%\subsubsection{Bibliography Segments}
 \label{use:bib:seg}
 
-The \env{refsegment} environment is used in the document body to mark a reference segment. This environment is useful if you want one global bibliography which is subdivided by chapter, section, or any other part of the document. Technically, reference segments are completely independent from document divisions such as \cmd{chapter} and \cmd{section} even though they will typically be used per chapter or section. See the \opt{refsegment} package option in \secref{use:opt:pre:gen} for a way to automate this. Also see \secref{use:use:mlt} for usage examples.
+%The \env{refsegment} environment is used in the document body to mark a reference segment. This environment is useful if you want one global bibliography which is subdivided by chapter, section, or any other part of the document. Technically, reference segments are completely independent from document divisions such as \cmd{chapter} and \cmd{section} even though they will typically be used per chapter or section. See the \opt{refsegment} package option in \secref{use:opt:pre:gen} for a way to automate this. Also see \secref{use:use:mlt} for usage examples.
+
+在文档中，\env{refsegment} 环境用来标记参考文献片段。
+该环境用于实现在文档的每一章、节或其它部分中将全局的参考文献分成片段。
+技术上，尽管文献分段通常在每一章或每一节中使用，
+但它们与 \cmd{chapter} 和 \cmd{section} 等文档划分是完全独立的。
+关于自动实现这一功能请参考 \secref{use:opt:pre:gen} 中的 \opt{refsegment} 宏包选项。
+使用例子也可以参见 \secref{use:use:mlt}。
 
 \begin{ltxsyntax}
 
 \envitem{refsegment}
 
-The difference between a \env{refsection} and a \env{refsegment} environment is that the former creates labels which are local to the environment whereas the latter provides a target for the \opt{segment} filter of \cmd{printbibliography} without affecting the labels. They will be unique across the entire document. \env{refsegment} environments may not be nested, but you may use them in conjunction with \env{refsection} to subdivide a reference section into segments. In this case, the segments are local to the enclosing \env{refsection} environment. Use the \env{segment} option of \cmd{printbibliography} to select a segment when printing the bibliography. Within a section, the reference segments are numbered starting at~\texttt{1} and the number of the current segment will be written to the transcript file. All citations given outside a \env{refsegment} environment are assigned to segment~0. In contrast to the \env{refsection} environment, the current segment is not selected automatically if \cmd{printbibliography} is used within a \env{refsegment} environment.
+%The difference between a \env{refsection} and a \env{refsegment} environment is that the former creates labels which are local to the environment whereas the latter provides a target for the \opt{segment} filter of \cmd{printbibliography} without affecting the labels. They will be unique across the entire document. \env{refsegment} environments may not be nested, but you may use them in conjunction with \env{refsection} to subdivide a reference section into segments. In this case, the segments are local to the enclosing \env{refsection} environment. Use the \env{segment} option of \cmd{printbibliography} to select a segment when printing the bibliography. Within a section, the reference segments are numbered starting at~\texttt{1} and the number of the current segment will be written to the transcript file. All citations given outside a \env{refsegment} environment are assigned to segment~0. In contrast to the \env{refsection} environment, the current segment is not selected automatically if \cmd{printbibliography} is used within a \env{refsegment} environment.
+
+\env{regsection} 与 \env{refsegment} 环境的不同之处在于，
+前者创建局部于该环境的标签而后者仅为 \cmd{printbibliography} 命令的 \opt{segment} filter 提供目标而不影响标签。
+在整个文档中它们是唯一确定的。
+\env{refsegment} 环境不可以嵌套，
+但是你可以将其与 \env{refsection} 环境结合使用来将文献节细分为段。
+此时，这些文献分段是局部于被包含的 \env{refsection} 环境的。
+当打印参考文献时，使用 \cmd{printbibliography} 的 \opt{segment} 选项来选择文献分段。
+在一节内，文献段从~\texttt{1} 开始编号，并且当前段的编号会被写入到一个副本文件中。
+所有在 \env{refsegment} 环境之外的引用都归到第~0 段。
+与 \env{refsection} 环境相反，
+当 \cmd{printbibliography} 在一个 \env{refsegment} 环境内使用时，当前文献分段并不自动选定。
 
 \csitem{newrefsegment}
 
-This command is similar to the \env{refsegment} environment except that it is a stand"=alone command rather than an environment. It automatically ends the previous reference segment (if any) and immediately starts a new one. Note that the reference segment started by the last \cmd{newrefsegment} command will extend to the end of the document. Use \cmd{endrefsegment} if you want to terminate it earlier.
+%This command is similar to the \env{refsegment} environment except that it is a stand"=alone command rather than an environment. It automatically ends the previous reference segment (if any) and immediately starts a new one. Note that the reference segment started by the last \cmd{newrefsegment} command will extend to the end of the document. Use \cmd{endrefsegment} if you want to terminate it earlier.
+
+该命令类似于 \env{refsegment} 环境，不同之处在于它是单独命令而不是一个环境。
+它会自动结束之前的文献分段（如果有的话）并立即开始新的一段。
+请注意，由最后一个 \cmd{newrefsegment} 开始的文献分段会延续到文档结束。
+如果你想提前终止的话可以使用 \cmd{endrefsegment}。
 
 \end{ltxsyntax}
 
-\subsubsection{参考文献分类 Bibliography Categories}
+\subsubsection{参考文献分类}%\subsubsection{Bibliography Categories}
 \label{use:bib:cat}
 
-Bibliography categories allow you to split the bibliography into multiple parts dedicated to different topics or different types of references, for example primary and secondary sources. See \secref{use:use:div} for usage examples.
+%Bibliography categories allow you to split the bibliography into multiple parts dedicated to different topics or different types of references, for example primary and secondary sources. See \secref{use:use:div} for usage examples.
+
+参考文献分类允许将参考文献针对不同主题或不同文献类型分成若干部分，例如分成主要文献和次要文献。
+使用例子参见 \secref{use:use:div} 节。
 
 \begin{ltxsyntax}
 
 \cmditem{DeclareBibliographyCategory}{category}
 
-Declares a new \prm{category}, to be used in conjunction with \cmd{addtocategory} and the
-\opt{category} and \opt{notcategory} filters of \cmd{printbibliography}. This command is used in the document preamble.
+%Declares a new \prm{category}, to be used in conjunction with \cmd{addtocategory} and the \opt{category} and \opt{notcategory} filters of \cmd{printbibliography}. This command is used in the document preamble.
+
+声明一个新的 \prm{category}，
+可以和 \cmd{addtocategory} 以及 \cmd{printbibliography} 的 \opt{category}、\opt{notcategory} filter结合使用。
+该命令在导言区中使用。
 
 \cmditem{addtocategory}{category}{key}
 
-Assigns a \prm{key} to a \prm{category}, to be used in conjunction with the \opt{category} and \opt{notcategory} filters of \cmd{printbibliography}. This command may be used in the preamble and in the document body. The \prm{key} may be a single entry key or a comma"=separated list of keys. The assignment is global.
+%Assigns a \prm{key} to a \prm{category}, to be used in conjunction with the \opt{category} and \opt{notcategory} filters of \cmd{printbibliography}. This command may be used in the preamble and in the document body. The \prm{key} may be a single entry key or a comma"=separated list of keys. The assignment is global.
+
+将 \prm{key} 关键字分配给 \prm{category} 类，
+可以和 \cmd{addtocategory} 以及 \cmd{printbibliography} 的 \opt{category}、\opt{notcategory} filter结合使用。
+该命令可以在导言区和正文中使用。
+\prm{key} 可以是一个单独条目关键字或者逗号分隔的键值列表。该分配是全局的。
 
 \end{ltxsyntax}
 
-\subsubsection{参考文献标题和环境 Bibliography Headings and Environments}
+\subsubsection{参考文献标题与环境}%\subsubsection{Bibliography Headings and Environments}
 \label{use:bib:hdg}
 
 \begin{ltxsyntax}
 
 \cmditem{defbibenvironment}{name}{begin code}{end code}{item code}
 
-This command defines bibliography environments. The \prm{name} is an identifier passed to the \opt{env} option of \cmd{printbibliography} and \cmd{printbiblist} when selecting the environment. The \prm{begin code} is \latex code to be executed at the beginning of the environment; the \prm{end code} is executed at the end of the environment; the \prm{item code} is code to be executed at the beginning of each entry in the bibliography or a bibliography list. Here is an example of a definition based on the standard \latex \env{list} environment:
+%This command defines bibliography environments. The \prm{name} is an identifier passed to the \opt{env} option of \cmd{printbibliography} and \cmd{printbiblist} when selecting the environment. The \prm{begin code} is \latex code to be executed at the beginning of the environment; the \prm{end code} is executed at the end of the environment; the \prm{item code} is code to be executed at the beginning of each entry in the bibliography or a bibliography list. Here is an example of a definition based on the standard \latex \env{list} environment:
 
-\begin{lstlisting}[style=latex]{}
+该命令定义参考文献环境。
+其中 \prm{name} 是标识符，
+当选择该环境时会传递给 \cmd{printbibliography} 和 \cmd{printshorthands} 的 \opt{env} 选项。
+\prm{begin code} 是该环境开始时执行的 \LaTeX 代码；
+而 \prm{end code} 在该环境结束时执行；
+\prm{item code} 是在参考文献或者shorthand列表的每一条目开始时执行的代码。
+如下是基于 \LaTeX 标准 \env{list} 环境定义的例子。
+
+\begin{ltxexample}
 \defbibenvironment{bibliography}
   {\list{}
      {\setlength{\leftmargin}{\bibhang}%
@@ -2699,83 +2988,138 @@ This command defines bibliography environments. The \prm{name} is an identifier 
       \setlength{\parsep}{\bibparsep}}}
   {\endlist}
   {\item}
-\end{lstlisting}
+\end{ltxexample}
 %
-As seen in the above example, usage of \cmd{defbibenvironment} is roughly similar to \cmd{newenvironment} except that there is an additional mandatory argument for the \prm{item code}.
+%As seen in the above example, usage of \cmd{defbibenvironment} is roughly similar to \cmd{newenvironment} except that there is an additional mandatory argument for the \prm{item code}.
+如上述例子所示，\cmd{defbibenvironment} 的使用大体类似于 \cmd{newenvironment}，
+不同之处在于有一个额外的必选项 \prm{item code}。
 
 \cmditem{defbibheading}{name}[title]{code}
 
-This command defines bibliography headings. The \prm{name} is an identifier to be passed to the \opt{heading} option of \cmd{printbibliography} or \cmd{printbibheading} and \cmd{printbiblist} when selecting the heading. The \prm{code} should be \latex code generating a fully"=fledged heading, including page headers and an entry in the table of contents, if desired. If \cmd{printbibliography} or \cmd{printbiblist} are invoked with a \opt{title} option, the title will be passed to the heading definition as |#1|. If not, the default title specified by the optional \prm{title} argument is passed as |#1| instead. The \prm{title} argument will typically be \cmd{bibname}, \cmd{refname}, or \cmd{biblistname} (see \secref{aut:lng:key:bhd}). This command is often needed after changes to document headers in the preamble. Here is an example of a simple heading definition:
+%This command defines bibliography headings. The \prm{name} is an identifier to be passed to the \opt{heading} option of \cmd{printbibliography} or \cmd{printbibheading} and \cmd{printbiblist} when selecting the heading. The \prm{code} should be \latex code generating a fully"=fledged heading, including page headers and an entry in the table of contents, if desired. If \cmd{printbibliography} or \cmd{printbiblist} are invoked with a \opt{title} option, the title will be passed to the heading definition as |#1|. If not, the default title specified by the optional \prm{title} argument is passed as |#1| instead. The \prm{title} argument will typically be \cmd{bibname}, \cmd{refname}, or \cmd{biblistname} (see \secref{aut:lng:key:bhd}). This command is often needed after changes to document headers in the preamble. Here is an example of a simple heading definition:
 
-\begin{lstlisting}[style=latex]{}
+该命令定义参考文献标题。
+其中 \prm{name} 是标识符，
+当选择该标题时会传递给 \cmd{printbibliography} 和 \cmd{printshorthands} 的 \opt{env} 选项。
+\prm{code} 是能生成完整标题的 \LaTeX 代码，包括页眉和目录中的条目（如果必要的话）。
+如果 \cmd{printbibliography} 或 \cmd{printshorthands} 带有 \opt{title} 选项，
+那么 \opt{title} 将作为 |#1| 传递给标题定义；
+否则由可选的 \prm{title} 确定的标题将作为 |#1| 传递给标题定义。
+\prm{title} 选项通常是 \cmd{bibname}、\cmd{refname} 或者 \cmd{biblistname}
+（见 \secref{aut:lng:key:bhd} 节）。
+如果在导言区中改变文档标题时，那么之后通常需要该命令。
+如下是一个简单标题定义的例子：
+
+\begin{ltxexample}
 \defbibheading{bibliography}[\bibname]{%
   \chapter*{#1}%
   \markboth{#1}{#1}}
-\end{lstlisting}
+\end{ltxexample}
 
 \end{ltxsyntax}
 
-The following headings, which are intended for use with \cmd{printbibliography} and \cmd{printbibheading}, are predefined:
+%The following headings, which are intended for use with \cmd{printbibliography} and \cmd{printbibheading}, are predefined:
+
+以下预定义的标题与 \cmd{printbibliography} 和 \cmd{printbibheading} 结合使用：
 
 \begin{valuelist*}
 
 \item[bibliography]
-This is the default heading used by \cmd{printbibliography} if the \opt{heading} option is not given. Its default definition depends on the document class. If the class provides a \cmd{chapter} command, the heading is similar to the bibliography heading of the standard \latex \texttt{book} class, \ie it uses \cmd{chapter*} to create an unnumbered chapter heading which is not included in the table of contents. If there is no \cmd{chapter} command, it is similar to the bibliography heading of the standard \latex \texttt{article} class, \ie it uses \cmd{section*} to create an unnumbered section heading which is not included in the table of contents. The string used in the heading also depends on the document class. With \texttt{book}-like classes the localization string \texttt{bibliography} is used, with other classes it is \texttt{references} (see \secref{aut:lng:key}). See also \secref{use:cav:scr, use:cav:mem} for class-specific hints.
+%This is the default heading used by \cmd{printbibliography} if the \opt{heading} option is not given. Its default definition depends on the document class. If the class provides a \cmd{chapter} command, the heading is similar to the bibliography heading of the standard \latex \texttt{book} class, \ie it uses \cmd{chapter*} to create an unnumbered chapter heading which is not included in the table of contents. If there is no \cmd{chapter} command, it is similar to the bibliography heading of the standard \latex \texttt{article} class, \ie it uses \cmd{section*} to create an unnumbered section heading which is not included in the table of contents. The string used in the heading also depends on the document class. With \texttt{book}-like classes the localisation string \texttt{bibliography} is used, with other classes it is \texttt{references} (see \secref{aut:lng:key}). See also \secref{use:cav:scr, use:cav:mem} for class-specific hints.
+如果没有给出 \opt{heading} 选项，那么这是 \cmd{printbibliography} 使用的默认标题。
+缺省定义取决于文档类。
+如果文类提供 \cmd{chapter} 命令，那么该标题就类似于标准 \LaTeX 的 \texttt{book} 文类的参考文献标题，
+即使用 \cmd{chapter*} 来创建不带编号的章，并且不包含在目录中。
+如果没有 \cmd{chapter} 命令，那么它将类似于标准 \LaTeX 的 \texttt{article} 文类的参考文献标题，
+即使用 \cmd{section*} 来创建不带编号的节，并且不包含在目录中。
+标题中使用的字符串也取决于文档类。
+\texttt{book} 文档类使用本地化字符串 \texttt{bibliography}，
+在其它文档类中则是 \texttt{references}（见 \secref{aut:lng:key} 节）。
+关于文档类的提示也可以见 \secref{use:cav:scr, use:cav:mem} 节。
 
 \item[subbibliography]
-Similar to \texttt{bibliography} but one sectioning level lower. This heading definition uses \cmd{section*} instead of \cmd{chapter*} with a \texttt{book}-like class and \cmd{subsection*} instead of \cmd{section*} otherwise.
+%Similar to \texttt{bibliography} but one sectioning level lower. This heading definition uses \cmd{section*} instead of \cmd{chapter*} with a \texttt{book}-like class and \cmd{subsection*} instead of \cmd{section*} otherwise.
+类似于 \texttt{bibliography}，但是标题格式低一级。
+即，在 \texttt{book} 文档类中使用 \cmd{section*} 而不是 \cmd{chapter*}，
+其它情况使用 \cmd{subsection*} 而不是 \cmd{section*}。
 
 \item[bibintoc]
-Similar to \texttt{bibliography} above but adds an entry to the table of contents.
+%Similar to \texttt{bibliography} above but adds an entry to the table of contents.
+类似于 \texttt{bibliography} 但是在目录中添加条目。
 
 \item[subbibintoc]
-Similar to \texttt{subbibliography} above but adds an entry to the table of contents.
+%Similar to \texttt{subbibliography} above but adds an entry to the table of contents.
+类似于 \texttt{subbibliography} 但是在目录中添加条目。
 
 \item[bibnumbered]
-Similar to \texttt{bibliography} above but uses \cmd{chapter} or \cmd{section} to create a numbered heading which is also added to the table of contents.
+%Similar to \texttt{bibliography} above but uses \cmd{chapter} or \cmd{section} to create a numbered heading which is also added to the table of contents.
+类似于 \texttt{bibliography} 但是使用 \cmd{chapter} 或 \cmd{section} 来创建带编号的条目，
+同时也添加到目录中。
 
 \item[subbibnumbered]
-Similar to \texttt{subbibliography} above but uses \cmd{section} or \cmd{subsection} to create a numbered heading which is also added to the table of contents.
+%Similar to \texttt{subbibliography} above but uses \cmd{section} or \cmd{subsection} to create a numbered heading which is also added to the table of contents.
+类似于 \texttt{bibliography} 但是使用 \cmd{section} 或 \cmd{subsection} 来创建带编号的条目，
+同时也添加到目录中。
 
 \item[none]
-A blank heading definition. Use this to suppress the heading.
+%A blank heading definition. Use this to suppress the heading.
+空白的标题定义，用来取消标题。
 
 \end{valuelist*}
 
-The following headings intended for use with \cmd{printbiblist} are predefined:
+%The following headings intended for use with \cmd{printbiblist} are predefined:
+以下预定义的标题与 \cmd{printshorthands} 结合使用：
 
 \begin{valuelist*}
 
 \item[biblist]
-This is the default heading used by \cmd{printbiblist} if the \opt{heading} option is not given. It is similar to \texttt{bibliography} above except that it uses the localization string \texttt{shorthands} instead of \texttt{bibliography} or \texttt{references} (see \secref{aut:lng:key}). See also \secref{use:cav:scr, use:cav:mem} for class-specific hints.
+%This is the default heading used by \cmd{printbiblist} if the \opt{heading} option is not given. It is similar to \texttt{bibliography} above except that it uses the localisation string \texttt{shorthands} instead of \texttt{bibliography} or \texttt{references} (see \secref{aut:lng:key}). See also \secref{use:cav:scr, use:cav:mem} for class-specific hints.
+如果没有给出 \opt{heading} 选项，那么这是 \cmd{printbiblist} 使用的缺省标题。
+类似于上面的 \texttt{bibliography}，
+不过是使用本地化字符串 \texttt{shorthands} 而不是 \texttt{bibliography} 或 \texttt{references}
+（见 \secref{aut:lng:key} 节）。
+关于文档类的提示另见 \secref{use:cav:scr, use:cav:mem} 节。
 
 \item[biblistintoc]
-Similar to \texttt{biblist} above but adds an entry to the table of contents.
+%Similar to \texttt{biblist} above but adds an entry to the table of contents.
+类似于 \texttt{shorthands} 但是在目录中添加条目。
 
 \item[biblistnumbered]
-Similar to \texttt{biblist} above but uses \cmd{chapter} or \cmd{section} to create a numbered heading which is also added to the table of contents.
+%Similar to \texttt{biblist} above but uses \cmd{chapter} or \cmd{section} to create a numbered heading which is also added to the table of contents.
+类似于上面的 \texttt{biblist} 但是使用 \cmd{chapter} 或 \cmd{section} 来创建带编号的标题，
+同时也添加到目录中。
 
 \end{valuelist*}
 
-\subsubsection{参考文献注释 Bibliography Notes}
+\subsubsection{参考文献注记}%\subsubsection{Bibliography Notes}
 \label{use:bib:nts}
 
 \begin{ltxsyntax}
 
 \cmditem{defbibnote}{name}{text}
 
-Defines the bibliography note \prm{name}, to be used via the \opt{prenote} and \opt{postnote} options of \cmd{printbibliography} and \cmd{printbiblist}. The \prm{text} may be any arbitrary piece of text, possibly spanning several paragraphs and containing font declarations. Also see \secref{use:cav:act}.
+%Defines the bibliography note \prm{name}, to be used via the \opt{prenote} and \opt{postnote} options of \cmd{printbibliography} and \cmd{printbiblist}. The \prm{text} may be any arbitrary piece of text, possibly spanning several paragraphs and containing font declarations. Also see \secref{use:cav:act}.
+
+定义名为 \prm{name} 的参考文献注记 ，
+通过 \cmd{printbibliography} 和 \cmd{printbiblist} 的 \opt{prenote} 和 \opt{postnote} 选项使用。
+\prm{text} 可以是任意文本片段，通常包含若干段落和字体声明。
+另见 \secref{use:cav:act} 节。
 
 \end{ltxsyntax}
 
-\subsubsection{参考文献过滤和检查 Bibliography Filters and Checks}
+\subsubsection{参考文献过滤和检查} %\subsubsection{Bibliography Filters and Checks}
 \label{use:bib:flt}
 
 \begin{ltxsyntax}
 
 \cmditem{defbibfilter}{name}{expression}
 
-Defines the custom bibliography filter \prm{name}, to be used via the \opt{filter} option of \cmd{printbibliography}. The \prm{expression} is a complex test based on the logical operators \texttt{and}, \texttt{or}, \texttt{not}, the group separator \texttt{(...)}, and the following atomic tests:
+%Defines the custom bibliography filter \prm{name}, to be used via the \opt{filter} option of \cmd{printbibliography}. The \prm{expression} is a complex test based on the logical operators \texttt{and}, \texttt{or}, \texttt{not}, the group separator \texttt{(...)}, and the following atomic tests:
+
+定义一个可定制的文献过滤 \prm{name}，
+可以通过 \cmd{printbibliography} 的 \opt{filter} 选项使用。
+\prm{expression} 是复合测试，
+基于逻辑运算符 \texttt{and}、\texttt{or}、\texttt{not}，组运算符 \texttt{(...)}，以及以下的基本测试：
 
 \end{ltxsyntax}
 
@@ -2783,133 +3127,450 @@ Defines the custom bibliography filter \prm{name}, to be used via the \opt{filte
 
 \valitem{segment}{integer}
 
-Matches all entries cited in reference segment \prm{integer}.
+%Matches all entries cited in reference segment \prm{integer}.
+
+匹配所有在参考文献分段 \prm{integer} 中引用的条目。
 
 \valitem{type}{entrytype}
 
-Matches all entries whose entry type is \prm{entrytype}.
+%Matches all entries whose entry type is \prm{entrytype}.
+
+匹配所有类型为 \prm{entrytype} 的条目。
 
 \valitem{subtype}{subtype}
 
-Matches all entries whose \bibfield{entrysubtype} is \prm{subtype}.
+%Matches all entries whose \bibfield{entrysubtype} is \prm{subtype}.
+
+匹配所有 \bibfield{entrysubtype} 域为 \prm{subtype} 的条目。
 
 \valitem{keyword}{keyword}
 
-Matches all entries whose \bibfield{keywords} field includes \prm{keyword}. If the \prm{keyword} contains spaces, it needs to be wrapped in braces.
+%Matches all entries whose \bibfield{keywords} field includes \prm{keyword}. If the \prm{keyword} contains spaces, it needs to be wrapped in braces.
+
+匹配所有 \bibfield{keywords} 域包含 \prm{keyword} 的条目。
+如果 \prm{keyword} 包含空格，那么需要用括号括起来。
 
 \valitem{category}{category}
 
-Matches all entries assigned to \prm{category} with \cmd{addtocategory}.
+%Matches all entries assigned to \prm{category} with \cmd{addtocategory}.
+
+匹配所有由 \cmd{addtocategory} 归入 \prm{category} 类的条目。
 
 \end{optionlist*}
 
-Here is an example of a filter expression:
+%Here is an example of a filter expression:
+如下是一个 filter 表达式的例子：
 
-\begin{lstlisting}[style=latex,keywords={and,or,not,type,keyword}]{}
+\begin{ltxexample}[style=latex,keywords={and,or,not,type,keyword}]{}
 \defbibfilter{example}{%
   ( type=book or type=inbook )
   and keyword=abc
   and not keyword={x y z}
 }
-\end{lstlisting}
+\end{ltxexample}
 %
-This filter will match all entries whose entry type is either \bibtype{book} or \bibtype{inbook} and whose \bibfield{keywords} field includes the keyword <\texttt{abc}> but not <\texttt{x y z}>. As seen in the above example, all elements are separated by whitespace (spaces, tabs, or line endings). There is no spacing around the equal sign. The logical operators are evaluated with the \cmd{ifboolexpr} command from the \sty{etoolbox} package. See the \sty{etoolbox} manual for details about the syntax. The syntax of the \cmd{ifthenelse} command from the \sty{ifthen} package, which has been employed in older versions of \biblatex, is still supported. This is the same test using \sty{ifthen}-like syntax:
+%This filter will match all entries whose entry type is either \bibtype{book} or \bibtype{inbook} and whose \bibfield{keywords} field includes the keyword <\texttt{abc}> but not <\texttt{x y z}>. As seen in the above example, all elements are separated by whitespace (spaces, tabs, or line endings). There is no spacing around the equal sign. The logical operators are evaluated with the \cmd{ifboolexpr} command from the \sty{etoolbox} package. See the \sty{etoolbox} manual for details about the syntax. The syntax of the \cmd{ifthenelse} command from the \sty{ifthen} package, which has been employed in older versions of \biblatex, is still supported. This is the same test using \sty{ifthen}-like syntax:
+该 filter 匹配的条目规则是，条目类型是 \bibtype{book} 或 \bibtype{inbook}，\bibfield{keywords} 域包含关键词 “\texttt{abc}”但不包含“\texttt{x y z}”。
+从以上例子可以看出，所有的元素由空白分开（空格、制表符或者换行）。
+等号周围没有空白。逻辑运算使用 \sty{etoolbox} 宏包的 \cmd{ifboolexpr} 执行。
+关于该语法详见 \sty{etoolbox} 手册。
+\biblatex 旧版本中使用的 \sty{ifthen} 宏包的 \cmd{ifthenelse} 语法这里仍然支持。
+如下是相同的测试，使用 \sty{ifthen} 样式的语法：
 
-\begin{lstlisting}[style=ifthen,morekeywords={\\type,\\keyword}]{}
+\begin{ltxexample}[style=ifthen,morekeywords={\\type,\\keyword}]{}
 \defbibfilter{example}{%
   \( \type{book} \or \type{inbook} \)
   \and \keyword{abc}
   \and \not \keyword{x y z}
 }
-\end{lstlisting}
+\end{ltxexample}
 %
-Note that custom filters are local to the reference section in which they are used. Use the \texttt{section} filter of \cmd{printbibliography} to select a different section. This is not possible from within a custom filter.
+%Note that custom filters are local to the reference section in which they are used. Use the \texttt{section} filter of \cmd{printbibliography} to select a different section. This is not possible from within a custom filter.
+请注意，定制的 filter 对于所在的参考文献分节是局部的。
+使用 \cmd{printbibliography} 的 \texttt{section} filter 来选择不同的分节。
+这在定制filter中是不可能的。
 
 \begin{ltxsyntax}
 
 \cmditem{defbibcheck}{name}{code}
 
-Defines the custom bibliography filter \prm{name}, to be used via the \opt{check} option of \cmd{printbibliography}. \cmd{defbibcheck} is similar in concept to \cmd{defbibfilter} but much more low-level. Rather than a high-level expression, the \prm{code} is \latex code, much like the code used in driver definitions, which may perform arbitrary tests to decide whether or not a given entry is to be printed. The bibliographic data of the respective entry is available when the \prm{code} is executed. Issuing the command \cmd{skipentry} in the \prm{code} will cause the current entry to be skipped. For example, the following filter will only output entries with an \bibfield{abstract} field:
+%Defines the custom bibliography filter \prm{name}, to be used via the \opt{check} option of \cmd{printbibliography}. \cmd{defbibcheck} is similar in concept to \cmd{defbibfilter} but much more low-level. Rather than a high-level expression, the \prm{code} is \latex code, much like the code used in driver definitions, which may perform arbitrary tests to decide whether or not a given entry is to be printed. The bibliographic data of the respective entry is available when the \prm{code} is executed. Issuing the command \cmd{skipentry} in the \prm{code} will cause the current entry to be skipped. For example, the following filter will only output entries with an \bibfield{abstract} field:
 
-\begin{lstlisting}[style=latex]{}
+定义了可定制的参考文献 check \prm{name}，
+可以通过 \cmd{printbibliography} 的 \opt{check} 选项使用。
+\cmd{defbibcheck} 从概念上类似于 \cmd{defbibfilter} 不过更加低层。
+与高层次表达式不同，\prm{code} 是 \LaTeX 代码，更像是驱动定义中使用的代码，
+可以执行任意测试来决定是否打印某个给定的条目。
+当执行 \prm{code} 时，相应条目的文献数据是可用的。
+在 \prm{code} 中使用 \cmd{skipentry} 命令会跳过当前条目。
+例如，下面的 check 只会输出带有 \bibfield{abstract} 域的条目：
+
+\begin{ltxexample}
 \defbibcheck{<<abstract>>}{%
   \iffieldundef{abstract}{<<\skipentry>>}{}}
 ...
 \printbibliography[<<check=abstract>>]
-\end{lstlisting}
+\end{ltxexample}
 %
-The following check will exclude all entries published before the year 2000:
+%The following check will exclude all entries published before the year 2000:
+下面的 check 会排除所有在2000年之前出版的条目：
 
-\begin{lstlisting}[style=latex]{}
+\begin{ltxexample}
 \defbibcheck{recent}{%
   \iffieldint{year}
     {\ifnumless{\thefield{year}}{2000}
        {\skipentry}
        {}}
     {\skipentry}}
-\end{lstlisting}
+\end{ltxexample}
 %
-See the author guide, in particular \secref{aut:aux:tst,aut:aux:ife}, for further details.
+%See the author guide, in particular \secref{aut:aux:tst,aut:aux:ife}, for further details.
+更多细节请参见作者指南，特别是 \secref{aut:aux:tst,aut:aux:ife} 节。
 
 \end{ltxsyntax}
 
-\subsubsection{参考文献表内容 Bibliography Contexts}
+\subsubsection{著录文境}%\subsubsection{Reference Contexts}
 \label{use:bib:context}
 
-References in a bibliography are cited and printed in a <context>. The context determines the data which is actually used for an entry. A context consists currently of the following information (the <context> concept is designed for future extensibility):
+%References in a bibliography are cited and printed in a <context>. The context determines the data which is actually used to cite or provide bibliographic data for an entry. A context consists of the following information (the <context> concept is designed for future extensibility):
+
+参考文献列表中文献的引用和打印都处于某个\emph{著录文境}（context）内。
+对于某一条目，著录文境决定了实际用于引用或者提供文献信息的数据。
+一个著录文境包括以下信息\footnote{
+设计“著录文境”这一概念的目的在于，使其在未来具有可扩展性。}：
 
 \begin{itemize}
- \item A specific sorting scheme
+ \item %A sorting scheme
+ 排序格式
+ \item %A scheme for constructing the sorting keys for names
+ 构建姓名排序关键字的格式
+ \item %A string prefix for citation schemes which use alphabetic or numeric labels
+ 使用字母或数值标签的引用格式的前缀字符串
 \end{itemize}
 %
-The data for an entry can vary depending on the context. This is most obvious in the case of the \opt{extra*} fields like \opt{extrayear} which are generated by the backend according to the order of entries \emph{after} sorting so that they come out in the expected <a, b, c> order. This clearly shows that the \emph{data} in an entry can be different between sorting schemes. If a document contains more than one bibliography list with different sorting schemes, it can happen then that the \file{.bbl} contains sorting lists with the same entry but containing different data (a different value for \bibfield{extrayear}, for example). The purpose of bibliography contexts is to encapsulate things inside a context so that \biblatex can use the correct entry data. An example is printing a bibliography list with a different sorting order to the global sorting order:
+%The point of bibliography contexts is twofold. Firstly, they are used to set options which influence a printed bibliography and secondly to influence the data printed by citation commands.
+%The former use is the most common when one needs to print more than one bibliography list with different, for example, sorting.
+著录文境具有双重意义。
+首先，会用于设置影响打印参考文献的选项；
+其次，设置的选项还可以影响引用命令打印的数据。
+前一应用场景是很常见的，例如，
+打印多个带有不同排序格式的参考文献表。
 
-\begin{lstlisting}[style=latex]{}
+\begin{ltxexample}
 \usepackage[sorting=nyt]{biblatex}
+\begin{document}
 \cite{one}
 \cite{two}
 \printbibliography
-\newrefcontext[sorting=yndt]
-\cite{one}
-\cite{two}
+\newrefcontext[sorting=ydnt]
 \printbibliography
-\end{lstlisting}
+\end{ltxexample}
 %
-Here, the second use of the citations, along with the \cmd{printbibliography} command will use data from the context of the <yndt> sorting scheme which may well be different from the data associated with the default <nyt> scheme.
+%Here we print two bibliographies, one with the default <nyt> sorting scheme and one with the <ydnt> sorting scheme.
+这里我们打印两个参考文献表。
+其中一个带有默认的“nyt”排序格式，另一个则使用“ydnt”排序格式。
+
+%To demonstrate the second type of use of bibliography contexts, we have to understand that the actual data for an entry can vary depending on the context. This is most obvious in the case of the \opt{extra*} fields like \opt{extrayear} which are generated by the backend according to the order of entries \emph{after} sorting so that they come out in the expected <a, b, c> order. This clearly shows that the \emph{data} in an entry can be different between sorting schemes. If a document contains more than one bibliography list with different sorting schemes, it can happen then that the \file{.bbl} contains sorting lists with the same entry but containing different data (a different value for \bibfield{extrayear}, for example). The purpose of bibliography contexts is to encapsulate things inside a context so that \biblatex can use the correct entry data. An example is printing a bibliography list with a different sorting order to the global sorting order where the \opt{extra*} fields are different for the same entry between sorting lists:
+为了说明著录文境的第二种类型应用，我们必须意识到这一点：
+条目的实际数据可以基于不同的著录文境而变化。
+在以下的情况中这一点尤其明显：
+由后端生成的 \opt{extra*} 域（例如 \opt{extrayear}）与条目在排序\emph{之后}的顺序有关，
+这样出来的结果就是预期的“a, b, c”的顺序。
+这就表明，条目的\emph{数据}在不同排序格式下可以不一样。
+如果文档中包含多个带有不同排序格式的参考文献列表，
+那么 \file{.bbl} 文件中可能出现多个排序列表，它们带有同一条目但是其数据不同（例如 \bibfield{extrayear} 的值可以不同）。
+著录文境的目的就在于将这些事项封装在一个语境内部，
+这样 \biblatex 就可以使用正确的条目数据。
+以下的例子展示了使用与全局排序格式不同的另一格式打印参考文献列表，
+使得同一条目的 \opt{extra*} 域在不同排序列表中是不同的：
+
+\begin{ltxexample}
+\usepackage[sorting=nyt,style=authoryear]{biblatex}
+\DeclareSortingScheme{yntd}{
+  \sort{
+    \field[strside=left,strwidth=4]{sortyear}
+    \field[strside=left,strwidth=4]{year}
+    \literal{9999}
+  }
+  \sort{
+    \field{sortname}
+    \field{author}
+    \field{editor}
+  }
+  \sort[direction=descending]{
+    \field{sorttitle}
+    \field{title}
+  }
+}
+\begin{document}
+\cite{one}
+\cite{two}
+\printbibliography
+\newrefcontext[sorting=yntd]
+\cite{one}
+\cite{two}
+\printbibliography
+\end{ltxexample}
+%
+%Here, the second use of the citations, along with the \cmd{printbibliography} command will use data from the context of the custom <yntd> sorting scheme which may well be different from the data associated with the default <nyt> scheme. That is, the citation labels (in an authoryear style which uses \opt{extrayear}) may be different \emph{for the exact same entries} between different bibliography contexts and so the citations themselves may look different.
+这里，第二次使用引用命令和 \cmd{printbibliography} 命令时会使用在定制“yntd”排序格式的著录文境中的数据，
+这与默认的“nyt”格式相关联的数据可能会不相同。
+也就是说，\emph{对于同一条目}，
+不同著录文境中的引用标签（在使用 \opt{extrayear} 的 \opt{authoryear} 样式中）可以不同，
+这样对其引用就可以不一致。
+
+%Reference contexts can be declared with \cmd{DeclareRefcontext} and referred to by name, see below.
+
+引用文境可以使用 \cmd{DeclareRefcontext} 命令进行声明，
+然后通过文境的名称进行使用，见以下说明。
+
+%By default, data for a citation is drawn from the reference context of the last bibliography in which it was printed. For example:
+默认情况下，用于引用的数据来自于打印该条目的最后一个参考文献列表所在的引用文境。例如：
+
+\begin{ltxexample}[style=latex]{}
+\DeclareRefcontext{ap}{labelprefix=A}
+\begin{document}
+
+\cite{book, article, misc}
+
+\printbibliography[type=book]
+
+\newrefcontext{ap}
+\printbibliography[type=article]
+
+\newrefcontext[sorting=ydnt]
+\printbibliography[type=misc]
+
+\end{document}
+\end{ltxexample}
+%
+%This example also shows the declaration and use of a named reference context. Assuming the entrykeys are indicative of their entrytypes, this is the default situation for the citations which corresponds to what users normally expect:
+这个例子同时展示了引用文境的声明和使用。
+在该例子中假设条目类型就是条目的键名，
+文献引用就对应与用户通常预料到的默认场景。
+
+\begin{itemize}
+\item %The citation of entry \bibfield{book} would draw its data from the global reference context, because the last bibliography in which it was printed was the one in the global reference context.
+条目 \bibfield{book} 的引用会从全局引用文境中提取数据，
+因为打印该条目的最后的参考文献列表位于全局引用文境中。
+\item %The citation of entry \bibfield{article} would draw its data from reference context with \opt{labelprefix=A} and would therefore have a <A> prefix when cited.
+条目 \bibfield{article} 的引用会从带有 \opt{labelprefix=A} 的引用文境中提取数据，
+因此引用时会带有前缀“A”。
+\item %The citation of entry \bibfield{misc} would draw its data from the reference context with \opt{sorting=ydnt}
+条目 \bibfield{misc} 的引用会从带有 \opt{sorting=ydnt} 的引用文境中提取数据。
+\end{itemize}
+%
+%In cases where the user has entries which occur in multiple bibliographies in different forms or with potentially different labels (in a numeric scheme with different \bibfield{labelprefix} values for example), it may be necessary to tell \biblatex from which reference context you wish to draw the citation information. As shown above this can be done by explicitly putting citations inside reference contexts. This can be onerous in a large document and so there is specific functionality for assigning citations to reference contexts programatically, see the \cmd{assignrefcontext*} macros below.
+有这样一种情况，条目在多个参考文献列表中并且有不同的形式或者可能带有不同的标签
+（例如，带有不同 \bibfield{labelprefix} 值的数字格式）。
+此时需要告诉 \biblatex 希望从哪个引用文境中提取引用信息。
+如上所述，这可以通过显式地将引用置于引用文境中而实现。
+但是在大文档中这种方式会很繁重，
+因此提供了将引用以程序化的方式分配到引用文境的功能，
+见下面的 \cmd{assignrefcontext*} 宏命令。
 
 \begin{ltxsyntax}
 
-\envitem{refcontext}[key=value, \dots]
+\cmditem{DeclareRefcontext}{name}{key=value, \dots}
 
-Wraps a bibliography context environment. The options define the context attributes. All context attributes are optional and default to the global settings if absent. The current options are:
+%Declares a named reference context with name \prm{name}. The \prm{key=value} options define the context attributes. All context attributes are optional and default to the global settings if absent. The valid options are:
+声明一个名称为 \prm{name} 的引用文境。
+\prm{key=value} 选项定义该文境的属性。
+所有的文境属性都是可选的，缺省为全局设置。
+有效的选项为：
 
 \begin{optionlist*}
 
 \valitem{sorting}{name}
 
-Specify a sorting scheme defined previously with \cmd{DeclareSortingScheme}. This scheme is used to determine which data to retrieve and/or print for an entry in the commands inside the context.
+%Specify a sorting scheme defined previously with \cmd{DeclareSortingScheme}. This scheme is used to determine which data to retrieve and/or print for an entry in the commands inside the context. 
+指定由之前的 \cmd{DeclareSortingScheme} 命令定义的排序格式。
+对于在该文境内引用命令中的条目，该格式用于确定检索和打印的数据。
+
+\valitem{sortingnamekeyscheme}{name}
+
+%Specify a sorting name key scheme defined previously with \cmd{DeclareSortingNamekeyScheme}. This scheme is used to construct sorting keys for names inside the context.
+指定由之前的 \cmd{DeclareSortingNamekeyScheme} 命令定义的排序姓名关键字格式。
+该格式用于为文境内的姓名构建排序关键字。
+
+\valitem{labelprefix}{string}
+
+%This option applies to numerical citation\slash bibliography styles only and requires that the \opt{defernumbers} option from \secref{use:opt:pre:gen} be enabled globally. Setting this option will implicitly enable \opt{resetnumbers} for the any \cmd{printbibliography} in the scope of the context (unless overridden by a user-specified value for \opt{resetnumbers}). The option assigns the \prm{string} as a prefix to all entries in the reference context. For example, if the \prm{string} is \texttt{A}, the numerical labels printed will be \texttt{[A1]}, \texttt{[A2]}, \texttt{[A3]}, etc. This is useful for subdivided numerical bibliographies where each subbibliography uses a different prefix. The \prm{string} is available to styles in the \bibfield{labelprefix} field of all affected entries. See \secref{aut:bbx:fld:lab} for details.
+
+该选项只用于数字型引用和文献样式，
+需要全局开启 \secref{use:opt:pre:gen} 节中的 \opt{defernumbers} 选项。
+设置改选项也会为该文境范围内的任意 \cmd{printbibliography} 启用 \opt{resetnumbers} 选项
+（除非 \opt{resetnumbers} 被用户指定的值覆盖）。
+该选项将 \prm{string} 作为前缀分配到该引用文境中的所有条目。
+例如，如果 \prm{string} 是 \texttt{A}，那么打印出来的数值标签就会形如 \texttt{[A1]}, \texttt{[A2]}, \texttt{[A3]} 等。
+特别适用的场合是，将参考文献列表划分成带有不同前缀的子列表。
+\prm{string} 可以用于所有有关条目中 \bibfield{labelprefix} 域中的样式。
+详见 \secref{aut:bbx:fld:lab} 节。
 
 \end{optionlist*}
 %
-The \opt{refcontext} environment cannot be nested and \biblatex will generate an error if you try to do so.
 
-\cmditem{newrefcontext}[key=value, \dots]
+\envitem{refcontext}[key=value, \dots]{name}
 
-This command is similar to the \env{refcontext} environment except that it is a stand"=alone command rather than an environment. It automatically ends the previous context section (if any) and immediately starts a new one. Note that the context section started by the last \cmd{newrefcontext} command in the document will extend to the very end of the document. Use \cmd{endrefcontext} if you want to terminate it earlier.
+%Wraps a reference context environment. The possible \prm{key=value} optional arguments are as for \cmd{DeclareRefcontext} and override options given for the named reference context \prm{name}. \prm{name} can also be omitted as \verb+{}+ or by omitting even the empty braces\footnote{This slightly odd syntax possibility is a result of backwards compatibility with \biblatex $<$3.5}.
+
+将引用文境封装在一个环境内。
+可能的 \keyval 可选项和 \cmd{DeclareRefcontext} 中的相同，
+并且覆盖名为 \prm{name} 的引用文境的选项。
+\prm{name} 也可以省略成 \verb+{}+，甚至空的括号也可以省略\footnote{
+这种有点怪异的句法是出于对 \biblatex $<$3.5 的向后兼容性。}
+
+%The \opt{refcontext} environment cannot be nested and \biblatex will generate an error if you try to do so.
+\env{refcontext} 环境不可以相互嵌套，如果这样的话 \biblatex 会报错。
+
+\cmditem{newrefcontext}[key=value, \dots]{name}
+
+%This command is similar to the \env{refcontext} environment except that it is a stand"=alone command rather than an environment. It automatically ends any previous reference context section begun with \cmd{newrefcontext} (if any) and immediately starts a new one. Note that the context section started by the last \cmd{newrefcontext} command in the document will extend to the very end of the document. Use \cmd{endrefcontext} if you want to terminate it earlier.
+该命令类似于 \env{refcontext} 环境，不同之处在于这是单独的命令而不是环境。
+它会自动结束任何之前以 \cmd{newrefcontext} 开始的引用文境片段（如果有的话），
+并立即开启新的引用文境。
+注意，文档中最后的 \cmd{newrefcontext} 命令开启的引用文境会一直持续到文档的最后。
+如果想要提前终止，那么需要使用 \cmd{endrefcontext} 命令。
+
 \end{ltxsyntax}
 %
-At the beginning of the document, there is always a global context containing global settings for each of the context attributes.
+%At the beginning of the document, there is always a global context containing global settings for each of the reference context options. Here is an example summarising the reference contexts with various settings:
 
-\subsubsection{动态条目集 Dynamic Entry Sets}
-\label{use:bib:set}
+在文档的开始，总会有一个全局的文境，其中为每一引用文境选项进行了全局设置。
+这里的例子总结了引用文境的不同设置：
 
-In addition to the \bibtype{set} entry type, \biblatex also supports dynamic entry sets defined on a per-document\slash per-refsection basis. The following command, which may be used in the document preamble or the document body, defines the set \prm{key}:
+\begin{ltxexample}[style=latex]{}
+\usepackage[sorting=nty]{biblatex}
+
+\DeclareRefcontext{testrc}{sorting=nyt}
+
+% Global reference context:
+%   sorting=nty
+%   sortingnamekeyscheme=global
+%   labelprefix=
+
+\begin{document}
+
+\begin{refcontext}{testrc}
+% reference context:
+%   sorting=nyt
+%   sortingnamekeyscheme=global
+%   labelprefix=
+\end{refcontext}
+
+\begin{refcontext}[labelprefix=A]{testrc}
+% reference context:
+%   sorting=nyt
+%   sortingnamekeyscheme=global
+%   labelprefix=A
+\end{refcontext}
+
+\begin{refcontext}[sorting=ydnt,labelprefix=A]
+% reference context:
+%   sorting=ydnt
+%   sortingnamekeyscheme=global
+%   labelprefix=A
+\end{refcontext}
+
+\newrefcontext}[labelprefix=B]
+% reference context:
+%   sorting=nty
+%   sortingnamekeyscheme=global
+%   labelprefix=B
+\endrefcontext
+
+\newrefcontext}[sorting=ynt,labelprefix=C]{testrc}
+% reference context:
+%   sorting=ynt
+%   sortingnamekeyscheme=global
+%   labelprefix=C
+\endrefcontext
+\end{ltxexample}
 
 \begin{ltxsyntax}
 
-\cmditem{defbibentryset}{key}{key1,key2,key3, \dots}\BiberOnlyMark
+\cmditem{assignrefcontextkeyws}[key=value, \dots]{keyword1,keyword2, ...}
+\cmditem{assignrefcontextkeyws*}[key=value, \dots]{keyword1,keyword2, ...}
+\cmditem{assignrefcontextcats}[key=value, \dots]{category1, category2, ...}
+\cmditem{assignrefcontextcats*}[key=value, \dots]{category1, category2, ...}
+\cmditem{assignrefcontextentries}[key=value, \dots]{entrykey1, entrykey2, ...}
+\cmditem{assignrefcontextentries*}[key=value, \dots]{entrykey1, entrykey2, ...}
+\cmditem{assignrefcontextentries}[key=value, \dots]{*}
+\cmditem{assignrefcontextentries*}[key=value, \dots]{*}
 
-The \prm{key} is the entry key of the set, which is used like any other entry key when referring to the set. The \prm{key} must be unique and it must not conflict with any other entry key. The second argument is a comma"=separated list of the entry keys which make up the set. \cmd{defbibentryset} implies the equivalent of a \cmd{nocite} command, \ie all sets which are declared are also added to the bibliography. When declaring the same set more than once, only the first invocation of \cmd{defbibentryset} will define the set. Subsequent definitions of the same \prm{key} are ignored and work like \cmd{nocite}\prm{key}. Dynamic entry sets defined in the document body are local to the enclosing \env{refsection} environment, if any. Otherwise, they are assigned to reference section~0. Those defined in the preamble are assigned to reference section~0. Note that dynamic entry sets require \biber. They will not work with any other backend. See \secref{use:use:set} for further details.
+\end{ltxsyntax}
+%These commands automate putting citations into refcontexts when the default behaviour is not sufficient. The default behaviour is that the data for a citation is drawn from the refcontext of the last bibliography in which it was printed. For citations that are used in some way but not printed in a bibliography or bibliography list, they default to drawing their data from the global refcontext established at the beginning of the document. To override this behaviour, instead of manually wrapping citation commands in \env{refcontext} environments, which might be error-prone and tedious, you can register a comma"=separated list of \prm{keywords}, \prm{categories} or \prm{entrykeys} which, respectively, make the entries with any of the specified keywords, entries in any of the specified categories (see \secref{use:use:div}) or entries with any of the specified citation keys draw their data from a particular refcontext specified by the \prm{refcontext key/values} which are parsed as the per the corresponding \env{refcontext} options. Such refcontext auto-assignments are specific to the current refsection. You may specify the same citation key in any of these commands but be aware that assignment is done in the order \prm{keywords}, \prm{categories}, \prm{entrykeys} with the later specifications overriding the earlier. \cmd{assignrefcontextentries} accepts a single asterisk instead of a list of entrykeys which allows the assignment of all keys in a refsection to a refcontext with having to explicitly list them. An example:
+
+当默认行为不充分时，这些命令会自动将引用置于引用文境中。
+默认行为是指，从最后打印条目的参考文献列表所在的引用文境中提取引用数据。
+对于没有在参考文献列表中打印但是以某种方式使用的引用，
+默认会从文档一开始建立的全局引用文境中提取数据。
+为了覆盖这一行为，可以手动将引用命令放置在 \env{refcontext} 环境内，
+但是这样容易出错并且很繁琐。
+除此之外，可以登记一个关于 \prm{keywords}、\prm{categories} 和 \prm{entrykeys} 的逗号分隔列表。
+这样，任何带有指定关键字的条目、任何指定类别的条目（见 \secref{use:use:div} 节）、任何指定引用关键字的条目都会分别从由 \prm{refcontext key/values} 指定的特定引用文境中提取数据，
+并按照对应的 \env{refcontext} 环境选项进行解析。
+这样的引用文境自动分配方式特定于当前的参考文献分节。
+你可以在任意的这些命令中指定相同的引用键，
+但需要注意的是，分配方式按照 \prm{keywords}, \prm{categories}, \prm{entrykeys} 的顺序，
+后面的规范会覆盖之前的规范。
+\cmd{assignrefcontextentries} 命令可以接受单个的星号作为选项以代替一列条目键，
+这样可以将某一参考文献分节中的所有条目键都分配给某个引用文境，而不必显式列出。
+例如：
+
+\begin{ltxexample}[style=latex]{}
+\assignrefcontextentries[labelprefix=A]{key2}
+\cite{key1}
+\begin{refcontext}[labelprefix=B]
+\cite{key2}
+\end{refcontext}
+\end{ltxexample}
+%
+%Here, the data for the citation of \bibfield{key2} will be drawn from refcontext \opt{labelprefix=A} and not \opt{labelprefix=B} (resulting in a label with prefix <A> and not <B>).
+%The starred versions do not override a local refcontext and so with:
+这里 \bibfield{key2} 的引用数据会从引用文境 \opt{labelprefix=A} 中提取，而不是 \opt{labelprefix=B}。
+即，标签的前缀是“A”不是“B”。
+带星号的版本不会覆盖局部的引用文境，也就是：
+
+\begin{ltxexample}[style=latex]{}
+\assignrefcontextentries*[labelprefix=A]{key2}
+\cite{key1}
+\begin{refcontext}[labelprefix=B]
+\cite{key2}
+\end{refcontext}
+\end{ltxexample}
+%
+%the data for the citation of \bibfield{key2} will be drawn from refcontext \opt{labelprefix=B}. Note that these commands are rarely necessary unless you have multiple bibliographies in which the same citations occur and \biblatex\ cannot by default tell which bibliography list a citation should refer to. See the example file \file{94-labelprefix.tex} for more details.
+\bibfield{key2} 的引用数据会从 \opt{labelprefix=B} 引用文境中提取。
+注意，这些命令大部分情况下都不必使用，
+除非多个参考文献表中有相同的文献引用，并且 \biblatex 按照默认设置不知道引用应该指向哪一个文献列表。
+详见文件 \file{94-labelprefix.tex} 中的例子。
+
+\subsubsection{动态条目集}%\subsubsection{Dynamic Entry Sets}
+\label{use:bib:set}
+
+%In addition to the \bibtype{set} entry type, \biblatex also supports dynamic entry sets defined on a per-document\slash per-refsection basis. The following command, which may be used in the document preamble or the document body, defines the set \prm{key}:
+
+除了 \bibtype{set} 条目类型之外，\biblatex 也支持基于文档或参考文献分节定义的动态条目集。
+下面的命令定义了 \prm{key} 集合，可以用在导言区或正文中：
+
+\begin{ltxsyntax}
+
+\cmditem{defbibentryset}{key}{key1,key2,key3, \dots}
+
+%The \prm{key} is the entry key of the set, which is used like any other entry key when referring to the set. The \prm{key} must be unique and it must not conflict with any other entry key. The second argument is a comma"=separated list of the entry keys which make up the set. \cmd{defbibentryset} implies the equivalent of a \cmd{nocite} command, \ie all sets which are declared are also added to the bibliography. When declaring the same set more than once, only the first invocation of \cmd{defbibentryset} will define the set. Subsequent definitions of the same \prm{key} are ignored and work like \cmd{nocite}\prm{key}. Dynamic entry sets defined in the document body are local to the enclosing \env{refsection} environment, if any. Otherwise, they are assigned to reference section~0. Those defined in the preamble are assigned to reference section~0. See \secref{use:use:set} for further details.
+
+\prm{key} 是集合的条目键，像其它条目键一样用于指向该集合。
+\prm{key} 必须是唯一的，并且不能与其它条目键名冲突。
+第二个选项是组成该集合的逗号分隔条目键列表。
+\cmd{defbibentryset} 也蕴含了与 \cmd{nocite} 命令的等价性，
+即，所有声明的集合也都添加到参考文献表中。
+当多次声明相同集合时，只有第一次调用的 \cmd{defbibentryset} 会定义该集合。
+接下来的对于相同 \prm{key} 的定义将被忽略并如同 \cmd{nocite}\prm{key} 一样处理。
+在正文中定义的动态条目集如果包含在 \env{refsection} 环境中，那么是局部的。
+否则它们会归到第~0 文献分节中。
+在导言区中定义的动态条目集也归到第~0 文献分节中。
+详见 \secref{use:use:set} 节。
 
 \end{ltxsyntax}
 
