@@ -8,7 +8,11 @@ call gbtclear
 
 xelatex.exe --synctex=-1 biblatex-zh-cn.tex
 
+makeglossaries biblatex-zh-cn
+
 xelatex.exe --synctex=-1 biblatex-zh-cn.tex
+
+call gbtclear
 
 ::call gbtclear
 
