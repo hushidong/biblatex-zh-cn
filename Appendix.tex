@@ -1,15 +1,17 @@
 \appendix
-\section*{附录 Appendix}
+\section*{附录}%Appendix
 \addcontentsline{toc}{section}{附录}
 
 \section{驱动层的默认数据源映射}%默认的驱动源映射
 %\section{Default Driver Source Mappings}
 \label{apx:maps}
 
-These are the driver default source mappings.
+下面是驱动层的默认数据源映射。
+%These are the driver default source mappings.
 
 \subsection{\opt{bibtex}}
-The \opt{bibtex} driver is of course the most comprehensive and mature of the \biblatex/\biber supported data formats. These source mapping defaults are how the aliases from sections \secref{bib:typ:als} and \secref{bib:fld:als} are implemented.
+\opt{bibtex}驱动自然是应用最广，\biblatex/\biber 支持最成熟的数据格式。\secref{bib:typ:als}和\secref{bib:fld:als}节的别名通过这些默认数据源映射实现。
+%The \opt{bibtex} driver is of course the most comprehensive and mature of the \biblatex/\biber supported data formats. These source mapping defaults are how the aliases from sections \secref{bib:typ:als} and \secref{bib:fld:als} are implemented.
 
 \begin{ltxexample}
 \DeclareDriverSourcemap[datatype=bibtex]{
@@ -43,11 +45,11 @@ The \opt{bibtex} driver is of course the most comprehensive and mature of the \b
 }
 \end{ltxexample}
 
-\section{默认继承设置 Default Inheritance Setup}
+\section{默认继承设置}%Default Inheritance Setup
 \label{apx:ref}
 
-The following table shows the \biber cross-referencing rules defined by default.
-Please refer to \secref{bib:cav:ref, aut:ctm:ref} for explanation.
+下表给出了默认的\biber 交叉引用规则。更多解释见\secref{bib:cav:ref, aut:ctm:ref}节。
+%The following table shows the \biber cross-referencing rules defined by default. Please refer to \secref{bib:cav:ref, aut:ctm:ref} for explanation.
 
 \begingroup
 \tablesetup
@@ -142,10 +144,11 @@ periodical &
 %\section{Default Sorting Schemes}
 \label{apx:srt}
 
-\subsection[Alphabetic 1]{Alphabetic Schemes 1}
+\subsection[字母表顺序1]{字母表顺序格式1}%Alphabetic Schemes 1
 \label{apx:srt:a1}
 
-The following table shows the standard alphabetic sorting schemes defined by default. Please refer to \secref{use:srt} for explanation.
+下表给出了默认的标准字母表顺序排序格式。更多解释见\secref{use:srt}节。
+%The following table shows the standard alphabetic sorting schemes defined by default. Please refer to \secref{use:srt} for explanation.
 
 \begingroup
 \sorttablesetup
@@ -182,10 +185,11 @@ nyvt &	presort\alt mm &
 \end{longtable}
 \endgroup
 
-\subsection[Alphabetic 2]{Alphabetic Schemes 2}
+\subsection[字母表顺序2]{字母表顺序格式2}%Alphabetic Schemes 2
 \label{apx:srt:a2}
 
-The following table shows the alphabetic sorting schemes for \texttt{alphabetic} styles defined by default. Please refer to \secref{use:srt} for explanation.
+下表是为\texttt{alphabetic}样式定义的默认字母表顺序排序格式。更多解释见\secref{use:srt}节。
+%The following table shows the alphabetic sorting schemes for \texttt{alphabetic} styles defined by default. Please refer to \secref{use:srt} for explanation.
 
 \begingroup
 \sorttablesetup
@@ -221,10 +225,11 @@ anyvt &	presort\alt mm &
 \end{longtable}
 \endgroup
 
-\subsection[Chronological]{Chronological Schemes}
+\subsection[纪年顺序]{纪年格式}%Chronological Schemes
 \label{apx:srt:chr}
 
-The following table shows the chronological sorting schemes defined by default. Please refer to \secref{use:srt} for explanation.
+下表给出了默认定义的纪年排序格式。更多解释见\secref{use:srt}节。
+%The following table shows the chronological sorting schemes defined by default. Please refer to \secref{use:srt} for explanation.
 
 \begingroup
 \sorttablesetup
@@ -253,24 +258,31 @@ ydnt &	presort\alt mm &
 \end{longtable}
 \endgroup
 
-\section{\biblatexml}
+\section{biblatex XML 数据源格式(\biblatexml)}%\biblatexml
 \label{apx:biblatexml}
-The \biblatexml\ XML datasource format is designed to be an extensible and modern data source format for \biblatex\ users. There are limitations with \bibtex\ format \file{.bib} files, in particular one might mention UTF-8 support and name formats. \biber\ goes some way to addressing the UTF-8 limitations by using a modified version of the \texttt{btparse} C library but the rather archaic name parsing rules for \bibtex\ are hard-coded and specific to simple Western names.
 
-\biblatexml is an XML format for bibliographic data. When \biber\ either reads or writes \biblatexml\ format datasources, it automatically writes a RelaXNG XML schema for the datasources which is dynamically generated from the active \biblatex\ datamodel. There is no static schema for \biblatexml\ datasources because the allowable fields etc. depend on the data model. The format of \biblatexml\ datasources is relatively self-explanatory---it is usually only necessary to generate a \biblatexml\ datasource from existing \bibtex\ format datasources (using \biber's <tool> mode) in order to understand the format. \biber also allows users to validate \biblatexml\ datasources against the data model generated schema.
+\biblatexml\ XML数据源格式是为\biblatex\ 用户设计的一个可扩展的现代数据源格式。\bibtex\ 格式\file{.bib}文件存在一些局限，特别是涉及到支持UTF-8和姓名格式问题时。\biber\ 通过使用采用修改的\texttt{btparse} C库以多种方式处理UTF-8方面的限制。但是\bibtex\ 的相当古老的姓名解析规则是根据简单的西方人姓名硬编码的。
+%The \biblatexml\ XML datasource format is designed to be an extensible and modern data source format for \biblatex\ users. There are limitations with \bibtex\ format \file{.bib} files, in particular one might mention UTF-8 support and name formats. \biber\ goes some way to addressing the UTF-8 limitations by using a modified version of the \texttt{btparse} C library but the rather archaic name parsing rules for \bibtex\ are hard-coded and specific to simple Western names.
 
-Since the \biblatexml\ format is XML and depends on the data model and the data model is extensible by the user (see \secref{aut:ctm:dm}), the \biblatexml\ format can deal with extensions that \bibtex\ format data sources cannot, e.g. new nameparts, options at sub-entry scope. Since it is an XML format, it is relatively easy to transform it into other XML formats or HTML using standard XML processing libraries and tools.
+\biblatexml 是为参考文献数据提供的一种XML格式。当\biber\ 读写\biblatexml\ 格式数据源时，它自动为数据源输出一个RelaXNG XML纲要，这一概要由活动的\biblatex\ 数据模型动态生成。\biblatexml\ 数据源因为可用的域依赖于数据模型所以不存在静态的纲要。\biblatexml\ 数据源格式具有相当高的自解析性---它常常仅需要从已有的\bibtex\ 格式数据源(为理解其格式，使用\biber 的 <tool> 模式)生成一个\biblatexml\ 数据源。\biber 也允许用户根据数据模型生成纲要验证\biblatexml\ 数据源。
+%\biblatexml is an XML format for bibliographic data. When \biber\ either reads or writes \biblatexml\ format datasources, it automatically writes a RelaXNG XML schema for the datasources which is dynamically generated from the active \biblatex\ datamodel. There is no static schema for \biblatexml\ datasources because the allowable fields etc. depend on the data model. The format of \biblatexml\ datasources is relatively self-explanatory---it is usually only necessary to generate a \biblatexml\ datasource from existing \bibtex\ format datasources (using \biber's <tool> mode) in order to understand the format. \biber also allows users to validate \biblatexml\ datasources against the data model generated schema.
 
-Here is an explanation of the format with examples. By convention, \biblatexml\ files have a \file{.bltxml} extension and \file{kpsewhich} understands this file extension.
+因为\biblatexml\ 格式是 XML并且依赖于数据模型，且数据模型是用户可扩展的(见\secref{aut:ctm:dm})，\biblatexml\ 格式可以处理\bibtex\ 格式数据源无法处理的一些扩展内容比如新的姓名成分，子条目上的选项等。因为他是一种XML 格式，所以使用标准的XML处理库和工具转换成其他XML格式或HTML也相当简单。
+%Since the \biblatexml\ format is XML and depends on the data model and the data model is extensible by the user (see \secref{aut:ctm:dm}), the \biblatexml\ format can deal with extensions that \bibtex\ format data sources cannot, e.g. new nameparts, options at sub-entry scope. Since it is an XML format, it is relatively easy to transform it into other XML formats or HTML using standard XML processing libraries and tools.
 
-\subsection{Header}
-\biblatexml\ files begin with the standard XML header:
+下面用示例阐述该格式。习惯上，\biblatexml\ 文件扩展名为\file{.bltxml}，\file{kpsewhich}能识别这一格式。
+%Here is an explanation of the format with examples. By convention, \biblatexml\ files have a \file{.bltxml} extension and \file{kpsewhich} understands this file extension.
+
+\subsection{文件头}%Header
+\biblatexml\ 文件一个标准XML文件头开始:
+%\biblatexml\ files begin with the standard XML header:
 
 \begin{lstlisting}[language=xml]
 <?xml version="1.0" encoding="UTF-8"?>
 \end{lstlisting}
 %
-The schema model, type and schema type namespace are given in the following line:
+纲要模型，类型和纲要类型空间为:
+%The schema model, type and schema type namespace are given in the following line:
 
 \begin{lstlisting}[language=xml]
 <?xml-model href="biblatexml.rng"
@@ -278,11 +290,12 @@ The schema model, type and schema type namespace are given in the following line
             schematypens="http://relaxng.org/ns/structure/1.0"?>
 \end{lstlisting}
 %
-When \biber\ generates \biblatexml\ data sources, it automatically adds this line and points the schema model (href) attribute at the automatically generated RelaXNG XML schema for ease of validation.
+当\biber\ 生成\biblatexml\ 数据源时，它自动添加添加这一行，并为自动生成的RelaXNG XML纲要指定纲要模型(href)属性以便验证。
+%When \biber\ generates \biblatexml\ data sources, it automatically adds this line and points the schema model (href) attribute at the automatically generated RelaXNG XML schema for ease of validation.
 
-\subsection{Body}
-
-The body of a \biblatexml\ data source looks like:
+\subsection{正文}%Body
+\biblatexml\ 数据源正文类似于:
+%The body of a \biblatexml\ data source looks like:
 
 \begin{lstlisting}[language=xml]
 <bltx:entries
@@ -299,7 +312,8 @@ The body of a \biblatexml\ data source looks like:
 </bltx:entries>
 \end{lstlisting}
 %
-The body is one or more \bibfield{entry} elements inside the top-level \bibfield{entries} element and everything is in the \bibfield{bltx} namespace. An entry has an \bibfield{id} attribute corresponding to a \bibtex\ entry key and a \bibfield{entrytype} attribute corresponding to a \bibtex\ entrytype. For example, the \biblatexml\
+正文是一个或多个\bibfield{entry}元素存在与顶层的\bibfield{entries}元素中，并且所有都处于\bibfield{bltx}命名空间内。一个条目具有一个\bibfield{id}属性对应于\bibtex\ 条目关键词，具有一个\bibfield{entrytype}属性对应于\bibtex\ 条目类型。例如:
+%The body is one or more \bibfield{entry} elements inside the top-level \bibfield{entries} element and everything is in the \bibfield{bltx} namespace. An entry has an \bibfield{id} attribute corresponding to a \bibtex\ entry key and a \bibfield{entrytype} attribute corresponding to a \bibtex\ entrytype. For example, the \biblatexml\
 
 \begin{lstlisting}[language=xml]
 <?xml version="1.0" encoding="UTF-8"?>
@@ -313,14 +327,16 @@ The body is one or more \bibfield{entry} elements inside the top-level \bibfield
 </bltx:entries>
 \end{lstlisting}
 %
-Corresponds to the \bibtex\ \file{.bib}
+对应的bib文件为:
+%Corresponds to the \bibtex\ \file{.bib}
 
 \begin{lstlisting}[style=bibtex]{}
 @book{key1,
 }
 \end{lstlisting}
 %
-In general, the XML elements in a \biblatexml\ format datasource file have names corresponding to the fields in the datamodel, just like \bibtex\ format datasources. So for example, the \bibtex\ format source
+一般来说，\biblatexml\ 格式数据源中的XML元素具有与数据模型中的域对应的名称，如同\bibtex\ 格式数据源一般。所以，当\bibtex\ 数据源是:
+%In general, the XML elements in a \biblatexml\ format datasource file have names corresponding to the fields in the datamodel, just like \bibtex\ format datasources. So for example, the \bibtex\ format source
 
 \begin{lstlisting}[style=bibtex]{}
 @book{key1,
@@ -330,7 +346,8 @@ In general, the XML elements in a \biblatexml\ format datasource file have names
 }
 \end{lstlisting}
 %
-would be, in \biblatexml
+\biblatexml 中将是:
+%would be, in \biblatexml
 
 \begin{lstlisting}[language=xml]
   <bltx:entry id="key1" entrytype="book">
@@ -340,10 +357,12 @@ would be, in \biblatexml
   </bltx:entry>
 \end{lstlisting}
 %
-The following exceptions to this simple mapping are to be noted
+这种简单映射下的一些例外需要注意。
+%The following exceptions to this simple mapping are to be noted
 
-\subsubsection{Key aliases}
-Citation key aliases are specified like this:
+\subsubsection{关键词别名}%Key aliases
+标注关键词别名设置如下:
+%Citation key aliases are specified like this:
 
 \begin{lstlisting}[language=xml]
     <bltx:ids>
@@ -352,7 +371,8 @@ Citation key aliases are specified like this:
     </bltx:ids>
 \end{lstlisting}
 %
-this corresponds to the \bibtex\ format
+对应于\bibtex\ 格式为:
+%this corresponds to the \bibtex\ format
 
 \begin{lstlisting}[style=bibtex]{}
 @book{key1,
@@ -360,9 +380,10 @@ this corresponds to the \bibtex\ format
 }
 \end{lstlisting}
 
-\subsubsection{Names}
+\subsubsection{姓名}%Names
 
-Name specifications in \biblatexml\ are somewhat more complex in order to generalise the name handling abilities of \biblatex. The user has to be more explicit about the name parts and this allows a much great scope for the handling of different types of names and name parts. A name in \biblatexml\ format looks like this
+为了规范\biblatex 的姓名处理能力，\biblatexml\ 中的姓名配置更为复杂。用户需要更了解姓名成分，从而可以在更大范围上处理不同类型的姓名和姓名成分。\biblatexml\ 格式中的姓名类似于:
+%Name specifications in \biblatexml\ are somewhat more complex in order to generalise the name handling abilities of \biblatex. The user has to be more explicit about the name parts and this allows a much great scope for the handling of different types of names and name parts. A name in \biblatexml\ format looks like this
 
 \begin{lstlisting}[language=xml]
     <bltx:names type="author" morenames="1" useprefix="true">
@@ -383,26 +404,36 @@ Name specifications in \biblatexml\ are somewhat more complex in order to genera
     </bltx:names>
 \end{lstlisting}
 %
-A name list field is contained in the \bibfield{names} element with the mandatory \bibfield{type} attribute giving the name of the name list. Things to note:
+姓名列表域包含在\bibfield{names}元素中，该元素具有\bibfield{type}属性给出姓名列表的名称。需要注意:
+%A name list field is contained in the \bibfield{names} element with the mandatory \bibfield{type} attribute giving the name of the name list. Things to note:
 
 \begin{itemize}
-  \item The optional \bibfield{morenames} attribute performs the same task as the \bibtex\ datasource format <and others> string at the end of a name.
-  \item Note that optional \opt{useprefix} option can be specified can be specified at the level of a name list or an individual name in the name list. This is impossible with \bibtex\ datasources.
-  \item Individual names may have an optional \bibfield{gender} attribute which must be one of those defined in the datamodel <gender> constant list. This is currently not used by standard styles but is available in \biblatex name formats if necessary.
-  \item A name list is composed of one or more \bibfield{name} elements.
-  \item Each name is composed of name parts of a \bibfield{type} defined by the data model <nameparts> constant.
-  \item Each name part may have an option \bibfield{initial} attribute which makes explicit the initial of the name part. If this is not present, \biber\ attempts to automatically determine the initial from the name part.
-  \item Name parts may have name parts so that compound names can be handled.
+  \item \bibfield{morenames}可选属性的作用类似于\bibtex\ 数据源格式中姓名列表末尾的<and others> 字符串。
+  %The optional \bibfield{morenames} attribute performs the same task as the \bibtex\ datasource format <and others> string at the end of a name.
+  \item 注意\opt{useprefix}可选参数可以在姓名列表或者单个的姓名层级设置。这在\bibtex\ 数据源中是不可能的。
+  %Note that optional \opt{useprefix} option can be specified can be specified at the level of a name list or an individual name in the name list. This is impossible with \bibtex\ datasources.
+  \item 单个姓名可以具有可选的\bibfield{gender}属性，但必须是在数据模型<gender>常量列表中定义的值。目前标准样式并不使用，但在需要的时候可以在\biblatex 姓名格式中使用。
+  %Individual names may have an optional \bibfield{gender} attribute which must be one of those defined in the datamodel <gender> constant list. This is currently not used by standard styles but is available in \biblatex name formats if necessary.
+  \item 一个姓名列表由一个或多个\bibfield{name}元素构成。
+  %A name list is composed of one or more \bibfield{name} elements.
+  \item 每个姓名都由具有数据模型<nameparts>常量定义的\bibfield{type}的姓名成分构成。
+  %Each name is composed of name parts of a \bibfield{type} defined by the data model <nameparts> constant.
+  \item 每个姓名成分可能具有可选的\bibfield{initial}属性，用于显式的指定姓名成分的首字母。如果不给出该选项，\biber\ 将尝试自动确定姓名成分的首字母。
+  %Each name part may have an option \bibfield{initial} attribute which makes explicit the initial of the name part. If this is not present, \biber\ attempts to automatically determine the initial from the name part.
+  \item 姓名成分可以有姓名成分，所以可以处理混合姓名。\footnote{译者:不是很清楚，有没有例子？}
+  %Name parts may have name parts so that compound names can be handled.
 \end{itemize}
 %
-Ignoring the \biblatexml-only features, a corresponding \bibtex\ format datasource would look like this:
+不考虑\biblatexml 独有的功能，对应的\bibtex\ 的数据格式类似于:
+%Ignoring the \biblatexml-only features, a corresponding \bibtex\ format datasource would look like this:
 
 \begin{lstlisting}[style=bibtex]{}
   AUTHOR = {von Smith, John Arthur and Brown, Raymond and others}
 \end{lstlisting}
 
-\subsubsection{Lists}
-Datasource list fields (see \secref{bib:fld:typ}) can be represented in two ways, depending on whether there is more than one element in the list:
+\subsubsection{列表}%Lists
+数据源可以根据域内列表中元素是否超过一个，采用两种方式将域(见\secref{bib:fld:typ})列出。
+%Datasource list fields (see \secref{bib:fld:typ}) can be represented in two ways, depending on whether there is more than one element in the list:
 
 \begin{lstlisting}[language=xml]
     <bltx:publisher>London</bltx:publisher>
@@ -412,8 +443,9 @@ Datasource list fields (see \secref{bib:fld:typ}) can be represented in two ways
     </bltx:location>
 \end{lstlisting}
 
-\subsubsection{Ranges}
-Datasource range fields (see \secref{bib:fld:typ}) are represented like this:
+\subsubsection{范围}%Ranges
+数据源范围域(见\secref{bib:fld:typ})可以表示为:
+%Datasource range fields (see \secref{bib:fld:typ}) are represented like this:
 
 \begin{lstlisting}[language=xml]
     <bltx:pages>
@@ -428,10 +460,12 @@ Datasource range fields (see \secref{bib:fld:typ}) are represented like this:
     </bltx:pages>
 \end{lstlisting}
 %
-A range field is a list of ranges, each with its own \bibfield{item}. A range item has a \bibfield{start} element and an optional \bibfield{end} element, since ranges can be open-ended.
+一个范围域是各范围的列表，每个范围都有自身的\bibfield{item}。一个范围项都有一个\bibfield{start}元素和一个可选的\bibfield{end}元素，因为范围可以无终点。
+%A range field is a list of ranges, each with its own \bibfield{item}. A range item has a \bibfield{start} element and an optional \bibfield{end} element, since ranges can be open-ended.
 
-\subsubsection{Dates}
-Datasource date fields (see \secref{bib:fld:typ}) can be represented in two ways, depending on whether they constitute a date range:
+\subsubsection{日期}%Dates
+数据源日期域(见\secref{bib:fld:typ})可以根据是否构成一个日期范围采用两种方式显示:
+%Datasource date fields (see \secref{bib:fld:typ}) can be represented in two ways, depending on whether they constitute a date range:
 
 \begin{lstlisting}[language=xml]
     <bltx:date>1985-04-02</bltx:date>
@@ -441,11 +475,12 @@ Datasource date fields (see \secref{bib:fld:typ}) can be represented in two ways
     </bltx:date>
 \end{lstlisting}
 %
-The \bibfield{type} attribute on a date element corresponds to a particular type of date defined in the data model.
+一个日期元素的\bibfield{type}属性对应于数据模型中定义的日期的某一特定类型。
+%The \bibfield{type} attribute on a date element corresponds to a particular type of date defined in the data model.
 
-\subsubsection{Related Entries}
-
-Related entries are specified as follows:
+\subsubsection{关联条目}%Related Entries
+关联条目定义如下:
+%Related entries are specified as follows:
 \begin{lstlisting}[language=xml]
     <bltx:related>
       <bltx:item type="reprint"
@@ -455,7 +490,8 @@ Related entries are specified as follows:
     </bltx:related>
 \end{lstlisting}
 %
-This corresponds to the \bibtex\ format:
+这对应于\bibtex\ 格式:
+%This corresponds to the \bibtex\ format:
 
 \begin{lstlisting}[style=bibtex]{}
 @book{key1,
@@ -466,12 +502,14 @@ This corresponds to the \bibtex\ format:
 }
 \end{lstlisting}
 %
-As per \secref{aut:ctm:rel}, the \bibfield{string} and \bibfield{options} attributes are optional.
+如同\secref{aut:ctm:rel}，\bibfield{string}和\bibfield{options}和属性是可选的。
+%As per \secref{aut:ctm:rel}, the \bibfield{string} and \bibfield{options} attributes are optional.
 
-\section{选项范围 Option Scope}
+\section{选项的作用范围}%Option Scope
 \label{apx:opt}
 
-The following table provides an overview of the scope (global\slash per-type\slash per-entry) of various package options.
+下表概括了各种包选项的作用范围(全局或者具体类型或者具体条目):
+%The following table provides an overview of the scope (global\slash per-type\slash per-entry) of various package options.
 
 \begingroup
 \tablesetup
@@ -610,227 +648,290 @@ use$<$name$>$	&\+&\+&\+&\+\\
 %\section{Revision History}
 \label{apx:log}
 
-This revision history is a list of changes relevant to users of this package. Changes of a more technical nature which do not affect the user interface or the behavior of the package are not included in the list. More technical details are to be found in the \file{CHANGES.org} file. The numbers on the right indicate the relevant section of this manual.
+更新历史是与宏包用户相关的一些更新列表。不影响用户接口或者宏包行为的更技术性的更新并未在列。更多的技术细节可以参考\file{CHANGES.org}文件。右侧的数字表示本手册中的相关的节号。
+%This revision history is a list of changes relevant to users of this package. Changes of a more technical nature which do not affect the user interface or the behavior of the package are not included in the list. More technical details are to be found in the \file{CHANGES.org} file. The numbers on the right indicate the relevant section of this manual.
 
 \begin{changelog}
 
 \begin{release}{3.7}{2016-12-08}
-\item Corrected default for \cmd{bibdateeraprefix}\see{aut:fmt:lng}
+\item 修正了\cmd{bibdateeraprefix}的默认设置，\see{aut:fmt:lng}
+%Corrected default for \cmd{bibdateeraprefix}\see{aut:fmt:lng}
 \item Added \cmd{DeclareSortInclusion}\see{aut:ctm:srt}
+%\cmd{DeclareSortInclusion}\see{aut:ctm:srt}
 \item Added \cmd{relateddelim$<$relatedtype$>$}\see{use:fmt:fmt}
 \end{release}
 
 \begin{release}{3.6}{2016-09-15}
-\item Corrected some documentation and fixed a bug with labeldate
-  localisation strings.
+\item 修正了文档的一些内容，修复了labeldate本地化字符串先关的一个错误
+%Corrected some documentation and fixed a bug with labeldate localisation strings.
 \end{release}
 
 \begin{release}{3.5}{2016-09-10}
-\item Added \cmd{ifuniquebaretitle} test\see{aut:aux:tst}
-\item Documented \cmd{labelnamesource} and \cmd{labeltitlesource}\see{aut:bbx:fld:gen}
-\item Added \cmd{bibdaterangesep}\see{use:fmt:lng}
-\item Added \opt{refsection} option to \cmd{DeclareSourcemap}\see{aut:ctm:map}
-\item Added \opt{suppress} option to inheritance specifications\see{aut:ctm:ref}
-\item Added \cmd{ifuniquework}\see{aut:aux:tst}
-\item Changed \cmd{DeclareStyleSourcemap} so that it can be used multiple times\see{aut:ctm:map}
-\item Added \cmd{forcezerosy} and \cmd{forcezerosmdt}\see{aut:fmt:ich}
-\item Changed \cmd{mkdatezeros} to \cmd{mkyearzeros}, \cmd{mkmonthszeros}
-  and \cmd{mkdayzeros}\see{aut:fmt:ich}
-\item Added \bibfield{namehash} and \bibfield{fullhash} for all name list fields\see{aut:bbx:fld:gen}
-\item Generalised \opt{giveninits} option to all nameparts\see{use:opt:pre:int}
-\item Added \opt{inits} option to \cmd{DeclareSortingNamekeyScheme}\see{aut:ctm:srt}
-\item Added \cmd{DeclareLabelalphaNameTemplate}\see{aut:ctm:lab}
-\item Added full \acr{EDTF} Levels 0 and 1 compliance for parsing and printing times\see{bib:use:dat}
-\item Changed dates to be fully \acr{EDTF} Levels 0 and 1 compliant. Associated tests and localisation strings\see{bib:use:dat}
-\item Added \opt{timezeros}\see{use:opt:pre:gen}
-\item Added \opt{mktimezeros}\see{aut:fmt:ich}
-\item Changed \opt{iso8601} to \opt{edtf}\see{use:opt:pre:gen}
-\item Added \cmd{DeclareUniquenameTemplate}\see{aut:cav:amb}
-\item Removed experimental RIS support
-\item \opt{sortnamekeyscheme} and \opt{useprefix} can be now be set per-namelist and per-name for
-  \bibtex datasources\see{aut:ctm:srt}
-\item Added \cmd{DeclareDelimcontextAlias}\see{use:fmt:csd}
-\item Added Estonian localisation (Benson Muite)
-\item Reference contexts may now be named\see{use:bib:context}
-\item Added \opt{notfield} step in Sourcemaps\see{aut:ctm:map}
+\item 增加\cmd{ifuniquebaretitle}判断\see{aut:aux:tst}
+%Added \cmd{ifuniquebaretitle} test\see{aut:aux:tst}
+\item 为\cmd{labelnamesource}和\cmd{labeltitlesource}增加说明\see{aut:bbx:fld:gen}
+%Documented \cmd{labelnamesource} and \cmd{labeltitlesource}\see{aut:bbx:fld:gen}
+\item 增加\cmd{bibdaterangesep}\see{use:fmt:lng}
+%Added \cmd{bibdaterangesep}\see{use:fmt:lng}
+\item 为\cmd{DeclareSourcemap}增加\opt{refsection}选项\see{aut:ctm:map}
+%Added \opt{refsection} option to \cmd{DeclareSourcemap}\see{aut:ctm:map}
+\item 为继承设置增加\opt{suppress}选项，\see{aut:ctm:ref}
+%Added \opt{suppress} option to inheritance specifications\see{aut:ctm:ref}
+\item 增加\cmd{ifuniquework}\see{aut:aux:tst}
+%Added \cmd{ifuniquework}\see{aut:aux:tst}
+\item 修改\cmd{DeclareStyleSourcemap}，用于多个时间\see{aut:ctm:map}
+%Changed \cmd{DeclareStyleSourcemap} so that it can be used multiple times\see{aut:ctm:map}
+\item 增加\cmd{forcezerosy} 和 \cmd{forcezerosmdt}\see{aut:fmt:ich}
+%Added \cmd{forcezerosy} and \cmd{forcezerosmdt}\see{aut:fmt:ich}
+\item 修改\cmd{mkdatezeros}为\cmd{mkyearzeros}, \cmd{mkmonthszeros} 和\cmd{mkdayzeros}\see{aut:fmt:ich}
+%Changed \cmd{mkdatezeros} to \cmd{mkyearzeros}, \cmd{mkmonthszeros}  and \cmd{mkdayzeros}\see{aut:fmt:ich}
+\item 为所有姓名列表域增加\bibfield{namehash}和\bibfield{fullhash}\see{aut:bbx:fld:gen}
+%Added \bibfield{namehash} and \bibfield{fullhash} for all name list fields\see{aut:bbx:fld:gen}
+\item 为所有姓名成分推广\opt{giveninits}选项，\see{use:opt:pre:int}
+%Generalised \opt{giveninits} option to all nameparts\see{use:opt:pre:int}
+\item 为\cmd{DeclareSortingNamekeyScheme}增加\opt{inits}选项\see{aut:ctm:srt}
+%Added \opt{inits} option to \cmd{DeclareSortingNamekeyScheme}\see{aut:ctm:srt}
+\item 增加\cmd{DeclareLabelalphaNameTemplate}\see{aut:ctm:lab}
+%Added \cmd{DeclareLabelalphaNameTemplate}\see{aut:ctm:lab}
+\item 增加完整的\acr{EDTF}的0层次和1层次的规则用于解析和打印时间\see{bib:use:dat}
+%Added full \acr{EDTF} Levels 0 and 1 compliance for parsing and printing times\see{bib:use:dat}
+\item 修改日期完全符合\acr{EDTF}0层次和1层次的相关判断和本地化字符串\footnote{译注:句子有点疑惑?}\see{bib:use:dat}
+%Changed dates to be fully \acr{EDTF} Levels 0 and 1 compliant. Associated tests and localisation strings\see{bib:use:dat}
+\item 增加\opt{timezeros}\see{use:opt:pre:gen}
+%Added \opt{timezeros}\see{use:opt:pre:gen}
+\item 增加\opt{mktimezeros}\see{aut:fmt:ich}
+%Added \opt{mktimezeros}\see{aut:fmt:ich}
+\item 修改\opt{iso8601}为\opt{edtf}\see{use:opt:pre:gen}
+%Changed \opt{iso8601} to \opt{edtf}\see{use:opt:pre:gen}
+\item 增加\cmd{DeclareUniquenameTemplate}\see{aut:cav:amb}
+%Added \cmd{DeclareUniquenameTemplate}\see{aut:cav:amb}
+\item 移除尝试RIS支持的内容
+%Removed experimental RIS support
+\item 在\bibtex 数据源中\opt{sortnamekeyscheme} 和 \opt{useprefix}现在可以根据具体姓名列表和具体姓名设置。
+%\opt{sortnamekeyscheme} and \opt{useprefix} can be now be set per-namelist and per-name for \bibtex datasources\see{aut:ctm:srt}
+\item 增加\cmd{DeclareDelimcontextAlias}\see{use:fmt:csd}
+%Added \cmd{DeclareDelimcontextAlias}\see{use:fmt:csd}
+\item 增加爱沙尼亚本地化字符串(Benson Muite)
+%Added Estonian localisation (Benson Muite)
+\item 命名了参考文献环境\see{use:bib:context}
+%Reference contexts may now be named
+\item 在源映射中增加\opt{notfield}映射步\see{aut:ctm:map}
+%Added \opt{notfield} step in Sourcemaps\see{aut:ctm:map}
 \end{release}
 
 \begin{release}{3.4}{2016-05-10}
-\item Added \cmd{ifcrossrefsource} and \cmd{ifxrefsource}\see{aut:aux:tst}
-\item Added data annotation feature\see{use:annote}
-\item Added package option \opt{minxrefs}\see{use:opt:pre:gen}
-\item Added \cmd{ifuniqueprimaryauthor} and associated global option\see{aut:aux:tst}
-\item Added \cmd{DeprecateField}, \cmd{DeprecateList} and \cmd{DeprecateName}\see{aut:bib:dat}
-\item Added \cmd{ifcaselang}\see{aut:aux:tst}
-\item Added \cmd{DeclareSortTranslit}\see{aut:ctm:srt}
-\item Added \opt{uniquetitle} test\see{aut:aux:tst}
-\item Added \cmd{namelabeldelim}\see{use:fmt:fmt}
-\item New starred variants of the \cmd{assignrefcontext*} macros\see{use:bib:context}
-\item New context-sensitive delimiter interface\see{use:fmt:csd}
-\item Moved \opt{prefixnumbers} option to \cmd{newrefcontext} and renamed to \opt{labelprefix}\see{use:bib:context}
-\item Added \cmd{DeclareDatafieldSet}\see{aut:ctm:dsets}
+\item 增加\cmd{ifcrossrefsource}和\cmd{ifxrefsource}\see{aut:aux:tst}
+%Added \cmd{ifcrossrefsource} and \cmd{ifxrefsource}\see{aut:aux:tst}
+\item 增加数据注释功能\see{use:annote}
+%Added data annotation feature\see{use:annote}
+\item 增加包选项\opt{minxrefs}\see{use:opt:pre:gen}
+%Added package option \opt{minxrefs}\see{use:opt:pre:gen}
+\item 增加\cmd{ifuniqueprimaryauthor}和相关全局选项\see{aut:aux:tst}
+%Added \cmd{ifuniqueprimaryauthor} and associated global option\see{aut:aux:tst}
+\item 增加\cmd{DeprecateField}, \cmd{DeprecateList}和\cmd{DeprecateName}\see{aut:bib:dat}
+%Added \cmd{DeprecateField}, \cmd{DeprecateList} and \cmd{DeprecateName}\see{aut:bib:dat}
+\item 增加\cmd{ifcaselang}\see{aut:aux:tst}
+%Added \cmd{ifcaselang}\see{aut:aux:tst}
+\item 增加\cmd{DeclareSortTranslit}\see{aut:ctm:srt}
+%Added \cmd{DeclareSortTranslit}\see{aut:ctm:srt}
+\item 增加\opt{uniquetitle} test\see{aut:aux:tst}
+%Added \opt{uniquetitle} test\see{aut:aux:tst}
+\item 增加\cmd{namelabeldelim}\see{use:fmt:fmt}
+%Added \cmd{namelabeldelim}\see{use:fmt:fmt}
+\item 为\cmd{assignrefcontext*}宏增加带星号的版本\see{use:bib:context}
+%New starred variants of the \cmd{assignrefcontext*} macros\see{use:bib:context}
+\item 文本敏感的新分隔符接口\footnote{译注:context-sensitive？}\see{use:fmt:csd}
+%New context-sensitive delimiter interface\see{use:fmt:csd}
+\item 将\opt{prefixnumbers}选项移到\cmd{newrefcontext}并重命名为\opt{labelprefix}\see{use:bib:context}
+%Moved \opt{prefixnumbers} option to \cmd{newrefcontext} and renamed to \opt{labelprefix}\see{use:bib:context}
+\item 增加\cmd{DeclareDatafieldSet}\see{aut:ctm:dsets}
+%Added \cmd{DeclareDatafieldSet}\see{aut:ctm:dsets}
 \end{release}
 
 \begin{release}{3.3}{2016-03-01}
-\item New macros for auto-assignment of refcontexts\see{use:bib:context}
-\item Schema documentation for \biblatexml\see{apx:biblatexml}
-\item Sourcemapping documentation and examples for \biblatexml\see{aut:ctm:map}
-\item Changes for name formats to generalise available name parts\see{aut:bib:fmt}
-\item \opt{useprefix} can now be specified per-namelist and per-name in \biblatexml datasources
-\item New sourcemapping options for creating new entries dynamically and looping over map steps\see{aut:ctm:map}
-\item Added \opt{noalphaothers} and enhanced name range selection in \cmd{DeclareLabelalphaTemplate}\see{aut:ctm:lab}
-\item Added \cmd{DeclareDatamodelConstant}\see{aut:ctm:dm}
-\item Renamed \opt{firstinits} and \opt{sortfirstinits}
-\item Added \cmd{DeclareSortingNamekeyScheme}\see{aut:ctm:srt}
-\item Removed messy experimental endnote and zoterordf support for \biber
-\item Added \cmd{nonameyeardelim}\see{use:fmt:fmt}
-\item Added \cmd{extpostnotedelim}\see{use:fmt:fmt}
+\item 增加参考文献环境的自动分配的新宏\footnote{译注:refcontext？}\see{use:bib:context}
+%New macros for auto-assignment of refcontexts\see{use:bib:context}
+\item 增加了\biblatexml 格式的说明\see{apx:biblatexml}
+%Schema documentation for \biblatexml\see{apx:biblatexml}
+\item 增加了\biblatexml 格式的源映射说明和示例\see{aut:ctm:map}
+%Sourcemapping documentation and examples for \biblatexml\see{aut:ctm:map}
+\item 修改姓名格式用于规范姓名成分\see{aut:bib:fmt}
+%Changes for name formats to generalise available name parts\see{aut:bib:fmt}
+\item \opt{useprefix}可以在\biblatexml 数据源中根据具体姓名列表和姓名进行设置
+%\opt{useprefix} can now be specified per-namelist and per-name in \biblatexml datasources
+\item 增加数据源映射选项用于动态创建新条目并遍历映射步\see{aut:ctm:map}
+%New sourcemapping options for creating new entries dynamically and looping over map steps\see{aut:ctm:map}
+\item 增加\opt{noalphaothers}并增强了\cmd{DeclareLabelalphaTemplate}中的姓名范围选择\see{aut:ctm:lab}
+%Added \opt{noalphaothers} and enhanced name range selection in \cmd{DeclareLabelalphaTemplate}\see{aut:ctm:lab}
+\item 增加\cmd{DeclareDatamodelConstant}\see{aut:ctm:dm}
+%Added \cmd{DeclareDatamodelConstant}\see{aut:ctm:dm}
+\item 重命名了\opt{firstinits} and \opt{sortfirstinits}
+%Renamed \opt{firstinits} and \opt{sortfirstinits}
+\item 增加\cmd{DeclareSortingNamekeyScheme}\see{aut:ctm:srt}
+%Added \cmd{DeclareSortingNamekeyScheme}\see{aut:ctm:srt}
+\item 移除尝试为\biber 提供对endnote和zoterordf支持的内容
+%Removed messy experimental endnote and zoterordf support for \biber
+\item 增加\cmd{nonameyeardelim}\see{use:fmt:fmt}
+%Added \cmd{nonameyeardelim}\see{use:fmt:fmt}
+\item 增加\cmd{extpostnotedelim}\see{use:fmt:fmt}
+%Added \cmd{extpostnotedelim}\see{use:fmt:fmt}
 \end{release}
 
 \begin{release}{3.2}{2015-12-28}
-\item Added \opt{pstrwidth} and \opt{pcompound} to \cmd{DeclareLabelalphaTemplate}\see{aut:ctm:lab}
-\item Added \cmd{AtEachCitekey}\see{aut:fmt:hok}
+\item 为\cmd{DeclareLabelalphaTemplate}增加\opt{pstrwidth}和\opt{pcompound}\see{aut:ctm:lab}
+%Added \opt{pstrwidth} and \opt{pcompound} to \cmd{DeclareLabelalphaTemplate}\see{aut:ctm:lab}
+\item 增加\cmd{AtEachCitekey}\see{aut:fmt:hok}
+%Added \cmd{AtEachCitekey}\see{aut:fmt:hok}
 \end{release}
 
 \begin{release}{3.1}{2015-09}
-\item Added \cmd{DeclareNolabel}\see{aut:ctm:lab}
-\item Added \cmd{DeclareNolabelwidthcount}\see{aut:ctm:lab}
+\item 增加\cmd{DeclareNolabel}\see{aut:ctm:lab}
+%Added \cmd{DeclareNolabel}\see{aut:ctm:lab}
+\item 增加\cmd{DeclareNolabelwidthcount}\see{aut:ctm:lab}
+%Added \cmd{DeclareNolabelwidthcount}\see{aut:ctm:lab}
 \end{release}
 
 \begin{release}{3.0}{2015-04-20}
-\item Improved Danish (Jonas Nyrup) and Spanish (ludenticus) translations
-\item \bibfield{labelname} and \bibfield{labeltitle} are now resolved by \biblatex instead of \biber for more flexibility and future extensibility
-\item New \cmd{entryclone} sourcemap verb for cloning entries during sourcemapping\see{aut:ctm:map}
-\item New \cmd{pernottype} negated per-type sourcemap verb\see{aut:ctm:map}
-\item New range calculation command \cmd{frangelen}\see{aut:aux:msc}
-\item New bibliography context functionality\see{use:bib:context}
-\item Name lists in the data model now automatically create internals for \cmd{ifuse$<$name$>$} tests and booleans\see{use:opt:bib:hyb} and \see{aut:aux:tst}
+\item 完善丹麦语(Jonas Nyrup)和西班牙语(ludenticus)翻译
+%Improved Danish (Jonas Nyrup) and Spanish (ludenticus) translations
+\item 由\biblatex 代替\biber 来实现\bibfield{labelname} and \bibfield{labeltitle}，实现更大灵活性和可扩展性。
+%\bibfield{labelname} and \bibfield{labeltitle} are now resolved by \biblatex instead of \biber for more flexibility and future extensibility
+\item 增加\cmd{entryclone}映射动作用于在数据源映射过程中复制条目\see{aut:ctm:map}
+%New \cmd{entryclone} sourcemap verb for cloning entries during sourcemapping\see{aut:ctm:map}
+\item 增加\cmd{pernottype}否定的具体条目相关的数据源映射动作\see{aut:ctm:map}
+%New \cmd{pernottype} negated per-type sourcemap verb\see{aut:ctm:map}
+\item 增加范围计算命令\cmd{frangelen}\see{aut:aux:msc}
+%New range calculation command \cmd{frangelen}\see{aut:aux:msc}
+\item 增加参考文献环境功能\see{use:bib:context}
+%New bibliography context functionality\see{use:bib:context}
+\item 数据模型中的姓名列表自动为创建\cmd{ifuse$<$name$>$}内部判断和布尔值\see{use:opt:bib:hyb} and \see{aut:aux:tst}
+%Name lists in the data model now automatically create internals for \cmd{ifuse$<$name$>$} tests and booleans\see{use:opt:bib:hyb} and \see{aut:aux:tst}
 \end{release}
 
-\begin{release}{2.9a}{2014-06-25}
-\item \texttt{resetnumbers} now allows passing a number to reset to\see{use:bib:bib}
-\end{release}
-
-\begin{release}{2.9}{2014-02-25}
-\item Generalised shorthands facility\see{use:bib:biblist}
-\item Sorting locales can now be defined as part of a sorting scheme\see{aut:ctm:srt}
-\item Added \bibfield{sortinithash}\see{aut:bbx:fld:gen}
-\item Added Slovene localisation (Tea Tušar and Bogdan Filipič)
-\item Added \cmd{mkbibitalic}\see{aut:fmt:ich}
-\item Recommend \texttt{begentry} and \texttt{finentry} bibliography macros\see{aut:bbx:drv}
-\end{release}
-
-\begin{release}{2.8a}{2013-11-25}
-\item Split option \opt{language=auto} into \opt{language=autocite} and \opt{language=autobib}\see{use:opt:pre:gen}
-\end{release}
-
-\begin{release}{2.8}{2013-10-21}
-\item New \bibfield{langidopts}\see{bib:fld:spc}
-\item \bibfield{hyphenation} field renamed to \bibfield{langid}\see{bib:fld:spc}
-\item \sty{polyglossia} support
-\item Renamed \opt{babel} option to \opt{autolang}\see{use:opt:pre:gen}
-\item Corrected Dutch localisation
-\item Added \opt{datelabel=year} option\see{use:opt:pre:gen}
-\item Added \bibfield{datelabelsource} field\see{aut:bbx:fld:gen}
-\end{release}
-
-\begin{release}{2.7a}{2013-07-14}
-\item Bugfix - respect maxnames and uniquelist in \cmd{finalandsemicolon}
-\item Corrected French localisation
-\end{release}
-
-\begin{release}{2.7}{2013-07-07}
-\item Added field \bibfield{eventtitleaddon} to default datamodel and styles\see{bib:fld:dat}
-\item Added \cmd{ifentryinbib}, \cmd{iffirstcitekey} and \cmd{iflastcitekey}\see{aut:aux:tst}
-\item Added \bibfield{postpunct} special field, documented \bibfield{multiprenote} and \bibfield{multipostnote} special fields\see{aut:cbx:fld}
-\item Added \cmd{UseBibitemHook}, \cmd{AtEveryMultiCite}, \cmd{AtNextMultiCite}, \cmd{UseEveryCiteHook}, \cmd{UseEveryCitekeyHook}, \cmd{UseEveryMultiCiteHook}, \cmd{UseNextCiteHook}, \cmd{UseNextCitekeyHook}, \cmd{UseNextMultiCiteHook}, \cmd{DeferNextCitekeyHook}\see{aut:fmt:hok}
-\item Fixed \cmd{textcite} and related commands in the numeric and verbose styles\see{use:cit:cbx}
-\item Added multicite variants of \cmd{volcite} and related commands\see{use:cit:spc}
-\item Added \cmd{finalandsemicolon}\see{use:fmt:lng}
-\item Added citation delimiter \cmd{textcitedelim} for \cmd{textcite} and related commands to styles\see{aut:fmt:fmt}
-\item Updated Russian localisation (Oleg Domanov)
-\item Fixed Brazilian and Finnish localisation
-\end{release}
-
-\begin{release}{2.6}{2013-04-30}
-\item Added \cmd{printunit}\see{aut:pct:new}
-\item Added field \bibfield{clonesourcekey}\see{aut:bbx:fld:gen}
-\item New options for \cmd{DeclareLabelalphaTemplate}\see{aut:ctm:lab}
-\item Added \cmd{DeclareLabeldate} and retired \cmd{DeclareLabelyear}\see{aut:ctm:fld}
-\item Added \texttt{nodate} localisation string\see{aut:lng:key:msc}
-\item Added \cmd{rangelen}\see{aut:aux:msc}
-\item Added starred variants of \cmd{citeauthor} and \cmd{Citeauthor}\see{use:cit:txt}
-\item Restored original \texttt{url} format. Added \texttt{urlfrom} localisation key\see{aut:lng:key:lab}
-\item Added \cmd{AtNextBibliography}\see{aut:fmt:hok}
-\item Fixed related entry processing to allow nested and cyclic related entries
-\item Added Croatian localisation (Ivo Pletikosić)
-\item Added Polish localisation (Anastasia Kandulina, Yuriy Chernyshov)
-\item Fixed Catalan localisation
-\item Added smart ``of'' for titles to Catalan and French localisation
-\item Misc bug fixes
-\end{release}
-
-\begin{release}{2.5}{2013-01-10}
-\item Made \texttt{url} work as a localisation string, defaulting to previously hard-coded value <\textsc{URL}>.
-\item Changed some \biber\ option names to cohere with \biber\ 1.5.
-\item New sourcemap step for conditionally removing entire entries\see{aut:ctm:map}
-\item Updated Catalan localisation (Sebastià Vila-Marta)
-\end{release}
-
-\begin{release}{2.4}{2012-11-28}
-\item Added \bibfield{relatedoptions} field\see{aut:ctm:rel}
-\item Added \cmd{DeclareStyleSourcemap}\see{aut:ctm:map}
-\item Renamed \cmd{DeclareDefaultSourcemap} to \cmd{DeclareDriverSourcemap}\see{aut:ctm:map}
-\item Documented \cmd{DeclareFieldInputHandler}, \cmd{DeclareListInputHandler} and \cmd{DeclareNameInputHandler}.
-\item Added Czech localisation (Michal Hoftich)
-\item Updated Catalan localisation (Sebastià Vila-Marta)
-\end{release}
-
-\begin{release}{2.3}{2012-11-01}
-\item Better detection of situations which require a \biber\ or \LaTeX\ re-run
-\item New append mode for \cmd{DeclareSourcemap} so that fields can be combined\see{aut:ctm:map}
-\item Extended auxiliary indexing macros
-\item Added support for plural localisation strings with \bibfield{relatedtype}\see{aut:ctm:rel}
-\item Added \cmd{csfield} and \cmd{usefield}\see{aut:aux:dat}
-\item Added starred variant of \cmd{usebibmacro}\see{aut:aux:msc}
-\item Added \cmd{ifbibmacroundef}, \cmd{iffieldformatundef}, \cmd{iflistformatundef}
-  and \cmd{ifnameformatundef}\see{aut:aux:msc}
-\item Added Catalan localisation (Sebastià Vila-Marta)
-\item Misc bug fixes
-\end{release}
-
-\begin{release}{2.2}{2012-08-17}
-\item Misc bug fixes
-\item Added \cmd{revsdnamepunct}\see{use:fmt:fmt}
-\item Added \cmd{ifterseinits}\see{aut:aux:tst}
-\end{release}
-
-\begin{release}{2.1}{2012-08-01}
-\item Misc bug fixes
-\item Updated Norwegian localisation (Håkon Malmedal)
-\item Increased data model auto-loading possibilities\see{aut:ctm:dm}
-\end{release}
-
-\begin{release}{2.0}{2012-07-01}
-\item Misc bug fixes
-\item Generalised \opt{singletitle} test a little\see{aut:aux:tst}
-\item Added new special field \bibfield{extratitleyear}\see{aut:bbx:fld}
-\item Customisable data model\see{aut:ctm:dm}
-\item Added \cmd{DeclareDefaultSourcemap}\see{aut:ctm:map}
-\item Added \opt{labeltitle} option\see{use:opt:pre:int}
-\item Added new special field \bibfield{extratitle}\see{aut:bbx:fld}
-\item Made special field \bibfield{labeltitle} customisable\see{aut:bbx:fld}
-\item Removed field \bibfield{reprinttitle}\see{use:rel}
-\item Added related entry feature\see{use:rel}
-\item Added \cmd{DeclareNoinit}\see{aut:ctm:noinit}
-\item Added \cmd{DeclareNosort}\see{aut:ctm:nosort}
-\item Added \opt{sorting} option for \cmd{printbibliography} and \cmd{printshorthands}\see{use:bib:bib}
-\item Added \texttt{ids} field for citekey aliasing\see{bib:fld}
-\item Added \opt{sortfirstinits} option\see{use:opt:pre:int}
-\item Added data stream modification feature\see{aut:ctm:map}
-\item Added customisable labels feature\see{aut:ctm:lab}
-\item Added \cmd{citeyear*} and \cmd{citedate*}\see{use:cit:txt}
-\end{release}
+%\begin{release}{2.9a}{2014-06-25}
+%\item \texttt{resetnumbers} now allows passing a number to reset to\see{use:bib:bib}
+%\end{release}
+%
+%\begin{release}{2.9}{2014-02-25}
+%\item Generalised shorthands facility\see{use:bib:biblist}
+%\item Sorting locales can now be defined as part of a sorting scheme\see{aut:ctm:srt}
+%\item Added \bibfield{sortinithash}\see{aut:bbx:fld:gen}
+%\item Added Slovene localisation (Tea Tušar and Bogdan Filipič)
+%\item Added \cmd{mkbibitalic}\see{aut:fmt:ich}
+%\item Recommend \texttt{begentry} and \texttt{finentry} bibliography macros\see{aut:bbx:drv}
+%\end{release}
+%
+%\begin{release}{2.8a}{2013-11-25}
+%\item Split option \opt{language=auto} into \opt{language=autocite} and \opt{language=autobib}\see{use:opt:pre:gen}
+%\end{release}
+%
+%\begin{release}{2.8}{2013-10-21}
+%\item New \bibfield{langidopts}\see{bib:fld:spc}
+%\item \bibfield{hyphenation} field renamed to \bibfield{langid}\see{bib:fld:spc}
+%\item \sty{polyglossia} support
+%\item Renamed \opt{babel} option to \opt{autolang}\see{use:opt:pre:gen}
+%\item Corrected Dutch localisation
+%\item Added \opt{datelabel=year} option\see{use:opt:pre:gen}
+%\item Added \bibfield{datelabelsource} field\see{aut:bbx:fld:gen}
+%\end{release}
+%
+%\begin{release}{2.7a}{2013-07-14}
+%\item Bugfix - respect maxnames and uniquelist in \cmd{finalandsemicolon}
+%\item Corrected French localisation
+%\end{release}
+%
+%\begin{release}{2.7}{2013-07-07}
+%\item Added field \bibfield{eventtitleaddon} to default datamodel and styles\see{bib:fld:dat}
+%\item Added \cmd{ifentryinbib}, \cmd{iffirstcitekey} and \cmd{iflastcitekey}\see{aut:aux:tst}
+%\item Added \bibfield{postpunct} special field, documented \bibfield{multiprenote} and \bibfield{multipostnote} special fields\see{aut:cbx:fld}
+%\item Added \cmd{UseBibitemHook}, \cmd{AtEveryMultiCite}, \cmd{AtNextMultiCite}, \cmd{UseEveryCiteHook}, \cmd{UseEveryCitekeyHook}, \cmd{UseEveryMultiCiteHook}, \cmd{UseNextCiteHook}, \cmd{UseNextCitekeyHook}, \cmd{UseNextMultiCiteHook}, \cmd{DeferNextCitekeyHook}\see{aut:fmt:hok}
+%\item Fixed \cmd{textcite} and related commands in the numeric and verbose styles\see{use:cit:cbx}
+%\item Added multicite variants of \cmd{volcite} and related commands\see{use:cit:spc}
+%\item Added \cmd{finalandsemicolon}\see{use:fmt:lng}
+%\item Added citation delimiter \cmd{textcitedelim} for \cmd{textcite} and related commands to styles\see{aut:fmt:fmt}
+%\item Updated Russian localisation (Oleg Domanov)
+%\item Fixed Brazilian and Finnish localisation
+%\end{release}
+%
+%\begin{release}{2.6}{2013-04-30}
+%\item Added \cmd{printunit}\see{aut:pct:new}
+%\item Added field \bibfield{clonesourcekey}\see{aut:bbx:fld:gen}
+%\item New options for \cmd{DeclareLabelalphaTemplate}\see{aut:ctm:lab}
+%\item Added \cmd{DeclareLabeldate} and retired \cmd{DeclareLabelyear}\see{aut:ctm:fld}
+%\item Added \texttt{nodate} localisation string\see{aut:lng:key:msc}
+%\item Added \cmd{rangelen}\see{aut:aux:msc}
+%\item Added starred variants of \cmd{citeauthor} and \cmd{Citeauthor}\see{use:cit:txt}
+%\item Restored original \texttt{url} format. Added \texttt{urlfrom} localisation key\see{aut:lng:key:lab}
+%\item Added \cmd{AtNextBibliography}\see{aut:fmt:hok}
+%\item Fixed related entry processing to allow nested and cyclic related entries
+%\item Added Croatian localisation (Ivo Pletikosić)
+%\item Added Polish localisation (Anastasia Kandulina, Yuriy Chernyshov)
+%\item Fixed Catalan localisation
+%\item Added smart ``of'' for titles to Catalan and French localisation
+%\item Misc bug fixes
+%\end{release}
+%
+%\begin{release}{2.5}{2013-01-10}
+%\item Made \texttt{url} work as a localisation string, defaulting to previously hard-coded value <\textsc{URL}>.
+%\item Changed some \biber\ option names to cohere with \biber\ 1.5.
+%\item New sourcemap step for conditionally removing entire entries\see{aut:ctm:map}
+%\item Updated Catalan localisation (Sebastià Vila-Marta)
+%\end{release}
+%
+%\begin{release}{2.4}{2012-11-28}
+%\item Added \bibfield{relatedoptions} field\see{aut:ctm:rel}
+%\item Added \cmd{DeclareStyleSourcemap}\see{aut:ctm:map}
+%\item Renamed \cmd{DeclareDefaultSourcemap} to \cmd{DeclareDriverSourcemap}\see{aut:ctm:map}
+%\item Documented \cmd{DeclareFieldInputHandler}, \cmd{DeclareListInputHandler} and \cmd{DeclareNameInputHandler}.
+%\item Added Czech localisation (Michal Hoftich)
+%\item Updated Catalan localisation (Sebastià Vila-Marta)
+%\end{release}
+%
+%\begin{release}{2.3}{2012-11-01}
+%\item Better detection of situations which require a \biber\ or \LaTeX\ re-run
+%\item New append mode for \cmd{DeclareSourcemap} so that fields can be combined\see{aut:ctm:map}
+%\item Extended auxiliary indexing macros
+%\item Added support for plural localisation strings with \bibfield{relatedtype}\see{aut:ctm:rel}
+%\item Added \cmd{csfield} and \cmd{usefield}\see{aut:aux:dat}
+%\item Added starred variant of \cmd{usebibmacro}\see{aut:aux:msc}
+%\item Added \cmd{ifbibmacroundef}, \cmd{iffieldformatundef}, \cmd{iflistformatundef}
+%  and \cmd{ifnameformatundef}\see{aut:aux:msc}
+%\item Added Catalan localisation (Sebastià Vila-Marta)
+%\item Misc bug fixes
+%\end{release}
+%
+%\begin{release}{2.2}{2012-08-17}
+%\item Misc bug fixes
+%\item Added \cmd{revsdnamepunct}\see{use:fmt:fmt}
+%\item Added \cmd{ifterseinits}\see{aut:aux:tst}
+%\end{release}
+%
+%\begin{release}{2.1}{2012-08-01}
+%\item Misc bug fixes
+%\item Updated Norwegian localisation (Håkon Malmedal)
+%\item Increased data model auto-loading possibilities\see{aut:ctm:dm}
+%\end{release}
+%
+%\begin{release}{2.0}{2012-07-01}
+%\item Misc bug fixes
+%\item Generalised \opt{singletitle} test a little\see{aut:aux:tst}
+%\item Added new special field \bibfield{extratitleyear}\see{aut:bbx:fld}
+%\item Customisable data model\see{aut:ctm:dm}
+%\item Added \cmd{DeclareDefaultSourcemap}\see{aut:ctm:map}
+%\item Added \opt{labeltitle} option\see{use:opt:pre:int}
+%\item Added new special field \bibfield{extratitle}\see{aut:bbx:fld}
+%\item Made special field \bibfield{labeltitle} customisable\see{aut:bbx:fld}
+%\item Removed field \bibfield{reprinttitle}\see{use:rel}
+%\item Added related entry feature\see{use:rel}
+%\item Added \cmd{DeclareNoinit}\see{aut:ctm:noinit}
+%\item Added \cmd{DeclareNosort}\see{aut:ctm:nosort}
+%\item Added \opt{sorting} option for \cmd{printbibliography} and \cmd{printshorthands}\see{use:bib:bib}
+%\item Added \texttt{ids} field for citekey aliasing\see{bib:fld}
+%\item Added \opt{sortfirstinits} option\see{use:opt:pre:int}
+%\item Added data stream modification feature\see{aut:ctm:map}
+%\item Added customisable labels feature\see{aut:ctm:lab}
+%\item Added \cmd{citeyear*} and \cmd{citedate*}\see{use:cit:txt}
+%\end{release}
 
 % \begin{release}{1.7}{2011-11-13}
 % \item Added \texttt{xdata} containers\see{use:use:xdat}
