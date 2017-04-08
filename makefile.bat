@@ -4,13 +4,15 @@
 
 :: compile the tex file
 
-call gbtclear
+call makeclear
 
 xelatex.exe --synctex=-1 biblatex-zh-cn.tex
 
+makeglossaries biblatex-zh-cn
+
 xelatex.exe --synctex=-1 biblatex-zh-cn.tex
 
-::call gbtclear
+::call makeclear
 
 
 
