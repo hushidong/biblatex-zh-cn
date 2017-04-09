@@ -3564,7 +3564,7 @@ LANGUAGE+an = {1=annotation3; 2=annotation4}
 \prm{key} 必须是唯一的，并且不能与其它条目键名冲突。
 第二个选项是组成该集合的逗号分隔条目键列表。
 \cmd{defbibentryset} 也蕴含了与 \cmd{nocite} 命令的等价性，
-即，所有声明的集合也都添加到参考文献表中。
+即所有声明的集合也都添加到参考文献表中。
 当多次声明相同集合时，只有第一次调用的 \cmd{defbibentryset} 会定义该集合。
 接下来的对于相同 \prm{key} 的定义将被忽略并如同 \cmd{nocite}\prm{key} 一样处理。
 在正文中定义的动态条目集如果包含在 \env{refsection} 环境中，那么是局部的。
@@ -3574,167 +3574,275 @@ LANGUAGE+an = {1=annotation3; 2=annotation4}
 
 \end{ltxsyntax}
 
-\subsection{引用命令 Citation Commands}
+\subsection{引用命令}%\subsection{Citation Commands}
 \label{use:cit}
 
-All citation commands generally take one mandatory and two optional arguments. The \prm{prenote} is text to be printed at the beginning of the citation. This is usually a notice such as <see> or <compare>. The \prm{postnote} is text to be printed at the very end of the citation. This is usually a page number. If only one of these arguments is given, it is taken as a postnote. If you want to specify a prenote but no postnote, you need to leave the second optional argument empty, as in |\cite[see][]{key}|. The \prm{key} argument to all citation commands is mandatory. This is the entry key or a comma"=separated list of keys corresponding to the entry keys in the \sty{bib} file. In sum, all basic citations commands listed further down have the following syntax:
+%All citation commands generally take one mandatory and two optional arguments. The \prm{prenote} is text to be printed at the beginning of the citation. This is usually a notice such as <see> or <compare>. The \prm{postnote} is text to be printed at the very end of the citation. This is usually a page number. If only one of these arguments is given, it is taken as a postnote. If you want to specify a prenote but no postnote, you need to leave the second optional argument empty, as in |\cite[see][]{key}|. The \prm{key} argument to all citation commands is mandatory. This is the entry key or a comma"=separated list of keys corresponding to the entry keys in the \sty{bib} file. In sum, all basic citations commands listed further down have the following syntax:
+
+大体上，所有的引用命令都有一个必选参数和两个可选参数。
+前注 \prm{prenote} 是引用开始时打印的文本，通常是“see”或“compare”等提示。
+而后注 \prm{postnote} 是引用结束时打印的文本，通常是页码数。
+如果只给出一个可选参数，那么将视作后缀。
+如果想给出前注但不要后注，那么需要将第二个可选项设置为空，例如 |\cite[see][]{key}|。
+所有的引用命令中选项 \prm{key} 都是必须的，
+其内容是 \file{bib} 文件中的条目键或者对应于条目键的逗号分隔列表。
+总的来说，以下所有的基本引用命令都具有如下的句法结构：
 
 \begin{ltxsyntax}
 
 \cmditem*{command}[prenote][postnote]{keys}<punctuation>
 
-If the \opt{autopunct} package option from \secref{use:opt:pre:gen} is enabled, they will scan ahead for any \prm{punctuation} immediately following their last argument. This is useful to avoid spurious punctuation marks after citations. This feature is configured with \cmd{DeclareAutoPunctuation}, see \secref{aut:pct:cfg} for details.
+%If the \opt{autopunct} package option from \secref{use:opt:pre:gen} is enabled, they will scan ahead for any \prm{punctuation} immediately following their last argument. This is useful to avoid spurious punctuation marks after citations. This feature is configured with \cmd{DeclareAutoPunctuation}, see \secref{aut:pct:cfg} for details.
+如果启用了 \secref{use:opt:pre:gen} 节中的 \opt{autopunct} 宏包选项，
+这些命令会首先扫描紧跟在最后选项的 \prm{punctuation} 标点符号。
+这可用于避免引用之后出现错误的标点符号。
+该特性由 \cmd{DeclareAutoPunctuation} 命令配置，详见 \secref{aut:pct:cfg} 节。
 
 \end{ltxsyntax}
 
-\subsubsection{标准命令 Standard Commands}
+\subsubsection{标准命令} %\subsubsection{Standard Commands}
 \label{use:cit:std}
 
-The following commands are defined by the citation style. Citation styles may provide any arbitrary number of specialized commands, but these are the standard commands typically provided by general-purpose styles.
+%The following commands are defined by the citation style. Citation styles may provide any arbitrary number of specialized commands, but these are the standard commands typically provided by general-purpose styles.
+
+下列命令由引用样式定义。
+引用样式可以提供任意特殊命令，但是这些是由通用样式提供的标准命令。
 
 \begin{ltxsyntax}
+
 
 \cmditem{cite}[prenote][postnote]{key}
 \cmditem{Cite}[prenote][postnote]{key}
 
-These are the bare citation commands. They print the citation without any additions such as parentheses. The numeric and alphabetic styles still wrap the label in square brackets since the reference may be ambiguous otherwise. \cmd{Cite} is similar to \cmd{cite} but capitalizes the name prefix of the first name in the citation if the \opt{useprefix} option is enabled, provided that there is a name prefix and the citation style prints any name at all.
+%These are the bare citation commands. They print the citation without any additions such as parentheses. The numeric and alphabetic styles still wrap the label in square brackets since the reference may be ambiguous otherwise. \cmd{Cite} is similar to \cmd{cite} but capitalizes the name prefix of the first name in the citation if the \opt{useprefix} option is enabled, provided that there is a name prefix and the citation style prints any name at all.
+
+基本引用命令。只打印出引用，而不带括号等任何附加物。
+不过数值和字母样式仍然会将标签放在方括号里，因为否则的话参考文献可能含糊不清。
+\cmd{Cite} 与 \cmd{cite} 类似，不同之处仅仅在于，
+如果开启了 \opt{useprefix} 选项，并且引用样式会打印全名，
+那么引用中名部分（first name）的前缀要大写。
 
 \cmditem{parencite}[prenote][postnote]{key}
 \cmditem{Parencite}[prenote][postnote]{key}
 
-These commands use a format similar to \cmd{cite} but enclose the entire citation in parentheses. The numeric and alphabetic styles use square brackets instead. \cmd{Parencite} is similar to \cmd{parencite} but capitalizes the name prefix of the first name in the citation if the \opt{useprefix} option is enabled, provided that there is a name prefix and the citation style prints any name at all.
+%These commands use a format similar to \cmd{cite} but enclose the entire citation in parentheses. The numeric and alphabetic styles use square brackets instead. \cmd{Parencite} is similar to \cmd{parencite} but capitalizes the name prefix of the first name in the citation if the \opt{useprefix} option is enabled, provided that there is a name prefix and the citation style prints any name at all.
+
+这些命令的格式类似于 \cmd{cite}，不过将引用全部放入圆括号内。
+不过数值和字母样式仍然使用方括号。
+\cmd{Parencite} 与 \cmd{parencite} 类似，
+不过，如果有姓名前缀并且引用样式打印全名，并且同时开启了 \opt{useprefix} 选项，
+那么 \cmd{Parencite} 会使得该姓名前缀首字母大写。
 
 \cmditem{footcite}[prenote][postnote]{key}
 \cmditem{footcitetext}[prenote][postnote]{key}
 
-These command use a format similar to \cmd{cite} but put the entire citation in a footnote and add a period at the end. In the footnote, they automatically capitalize the name prefix of the first name if the \opt{useprefix} option is enabled, provided that there is a name prefix and the citation style prints any name at all. \cmd{footcitetext} differs from \cmd{footcite} in that it uses \cmd{footnotetext} instead of \cmd{footnote}.
+%These command use a format similar to \cmd{cite} but put the entire citation in a footnote and add a period at the end. In the footnote, they automatically capitalize the name prefix of the first name if the \opt{useprefix} option is enabled, provided that there is a name prefix and the citation style prints any name at all. \cmd{footcitetext} differs from \cmd{footcite} in that it uses \cmd{footnotetext} instead of \cmd{footnote}.
+
+这些命令的格式类似于 \cmd{cite}，不过将引用的全部放入脚注内并在末尾加上句号。
+在脚注中，如果有姓名前缀并且引用样式打印全名，同时开启了 \opt{useprefix} 选项的话，那么该姓名前缀的首字母会自动大写。
+\cmd{footcitetext} 与 \cmd{footcite} 的不同之处在于它使用 \cmd{footnotetext} 而不是 \cmd{footnote} 命令。
 
 \end{ltxsyntax}
 
-\subsubsection{样式相关命令 Style-specific Commands}
+\subsubsection{样式相关命令}%\subsubsection{Style-specific Commands}
 \label{use:cit:cbx}
 
-The following additional citation commands are only provided by some of the citation styles which ship with this package.
+%The following additional citation commands are only provided by some of the citation styles which ship with this package.
+下列额外的引用命令只由本宏包所带的某些引用样式提供。
 
 \begin{ltxsyntax}
 
 \cmditem{textcite}[prenote][postnote]{key}
 \cmditem{Textcite}[prenote][postnote]{key}
 
-These citation commands are provided by all styles that ship with this package. They are intended for use in the flow of text, replacing the subject of a sentence. They print the authors or editors followed by a citation label which is enclosed in parentheses. Depending on the citation style, the label may be a number, the year of publication, an abridged version of the title, or something else. The numeric and alphabetic styles use square brackets instead of parentheses. In the verbose styles, the label is provided in a footnote. Trailing punctuation is moved between the author or editor names and the footnote mark. \cmd{Textcite} is similar to \cmd{textcite} but capitalizes the name prefix of the first name in the citation if the \opt{useprefix} option is enabled, provided that there is a name prefix.
+%These citation commands are provided by all styles that ship with this package. They are intended for use in the flow of text, replacing the subject of a sentence. They print the authors or editors followed by a citation label which is enclosed in parentheses. Depending on the citation style, the label may be a number, the year of publication, an abridged version of the title, or something else. The numeric and alphabetic styles use square brackets instead of parentheses. In the verbose styles, the label is provided in a footnote. Trailing punctuation is moved between the author or editor names and the footnote mark. \cmd{Textcite} is similar to \cmd{textcite} but capitalizes the name prefix of the first name in the citation if the \opt{useprefix} option is enabled, provided that there is a name prefix.
+
+这些引用命令在本宏包所带的所有样式中都有提供。
+它们用于正文中代替句子成分。
+它们打印出作者或编辑，后面接着在括号中括起来的引用标签。
+取决于引用样式，标签可以是数字、出版年份、缩写版本的标题等等。
+数值和字母样式会使用方括号来代替圆括号。
+在详细样式中，标签在脚注中提供。
+作者或编辑名与脚注标记的空格将被移除。
+\cmd{Textcite} 与 \cmd{textcite} 类似，
+不同之处在于如果有前缀名并且启用 \opt{useprefix} 选项的话，引用中的前缀名是大写的。
 
 \cmditem{smartcite}[prenote][postnote]{key}
 \cmditem{Smartcite}[prenote][postnote]{key}
 
-Like \cmd{parencite} in a footnote and like \cmd{footcite} in the body.
+%Like \cmd{parencite} in a footnote and like \cmd{footcite} in the body.
+在脚注中与 \cmd{parencite} 相似而在正文中与 \cmd{footcite} 类似。
 
 \cmditem{cite*}[prenote][postnote]{key}
 
-This command is provided by all author-year and author-title styles. It is similar to the regular \cmd{cite} command but merely prints the year or the title, respectively.
+%This command is provided by all author-year and author-title styles. It is similar to the regular \cmd{cite} command but merely prints the year or the title, respectively.
+该命令由所有的\texttt{作者--年份}和\texttt{作者--标题}样式提供。
+它类似于常规的 \cmd{cite} 命令，但是只打印出年份或者标题。
 
 \cmditem{parencite*}[prenote][postnote]{key}
 
-This command is provided by all author-year and author-title styles. It is similar to the regular \cmd{parencite} command but merely prints the year or the title, respectively.
+%This command is provided by all author-year and author-title styles. It is similar to the regular \cmd{parencite} command but merely prints the year or the title, respectively.
+该命令由所有的\texttt{作者--年份}和\texttt{作者--标题}样式提供。
+它类似于常规的 \cmd{parencite} 命令，但是只打印出年份或者标题。
 
 \cmditem{supercite}{key}
 
-This command, which is only provided by the numeric styles, prints numeric citations as superscripts without brackets. It uses \cmd{supercitedelim} instead of \cmd{multicitedelim} as citation delimiter. Note that any \prm{prenote} and \prm{postnote} arguments are ignored. If they are given, \cmd{supercite} will discard them and issue a warning message.
+%This command, which is only provided by the numeric styles, prints numeric citations as superscripts without brackets. It uses \cmd{supercitedelim} instead of \cmd{multicitedelim} as citation delimiter. Note that any \prm{prenote} and \prm{postnote} arguments are ignored. If they are given, \cmd{supercite} will discard them and issue a warning message.
+该命令只在数值样式中提供，会以不带括号的上标形式打印出引用编号。
+它使用  \cmd{supercitedelim} 而不是 \cmd{multicitedelim} 作为引用定界符。
+请注意，任何的  \prm{prenote} 和 \prm{postnote} 选项都会被忽略。
+如果给出的话也会弃掉它们并且显示警告信息。
 
 \end{ltxsyntax}
 
-\subsubsection{有限标注表 Qualified Citation Lists}
+\subsubsection{合格的引用列表}%\subsubsection{Qualified Citation Lists}
 \label{use:cit:mlt}
 
-This package supports a class of special citation commands called <multicite> commands. The point of these commands is that their argument is a list of citations where each item forms a fully qualified citation with a pre- and\slash or postnote. This is particularly useful with parenthetical citations and citations given in footnotes. It is also possible to assign a pre- and\slash or postnote to the entire list. The multicite commands are built on top of backend commands like \cmd{parencite} and \cmd{footcite}. The citation style provides a multicite definition with \cmd{DeclareMultiCiteCommand} (see \secref{aut:cbx:cbx}). The following example illustrates the syntax of multicite commands:
+%This package supports a class of special citation commands called <multicite> commands. The point of these commands is that their argument is a list of citations where each item forms a fully qualified citation with a pre- and\slash or postnote. This is particularly useful with parenthetical citations and citations given in footnotes. It is also possible to assign a pre- and\slash or postnote to the entire list. The multicite commands are built on top of backend commands like \cmd{parencite} and \cmd{footcite}. The citation style provides a multicite definition with \cmd{DeclareMultiCiteCommand} (see \secref{aut:cbx:cbx}). The following example illustrates the syntax of multicite commands:
 
-\begin{lstlisting}[style=latex]{}
+本宏包支持一类特殊的称之为“多重引用”的引用命令。
+这些命令的特点是，它们的选项是一列引用，其中每一项都具有完整的前注/后注形式。
+这对于带括号或脚注中给出的引用特别有用。
+也可以将一个前注或后注分配给整个列表。
+这种多重引用命令构建在 \cmd{parencite} 和 \cmd{footcite} 等后端命令之上。
+引用样式通过命令 \cmd{DeclareMultiCiteCommand}（见 \secref{aut:cbx:cbx} 节）提供了多重引用的定义。
+下面的例子展示了多重引用命令的语法。
+
+\begin{ltxexample}
 \parencites[35]{key1}[88--120]{key2}[23]{key3}
-\end{lstlisting}
+\end{ltxexample}
 %
-The format of the arguments is similar to that of the regular citation commands, except that only one citation command is given. If only one optional argument is given for an item in the list, it is taken as a postnote. If you want to specify a prenote but no postnote, you need to leave the second optional argument of the respective item empty:
+%The format of the arguments is similar to that of the regular citation commands, except that only one citation command is given. If only one optional argument is given for an item in the list, it is taken as a postnote. If you want to specify a prenote but no postnote, you need to leave the second optional argument of the respective item empty:
+选项的格式与常规引用命令类似，不过只用给出一个引用命令。
+如果对于列表中的某一项只给出一个可选参数，那么将视为后注。
+如果只想要前注而不要后注，那么需要将相应项的第二个可选参数设置为空：
 
-\begin{lstlisting}[style=latex]{}
+\begin{ltxexample}
 \parencites[35]{key1}[chapter 2 in][]{key2}[23]{key3}
-\end{lstlisting}
+\end{ltxexample}
 %
-In addition to that, the entire citation list may also have a pre- and\slash or postnote. The syntax of these global notes differs from other optional arguments in that they are given in parentheses rather than the usual brackets:
+%In addition to that, the entire citation list may also have a pre- and\slash or postnote. The syntax of these global notes differs from other optional arguments in that they are given in parentheses rather than the usual brackets:
+此外，整个的引用列表也可以有一个共同的前注或后注。
+与其他可选参数的语法不同，这些全局注记在圆括号而不是通常的方括号中：
 
-\begin{lstlisting}[style=latex]{}
+\begin{ltxexample}
 \parencites<<(>>and chapter 3<<)>>[35]{key1}[78]{key2}[23]{key3}
 \parencites<<(>>Compare<<)()>>[35]{key1}[78]{key2}[23]{key3}
 \parencites<<(>>See<<)(>>and the introduction<<)>>[35]{key1}[78]{key2}[23]{key3}
-\end{lstlisting}
+\end{ltxexample}
 %
-Note that the multicite commands keep on scanning for arguments until they encounter a token that is not the start of an optional or mandatory argument. If a left brace or bracket follows a multicite command, you need to mask it by adding \cmd{relax} or a control space (a backslash followed by a space) after the last valid argument. This will cause the scanner to stop.
+%Note that the multicite commands keep on scanning for arguments until they encounter a token that is not the start of an optional or mandatory argument. If a left brace or bracket follows a multicite command, you need to mask it by adding \cmd{relax} or a control space (a backslash followed by a space) after the last valid argument. This will cause the scanner to stop.
+请注意，多重引用命令会一直扫描选项，直到遇到一个不是可选或必选参数的字符记号。
+如果文本中接着多重引用命令的是一个左圆括号或方括号，
+那么需要手动在最后一个有效参数后添加 \cmd{relax} 命令或者控制空格（跟在反斜线后的空格）作为标记。
+这样才会停止该命令的扫描。
 
-\begin{lstlisting}[style=latex,showspaces]{}
+\begin{ltxexample}[style=latex,showspaces]{}
 \parencites[35]{key1}[78]{key2}<<\relax>>[...]
 \parencites[35]{key1}[78]{key2}<<\ >>{...}
-\end{lstlisting}
+\end{ltxexample}
 %
-By default, this package provides the following multicite commands which correspond to regular commands from \secref{use:cit:std, use:cit:cbx}:
+%By default, this package provides the following multicite commands which correspond to regular commands from \secref{use:cit:std, use:cit:cbx}:
+默认情况下，本宏包提供了如下一些多重引用命令，分别对应于 \secref{use:cit:std, use:cit:cbx} 节中常规命令：
 
 \begin{ltxsyntax}
 
 \cmditem{cites}(multiprenote)(multipostnote)[prenote][postnote]{key}|...|[prenote][postnote]{key}
 \cmditem{Cites}(multiprenote)(multipostnote)[prenote][postnote]{key}|...|[prenote][postnote]{key}
 
-The multicite version of \cmd{cite} and \cmd{Cite}, respectively.
+%The multicite version of \cmd{cite} and \cmd{Cite}, respectively.
+\cmd{cite} 和 \cmd{Cite} 的多重引用版本。
 
 \cmditem{parencites}(multiprenote)(multipostnote)[prenote][postnote]{key}|...|[prenote][postnote]{key}
 \cmditem{Parencites}(multiprenote)(multipostnote)[prenote][postnote]{key}|...|[prenote][postnote]{key}
 
-The multicite version of \cmd{parencite} and \cmd{Parencite}, respectively.
+%The multicite version of \cmd{parencite} and \cmd{Parencite}, respectively.
+\cmd{parencite} 和 \cmd{Parencite} 的多重引用版本。
 
 \cmditem{footcites}(multiprenote)(multipostnote)[prenote][postnote]{key}|...|[prenote][postnote]{key}
 \cmditem{footcitetexts}(multiprenote)(multipostnote)[prenote][postnote]{key}|...|[prenote][postnote]{key}
 
-The multicite version of \cmd{footcite} and \cmd{footcitetext}, respectively.
+%The multicite version of \cmd{footcite} and \cmd{footcitetext}, respectively.
+\cmd{footcite} 和 \cmd{footcitetext} 的多重引用版本。
 
 \cmditem{smartcites}(multiprenote)(multipostnote)[prenote][postnote]{key}|...|[prenote][postnote]{key}
 \cmditem{Smartcites}(multiprenote)(multipostnote)[prenote][postnote]{key}|...|[prenote][postnote]{key}
 
-The multicite version of \cmd{smartcite} and \cmd{Smartcite}, respectively.
+%The multicite version of \cmd{smartcite} and \cmd{Smartcite}, respectively.
+\cmd{smartcite} 和 \cmd{Smartcite} 的多重引用版本。
 
 \cmditem{textcites}(multiprenote)(multipostnote)[prenote][postnote]{key}|...|[prenote][postnote]{key}
 \cmditem{Textcites}(multiprenote)(multipostnote)[prenote][postnote]{key}|...|[prenote][postnote]{key}
 
-The multicite version of \cmd{textcite} and \cmd{Textcite}, respectively.
+%The multicite version of \cmd{textcite} and \cmd{Textcite}, respectively.
+\cmd{textcite} 和 \cmd{Textcite} 的多重引用版本。
 
 \cmditem{supercites}(multiprenote)(multipostnote)[prenote][postnote]{key}|...|[prenote][postnote]{key}
 
-The multicite version of \cmd{supercite}. This command is only provided by the numeric styles.
+%The multicite version of \cmd{supercite}. This command is only provided by the numeric styles.
+\cmd{supercite} 的多重引用版本。该命令只由数值样式提供。
 
 \end{ltxsyntax}
 
-\subsubsection{与样式无关的命令 Style-independent Commands}
+\subsubsection{样式无关命令} %\subsubsection{Style-independent Commands}
 \label{use:cit:aut}
 
-Sometimes it is desirable to give the citations in the source file in a format that is not tied to a specific citation style and can be modified globally in the preamble. The format of the citations is easily changed by loading a different citation style. However, when using commands such as \cmd{parencite} or \cmd{footcite}, the way the citations are integrated with the text is still effectively hard"=coded. The idea behind the \cmd{autocite} command is to provide higher"=level citation markup which makes global switching from inline citations to citations given in footnotes (or as superscripts) possible. The \cmd{autocite} command is built on top of backend commands like \cmd{parencite} and \cmd{footcite}. The citation style provides an \cmd{autocite} definition with \cmd{DeclareAutoCiteCommand} (see \secref{aut:cbx:cbx}). This definition may be activated with the \opt{autocite} package option from \secref{use:opt:pre:gen}. The citation style will usually initialize this package option to a value which is suitable for the style, see \secref{use:xbx:cbx} for details. Note that there are certain limits to high"=level citation markup. For example, inline author-year citation schemes often integrate citations so tightly with the text that it is virtually impossible to automatically convert them to footnotes. The \cmd{autocite} command is only applicable in cases in which you would normally use \cmd{parencite} or \cmd{footcite} (or \cmd{supercite}, with a numeric style). The citations should be given at the end of a sentence or a partial sentence, immediately preceding the terminal punctuation mark, and they should not be a part of the sentence in a grammatical sense (like \cmd{textcite}, for example).
+%Sometimes it is desirable to give the citations in the source file in a format that is not tied to a specific citation style and can be modified globally in the preamble. The format of the citations is easily changed by loading a different citation style. However, when using commands such as \cmd{parencite} or \cmd{footcite}, the way the citations are integrated with the text is still effectively hard"=coded. The idea behind the \cmd{autocite} command is to provide higher"=level citation markup which makes global switching from inline citations to citations given in footnotes (or as superscripts) possible. The \cmd{autocite} command is built on top of backend commands like \cmd{parencite} and \cmd{footcite}. The citation style provides an \cmd{autocite} definition with \cmd{DeclareAutoCiteCommand} (see \secref{aut:cbx:cbx}). This definition may be activated with the \opt{autocite} package option from \secref{use:opt:pre:gen}. The citation style will usually initialize this package option to a value which is suitable for the style, see \secref{use:xbx:cbx} for details. Note that there are certain limits to high"=level citation markup. For example, inline author-year citation schemes often integrate citations so tightly with the text that it is virtually impossible to automatically convert them to footnotes. The \cmd{autocite} command is only applicable in cases in which you would normally use \cmd{parencite} or \cmd{footcite} (or \cmd{supercite}, with a numeric style). The citations should be given at the end of a sentence or a partial sentence, immediately preceding the terminal punctuation mark, and they should not be a part of the sentence in a grammatical sense (like \cmd{textcite}, for example).
+
+有时我们需要源文件中的引用格式不依赖于某种特定的引用样式，而是可以在导言区中全局修改。
+通过导入不同的引用样式我们可以很容易地改变引用格式。
+但是，当使用 \cmd{parencite} 或 \cmd{footcite} 等命令时，引用和正文结合的方式仍然是硬编码的（hard-coded）。
+\cmd{autocite} 命令的想法是提供高层次上的引用标记，使得可以全局地切换行内引用和脚注引用（或上标引用）。
+\cmd{autocite} 命令构建在 \cmd{parencite} 和 \cmd{footcite} 等后端命令之上。
+由引用样式通过 \cmd{DeclareAutoCiteCommand} （见 \secref{aut:cbx:cbx} 节）来定义。
+该定义可以通过 \secref{use:opt:pre:gen} 节中的 \opt{autocite} 宏包选项启用。
+引用样式通常会将该宏包选项初始化为适合该样式的值，详见 \secref{use:xbx:cbx}。
+请注意，这种高层次引用标记有一些限制。
+例如，行内的\texttt{作者-年份}引用格式通常和正文结合得很紧密，事实上不可能自动转化为脚注。
+只有当正常地使用 \cmd{parencite} 或 \cmd{footcite} （或者数值样式中的 \cmd{supercite}）时，\cmd{autocite} 命令才是可用的。
+引用应当在句子或其部分的末尾、标点符号之前给出，并且在语法上不应当是句子的一部分（例如 \cmd{textcite}）。
 
 \begin{ltxsyntax}
 
 \cmditem{autocite}[prenote][postnote]{key}
 \cmditem{Autocite}[prenote][postnote]{key}
 
-In contrast to other citation commands, the \cmd{autocite} command does not only scan ahead for punctuation marks following its last argument to avoid double punctuation marks, it actually moves them around if required. For example, with \kvopt{autocite}{footnote}, a trailing punctuation mark will be moved such that the footnote mark is printed after the punctuation. \cmd{Autocite} is similar to \cmd{autocite} but capitalizes the name prefix of the first name in the citation if the \opt{useprefix} option is enabled, provided that there is a name prefix and the citation style prints any name at all.
+%In contrast to other citation commands, the \cmd{autocite} command does not only scan ahead for punctuation marks following its last argument to avoid double punctuation marks, it actually moves them around if required. For example, with \kvopt{autocite}{footnote}, a trailing punctuation mark will be moved such that the footnote mark is printed after the punctuation. \cmd{Autocite} is similar to \cmd{autocite} but capitalizes the name prefix of the first name in the citation if the \opt{useprefix} option is enabled, provided that there is a name prefix and the citation style prints any name at all.
+
+与其它引用命令不同，\cmd{autocite} 命令不仅扫描跟在最后一个选项的标点符号来避免双重标点，还在必要时挪动标点。
+例如，后面的标点在 \kvopt{autocite}{footnote} 选项下会被移动使得脚注标记打印在标点之后。
+\cmd{Autocite} 类似于 \cmd{autocite}，不同之处在于，
+如果引用样式打印全名并且有姓名前缀，并且启用了 \opt{useprefix} 选项，那么引用中的姓名前缀会大写。
 
 \cmditem*{autocite*}[prenote][postnote]{key}
 \cmditem*{Autocite*}[prenote][postnote]{key}
 
-The starred variants of \cmd{autocite} do not behave differently from the regular ones. The asterisk is simply passed on to the backend command. For example, if \cmd{autocite} is configured to use \cmd{parencite}, then \cmd{autocite*} will execute \cmd{parencite*}.
+%The starred variants of \cmd{autocite} do not behave differently from the regular ones. The asterisk is simply passed on to the backend command. For example, if \cmd{autocite} is configured to use \cmd{parencite}, then \cmd{autocite*} will execute \cmd{parencite*}.
+
+\cmd{autocite} 带星号的变种没有什么不同。
+星号只是传递给后端命令。
+例如，如果 \cmd{autocite} 配置使用 \cmd{parencite}，那么 \cmd{autocite*} 就会执行 \cmd{parencite*}。
 
 \cmditem{autocites}(multiprenote)(multipostnote)[prenote][postnote]{key}|...|[prenote][postnote]{key}
 \cmditem{Autocites}(multiprenote)(multipostnote)[prenote][postnote]{key}|...|[prenote][postnote]{key}
 
-This is the multicite version of \cmd{autocite}. It also detects and moves punctuation if required. Note that there is no starred variant. \cmd{Autocites} is similar to \cmd{autocites} but capitalizes the name prefix of the first name in the citation if the \opt{useprefix} option is enabled, provided that there is a name prefix and the citation style prints any name at all.
+%This is the multicite version of \cmd{autocite}. It also detects and moves punctuation if required. Note that there is no starred variant. \cmd{Autocites} is similar to \cmd{autocites} but capitalizes the name prefix of the first name in the citation if the \opt{useprefix} option is enabled, provided that there is a name prefix and the citation style prints any name at all.
+
+\cmd{autocite} 的多重引用版本。
+它同样会在必要时检测和移动标点。
+请注意它没有带星号的变种。
+\cmd{Autocites} 类似于 \cmd{autocites}，不同之处在于，
+如果引用样式打印全名并且有姓名前缀，并且启用了 \opt{useprefix} 选项，那么引用中的姓名前缀会大写。
 
 \end{ltxsyntax}
 
-\subsubsection{文本命令 Text Commands}
+\subsubsection{文本命令}%\subsubsection{Text Commands}
 \label{use:cit:txt}
 
-The following commands are provided by the core of \biblatex. They are intended for use in the flow of text. Note that all text commands are excluded from citation tracking.
+%The following commands are provided by the core of \biblatex. They are intended for use in the flow of text. Note that all text commands are excluded from citation tracking.
+
+下列命令由 \biblatex 内核提供，在文本流中使用。
+请注意，这里所有的文本命令都与引用追踪无关。
 
 \begin{ltxsyntax}
 
@@ -3743,247 +3851,417 @@ The following commands are provided by the core of \biblatex. They are intended 
 \cmditem{Citeauthor}[prenote][postnote]{key}
 \cmditem*{Citeauthor*}[prenote][postnote]{key}
 
-These commands print the authors. Strictly speaking, it prints the \bibfield{labelname} list, which may be the
-\bibfield{author}, the \bibfield{editor}, or the \bibfield{translator}. \cmd{Citeauthor} is similar to \cmd{citeauthor} but capitalizes the name prefix of the first name in the citation if the \opt{useprefix} option is enabled, provided that there is a name prefix. The starred variants effectively force maxcitenames to 1 for just this command on so only print the first name in the labelname list (potentially followed by the «et al» string if there are more names). This allows more natural textual flow when refering to a paper in the singular when otherwise \cmd{citeauthor} would generate a (naturally plural) list of names.
+%These commands print the authors. Strictly speaking, it prints the \bibfield{labelname} list, which may be the \bibfield{author}, the \bibfield{editor}, or the \bibfield{translator}. \cmd{Citeauthor} is similar to \cmd{citeauthor} but capitalizes the name prefix of the first name in the citation if the \opt{useprefix} option is enabled, provided that there is a name prefix. The starred variants effectively force maxcitenames to 1 for just this command on so only print the first name in the labelname list (potentially followed by the «et al» string if there are more names). This allows more natural textual flow when refering to a paper in the singular when otherwise \cmd{citeauthor} would generate a (naturally plural) list of names.
+
+这些命令打印出作者。
+严格地讲，打印出的是 \bibfield{labelnames} 列表，
+这可以是 \bibfield{author}、\bibfield{editor} 或者 \bibfield{translator} 等域。
+\cmd{Citeauthor} 类似于 \cmd{citeauthor}，不同之处在于，
+如果有姓名前缀并且启用  \opt{useprefix} 选项的话，引用中的名字前缀采用大写形式。
+带星号的版本会强制设置 \texttt{maxcitenames} 为 1，
+这样只会打印标签名称列表中第一个姓名（如果有更多名字的话会后接“et al”字符串）。
+当涉及单一作者的文章时，这会使行文更加自然；
+否则的话（多位作者时），使用 \cmd{citeauthor} 会产生名称列表（当然是复数的）。
+
 
 \cmditem{citetitle}[prenote][postnote]{key}
 \cmditem*{citetitle*}[prenote][postnote]{key}
 
-This command prints the title. It will use the abridged title in the \bibfield{shorttitle} field, if available. Otherwise it falls back to the full title found in the \bibfield{title} field. The starred variant always prints the full title.
+%This command prints the title. It will use the abridged title in the \bibfield{shorttitle} field, if available. Otherwise it falls back to the full title found in the \bibfield{title} field. The starred variant always prints the full title.
+
+该命令会打印出标题。
+它会在可用时使用 \bibfield{shorttitle} 域中的短标题，否则的话会使用备用的 \bibfield{title} 域中的标题全称。
+带星号的版本总会打印出标题全称。
 
 \cmditem{citeyear}[prenote][postnote]{key}
 \cmditem*{citeyear*}[prenote][postnote]{key}
 
-This command prints the year (\bibfield{year} field or year component of \bibfield{date}). The starred variant includes the \bibfield{extrayear} information, if any.
+%This command prints the year (\bibfield{year} field or year component of \bibfield{date}). The starred variant includes the \bibfield{extrayear} information, if any.
+
+该命令会打印出年份（\bibfield{year} 域或者 \bibfield{date} 域中的年份成分）。
+带星号的版本会包括可能有的 \bibfield{extrayear} 信息。
 
 \cmditem{citedate}[prenote][postnote]{key}
 \cmditem*{citedate*}[prenote][postnote]{key}
 
-This command prints the full date (\bibfield{date} or \bibfield{year}). The starred variant includes the \bibfield{extrayear} information, if any.
+%This command prints the full date (\bibfield{date} or \bibfield{year}). The starred variant includes the \bibfield{extrayear} information, if any.
+
+该命令会打印出日期（\bibfield{date} 或 \bibfield{year} 域）。
+带星号的版本会包括可能有的 \bibfield{extrayear} 信息。
 
 \cmditem{citeurl}[prenote][postnote]{key}
 
-This command prints the \bibfield{url} field.
+%This command prints the \bibfield{url} field.
+
+该命令打印 \bibfield{url} 域。
 
 \cmditem{parentext}{text}
 
-This command wraps the \prm{text} in context sensitive parentheses.
+%This command wraps the \prm{text} in context sensitive parentheses.
+
+该命令将 \prm{text} 装入上下文相关的圆括号中。
 
 \cmditem{brackettext}{text}
 
-This command wraps the \prm{text} in context sensitive brackets.
+%This command wraps the \prm{text} in context sensitive brackets.
+
+该命令将 \prm{text} 装入上下文相关的方括号中。
 
 \end{ltxsyntax}
 
-\subsubsection{特殊命令 Special Commands}
+\subsubsection{特殊命令}%\subsubsection{Special Commands}
 \label{use:cit:spc}
 
-The following special commands are also provided by the core of \biblatex.
+%The following special commands are also provided by the core of \biblatex.
+
+以下特殊命令同样由 \biblatex 内核提供。
 
 \begin{ltxsyntax}
 
 \cmditem{nocite}{key}
 \cmditem*{nocite}|\{*\}|
 
-This command is similar to the standard \latex \cmd{nocite} command. It adds the \prm{key} to the bibliography without printing a citation. If the \prm{key} is an asterisk, all entries available in the \file{bib} file are added to the bibliography. Like all other citation commands, \cmd{nocite} commands in the document body are local to the enclosing \env{refsection} environment, if any. In contrast to standard \latex, \cmd{nocite} may also be used in the document preamble. In this case, the references are assigned to reference section~0.
+%This command is similar to the standard \latex \cmd{nocite} command. It adds the \prm{key} to the bibliography without printing a citation. If the \prm{key} is an asterisk, all entries available in the in-scope bibliography datasource(s) are added to the bibliography. Like all other citation commands, \cmd{nocite} commands in the document body are local to the enclosing \env{refsection} environment, if any. In contrast to standard \latex, \cmd{nocite} may also be used in the document preamble. In this case, the references are assigned to reference section~0.
+
+该命令类似于 \LaTeX\ 中的 \cmd{nocite} 命令。
+它将没有引用的条目 \prm{key} 添加到参考文献中。
+如果 \prm{key} 是星号，\file{bib} 文件中的所有可用条目都会被添加到参考文献中。
+与其它引用命令一样，正文中的 \cmd{nocite} 是在可能的 \env{refsection} 环境中的局部命令。
+与标准的\LaTeX\ 不同的是，\cmd{nocite} 也可以在导言区中使用，此时参考文献将归到第零参考文献分节中。
 
 \cmditem{fullcite}[prenote][postnote]{key}
 
-This command uses the bibliography driver for the respective entry type to create a full citation similar to the bibliography entry. It is thus related to the bibliography style rather than the citation style.
+%This command uses the bibliography driver for the respective entry type to create a full citation similar to the bibliography entry. It is thus related to the bibliography style rather than the citation style.
+
+该命令针对相应的条目类型使用参考文献驱动，从而创建类似于文献条目的完整引用格式。
+当然，这样的话就与参考文献样式相关而不是与引用样式相关。
 
 \cmditem{footfullcite}[prenote][postnote]{key}
 
-Similar to \cmd{fullcite} but puts the entire citation in a footnote and adds a period at the end.
+%Similar to \cmd{fullcite} but puts the entire citation in a footnote and adds a period at the end.
+
+类似于 \cmd{fullcite}，但是会将整个引用放在脚注中并在末尾添加句号。
 
 \cmditem{volcite}[prenote]{volume}[page]{key}
 \cmditem{Volcite}[prenote]{volume}[page]{key}
 
-These commands are similar to \cmd{cite} and \cmd{Cite} but intended for references to multi"=volume works which are cited by volume and page number. Instead of the \prm{postnote}, they take a mandatory \prm{volume} and an optional \prm{page} argument. Since they merely compose the postnote and pass it to the \cmd{cite} command provided by the citation style as a \prm{postnote} argument, these commands are style independent. The format of the volume portion is controlled by the field formatting directive \opt{volcitevolume}, the format of the page/text portion is controlled by the field formatting directive \opt{volcitepages} (\secref{aut:fmt:ich}). The delimiter printed between the volume portion and the page/text portion may be modified by redefining the macro \cmd{volcitedelim} (\secref{aut:fmt:fmt}).
+%These commands are similar to \cmd{cite} and \cmd{Cite} but intended for references to multi"=volume works which are cited by volume and page number. Instead of the \prm{postnote}, they take a mandatory \prm{volume} and an optional \prm{page} argument. Since they merely compose the postnote and pass it to the \cmd{cite} command provided by the citation style as a \prm{postnote} argument, these commands are style independent. The format of the volume portion is controlled by the field formatting directive \opt{volcitevolume}, the format of the page/text portion is controlled by the field formatting directive \opt{volcitepages} (\secref{aut:fmt:ich}). The delimiter printed between the volume portion and the page/text portion may be modified by redefining the macro \cmd{volcitedelim} (\secref{aut:fmt:fmt}).
+
+这些命令类似于 \cmd{cite} 和 \cmd{Cite}，不过用于多卷作品以卷数和页码样式的引用。
+与 \prm{postnote} 不同，命令中有一个必选的 \prm{volume} 和一个可选的 \prm{page} 选项。
+这些命令实际上是样式无关的，
+因为 \prm{volume} 和 \prm{page} 选项构成后注并且将其以 \prm{postnote} 选项传递给由引用样式提供的 \cmd{cite} 命令。
+卷数部分的格式由域格式指令 \opt{volcitevolume} 直接控制，
+而页码或文本部分的格式由域格式指令 \opt{volcitepages} （\secref{aut:fmt:ich}）直接控制。
+卷数部分与页码部分之间的定界符可用通过重新定义 \cmd{volcitedelim} 宏（见 \secref{aut:fmt:fmt} 节）来修改。
 
 \cmditem{volcites}(multiprenote)(multipostnote)[prenote]{volume}[page]{key}|\\...|[prenote]{volume}[page]{key}
 \cmditem{Volcites}(multiprenote)(multipostnote)[prenote]{volume}[page]{key}|\\...|[prenote]{volume}[page]{key}
 
-The multicite version of \cmd{volcite} and \cmd{Volcite}, respectively.
+%The multicite version of \cmd{volcite} and \cmd{Volcite}, respectively.
+\cmd{volcite} 和 \cmd{Volcite} 命令的多重引用版本。
 
 \cmditem{pvolcite}[prenote]{volume}[page]{key}
 \cmditem{Pvolcite}[prenote]{volume}[page]{key}
 
-Similar to \cmd{volcite} but based on \cmd{parencite}.
+%Similar to \cmd{volcite} but based on \cmd{parencite}.
+类似于 \cmd{volcite}，不过基于 \cmd{parencite} 命令。
 
 \cmditem{pvolcites}(multiprenote)(multipostnote)[prenote]{volume}[page]{key}|\\...|[prenote]{volume}[page]{key}
 \cmditem{Pvolcites}(multiprenote)(multipostnote)[prenote]{volume}[page]{key}|\\...|[prenote]{volume}[page]{key}
 
-The multicite version of \cmd{pvolcite} and \cmd{Pvolcite}, respectively.
+%The multicite version of \cmd{pvolcite} and \cmd{Pvolcite}, respectively.
+\cmd{pvolcite} 和 \cmd{Pvolcite} 相应的多重引用版本。
 
 \cmditem{fvolcite}[prenote]{volume}[page]{key}
 \cmditem{ftvolcite}[prenote]{volume}[page]{key}
 
-Similar to \cmd{volcite} but based on \cmd{footcite} and \cmd{footcitetext}, respectively.
+%Similar to \cmd{volcite} but based on \cmd{footcite} and \cmd{footcitetext}, respectively.
+类似于 \cmd{volcite} 但是分别基于 \cmd{footcite} 和 \cmd{footcitetext}。
 
 \cmditem{fvolcites}(multiprenote)(multipostnote)[prenote]{volume}[page]{key}|\\...|[prenote]{volume}[page]{key}
 \cmditem{Fvolcites}(multiprenote)(multipostnote)[prenote]{volume}[page]{key}|\\...|[prenote]{volume}[page]{key}
 
-The multicite version of \cmd{fvolcite} and \cmd{Fvolcite}, respectively.
+%The multicite version of \cmd{fvolcite} and \cmd{Fvolcite}, respectively.
+\cmd{fvolcite} 和 \cmd{Fvolcite} 相应的多重引用版本。
 
 \cmditem{svolcite}[prenote]{volume}[page]{key}
 \cmditem{Svolcite}[prenote]{volume}[page]{key}
 
-Similar to \cmd{volcite} but based on \cmd{smartcite}.
+%Similar to \cmd{volcite} but based on \cmd{smartcite}.
+类似于 \cmd{volcite} 但是基于 \cmd{smartcite}。
 
 \cmditem{svolcites}(multiprenote)(multipostnote)[prenote]{volume}[page]{key}|\\...|[prenote]{volume}[page]{key}
 \cmditem{Svolcites}(multiprenote)(multipostnote)[prenote]{volume}[page]{key}|\\...|[prenote]{volume}[page]{key}
 
-The multicite version of \cmd{svolcite} and \cmd{Svolcite}, respectively.
+%The multicite version of \cmd{svolcite} and \cmd{Svolcite}, respectively.
+\cmd{svolcite} 和 \cmd{Svolcite} 相应的多重引用版本。
 
 \cmditem{tvolcite}[prenote]{volume}[page]{key}
 \cmditem{Tvolcite}[prenote]{volume}[page]{key}
 
-Similar to \cmd{volcite} but based on \cmd{textcite}.
+%Similar to \cmd{volcite} but based on \cmd{textcite}.
+类似于 \cmd{volcite} 但是基于 \cmd{textcite}。
 
 \cmditem{tvolcites}(multiprenote)(multipostnote)[prenote]{volume}[page]{key}|\\...|[prenote]{volume}[page]{key}
 \cmditem{Tvolcites}(multiprenote)(multipostnote)[prenote]{volume}[page]{key}|\\...|[prenote]{volume}[page]{key}
 
-The multicite version of \cmd{tvolcite} and \cmd{Tvolcite}, respectively.
+%The multicite version of \cmd{tvolcite} and \cmd{Tvolcite}, respectively.
+\cmd{tvolcite} 和 \cmd{Tvolcite} 相应的多重引用版本。
 
 \cmditem{avolcite}[prenote]{volume}[page]{key}
 \cmditem{Avolcite}[prenote]{volume}[page]{key}
 
-Similar to \cmd{volcite} but based on \cmd{autocite}.
+%Similar to \cmd{volcite} but based on \cmd{autocite}.
+类似于 \cmd{volcite} 但是基于 \cmd{autocite}。
 
 \cmditem{avolcites}(multiprenote)(multipostnote)[prenote]{volume}[page]{key}|\\...|[prenote]{volume}[page]{key}
 \cmditem{Avolcites}(multiprenote)(multipostnote)[prenote]{volume}[page]{key}|\\...|[prenote]{volume}[page]{key}
 
-The multicite version of \cmd{avolcite} and \cmd{Avolcite}, respectively.
+%The multicite version of \cmd{avolcite} and \cmd{Avolcite}, respectively.
+\cmd{avolcite} 和 \cmd{Avolcite} 相应的多重引用版本。
 
 \cmditem{notecite}[prenote][postnote]{key}
 \cmditem{Notecite}[prenote][postnote]{key}
 
-These commands print the \prm{prenote} and \prm{postnote} arguments but no citation. Instead, a \cmd{nocite} command is issued for every \prm{key}. This may be useful for authors who incorporate implicit citations in their writing, only giving information not mentioned before in the running text, but who still want to take advantage of the automatic \prm{postnote} formatting and the implicit \cmd{nocite} function. This is a generic, style"=independent citation command. Special citation styles may provide smarter facilities for the same purpose. The capitalized version forces capitalization (note that this is only applicable if the note starts with a command which is sensitive to \biblatex's punctuation tracker).
+%These commands print the \prm{prenote} and \prm{postnote} arguments but no citation. Instead, a \cmd{nocite} command is issued for every \prm{key}. This may be useful for authors who incorporate implicit citations in their writing, only giving information not mentioned before in the running text, but who still want to take advantage of the automatic \prm{postnote} formatting and the implicit \cmd{nocite} function. This is a generic, style"=independent citation command. Special citation styles may provide smarter facilities for the same purpose. The capitalized version forces capitalization (note that this is only applicable if the note starts with a command which is sensitive to \biblatex's punctuation tracker).
+
+这些命令打印出 \prm{prenote} 和 \prm{postnote} 选项但是没有引用部分。
+与之不同的是，\cmd{nocite} 命令用于每个 \prm{key}。
+主要的应用场合是，
+用户想要隐式地包含引用条目，但只给出没有在之前行文中提到的信息，
+同时仍想利用自动的 \prm{postnote} 格式以及隐式的 \cmd{nocite} 功能。
+这是一般的、样式无关的引用命令。
+一些特殊的引用样式可以针对相同目的提供更加智能的工具。
+其中，\cmd{Notecite} 命令会强制大写
+（请注意，只有当注记以 \biblatex 标点追踪器相关的命令开始时，该命令才是可用的）。
 
 \cmditem{pnotecite}[prenote][postnote]{key}
 \cmditem{Pnotecite}[prenote][postnote]{key}
 
-Similar to \cmd{notecite} but the notes are printed in parentheses.
+%Similar to \cmd{notecite} but the notes are printed in parentheses.
+类似于 \cmd{notecite} 但是注记打印在括号中。
 
 \cmditem{fnotecite}[prenote][postnote]{key}
 
-Similar to \cmd{notecite} but the notes are printed in a footnote.
+%Similar to \cmd{notecite} but the notes are printed in a footnote.
+类似于 \cmd{notecite} 但是注记打印在脚注中。
 
 \end{ltxsyntax}
 
-\subsubsection{底层命令 Low-level Commands}
+\subsubsection{底层命令}%\subsubsection{Low-level Commands}
 \label{use:cit:low}
 
-The following commands are also provided by the core of \biblatex. They grant access to all lists and fields at a lower level.
+%The following commands are also provided by the core of \biblatex. They grant access to all lists and fields at a lower level.
+以下命令同样由 \biblatex 内核提供，向所有列表和域提供底层接口。
 
 \begin{ltxsyntax}
 
 \cmditem{citename}[prenote][postnote]{key}[format]{name list}
 
-The \prm{format} is a formatting directive defined with \cmd{DeclareNameFormat}. Formatting directives are discussed in \secref{aut:bib:fmt}. If this optional argument is omitted, this command falls back to the format \texttt{citename}. The last argument is the name of a \prm{name list}, in the sense explained in \secref{bib:fld}.
+%The \prm{format} is a formatting directive defined with \cmd{DeclareNameFormat}. Formatting directives are discussed in \secref{aut:bib:fmt}. If this optional argument is omitted, this command falls back to the format \texttt{citename}. The last argument is the name of a \prm{name list}, in the sense explained in \secref{bib:fld}.
+
+\prm{format} 是由 \cmd{DeclareNameFormat} 定义的格式指令。
+格式指令的讨论在 \secref{aut:bib:fmt} 节。
+如果忽略可选参数，该命令调用备选的 \texttt{citename} 格式。
+最后一个选项是 \prm{name list} 的名称（其意义在 \secref{bib:fld} 节中解释）。
 
 \cmditem{citelist}[prenote][postnote]{key}[format]{literal list}
 
-The \prm{format} is a formatting directive defined with \cmd{DeclareListFormat}. Formatting directives are discussed in \secref{aut:bib:fmt}. If this optional argument is omitted, this command falls back to the format \texttt{citelist}. The last argument is the name of a \prm{literal list}, in the sense explained in \secref{bib:fld}.
+%The \prm{format} is a formatting directive defined with \cmd{DeclareListFormat}. Formatting directives are discussed in \secref{aut:bib:fmt}. If this optional argument is omitted, this command falls back to the format \texttt{citelist}. The last argument is the name of a \prm{literal list}, in the sense explained in \secref{bib:fld}.
+
+\prm{format} 是由 \cmd{DeclareListFormat} 定义的格式指令。
+格式指令的讨论在 \secref{aut:bib:fmt} 节。
+如果忽略可选参数，该命令调用备选的 \texttt{citelist} 格式。
+最后一个选项是 \prm{literal list} 的名称（其意义在 \secref{bib:fld} 节中解释）。
 
 \cmditem{citefield}[prenote][postnote]{key}[format]{field}
 
-The \prm{format} is a formatting directive defined with \cmd{DeclareFieldFormat}. Formatting directives are discussed in \secref{aut:bib:fmt}. If this optional argument is omitted, this command falls back to the format \texttt{citefield}. The last argument is the name of a \prm{field}, in the sense explained in \secref{bib:fld}.
+%The \prm{format} is a formatting directive defined with \cmd{DeclareFieldFormat}. Formatting directives are discussed in \secref{aut:bib:fmt}. If this optional argument is omitted, this command falls back to the format \texttt{citefield}. The last argument is the name of a \prm{field}, in the sense explained in \secref{bib:fld}.
+
+\prm{format} 是由 \cmd{DeclareFieldFormat} 定义的格式指令。
+格式指令的讨论在 \secref{aut:bib:fmt} 一节。
+如果忽略可选参数，该命令调用备选的 \texttt{citefield} 格式。
+最后一个选项是 \prm{field} 的名称（其意义在 \secref{bib:fld} 节中解释）。
 
 \end{ltxsyntax}
 
-\subsubsection{其它命令 Miscellaneous Commands}
+\subsubsection{其它命令}%\subsubsection{Miscellaneous Commands}
 \label{use:cit:msc}
 
-The commands in this section are little helpers related to citations.
+%The commands in this section are little helpers related to citations.
+
+本节中的命令是一些与引用相关的小工具。
 
 \begin{ltxsyntax}
 
 \csitem{citereset}
 
-This command resets the citation style. This may be useful if the style replaces repeated citations with abbreviations like \emph{ibidem}, \emph{idem}, \emph{op. cit.}, etc. and you want to force a full citation at the beginning of a new chapter, section, or some other location. The command executes a style specific initialization hook defined with the \cmd{InitializeCitationStyle} command from \secref{aut:cbx:cbx}. It also resets the internal citation trackers of this package. The reset will affect the \cmd{ifciteseen}, \cmd{ifentryseen}, \cmd{ifciteibid}, and \cmd{ifciteidem} tests discussed in \secref{aut:aux:tst}. When used inside a \env{refsection} environment, the reset of the citation tracker is local to the current \env{refsection} environment. Also see the \opt{citereset} package option in \secref{use:opt:pre:gen}.
+%This command resets the citation style. This may be useful if the style replaces repeated citations with abbreviations like \emph{ibidem}, \emph{idem}, \emph{op. cit.}, etc. and you want to force a full citation at the beginning of a new chapter, section, or some other location. The command executes a style specific initialization hook defined with the \cmd{InitializeCitationStyle} command from \secref{aut:cbx:cbx}. It also resets the internal citation trackers of this package. The reset will affect the \cmd{ifciteseen}, \cmd{ifentryseen}, \cmd{ifciteibid}, and \cmd{ifciteidem} tests discussed in \secref{aut:aux:tst}. When used inside a \env{refsection} environment, the reset of the citation tracker is local to the current \env{refsection} environment. Also see the \opt{citereset} package option in \secref{use:opt:pre:gen}.
+
+该命令重新设置引用样式。
+如果样式使用 \emph{ibidem}、\emph{idem}、\emph{op. cit.} 等缩略语代替重复引用，
+而你想在新的章节开始或别的地方强制改为引用全称，那么该命令很有用。
+该命令执行由 \secref{aut:cbx:cbx} 节的 \cmd{InitializeCitationStyle} 命令所定义的样式相关初始化钩子（hook）。
+它同样重新设置了本宏包的内部引用追踪器。
+该重置会影响 \secref{aut:aux:tst} 节讨论的 \cmd{ifciteseen}、\cmd{ifentryseen}、\cmd{ifciteibid} 和 \cmd{ifciteidem} 等测试。
+当在 \env{refsection} 环境内部使用时，引用追踪器的重置仅局部在当前 \env{refsection} 环境中。
+另见 \secref{use:opt:pre:gen} 节的 \opt{citereset} 宏包选项。
 
 \csitem{citereset*}
 
-Similar to \cmd{citereset} but only executes the style's initialization hook, without resetting the internal citation trackers.
+%Similar to \cmd{citereset} but only executes the style's initialization hook, without resetting the internal citation trackers.
+
+类似于 \cmd{citereset} 但只执行样式初始化钩子，而不重置内部引用追踪器。
 
 \csitem{mancite}
 
-Use this command to mark manually inserted citations if you mix automatically generated and manual citations. This is particularly useful if the citation style replaces repeated citations by an abbreviation like \emph{ibidem} which may get ambiguous or misleading otherwise. Always use \cmd{mancite} in the same context as the manual citation, \eg if the citation is given in a footnote, include \cmd{mancite} in the footnote. The \cmd{mancite} command executes a style specific reset hook defined with the \cmd{OnManualCitation} command from \secref{aut:cbx:cbx}. It also resets the internal <ibidem> and <idem> trackers of this package. The reset will affect the \cmd{ifciteibid} and \cmd{ifciteidem} tests discussed in \secref{aut:aux:tst}.
+%Use this command to mark manually inserted citations if you mix automatically generated and manual citations. This is particularly useful if the citation style replaces repeated citations by an abbreviation like \emph{ibidem} which may get ambiguous or misleading otherwise. Always use \cmd{mancite} in the same context as the manual citation, \eg if the citation is given in a footnote, include \cmd{mancite} in the footnote. The \cmd{mancite} command executes a style specific reset hook defined with the \cmd{OnManualCitation} command from \secref{aut:cbx:cbx}. It also resets the internal <ibidem> and <idem> trackers of this package. The reset will affect the \cmd{ifciteibid} and \cmd{ifciteidem} tests discussed in \secref{aut:aux:tst}.
+
+如果你想混合自动生成引用和手工引用，可以使用该命令来标记手工插入的引用。
+如果引用样式使用 \emph{ibidem} 等可能含糊不清或引起歧义的缩略语代替重复引用，那么该命令特别有用。
+应当总是在相同的场合使用 \cmd{mancite} 作为手工引用，
+例如，如果引用在脚注中给出，那么在脚注中加入 \cmd{mancite}。
+\cmd{mancite} 命令会执行 \secref{aut:cbx:cbx} 节的 \cmd{OnManualCitation} 命令定义的样式相关重置钩子。
+它也会重置本宏包的内部“ibidem”和“idem”追踪器。
+该重置会影响 \secref{aut:aux:tst} 节讨论的 \cmd{ifciteibid} 和 \cmd{ifciteidem} 等测试。
 
 \csitem{pno}
 
-This command forces a single page prefix in the \prm{postnote} argument to a citation command. See \secref{use:cav:pag} for further details and usage instructions. Note that this command is only available locally in citations and the bibliography.
+%This command forces a single page prefix in the \prm{postnote} argument to a citation command. See \secref{use:cav:pag} for further details and usage instructions. Note that this command is only available locally in citations and the bibliography.
+
+该命令在引用命令的 \prm{postnote} 选项中强制开始单页前缀。
+更多细节和使用说明见 \secref{use:cav:pag} 节。
+请注意，该命令只能用于引用和参考文献中局部。
 
 \csitem{ppno}
 
-Similar to \cmd{pno} but forces a range prefix. See \secref{use:cav:pag} for further details and usage instructions. Note that this command is only available locally in citations and the bibliography.
+%Similar to \cmd{pno} but forces a range prefix. See \secref{use:cav:pag} for further details and usage instructions. Note that this command is only available locally in citations and the bibliography.
+
+类似于 \cmd{pno} 但是强制为区间前缀。
+更多细节和使用说明见 \secref{use:cav:pag} 节。
+请注意，该命令只能用于引用和参考文献中局部。
 
 \csitem{nopp}
 
-Similar to \cmd{pno} but suppresses all prefixes. See \secref{use:cav:pag} for further details and usage instructions. Note that this command is only available locally in citations and the bibliography.
+%Similar to \cmd{pno} but suppresses all prefixes. See \secref{use:cav:pag} for further details and usage instructions. Note that this command is only available locally in citations and the bibliography.
+
+类似于 \cmd{pno} 但是抑制所有前缀。
+更多细节和使用说明见 \secref{use:cav:pag} 节。
+请注意，该命令只能用于引用和参考文献中局部。
 
 \csitem{psq}
 
-In the \prm{postnote} argument to a citation command, this command indicates a range of two pages where only the starting page is given. See \secref{use:cav:pag} for further details and usage instructions. The suffix printed is the localization string \texttt{sequens}, see \secref{aut:lng:key}. The spacing inserted between the suffix and the page number may be modified by redefining the macro \cmd{sqspace}. The default is an unbreakable interword space. Note that this command is only available locally in citations and the bibliography.
+%In the \prm{postnote} argument to a citation command, this command indicates a range of two pages where only the starting page is given. See \secref{use:cav:pag} for further details and usage instructions. The suffix printed is the localisation string \texttt{sequens}, see \secref{aut:lng:key}. The spacing inserted between the suffix and the page number may be modified by redefining the macro \cmd{sqspace}. The default is an unbreakable interword space. Note that this command is only available locally in citations and the bibliography.
+
+在引用命令的 \prm{postnote} 选项中，该命令在只给出开始页之处表示两页的范围。
+更多细节和使用说明见 \secref{use:cav:pag} 节。
+打印出的后缀是本地化字符串 \texttt{sequens}（见 \secref{aut:lng:key} 节）。
+在后缀和页码之间的空格可以通过重定义 \cmd{sqspace} 修改。
+默认值是一个不可打断的词间空格。
+请注意，该命令只能用于引用和参考文献中局部。
 
 \csitem{psqq}
 
-Similar to \cmd{psq} but indicates an open-ended page range. See \secref{use:cav:pag} for further details and usage instructions. The suffix printed is the localization string \texttt{sequentes}, see \secref{aut:lng:key}. This command is only available locally in citations and the bibliography.
+%Similar to \cmd{psq} but indicates an open-ended page range. See \secref{use:cav:pag} for further details and usage instructions. The suffix printed is the localisation string \texttt{sequentes}, see \secref{aut:lng:key}. This command is only available locally in citations and the bibliography.
+
+类似于 \cmd{psq} 但表示一个不包括结束页的页码范围。
+更多细节和使用说明见 \secref{use:cav:pag} 节。
+打印出的后缀是本地化字符串 \texttt{sequens}（见 \secref{aut:lng:key} 节）。
+请注意，该命令只能用于引用和参考文献中局部。
 
 \cmditem{RN}{integer}
 
-This command prints an integer as an uppercase Roman numeral. The formatting applied to the numeral may be modified by redefining the macro \cmd{RNfont}.
+%This command prints an integer as an uppercase Roman numeral. The formatting applied to the numeral may be modified by redefining the macro \cmd{RNfont}.
+
+该命令将一个整数打印为大写罗马数字形式。
+可以通过重定义 \cmd{RNfont} 宏来修改用于该数值的格式。
 
 \cmditem{Rn}{integer}
 
-Similar to \cmd{RN} but prints a lowercase Roman numeral. The formatting applied to the numeral may be modified by redefining the macro \cmd{Rnfont}.
+%Similar to \cmd{RN} but prints a lowercase Roman numeral. The formatting applied to the numeral may be modified by redefining the macro \cmd{Rnfont}.
+
+类似于 \cmd{RN} 但是打印出小写罗马数字。
+可以通过重定义 \cmd{Rnfont} 宏来修改用于该数值的格式。
 
 \end{ltxsyntax}
 
-\subsubsection{与\sty{natbib}兼容的命令 \sty{natbib} Compatibility Commands}
+\subsubsection{\sty{natbib} 兼容命令} %\subsubsection{\sty{natbib} Compatibility Commands}
 \label{use:cit:nat}
 
-The \opt{natbib} package option loads a \sty{natbib} compatibility module. The module defines aliases for the citation commands provided by the \sty{natbib} package. This includes aliases for the core citation commands \cmd{citet} and \cmd{citep} as well as the variants \cmd{citealt} and \cmd{citealp}. The starred variants of these commands, which print the full author list, are also supported. The \cmd{cite} command, which is handled in a particular way by \sty{natbib}, is not treated in a special way. The text commands (\cmd{citeauthor}, \cmd{citeyear}, etc.) are also supported, as are all commands which capitalize the name prefix (\cmd{Citet}, \cmd{Citep}, \cmd{Citeauthor}, etc.). Aliasing with \cmd{defcitealias}, \cmd{citetalias}, and \cmd{citepalias} is possible as well. Note that the compatibility commands will not emulate the citation format of the \sty{natbib} package. They merely alias \sty{natbib}'s commands to functionally equivalent facilities of the \biblatex package. The citation format depends on the main citation style. However, the compatibility style will adapt \cmd{nameyeardelim} to match the default style of the \sty{natbib} package.
+%The \opt{natbib} package option loads a \sty{natbib} compatibility module. The module defines aliases for the citation commands provided by the \sty{natbib} package. This includes aliases for the core citation commands \cmd{citet} and \cmd{citep} as well as the variants \cmd{citealt} and \cmd{citealp}. The starred variants of these commands, which print the full author list, are also supported. The \cmd{cite} command, which is handled in a particular way by \sty{natbib}, is not treated in a special way. The text commands (\cmd{citeauthor}, \cmd{citeyear}, etc.) are also supported, as are all commands which capitalize the name prefix (\cmd{Citet}, \cmd{Citep}, \cmd{Citeauthor}, etc.). Aliasing with \cmd{defcitealias}, \cmd{citetalias}, and \cmd{citepalias} is possible as well. Note that the compatibility commands will not emulate the citation format of the \sty{natbib} package. They merely alias \sty{natbib}'s commands to functionally equivalent facilities of the \biblatex package. The citation format depends on the main citation style. However, the compatibility style will adapt \cmd{nameyeardelim} to match the default style of the \sty{natbib} package.
 
-\subsubsection[类似\sty{mcite}给的标注命令 \sty{mcite}-like Citation Commands]{类似\sty{mcite}给的标注命令 \BiberOnlyMark}
+本宏包的 \opt{natbib} 选项会导入 \sty{natbib} 兼容性模块。
+该模块定义了由 \sty{natbib} 宏包提供的引用命令的别名。
+其中包括核心引用命令 \cmd{citet} 和 \cmd{citep} 以及 \cmd{citealt} 和 \cmd{citealp} 等变形命令。
+另外也支持这些命令带星号的变种，从而可以打印出完整的作者列表。
+\cmd{cite} 命令在 \sty{natbib} 宏包中经过了特殊处理，但在这里不会专门处理。
+同时，也支持文本命令（\cmd{citeauthor}、\cmd{citeyear}等）
+以及所有首字母大写的命令（\cmd{Citet}、\cmd{Citep}、\cmd{Citeauthor} 等）。
+另外，\cmd{defcitealias}、\cmd{citetalias} 和 \cmd{citepalias} 也是可以使用的。
+请注意，这些兼容性命令不会模仿 \sty{natbib} 宏包的引用格式，
+而仅仅是 \sty{biblatex} 宏包中功能上等价的 \sty{natbib} 命令别称。
+引用格式取决于主引用样式。
+不过，兼容性样式会调整 \cmd{nameyeardelim} 命令以匹配 \sty{natbib} 宏包的默认样式。
+
+\subsubsection[\sty{mcite} 引用命令]{\sty{mcite} 引用命令}
+%\subsubsection[\sty{mcite}-like Citation Commands]{\sty{mcite}-like Citation Commands}
 \label{use:cit:mct}
 
-The \opt{mcite} package option loads a special citation module which provides \sty{mcite}\slash \sty{mciteplus}-like citation commands. Strictly speaking, what the module provides are wrappers for the commands of the main citation style. For example, the following command:
+%The \opt{mcite} package option loads a special citation module which provides \sty{mcite}\slash \sty{mciteplus}-like citation commands. Strictly speaking, what the module provides are wrappers for the commands of the main citation style. For example, the following command:
 
-\begin{lstlisting}[style=latex]{}
+宏包的 \opt{mcite} 选项导入了一个特殊的引用模块，
+提供了类似于 \sty{mcite}\slash\sty{mciteplus} 的引用命令。
+严格地讲，该模块提供的是主引用样式命令的封装。
+例如，以下命令：
+
+\begin{ltxexample}
 \mcite{key1,setA,*keyA1,*keyA2,*keyA3,key2,setB,*keyB1,*keyB2,*keyB3}
-\end{lstlisting}
+\end{ltxexample}
 %
-is essentially equivalent to this:
+%is essentially equivalent to this:
+本质上等价于
 
-\begin{lstlisting}[style=latex]{}
+\begin{ltxexample}
 \defbibentryset{setA}{keyA1,keyA2,keyA3}%
 \defbibentryset{setB}{keyB1,keyB2,keyB3}%
 \cite{key1,setA,key2,setB}
-\end{lstlisting}
+\end{ltxexample}
 %
-The \cmd{mcite} command will work with any style since the \cmd{cite} backend command is controlled by the main citation style as usual. The \texttt{mcite} module provides wrappers for the standard commands in \secref{use:cit:std,use:cit:cbx}. See \tabref{use:cit:mct:tab2} for an overview. Pre and postnotes as well as starred variants of all commands are also supported. The parameters will be passed to the backend command. For example:
+%The \cmd{mcite} command will work with any style since the \cmd{cite} backend command is controlled by the main citation style as usual. The \texttt{mcite} module provides wrappers for the standard commands in \secref{use:cit:std,use:cit:cbx}. See \tabref{use:cit:mct:tab2} for an overview. Pre and postnotes as well as starred variants of all commands are also supported. The parameters will be passed to the backend command. For example:
+由于 \cmd{cite} 后端命令和通常一样由主引用样式控制，因此 \cmd{mcite} 命令可以和任何样式兼容。
+\texttt{mcite} 模块提供了 \secref{use:cit:std,use:cit:cbx} 中标准命令的封装，
+见\tabref{use:cit:mct:tab2}。
+它也支持前注和后注以及所有命令带星号的版本，
+其参数会传递到后端命令中。例如：
 
-\begin{lstlisting}[style=latex]{}
+\begin{ltxexample}
 \mcite*[pre][post]{setA,*keyA1,*keyA2,*keyA3}
-\end{lstlisting}
+\end{ltxexample}
 %
-will execute:
+%will execute:
+会执行：
 
-\begin{lstlisting}[style=latex]{}
+\begin{ltxexample}
 \defbibentryset{setA}{keyA1,keyA2,keyA3}%
 \cite*[pre][post]{setA}
-\end{lstlisting}
+\end{ltxexample}
 %
-Note that the \texttt{mcite} module is not a compatibility module. It provides commands which are very similar but not identical in syntax and function to \sty{mcite}'s commands. When migrating from \sty{mcite}\slash\sty{mciteplus} to \biblatex, legacy files must be updated. With \sty{mcite}, the first member of the citation group is also the identifier of the group as a whole. Borrowing an example from the \sty{mcite} manual, this group:
+%Note that the \texttt{mcite} module is not a compatibility module. It provides commands which are very similar but not identical in syntax and function to \sty{mcite}'s commands. When migrating from \sty{mcite}\slash\sty{mciteplus} to \biblatex, legacy files must be updated. With \sty{mcite}, the first member of the citation group is also the identifier of the group as a whole. Borrowing an example from the \sty{mcite} manual, this group:
+请注意，\texttt{mcite} 模块不是完全兼容的。
+它提供的命令与 \sty{mcite} 宏包的命令在语法和功能上十分相似但并不完全等价。
+当从 \sty{mcite}\slash\sty{mciteplus} 迁移到 \biblatex 时必须更新旧文件。
+在 \sty{mcite} 中，引用组的第一个成员也是该组整个的标识符。
+举个 \sty{mcite} 手册中的例子，以下的组：
 
 \begin{table}
 \tablesetup
 \begin{tabular}{@{}V{0.5\textwidth}@{}V{0.5\textwidth}@{}}
 \toprule
-\multicolumn{1}{@{}H}{Standard Command} &
-\multicolumn{1}{@{}H}{\sty{mcite}-like Command} \\
+%\multicolumn{1}{@{}H}{Standard Command} &
+%\multicolumn{1}{@{}H}{\sty{mcite}-like Command} \\
+\multicolumn{1}{@{}H}{标准命令} &
+\multicolumn{1}{@{}H}{\sty{mcite} 命令} \\
 \cmidrule(r){1-1}\cmidrule{2-2}
 |\cite|		& |\mcite| \\
 |\Cite|		& |\Mcite| \\
@@ -3996,40 +4274,58 @@ Note that the \texttt{mcite} module is not a compatibility module. It provides c
 |\supercite|	& |\msupercite| \\
 \bottomrule
 \end{tabular}
-\caption{\sty{mcite}-like commands}
+%\caption{\sty{mcite}-like commands}
+\caption{\sty{mcite} 命令}
 \label{use:cit:mct:tab1}
 \end{table}
 
-\begin{lstlisting}[style=latex]{}
+\begin{ltxexample}
 \cite{<<glashow>>,*salam,*weinberg}
-\end{lstlisting}
+\end{ltxexample}
 %
-consists of three entries and the entry key of the first one also serves as identifier of the entire group. In contrast to that, a \biblatex entry set is an entity in its own right. Therefore, it requires a unique entry key which is assigned to the set as it is defined:
+%consists of three entries and the entry key of the first one also serves as identifier of the entire group. In contrast to that, a \biblatex entry set is an entity in its own right. Therefore, it requires a unique entry key which is assigned to the set as it is defined:
+包括三个条目，且第一个条目键也同样是整个组的标识符。
+与此相反，\biblatex 条目集是一个实体。因此，它需要分配给该集的唯一的条目键值：
 
-\begin{lstlisting}[style=latex]{}
+\begin{ltxexample}
 \mcite{<<set1>>,*glashow,*salam,*weinberg}
-\end{lstlisting}
+\end{ltxexample}
 %
-Once defined, an entry set is handled like any regular entry in a \file{bib} file. When using one of the \texttt{numeric} styles which ship with \texttt{biblatex} and activating its \opt{subentry} option, it is even possible to refer to set members. See \tabref{use:cit:mct:tab2} for some examples. Restating the original definition of the set is redundant, but permissible. In contrast to \sty{mciteplus}, however, restating a part of the original definition is invalid. Use the entry key of the set instead.
+%Once defined, an entry set is handled like any regular entry in a \file{bib} file. When using one of the \texttt{numeric} styles which ship with \texttt{biblatex} and activating its \opt{subentry} option, it is even possible to refer to set members. See \tabref{use:cit:mct:tab2} for some examples. Restating the original definition of the set is redundant, but permissible. In contrast to \sty{mciteplus}, however, restating a part of the original definition is invalid. Use the entry key of the set instead.
+一旦定义之后，条目集的处理与其它 \file{bib} 文件中的常规条目相同。
+当在 \sty{biblatex} 中使用 \texttt{numeric} 样式并且启动了 \opt{subentry} 选项时，甚至可以指向集成员。
+参考\tabref{use:cit:mct:tab2} 中的一些例子。
+也可以重启条目集的原始定义，但这没有必要。
+不过与 \sty{mciteplus} 不同的是，重启原始定义的一部分是无效的，需要使用集合的条目键。
 
 \begin{table}
 \tablesetup
 \begin{tabular}{@{}V{0.5\textwidth}@{}V{0.1\textwidth}@{}p{0.4\textwidth}@{}}
 \toprule
-\multicolumn{1}{@{}H}{Input} &
-\multicolumn{1}{@{}H}{Output} &
-\multicolumn{1}{@{}H}{Comment} \\
+%\multicolumn{1}{@{}H}{Input} &
+%\multicolumn{1}{@{}H}{Output} &
+%\multicolumn{1}{@{}H}{Comment} \\
+\multicolumn{1}{@{}H}{输入} &
+\multicolumn{1}{@{}H}{输出} &
+\multicolumn{1}{@{}H}{评注} \\
 \cmidrule(r){1-1}\cmidrule(r){2-2}\cmidrule{3-3}
-|\mcite{set1,*glashow,*salam,*weinberg}|& [1]	& Defining and citing the set \\
-|\mcite{set1}|				& [1]	& Subsequent citation of the set \\
-|\cite{set1}|				& [1]	& Regular |\cite| works as usual \\
-|\mcite{set1,*glashow,*salam,*weinberg}|& [1]	& Redundant, but permissible \\
-|\mcite{glashow}|			& [1a]	& Citing a set member \\
-|\cite{weinberg}|			& [1c]	& Regular |\cite| works as well \\
+%|\mcite{set1,*glashow,*salam,*weinberg}|& [1]	& Defining and citing the set \\
+%|\mcite{set1}|				& [1]	& Subsequent citation of the set \\
+%|\cite{set1}|				& [1]	& Regular |\cite| works as usual \\
+%|\mcite{set1,*glashow,*salam,*weinberg}|& [1]	& Redundant, but permissible \\
+%|\mcite{glashow}|			& [1a]	& Citing a set member \\
+%|\cite{weinberg}|			& [1c]	& Regular |\cite| works as well \\
+|\mcite{set1,*glashow,*salam,*weinberg}|& [1]	& 定义并引用该集合 \\ 
+|\mcite{set1}|				& [1]	& 该集合随后的引用 \\
+|\cite{set1}|				& [1]	& 常规的 |\cite| \\ 
+|\mcite{set1,*glashow,*salam,*weinberg}|& [1]	& 冗余，但是允许的 \\ 
+|\mcite{glashow}|			& [1a]	& 引用集成员 \\ 
+|\cite{weinberg}|			& [1c]	& 又一次常规的 |\cite| \\ 
 \bottomrule
 \end{tabular}
-\caption[\sty{mcite}-like syntax]
-{\sty{mcite}-like syntax (sample output with \kvopt{style}{numeric} and \opt{subentry} option)}
+%\caption[\sty{mcite}-like syntax]
+%{\sty{mcite}-like syntax (sample output with \kvopt{style}{numeric} and \opt{subentry} option)}
+\caption[\sty{mcite} 语法]{\sty{mcite} 语法（使用 \kvopt{style}{numeric} 和 \opt{subentry} 选项时的样例输出）}
 \label{use:cit:mct:tab2}
 \end{table}
 
