@@ -572,7 +572,7 @@
 %\item[Date fields] hold a date specification in \texttt{yyyy-mm-ddThh:nn[+|-][hh[:nn]|Z]} format or a date range in \texttt{yyyy-mm-ddThh:nn[+|-][hh[:nn]|Z]/yyyy-mm-ddThh:nn[+|-][hh[:nn]|Z]} format and other formats permitted by EDTF level 1, see \secref{bib:use:dat}. Date fields are special in that the date is parsed and split up into its datepart type components. The \bibfield{datepart} components (see above) are automatically defined and recognised when a field of datatype \bibfield{date} is defined in the datamodel. A typical example is the \bibfield{date} field.
 
 \item[日期域（date field）] 处理形如 \texttt{yyyy-mm-ddThh:nn[+|-][hh[:nn]|Z]} 格式的日期，
-或者格式为 \texttt{yyyy-mm-ddThh:nn[+|-][hh[:nn]|Z]/yyyy-mm-ddThh:nn[+|-][hh[:nn]|Z]} 的日期范围，
+或者 \texttt{yyyy-mm-ddThh:nn[+|-][hh[:nn]|Z]/yyyy-mm-ddThh:nn[+|-][hh[:nn]|Z]} 格式的日期范围，
 或者其它EDTF level 1允许的格式，见 \secref{bib:use:dat} 节。
 日期域的特殊之处在于，日期会被解析并分解成各个日期部分类型的成分。
 当数据模型中定义一个数据类型为 \bibfield{date} 的域时，
@@ -585,9 +585,7 @@
 典型的抄录域是 \bibfield{file} 和 \bibfield{doi}。
 
 %\item[URI fields] are processed in verbatim mode and may contain special characters. They are also URL-escaped if they don't look like they already are. The typical example of a uri field is \bibfield{url}.
-\item[URI 域] 在抄录模式下处理，可以包含特殊字符。
-如果看起来不像其实质，也可以进行URL转义。
-（ They are also URL-escaped if they don't look like they already are. ）
+\item[URI 域] 在抄录模式下处理，可以包含特殊字符或者进行了 URL 转义。
 典型的例子是 \bibfield{url} 域。
 
 %\item[Separated value fields] A separated list of literal values. Examples are the \bibfield{keywords} and \bibfield{options} fields. The separator can be configured to be any Perl regular expression via the \opt{xsvsep} option which defaults to the usual \bibtex comma surrounded by optional whitespace.
@@ -601,7 +599,7 @@
 %\item[Pattern fields] A literal field which must match a particular pattern. An example is the \bibfield{gender} field from \secref{bib:fld:spc}.
 
 \item[模式域（pattern field）] 是必须匹配某一特定模式的文本域。
-例子有 \secref{bib:fld:spc} 一节中的 \bibfield{gender} 域。
+例子有 \secref{bib:fld:spc} 节的 \bibfield{gender} 域。
 
 %\item[Key fields] May hold printable data or localisation keys. A test is performed to determine whether the value of the field is a known localisation key (the localisation keys defined by default are listed in \secref{aut:lng:key}). If so, the localised string is printed. If not, the value is printed as is. A typical example is the \bibfield{type} field.
 
@@ -1504,7 +1502,7 @@
 
 \fielditem{urldate}{日期}
 
-\bibfield{url} 域中网址的获取日期。参考 \secref{bib:use:dat} 一节。
+\bibfield{url} 域中网址的获取日期。见 \secref{bib:use:dat} 节。
 
 %\fielditem{venue}{literal}
 
@@ -1557,7 +1555,7 @@
 出版年份。
 不过使用 \bibfield{date} 域更好些，
 因为它也和普通年份兼容。
-参考 \secref{bib:use:dat} 节。
+见 \secref{bib:use:dat} 节。
 
 \end{fieldlist}
 
@@ -1586,7 +1584,7 @@
 如果父条目可用，那么子条目的 \bibfield{crossref} 域将被定义。
 反之，子条目仍然可以继承父条目的数据但是其 \bibfield{crossref} 域是未定义的。
 父条目是否被添加到文献中（间接地由于阈值或者直接被显式地引用）对于该域的定义并不重要。
-参考本节中的 \bibfield{xref} 域以及 \secref{bib:cav:ref} 一节。
+参考本节中的 \bibfield{xref} 域以及 \secref{bib:cav:ref} 节。
 
 %\fielditem{entryset}{separated values}
 
@@ -1596,7 +1594,7 @@
 
 该域用于指明条目集。
 详见 \secref{use:use:set} 节。
-该域在后端过程中被处理，不出现在 \path{.bbl} 中。
+在后端过程中被处理而不出现在 \path{.bbl} 中。
 
 %\fielditem{execute}{code}
 
@@ -1847,7 +1845,7 @@ langidopts     = {variant=british},
 
 与本条目相关的其它条目的引用关键字。
 相互关系由 \bibfield{relatedtype} 域来确定。
-进一步细节请参考 \secref{use:rel} 一节。
+进一步细节见 \secref{use:rel} 节。
 
 %\fielditem{relatedoptions}{separated values}
 
@@ -1867,7 +1865,7 @@ langidopts     = {variant=british},
 标识符，为列在 \bibfield{related} 域中的关键字列表指定相互关系类型。
 该标识符是本地化字符串，会打印在相关条目列表的数据之前。
 该域也用于为相关条目指明类型相关的格式指令和参考文献宏。
-更多信息参考 \secref{use:rel} 节。
+详见 \secref{use:rel} 节。
 
 %\fielditem{relatedstring}{literal}
 
@@ -1923,7 +1921,7 @@ langidopts     = {variant=british},
 如果一个条目带有“An Introduction to\dots”这样的标题，并且你想让它按字母“I”而不是“A”排序，那么 \bibfield{sorttitle} 域就会派上用场。
 这时，你就可以在 \bibfield{sorttitle} 域中填上“Introduction to\dots”。
 详见 \secref{use:srt} 节。
-该域在后端过程中被处理，不出现在 \path{.bbl} 中。
+该域在后端过程中处理而不出现在 \path{.bbl} 中。
 
 %\fielditem{sortyear}{integer}
 
@@ -2042,7 +2040,7 @@ langidopts     = {variant=british},
 \bibfield{location}  的别名，用于 \BibTeX 相容性。
 传统的 \BibTeX 使用这一稍微有些误导性的域 \bibfield{address} 来表示出版地点，即出版者的所在地，
 而 \biblatex 使用更一般的 \bibfield{location} 域。
-参考 \secref{bib:fld:dat,bib:use:and} 节。
+见 \secref{bib:fld:dat,bib:use:and} 节。
 
 %\fielditem{annote}{literal}
 
@@ -2051,7 +2049,7 @@ langidopts     = {variant=british},
 \fielditem{annote}{文本}
 
 \bibfield{annotation} 的别名，用于 \sty{jurabib} 宏包兼容性。
-参考 \secref{bib:fld:dat} 节。
+见 \secref{bib:fld:dat} 节。
 
 %\fielditem{archiveprefix}{literal}
 
@@ -2060,7 +2058,7 @@ langidopts     = {variant=british},
 \fielditem{archiveprefix}{文本}
 
 \bibfield{eprinttype} 的别名，用于 arXiv 的兼容性。
-参考 \secref{bib:fld:dat,use:use:epr} 节。
+见 \secref{bib:fld:dat,use:use:epr} 节。
 
 %\fielditem{journal}{literal}
 
@@ -2069,7 +2067,7 @@ langidopts     = {variant=british},
 \fielditem{journal}{文本}
 
 \bibfield{journaltitle} 的别名，用于 \BibTeX 兼容性。
-参考 \secref{bib:fld:dat} 节。
+见 \secref{bib:fld:dat} 节。
 
 %\fielditem{key}{literal}
 
@@ -2078,7 +2076,7 @@ langidopts     = {variant=british},
 \fielditem{key}{文本}
 
 \bibfield{sortkey} 的别名，用于 \BibTeX 兼容性。
-参考 \secref{bib:fld:spc} 节。
+见 \secref{bib:fld:spc} 节。
 
 %\fielditem{pdf}{verbatim}
 
@@ -2087,16 +2085,16 @@ langidopts     = {variant=british},
 \fielditem{pdf}{抄录}
 
 \bibfield{file} 的别名，用于 JabRef 兼容性。
-参考 \secref{bib:fld:dat} 节。
+见 \secref{bib:fld:dat} 节。
 
-\fielditem{primaryclass}{literal}
+%\fielditem{primaryclass}{literal}
 
-An alias for \bibfield{eprintclass}, provided for arXiv compatibility. See \secref{bib:fld:dat,use:use:epr}.
+%An alias for \bibfield{eprintclass}, provided for arXiv compatibility. See \secref{bib:fld:dat,use:use:epr}.
 
 \fielditem{primaryclass}{文本}
 
 \bibfield{eprintclass} 的别名，用于 arXiv 的兼容性。
-参考 \secref{bib:fld:dat,use:use:epr} 节。
+见 \secref{bib:fld:dat,use:use:epr} 节。
 
 %\listitem{school}{literal}
 
@@ -2108,7 +2106,7 @@ An alias for \bibfield{eprintclass}, provided for arXiv compatibility. See \secr
 \bibfield{institution} 域用于传统 \BibTeX 中的技术报告，
 而 \bibfield{school} 域处理与之相关的研究机构。
 在这两种情况下，\biblatex 宏包都会使用一般的域 \bibfield{institution}。
-参考 \secref{bib:fld:dat,bib:use:and}。
+见 \secref{bib:fld:dat,bib:use:and}。
 
 \end{fieldlist}
 
@@ -2643,7 +2641,7 @@ organization = {<<{American Society for Photogrammetry and Remote Sensing}>>
 
 在标准样式以及没有定制内部宏 \cmd{mkdaterange*} 的定制样式中，
 <circa>、不确定信息和年代信息的输出由 \secref{use:opt:pre:gen} 节中的宏包选项 \opt{datecirca}、\opt{dateuncertain}、\opt{dateera} 和 \opt{dateeraauto} 控制。
-\pageref{bib:use:tab2} 页中的 \tabref{bib:use:tab2}列出了使用这些选项的例子。
+\pageref{bib:use:tab2} 页中的\tabref{bib:use:tab2} 列出了使用这些选项的例子。
 
 %\begin{table}
 %	\tablesetup
