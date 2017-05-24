@@ -11,13 +11,15 @@
 ### 更新历史
 ---------------------
 
-2017.05.24 完成了翻译初稿。
+2017.05.24 完成了翻译初稿 v1.0。
 
-| 章节          | 译者         | 时间  |
-| ------------- |:-------------:| -----:|
-| col 3 is      | right-aligned | $1600 |
-| col 2 is      | centered      |   $12 |
-| zebra stripes | are neat      |    $1 |
+| 章节           | 译者          | 版本时间         |
+| ------------- |:-------------:| ---------------:|
+| Introduction  | Sheng Wenbo   | 2017.05.24 v1.0 |
+| DatabaseGuide | Sheng Wenbo   | 2017.05.24 v1.0 |
+| UserGuide     | Sheng Wenbo   | 2017.05.24 v1.0 |
+| AuthorGuide   | Hu Zhenzhen   | 2017.05.24 v1.0 |
+| Appendix      | Hu Zhenzhen   | 2017.05.24 v1.0 |
 
 
 ### 说明
