@@ -13,13 +13,13 @@
 
 2017.05.24 完成了翻译初稿 v1.0。
 
-| 章节           | 译者          | 版本时间         |
-| ------------- |:-------------:| ---------------:|
-| Introduction  | Sheng Wenbo   | 2017.05.24 v1.0 |
-| DatabaseGuide | Sheng Wenbo   | 2017.05.24 v1.0 |
-| UserGuide     | Sheng Wenbo   | 2017.05.24 v1.0 |
-| AuthorGuide   | Hu Zhenzhen   | 2017.05.24 v1.0 |
-| Appendix      | Hu Zhenzhen   | 2017.05.24 v1.0 |
+| 章节           | 译者          | 初稿版本时间    | 复查版本时间    | 校对版本时间    |
+| ------------- |:-------------:| ---------------:| ---------------:| ---------------:|
+| Introduction  | Sheng Wenbo   | 2017.05.24 v1.0 |                 |                 |
+| DatabaseGuide | Sheng Wenbo   | 2017.05.24 v1.0 |                 |                 |
+| UserGuide     | Sheng Wenbo   | 2017.05.24 v1.0 |                 |                 |
+| AuthorGuide   | Hu Zhenzhen   | 2017.05.24 v1.0 |                 |                 |
+| Appendix      | Hu Zhenzhen   | 2017.05.24 v1.0 |                 |                 |
 
 
 ### 说明
