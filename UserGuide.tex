@@ -4329,257 +4329,500 @@ LANGUAGE+an = {1=annotation3; 2=annotation4}
 \label{use:cit:mct:tab2}
 \end{table}
 
-\subsection{本地化命令 Localization Commands}
+\subsection{本地化命令}%\subsection{Localization Commands}
 \label{use:lng}
 
-The \biblatex package provides translations for key terms such as <edition> or <volume> as well as definitions for language specific features such as the date format and ordinals. These definitions, which are loaded automatically, may be modified or extended in the document preamble or the configuration file with the commands introduced in this section.
+%The \biblatex package provides translations for key terms such as <edition> or <volume> as well as definitions for language specific features such as the date format and ordinals. These definitions, which are loaded automatically, may be modified or extended in the document preamble or the configuration file with the commands introduced in this section.
+
+\biblatex 宏包提供了“edition”和“volume”等关键词的翻译，
+并定义日期格式和序数等语言相关的特征。
+这些定义是自动导入的，可以通过本节所介绍的命令在导言区或配置文件中修改或扩展。
 
 \begin{ltxsyntax}
 
 \cmditem{DefineBibliographyStrings}{language}{definitions}
 
-This command is used to define localization strings. The \prm{language} must be a language name known to the \sty{babel}/\sty{polyglossia} packages, \ie one of the identifiers listed in \tabref{bib:fld:tab1} on page \pageref{bib:fld:tab1}. The \prm{definitions} are \keyval pairs which assign an expression to an identifier:
+%This command is used to define localisation strings. The \prm{language} must be a language name known to the \sty{babel}/\sty{polyglossia} packages, \ie one of the identifiers listed in \tabref{bib:fld:tab1} on page \pageref{bib:fld:tab1}. The \prm{definitions} are \keyval pairs which assign an expression to an identifier:
 
-\begin{lstlisting}[style=latex]{}
+该命令用于定义本地化字符串。
+\prm{language} 选项必须是 \sty{babel}/\sty{polyglossia} 可知的语言名，
+即 \pageref{bib:fld:tab1} 页的\tabref{bib:fld:tab1} 所列出的标识符。
+\prm{definitions} 是 \keyval 对，将表达式分配给标识符：
+
+\begin{ltxexample}
 \DefineBibliographyStrings{american}{%
   bibliography  = {Bibliography},
   shorthands    = {Abbreviations},
   editor        = {editor},
   editors       = {editors},
 }
-\end{lstlisting}
+\end{ltxexample}
 %
-A complete list of all keys supported by default is given is \secref{aut:lng:key}. Note that all expressions should be capitalized as they usually are when used in the middle of a sentence. The \biblatex package will automatically capitalize the first word when required at the beginning of a sentence. Expressions intended for use in headings should be capitalized in a way that is suitable for titling. In contrast to \cmd{DeclareBibliographyStrings}, \cmd{DefineBibliographyStrings} overrides both the full and the abbreviated version of the string. See \secref{aut:lng:cmd} for further details.
+%A complete list of all keys supported by default is given is \secref{aut:lng:key}. Note that all expressions should be capitalized as they usually are when used in the middle of a sentence. The \biblatex package will automatically capitalize the first word when required at the beginning of a sentence. Expressions intended for use in headings should be capitalized in a way that is suitable for titling. In contrast to \cmd{DeclareBibliographyStrings}, \cmd{DefineBibliographyStrings} overrides both the full and the abbreviated version of the string. See \secref{aut:lng:cmd} for further details.
+默认支持的所有关键字列表在 \secref{aut:lng:key} 节中给出。
+请注意，所有的表达式在句子中间时也要像本来一样首字母大写。
+\biblatex 宏包会在必要时自动在句首处将首字母大写。
+用于标题的表达式的大写方式要与标题匹配。
+与 \cmd{DeclareBibliographyStrings} 相反，\cmd{DefineBibliographyStrings} 覆盖了字符串及其缩写两个版本。
+详见 \secref{aut:lng:cmd} 节。
 
 \cmditem{DefineBibliographyExtras}{language}{code}
 
-This command is used to adapt language specific features such as the date format and ordinals. The \prm{language} must be a language name known to the \sty{babel}/\sty{polyglossia} packages. The \prm{code}, which may be arbitrary \latex code, will usually consist of redefinitions of the formatting commands from \secref{use:fmt:lng}.
+%This command is used to adapt language specific features such as the date format and ordinals. The \prm{language} must be a language name known to the \sty{babel}/\sty{polyglossia} packages. The \prm{code}, which may be arbitrary \latex code, will usually consist of redefinitions of the formatting commands from \secref{use:fmt:lng}.
+
+该命令用于调整日期格式和序数等语言相关的特征。
+\prm{language} 必须是 \sty{babel}/\sty{polyglossia} 可知的语言名。
+\prm{code} 可以是任意代码，通常包括 \secref{use:fmt:lng} 中格式命令的重定义。
 
 \cmditem{UndefineBibliographyExtras}{language}{code}
 
-This command is used to restore the original definition of any commands modified with \cmd{DefineBibliographyExtras}. If a redefined command is included in \secref{use:fmt:lng}, there is no need to restore its previous definition since these commands are adapted by all language modules anyway.
+%This command is used to restore the original definition of any commands modified with \cmd{DefineBibliographyExtras}. If a redefined command is included in \secref{use:fmt:lng}, there is no need to restore its previous definition since these commands are adapted by all language modules anyway.
+
+该命令用于存储被 \cmd{DefineBibliographyExtras} 修改的命令的原始定义。
+如果重定义的命令在 \secref{use:fmt:lng} 中，
+那么没有必要存储之前的定义，因为这些命令总归会被所有的语言模块调整的。
 
 \cmditem{DefineHyphenationExceptions}{language}{text}
 
-This is a \latex frontend to \tex's \cmd{hyphenation} command which defines hyphenation exceptions.
-The \prm{language} must be a language name known to the \sty{babel}/\sty{polyglossia} packages. The \prm{text} is a whitespace"=separated list of words. Hyphenation points are marked with a dash:
+%This is a \latex frontend to \tex's \cmd{hyphenation} command which defines hyphenation exceptions. The \prm{language} must be a language name known to the \sty{babel}/\sty{polyglossia} packages. The \prm{text} is a whitespace"=separated list of words. Hyphenation points are marked with a dash:
 
-\begin{lstlisting}[style=latex]{}
+这是 \TeX{} 的 \cmd{hyphenation} 命令的 \LaTeX 前端，用于定义了断词例外。
+\prm{language} 必须是 \sty{babel}/\sty{polyglossia} 可知的语言名。
+\prm{text} 是空格分开的单词列表，断词点用短横线标记：
+
+\begin{ltxexample}
 \DefineHyphenationExceptions{american}{%
   hy-phen-ation ex-cep-tion
 }
-\end{lstlisting}
+\end{ltxexample}
 
 \cmditem{NewBibliographyString}{key}
 
-This command declares new localization strings, \ie it initializes a new \prm{key} to be used in the
-\prm{definitions} of \cmd{DefineBibliographyStrings}. The \prm{key} argument may also be a comma"=separated
-list of key names. The keys listed in \secref{aut:lng:key} are defined by default.
+%This command declares new localisation strings, \ie it initializes a new \prm{key} to be used in the \prm{definitions} of \cmd{DefineBibliographyStrings}. The \prm{key} argument may also be a comma"=separated list of key names. The keys listed in \secref{aut:lng:key} are defined by default.
+
+该命令声明了新的本地化字符串，即初始化新的 \prm{key}，
+用在命令 \cmd{DefineBibliographyStrings} 的 \prm{definitions} 中。
+选项 \prm{key} 也可以是逗号分隔的键值名列表。
+默认的键名在 \secref{aut:lng:key} 节中列出。
 
 \end{ltxsyntax}
 
-\subsection{格式命令 Formatting Commands}
+\subsection{格式命令}%\subsection{Formatting Commands}
 \label{use:fmt}
 
-The commands and facilities presented in this section may be used to adapt the format of citations and the bibliography.
+%The commands and facilities presented in this section may be used to adapt the format of citations and the bibliography.
 
-\subsubsection{一般命令和钩子 Generic Commands and Hooks}
+本节介绍的命令和工具可以用于调整引用和参考文献的格式。
+
+\subsubsection{一般命令和钩子} %\subsubsection{Generic Commands and Hooks}
 \label{use:fmt:fmt}
 
-The commands in this section may be redefined with \cmd{renewcommand} in the document preamble. Note that all commands starting with \cmd{mk\dots} take one argument. All of these commands are defined in \path{biblatex.def}.
+%The commands in this section may be redefined with \cmd{renewcommand} in the document preamble. Those marked as <Context Sensitive> in the margin can also be customised with \cmd{DeclareDelimFormat} and are printed with \cmd{printdelim} (\secref{use:fmt:csd}). Note that all commands starting with \cmd{mk\dots} take one argument. All of these commands are defined in \path{biblatex.def}.
+
+本小节的命令可以在导言区用 \cmd{renewcommand} 重定义。
+页边标记为“Context Sensitive”的命令还可以用 \cmd{DeclareDelimFormat} 进行定制，
+并使用 \secref{use:fmt:csd} 节的 \cmd{printdelim} 打印。
+请注意，所有以 \cmd{mk\dots} 开头的命令都带有一个选项。
+所有这些命令的定义在 \path{biblatex.def} 中。
 
 \begin{ltxsyntax}
 
 \csitem{bibsetup}
-Arbitrary code to be executed at the beginning of the bibliography, intended for commands which affect the layout of the bibliography.
+%Arbitrary code to be executed at the beginning of the bibliography, intended for commands which affect the layout of the bibliography.
+在参考文献开始执行的任意代码，用于影响参考文献的页面布局的命令。
 
 \csitem{bibfont}
-Arbitrary code setting the font used in the bibliography. This is very similar to \cmd{bibsetup} but intended for switching fonts.
+%Arbitrary code setting the font used in the bibliography. This is very similar to \cmd{bibsetup} but intended for switching fonts.
+在参考文献中用于设置字体的任意代码。
+类似于 \cmd{bibsetup} 但用于切换字体。
 
 \csitem{citesetup}
-Arbitrary code to be executed at the beginning of each citation command.
+%Arbitrary code to be executed at the beginning of each citation command.
+在引用命令开始执行的任意代码。
 
 \csitem{newblockpunct}
-The separator inserted between <blocks> in the sense explained in \secref{aut:pct:new}. The default definition is controlled by the package option \opt{block} (see \secref{use:opt:pre:gen}).
+%The separator inserted between <blocks> in the sense explained in \secref{aut:pct:new}. The default definition is controlled by the package option \opt{block} (see \secref{use:opt:pre:gen}).
+插入在 <blocks>（其意义在 \secref{aut:pct:new} 节中解释）之间的分隔符。
+缺省定义由宏包选项 \opt{block}（见 \secref{use:opt:pre:gen}）所控制。
 
 \csitem{newunitpunct}
-The separator inserted between <units> in the sense explained in \secref{aut:pct:new}. This will usually be a period or a comma plus an interword space. The default definition is a period and a space.
+%The separator inserted between <units> in the sense explained in \secref{aut:pct:new}. This will usually be a period or a comma plus an interword space. The default definition is a period and a space.
+插入在 <units>（其意义在\secref{aut:pct:new} 节中解释）之间的分隔符。
+这通常是句号或者逗号加上一个词间距。
+缺省定义是句号加一个空格。
 
 \csitem{finentrypunct}
-The punctuation printed at the very end of every bibliography entry, usually a period. The default definition is a period.
+%The punctuation printed at the very end of every bibliography entry, usually a period. The default definition is a period.
+在每条文献条目最后打印的标点，通常是句号。
+缺省定义是句号。
 
-\csitem{entrysetpunct}\BiberOnlyMark
-The punctuation printed between bibliography subentries of an entry set. The default definition is a semicolon and a space.
+\csitem{entrysetpunct}
+%The punctuation printed between bibliography subentries of an entry set. The default definition is a semicolon and a space.
+一个条目集中文献子条目之间的标点。
+默认定义是分号和一个空格。
 
-\csitem{bibnamedelima}\BiberOnlyMark
-This delimiter controls the spacing between the elements which make up a name part. It is inserted automatically after the first name element if the element is less than three characters long and before the last element. The default definition is an interword space penalized by the value of the \cnt{highnamepenalty} counter (\secref{use:fmt:len}). Please refer to \secref{use:cav:nam} for further details.
+\csitem{bibnamedelima}
+%This delimiter controls the spacing between the elements which make up a name part. It is inserted automatically after the first name element if the element is less than three characters long and before the last element. The default definition is an interword space penalized by the value of the \cnt{highnamepenalty} counter (\secref{use:fmt:len}). Please refer to \secref{use:cav:nam} for further details.
+该定界符控制组成姓名成分之间的空白。
+它将自动插入在 first name 之后（如果该成分少于三个字符长度）和最后的姓名成分之前。
+缺省值是一个词间距加上由计数器 \cnt{highnamepenalty}（\secref{use:fmt:len}）的值控制的惩罚项。
+详见 \secref{use:cav:nam} 节。
 
-\csitem{bibnamedelimb}\BiberOnlyMark
-This delimiter is inserted between the elements which make up a name part where \cmd{bibnamedelima} does not apply. The default definition is an interword space penalized by the value of the \cnt{lownamepenalty} counter (\secref{use:fmt:len}). Please refer to \secref{use:cav:nam} for further details.
+\csitem{bibnamedelimb}
+%This delimiter is inserted between the elements which make up a name part where \cmd{bibnamedelima} does not apply. The default definition is an interword space penalized by the value of the \cnt{lownamepenalty} counter (\secref{use:fmt:len}). Please refer to \secref{use:cav:nam} for further details.
+该定界符插入在 \cmd{bibnamedelima} 不可用的姓名成分之间。
+缺省值是一个词间距加上由计数器 \cnt{lownamepenalty}（\secref{use:fmt:len}）的值控制的惩罚项。
+详见 \secref{use:cav:nam} 节。
 
 \csitem{bibnamedelimc}
-This delimiter controls the spacing between name parts. It is inserted between the name prefix and the last name if \kvopt{useprefix}{true}. The default definition is an interword space penalized by the value of the \cnt{highnamepenalty} counter (\secref{use:fmt:len}). Please refer to \secref{use:cav:nam} for further details.
+%This delimiter controls the spacing between name parts. It is inserted between the name prefix and the last name if \kvopt{useprefix}{true}. The default definition is an interword space penalized by the value of the \cnt{highnamepenalty} counter (\secref{use:fmt:len}). Please refer to \secref{use:cav:nam} for further details.
+该定界符控制姓名成分之间的空白。
+如果 \kvopt{useprefix}{true}，那么它插入在名前缀（name prefix）和姓（last name）之间。
+缺省值是一个词间距加上由计数器 \cnt{highnamepenalty}（\secref{use:fmt:len}）的值控制的惩罚项。
+详见 \secref{use:cav:nam} 节。
 
 \csitem{bibnamedelimd}
-This delimiter is inserted between all name parts where \cmd{bibnamedelimc} does not apply. The default definition is an interword space penalized by the value of the \cnt{lownamepenalty} counter (\secref{use:fmt:len}). Please refer to \secref{use:cav:nam} for further details.
+%This delimiter is inserted between all name parts where \cmd{bibnamedelimc} does not apply. The default definition is an interword space penalized by the value of the \cnt{lownamepenalty} counter (\secref{use:fmt:len}). Please refer to \secref{use:cav:nam} for further details.
+该定界符插入在所有的 \cmd{bibnamedelimc} 不可用的姓名成分之间。
+缺省值是一个词间距加上由计数器 \cnt{lownamepenalty}（\secref{use:fmt:len}）的值控制的惩罚项。
+详见 \secref{use:cav:nam} 节。
 
-\csitem{bibnamedelimi}\BiberOnlyMark
-This delimiter replaces \cmd{bibnamedelima/b} after initials. Note that this only applies to initials given as such in the \file{bib} file, not to the initials automatically generated by \biblatex which use their own set of delimiters.
+\csitem{bibnamedelimi}
+%This delimiter replaces \cmd{bibnamedelima/b} after initials. Note that this only applies to initials given as such in the \file{bib} file, not to the initials automatically generated by \biblatex which use their own set of delimiters.
+该定界符在首字符缩写中取代 \cmd{bibnamedelima/b}。
+请注意该情况只用于既定的首字母缩写（例如在 \file{bib} 文件中给出的），
+而不是由 \biblatex 自动生成的首字母缩写，后者会使用自己的定界符集。
 
-\csitem{bibinitperiod}\BiberOnlyMark
-The punctuation inserted after initials unless \cmd{bibinithyphendelim} applies. The default definition is a period (\cmd{adddot}). Please refer to \secref{use:cav:nam} for further details.
+\csitem{bibinitperiod}
+%The punctuation inserted after initials unless \cmd{bibinithyphendelim} applies. The default definition is a period (\cmd{adddot}). Please refer to \secref{use:cav:nam} for further details.
+当没有使用 \cmd{bibinithyphendelim} 时插入在首字母缩写之后的标点。
+缺省值是句点（\cmd{adddot}）。
+详见 \secref{use:cav:nam} 节。
 
-\csitem{bibinitdelim}\BiberOnlyMark
-The spacing inserted between multiple initials unless \cmd{bibinithyphendelim} applies. The default definition is an unbreakable interword space. Please refer to \secref{use:cav:nam} for further details.
+\csitem{bibinitdelim}
+%The spacing inserted between multiple initials unless \cmd{bibinithyphendelim} applies. The default definition is an unbreakable interword space. Please refer to \secref{use:cav:nam} for further details.
+当没有使用 \cmd{bibinithyphendelim} 时多重首字母缩写之间的空白。
+缺省值是一个不可打断的词间距。
+详见 \secref{use:cav:nam} 节。
 
-\csitem{bibinithyphendelim}\BiberOnlyMark
-The punctuation inserted between the initials of hyphenated name parts, replacing \cmd{bibinitperiod} and \cmd{bibinitdelim}. The default definition is a period followed by an unbreakable hyphen. Please refer to \secref{use:cav:nam} for further details.
+\csitem{bibinithyphendelim}
+%The punctuation inserted between the initials of hyphenated name parts, replacing \cmd{bibinitperiod} and \cmd{bibinitdelim}. The default definition is a period followed by an unbreakable hyphen. Please refer to \secref{use:cav:nam} for further details.
+带连字符的姓名成分首字母缩写之间插入的标点，用以替代 \cmd{bibinitperiod} 和 \cmd{bibinitdelim}。
+缺省定义是一个句点后接一个不可打断的连字符。
+详见 \secref{use:cav:nam} 节。
 
 \csitem{bibindexnamedelima}
-Replaces \cmd{bibnamedelima} in the index.
+%Replaces \cmd{bibnamedelima} in the index.
+在索引中代替 \cmd{bibnamedelima}。
 
 \csitem{bibindexnamedelimb}
-Replaces \cmd{bibnamedelimb} in the index.
+%Replaces \cmd{bibnamedelimb} in the index.
+在索引中代替 \cmd{bibnamedelimb}。
 
 \csitem{bibindexnamedelimc}
-Replaces \cmd{bibnamedelimc} in the index.
+%Replaces \cmd{bibnamedelimc} in the index.
+在索引中代替 \cmd{bibnamedelimc}。
 
 \csitem{bibindexnamedelimd}
-Replaces \cmd{bibnamedelimd} in the index.
+%Replaces \cmd{bibnamedelimd} in the index.
+在索引中代替 \cmd{bibnamedelimd}。
 
 \csitem{bibindexnamedelimi}
-Replaces \cmd{bibnamedelimi} in the index.
+%Replaces \cmd{bibnamedelimi} in the index.
+在索引中代替 \cmd{bibnamedelimi}。
 
 \csitem{bibindexinitperiod}
-Replaces \cmd{bibinitperiod} in the index.
+%Replaces \cmd{bibinitperiod} in the index.
+在索引中代替 \cmd{bibinitperiod}。
 
 \csitem{bibindexinitdelim}
-Replaces \cmd{bibinitdelim} in the index.
+%Replaces \cmd{bibinitdelim} in the index.
+在索引中代替 \cmd{bibinitdelim}。
 
 \csitem{bibindexinithyphendelim}
-Replaces \cmd{bibinithyphendelim} in the index.
+%Replaces \cmd{bibinithyphendelim} in the index.
+在索引中代替 \cmd{bibinithyphendelim}。
 
 \csitem{revsdnamepunct}
-The punctuation to be printed between the first and last name parts when a name is reversed. Here is an example showing a name with the default comma as \cmd{revsdnamedelim}:
+%The punctuation to be printed between the first and last name parts when a name is reversed. Here is an example showing a name with the default comma as \cmd{revsdnamedelim}:
+当名字反写（姓在前）时姓和名之间的标点。
+如下是一个使用缺省的逗号作为 \cmd{revsdnamedelim} 的例子：
 
-\begin{lstlisting}[style=latex]{}
+\begin{ltxexample}
 Jones<<,>> Edward
-\end{lstlisting}
+\end{ltxexample}
 
-This command should be used with \cmd{bibnamedelimd} as a reversed-name separator in formatting directives for name lists. Please refer to \secref{use:cav:nam} for further details.
+%This command should be used with \cmd{bibnamedelimd} as a reversed-name separator in formatting directives for name lists. Please refer to \secref{use:cav:nam} for further details.
+对于姓名列表，该命令应当与格式指令中的姓名反写分隔符 \cmd{bibnamedelimd} 一起使用。
+详见 \secref{use:cav:nam} 节。
 
 \csitem{bibnamedash}
-The dash to be used as a replacement for recurrent authors or editors in the bibliography. The default is an <em> or an <en> dash, depending on the indentation of the list of references.
+%The dash to be used as a replacement for recurrent authors or editors in the bibliography. The default is an <em> or an <en> dash, depending on the indentation of the list of references.
+用于替代文献中连续重复的作者或编辑的破折号。
+缺省值是一个 <em> 或 <en> 长度横线，取决于文献列表的缩进。
 
 \csitem{labelnamepunct}
-The separator printed after the name used for alphabetizing in the bibliography (\bibfield{author} or \bibfield{editor}, if the \bibfield{author} field is undefined). With the default styles, this separator replaces \cmd{newunitpunct} at this location. The default definition is \cmd{newunitpunct}, \ie it is not handled differently from regular unit punctuation.
+%The separator printed after the name used for alphabetizing in the bibliography (\bibfield{author} or \bibfield{editor}, if the \bibfield{author} field is undefined). With the default styles, this separator replaces \cmd{newunitpunct} at this location. The default definition is \cmd{newunitpunct}, \ie it is not handled differently from regular unit punctuation.
+在参考文献按字母排序时用在名字之后的分隔符（\bibfield{author}，在其未定义时是 \bibfield{editor}）。
+对于缺省样式，该分隔符在此位置代替 \cmd{newunitpunct}。
+缺省定义是 \cmd{newunitpunct}，即对其处理与常规单元标点没有不同之处。
 
 \csitem{subtitlepunct}
-The separator printed between the fields \bibfield{title} and \bibfield{subtitle}, \bibfield{booktitle} and \bibfield{booksubtitle}, as well as \bibfield{maintitle} and \bibfield{mainsubtitle}. With the default styles, this separator replaces \cmd{newunitpunct} at this location. The default definition is \cmd{newunitpunct}, \ie it is not handled differently from regular unit punctuation.
+%The separator printed between the fields \bibfield{title} and \bibfield{subtitle}, \bibfield{booktitle} and \bibfield{booksubtitle}, as well as \bibfield{maintitle} and \bibfield{mainsubtitle}. With the default styles, this separator replaces \cmd{newunitpunct} at this location. The default definition is \cmd{newunitpunct}, \ie it is not handled differently from regular unit punctuation.
+域 \bibfield{title} 和 \bibfield{subtitle}、\bibfield{booktitle} 和 \bibfield{booksubtitle}，以及 \bibfield{maintitle} 和 \bibfield{mainsubtitle} 之间的分隔符。
+对于缺省样式，该分隔符在此位置代替 \cmd{newunitpunct}。
+缺省定义是 \cmd{newunitpunct}，即对其处理与常规单元标点没有不同之处。
 
 \csitem{intitlepunct}
-The separator between the word «in» and the following title in entry types such as \bibtype{article}, \bibtype{inbook}, \bibtype{incollection}, etc. The default definition is a colon plus an interword space (\eg «Article, in: \emph{Journal}» or «Title, in: \emph{Book}»). Note that this is the separator string, not only the punctuation mark. If you don't want a colon after «in», \cmd{intitlepunct} should still insert a space.
+%The separator between the word «in» and the following title in entry types such as \bibtype{article}, \bibtype{inbook}, \bibtype{incollection}, etc. The default definition is a colon plus an interword space (\eg «Article, in: \emph{Journal}» or «Title, in: \emph{Book}»). Note that this is the separator string, not only the punctuation mark. If you don't want a colon after «in», \cmd{intitlepunct} should still insert a space.
+在 \bibtype{article}, \bibtype{inbook}, \bibtype{incollection} 等条目类型中单词“in”与之后的标题之间的分隔符。
+缺省值是一个冒号加上一个词间距（例如，“Article, in: \emph{Journal}” 或者“Title, in: \emph{Book}”）。
+请注意，这是分隔字符串而不仅是标点。
+如果你不想在“in”后加冒号，\cmd{intitlepunct} 仍然应当插入一个空格。
 
 \csitem{bibpagespunct}
-The separator printed before the \bibfield{pages} field. The default is a comma plus an interword space.
+%The separator printed before the \bibfield{pages} field. The default is a comma plus an interword space.
+域 \bibfield{pages} 之前的分隔符。
+缺省值是逗号加上一个词间距。
 
 \csitem{bibpagerefpunct}
-The separator printed before the \bibfield{pageref} field. The default is an interword space.
+%The separator printed before the \bibfield{pageref} field. The default is an interword space.
+域 \bibfield{pageref} 之前的分隔符。
+缺省值是一个词间距。
 
 \csitem{multinamedelim}
-The delimiter printed between multiple items in a name list like \bibfield{author} or \bibfield{editor} if there are more than two names in the list. The default is a comma plus an interword space. See \cmd{finalnamedelim} for an example.\footnote{Note that \cmd{multinamedelim} is not used at all if there are only two names in the list. In this case, the default styles use the \cmd{finalnamedelim}.}
+%The delimiter printed between multiple items in a name list like \bibfield{author} or \bibfield{editor} if there are more than two names in the list. The default is a comma plus an interword space. See \cmd{finalnamedelim} for an example.\footnote{Note that \cmd{multinamedelim} is not used at all if there are only two names in the list. In this case, the default styles use the \cmd{finalnamedelim}.}
+在 \bibfield{author} 或 \bibfield{editor} 等姓名列表中各项之间的定界符（如果有两个以上姓名）。
+缺省值是一个逗号加上一个词间距。
+例子请参考 \cmd{finalnamedelim}。\footnote{%
+	请注意，如果列表中只有两个姓名，那么不会使用 \cmd{multinamedelim}，此时缺省样式使用 \cmd{finalnamedelim}。
+}
 
 \csitem{finalnamedelim}
-The delimiter printed instead of \cmd{multinamedelim} before the final name in a name list. The default is the localized term <and>, separated by interword spaces. Here is an example:
+%The delimiter printed instead of \cmd{multinamedelim} before the final name in a name list. The default is the localised term <and>, separated by interword spaces. Here is an example:
+在姓名列表的最后一个姓名之前用以代替 \cmd{multinamedelim} 的定界符。
+缺省值是用词间距分隔的本地化项“and”。这里是一个例子：
 
-\begin{lstlisting}[style=latex]{}
+\begin{ltxexample}
 Michel Goossens<<,>> Frank Mittelbach <<and>> Alexander Samarin
 Edward Jones <<and>> Joe Williams
-\end{lstlisting}
+\end{ltxexample}
 %
-The comma in the first example is the \cmd{multinamedelim} whereas the string <and> in both examples is the \cmd{finalnamedelim}. See also \cmd{finalandcomma} in \secref{use:fmt:lng}.
+%The comma in the first example is the \cmd{multinamedelim} whereas the string <and> in both examples is the \cmd{finalnamedelim}. See also \cmd{finalandcomma} in \secref{use:fmt:lng}.
+第一个例子中的逗号是 \cmd{multinamedelim}，而这两个例子中的字符串“and”是 \cmd{finalnamedelim}。
+另见 \secref{use:fmt:lng} 节中的 \cmd{finalandcomma}。
 
 \csitem{revsdnamedelim}
-An extra delimiter printed after the first name in a name list if the first name is reversed. The default is an empty string, \ie no extra delimiter will be printed. Here is an example showing a name list with a comma as \cmd{revsdnamedelim}:
+%An extra delimiter printed after the first name in a name list if the first name is reversed. The default is an empty string, \ie no extra delimiter will be printed. Here is an example showing a name list with a comma as \cmd{revsdnamedelim}:
+当姓名反序时打印在名（first name）后面的额外定界符。
+缺省值是空字符串，即没有额外的定界符。
+这里是一个设置 \cmd{revsdnamedelim} 为逗号的姓名列表例子：
 
-\begin{lstlisting}[style=latex]{}
+\begin{ltxexample}
 Jones, Edward<<, and>> Joe Williams
-\end{lstlisting}
+\end{ltxexample}
 %
-In this example, the comma after <Edward> is the \cmd{revsdnamedelim} whereas the string <and> is the \cmd{finalnamedelim}, printed in addition to the former.
+%In this example, the comma after <Edward> is the \cmd{revsdnamedelim} whereas the string <and> is the \cmd{finalnamedelim}, printed in addition to the former.
+在本例中，“Edward”之后的逗号是 \cmd{revsdnamedelim} 而字符串“and”是前者之后的 \cmd{finalnamedelim}。
 
 \csitem{andothersdelim}
-The delimiter printed before the localization string <\texttt{andothers}> if a name list like \bibfield{author} or \bibfield{editor} is truncated. The default is an interword space.
+%The delimiter printed before the localisation string <\texttt{andothers}> if a name list like \bibfield{author} or \bibfield{editor} is truncated. The default is an interword space.
+当 \bibfield{author} 或 \bibfield{editor} 等姓名列表被截断时本地化字符串“\texttt{andothers}” 之前的定界符。
+缺省值是一个词间距。
 
 \csitem{multilistdelim}
-The delimiter printed between multiple items in a literal list like \bibfield{publisher} or \bibfield{location} if there are more than two items in the list. The default is a comma plus an interword space. See \cmd{multinamedelim} for further explanation.
+%The delimiter printed between multiple items in a literal list like \bibfield{publisher} or \bibfield{location} if there are more than two items in the list. The default is a comma plus an interword space. See \cmd{multinamedelim} for further explanation.
+在 \bibfield{publisher} 或 \bibfield{location} 等文本列表中诸项之间的定界符（如果列表中有两个以上项）。
+缺省值是一个逗号加上一个词间距。
+进一步解释参见 \cmd{multinamedelim}。
 
 \csitem{finallistdelim}
-The delimiter printed instead of \cmd{multilistdelim} before the final item in a literal list. The default is the localized term <and>, separated by interword spaces. See \cmd{finalnamedelim} for further explanation.
+%The delimiter printed instead of \cmd{multilistdelim} before the final item in a literal list. The default is the localised term <and>, separated by interword spaces. See \cmd{finalnamedelim} for further explanation.
+在文本列表的最后一项之前代替 \cmd{multilistdelim} 的定界符。
+缺省值是用词间距分隔的本地化字符串“and”。
+进一步解释参见 \cmd{finalnamedelim}。
 
 \csitem{andmoredelim}
-The delimiter printed before the localization string <\texttt{andmore}> if a literal list like \bibfield{publisher} or \bibfield{location} is truncated. The default is an interword space.
+%The delimiter printed before the localisation string <\texttt{andmore}> if a literal list like \bibfield{publisher} or \bibfield{location} is truncated. The default is an interword space.
+当 \bibfield{publisher} 或 \bibfield{location} 等文本列表被截断时打印在本地化字符串“\texttt{andmore}”之前的定界符。
+缺省值是一个词间距。
 
 \csitem{multicitedelim}
-The delimiter printed between citations if multiple entry keys are passed to a single citation command. The default is a semicolon plus an interword space.
+%The delimiter printed between citations if multiple entry keys are passed to a single citation command. The default is a semicolon plus an interword space.
+当多个条目键传递给单个引用命令时打印在引用之间的定界符。
+缺省值是一个分号加上一个词间距。
 
 \csitem{supercitedelim}
-Similar to \cmd{multicitedelim}, but used by the \cmd{supercite} command only. The default is a comma.
+%Similar to \cmd{multicitedelim}, but used by the \cmd{supercite} command only. The default is a comma.
+类似于 \cmd{multicitedelim} 但只用在 \cmd{supercite} 中。缺省值是一个逗号。
 
 \csitem{compcitedelim}
-Similar to \cmd{multicitedelim}, but used by certain citation styles when <compressing> multiple citations. The default definition is a comma plus an interword space.
+%Similar to \cmd{multicitedelim}, but used by certain citation styles when <compressing> multiple citations. The default definition is a comma plus an interword space.
+类似于 \cmd{multicitedelim} 但只用于某些“压缩”的多重引用样式。
+缺省值是一个逗号加上一个词间距。
+
+\csitem{datecircadelim}\CSdelimMark
+%When formatting dates with the global option \opt{datecirca} enabled, the delimiter printed after any localised <circa> term. Defaults to interword space.
+开启全局选项 \opt{datecirca} 时，在日期格式中本地化“circa”项之后的定界符。
+缺省值是一个词间距。
+
+\csitem{dateeradelim}\CSdelimMark
+%When formatting dates with the global option \opt{dateera} set, the delimiter printed before the localisation era term. Defaults to interword space.
+设置全局选项 \opt{dateera} 时，在日期格式中本地化纪年项之前的定界符。
+缺省值是一个词间距。
+
+\csitem{dateuncertainprint}
+%Prints date uncertainty information when the global option \opt{dateuncertain} is enabled and the \cmd{ifdateuncertain} test is true. By default, prints the language specific \cmd{bibdateuncertain} string (\secref{use:fmt:lng}).
+开启全局选项 \opt{dateuncertain} 并且 \cmd{ifdateuncertain} 测试为真时打印的日期不确定信息。
+缺省打印语言相关的 \cmd{bibdateuncertain} 字符串（\secref{use:fmt:lng} 节）。
+
+\csitem{enddateuncertainprint}
+%Prints date uncertainty information when the global option \opt{dateuncertain} is enabled and the \cmd{ifenddateuncertain} test is true. By default, prints the language specific \cmd{bibdateuncertain} string (\secref{use:fmt:lng}).
+开启全局选项 \opt{dateuncertain} 并且 \cmd{ifenddateuncertain} 测试为真时打印的日期不确定信息。
+缺省打印语言相关的 \cmd{bibdateuncertain} 字符串（\secref{use:fmt:lng} 节）。
+
+\csitem{datecircaprint}
+%Prints date circa information when the global option \opt{datecirca} is enabled and the \cmd{ifdatecirca} test is true. By default, prints the <circa> localised term (\secref{aut:lng:key:dt}) and the \opt{datecircadelim} delimiter.
+开启全局选项 \opt{datecirca} 并且 \cmd{ifdatecirca} 测试为真时打印日期约数信息。
+缺省打印本地化的“circa”项（\secref{aut:lng:key:dt} 节）和 \opt{datecircadelim} 定界符。
+
+\csitem{enddatecircaprint}
+%Prints date circa information when the global option \opt{datecirca} is enabled and the \cmd{ifenddatecirca} test is true. By default, prints the <circa> localised term (\secref{aut:lng:key:dt}) and the \opt{datecircadelim} delimiter.
+开启全局选项 \opt{datecirca} 并且 \cmd{ifenddatecirca} 测试为真时打印日期约数信息。
+缺省打印本地化的“circa”项（\secref{aut:lng:key:dt} 节）和 \opt{datecircadelim} 定界符。
+
+\csitem{datecircaprintedtf}
+%Prints EDTF format date circa information when the global option \opt{datecirca} is enabled and the \cmd{ifdatecirca} test is true. Prints \cmd{textasciitilde}.
+开启全局选项 \opt{datecirca} 并且 \cmd{ifdatecirca} 测试为真时打印EDTF格式的日期约数信息。
+缺省打印 \cmd{textasciitilde}。
+
+\csitem{enddatecircaprintedtf}
+%Prints EDTF format date circa information when the global option \opt{datecirca} is enabled and the \cmd{ifenddatecirca} test is true. Prints \cmd{textasciitilde}.
+开启全局选项 \opt{datecirca} 并且 \cmd{ifenddatecirca} 测试为真时打印EDTF格式的日期约数信息。
+缺省打印 \cmd{textasciitilde}。
+
+\csitem{dateeraprint}{yearfield}
+%Prints date era information when the global option \opt{dateera} is set to <secular> or <christian>. By default, prints the \opt{dateeradelim} delimiter and the appropriate localised era term (\secref{aut:lng:key:dt}). If the \opt{dateeraauto} option is set, then the passed \prm{yearfield} (which is the name of a year field such as <year>, <origyear>, <endeventyear> etc.) is tested to see if its value is earlier than the \opt{dateeraauto} threshold and if so, then the BCE/CE localisation will be output too. The default setting for \opt{dateeraauto} is 0 and so only BCE/BC localisation strings are candidates for output. Detects whether the start or end year era information is to be printed by looking at the \prm{yearfield} name passed to it.
+当全局选项 \opt{dateera} 设置为 \opt{secular} 或 \opt{christian} 时打印的日期纪年信息。
+缺省情况下打印 \opt{dateeradelim} 定界符和合适的本地化纪年词语（\secref{aut:lng:key:dt} 节）。
+如果设置了 \opt{dateeraauto}，那么将测试传递过来的 \prm{yearfield}
+（\opt{year}、\opt{origyear}、\opt{endeventyear} 等年份域的名称）
+以确定对应的值是否早于 \opt{dateeraauto} 阈值。
+如果更早的话还会输出本地化的 BCE/CE 词语。
+\opt{dateeraauto} 的缺省设置为0，这样只会输出 BCE/BC 本地化字符串。
+通过探测传递来的 \prm{yearfield} 名称确定是否打印开始和结束年份的纪年信息。
+
+\csitem{dateeraprintpre}
+%Prints date era information when the global option \opt{dateera} is set to <astronomical>. By default, prints \opt{bibdataeraprefix}. Detects whether the start or end year era information is to be printed by looking at the \prm{yearfield} name passed to it.
+当全局选项 \opt{dateera} 设置为 \opt{astronomical} 时打印的日期约数信息。
+缺省值是 \opt{bibdataeraprefix}。
+通过探测传递来的 \prm{yearfield} 名称确定是否打印开始和结束年份的纪年信息。
 
 \csitem{textcitedelim}
-Similar to \cmd{multicitedelim}, but used by \cmd{textcite} and related commands (\secref{use:cit:cbx}). The default is a comma plus an interword space. The standard styles modify this provisional definition to ensure that the delimiter before the final citation is the localized term <and>, separated by interword spaces. See also \cmd{finalandcomma} and \cmd{finalandsemicolon} in \secref{use:fmt:lng}.
+%Similar to \cmd{multicitedelim}, but used by \cmd{textcite} and related commands (\secref{use:cit:cbx}). The default is a comma plus an interword space. The standard styles modify this provisional definition to ensure that the delimiter before the final citation is the localised term <and>, separated by interword spaces. See also \cmd{finalandcomma} and \cmd{finalandsemicolon} in \secref{use:fmt:lng}.
+类似于 \cmd{multicitedelim} 但用于 \cmd{textcite} 和相关命令（\secref{use:cit:cbx} 节）。
+缺省值是一个逗号加上一个词间距。
+标准样式会修改这一临时定义以确保最后一个引用之前的定界符是词间距分隔的本地化字符串“and”。
+另见 \secref{use:fmt:lng} 节的 \cmd{finalandcomma} 和 \cmd{finalandsemicolon}。
 
-\csitem{nametitledelim}
-The delimiter printed between the author\slash editor and the title by author-title and some verbose citation styles. The default definition is a comma plus an interword space.
+\csitem{nametitledelim}\CSdelimMark
+%The delimiter printed between the author\slash editor and the title by author-title and some verbose citation styles. The default definition inside bibliographies is \cmd{labelnamepunct} and is a comma plus an interword space otherwise.
+作者---标题和其它一些详细引用样式中作者/编辑和标题之间的定界符。
+缺省定义是一个逗号加上一个词间距。
 
-\csitem{nameyeardelim}
-The delimiter printed between the author\slash editor and the year by author-year citation styles. The default definition is an interword space.
+\csitem{nameyeardelim}\CSdelimMark
+%The delimiter printed between the author\slash editor and the year by author-year citation styles. The default definition is an interword space. 
+作者---年份引用样式中作者/编辑和年份之间的定界符。缺省定义是一个词间距。
+
+\csitem{namelabeldelim}\CSdelimMark
+%The delimiter printed between the name\slash title and the label by alphabetic and numeric citation styles. The default definition is an interword space.
+字母样式和数值样式中姓名\slash 标题和标签之间的定界符。
+缺省定义是一个词间距。
+
+\csitem{nonameyeardelim}\CSdelimMark
+%The delimiter printed between the substitute for the labelname when it does not exist (usually the label or title in standard styles) and the year in author-year citation styles. This is only used when there is no labelname since when the labelname exists, \cmd{nameyeardelim} is used. The default definition is an interword space.
+在作者---年份引用样式中，当某一标签名不存在（标准样式中通常是标签或者标题）时其替代者与年份之间的定界符。
+仅当没有标签名时使用。
+这是因为标签名存在时会使用 \cmd{nameyeardelim}。
+缺省值是一个词间距。
 
 \csitem{labelalphaothers}
-A string to be appended to the non"=numeric portion of the \bibfield{labelalpha} field (\ie the field holding the citation label used by alphabetic citation styles) if the number of authors\slash editors exceeds the \opt{maxalphanames} threshold or the \bibfield{author}\slash \bibfield{editor} list was truncated in the \file{bib} file with the keyword <\texttt{and others}>. This will typically be a single character such as a plus sign or an asterisk. The default is a plus sign. This command may also be redefined to an empty string to disable this feature. In any case, it must be redefined in the preamble.
+%A string to be appended to the non"=numeric portion of the \bibfield{labelalpha} field (\ie the field holding the citation label used by alphabetic citation styles) if the number of authors\slash editors exceeds the \opt{maxalphanames} threshold or the \bibfield{author}\slash \bibfield{editor} list was truncated in the \file{bib} file with the keyword <\texttt{and others}>. This will typically be a single character such as a plus sign or an asterisk. The default is a plus sign. This command may also be redefined to an empty string to disable this feature. In any case, it must be redefined in the preamble.
+当作者/编辑数目超过了 \opt{maxalphanames} 阈值或者 \bibfield{author}\slash \bibfield{editor} 列表在 \file{bib} 文件中由关键词“\texttt{and others}”截断时，
+接在 \bibfield{labelalpha} 域的非数值部分之后的字符串（即，该域包含了由字母引用样式使用的引用标签）。
+这通常是加号或者星号等单字符。缺省值是加号。
+该命令可以通过重定义为空字符串来关闭该特性。
+任何情况下必须在导言区中重定义。
 
-\csitem{sortalphaothers}\BiberOnlyMark
-Similar to \cmd{labelalphaothers} but used in the sorting process. Setting it to a different value is advisable if the latter contains formatting commands, for example:
+\csitem{sortalphaothers}
+%Similar to \cmd{labelalphaothers} but used in the sorting process. Setting it to a different value is advisable if the latter contains formatting commands, for example:
+类似于 \cmd{labelalphaothers} 但使用在排序过程中。
+如果 \cmd{labelalphaothers} 中包含了格式命令，建议将本命令设置为另外一个值，例如：
 
-\begin{lstlisting}[style=latex]{}
+\begin{ltxexample}
 \renewcommand*{\labelalphaothers}{\textbf{+}}
 \renewcommand*{\sortalphaothers}{+}
-\end{lstlisting}
+\end{ltxexample}
 %
-If \cmd{sortalphaothers} is not redefined, it defaults to \cmd{labelalphaothers}.
+%If \cmd{sortalphaothers} is not redefined, it defaults to \cmd{labelalphaothers}.
+如果 \cmd{sortalphaothers} 没有定义，其缺省值为 \cmd{labelalphaothers}。
 
 \csitem{prenotedelim}
-The delimiter printed after the \prm{prenote} argument of a citation command. See \secref{use:cit} for details. The default is an interword space.
+%The delimiter printed after the \prm{prenote} argument of a citation command. See \secref{use:cit} for details. The default is an interword space.
+引用命令的 \prm{prenote} 选项之后打印的定界符。
+详见 \secref{use:cit} 节。缺省值是一个词间距。
 
 \csitem{postnotedelim}
-The delimiter printed before the \prm{postnote} argument of a citation command. See \secref{use:cit} for details. The default is a comma plus an interword space.
+%The delimiter printed before the \prm{postnote} argument of a citation command. See \secref{use:cit} for details. The default is a comma plus an interword space.
+引用命令的 \prm{postnote} 选项之前打印的定界符。
+详见 \secref{use:cit} 节。缺省值是一个词间距。
 
-\cmditem{mkbibnamelast}{text}
-This command, which takes one argument, is used to format the last name of all authors, editors, translators, etc.
+\csitem{extpostnotedelim}
+%The delimiter printed between the citation and the parenthetical \prm{postnote} argument of a citation command when the postnote occurs outside of the citation parentheses. In the standard styles, this occurs when the citation uses the shorthand field of the entry. See \secref{use:cit} for details. The default is an interword space.
+在引用命令中，当后注出现在引用括号外时，引用和带括号的 \prm{postnote} 选项之间的定界符。
+在标准样式中，如果引用使用条目的shorthand域就会出现这一现象。
+详见 \secref{use:cit} 节。
+缺省值是一个词间距。
 
-\cmditem{mkbibnamefirst}{text}
-Similar to \cmd{mkbibnamelast}, but intended for the first name.
+\cmditem{mkbibname\prm{namepart}}{text}
+%This command, which takes one argument, is used to format the name part <namepart> of name list fields. The default datamodel defines the name parts <family>, <given>, <prefix> and <suffix> and therefore the following macros are automatically defined:
+该命令带有一个选项，用于姓名列表域的姓名成分 \prm{namepart} 的格式。
+默认数据模型定义了姓名成分 <family>, <given>, <prefix> 和 <suffix>，
+因此自动定义了以下宏命令：
 
-\cmditem{mkbibnameprefix}{text}
-Similar to \cmd{mkbibnamelast}, but intended for the name prefix.
+\begin{ltxexample}
+\mkbibnamefamily
+\mkbibnamegiven
+\mkbibnameprefix
+\mkbibnamesuffix
+\end{ltxexample}
+%
+%For backwards compatibility with the legacy \bibtex name parts, the following are also defined, will generate warnings and will set the correct macro:
+出于对传统 \BibTeX 姓名成分的向后兼容性也定义以下宏命令。
+这些宏会生成警告并设置正确的宏：
 
-\cmditem{mkbibnameaffix}{text}
-Similar to \cmd{mkbibnamelast}, but intended for the name affix.
+\begin{ltxexample}
+\mkbibnamelast
+\mkbibnamefirst
+\mkbibnameaffix
+\end{ltxexample}
 
 \csitem{relatedpunct}
-The separator between the \bibfield{relatedtype} bibliography localization string and the data from the first related entry. Here is an example with \cmd{relatedpunct} set to a dash:
+%The separator between the \bibfield{relatedtype} bibliography localisation string and the data from the first related entry. Here is an example with \cmd{relatedpunct} set to a dash:
+在 \bibfield{relatedtype} 文献的本地化字符串和第一个相应条目数据之间的分隔符。
+如下是将 \cmd{relatedpunct} 设置为短横线的例子：
 
-\begin{lstlisting}[style=latex]{}
+\begin{ltxexample}
 A. Smith. Title. 2000, (Orig. pub. as<<->>Origtitle)
-\end{lstlisting}
+\end{ltxexample}
 
 \csitem{relateddelim}
-The separator between the data of multiple related entries. The default definition is an optional dot plus linebreak. Here is an example where volumes A-E are related entries of the 5 volume main work:
+%The generic separator between the data of multiple related entries. The default definition is an optional dot plus linebreak. Here is an example where volumes A-E are related entries of the 5 volume main work:
+多重相关条目数据之间的分隔符。
+缺省定义是一个可选的点号加上一个断行。
+如下是一个五卷作品的例子，其中卷A-E是相关条目：
 
-\begin{lstlisting}[style=latex]{}
+\begin{ltxexample}
 Donald E. Knuth. Computers & Typesetting. 5 vols. Reading, Mass.: Addison-
 Wesley, 1984-1986.
 Vol. A: The TEXbook. 1984.
@@ -4587,262 +4830,629 @@ Vol. B: TEX: The Program. 1986.
 Vol. C: The METAFONTbook. By. 1986.
 Vol. D: METAFONT: The Program. 1986.
 Vol. E: Computer Modern Typefaces. 1986.
-\end{lstlisting}
+\end{ltxexample}
+
+\csitem{relateddelim\prm{relatedtype}}
+%The separator between the data of multiple related entries inside related entries of type <relatedtype>. There is no default, if such a type-specific delimiter does not exist, \cmd{relateddelim} is used.
+\prm{relatedtype} 类型的相关联条目中，多重关联条目数据之间的分隔符。
+没有缺省值。
+如果这样的类型相关的定界符不存在，那么将使用 \cmd{relateddelim}。
 
 \end{ltxsyntax}
 
-\subsubsection{语言相关命令 Language-specific Commands}
+\subsubsection{Context-sensitive 定界符}% \subsubsection{Context-sensitive Delimiters}
+\label{use:fmt:csd}
+%The delimiters described in \secref{use:fmt:fmt} are globally defined. That is, no matter where you use them, they print the same thing. This is not necessarily desirable for delimiters which you might want to print different things in different contexts. Here <context> means things like <inside a text citation> or <inside a bibliography item>. For this reason, \biblatex\ provides a more sophisticated delimiter specification and user interface alongside the standard one based on normal macros defined with \cmd{newcommand}.
+\secref{use:fmt:fmt} 节介绍的定界符是全局定义的。
+也就是说，无论在哪里使用，结果都是相同的。
+然而，如果想要在不同语境（context）中打印不同的效果，这些定界符就不可取了。
+这里“context”可以是“引用文本内部”或者“参考文献项”等。
+基于此，\biblatex 还提供了更为智能的定界符规范和用户接口（通过 \cmd{newcommand} 定义的常规宏）。
+
+\begin{ltxsyntax}
+\cmditem{DeclareDelimFormat}[context, \dots]{name, \dots}{code}
+\cmditem*{DeclareDelimFormat}*[context, \dots]{name, \dots}{code}
+
+%Declares the delimiter macros in the comma"=separated list \prm{names} with the replacement test \prm{code}. If the optional comma"=separated list of \prm{contexts} is given, declare the \prm{names} only for those contexts. \prm{names} defined without any \prm{contexts} behave just like the global delimiter definitions which \cmd{newcommand} gives---just a plain macro with a replacement which can be used as \cmd{name}. However, you can also call delimiter macros defined in this way by using \cmd{printdelim}, which is context-aware. The starred version clears all \prm{context} specific declarations for all \prm{names} first.
+
+在逗号分隔列表 \prm{names} 中使用替代测试 \prm{code} 声明定界符宏。
+如果给出了可选的逗号分隔列表 \prm{context}，那么只为相应的 context 声明 \prm{names}。
+如果没有可选的 \prm{context}，那么被定义的 \prm{names} 与由 \cmd{newcommand} 给出的全局定界符的定义是一致的——
+仅仅是一个简单的宏，用于替代 \cmd{name}。
+不过，通过使用能探测 context 的 \cmd{printdelim} 命令，仍然可以调用以这种方式定义的定界符宏。
+带星号的命令会首先清楚所有 \prm{names} 中的 \prm{context} 声明。
+
+\cmditem{printdelim}[context]{name}
+
+%Prints a delimiter with name \prm{name}, locally establishing a optional \prm{context} first. Without the optional \prm{context}, \cmd{printdelim} uses the currently active delimiter context.
+
+打印名为 \prm{name} 的定界符，
+首先建立可选的局部 \prm{context}。
+如果没有可选的 \prm{context}，那么 \cmd{printdelim} 会使用当前活动的定界符 context。
+
+%Delimiter contexts are simply a string, the value of the internal macro \cmd{blx@delimcontext} which can be set manually by the command \cmd{delimcontext}
+
+定界符文境是一个简单的字符串，内部宏 \cmd{blx@delimcontext} 的值。
+后者可以通过 \cmd{delimcontext} 命令手动设置。
+
+\cmditem{delimcontext}{context}
+
+%Set the delimiter context to \prm{context}. This setting is not global so that delimiter contexts can be nested using the usual \latex group method.
+
+设置定界符文境为 \prm{context}。
+该设置不是全局的，因此定界符 context 可以使用通常的 \LaTeX 组方法进行嵌套。
+
+\cmditem{DeclareDelimcontextAlias}{alias}{name}
+
+%The context-sensitive delimiter system creates delimiter contexts based on
+%the name of citation commands (<parencite>, <textcite> etc.) passed to
+%\cmd{DeclareCiteCommand}. In certain cases where there are nested
+%definitions of citation commands where \cmd{DeclareCiteCommand} calls
+%itself (see the definition of \cmd{textcite} in \sty{authoryear-icomp}
+%for example). The delimiter context is then usually incorrect and the
+%delimiter specifications do not work. For example, the definition of
+%\cmd{textcite} in fact defines and uses \cmd{cbx@textcite} and so the
+%context is automatically set to \opt{cbx@textcite} when printing the
+%citation. Delimiter definitions expecting to see the context \opt{textcite}
+%therefore do not work. Therefore this command is provided for style authors
+%which aliases the context \prm{alias} to the context \prm{name}. For
+%example:
+
+基于传递给 \cmd{DeclareCiteCommand} 的引用命令（“parencite”、“textcite”等）的名称，
+定界符系统会创建定界符 context。
+在某些情况下引用命令存在嵌套定义，此时 \cmd{DeclareCiteCommand} 会调用自己
+（相关示例见 \sty{authoryear-icomp} 中 \cmd{textcite} 的定义）。
+此时的 context 一般不准确，从而无法使用定界符规范。
+例如，\cmd{textcite} 的定义实际上定义并使用了 \cmd{cbx@textcite}，
+因此当打印引用时 context 会自动设置为 \opt{cbx@textcite}。
+因此期望 context 为 \opt{textcite} 的定界符定义就无法运行。
+为此，该命令可以将 \prm{alias} 作为 \prm{name} 的别称，例如：
+
+\begin{ltxexample}[style=latex]{}
+\DeclareDelimcontextAlias{cbx@textcite}{textcite}
+\end{ltxexample}
+% 
+%This (which is a default setting), makes sure that when inside the
+%\cmd{cbx@textcite} citation command, the context is in fact \opt{textcite}
+%as expected.
+这会确保 context 在 \cmd{cbx@textcite} 引用命令内部时就是预期的 \opt{textcite}。
+
+\end{ltxsyntax}
+%
+%\biblatex\ has several default contexts which are established automatically in various places:
+\biblatex 在不同位置自动创建了若干个默认的 context：
+
+\begin{description}
+	\item[none] %At begin document
+	文档开始处。
+	\item[bib] %Inside a bibliography begun with \cmd{printbibliography} or inside a \cmd{usedriver} 
+	以 \cmd{printbibliography} 开始的参考文献内部或者 \cmd{usedriver} 内部。
+	\item[biblist] %Inside a bibliography list begun with \cmd{printbiblist}
+	以 \cmd{printbiblist} 开始的参考文献列表内部
+	\item[<citecommand>] %Inside a citation command \cmd{citecommand} defined with \cmd{DeclareCiteCommand}
+	使用 \cmd{DeclareCiteCommand} 定义的 \cmd{citecommand} 引用命令内部
+\end{description}
+
+%For example, the defaults for \cmd{nametitledelim} are:
+例如，\cmd{nametitledelim} 的默认设置为：
+
+\begin{ltxexample}[style=latex]{}
+\DeclareDelimFormat{nametitledelim}{\addcomma\space}
+\DeclareDelimFormat[textcite]{nametitledelim}{\addspace}
+\end{ltxexample}
+%
+%This means that \cmd{nametitledelim} is defined globally as <\cmd{addcomma}\cmd{space}> as per the standard delimiter interface. However, in addition, the delimiter can be printed using \cmd{printdelim} which would print the same as \cmd{nametitledelim} apart from inside a \cmd{textcite}, in which it would print \cmd{addspace} which is more suitable for running text. If desired, a context can be forced with the optional argument to \cmd{printdelim}, so
+这意味着对于每个标准定界符接口，\cmd{nametitledelim} 全局定义为 \cmd{addcomma}\cmd{space}。
+此外，总体上使用 \cmd{printdelim} 可以打印该定界符为 \cmd{nametitledelim}，
+不过在 \cmd{textcite} 内部会打印 \cmd{addspace}，这对于行文更适合。
+如果需要的话，可以强制添加 context 作为\cmd{printdelim} 的可选项，例如：
+
+\begin{ltxexample}[style=latex]{}
+\printdelim[textcite]{nametitledelim}
+\end{ltxexample}
+%
+%Would print \cmd{addspace} regardless of the surrounding context of the \cmd{printdelim}. Contexts are just arbitrary strings and so you can establish them at any time, using \cmd{delimcontext}. If \cmd{printdelim} finds no special value for the delimiter \prm{name} in the current context, it simply prints \cmd{name}. This means that style authors can use \cmd{printdelim} and users expecting to be able to use \cmd{renewcommand} to redefine delimiters can do so with one caveat---such a definition won't change any context-specific delimiters which are defined:
+无论 \cmd{printdelim} 周围的内容怎样，总会打印出 \cmd{addspace}。
+由于context 是任意字符串，因此可以在任何时刻使用 \cmd{delimcontext} 构建。
+如果 \cmd{printdelim} 在当前 context 没有找到定界符 \prm{name} 的特定值，那么就直接打印出 \cmd{name}。
+这意味着样式作者可以使用 \cmd{printdelim}。
+同时希望使用 \cmd{renewcommand} 重定义定界符的用户也可以这样做。
+不过前提是，该定义不能改变任何 context 相关的定界符，如下所示：
+
+\begin{ltxexample}[style=latex]{}
+\DeclareDelimFormat{delima}{X}
+\DeclareDelimFormat[textcite]{delima}{Y}
+\renewcommand*{\delima}{Z}
+\end{ltxexample}
+%
+%Here, \cmd{delima} always prints <Z>. \verb+\printdelim{delima}+ in any context other than <textcite> also prints \cmd{delima} and hence <Z> but in a <textcite> context prints <Y>. See the \file{04-delimiters.tex} example file that comes with \biblatex\ for more information.
+这里，\cmd{delima} 总会打印“Z”。
+在任何“textcite”之外的 context 中，\verb+\printdelim{delima}+ 也会打印 \cmd{delima} 也就是“Z”，
+而在“textcite”中则打印“Y”。
+更多信息参考 \biblatex 附带的示例文件 \file{04-delimiters.tex}。
+
+\subsubsection{语言相关命令}%\subsubsection{Language-specific Commands}
 \label{use:fmt:lng}
 
-The commands in this section are language specific. When redefining them, you need to wrap the new definition in a \cmd{DeclareBibliographyExtras} command (in an \file{.lbx} file) or a \cmd{DefineBibliographyExtras} command (user documents), see \secref{use:lng} for details. Note that all commands starting with \cmd{mk\dots} take one or more arguments.
+%The commands in this section are language specific. When redefining them, you need to wrap the new definition in a \cmd{DeclareBibliographyExtras} command (in an \file{.lbx} file) or a \cmd{DefineBibliographyExtras} command (user documents), see \secref{use:lng} for details. Note that all commands starting with \cmd{mk\dots} take one or more arguments.
+
+本节中的命令是与语言相关的。
+因此重定义时需要将新的定义包裹在 \cmd{DeclareBibliographyExtras} 命令（在 \file{.lbx} 文件中）
+或者 \cmd{DefineBibliographyExtras} 命令中（用户文件中），详见 \secref{use:lng} 节。
+请注意所有以 \cmd{mk\dots} 开头的命令都带有一个或更多选项。
 
 \begin{ltxsyntax}
 
 \csitem{bibrangedash}
 
-The language specific dash to be used for ranges of numbers.
+%The language specific dash to be used for ranges of numbers. Defaults to \cmd{textendash}.
+用于数字范围的横线。
+默认值为 \cmd{textendash}。
 
-\csitem{bibrangessep}\BiberOnlyMark
+\csitem{bibrangessep}
 
-The language specific separator to be used between multiple ranges.
+%The language specific separator to be used between multiple ranges. Defaults to a comma followed by a space.
+用于多重范围之间的分隔符。
+默认为一个逗号加一个空格。
 
-\csitem{bibdatedash}
+\csitem{bibdatesep}
 
-The language specific dash to be used for date ranges.
+%The language specific separator used between date components in terse date formats. Defaults to \cmd{hyphen}.
+在短日期格式用于日期成分之间的分隔符。
+默认为 \cmd{hyphen}。
+
+\csitem{bibdaterangesep}
+
+%The language specific separator to be used for date ranges. Defaults to \cmd{textendash} for all date formats apart from \opt{ymd} which defaults to a \cmd{slash}. The date format option \opt{edtf} is hard-coded to \cmd{slash} since this is a standards compliant format.
+用于日期范围的分隔符。
+对于 \opt{ymd} 格式默认为 \cmd{slash}，
+对于其它日期格式默认为 \cmd{textendash}。
+日期格式选项 \opt{edtf} 则硬编码为 \cmd{slash}，因为这是标准兼容格式。
 
 \csitem{mkbibdatelong}
 
-Takes the names of three field as arguments which correspond to three date components (in the order year\slash month\slash day) and uses their values to print the date in the language specific long date format.
+%Takes the names of three field as arguments which correspond to three date components (in the order year\slash month\slash day) and uses their values to print the date in the language specific long date format.
+
+以对应于三个日期成分（以年/月/日的顺序）的三个域名作为选项，
+并在长日期格式中使用相应值来打印日期。
 
 \csitem{mkbibdateshort}
 
-Similar to \cmd{mkbibdatelong} but using the language specific short date format.
+%Similar to \cmd{mkbibdatelong} but using the language specific short date format.
+类似于 \cmd{mkbibdatelong} 但是使用短日期格式。
+
+\csitem{mkbibtimezone}
+
+%Modifies a timezone string passed in as the only argument. By default this changes <Z> to the value of \cmd{bibtimezone}.
+修改传入的时区字符串作为唯一选项。
+默认情况会将“Z”改为 \cmd{bibtimezone} 的值。
+
+\csitem{bibdateuncertain}
+
+%The language specific marker to be used after uncertain dates when the global option \opt{dateuncertain} is enabled. Defaults to a space followed by a question mark.
+当启用全局选项 \opt{dateuncertain} 时用于不确定日期之后的标识符。
+默认为空格加一个问号。
+
+\csitem{bibdateeraprefix}
+
+%The language specific marker which is printed as a prefix to beginning BCE/BC dates in a date range when the option \opt{dateera} is set to <astronomical>. Defaults to \cmd{textminus}, if defined and \cmd{textendash} otherwise.
+当设置 \opt{dateera} 选项为 \opt{astronomical} 时，在日期范围中公元前日期的前缀标识符。
+命令 \cmd{textminus} 如果有定义则为默认值，否则 \cmd{textendash} 为默认值。
+
+\csitem{bibdateeraendprefix}
+
+%The language specific marker which is printed as a prefix to end BCE/BC dates in a date range when the option \opt{dateera} is set to <astronomical>. Defaults to a thin space followed by \cmd{bibdateeraprefix} when \cmd{bibdaterangesep} is set to a dash and to \cmd{bibdateeraprefix} otherwise.  This is a separate macro so that you may add extra space before a negative date marker which, for example follows a dash date range marker as this can look a little odd.
+当设置 \opt{dateera} 选项为 \opt{astronomical} 时，在日期范围中公元前日期结束的标识符。
+当 \cmd{bibdaterangesep} 选项设置为短横线时默认值为窄间距（thin space）加上 \cmd{bibdateeraprefix}，
+否则默认值为 \cmd{bibdateeraprefix}。
+
+\csitem{bibtimesep}
+
+%The language specific marker which separates time components. Defaults to a colon.
+分隔时间成分的标识符，默认为冒号。
+
+\csitem{bibtimezonesep}
+
+%The language specific marker which separates an optional time zone component from a time. Empty by default.
+分隔时间与可选的时区信息的标识符。默认为无。
+
+\csitem{bibtzminsep}
+
+%The language specific marker which separates hour and minute component of offset timezones. Defaults to a \cmd{bibtimesep}.
+偏移时区的小时和分钟信息直接的分隔符。
+默认值为 \cmd{bibtimesep}。
+
+\csitem{bibdatetimesep}
+
+%The language specific separator printed between date and time components when printing time components along with date components (see the \opt{$<$datetype$>$dateusetime} option in \secref{use:opt:pre:gen}). Defaults to a space for non-EDTF output formats, and 'T' for EDTF output format.
+
+当打印时间成分与日期成分时二者之间的分隔符
+（见 \secref{use:opt:pre:gen} 节的 \opt{\prm{datetype}dateusetime} 选项）。
+对于非EDTF输出格式，默认值为空格；
+对于EDTF输出格式，默认值为“T”。
 
 \csitem{finalandcomma}
 
-Prints the comma to be inserted before the final <and> in a list, if applicable in the respective language. Here is an example:
+%Prints the comma to be inserted before the final <and> in a list, if applicable in the respective language. Here is an example:
+当在对应语言中可用时在列表的最后一个“and” 之前打印逗号。这里是一个例子：
 
-\begin{lstlisting}[style=latex]{}
+\begin{ltxexample}
 Michel Goossens, Frank Mittelbach<<,>> and Alexander Samarin
-\end{lstlisting}
+\end{ltxexample}
 %
-\cmd{finalandcomma} is the comma before the word <and>. See also \cmd{multinamedelim}, \cmd{finalnamedelim}, \cmd{textcitedelim}, and \cmd{revsdnamedelim} in \secref{use:fmt:fmt}.
+%\cmd{finalandcomma} is the comma before the word <and>. See also \cmd{multinamedelim}, \cmd{finalnamedelim}, \cmd{textcitedelim}, and \cmd{revsdnamedelim} in \secref{use:fmt:fmt}.
+\cmd{finalandcomma} 是单词“and”之前的逗号。
+另见 \secref{use:fmt:fmt} 节的 \cmd{multinamedelim}、\cmd{finalnamedelim}、\cmd{textcitedelim} 和 \cmd{revsdnamedelim}。
 
 \csitem{finalandsemicolon}
 
-Prints the semicolon to be inserted before the final <and> in a list of lists, if applicable in the respective language. Here is an example:
+%Prints the semicolon to be inserted before the final <and> in a list of lists, if applicable in the respective language. Here is an example:
+当在对应语言中可用时在列表的最后一个“and”之前打印分号。例如：
 
-\begin{lstlisting}[style=latex]{}
+\begin{ltxexample}
 Goossens, Mittelbach, and Samarin; Bertram and Wenworth<<;>> and Knuth
-\end{lstlisting}
+\end{ltxexample}
 %
-\cmd{finalandsemicolon} is the semicolon before the word <and>. See also \cmd{textcitedelim} in \secref{use:fmt:fmt}.
+%\cmd{finalandsemicolon} is the semicolon before the word <and>. See also \cmd{textcitedelim} in \secref{use:fmt:fmt}.
+\cmd{finalandsemicolon} 是单词“and”之前的分号。
+另见 \secref{use:fmt:fmt} 节的 \cmd{textcitedelim}。
 
 \cmditem{mkbibordinal}{integer}
 
-This command, which takes an integer as its argument, prints an ordinal number.
+%This command, which takes an integer as its argument, prints an ordinal number.
+该命令将一个整数作为选项，打印出一个序数。
 
 \cmditem{mkbibmascord}{integer}
 
-Similar to \cmd{mkbibordinal}, but prints a masculine ordinal, if applicable in the respective language.
+%Similar to \cmd{mkbibordinal}, but prints a masculine ordinal, if applicable in the respective language.
+类似于 \cmd{mkbibordinal}，但在对应语言中可用时打印出阳性序数。
 
 \cmditem{mkbibfemord}{integer}
 
-Similar to \cmd{mkbibordinal}, but prints a feminine ordinal, if applicable in the respective language.
+%Similar to \cmd{mkbibordinal}, but prints a feminine ordinal, if applicable in the respective language.
+类似于 \cmd{mkbibordinal}，但在对应语言中可用时打印出阴性序数。
 
 \cmditem{mkbibneutord}{integer}
 
-Similar to \cmd{mkbibordinal}, but prints a neuter ordinal, if applicable in the respective language.
+%Similar to \cmd{mkbibordinal}, but prints a neuter ordinal, if applicable in the respective language.
+类似于 \cmd{mkbibordinal}，但在对应语言中可用时打印出中性序数。
 
 \cmditem{mkbibordedition}{integer}
 
-Similar to \cmd{mkbibordinal}, but intended for use with the term <edition>.
+%Similar to \cmd{mkbibordinal}, but intended for use with the term <edition>.
+类似于 \cmd{mkbibordinal}，但与单词“edition”一起使用。
 
 \cmditem{mkbibordseries}{integer}
 
-Similar to \cmd{mkbibordinal}, but intended for use with the term <series>.
+%Similar to \cmd{mkbibordinal}, but intended for use with the term <series>.
+类似于 \cmd{mkbibordinal}，但与单词“series”一起使用。
 
 \end{ltxsyntax}
 
-\subsubsection{尺寸和计数器 Lengths and Counters}
+\subsubsection{长度和计数器}%\subsubsection{Lengths and Counters}
 \label{use:fmt:len}
 
-The length registers and counters in this section may be changed in the document preamble with \cmd{setlength} and \cmd{setcounter}, respectively.
+%The length registers and counters in this section may be changed in the document preamble with \cmd{setlength} and \cmd{setcounter}, respectively.
+
+本节中的长度寄存器和计数器可以在导言区中分别用 \cmd{setlength} 和 \cmd{setcounter} 来修改。
 
 \begin{ltxsyntax}
 
 \lenitem{bibhang}
 
-The hanging indentation of the bibliography, if applicable. This length is initialized to \cmd{parindent} at load-time.
+%The hanging indentation of the bibliography, if applicable. This length is initialized to \cmd{parindent} at load-time.
+
+参考文献的悬挂缩进（当使用时）。
+该长度在导入时初始化为 \cmd{parindent}。
 
 \lenitem{biblabelsep}
 
-The horizontal space between entries and their corresponding labels in the bibliography. This only applies to bibliography styles which print labels, such as the \texttt{numeric} and \texttt{alphabetic} styles. This length is initialized to twice the value of \cmd{labelsep} at load-time.
+%The horizontal space between entries and their corresponding labels in the bibliography. This only applies to bibliography styles which print labels, such as the \texttt{numeric} and \texttt{alphabetic} styles. This length is initialized to twice the value of \cmd{labelsep} at load-time.
+
+参考文献中条目和相应标签之间的水平距离。
+这只应用于 \texttt{numeric} 和 \texttt{alphabetic} 等打印标签的参考文献样式。
+该长度在导入时初始化为 \cmd{labelsep} 值的两倍。
 
 \lenitem{bibitemsep}
 
-The vertical space between the individual entries in the bibliography. This length is initialized to \cmd{itemsep} at load-time. Note that \len{bibitemsep}, \len{bibnamesep}, and \len{bibinitsep} obey the rules for \cmd{addvspace}, that is, when vertical space introduced by any of these commands immediately follows on from space introduced by another of them, the resulting total space is equal to the largest of them.
+%The vertical space between the individual entries in the bibliography. This length is initialized to \cmd{itemsep} at load-time. Note that \len{bibitemsep}, \len{bibnamesep}, and \len{bibinitsep} obey the rules for \cmd{addvspace}, that is, when vertical space introduced by any of these commands immediately follows on from space introduced by another of them, the resulting total space is equal to the largest of them.
+
+参考文献中每一条目之间的垂直间距。
+该长度在导入时初始化为 \cmd{itemsep}。
+请注意 \len{bibitemsep}、\len{bibnamesep} 和 \len{bibinitsep} 服从 \cmd{addvspace} 的规则，
+也就是，当这些命令中任何一个直接在另外一个之后引入垂直间距时，所得到的总间距是其中的最大值。
 
 \lenitem{bibnamesep}
 
-Vertical space to be inserted between two entries in the bibliography whenever an entry starts with a name which is different from the initial name of the previous entry. The default value is zero. Setting this length to a positive value greater than \len{bibitemsep} will group the bibliography by author\slash editor name. Note that \len{bibitemsep}, \len{bibnamesep}, and \len{bibinitsep} obey the rules for \cmd{addvspace}, that is, when vertical space introduced by any of these commands immediately follows on from space introduced by another of them, the resulting total space is equal to the largest of them.
+%Vertical space to be inserted between two entries in the bibliography whenever an entry starts with a name which is different from the initial name of the previous entry. The default value is zero. Setting this length to a positive value greater than \len{bibitemsep} will group the bibliography by author\slash editor name. Note that \len{bibitemsep}, \len{bibnamesep}, and \len{bibinitsep} obey the rules for \cmd{addvspace}, that is, when vertical space introduced by any of these commands immediately follows on from space introduced by another of them, the resulting total space is equal to the largest of them.
+
+参考文献中插入在两条姓名不同的条目之间的垂直间距。缺省值是零。
+将该值设为大于 \len{bibitemsep} 会使得参考文献按照作者/编辑名分组。
+请注意 \len{bibitemsep}、\len{bibnamesep} 和 \len{bibinitsep} 服从 \cmd{addvspace} 的规则，
+也就是，当这些命令中任何一个直接在另外一个之后引入垂直间距时，所得到的总间距是其中的最大值。
 
 \lenitem{bibinitsep}
 
-Vertical space to be inserted between two entries in the bibliography whenever an entry starts with a letter which is different from the initial letter of the previous entry. The default value is zero. Setting this length to a positive value greater than \len{bibitemsep} will group the bibliography alphabetically. Note that \len{bibitemsep}, \len{bibnamesep}, and \len{bibinitsep} obey the rules for \cmd{addvspace}, that is, when vertical space introduced by any of these commands immediately follows on from space introduced by another of them, the resulting total space is equal to the largest of them.
+%Vertical space to be inserted between two entries in the bibliography whenever an entry starts with a letter which is different from the initial letter of the previous entry. The default value is zero. Setting this length to a positive value greater than \len{bibitemsep} will group the bibliography alphabetically. Note that \len{bibitemsep}, \len{bibnamesep}, and \len{bibinitsep} obey the rules for \cmd{addvspace}, that is, when vertical space introduced by any of these commands immediately follows on from space introduced by another of them, the resulting total space is equal to the largest of them.
+
+参考文献中插入在两条首字母不同的条目之间的垂直间距。缺省值是零。
+将该值设置为大于 \len{bibitemsep} 会使得参考文献按字母分组。
+请注意 \len{bibitemsep}、\len{bibnamesep} 和 \len{bibinitsep} 服从 \cmd{addvspace} 的规则，
+也就是，当这些命令中任何一个直接在另外一个之后引入垂直间距时，所得到的总间距是其中的最大值。
 
 \lenitem{bibparsep}
 
-The vertical space between paragraphs within an entry in the bibliography. The default value is zero.
+%The vertical space between paragraphs within an entry in the bibliography. The default value is zero.
+
+参考文献中条目内部的段间距。缺省值为零。
 
 \cntitem{abbrvpenalty}
 
-This counter, which is used by the localization modules, holds the penalty used in short or abbreviated localization strings. For example, a linebreak in expressions such as «et al.» or «ed. by» is unfortunate, but should still be possible to prevent overfull boxes. This counter is initialized to \cmd{hyphenpenalty} at load-time. The idea is making \tex treat the whole expression as if it were a single, hyphenatable word as far as line"=breaking is concerned. If you dislike such linebreaks, use a higher value. If you do not mind them at all, set this counter to zero. If you want to suppress them unconditionally, set it to <infinite> (10\,000 or higher).\footnote{The default values assigned to \cnt{abbrvpenalty}, \cnt{lownamepenalty}, and \cnt{highnamepenalty} are deliberately very low to prevent overfull boxes. This implies that you will hardly notice any effect on line-breaking if the text is set justified. If you set these counters to 10\,000 to suppress the respective breakpoints, you will notice their effect but you may also be confronted with overfull boxes. Keep in mind that line-breaking in the bibliography is often more difficult than in the body text and that you can not resort to rephrasing a sentence. In some cases it may be preferable to set the entire bibliography \cmd{raggedright} to prevent suboptimal linebreaks. In this case, even the fairly low default penalties will make a visible difference.}
+%This counter, which is used by the localisation modules, holds the penalty used in short or abbreviated localisation strings. For example, a linebreak in expressions such as «et al.» or «ed. by» is unfortunate, but should still be possible to prevent overfull boxes. This counter is initialized to \cmd{hyphenpenalty} at load-time. The idea is making \tex treat the whole expression as if it were a single, hyphenatable word as far as line"=breaking is concerned. If you dislike such linebreaks, use a higher value. If you do not mind them at all, set this counter to zero. If you want to suppress them unconditionally, set it to <infinite> (10\,000 or higher).\footnote{The default values assigned to \cnt{abbrvpenalty}, \cnt{lownamepenalty}, and \cnt{highnamepenalty} are deliberately very low to prevent overfull boxes. This implies that you will hardly notice any effect on line-breaking if the text is set justified. If you set these counters to 10\,000 to suppress the respective breakpoints, you will notice their effect but you may also be confronted with overfull boxes. Keep in mind that line-breaking in the bibliography is often more difficult than in the body text and that you can not resort to rephrasing a sentence. In some cases it may be preferable to set the entire bibliography \cmd{raggedright} to prevent suboptimal linebreaks. In this case, even the fairly low default penalties will make a visible difference.}
+
+该计数器在本地化模块中使用，用于设定本地化字符串中缩写和短语中使用的惩罚值。
+例如，“et al”或“ed. by” 等短语中的断行是不美观的，但为了防止盒子溢出仍然应当可以使用。
+该计数器在导入时初始化为 \cmd{hyphenpenalty}。
+断行考虑的原则是，使得 \TeX 将整个语句看做是单个可以用连字符断行的单词。
+如果你不喜欢相应的断行，可以设置为更高的值。
+如果你不介意这些效果，可以设置为零。
+如果你想无条件地取消这种效果，
+可以设置为“无穷”（10\,000 或更高）。\footnote{%
+这里很慎重地将 \cnt{abbrvpenalty}、\cnt{lownamepenalty} 和 \cnt{highnamepenalty} 的缺省值设定得非常低以防止盒子溢出。
+这意味着，如果文本设置合理，那么你几乎不会注意到断行的影响。
+如果你将这些值设置为 10\,000 以取消相应断点，那么你就会注意到它们的影响，不过同时你也许要面对盒子溢出现象。
+需要注意的是，参考文献中的断行往往比正文中更困难，而且你不能通过换一种表达方式来解决。
+在某些情况下，在整个参考文献中设置 \cmd{raggedright} 来阻止非最佳的断行往往更好。
+此时，即使是相对低的缺省惩罚项也会造成不同效果。}
 
 \cntitem{highnamepenalty}
 
-This counter holds a penalty affecting line"=breaking in names. Please refer to \secref{use:cav:nam,use:fmt:fmt} for explanation. The counter is initialized to \cmd{hyphenpenalty} at load-time. Use a higher value if you dislike the respective linebreaks. If you do not mind them at all, set this counter to zero. If you prefer the traditional \bibtex behavior (no linebreaks at \cnt{highnamepenalty} breakpoints), set it to <infinite> (10\,000 or higher).
+%This counter holds a penalty affecting line"=breaking in names. Please refer to \secref{use:cav:nam,use:fmt:fmt} for explanation. The counter is initialized to \cmd{hyphenpenalty} at load-time. Use a higher value if you dislike the respective linebreaks. If you do not mind them at all, set this counter to zero. If you prefer the traditional \bibtex behavior (no linebreaks at \cnt{highnamepenalty} breakpoints), set it to <infinite> (10\,000 or higher).
+
+该计数器设定了影响姓名中断行的惩罚值。其解释见 \secref{use:cav:nam,use:fmt:fmt} 节。
+该计数器在导入时初始化为 \cmd{hyphenpenalty}。
+如果你不喜欢相应的断行，可以设置为更高的值。
+如果你不介意这些效果，可以设置为零。
+如果你更喜欢传统的 \BibTeX 样式（在 \cnt{highnamepenalty} 处没有断行），可以设置为“无穷”（10\,000或更高）。
 
 \cntitem{lownamepenalty}
 
-Similar to \cnt{highnamepenalty}. Please refer to \secref{use:cav:nam,use:fmt:fmt} for explanation. The counter is initialized to half the \cmd{hyphenpenalty} at load-time. Use a higher value if you dislike the respective linebreaks. If you do not mind them at all, set this counter to zero.
+%Similar to \cnt{highnamepenalty}. Please refer to \secref{use:cav:nam,use:fmt:fmt} for explanation. The counter is initialized to half the \cmd{hyphenpenalty} at load-time. Use a higher value if you dislike the respective linebreaks. If you do not mind them at all, set this counter to zero.
+
+类似于 \cnt{highnamepenalty}。其解释见 \secref{use:cav:nam,use:fmt:fmt} 节。
+该计数器在导入时初始化为 \cmd{hyphenpenalty} 的一半。
+如果你不喜欢相应的断行，可以设置为更高的值。
+如果你不介意这些效果，可以设置为零。
 
 \end{ltxsyntax}
 
-\subsubsection{多用途命令 All-purpose Commands}
+\subsubsection{通用命令}%\subsubsection{All-purpose Commands}
 \label{use:fmt:aux}
 
-The commands in this section are all-purpose text commands which are generally available, not only in citations and the bibliography.
+%The commands in this section are all-purpose text commands which are generally available, not only in citations and the bibliography.
+本节中的命令是通用文本命令，除了引用和参考文献之外在一般情况下都可以使用。
 
 \begin{ltxsyntax}
 
 \csitem{bibellipsis}
 
-An ellipsis symbol with brackets: <[\dots\unkern]>.
+%An ellipsis symbol with brackets: <[\dots\unkern]>.
+带有方括号的省略号：“[\dots\unkern]”。
 
 \csitem{noligature}
 
-Disables ligatures at this position and adds some space. Use this command to break up standard ligatures like <fi> and <fl>. It is similar to the \verb+"|+ shorthand provided by some language modules of the \sty{babel}/\sty{polyglossia} packages.
+%Disables ligatures at this position and adds some space. Use this command to break up standard ligatures like <fi> and <fl>. It is similar to the \verb+"|+ shorthand provided by some language modules of the \sty{babel}/\sty{polyglossia} packages.
+
+在该位置取消连字并增加一些空格。
+使用该命令来打断标准中“fi”、“fl”等连字。
+类似于 \sty{babel}/\sty{polyglossia} 宏包中一些语言模块提供的 \verb+"|+ 缩写。
 
 \csitem{hyphenate}
 
-A conditional hyphen. In contrast to the standard \cmd{-} command, this one allows hyphenation in the rest of the word. It is similar to the \verb|"-| shorthand provided by some language modules of the \sty{babel}/\sty{polyglossia} packages.
+%A conditional hyphen. In contrast to the standard \cmd{-} command, this one allows hyphenation in the rest of the word. It is similar to the \verb|"-| shorthand provided by some language modules of the \sty{babel}/\sty{polyglossia} packages.
+
+条件连字号。与标准的 \cmd{-} 命令不同，该命令允许在单词的剩余部分使用连字号。
+类似于 \sty{babel}/\sty{polyglossia} 宏包中一些语言模块提供的 \verb+"-+ 缩写。
 
 \csitem{hyphen}
 
-An explicit, breakable hyphen intended for compound words. In contrast to a literal <\texttt{-}>, this command allows hyphenation in the rest of the word. It is similar to the \verb|"=| shorthand provided by some language modules of the \sty{babel}/\sty{polyglossia} packages.
+%An explicit, breakable hyphen intended for compound words. In contrast to a literal <\texttt{-}>, this command allows hyphenation in the rest of the word. It is similar to the \verb|"=| shorthand provided by some language modules of the \sty{babel}/\sty{polyglossia} packages.
+
+用于复合词的显式可断连字号。
+与文本“\texttt{-}”不同，该命令允许在单词的剩余部分使用连字号。
+类似于 \sty{babel}/\sty{polyglossia} 宏包中一些语言模块提供的 \verb+"=+ 缩写。
 
 \csitem{nbhyphen}
 
-An explicit, non-breakable hyphen intended for compound words. In contrast to a literal <\texttt{-}>, this command does not permit line breaks at the hyphen but still allows hyphenation in the rest of the word. It is similar to the \verb|"~| shorthand provided by some language modules of the \sty{babel}/\sty{polyglossia} packages.
+%An explicit, non-breakable hyphen intended for compound words. In contrast to a literal <\texttt{-}>, this command does not permit line breaks at the hyphen but still allows hyphenation in the rest of the word. It is similar to the \verb|"~| shorthand provided by some language modules of the \sty{babel}/\sty{polyglossia} packages.
+
+用于复合词的显式不可断连字号。
+与文本“\texttt{-}”不同，该命令不允许在连字号处断行但仍然允许在单词的剩余部分使用连字号。
+类似于 \sty{babel}/\sty{polyglossia} 宏包中一些语言模块提供的 \verb+"~+ 缩写。
 
 \csitem{nohyphenation}
 
-A generic switch which suppresses hyphenation locally. Its scope should normally be confined to a group.
+%A generic switch which suppresses hyphenation locally. Its scope should normally be confined to a group.
+
+局部抑制连字号的一般切换命令。
+正常情况下其作用范围应被限定在一个组内。
 
 \cmditem{textnohyphenation}{text}
 
-Similar to \cmd{nohyphenation} but restricted to the \prm{text} argument.
+%Similar to \cmd{nohyphenation} but restricted to the \prm{text} argument.
+
+类似于 \cmd{nohyphenation} 但是限制在 \prm{text} 选项中。
 
 \cmditem{mknumalph}{integer}
 
-Takes an integer in the range 1--702 as its argument and converts it to a string as follows: 1=a, \textellipsis, 26=z, 27=aa, \textellipsis, 702=zz. This is intended for use in formatting directives for the \bibfield{extrayear} and \bibfield{extraalpha} fields.
+%Takes an integer in the range 1--702 as its argument and converts it to a string as follows: 1=a, \textellipsis, 26=z, 27=aa, \textellipsis, 702=zz. This is intended for use in formatting directives for the \bibfield{extrayear} and \bibfield{extraalpha} fields.
+
+将 1--702 间的整数作为选项并将其转化为如下的字符串： 1=a, \textellipsis, 26=z, 27=aa, \textellipsis, 702=zz。
+这用于 \bibfield{extrayear} 和 \bibfield{extraalpha} 等域的格式设置。
 
 \cmditem{mkbibacro}{text}
 
-Generic command which typesets an acronym using the small caps variant of the current font, if available, and as-is otherwise. The acronym should be given in uppercase letters.
+%Generic command which typesets an acronym using the small caps variant of the current font, if available, and as-is otherwise. The acronym should be given in uppercase letters.
+
+在可用时使用当前字体的小型大写变体排版首字母缩写的一般性命令，否则依原样排版。
+首字母缩写应当以大写字母形式给出。
 
 \cmditem{autocap}{character}
 
-Automatically converts the \prm{character} to its uppercase form if \biblatex's punctuation tracker would capitalize a localization string at the current location. This command is robust. It is useful for conditional capitalization of certain strings in an entry. Note that the \prm{character} argument is a single character given in lowercase. For example:
+%Automatically converts the \prm{character} to its uppercase form if \biblatex's punctuation tracker would capitalize a localisation string at the current location. This command is robust. It is useful for conditional capitalization of certain strings in an entry. Note that the \prm{character} argument is a single character given in lowercase. For example:
 
-\begin{lstlisting}[style=latex]{}
+如果 \biblatex 的标点追踪能够在当前位置将本地化字符串大写，
+该命令自动将 \prm{character} 转化为大写形式。
+该命令是鲁棒的。在条目的某些字符串需要给定条件下的大写时该命令是很有用的。
+请注意，\prm{character} 选项是以小写形式给出的单字符。例如：
+
+\begin{ltxexample}
 \autocap{s}pecial issue
-\end{lstlisting}
+\end{ltxexample}
 %
-will yield <Special issue> or <special issue>, as appropriate. If the string to be capitalized starts with an inflected character given in Ascii notation, include the accent command in the \prm{character} argument as follows:
+%will yield <Special issue> or <special issue>, as appropriate. If the string to be capitalized starts with an inflected character given in Ascii notation, include the accent command in the \prm{character} argument as follows:
+将产生合适的“Special issue”或者“special issue”。
+如果被大写的字符串以Ascii记号给出的变体字符开始，包括如下 \prm{character} 选项中的重音命令：
 
-\begin{lstlisting}[style=latex]{}
+\begin{ltxexample}
 \autocap{\'e}dition sp\'eciale
-\end{lstlisting}
+\end{ltxexample}
 %
-This will yield <Édition spéciale> or <édition spéciale>. If the string to be capitalized starts with a command which prints a character, such as \cmd{ae} or \cmd{oe}, simply put the command in the \prm{character} argument:
+%This will yield <Édition spéciale> or <édition spéciale>. If the string to be capitalized starts with a command which prints a character, such as \cmd{ae} or \cmd{oe}, simply put the command in the \prm{character} argument:
+这会生成“Édition spéciale”或者“édition spéciale”。
+如果大写的字符串以能打印出字符的命令开始，例如 \cmd{ae} 或 \cmd{oe}，只要该命令放入 \prm{character} 选项即可：
 
-\begin{lstlisting}[style=latex]{}
+\begin{ltxexample}
 \autocap{\oe}uvres
-\end{lstlisting}
+\end{ltxexample}
 %
-This will yield <Œuvres> or <œuvres>.
+%This will yield <Œuvres> or <œuvres>.
+这会生成“Œuvres”或“œuvres”。
 
 \end{ltxsyntax}
 
-\subsection[语言注意点 Language notes]{语言相关注意点 Language-specific Notes}
+\subsection[语言注记]{特定语言注记}%\subsection[Language notes]{Language-specific Notes}
 \label{use:loc}
 
-The facilities discussed in this section are specific to certain localization modules.
+%The facilities discussed in this section are specific to certain localisation modules.
+本节讨论的功能特定于某些本地化模块。
 
-\subsubsection{美语 American}
+\subsubsection{美式英文}%\subsubsection{American}
 \label{use:loc:us}
 
-The American localization module uses \cmd{uspunctuation} from \secref{aut:pct:cfg} to enable <American-style> punctuation. If this feature is enabled, all trailing commas and periods after \cmd{mkbibquote} will be moved inside the quotes. If you want to disable this feature, use \cmd{stdpunctuation} as follows:
+%The American localisation module uses \cmd{uspunctuation} from \secref{aut:pct:cfg} to enable <American-style> punctuation. If this feature is enabled, all trailing commas and periods after \cmd{mkbibquote} will be moved inside the quotes. If you want to disable this feature, use \cmd{stdpunctuation} as follows:
 
-\begin{lstlisting}[style=latex]{}
+美式英文本地化模块使用 \secref{aut:pct:cfg} 节的 \cmd{uspunctuation} 来激活“美式”标点。
+如果启用该特性，所有在 \cmd{mkbibquote} 之后的逗号和句号会前移到引号内。
+如果想要关闭该特性，使用如下的 \cmd{stdpunctuation}：
+
+\begin{ltxexample}
 \DefineBibliographyExtras{american}{%
   \stdpunctuation
 }
-\end{lstlisting}
+\end{ltxexample}
 %
-By default, the <American punctuation> feature is enabled by the \texttt{american} localization module only. The above code is only required if you want American localization without American punctuation. Since standard punctuation is the package default, it would be redundant with any other language.
+%By default, the <American punctuation> feature is enabled by the \texttt{american} localisation module only. The above code is only required if you want American localisation without American punctuation. Since standard punctuation is the package default, it would be redundant with any other language.
+缺省情况下，“美式标点”特性只由 \texttt{american} 本地化模块启用。
+以上代码只在你想要不带美式标点的美式英文本地化时需要。
+由于标准的标点是宏包缺省的，对于其它语言这会是多余的。
 
-It is highly advisable to always specify \texttt{american}, \texttt{british}, \texttt{australian}, etc. rather than \texttt{english} when loading the \sty{babel}/\sty{polyglossia} packages to avoid any possible confusion. Older versions of the \sty{babel} package used to treat \opt{english} as an alias for \opt{british}; more recent ones treat it as an alias for \opt{american}. The biblatex package essentially treats \texttt{english} as an alias for \opt{american}, except for the above feature which is only enabled if \texttt{american} is requested explicitly.
+%It is highly advisable to always specify \texttt{american}, \texttt{british}, \texttt{australian}, etc. rather than \texttt{english} when loading the \sty{babel}/\sty{polyglossia} packages to avoid any possible confusion. Older versions of the \sty{babel} package used to treat \opt{english} as an alias for \opt{british}; more recent ones treat it as an alias for \opt{american}. The \biblatex package essentially treats \texttt{english} as an alias for \opt{american}, except for the above feature which is only enabled if \texttt{american} is requested explicitly.
 
-\subsubsection{西班牙语 Spanish}
+为了避免可能的混淆，在导入 \sty{babel}/\sty{polyglossia} 宏包时，
+强烈建议总是指明 \texttt{american}、\texttt{british}、\texttt{australian} 等而不是 \texttt{english}。
+老版本的 \sty{babel} 宏包过去将 \opt{english} 作为 \opt{british} 的别名；
+而更近的版本中将其作为 \opt{american} 的别名。
+除了以上只在需要显式指明 \texttt{american} 时才启用的特性，
+\biblatex 宏包本质上将 \texttt{english} 作为 \opt{american} 的别名。
+
+\subsubsection{西班牙文}%\subsubsection{Spanish}
 \label{use:loc:esp}
 
-Handling the word <and> is more difficult in Spanish than in the other languages supported by this package because it may be <y> or <e>, depending on the initial sound of the following word. Therefore, the Spanish localization module does not use the localization string <\texttt{and}> but a special internal <smart and> command. The behavior of this command is controlled by the \cnt{smartand} counter.
+%Handling the word <and> is more difficult in Spanish than in the other languages supported by this package because it may be <y> or <e>, depending on the initial sound of the following word. Therefore, the Spanish localisation module does not use the localisation string <\texttt{and}> but a special internal <smart and> command. The behavior of this command is controlled by the \cnt{smartand} counter.
+
+在本宏包中，处理西班牙文的单词“and”比其它语言更困难，
+因为可以是“y”或“e”，这取决于下个单词的第一个音节。
+因此，西班牙文的本地化模块不使用本地化字符串“\texttt{and}”，
+而是使用特殊的内部“智能and”命令。
+该命令的行为由 \cnt{smartand} 计数器控制。
 
 \begin{ltxsyntax}
 
 \cntitem{smartand}
 
-This counter controls the behavior of the internal <smart and> command. When set to 1, it prints <y> or <e>, depending on the context. When set to 2, it always prints <y>. When set to 3, it always prints <e>. When set to 0, the <smart and> feature is disabled. This counter is initialized to 1 at load-time and may be changed in the preamble. Note that setting this counter to a positive value implies that the Spanish localization module ignores \cmd{finalnamedelim} and \cmd{finallistdelim}.
+%This counter controls the behavior of the internal <smart and> command. When set to 1, it prints <y> or <e>, depending on the context. When set to 2, it always prints <y>. When set to 3, it always prints <e>. When set to 0, the <smart and> feature is disabled. This counter is initialized to 1 at load-time and may be changed in the preamble. Note that setting this counter to a positive value implies that the Spanish localisation module ignores \cmd{finalnamedelim} and \cmd{finallistdelim}.
+
+该计数器控制内部“智能and”命令的行为。
+当设置为1时，取决于语境会打印“y”或“e”。
+当设置为2时，总是打印“y”。
+当设置为3时，总是打印“e”。
+当设置为0时则禁用“智能and”特性。
+该计数器在导入时初始化为1，可以在导言区中修改。
+请注意，将该计数器设置为一个正整数则说明西班牙文的本地化模块会忽略 \cmd{finalnamedelim} 和 \cmd{finallistdelim}。
 
 \csitem{forceE}
 
-Use this command in \file{bib} files if \biblatex gets the <and> before a certain name wrong. As its name suggests, it will enforce <e>. This command must be used in a special way to prevent confusing \bibtex. Here is an example:
+%Use this command in \file{bib} files if \biblatex gets the <and> before a certain name wrong. As its name suggests, it will enforce <e>. This command must be used in a special way to be correct \bibtex datafile format. Here is an example:
+
+如果 \biblatex 在某个错误的名字前得到“and”，那么可以在 \file{bib} 文件中使用该命令。
+如同该命令的名字，该命令会强制输出“e”。
+为了获得正确的 \BibTeX 数据文件格式，必须以特定方式使用该命令。例如：
 
 \begin{lstlisting}[style=bibtex]{}
 author = {Edward Jones and Eoin Maguire},
 author = {Edward Jones and <<{\forceE{E}}>>oin Maguire},
 \end{lstlisting}
 %
-Note that the initial letter of the respective name component is given as an argument to \cmd{forceE} and that the entire construct is wrapped in an additional pair of curly braces.
+%Note that the initial letter of the respective name component is given as an argument to \cmd{forceE} and that the entire construct is wrapped in an additional pair of curly braces.
+请注意，相应姓名成分的首字母作为 \cmd{forceE} 的选项，
+然后整个地放在额外一对花括号中。
 
 \csitem{forceY}
 
-Similar to \cmd{forceE} but enforces <y>.
+%Similar to \cmd{forceE} but enforces <y>.
+类似于 \cmd{forceE} 但是强制输出“y”。
 
 \end{ltxsyntax}
 
-\subsubsection{希腊语 Greek}
+\subsubsection{希腊文}%\subsubsection{Greek}
 \label{use:loc:grk}
 
-The Greek localization module requires \utf support. It will not work with any other encoding. Generally speaking, the \biblatex package is compatible with the \sty{inputenc} package and with \xelatex. The \sty{ucs} package will not work. Since \sty{inputenc}'s standard \file{utf8} module is missing glyph mappings for Greek, this leaves Greek users with \xelatex. Note that you may need to load additional packages which set up Greek fonts. As a rule of thumb, a setup which works for regular Greek documents should also work with \biblatex. However, there is one fundamental limitation. As of this writing, \biblatex has no support for switching scripts. Greek titles in the bibliography should work fine, provided that you use \biber as a backend, but English and other titles in the bibliography may be rendered in Greek letters. If you need multi-script bibliographies, using \xelatex is the only sensible choice.
+%The Greek localisation module requires \utf support. It will not work with any other encoding. Generally speaking, the \biblatex package is compatible with the \sty{inputenc} package and with \xelatex. The \sty{ucs} package will not work. Since \sty{inputenc}'s standard \file{utf8} module is missing glyph mappings for Greek, this leaves Greek users with \xelatex. Note that you may need to load additional packages which set up Greek fonts. As a rule of thumb, a setup which works for regular Greek documents should also work with \biblatex. However, there is one fundamental limitation. As of this writing, \biblatex has no support for switching scripts. Greek titles in the bibliography should work fine, but English and other titles in the bibliography may be rendered in Greek letters. If you need multi-script bibliographies, using \xelatex is the only sensible choice.
 
-\subsubsection{俄语 Russian}
+希腊文本地化模块需要 \utf 支持，与其它编码不兼容。
+一般来说，\biblatex 宏包与 \sty{inputenc} 宏包以及 \XeLaTeX 都兼容。
+而 \sty{ucs} 宏包不可用。
+由于 \sty{inputenc} 的标准 \opt{utf8} 模块缺失一部分希腊语字形映射，
+因此希腊文用户可以选择 \XeLaTeX 。
+请注意，用户仍需要载入额外宏包来设置希腊文字体。
+根据经验，常规希腊文的文档设置一般也应当可以使用 \biblatex 。
+然而有一个根本性限制：\biblatex 不支持切换语言。
+参考文献中可以出现希腊文标题，但英文和其它标题可能会渲染为希腊字母。
+如果需要多语言的参考文献，使用 \XeLaTeX 是明智的选择。
+
+\subsubsection{俄文}%\subsubsection{Russian}
 \label{use:loc:rus}
 
-Like the Greek localization module, the Russian module also requires \utf support. It will not work with any other encoding.
+%Like the Greek localisation module, the Russian module also requires \utf support. It will not work with any other encoding. 
 
-\subsection{用法注意点 Usage Notes}
+与希腊文模块类似，俄文模块同样需要 \utf 支持。
+与其它编码不兼容。
+
+\subsection{使用注记}%\subsection{Usage Notes}
 \label{use:use}
 
-The following sections give a basic overview of the \biblatex package and discuss some typical usage scenarios.
+%The following sections give a basic overview of the \biblatex package and discuss some typical usage scenarios.
 
-\subsubsection{概述 Overview}
+以下几节讨论了 \biblatex 宏包的基本概述以及一些典型的使用场合。
+
+\subsubsection{概述}%\subsubsection{Overview}
 \label{use:use:int}
 
-Using the \biblatex package is slightly different from using traditional \bibtex styles and related packages. Before we get to specific usage scenarios, we will therefore have a look at the structure of a typical document first:
+%Using the \biblatex package is slightly different from using traditional \bibtex styles and related packages. Before we get to specific usage scenarios, we will therefore have a look at the structure of a typical document first:
+
+使用 \biblatex 宏包与传统的 \BibTeX 样式和相关宏包稍有不同。
+因此，在讨论具体的使用场景之前，我们首先要看一下典型的文件结构：
 
 \begin{ltxexample}
 \documentclass{...}
@@ -4855,69 +5465,47 @@ Using the \biblatex package is slightly different from using traditional \bibtex
 \end{document}
 \end{ltxexample}
 %
-With traditional \bibtex, the \cmd{bibliography} command serves two purposes. It marks the location of the bibliography and it also specifies the \file{bib} file(s). The file extension is omitted. With \biblatex, resources are specified in the preamble with  \cmd{addbibresource} using the full name with \file{.bib} suffix. The bibliography is printed using the \cmd{printbibliography} command which may be used multiple times (see \secref{use:bib} for details). The document body may contain any number of citation commands (\secref{use:cit}). Processing this example file requires that a certain procedure be followed. Suppose our example file is called \path{example.tex} and our bibliographic data is in \path{bibfile.bib}. The procedure, then, is as follows:
-
-\paragraph{\biber}
-
-\begin{enumerate}
-
-\item Run \bin{latex} on \path{example.tex}. If the file contains any citations, \biblatex will request the respective data from \biber by writing commands to the auxiliary file \path{example.bcf}.
-\item Run \bin{biber} on \path{example.bcf}. \biber will retrieve the data from \path{bibfile.bib} and write it to the auxiliary file \path{example.bbl} in a format which can be processed by \biblatex.
-\item Run \bin{latex} on \path{example.tex}. \biblatex will read the data from \path{example.bbl} and print all citations as well as the bibliography.
-
-\end{enumerate}
-
-\paragraph{\bibtex}
+%With traditional \bibtex, the \cmd{bibliography} command serves two purposes. It marks the location of the bibliography and it also specifies the \file{bib} file(s). The file extension is omitted. With \biblatex, resources are specified in the preamble with  \cmd{addbibresource} using the full name with \file{.bib} suffix. The bibliography is printed using the \cmd{printbibliography} command which may be used multiple times (see \secref{use:bib} for details). The document body may contain any number of citation commands (\secref{use:cit}). Processing this example file requires that a certain procedure be followed. Suppose our example file is called \path{example.tex} and our bibliographic data is in \path{bibfile.bib}. The procedure, then, is as follows:
+在传统的 \BibTeX 下，\cmd{bibliography} 命令提供了两个目的：
+标记文献的位置并且确定 \file{bib} 文件。
+文件扩展名是省略的。
+而在 \biblatex 下则在导言区通过 \cmd{addbibresource} 使用文件名全称（带有 \file{.bib} 后缀）来确定文献资源。
+文献的打印则使用 \cmd{printbibliography} 命令，而且该命令可以使用多次（详见 \secref{use:bib} 节）。
+文档正文可以包含任意多个引用命令（\secref{use:cit} 节）。
+处理示例文件需要以下若干步骤。
+假设我们的示例文件叫 \path{example.tex}，参考文献数据在 \path{bibfile.bib} 中，那么过程如下：
 
 \begin{enumerate}
 
-\item Run \bin{latex} on \path{example.tex}. If the file contains any citations, \biblatex will request the respective data from \bibtex by writing commands to the auxiliary file \path{example.aux}.
-\item Run \bin{bibtex} on \path{example.aux}. \bibtex will retrieve the data from \path{bibfile.bib} and write it to the auxiliary file \path{example.bbl} in a format which can be processed by \biblatex.
-\item Run \bin{latex} on \path{example.tex}. \biblatex will read the data from \path{example.bbl} and print all citations as well as the bibliography.
+\item %Run \bin{latex} on \path{example.tex}. If the file contains any citations, \biblatex will request the respective data from \biber by writing commands to the auxiliary file \path{example.bcf}.
+对 \file{example.tex} 运行 \bin{latex} 命令。
+如果该文件包含引用，\biblatex 会将有关命令写入辅助文件 \file{example.bcf}，进而从 \biber 调用相关数据。
+\item %Run \bin{biber} on \path{example.bcf}. \biber will retrieve the data from \path{bibfile.bib} and write it to the auxiliary file \path{example.bbl} in a format which can be processed by \biblatex.
+对 \file{example.bcf} 运行 \bin{biber} 命令。
+\biber 会从 \file{bibfile.bib} 中检索数据，并将其写入辅助文件 \file{example.bib} 中，写入的格式可以被 \biblatex 处理。
+\item %Run \bin{latex} on \path{example.tex}. \biblatex will read the data from \path{example.bbl} and print all citations as well as the bibliography.
+对 \file{example.tex} 运行 \bin{latex} 命令。
+\biblatex 会从 \file{example.bbl} 中读取数据并打印所有的引用及参考文献。
 
 \end{enumerate}
 
-Whenever a reference to a work which has not been cited before is added, this procedure must be repeated. This is also the case if the last reference to a work which has been cited before is removed because some citation labels may change in this case. In contrast to traditional \bibtex, there is normally no need to run \bin{latex} twice after running the backend as far as the handling of bibliographic data is concerned.\footnote{That is, unless the \opt{defernumbers} package option is enabled. See \secref{aut:int}}
-
-\BibTeXOnlyMark Note that when using \bibtex as the backend this only applies to the most basic case. Using the \bibfield{xref} field or the \bibfield{entryset} field may require an additional \latex/\bibtex/\latex cycle. Some other facilities provided by \biblatex may also require an additional \bin{latex} run to get certain references and the page tracking right. In this case, the usual warning messages such as «There were undefined references» and «Label(s) may have changed. Rerun to get cross-references right» will be printed.
-
-\subsubsection{辅助文件 Auxiliary Files}
+\subsubsection{辅助文件}%\subsubsection{Auxiliary Files}
 \label{use:use:aux}
 
-\paragraph{\biber}
+%The \biblatex package uses one auxiliary \file{bcf} file only. Even if there are citation commands in a file included via \cmd{include}, you only need to run \biber on the main \file{bcf} file. All information \biber needs is in the \file{bcf} file, including information about all refsections if using multiple \env{refsection} environments (see \secref{use:use:mlt}).
 
-The \biblatex package uses one auxiliary \file{bcf} file only. Even if there are citation commands in a file included via \cmd{include}, you only need to run \biber on the main \file{bcf} file. All information \biber needs is in the \file{bcf} file, including information about all refsections if using multiple \env{refsection} environments (see \secref{use:use:mlt}).
+\biblatex 宏包只使用一个 \file{bcf} 辅助文件。
+即便文件中通过 \cmd{include} 包含引用命令，你也只需在主 \file{bcf} 文件上运行 \biber 。
+\biber 需要的全部信息都在 \file{bcf} 文件中，包括当使用多重 \env{refsection} 环境
+（见 \secref{use:use:mlt} 节）时关于所有参考文献分节的信息。
 
-\paragraph{\bibtex}
-
-By default, the \biblatex package uses the main \file{aux} file only. Even if there are citation commands in a file included via \cmd{include}, which has its own \file{aux} file, you only need to run \bibtex on the main \file{aux} file. If you are using \env{refsection} environments in a document (see \secref{use:use:mlt}) \biblatex will create one additional \file{aux} file for every \env{refsection} environment. In this case, you also need to run \bin{bibtex} on each additional \file{aux} file. The name of the additional \file{aux} files is the base name of the main input file with the string \file{-blx} and a running number appended at the end. The \biblatex package issues a warning listing the files which require an additional \bibtex run. With the basic example presented in \secref{use:use:int}, it would issue the following warning:
-
-\begin{lstlisting}[style=plain]
-Package biblatex Warning: Please (re)run BibTeX on the file(s):
-(biblatex)                example.aux
-(biblatex)                and rerun LaTeX afterwards.
-\end{lstlisting}
-%
-If the input file contained three \env{refsection} environments, the warning would read as follows:
-
-\begin{lstlisting}[style=plain]
-Package biblatex Warning: Please (re)run BibTeX on the file(s):
-(biblatex)                example1-blx.aux
-(biblatex)                example2-blx.aux
-(biblatex)                example3-blx.aux
-(biblatex)                and rerun LaTeX afterwards.
-\end{lstlisting}
-%
-Apart from these \file{aux} files, \biblatex uses an additional \file{bib} file with the same suffix to pass certain control parameters to \bibtex. In the example above, this file would be named \path{example-blx.bib}. In the event of a file name conflict, you can change the suffix by redefining the macro \cmd{blxauxsuffix} in the document preamble. When using \biber, \biblatex writes a control file named \path{example.bcf} and ignores \cmd{blxauxsuffix}. There is also no auxiliary \file{bib} file in this case.
-
-Note that \biblatex will not overwrite any files it did not create. All auxiliary files created automatically by this package start with a special signature line. Before overwriting a file (excluding the main \file{aux} file, which is managed by \latex), \biblatex inspects the first line of the file to make sure that there is no file name conflict. If the file in question is missing the signature line, \biblatex will immediately issue an error message and abort before opening the output stream. In this case you should delete any spurious files accidentally left in the working directory. If the error persists, there may be a file name conflict with a file found in one of the \tex installation trees. Since the installation trees usually do not contain any \file{aux} files and the string \file{-blx} is fairly exotic in the name of a \file{bib} file, this is rather unlikely but theoretically possible. If you find out that this is indeed the case, you should redefine \cmd{blxauxsuffix} permanently in the \biblatex configuration file, \path{biblatex.cfg.}
-
-\subsubsection{多个参考文献表 Multiple Bibliographies}
+\subsubsection{多重文献}%\subsubsection{Multiple Bibliographies}
 \label{use:use:mlt}
 
-In a collection of articles by different authors, such as a conference proceedings volume for example, it is very common to have one bibliography for each article rather than a global one for the entire book. In the example below, each article would be presented as a separate \cmd{chapter} with its own bibliography.
+%In a collection of articles by different authors, such as a conference proceedings volume for example, it is very common to have one bibliography for each article rather than a global one for the entire book. In the example below, each article would be presented as a separate \cmd{chapter} with its own bibliography.
 
-\BibTeXOnlyMark Note that with the \bibtex backend, \biblatex creates one additional \file{aux} file for every \env{refsection} environment. These files have to be processed by \bibtex as well, see \secref{use:use:aux} for details.
+在由多位作者所写文章的合集中，例如会议文集的一卷，非常常见的做法是对每篇文章而不是对整本书分别做文献索引。
+在以下的例子中，每篇文章是不同的一章 \cmd{chapter}，并带有自己的文献索引。
 
 \begin{ltxexample}
 \documentclass{...}
@@ -4937,7 +5525,11 @@ In a collection of articles by different authors, such as a conference proceedin
 \end{document}
 \end{ltxexample}
 %
-If \cmd{printbibliography} is used inside a \env{refsection} environment, it automatically restricts the scope of the list of references to the enclosing \env{refsection} environment. For a cumulative bibliography which is subdivided by chapter but printed at the end of the book, use the \opt{section} option of \cmd{printbibliography} to select a reference section, as shown in the next example.
+%If \cmd{printbibliography} is used inside a \env{refsection} environment, it automatically restricts the scope of the list of references to the enclosing \env{refsection} environment. For a cumulative bibliography which is subdivided by chapter but printed at the end of the book, use the \opt{section} option of \cmd{printbibliography} to select a reference section, as shown in the next example.
+如果 \cmd{printbibliography} 在 \env{refsection} 环境内部使用，
+它会自动将文献列表范围限制在 \env{refsection} 环境内。
+对于在一本书末尾列出但是按照每一章划分的累积参考文献，
+使用 \cmd{printbibliography} 的 \opt{section} 选项来选择参考文献分节，如下面的例子所示。
 
 \begin{ltxexample}
 \documentclass{...}
@@ -4960,22 +5552,39 @@ If \cmd{printbibliography} is used inside a \env{refsection} environment, it aut
 \end{document}
 \end{ltxexample}
 %
-Note the definition of the bibliography heading in the above example. This is the definition taking care of the subheadings in the bibliography. The main heading is generated with a plain \cmd{chapter} command in this case. The \biblatex package automatically sets a label at the beginning of every \env{refsection} environment, using the standard \cmd{label} command. The identifier used is the string \texttt{refsection:} followed by the number of the respective \env{refsection} environment. The number of the current section is accessible via the \cnt{refsection} counter. When using the \opt{section} option of \cmd{printbibliography}, this counter is also set locally. This means that you may use the counter in heading definitions to print subheadings like «References for Chapter 3», as shown above. You could also use the title of the respective chapter as a subheading by loading the \sty{nameref} package and using \cmd{nameref} instead of \cmd{ref}:
+%Note the definition of the bibliography heading in the above example. This is the definition taking care of the subheadings in the bibliography. The main heading is generated with a plain \cmd{chapter} command in this case. The \biblatex package automatically sets a label at the beginning of every \env{refsection} environment, using the standard \cmd{label} command. The identifier used is the string \texttt{refsection:} followed by the number of the respective \env{refsection} environment. The number of the current section is accessible via the \cnt{refsection} counter. When using the \opt{section} option of \cmd{printbibliography}, this counter is also set locally. This means that you may use the counter in heading definitions to print subheadings like «References for Chapter 3», as shown above. You could also use the title of the respective chapter as a subheading by loading the \sty{nameref} package and using \cmd{nameref} instead of \cmd{ref}:
+请注意上面例子中文献标题的定义。
+该定义考虑到了参考文献中的子标题。
+主标题由普通的 \cmd{chapter} 生成。
+\biblatex 宏包会自动在每个相应的 \env{refsection} 环境开始处用标准 \cmd{label} 命令分别设置标签。
+其标识符是字符串 \texttt{refsection:} 接上 \env{refsection} 环境的序数。
+当前节的序号可以通过 \cnt{refsection} 计数器获得。
+当使用 \cmd{printbibliography} 的 \opt{section} 选项时，该计数器也被设置为局部的。
+这意味着你可以在标题定义中使用该计数器来打印类似于上面例子中“References for Chapter 3”这样的子标题。
+你也可以通过载入 \sty{nameref} 宏包和使用 \cmd{nameref} 代替 \cmd{ref} 来使用相应的章名作为子标题：
 
-\begin{lstlisting}[style=latex]
+\begin{ltxexample}
 \usepackage{<<nameref>>}
 \defbibheading{subbibliography}{%
   \section*{<<\nameref{refsection:\therefsection}>>}}
-\end{lstlisting}
+\end{ltxexample}
 %
-Since giving one \cmd{printbibliography} command for each part of a subdivided bibliography is tedious, \biblatex provides a shorthand. The \cmd{bibbysection} command automatically loops over all reference sections. This is equivalent to giving one \cmd{printbibliography} command for every section but has the additional benefit of automatically skipping sections without references. In the example above, the bibliography would then be generated as follows:
+%Since giving one \cmd{printbibliography} command for each part of a subdivided bibliography is tedious, \biblatex provides a shorthand. The \cmd{bibbysection} command automatically loops over all reference sections. This is equivalent to giving one \cmd{printbibliography} command for every section but has the additional benefit of automatically skipping sections without references. In the example above, the bibliography would then be generated as follows:
+为参考文献的每一个子部分都给出 \cmd{printbibliography} 是很繁琐的，所以 \biblatex 提供了一个缩写语。
+\cmd{bibbysection} 命令会自动遍历所有的参考文献分节。
+这等价于为每节给出一个 \cmd{printbibliography} 命令，此外还会自动跳过没有文献的节。
+在上面的例子中，参考文献可以按如下方式生成：
 
-\begin{lstlisting}[style=latex]
+\begin{ltxexample}
 \printbibheading
 <<\bibbysection[heading=subbibliography]>>
-\end{lstlisting}
+\end{ltxexample}
 %
-When using a format with one cumulative bibliography subdivided by chapter (or any other document division) it may be more appropriate to use \env{refsegment} rather than \env{refsection} environments. The difference is that the \env{refsection} environment generates labels local to the environment while \env{refsegment} does not affect the generation of labels, hence they will be unique across the entire document. Note that when using \bibtex as the backend, \env{refsegment} environments do not require additional \file{aux} files. The next example could also be given in \secref{use:use:div} because, visually, it creates one global bibliography subdivided into multiple segments.
+%When using a format with one cumulative bibliography subdivided by chapter (or any other document division) it may be more appropriate to use \env{refsegment} rather than \env{refsection} environments. The difference is that the \env{refsection} environment generates labels local to the environment while \env{refsegment} does not affect the generation of labels, hence they will be unique across the entire document. The next example could also be given in \secref{use:use:div} because, visually, it creates one global bibliography subdivided into multiple segments.
+当使用按章（或其它文档单元）划分的累积参考文献格式时，使用 \env{refsegment} 比 \env{refsection} 环境更合适一些。
+不同之处在于 \env{refsection} 环境生成的标签是环境局部的，
+而 \env{refsegment} 环境不影响标签生成，因此在整个文档中是唯一的。
+下面的例子也可以在 \secref{use:use:div} 节中给出，因为它看起来创建了一个划分为多重片段的全局参考文献。
 
 \begin{ltxexample}
 \documentclass{...}
@@ -4998,19 +5607,31 @@ When using a format with one cumulative bibliography subdivided by chapter (or a
 \end{document}
 \end{ltxexample}
 %
-The use of \env{refsegment} is similar to \env{refsection} and there is also a corresponding \opt{segment} option for \cmd{printbibliography}. The \biblatex package automatically sets a label at the beginning of every \env{refsegment} environment using the string \texttt{refsegment:} followed by the number of the respective \env{refsegment} environment as an identifier. There is a matching \cnt{refsegment} counter which may be used in heading definitions, as shown above. As with reference sections, there is also a shorthand command which automatically loops over all reference segments:
+%The use of \env{refsegment} is similar to \env{refsection} and there is also a corresponding \opt{segment} option for \cmd{printbibliography}. The \biblatex package automatically sets a label at the beginning of every \env{refsegment} environment using the string \texttt{refsegment:} followed by the number of the respective \env{refsegment} environment as an identifier. There is a matching \cnt{refsegment} counter which may be used in heading definitions, as shown above. As with reference sections, there is also a shorthand command which automatically loops over all reference segments:
+\env{refsegment} 的使用类似于 \env{refsection}，也有对应于 \cmd{printbibliography} 的 \opt{segment} 选项。
+\biblatex 宏包自动在每个 \env{refsegment} 环境开始用字符串 \texttt{refsegment:} 
+后接相应 \env{regsegment} 环境的序号来设置标签作为标识符。
+如前所述，有一个匹配的 \cnt{refsegment} 计数器可以用在标题定义中。
+对于文献节，也有缩写名可以自动遍历所有的文献片段：
 
-\begin{lstlisting}[style=latex]{}
+\begin{ltxexample}
 \printbibheading
 <<\bibbysegment[heading=subbibliography]>>
-\end{lstlisting}
+\end{ltxexample}
 %
-This is equivalent to giving one \cmd{printbibliography} command for every segment in the current \env{refsection}.
+%This is equivalent to giving one \cmd{printbibliography} command for every segment in the current \env{refsection}.
+这等价于为当前 \env{refsection} 的每个片段分别给出 \cmd{printbibliography} 命令。
 
-\subsubsection{子参考文献表 Subdivided Bibliographies}
+\subsubsection{文献表划分}%\subsubsection{Subdivided Bibliographies}
 \label{use:use:div}
 
-It is very common to subdivide a bibliography by certain criteria. For example, you may want to list printed and online resources separately or divide a bibliography into primary and secondary sources. The former case is straightforward because you can use the entry type as a criterion for the \opt{type} and \opt{nottype} filters of \cmd{printbibliography}. The next example also demonstrates how to generate matching subheadings for the two parts of the bibliography.
+%It is very common to subdivide a bibliography by certain criteria. For example, you may want to list printed and online resources separately or divide a bibliography into primary and secondary sources. The former case is straightforward because you can use the entry type as a criterion for the \opt{type} and \opt{nottype} filters of \cmd{printbibliography}. The next example also demonstrates how to generate matching subheadings for the two parts of the bibliography.
+
+依照某一标准进行文献划分是非常普遍的。
+例如，你也许需要分别列出印刷和网络资源，或者将参考文献分为主要和次要类型。
+前一种情况比较简单，
+因为可以使用条目类型作为 \cmd{printbibliography} 的 \opt{type} 和 \opt{nottype} filter 的标准。
+下面的例子也演示了如何为参考文献的两部分生成匹配的子标题。
 
 \begin{ltxexample}
 \documentclass{...}
@@ -5027,21 +5648,29 @@ It is very common to subdivide a bibliography by certain criteria. For example, 
 \end{document}
 \end{ltxexample}
 %
-You may also use more than two subdivisions:
+%You may also use more than two subdivisions:
+也可以使用两个以上的划分：
 
-\begin{lstlisting}[style=latex]{}
+\begin{ltxexample}
 \printbibliography[<<type=article>>,...]
 \printbibliography[<<type=book>>,...]
 \printbibliography[<<nottype=article>>,<<nottype=book>>,...]
-\end{lstlisting}
+\end{ltxexample}
 %
-It is even possible to give a chain of different types of filters:
+%It is even possible to give a chain of different types of filters:
+甚至可以给出一组的不同类型的 filter：
 
-\begin{lstlisting}[style=latex]{}
+\begin{ltxexample}
 \printbibliography[<<section=2>>,<<type=book>>,<<keyword=abc>>,<<notkeyword=xyz>>]
-\end{lstlisting}
+\end{ltxexample}
 %
-This would print all works cited in reference section~2 whose entry type is \bibtype{book} and whose \bibfield{keywords} field includes the keyword <abc> but not <xyz>. When using bibliography filters in conjunction with a numeric style, see \secref{use:cav:lab}. If you need complex filters with conditional expressions, use the \opt{filter} option in conjunction with a custom filter defined with \cmd{defbibfilter}. See \secref{use:bib:flt} for details on custom filters.
+%This would print all works cited in reference section~2 whose entry type is \bibtype{book} and whose \bibfield{keywords} field includes the keyword <abc> but not <xyz>. When using bibliography filters in conjunction with a numeric style, see \secref{use:cav:lab}. If you need complex filters with conditional expressions, use the \opt{filter} option in conjunction with a custom filter defined with \cmd{defbibfilter}. See \secref{use:bib:flt} for details on custom filters.
+这会打印出所有在第二参考分节中条目类型为 \bibtype{book} 
+并且 \bibfield{keywords} 域包括关键词“abc”但是不包括“xyz”的作品。
+关于结合数值样式使用文献 filter 见 \secref{use:cav:lab} 节。
+如果你需要带有条件表达式的复杂 filter，
+可以使用 \opt{filter} 选项结合由 \cmd{defbibfilter} 定义的定制filter。
+关于定制filter详见 \secref{use:bib:flt} 节。
 
 \begin{ltxexample}
 \documentclass{...}
@@ -5057,14 +5686,20 @@ This would print all works cited in reference section~2 whose entry type is \bib
 \end{document}
 \end{ltxexample}
 %
-Dividing a bibliography into primary and secondary sources is possible with a \bibfield{keyword} filter, as shown in the above example. In this case, with only two subdivisions, it would be sufficient to use one keyword as filter criterion:
+%Dividing a bibliography into primary and secondary sources is possible with a \bibfield{keyword} filter, as shown in the above example. In this case, with only two subdivisions, it would be sufficient to use one keyword as filter criterion:
+如上例所示，将参考文献分为主要和次要部分可以通过 \bibfield{keyword} filter 实现。
+在该情况下（只分成两部分），使用一个关键词作为 filter 标准就足够了：
 
-\begin{lstlisting}[style=latex]{}
+\begin{ltxexample}
 \printbibliography[<<keyword=primary>>,...]
 \printbibliography[<<notkeyword=primary>>,...]
-\end{lstlisting}
+\end{ltxexample}
 %
-Since \biblatex has no way of knowing if an item in the bibliography is considered to be primary or secondary literature, we need to supply the bibliography filter with the required data by adding a \bibfield{keywords} field to each entry in the \file{bib} file. These keywords may then be used as targets for the \opt{keyword} and \opt{notkeyword} filters, as shown above. It may be a good idea to add such keywords right away while building a \file{bib} file.
+%Since \biblatex has no way of knowing if an item in the bibliography is considered to be primary or secondary literature, we need to supply the bibliography filter with the required data by adding a \bibfield{keywords} field to each entry in the \file{bib} file. These keywords may then be used as targets for the \opt{keyword} and \opt{notkeyword} filters, as shown above. It may be a good idea to add such keywords right away while building a \file{bib} file.
+由于 \biblatex 无法知道文献中的某一条是否被认为是主要或者次要文献，
+我们需要在 \file{bib} 文件中为每一条目增加 \bibfield{keywords} 域来提供文献 filter 所需的数据。
+如上例所示，这些关键词可以用于 \opt{keyword} 和 \opt{notkeyword} filter 的目标。
+在建立 \file{bib} 文件时就添加这样的关键词是一个不错的办法。
 
 \begin{lstlisting}[style=bibtex]{}
 @Book{key,
@@ -5072,7 +5707,10 @@ Since \biblatex has no way of knowing if an item in the bibliography is consider
   ...
 \end{lstlisting}
 %
-An alternative way of subdividing the list of references are bibliography categories. They differ from the keywords"=based approach shown in the example above in that they work on the document level and do not require any changes to the \file{bib} file.
+%An alternative way of subdividing the list of references are bibliography categories. They differ from the keywords"=based approach shown in the example above in that they work on the document level and do not require any changes to the \file{bib} file.
+另外一种划分文献列表的方法是使用参考文献类别。
+这与上述例子中使用的基于关键词的方法的不同之处在于，
+它们在文档水平处理而并不需要修改 \file{bib} 文件。
 
 \begin{ltxexample}
 \documentclass{...}
@@ -5092,14 +5730,18 @@ An alternative way of subdividing the list of references are bibliography catego
 \end{document}
 \end{ltxexample}
 %
-In this case it would also be sufficient to use one category only:
+%In this case it would also be sufficient to use one category only:
+在这个例子中，只使用一个类别也是可以的：
 
-\begin{lstlisting}[style=latex]{}
+\begin{ltxexample}
 \printbibliography[<<category=primary>>,...]
 \printbibliography[<<notcategory=primary>>,...]
-\end{lstlisting}
+\end{ltxexample}
 %
-It is still a good idea to declare all categories used in the bibliography explicitly because there is a \cmd{bibbycategory} command which automatically loops over all categories. This is equivalent to giving one \cmd{printbibliography} command for every category, in the order in which they were declared.
+%It is still a good idea to declare all categories used in the bibliography explicitly because there is a \cmd{bibbycategory} command which automatically loops over all categories. This is equivalent to giving one \cmd{printbibliography} command for every category, in the order in which they were declared.
+不过，显式地声明参考文献中使用的所有类别仍然是个不错的主意，
+因为有一个 \cmd{bibbycategory} 命令能自动遍历所有的类别。
+这等价于为每一类别按照所声明的顺序依次给出 \cmd{printbibliography} 命令。
 
 \begin{ltxexample}
 \documentclass{...}
@@ -5118,16 +5760,32 @@ It is still a good idea to declare all categories used in the bibliography expli
 \end{document}
 \end{ltxexample}
 %
-The handling of the headings is different from \cmd{bibbysection} and \cmd{bibbysegment} in this case. \cmd{bibbycategory} uses the name of the current category as a heading name. This is equivalent to passing \texttt{heading=\prm{category}} to \cmd{printbibliography} and implies that you need to provide a matching heading for every category.
+%The handling of the headings is different from \cmd{bibbysection} and \cmd{bibbysegment} in this case. \cmd{bibbycategory} uses the name of the current category as a heading name. This is equivalent to passing \texttt{heading=\prm{category}} to \cmd{printbibliography} and implies that you need to provide a matching heading for every category.
+在这个例子中，标题的处理与 \cmd{bibbysection} 和 \cmd{bibbysegment} 是不同的。
+\cmd{bibbycategory} 使用当前类别的名字作为标题名。
+这等价于将 \texttt{heading=\prm{category}} 传递给 \cmd{printbibliography}，
+从而意味着你需要为每一类别提供相匹配的标题。
 
-\subsubsection{条目集 Entry Sets}
+\subsubsection{条目集}%\subsubsection{Entry Sets}
 \label{use:use:set}
 
-An entry set is a group of entries which are cited as a single reference and listed as a single item in the bibliography. The individual entries in the set are separated by \cmd{entrysetpunct} (\secref{aut:fmt:fmt}). The \biblatex package supports two types of entry sets. Static entry sets are defined in the \file{bib} file like any other entry. Dynamic entry sets are defined with \cmd{defbibentryset} (\secref{use:bib:set}) on a per-document\slash per-refsection basis in the document preamble or the document body. This section deals with the definition of entry sets; style authors should also see \secref{aut:cav:set} for further information.
+%An entry set is a group of entries which are cited as a single reference and listed as a single item in the bibliography. The individual entries in the set are separated by \cmd{entrysetpunct} (\secref{aut:fmt:fmt}). The \biblatex package supports two types of entry sets. Static entry sets are defined in the \file{bib} file like any other entry. Dynamic entry sets are defined with \cmd{defbibentryset} (\secref{use:bib:set}) on a per-document\slash per-refsection basis in the document preamble or the document body. This section deals with the definition of entry sets; style authors should also see \secref{aut:cav:set} for further information.
 
-\paragraph{Static entry sets}
+条目集是用单个引用并在参考文献中作为一项列出的一组条目。
+条目集中每一项用 \cmd{entrysetpunct} 分隔（\secref{aut:fmt:fmt} 节）。
+\biblatex 宏包支持两种类型的条目集。
+静态条目集在 \file{bib} 文件中定义，这与其它条目类似。
+而动态条目集在文档导言区或者正文中用 \cmd{defbibentryset} （\secref{use:bib:set}）定义，
+并且基于文档或参考文献分节。
+本节讨论条目集的定义问题；样式作者对于更多信息也可以参考 \secref{aut:cav:set} 节。
 
-\BiberOnlyMark Static entry sets are defined in the \file{bib} file like any other entry. When using \biber as the backend, defining an entry set is as simple as adding an entry of type \bibtype{set}. The entry has an \bibfield{entryset} field defining the members of the set as a separated list of entry keys:
+\paragraph{静态条目集}%\paragraph{Static entry sets}
+
+%Static entry sets are defined in the \file{bib} file like any other entry. Defining an entry set is as simple as adding an entry of type \bibtype{set}. The entry has an \bibfield{entryset} field defining the members of the set as a separated list of entry keys:
+
+静态条目集如同其它条目一样在 \file{bib} 文件中定义。
+定义这样的条目集只需添加一个类型为 \bibtype{set} 的条目。
+该条目有一个 \bibfield{entryset} 域，其中使用条目键值的逗号分隔列表定义了条目集的元素：
 
 \begin{lstlisting}[style=bibtex]{}
 <<@Set>>{<<set1>>,
@@ -5135,51 +5793,35 @@ An entry set is a group of entries which are cited as a single reference and lis
 }
 \end{lstlisting}
 %
-Entries may be part of a set in one document\slash refsection and stand-alone references in another one, depending on the presence of the \bibtype{set} entry. If the \bibtype{set} entry is cited, the set members are grouped automatically. If not, they will work like any regular entry.
+%Entries may be part of a set in one document\slash refsection and stand-alone references in another one, depending on the presence of the \bibtype{set} entry. If the \bibtype{set} entry is cited, the set members are grouped automatically. If not, they will work like any regular entry.
+条目可以是文档或参考文件分节中一个集合的一部分，或者是另外一个条目集中的孤立文献，这取决于 \bibtype{set} 条目。
+如果 \bibtype{set} 条目被引用，其中的成员自动分成一组。否则它们就像其它的常规条目一样。
 
-When using \bibtex as the backend, which has no native support for entry sets, setting up entry sets involves more work. \bibtex requires \bibfield{entryset} and \bibfield{crossref} fields to be used in a special way. The members of the set are given in the \bibfield{entryset} field of the \bibtype{set} entry. The \bibtype{set} entry also requires a \bibfield{crossref} field which points to the first key in the \bibfield{entryset} field. In addition to that, all members of the set require \bibfield{entryset} fields which are reverse pointers to the entry key of the \bibtype{set} head entry:
+\paragraph[动态条目集]{动态条目集} 
 
-\begin{lstlisting}[style=bibtex]{}
-@Set{set1,
-  <<entryset>> = {<<key1>>,key2,key3},
-  <<crossref>> = {<<key1>>},
-}
-@Article{key1,
-  <<entryset>> = {set1},
-  author   = {...},
-  title    = {...},
-  ...
-}
-@InCollection{key2,
-  <<entryset>> = {set1},
-  author   = {...},
-  title    = {...},
-  ...
-}
-@Article{key3,
-  <<entryset>> = {set1},
-  author   = {...},
-  title    = {...},
-  ...
-}
-\end{lstlisting}
-%
-Note that citing any set member will automatically load the entire set with \bibtex. If you want to refer to an item as part of a set in one document\slash refsection and as a stand-alone reference in another one, you need two distinct entries with \bibtex.
+%Dynamic entry sets are set up and work much like static ones. The main difference is that they are defined in the document preamble or on the fly in the document body using the \cmd{defbibentryset} command from \secref{use:bib:set}:
 
-\paragraph[Dynamic entry sets]{Dynamic entry sets\BiberOnlyMark}
-
-Dynamic entry sets are set up and work much like static ones. The main difference is that they are defined in the document preamble or on the fly in the document body using the \cmd{defbibentryset} command from \secref{use:bib:set}:
+动态条目集的设置和运行和静态条目集很相似。
+主要的区别是，它们是在导言区或者实时地在文档中使用 \secref{use:bib:set} 节的 \cmd{defbibentryset} 命令来定义的：
 
 \begin{lstlisting}[style=bibtex]{}
 \defbibentryset{set1}{key1,key2,key3}
 \end{lstlisting}
 %
-Dynamic entry sets in the document body are local to the enclosing \env{refsection} environment, if any. Otherwise, they are assigned to reference section~0. Those defined in the preamble are assigned to reference section~0. Note that dynamic entry sets require \biber. They will not work with any other backend.
+%Dynamic entry sets in the document body are local to the enclosing \env{refsection} environment, if any. Otherwise, they are assigned to reference section~0. Those defined in the preamble are assigned to reference section~0.
+正文中的动态条目集在其所在的 \env{refsection} 环境中是局部的（如果有的话）。
+否则它们被分配给第零文献分节。
+定义在导言区的动态条目集也被分在第零文献节。
 
-\subsubsection[数据容器 Data Containers]{数据容器 Data Containers\BiberOnlyMark}
+\subsubsection[数据容器]{数据容器}%\subsubsection[Data Containers]{Data Containers}
 \label{use:use:xdat}
 
-The \bibtype{xdata} entry type serves as a data container holding one or more fields. These fields may be inherited by other entries using the \bibfield{xdata} field. \bibtype{xdata} entries may not be cited or added to the bibliography, they only serve as a data source for other entries. This data inheritance mechanism is useful for fixed field combinations such as \bibfield{publisher}\slash \bibfield{location} and for other frequently used data:
+%The \bibtype{xdata} entry type serves as a data container holding one or more fields. These fields may be inherited by other entries using the \bibfield{xdata} field. \bibtype{xdata} entries may not be cited or added to the bibliography, they only serve as a data source for other entries. This data inheritance mechanism is useful for fixed field combinations such as \bibfield{publisher}\slash \bibfield{location} and for other frequently used data:
+
+作为数据容器，\bibtype{xdata} 条目类型可以包含一个或更多域。
+这些域可以被其它条目使用 \bibfield{xdata} 来继承。
+\bibtype{xdata} 条目可以不被引用或者打印在参考文献中，它们只为其它条目提供数据源。
+这种数据继承机制常用于 \bibfield{publisher}\slash \bibfield{location} 这样的固定域组合或者其它常用数据：
 
 \begin{lstlisting}[style=bibtex]{}
 <<@XData>>{<<hup>>,
@@ -5194,7 +5836,10 @@ The \bibtype{xdata} entry type serves as a data container holding one or more fi
 }
 \end{lstlisting}
 %
-Using a separated list of keys in its \bibfield{xdata} field, an entry may inherit data from several \bibtype{xdata} entries. Cascading \bibtype{xdata} entries are supported as well, \ie an \bibtype{xdata} entry may reference one or more other \bibtype{xdata} entries:
+%Using a separated list of keys in its \bibfield{xdata} field, an entry may inherit data from several \bibtype{xdata} entries. Cascading \bibtype{xdata} entries are supported as well, \ie an \bibtype{xdata} entry may reference one or more other \bibtype{xdata} entries:
+一个条目通过在 \bibfield{xdata} 域中使用分隔键列表，可以继承若干个 \bibtype{xdata} 条目的数据。
+\bibtype{xdata} 条目的串联也是支持的，
+即，一个 \bibtype{xdata} 条目可以涉及到一个或更多其它 \bibtype{xdata} 条目：
 
 \begin{lstlisting}[style=bibtex]{}
 @XData{macmillan:name,
@@ -5214,26 +5859,38 @@ Using a separated list of keys in its \bibfield{xdata} field, an entry may inher
 }
 \end{lstlisting}
 %
-See also \secref{bib:typ:blx,bib:fld:spc}.
+%See also \secref{bib:typ:blx,bib:fld:spc}.
+另见 \secref{bib:typ:blx,bib:fld:spc} 节。
 
-\subsubsection{电子出版信息 Electronic Publishing Information}
+\subsubsection{电子出版信息}%\subsubsection{Electronic Publishing Information}
 \label{use:use:epr}
 
-The \biblatex package provides three fields for electronic publishing information: \bibfield{eprint}, \bibfield{eprinttype}, and \bibfield{eprintclass}. The \bibfield{eprint} field is a verbatim field similar to \bibfield{doi} which holds the identifier of the item. The \bibfield{eprinttype} field holds the resource name, \ie the name of the site or electronic archive. The optional \bibfield{eprintclass} field is intended for additional information specific to the resource indicated by the \bibfield{eprinttype} field. This could be a section, a path, classification information, etc. If the \bibfield{eprinttype} field is available, the standard styles will use it as a literal label. In the following example, they would print «Resource: identifier» rather than the generic «eprint: identifier»:
+%The \biblatex package provides three fields for electronic publishing information: \bibfield{eprint}, \bibfield{eprinttype}, and \bibfield{eprintclass}. The \bibfield{eprint} field is a verbatim field similar to \bibfield{doi} which holds the identifier of the item. The \bibfield{eprinttype} field holds the resource name, \ie the name of the site or electronic archive. The optional \bibfield{eprintclass} field is intended for additional information specific to the resource indicated by the \bibfield{eprinttype} field. This could be a section, a path, classification information, etc. If the \bibfield{eprinttype} field is available, the standard styles will use it as a literal label. In the following example, they would print «Resource: identifier» rather than the generic «eprint: identifier»:
+
+\biblatex 宏包为电子出版信息提供了三种域：\bibfield{eprint}、\bibfield{eprinttype} 和 \bibfield{eprintclass}。
+\bibfield{eprint} 域类似于 \bibfield{doi}，是一种保持项目标识符的抄录模式域。
+\bibfield{eprinttype} 域保存资源名称，即网址或电子档案的名称。
+可选的 \bibfield{eprintclass} 域用于标明特定于 \bibfield{eprinttype} 域所指资源的额外信息。
+这可以是章节、路径、分类信息等。
+如果 \bibfield{eprinttype} 可用，标准样式会将其当做文本标签使用。
+在以下例子中，它们会打印“Resource: identifier”而不是一般的“eprint: identifier”：
 
 \begin{lstlisting}[style=bibtex]{}
 <<eprint>>     = {<<identifier>>},
 <<eprinttype>> = {<<Resource>>},
 \end{lstlisting}
 %
-The standard styles feature dedicated support for a few online archives. For arXiv references, put the identifier in the \bibfield{eprint} field and the string \texttt{arxiv} in the \bibfield{eprinttype} field:
+%The standard styles feature dedicated support for a few online archives. For arXiv references, put the identifier in the \bibfield{eprint} field and the string \texttt{arxiv} in the \bibfield{eprinttype} field:
+标准样式对一些在线资源提供了专门支持。
+对于 arXiv 文献，将标识符放在 \bibfield{eprint} 域中，将字符串 \texttt{arxiv} 放在 \bibfield{eprinttype} 域中：
 
 \begin{lstlisting}[style=bibtex]{}
 <<eprint>>     = {<<math/0307200v3>>},
 <<eprinttype>> = {<<arxiv>>},
 \end{lstlisting}
 %
-For papers which use the new identifier scheme (April 2007 and later) add the primary classification in the \bibfield{eprintclass} field:
+%For papers which use the new identifier scheme (April 2007 and later) add the primary classification in the \bibfield{eprintclass} field:
+对于使用新标识格式的文章（2007年四月之后），将主分类放在 \bibfield{eprintclass} 域中：
 
 \begin{lstlisting}[style=bibtex]{}
 eprint      = {1008.2849v1},
@@ -5241,66 +5898,104 @@ eprinttype  = {arxiv},
 <<eprintclass>> = {<<cs.DS>>},
 \end{lstlisting}
 %
-There are two aliases which ease the integration of arXiv entries. \bibfield{archiveprefix} is treated as an alias for \bibfield{eprinttype}; \bibfield{primaryclass} is an alias for \bibfield{eprintclass}. If hyperlinks are enabled, the eprint identifier will be transformed into a link to \nolinkurl{arxiv.org}. See the package option \opt{arxiv} in \secref{use:opt:pre:gen} for further details.
+%There are two aliases which ease the integration of arXiv entries. \bibfield{archiveprefix} is treated as an alias for \bibfield{eprinttype}; \bibfield{primaryclass} is an alias for \bibfield{eprintclass}. If hyperlinks are enabled, the eprint identifier will be transformed into a link to \nolinkurl{arxiv.org}. See the package option \opt{arxiv} in \secref{use:opt:pre:gen} for further details.
+为了方便 arXiv 条目的整合专门设置了两个别称。
+\bibfield{archiveprefix} 是 \bibfield{eprinttype} 的别称；
+而 \bibfield{primaryclass} 是 \bibfield{eprintclass} 的别称。
+如果启用超链接，\bibfield{eprint} 标识符将转换为指向 \nolinkurl{arxiv.org} 的链接。
+更多信息可参见 \secref{use:opt:pre:gen} 节中的宏包选项 \opt{arxiv}。
 
-For \acr{JSTOR} references, put the stable \acr{JSTOR} number in the \bibfield{eprint} field and the string \texttt{jstor} in the \bibfield{eprinttype} field:
+%For \acr{JSTOR} references, put the stable \acr{JSTOR} number in the \bibfield{eprint} field and the string \texttt{jstor} in the \bibfield{eprinttype} field:
+对于 \acr{JSTOR} 资源，将稳定的 \acr{JSTOR} 号放在 \bibfield{eprint} 域中，将字符串 \texttt{jstor} 放在 \bibfield{eprinttype} 域中：
 
 \begin{lstlisting}[style=bibtex]{}
 <<eprint>>     = {<<number>>},
 <<eprinttype>> = {<<jstor>>},
 \end{lstlisting}
 %
-When using \acr{JSTOR}'s export feature to export citations in \bibtex format, \acr{JSTOR} uses the \bibfield{url} field by default (where the \prm{number} is a unique and stable identifier):
+%When using \acr{JSTOR}'s export feature to export citations in \bibtex format, \acr{JSTOR} uses the \bibfield{url} field by default (where the \prm{number} is a unique and stable identifier):
+当使用 \acr{JSTOR} 的导出功能来导出 \BibTeX 格式引用时，
+\acr{JSTOR} 缺省使用 \bibfield{url} 域（当 \prm{number} 是唯一稳定标识符时）：
 
 \begin{lstlisting}[style=bibtex]{}
 url = {http://www.jstor.org/stable/<<number>>},
 \end{lstlisting}
 %
-While this will work as expected, full \acr{URL}s tend to clutter the bibliography. With the \bibfield{eprint} fields, the standard styles will use the more readable «\acr{JSTOR}: \prm{number}» format which also supports hyperlinks. The \prm{number} becomes a clickable link if \sty{hyperref} support is enabled.
+%While this will work as expected, full \acr{URL}s tend to clutter the bibliography. With the \bibfield{eprint} fields, the standard styles will use the more readable «\acr{JSTOR}: \prm{number}» format which also supports hyperlinks. The \prm{number} becomes a clickable link if \sty{hyperref} support is enabled.
+尽管这样可以运行，但整个的 \acr{URL} 会使参考文献变得杂乱无章。
+而使用 \bibfield{eprint} 域，标准样式会使用更加可读的“\acr{JSTOR}: \prm{number}” 格式而且同样支持超链接。
+当启用 \sty{hyperref} 支持时，\prm{number} 会变成可以点击的链接。
 
-For PubMed references, put the stable PubMed identifier in the \bibfield{eprint} field and the string \texttt{pubmed} in the \bibfield{eprinttype} field. This means that:
+%For PubMed references, put the stable PubMed identifier in the \bibfield{eprint} field and the string \texttt{pubmed} in the \bibfield{eprinttype} field. This means that:
+对于 PubMed 资源，将稳定的 PubMed 标识符放在 \bibfield{eprint} 域中，将字符串 \texttt{pubmed} 放在 \bibfield{eprinttype} 域中。
+也就是
 
 \begin{lstlisting}[style=bibtex]{}
 url = {http://www.ncbi.nlm.nih.gov/pubmed/<<pmid>>},
 \end{lstlisting}
 %
-becomes:
+%becomes:
+会变成：
 
 \begin{lstlisting}[style=bibtex]{}
 <<eprint>>     = {<<pmid>>},
 <<eprinttype>> = {<<pubmed>>},
 \end{lstlisting}
 %
-and the standard styles will print «\acr{PMID}: \prm{pmid}» instead of the lengthy \acr{URL}. If hyperref support is enabled, the \prm{pmid} will be a clickable link to PubMed.
+%and the standard styles will print «\acr{PMID}: \prm{pmid}» instead of the lengthy \acr{URL}. If hyperref support is enabled, the \prm{pmid} will be a clickable link to PubMed.
+并且标准样式会打印出“\acr{PMID}: \prm{pmid}” 来取代冗长的 \acr{URL}。
+如果启用 \sty{hyperref} 支持，\prm{pmid} 会变成指向 PubMed 的可点击的链接。
 
-For handles (\acr{HDL}s), put the handle in the \bibfield{eprint} field and the string \texttt{hdl} in the \bibfield{eprinttype} field:
+%For handles (\acr{HDL}s), put the handle in the \bibfield{eprint} field and the string \texttt{hdl} in the \bibfield{eprinttype} field:
+对于句柄系统\footnote{%
+参考 \url{http://www.handle.net/}——译注}
+（\acr{HDL}），将句柄放在 \bibfield{eprint} 域中，
+将字符串 \texttt{hdl} 放在 \bibfield{eprinttype} 域中：
 
 \begin{lstlisting}[style=bibtex]{}
 <<eprint>>     = {<<handle>>},
 <<eprinttype>> = {<<hdl>>},
 \end{lstlisting}
 %
-For Google Books references, put Google's identifier in the \bibfield{eprint} field and the string \texttt{googlebooks} in the \bibfield{eprinttype} field. This means that, for example:
+%For Google Books references, put Google's identifier in the \bibfield{eprint} field and the string \texttt{googlebooks} in the \bibfield{eprinttype} field. This means that, for example:
+对于 Google Books 资源，将Google标识符放在 \bibfield{eprint} 域中，
+将字符串 \texttt{googlebooks} 放在 \bibfield{eprinttype} 域中。
+如下例。
 
 \begin{lstlisting}[style=bibtex]{}
 url = {http://books.google.com/books?id=<<XXu4AkRVBBoC>>},
 \end{lstlisting}
 %
-would become:
+%would become:
+会变成：
 
 \begin{lstlisting}[style=bibtex]{}
 <<eprint>>     = {<<XXu4AkRVBBoC>>},
 <<eprinttype>> = {<<googlebooks>>},
 \end{lstlisting}
 %
-and the standard styles would print «Google Books: |XXu4AkRVBBoC|» instead of the full \acr{URL}. If hyperref support is enabled, the identifier will be a clickable link to Google Books.\footnote{Note that the Google Books \acr{id} seems to be a bit of an <internal> value. As of this writing, there does not seem to be any way to search for an \acr{id} on Google Books. You may prefer to use the \bibfield{url} in this case.}
+%and the standard styles would print «Google Books: |XXu4AkRVBBoC|» instead of the full \acr{URL}. If hyperref support is enabled, the identifier will be a clickable link to Google Books.\footnote{Note that the Google Books \acr{id} seems to be a bit of an <internal> value. As of this writing, there does not seem to be any way to search for an \acr{id} on Google Books. You may prefer to use the \bibfield{url} in this case.}
+并且标准样式会打印出“Google Books: |XXu4AkRVBBoC|”代替整个 \acr{URL}。
+如果启用了 \sty{hyperref} 支持，该标识符会变成指向 Google Books 的可点击的链接。\footnote{ %
+	请注意，Google Books \acr{id} 似乎是一个“内部”值。
+	从这份手册开始，似乎没有办法在Google Books 上搜索 \acr{id}。
+	此时也许最好使用 \bibfield{url} 域。%
+}
 
-Note that \bibfield{eprint} is a verbatim field. Always give the identifier in its unmodified form. For example, there is no need to replace |_| with |\_|. Also see \secref{aut:cav:epr} on how to add dedicated support for other eprint resources.
+%Note that \bibfield{eprint} is a verbatim field. Always give the identifier in its unmodified form. For example, there is no need to replace |_| with |\_|. Also see \secref{aut:cav:epr} on how to add dedicated support for other eprint resources.
 
-\subsubsection{外部摘要和注释 External Abstracts and Annotations}
+请注意 \bibfield{eprint} 是一个抄录模式域，故而总是以未修改的形式给出标识符。
+例如没有必要将 |_| 改成 |\_|。
+对于如何为其它电子出版资源增加细致的支持，也可以参考 \secref{aut:cav:epr} 节。
+
+\subsubsection{外部摘要和注释}%\subsubsection{External Abstracts and Annotations}
 \label{use:use:prf}
 
-Styles which print the fields \bibfield{abstract} and\slash or \bibfield{annotation} may support an alternative way of adding abstracts or annotations to the bibliography. Instead of including the text in the \file{bib} file, it may also be stored in an external \latex file. For example, instead of saying
+%Styles which print the fields \bibfield{abstract} and\slash or \bibfield{annotation} may support an alternative way of adding abstracts or annotations to the bibliography. Instead of including the text in the \file{bib} file, it may also be stored in an external \latex file. For example, instead of saying
+
+打印 \bibfield{abstract} 和/或  \bibfield{annotation} 域的样式可以支持另一种将摘要或注释添加到参考文献的方法。
+与将文本包含在 \file{bib} 文件中不同，它也可以保存在一个外部的 \LaTeX 文件中。
+例如，除了在 \file{bib} 文件中写入如下内容之外，
 
 \begin{ltxexample}[style=bibtex]
 @Article{key1,
@@ -5309,56 +6004,115 @@ Styles which print the fields \bibfield{abstract} and\slash or \bibfield{annotat
 }
 \end{ltxexample}
 %
-in the \file{bib} file, you may create a file named \path{bibabstract-key1.tex} and put the abstract in this file:
+%in the \file{bib} file, you may create a file named \path{bibabstract-key1.tex} and put the abstract in this file:
+你也可以创建一个名为 \path{bibabstract-key1.tex} 的文件并将摘要放在该文件中：
 
 \begin{ltxexample}
 This is an abstract of entry `key1'.
 \endinput
 \end{ltxexample}
 %
-The name of the external file must be the entry key prefixed with \texttt{bibabstract-} or \texttt{bibannotation-}, respectively. You can change these prefixes by redefining \cmd{bibabstractprefix} and \cmd{bibannotationprefix}. Note that this feature needs to be enabled explicitly by setting the package option \opt{loadfiles} from \secref{use:opt:pre:gen}. The option is disabled by default for performance reasons. Also note that any \bibfield{abstract} and \bibfield{annotation} fields in the \file{bib} file take precedence over the external files. Using external files is strongly recommended if you have long abstracts or a lot of annotations since this may increase memory requirements significantly. It is also more convenient to edit the text in a dedicated \latex file. Style authors should see \secref{aut:cav:prf} for further information.
+%The name of the external file must be the entry key prefixed with \texttt{bibabstract-} or \texttt{bibannotation-}, respectively. You can change these prefixes by redefining \cmd{bibabstractprefix} and \cmd{bibannotationprefix}. Note that this feature needs to be enabled explicitly by setting the package option \opt{loadfiles} from \secref{use:opt:pre:gen}. The option is disabled by default for performance reasons. Also note that any \bibfield{abstract} and \bibfield{annotation} fields in the \file{bib} file take precedence over the external files. Using external files is strongly recommended if you have long abstracts or a lot of annotations since this may increase memory requirements significantly. It is also more convenient to edit the text in a dedicated \latex file. Style authors should see \secref{aut:cav:prf} for further information.
+外部文件名必须是条目键分别加上前缀\texttt{bibabstract-} 或 \texttt{bibannotation-}。
+你可以通过重定义 \cmd{bibabstractprefix} 和 \cmd{bibannotationprefix} 来改变这些前缀。
+请注意，该特性需要通过显式地设置 \secref{use:opt:pre:gen} 中的宏包选项 \opt{loadfiles} 来启用。
+缺省情况下出于性能原因该选项是关闭的。
+同样要注意的是，\file{bib} 文件中的任何 \bibfield{abstract} 和 \bibfield{annotation} 域都优先于外部文件。
+如果你的摘要或注释很长（这会显著增加内存需求），那么强烈推荐使用外部文件。
+此外，在专门的 \LaTeX 文件中编辑文本也是很方便的。
+样式作者就更多信息应该参考 \secref{aut:cav:prf} 节。
 
-\subsection{提示与警告 Hints and Caveats}
+\subsection{提示和注意事项}%\subsection{Hints and Caveats}
 \label{use:cav}
 
-This section provides additional usage hints and addresses some common problems and potential misconceptions.
+%This section provides additional usage hints and addresses some common problems and potential misconceptions.
+本节提供了其它一些使用提示，并介绍了一些常见问题和可能的错误概念。
 
-\subsubsection{与\acr{KOMA}-Script类共用的方法 Usage with \acr{KOMA}-Script Classes}
+\subsubsection{与 \acr{KOMA}-Script 文档类共用}%\subsubsection{Usage with \acr{KOMA}-Script Classes}
 \label{use:cav:scr}
 
-When using \biblatex in conjunction with one of the \sty{scrbook}, \sty{scrreprt}, or \sty{scrartcl} classes, the headings \texttt{bibliography} and \texttt{biblist} from \secref{use:bib:hdg} are responsive to the bibliography"=related options of these classes.\footnote{This applies to the traditional syntax of these options (\opt{bibtotoc} and \opt{bibtotocnumbered}) as well as to the \keyval syntax introduced in \acr{KOMA}-Script 3.x, \ie to \kvopt{bibliography}{nottotoc}, \kvopt{bibliography}{totoc}, and \kvopt{bibliography}{totocnumbered}. The global \kvopt{toc}{bibliography} and \kvopt{toc}{bibliographynumbered} options as well as their aliases are detected as well. In any case, the options must be set globally in the optional argument to \cmd{documentclass}.} You can override the default headings by using the \opt{heading} option of \cmd{printbibliography}, \cmd{printbibheading} and \cmd{printbiblist}. See \secref{use:bib:bib, use:bib:biblist, use:bib:hdg} for details. All default headings are adapted at load-time such that they blend with the behavior of these classes. If one of the above classes is detected, \biblatex will also provide the following additional tests which may be useful in custom heading definitions:
+%When using \biblatex in conjunction with one of the \sty{scrbook}, \sty{scrreprt}, or \sty{scrartcl} classes, the headings \texttt{bibliography} and \texttt{biblist} from \secref{use:bib:hdg} are responsive to the bibliography"=related options of these classes.\footnote{This applies to the traditional syntax of these options (\opt{bibtotoc} and \opt{bibtotocnumbered}) as well as to the \keyval syntax introduced in \acr{KOMA}-Script 3.x, \ie to \kvopt{bibliography}{nottotoc}, \kvopt{bibliography}{totoc}, and \kvopt{bibliography}{totocnumbered}. The global \kvopt{toc}{bibliography} and \kvopt{toc}{bibliographynumbered} options as well as their aliases are detected as well. In any case, the options must be set globally in the optional argument to \cmd{documentclass}.} You can override the default headings by using the \opt{heading} option of \cmd{printbibliography}, \cmd{printbibheading} and \cmd{printbiblist}. See \secref{use:bib:bib, use:bib:biblist, use:bib:hdg} for details. All default headings are adapted at load-time such that they blend with the behavior of these classes. If one of the above classes is detected, \biblatex will also provide the following additional tests which may be useful in custom heading definitions:
+
+当在 \sty{scrbook}、\sty{scrreprt} 或 \sty{scrartcl} 文档类中使用 \biblatex 时，
+\secref{use:bib:hdg} 节中的标题 \texttt{bibliography} 和 \texttt{shorthands} 会与这些文档类的文献相关选项有关。\footnote{%
+	这既可以应用到传统的选项语法（\opt{bibtotoc} 和 \opt{bibtotocnumbered}），
+	也可以应用到 \acr{KOMA}-Script 3.x 引入的 \keyval 语法，
+	即 \kvopt{bibliography}{nottotoc}、\kvopt{bibliography}{totoc} 和 \kvopt{bibliography}{totocnumbered}。
+	全局的 \kvopt{toc}{bibliography} 和 \kvopt{toc}{bibliographynumbered} 以及它们的别称也会检测到。
+	在任何一种情况下，选项必须在 \cmd{documentclass} 的可选项中全局地设置。
+}
+可以通过使用 \cmd{printbibliography}、\cmd{printbibheading} 和 \cmd{printshorthands} 的 \opt{heading} 选项来覆盖缺省标题。
+详见 \secref{use:bib:bib, use:bib:los, use:bib:hdg} 节。
+所有的缺省标题都在导入时调整以使得与这些文档类相称。
+如果 \biblatex 探测到这些文档类中的某一个，它还会提供以下额外的测试，这对定制标题定义很有用：
 
 \begin{ltxsyntax}
 
 \cmditem{ifkomabibtotoc}{true}{false}
 
-Expands to \prm{true} if the class would add the bibliography to the table of contents, and to \prm{false} otherwise.
+%Expands to \prm{true} if the class would add the bibliography to the table of contents, and to \prm{false} otherwise.
+
+如果该文档类将参考文献加入目录中则展开为 \prm{true}，否则为 \prm{false}。
 
 \cmditem{ifkomabibtotocnumbered}{true}{false}
 
-Expands to \prm{true} if the class would add the bibliography to the table of contents as a numbered section, and to \prm{false} otherwise. If this test yields \prm{true}, \cmd{ifkomabibtotoc} will always yield \prm{true} as well, but not vice versa.
+%Expands to \prm{true} if the class would add the bibliography to the table of contents as a numbered section, and to \prm{false} otherwise. If this test yields \prm{true}, \cmd{ifkomabibtotoc} will always yield \prm{true} as well, but not vice versa.
+
+如果该文档类将参考文献加入目录作为带编号的一节，则展开为 \prm{true}，否则为 \prm{false}。
+如果该测试结果为 \prm{true}，那么 \cmd{ifkomabibtotoc} 也总是为 \prm{true}，但反过来不一定。
 
 \end{ltxsyntax}
 
-\subsubsection{与Memoir类共用的方法 Usage with the Memoir Class}
+\subsubsection{与Memoir文档类共用}%\subsubsection{Usage with the Memoir Class}
 \label{use:cav:mem}
 
-When using \biblatex with the \sty{memoir} class, most class facilities for adapting the bibliography have no effect. Use the corresponding facilities of this package instead (\secref{use:bib:bib, use:bib:hdg, use:bib:nts}). Instead of redefining \sty{memoir}'s \cmd{bibsection}, use the \opt{heading} option of \cmd{printbibliography} and \cmd{defbibheading} (\secref{use:bib:bib, use:bib:hdg}). Instead of \cmd{prebibhook} and \cmd{postbibhook}, use the \opt{prenote} and \opt{postnote} options of \cmd{printbibliography} and \cmd{defbibnote} (\secref{use:bib:bib, use:bib:nts}). All default headings are adapted at load-time such that they blend well with the default layout of this class. The default headings \texttt{bibliography} and \texttt{biblist} (\secref{use:bib:hdg}) are also responsive to \sty{memoir}'s \cmd{bibintoc} and \cmd{nobibintoc} switches. The length register \len{bibitemsep} is used by \biblatex in a way similar to \sty{memoir} (\secref{use:fmt:len}). This section also introduces some additional length registers which correspond to \sty{memoir}'s \cmd{biblistextra}. Lastly, \cmd{setbiblabel} does not map to a single facility of the \biblatex package since the style of all labels in the bibliography is controlled by the bibliography style. See \secref{aut:bbx:env} in the author section of this manual for details. If the \sty{memoir} class is detected, \biblatex will also provide the following additional test which may be useful in custom heading definitions:
+%When using \biblatex with the \sty{memoir} class, most class facilities for adapting the bibliography have no effect. Use the corresponding facilities of this package instead (\secref{use:bib:bib, use:bib:hdg, use:bib:nts}). Instead of redefining \sty{memoir}'s \cmd{bibsection}, use the \opt{heading} option of \cmd{printbibliography} and \cmd{defbibheading} (\secref{use:bib:bib, use:bib:hdg}). Instead of \cmd{prebibhook} and \cmd{postbibhook}, use the \opt{prenote} and \opt{postnote} options of \cmd{printbibliography} and \cmd{defbibnote} (\secref{use:bib:bib, use:bib:nts}). All default headings are adapted at load-time such that they blend well with the default layout of this class. The default headings \texttt{bibliography} and \texttt{biblist} (\secref{use:bib:hdg}) are also responsive to \sty{memoir}'s \cmd{bibintoc} and \cmd{nobibintoc} switches. The length register \len{bibitemsep} is used by \biblatex in a way similar to \sty{memoir} (\secref{use:fmt:len}). This section also introduces some additional length registers which correspond to \sty{memoir}'s \cmd{biblistextra}. Lastly, \cmd{setbiblabel} does not map to a single facility of the \biblatex package since the style of all labels in the bibliography is controlled by the bibliography style. See \secref{aut:bbx:env} in the author section of this manual for details. If the \sty{memoir} class is detected, \biblatex will also provide the following additional test which may be useful in custom heading definitions:
+
+当在 \sty{memoir} 文档类中使用 \biblatex 时，大部分调整参考文献的文档类工具都没有效果。
+相反，请使用本宏包的相应工具（\secref{use:bib:bib, use:bib:hdg, use:bib:nts} 节）。
+使用 \cmd{printbibliography} 和 \cmd{defbibheading}（\secref{use:bib:bib, use:bib:hdg} 节）的 \opt{heading} 选项，
+而不要重定义 \sty{memoir} 的 \cmd{bibsection}。
+使用 \cmd{printbibliography} 和 \cmd{defbibnote}（\secref{use:bib:bib, use:bib:nts} 节）的 \opt{prenote} 和 \opt{postnote} 来取代 \cmd{prebibhook} 和 \cmd{postbibhook}。
+所有缺省标题都在导入时调整以与该文档类的缺省布局相称。
+缺省的标题 \texttt{bibliography} 和 \texttt{shorthands} （\secref{use:bib:hdg} 节）也与 \sty{memoir} 的 \cmd{bibintoc} 和 \cmd{nobibintoc} 开关相对应。
+长度计数器 \len{bibitemsep} 在 \biblatex 中的使用方法与在 \sty{memoir} 类似（\secref{use:fmt:len} 节）。
+本节还解释额外一些对应于 \sty{memoir} 中 \cmd{biblistextra} 的长度计数器。
+最后，\cmd{setbiblabel} 并不能对应于 \biblatex 宏包的某一单独工具，因为参考文献中所有标签的样式由参考文献样式控制。
+详见本手册的 \secref{aut:bbx:env}。
+如果 \biblatex 探测到 \sty{memoir} 文档类的使用，它还会提供以下额外的测试，这对定制标题定义很有用：
 
 \begin{ltxsyntax}
 
 \cmditem{ifmemoirbibintoc}{true}{false}
 
-Expands to \prm{true} or \prm{false}, depending on \sty{memoir}'s \cmd{bibintoc} and \cmd{nobibintoc} switches. This is a \latex frontend to \sty{memoir}'s \cmd{ifnobibintoc} test. Note that the logic of the test is reversed.
+%Expands to \prm{true} or \prm{false}, depending on \sty{memoir}'s \cmd{bibintoc} and \cmd{nobibintoc} switches. This is a \latex frontend to \sty{memoir}'s \cmd{ifnobibintoc} test. Note that the logic of the test is reversed.
+
+取决于 \sty{memoir} 的 \cmd{bibintoc} 和 \cmd{nobibintoc} 开关，可以展开为 \prm{true} 或 \prm{false}。
+这是对应于 \sty{memoir} 的 \cmd{ifnobibintoc} 测试的 \LaTeX 前端。
+请注意该测试的逻辑可以反过来。
 
 \end{ltxsyntax}
 
-\subsubsection{标注中的页码 Page Numbers in Citations}
+\subsubsection{引用中的页码数}%\subsubsection{Page Numbers in Citations}
 \label{use:cav:pag}
 
-If the \prm{postnote} argument to a citation command is a page number or page range, \biblatex will automatically prefix it with <p.> or <pp.> by default. This works reliably in typical cases, but sometimes manual intervention may be required. In this case, it is important to understand how this argument is handled in detail. First, \biblatex checks if the postnote is an Arabic or Roman numeral (case insensitive). If this test succeeds, the postnote is considered as a single page or other number which will be prefixed with <p.> or some other string which depends on the \sty{pagination} field (see \secref{bib:use:pag}). If it fails, a second test is performed to find out if the postnote is a range or a list of Arabic or Roman numerals. If this test succeeds, the postnote will be prefixed with <pp.> or some other string in the plural form. If it fails as well, the postnote is printed as is. Note that both tests expand the \prm{postnote}. All commands used in this argument must therefore be robust or prefixed with \cmd{protect}. Here are a few examples of \prm{postnote} arguments which will be correctly recognized as a single number, a range of numbers, or a list of numbers, respectively:
+%If the \prm{postnote} argument to a citation command is a page number or page range, \biblatex will automatically prefix it with <p.> or <pp.> by default. This works reliably in typical cases, but sometimes manual intervention may be required. In this case, it is important to understand how this argument is handled in detail. First, \biblatex checks if the postnote is an Arabic or Roman numeral (case insensitive). If this test succeeds, the postnote is considered as a single page or other number which will be prefixed with <p.> or some other string which depends on the \sty{pagination} field (see \secref{bib:use:pag}). If it fails, a second test is performed to find out if the postnote is a range or a list of Arabic or Roman numerals. If this test succeeds, the postnote will be prefixed with <pp.> or some other string in the plural form. If it fails as well, the postnote is printed as is. Note that both tests expand the \prm{postnote}. All commands used in this argument must therefore be robust or prefixed with \cmd{protect}. Here are a few examples of \prm{postnote} arguments which will be correctly recognized as a single number, a range of numbers, or a list of numbers, respectively:
 
-\begin{lstlisting}[style=latex]{}
+如果一个引用命令的 \prm{postnote} 选项是页码数或页码范围，
+那么 \biblatex 会自动给其增加缺省前缀“p.”或“pp.”。
+在通常情况下这很可靠，但有时也需要手动调整。
+这时理解该选项怎样处理的细节就很重要。
+首先 \biblatex 检查后注是否是阿拉伯或罗马数字（大小写不敏感）。
+如果该测试成功，那么该后注会被认为是一个单独页码或者其它数字，
+这时会被加上前缀“p.”或其它取决于 \bibfield{pagination} 域（见 \secref{bib:use:pag} 节）的字符串。
+如果测试没有成功，那么会执行第二项测试来检测该后注是否是一个区间或者一列阿拉伯或罗马数字。
+如果该测试成功，那么该后注会被加上前缀“pp.”或其它复数形式的字符串。
+如果该测试也没有成功，该后注会依原样打印。
+请注意这两项测试都会展开 \prm{postnote}。
+因此所有在该选项中使用的命令都必须是鲁棒的或者用 \cmd{protect} 加以保护。
+这里分别是一些 \prm{postnote} 选项会被正确识别为单独数字、数字范围或者一列数字的一些例子：
+
+\begin{ltxexample}
 \cite[25]{key}
 \cite[vii]{key}
 \cite[XIV]{key}
@@ -5368,61 +6122,88 @@ If the \prm{postnote} argument to a citation command is a page number or page ra
 \cite[XI \& XV]{key}
 \cite[3, 5, 7]{key}
 \cite[vii--x; 5, 7]{key}
-\end{lstlisting}
+\end{ltxexample}
 %
-In some other cases, however, the tests may get it wrong and you need to resort to the auxiliary commands \cmd{pno}, \cmd{ppno}, and \cmd{nopp} from \secref{use:cit:msc}. For example, suppose a work is cited by a special pagination scheme consisting of numbers and letters. In this scheme, the string <|27a|> would mean <page~27, part~a>. Since this string does not look like a number or a range to \biblatex, you need to force the prefix for a single number manually:
+%In some other cases, however, the tests may get it wrong and you need to resort to the auxiliary commands \cmd{pno}, \cmd{ppno}, and \cmd{nopp} from \secref{use:cit:msc}. For example, suppose a work is cited by a special pagination scheme consisting of numbers and letters. In this scheme, the string <|27a|> would mean <page~27, part~a>. Since this string does not look like a number or a range to \biblatex, you need to force the prefix for a single number manually:
+然而在其它一些情况该测试会失败，
+此时需要考虑 \secref{use:cit:msc} 节的一些辅助命令 \cmd{pno}、\cmd{ppno} 和 \cmd{nopp}。
+例如，假设一部作品由一种包含数字和字母的特殊页码标记格式所引用。
+在这种格式中，字符串“|27a|”的意思是“page~27, part~a”。
+因为对于 \biblatex 来说该字符串并不像数字或者数字范围，因此你需要手动强制加上单独页码的前缀：
 
-\begin{lstlisting}[style=latex]{}
+\begin{ltxexample}
 \cite[\pno~27a]{key}
-\end{lstlisting}
+\end{ltxexample}
 %
-There is also a \cmd{ppno} command which forces a range prefix as well as a \cmd{nopp} command which suppresses all prefixes:
+%There is also a \cmd{ppno} command which forces a range prefix as well as a \cmd{nopp} command which suppresses all prefixes:
+同样地，\cmd{ppno} 命令会强制为范围前缀，而 \cmd{nopp} 命令会取消所有的前缀：
 
-\begin{lstlisting}[style=latex]{}
+\begin{ltxexample}
 \cite[\ppno~27a--28c]{key}
 \cite[\nopp 25]{key}
-\end{lstlisting}
+\end{ltxexample}
 %
-These commands may be used anywhere in the \prm{postnote} argument. They may also be used multiple times. For example, when citing by volume and page number, you may want to suppress the prefix at the beginning of the postnote and add it in the middle of the string:
+%These commands may be used anywhere in the \prm{postnote} argument. They may also be used multiple times. For example, when citing by volume and page number, you may want to suppress the prefix at the beginning of the postnote and add it in the middle of the string:
+这些命令可以用于 \prm{postnote} 选项的任何地方，也可以被多次使用。
+例如，当以卷数和页码数引用时，你或许希望在后注的开始取消前缀，而在字符串的中间加上：
 
-\begin{lstlisting}[style=latex]{}
+\begin{ltxexample}
 \cite[VII, \pno~5]{key}
 \cite[VII, \pno~3, \ppno~40--45]{key}
 \cite[see][\ppno~37--46, in particular \pno~40]{key}
-\end{lstlisting}
+\end{ltxexample}
 %
-There are also two auxiliary command for suffixes like <the following page(s)>. Instead of inserting such suffixes literally (which would require \cmd{ppno} to force a prefix):
+%There are also two auxiliary command for suffixes like <the following page(s)>. Instead of inserting such suffixes literally (which would require \cmd{ppno} to force a prefix):
+还有两个用于形如“the following page(s)”的后缀的辅助命令。
+使用辅助命令 \cmd{psq} 和 \cmd{psqq} 来代替用文本插入这样的后缀（这要求 \cmd{ppno} 来强加一个前缀）：
 
-\begin{lstlisting}[style=latex]{}
+\begin{ltxexample}
 \cite[\ppno~27~sq.]{key}
 \cite[\ppno~55~sqq.]{key}
-\end{lstlisting}
+\end{ltxexample}
 %
-use the auxiliary commands \cmd{psq} and \cmd{psqq}. Note that there is no space between the number and the command. This space will be inserted automatically and may be modified by redefining the macro \cmd{sqspace}.
+%use the auxiliary commands \cmd{psq} and \cmd{psqq}. Note that there is no space between the number and the command. This space will be inserted automatically and may be modified by redefining the macro \cmd{sqspace}.
+请注意数字和命令之前没有空格。该空格会自动插入并可以通过重定义 \cmd{sqspace} 宏来修改。
 
-\begin{lstlisting}[style=latex]{}
+\begin{ltxexample}
 \cite[27\psq]{key}
 \cite[55\psqq]{key}
-\end{lstlisting}
+\end{ltxexample}
 %
-Since the postnote is printed without any prefix if it includes any character which is not an Arabic or Roman numeral, you may also type the prefix manually:
+%Since the postnote is printed without any prefix if it includes any character which is not an Arabic or Roman numeral, you may also type the prefix manually:
+由于当后注包括任何非阿拉伯或罗马数字时将会以不带任何前缀的方式打印，
+也可以手动输入前缀：
 
-\begin{lstlisting}[style=latex]{}
+\begin{ltxexample}
 \cite[p.~5]{key}
-\end{lstlisting}
+\end{ltxexample}
 %
-It is possible to suppress the prefix on a per"=entry basis by setting the \bibfield{pagination} field of an entry to <\texttt{none}>, see \secref{bib:use:pag} for details. If you do not want any prefixes at all or prefer to type them manually, you can also disable the entire mechanism in the document preamble or the configuration file as follows:
+%It is possible to suppress the prefix on a per"=entry basis by setting the \bibfield{pagination} field of an entry to <\texttt{none}>, see \secref{bib:use:pag} for details. If you do not want any prefixes at all or prefer to type them manually, you can also disable the entire mechanism in the document preamble or the configuration file as follows:
+可以通过设置条目的 \bibfield{pagination} 域为 “\texttt{none}”来基于每一条目取消前缀，详见 \secref{bib:use:pag} 节。
+如果你不需要任何前缀或者更想要手动输入，也可以在导言区或者配置文件中整个地关闭该机制，如下所示：
 
-\begin{lstlisting}[style=latex]{}
+\begin{ltxexample}
 \DeclareFieldFormat{postnote}{#1}
-\end{lstlisting}
+\end{ltxexample}
 %
-The \prm{postnote} argument is handled as a field and the formatting of this field is controlled by a field formatting directive which may be freely redefined. The above definition will simply print the postnote as is. See \secref{aut:cbx:fld, aut:bib:fmt} in the author guide for further details.
+%The \prm{postnote} argument is handled as a field and the formatting of this field is controlled by a field formatting directive which may be freely redefined. The above definition will simply print the postnote as is. See \secref{aut:cbx:fld, aut:bib:fmt} in the author guide for further details.
+\prm{postnote} 选项会像条目域一样处理，该域的格式由域格式指令来控制，而该指令可以自由地重定义。
+以上的定义会简单地将后注依原样打印。
+更多细节可以参见作者指南部分的 \secref{aut:cbx:fld, aut:bib:fmt} 节。
 
-\subsubsection{姓名组成部分及其间距 Name Parts and Name Spacing}
+\subsubsection{姓名组成部分及其间距} %\subsubsection{Name Parts and Name Spacing}
 \label{use:cav:nam}
 
-The \biblatex package gives users and style authors very fine"=grained control of name spacing and the line"=breaking behavior of names, especially when they are using \biber as the backend. The commands discussed in the following are documented in \secref{use:fmt:fmt,aut:fmt:fmt}. This section is meant to give an overview of how they are put together. A note on terminology: a name \emph{part} is a basic part of the name, for example the first or the last name. Each part of a name may be a single name or it may be composed of multiple names. For example, the name part \enquote*{first name} may be composed of a first and a middle name. The latter are referred to as name \emph{elements} in this section. Let's consider a simple name first: \enquote{John Edward Doe}. This name is composed of the following parts:
+%The \biblatex package gives users and style authors very fine"=grained control of name spacing and the line"=breaking behavior of names. The commands discussed in the following are documented in \secref{use:fmt:fmt,aut:fmt:fmt}. This section is meant to give an overview of how they are put together. A note on terminology: a name \emph{part} is a basic part of the name, for example the given or the family name. Each part of a name may be a single name or it may be composed of multiple names. For example, the name part \enquote*{given name} may be composed of a given and a middle name. The latter are referred to as name \emph{elements} in this section. Let's consider a simple name first: \enquote{John Edward Doe}. This name is composed of the following parts:
+
+\biblatex 宏包可以使用户和样式作者对姓名空格和换行进行精细的控制。
+下面讨论的命令在本文档的 \secref{use:fmt:fmt,aut:fmt:fmt} 节。
+本节的目的在于大致介绍如何将这些命令结合起来。
+关于术语的注记：名\emph{部分}是姓名中的基本成分，例如first name 或last name。
+姓名的每一部分可以是单个的名或者包含多个名。
+例如，名部分 \enquote*{first name} 可以包含 first name 和 middle name。
+后者可以认为是本节所说的名\emph{元素}。
+我们首先考虑一个简单的名字 \enquote{John Edward Doe}，它包含了如下部分：
 
 \begin{nameparts}
 First	& John Edward \\
@@ -5431,31 +6212,49 @@ Last	& Doe \\
 Suffix	& --- \\
 \end{nameparts}
 %
-The spacing, punctuation and line"=breaking behavior of names is controlled by six macros:
+%The spacing, punctuation and line"=breaking behavior of names is controlled by six macros:
+姓名中的空格、标点和断行行为由六个宏所控制：
 
 \begin{namedelims}
-a & \cmd{bibnamedelima} & Inserted by the backend after the first element of every name part if that element is less than three characters long and before the last element of every name part. \\
-b & \cmd{bibnamedelimb} & Inserted by the backend between all elements of a name part where \cmd{bibnamedelima} does not apply. \\
-c & \cmd{bibnamedelimc} & Inserted by a formatting directive between the name prefix and the last name if \kvopt{useprefix}{true}. If \kvopt{useprefix}{false}, \cmd{bibnamedelimd} is used instead. \\
-d & \cmd{bibnamedelimd} & Inserted by a formatting directive between name parts where \cmd{bibnamedelimc} does not apply. \\
-i & \cmd{bibnamedelimi} & Replaces \cmd{bibnamedelima/b} after initials \\
-p & \cmd{revsdnamepunct} & Inserted by a formatting directive after the last name when the name parts are reversed.
+a & \cmd{bibnamedelima} & 
+%Inserted by the backend after the first element of every name part if that element is less than three characters long and before the last element of every name part. 
+由后端程序插入在每一名部分的第一个元素后（如果该元素少于三个字符长度），在每一名部分的最后元素之前。\\
+b & \cmd{bibnamedelimb} & 
+%Inserted by the backend between all elements of a name part where \cmd{bibnamedelima} does not apply. 
+由后端程序插入在名部分的元素之间且 \cmd{bibnamedelima} 没有使用之处。\\
+c & \cmd{bibnamedelimc} & 
+%Inserted by a formatting directive between the name prefix and the last name if \kvopt{useprefix}{true}. If \kvopt{useprefix}{false}, \cmd{bibnamedelimd} is used instead. 
+当 \kvopt{useprefix}{true} 时，由格式指令插入在 name prefix 和 last name 之间。
+如果 \kvopt{useprefix}{false}，将使用 \cmd{bibnamedelimd}。\\
+d & \cmd{bibnamedelimd} & 
+%Inserted by a formatting directive between name parts where \cmd{bibnamedelimc} does not apply. 
+由格式指令插入在名部分之间且 \cmd{bibnamedelimc} 没有使用之处。\\
+i & \cmd{bibnamedelimi} & 
+%Replaces \cmd{bibnamedelima/b} after initials 
+在首字符缩写之后代替 \cmd{bibnamedelima/b} 的命令。\\
+p & \cmd{revsdnamepunct} & 
+%Inserted by a formatting directive after the last name when the name parts are reversed.
+当名部分顺序反过来时，由格式指令插入在 last name 之后。
 \end{namedelims}
 %
-This is how the delimiters are employed:
+%This is how the delimiters are employed:
+以下展示了如何使用这些分隔符：
 
 \begin{namesample}
 \item John\delim{~}{a}Edward\delim{ }{d}Doe
 \item Doe\delim{,}{p}\delim{ }{d}John\delim{~}{a}Edward
 \end{namesample}
 %
-Initials in the \file{bib} file get a special delimiter:
+%Initials in the \file{bib} file get a special delimiter:
+\file{bib} 文件中的首字符缩写会有一个特别的分隔符：
 
 \begin{namesample}
 \item J.\delim{~}{i}Edward\delim{ }{d}Doe
 \end{namesample}
 %
-Let's consider a more complex name: \enquote{Charles-Jean Étienne Gustave Nicolas de La Vallée Poussin}. This name is composed of the following parts:
+%Let's consider a more complex name: \enquote{Charles-Jean Étienne Gustave Nicolas de La Vallée Poussin}. This name is composed of the following parts:
+考虑一个更复杂的名字：\enquote{Charles-Jean Étienne Gustave Nicolas de La Vallée Poussin}。
+它包含了如下几部分：
 
 \begin{nameparts}
 First	& Charles-Jean Étienne Gustave Nicolas \\
@@ -5464,7 +6263,8 @@ Last	& La Vallée Poussin \\
 Suffix	& --- \\
 \end{nameparts}
 %
-The delimiters:
+%The delimiters:
+分隔符为：
 
 \begin{namesample}
 \item Charles-Jean\delim{~}{b}Étienne\delim{~}{b}Gustave\delim{~}{a}Nicolas\delim{ }{d}%
@@ -5472,41 +6272,128 @@ The delimiters:
       La\delim{~}{a}Vallée\delim{~}{a}Poussin
 \end{namesample}
 %
-Note that \cmd{bibnamedelima/b/i} are inserted by the backend. The backend processes the name parts and takes care of the delimiters between the elements that make up a name part, processing each part individually. In contrast to that, the delimiters between the parts of the complete name (\cmd{bibnamedelimc/d}) are added by name formatting directives at a later point in the processing chain. The spacing and punctuation of initials is also handled by the backend and may be customized by redefining the following three macros:
+%Note that \cmd{bibnamedelima/b/i} are inserted by the backend. The backend processes the name parts and takes care of the delimiters between the elements that make up a name part, processing each part individually. In contrast to that, the delimiters between the parts of the complete name (\cmd{bibnamedelimc/d}) are added by name formatting directives at a later point in the processing chain. The spacing and punctuation of initials is also handled by the backend and may be customized by redefining the following three macros:
+请注意 \cmd{bibnamedelima/b/i} 由后端程序插入。
+后端程序处理名部分并考虑组成名部分的元素之间的分隔符，从而分别处理每一部分。
+与此相反，全名的名部分之间的分隔符（\cmd{bibnamedelimc/d}）由名称格式指令在处理过程的之后时间点添加。
+首字符缩写的空格和标点同样由后端程序处理，并且可以通过重定义以下三个宏来定制：
 
 \begin{namedelims}
-a & \cmd{bibinitperiod} & Inserted by the backend after initials.\\
-b & \cmd{bibinitdelim} & Inserted by the backend between multiple initials.\\
-c & \cmd{bibinithyphendelim} & Inserted by the backend between the initials of hyphenated name parts, replacing \cmd{bibinitperiod} and \cmd{bibinitdelim}.\\
+a & \cmd{bibinitperiod} & 
+%Inserted by the backend after initials.
+由后端程序插入在首字母缩写之后。\\
+b & \cmd{bibinitdelim} & 
+%Inserted by the backend between multiple initials.
+由后端程序插入在多个首字母缩写之间。\\
+c & \cmd{bibinithyphendelim} & 
+%Inserted by the backend between the initials of hyphenated name parts, replacing \cmd{bibinitperiod} and \cmd{bibinitdelim}.
+由后端程序插入在带有连字符的名部分中首字母缩写之间，用以代替 \cmd{bibinitperiod} 和 \cmd{bibinitdelim}。\\
 \end{namedelims}
 %
-This is how they are employed:
+%This is how they are employed:
+以下是使用方式：
 
 \begin{namesample}
 \item J\delim{.}{a}\delim{~}{b}E\delim{.}{a} Doe
 \item K\delim{.-}{c}H\delim{.}{a} Mustermann
 \end{namesample}
 
-\subsubsection{参考文献筛选器和标注标签 Bibliography Filters and Citation Labels}
+\subsubsection{文献 filter 和引用标签}%\subsubsection{Bibliography Filters and Citation Labels}
 \label{use:cav:lab}
 
-The citation labels generated by this package are assigned to the full list of references before it is split up by any bibliography filters. They are guaranteed to be unique across the entire document (or a \env{refsection} environment), no matter how many bibliography filters you are using. When using a numeric citation scheme, however, this will most likely lead to discontinuous numbering in split bibliographies. Use the \opt{defernumbers} package option to avoid this problem. If this option is enabled, numeric labels are assigned the first time an entry is printed in any bibliography.
+%The citation labels generated by this package are assigned to the full list of references before it is split up by any bibliography filters. They are guaranteed to be unique across the entire document (or a \env{refsection} environment), no matter how many bibliography filters you are using. When using a numeric citation scheme, however, this will most likely lead to discontinuous numbering in split bibliographies. Use the \opt{defernumbers} package option to avoid this problem. If this option is enabled, numeric labels are assigned the first time an entry is printed in any bibliography.
 
-\subsubsection{参考文献标题中的活动字符 Active Characters in Bibliography Headings}
+本宏包生成的引用标签在被文献filter分开之前就被分配给整个文献列表。
+因此能够确保在整个文档（或者一个 \env{refsection} 环境中）是唯一的，无论使用多少文献filter。
+然而，当使用数值型引用格式时，这很可能会导致在各个分片参考文献中的编号不是连续的。
+使用 \opt{defernumber} 宏包选项可以避免这一问题。
+如果启用该选项，数值标签会在任一文献条目中第一次打印时才被分配。
+
+\subsubsection{参考文献标题中的活动字符}%\subsubsection{Active Characters in Bibliography Headings}
 \label{use:cav:act}
 
-Packages using active characters, such as \sty{babel}, \sty{polyglossia}, \sty{csquotes}, or \sty{underscore}, usually do not make them active until the beginning of the document body to avoid interference with other packages. A typical example of such an active character is the Ascii quote |"|, which is used by various language modules of the \sty{babel}/\sty{polyglossia} packages. If shorthands such as |"<| and |"a| are used in the argument to \cmd{defbibheading} and the headings are defined in the document preamble, the non-active form of the characters is saved in the heading definition. When the heading is typeset, they do not function as a command but are simply printed literally. The most straightforward solution consists in moving \cmd{defbibheading} after |\begin{document}|. Alternatively, you may use \sty{babel}'s \cmd{shorthandon} and \cmd{shorthandoff} commands to temporarily make the shorthands active in the preamble. The above also applies to bibliography notes and the \cmd{defbibnote} command.
+%Packages using active characters, such as \sty{babel}, \sty{polyglossia}, \sty{csquotes}, or \sty{underscore}, usually do not make them active until the beginning of the document body to avoid interference with other packages. A typical example of such an active character is the Ascii quote |"|, which is used by various language modules of the \sty{babel}/\sty{polyglossia} packages. If shorthands such as |"<| and |"a| are used in the argument to \cmd{defbibheading} and the headings are defined in the document preamble, the non-active form of the characters is saved in the heading definition. When the heading is typeset, they do not function as a command but are simply printed literally. The most straightforward solution consists in moving \cmd{defbibheading} after |\begin{document}|. Alternatively, you may use \sty{babel}'s \cmd{shorthandon} and \cmd{shorthandoff} commands to temporarily make the shorthands active in the preamble. The above also applies to bibliography notes and the \cmd{defbibnote} command.
 
-\subsubsection{在参考文献分节和分部中的编组 Grouping in Reference Sections and Segments}
+\sty{babel}、\sty{polyglossia}、\sty{csquotes} 和 \sty{underscore} 等使用活动字符的宏包通常直到正文开始才将这些字符激活，这样可以避免与其它宏包的冲突。
+一个典型的活动字符例子是 Ascii 引号 |"|，
+它用于 \sty{babel}/\sty{polyglossia} 宏包的不同语言模块。
+如果在 \cmd{defbibheading} 的选项中使用 |"<| 和 |"a| 等速记方式，并且标题定义在导言区中，
+那么标题定义中保存的是字符的非激活形式。
+因此当标题打印出来时，它们不会像命令一样起作用而仅仅依照原文打印。
+最直接的解决方法是将 \cmd{defbibheading} 放在  |\begin{document}| 之后。
+此外，你也可以使用 \sty{babel} 的 \cmd{shorthandon} 和 \cmd{shorthandoff} 命令来临时在导言区中激活这些简记方式。
+这同样应用于文献注记和 \cmd{defbibnote} 命令。
+
+\subsubsection{参考文献分节和分段中的编组}%\subsubsection{Grouping in Reference Sections and Segments}
 \label{use:cav:grp}
 
-All \latex environments enclosed in \cmd{begin} and \cmd{end} form a group. This may have undesirable side effects if the environment contains anything that does not expect to be used within a group. This issue is not specific to \env{refsection} and \env{refsegment} environments, but it obviously applies to them as well. Since these environments will usually enclose much larger portions of the document than a typical \env{itemize} or similar environment, they are simply more likely to trigger problems related to grouping. If you observe any malfunctions after adding \env{refsection} environments to a document (for example, if anything seems to be <trapped> inside the environment), try the following syntax instead:
+%All \latex environments enclosed in \cmd{begin} and \cmd{end} form a group. This may have undesirable side effects if the environment contains anything that does not expect to be used within a group. This issue is not specific to \env{refsection} and \env{refsegment} environments, but it obviously applies to them as well. Since these environments will usually enclose much larger portions of the document than a typical \env{itemize} or similar environment, they are simply more likely to trigger problems related to grouping. If you observe any malfunctions after adding \env{refsection} environments to a document (for example, if anything seems to be <trapped> inside the environment), try the following syntax instead:
 
-\begin{lstlisting}[style=latex]{}
+所有在 \cmd{begin} 和 \cmd{end} 中的 \LaTeX 环境形成了一个分组。
+如果该环境包含一些没有在组内使用的东西，那么可能会引起一些不良反应。
+这个问题并不仅仅针对 \env{refsection} 和 \env{refsegment} 环境，但显然也包括它们。
+由于这些环境通常比典型的 \env{itemize} 或其它环境包含更多文本，因此它们自然更有可能引起涉及到分组的问题。
+如果你在添加 \env{refsection} 环境之后观察到任何不正常的现象（例如，如果环境内有任何“受限”情况），
+请尝试使用以下语句来代替：
+
+\begin{ltxexample}
 \chapter{...}
 <<\refsection>>
 ...
 <<\endrefsection>>
-\end{lstlisting}
+\end{ltxexample}
 %
-This will not from a group, but otherwise works as usual. As far as \biblatex is concerned, it does not matter which syntax you use. The alternative syntax is also supported by the \env{refsegment} environment. Note that the commands \cmd{newrefsection} and \cmd{newrefsegment} do not form a group. See \secref{use:bib:sec, use:bib:seg} for details.
+%This will not from a group, but otherwise works as usual. As far as \biblatex is concerned, it does not matter which syntax you use. The alternative syntax is also supported by the \env{refsegment} environment. Note that the commands \cmd{newrefsection} and \cmd{newrefsegment} do not form a group. See \secref{use:bib:sec, use:bib:seg} for details.
+这不会形成一个分组，但是像正常一样工作。
+就 \biblatex 而言，它并不影响你使用哪种语句。
+\env{refsegment} 环境也支持这种语句。
+请注意，命令 \cmd{newrefsection} 和 \cmd{newrefsegment} 不会形成分组。
+详见 \secref{use:bib:sec, use:bib:seg} 节。
+
+\subsection{使用备选的 \BibTeX 后端}%\subsection{Using the fallback \bibtex\ backend}
+\label{use:bibtex}
+
+%To utilise all of the features described here, \biblatex must be used with the
+%\biber program as a backend. Indeed, the documentation in general assumes this. However, for a \emph{limited} subset of use cases it is possible to use the
+%long-established \bibtex program (either the 7-bit \texttt{bibtex} or 
+%8-bit \texttt{bibtex8}) as the supporting backend. This works in much the
+%same way as for \biber with the only proviso being that \bibtex is much more
+%limited as a backend.
+
+\biblatex 必须使用 \biber 程序作为后端才能使用这里描述的所有特性。
+实际上，本文档正是默认这一假定。
+不过，如果只是使用\emph{受限制}的一部分功能，
+也可以使用历史悠久的 \BibTeX 程序
+（7-bit 的  \bin{bibtex} 或者 8-bit 的 \bin{bibtex8}）
+作为后端程序。
+
+%Using \bibtex as the backend requires that the option \opt{backend=bibtex} or \opt{backend=bibtex8} is given at load time. The \biblatex package will then write appropriate data for use by \bibtex into the auxiliary file(s) and a special data file (automatically included in those to be read by \bibtex).  The \bibtex(8) program should then be run on each auxiliary file: \biblatex will list all of the required files in the log.
+
+使用 \BibTeX 作为后端程序需要在载入时开启选项 \opt{backend=bibtex} 或 \opt{backend=bibtex8}.
+\biblatex 宏包随后会将合适的数据写入辅助文件以及特殊的数据文件中以供 \BibTeX 使用
+（自动包含那些被 \BibTeX 读取的文件）。
+然后 \bin{bibtex(8)} 程序应当运行在每一辅助文件上：
+\biblatex 会在日志文件中列出所有所需的文件。
+
+%Key limitations of the \bibtex backend are:
+\BibTeX 后端的主要局限有：
+\begin{itemize}
+\item %Sorting is global and is limited to Ascii ordering
+排序是全局的，而且只限于按照 Ascii 顺序。
+
+\item %No re-encoding is possible and thus database entries must be in LICR form to work reliably
+不可以重编码，因此数据库中的条目必须按照 \LaTeX 内部字符表示\footnote{
+\LaTeX{} Internal Character Representation, LICR——译注}的形式，才可以确保程序可靠。
+
+\item %The data model is fixed
+数据模型是固定的。
+
+\item %Cross-referencing is more limited and entry sets must be written into the \path{.bib} file
+交叉引用有限制，条目集必须写入 \path{.bib} 文件。
+\item %Fixed memory capacity (using the \verb|--wolfgang| option with \verb|bibtex8| is strongly recommended to minimize the likelihood of an issue here)
+内存容量有限。
+在 \verb|bibtex8| 中，强烈建议使用 \verb|--wolfgang| 选项以尽量减少这一问题的可能性。
+
+\end{itemize}
+
+\endinput
