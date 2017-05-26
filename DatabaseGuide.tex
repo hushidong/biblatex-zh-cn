@@ -7,7 +7,7 @@
 %This section describes the default data model defined in the \file{blx-dm.def} file which is part of \path{biblatex}. The data model is defined using the macros documented in \secref{aut:ctm:dm}. It is possible to redefine the data model which both \biblatex and \biber use so that datasources can contain new entrytypes and fields (which of course will need style support). The data model specification also allows for constraints to be defined so that data sources can be validated against the data model (using \biber's \opt{--validate-datamodel} option). Users who want to customise the data model need to look at the \file{blx-dm.def} file and to read \secref{aut:ctm:dm}.
 
 本节描述 \file{blx-dm.def} 中定义的默认数据模型。该文件是宏包的一部分。
-该数据模型的定义由\secref{aut:ctm:dm}节中的宏实现。
+该数据模型的定义由\secref{aut:ctm:dm} 节中的宏实现。
 因此，可以重新定义 \biblatex 和 \biber 所用的数据模型，
 使得数据源可以包括新的\gls{条目类型}和\gls{域}（当然这需要\gls{样式}文件支持）。
 数据模型规范还允许定义约束，使得数据源可以根据数据模型进行校验
@@ -28,17 +28,16 @@
 %The lists below indicate the fields supported by each entry type. Note that the mapping of fields to an entry type is ultimately at the discretion of the bibliography style. The lists below therefore serve two purposes. They indicate the fields supported by the standard styles which ship with this package and they also serve as a model for custom styles. Note that the <required> fields are not strictly required in all cases, see \secref{bib:use:key} for details. The fields marked as <optional> are optional in a technical sense. Bibliographical formatting rules usually require more than just the <required> fields. The default data model defined a few constraints for the format of date fields, ISBNs and some special fields like \bibfield{gender} but the constraints are only used if validating against the data model with \biber's \opt{--validate-datamodel} option. Generic fields like \bibfield{abstract} and \bibfield{annotation} or \bibfield{label} and \bibfield{shorthand} are not included in the lists below because they are independent of the entry type. The special fields discussed in \secref{bib:fld:spc}, which are also independent of the entry type, are not included in the lists either. See the default data model specification in the file \file{blx-dm.def} which comes with \biblatex for a complete specification.
 
 下面的列表说明了每种条目类型支持的域。
-注意，每种条目类型的域的使用是由参考文献样式决定的。
-因此，下面的列表有两个目的，一是说明有本包提供的标准样式支持的域，二是作为定制样式的模板。
+注意，每种条目类型对域的使用是由参考文献样式决定的。
+因此，下面的列表有两个目的，一是说明本宏包标准样式支持的域，二是作为定制样式的模板。
 注意，所谓“必选”域并不是在所有情况下都严格必不可少的，详见 \secref{bib:use:key} 节。
-而标记“可选”的域技术上是可选的。
-通常来说，文献格式规则往往不仅需要“必选”域。
+而标记“可选”的域技术上是可选的，
+不过通常来说，文献格式规则往往不仅需要“必选”域。
 默认的数据模型为一些数据域、ISBN 和 \bibfield{gender} 等特殊域定义了一些约束。
 但这些约束仅用于校验这些域是否合乎数据模型（通过 \biber 的 \path{--validate_datamodel} 选项）。
 通用域如 \bibfield{abstract}、\bibfield{annotation}、\bibfield{label} 和 \bibfield{shorthand} 并不在下面的列表中，因为它们独立于条目类型；
-\secref{bib:fld:spc}节讨论的特殊域同样也独立于条目类型，因此也不在下面的列表中。
+\secref{bib:fld:spc} 节讨论的特殊域同样也独立于条目类型，因此也不在下面的列表中。
 默认的支持类型见文件 \file{blx-dm.def}，内有 \biblatex 数据模型的完整规范。
-
 
 \begin{typelist}
 
@@ -108,7 +107,7 @@
 %A book"=like work without a formal publisher or sponsoring institution. Use the field \bibfield{howpublished} to supply publishing information in free format, if applicable. The field \bibfield{type} may be useful as well.
 
 类似于书籍，但没有正式的出版者或赞助机构。
-如果可以的话，使用\bibfield{howpublished}域可以提供自由格式的出版信息。
+如果可以的话，使用 \bibfield{howpublished} 域可以提供自由格式的出版信息。
 也可以用 \bibfield{type} 域。
 
 \reqitem{author/editor, title, year/date}
@@ -227,7 +226,7 @@
 
 %A single"=volume conference proceedings. This type is very similar to \bibtype{collection}. It supports an optional \bibfield{organization} field which holds the sponsoring institution. The \bibfield{editor} is omissible in terms of \secref{bib:use:key}.
 
-单卷本的会议记录。这一类型与 \bibtype{collection} 非常相似。
+单卷本的会议记录。与 \bibtype{collection} 非常相似。
 它支持可选的 \bibfield{organization} 域用于给出主办机构。
 根据 \secref{bib:use:key} 节，\bibfield{editor} 域可以省略。
 
@@ -454,8 +453,8 @@
 %This section gives an overview of the fields supported by the \biblatex default data model. See \secref{bib:fld:typ} for an introduction to the data types used by the data model specification and \secref{bib:fld:dat, bib:fld:spc} for the actual field listings.
 
 本节概述 \biblatex 默认数据模型支持的域。
-数据模型使用的数据类型的介绍请参考\secref{bib:fld:typ} 小节，
-实际的域列表见\secref{bib:fld:dat, bib:fld:spc} 小节。
+数据模型使用的数据类型见 \secref{bib:fld:typ} 节，
+实际的域列表见 \secref{bib:fld:dat, bib:fld:spc} 节。
 
 \subsubsection{数据类型}%\subsubsection{Data Types}
 \label{bib:fld:typ}
@@ -467,9 +466,10 @@
 在 \BibTeX 文件格式中，这种列表结构通过关键词 “|and|” 来分隔列表中的每一项。
 \biblatex 宏包实现了三种不同的数据类型来处理文献数据：
 姓名列表（name list）、文本列表（literal list）和域（field）。
-此外，列表和域中还有一些子类型，以及一个内容类型（content type）用于从语义上区分那些无法根据数据类型进行区分的域（见 \secref{aut:ctm:dm} 节）。
+此外，列表和域中还有一些子类型和一个内容类型（content type），
+用于从语义上区分那些无法根据数据类型进行区分的域（见 \secref{aut:ctm:dm} 节）。
 这一节大致概括了本宏包所支持的数据类型。
-关于 \BibTeX 文件格式域到 \biblatex 的数据类型的对应，请参考 \secref{bib:fld:dat, bib:fld:spc} 等节。
+关于 \BibTeX 文件格式域到 \biblatex 的数据类型的对应，请参考 \secref{bib:fld:dat, bib:fld:spc} 节。
 
 \begin{description}
 
@@ -501,7 +501,7 @@
 
 %The supported list of name parts is defined as a constant list in the default data model using the \cmd{DeclareDatamodelConstant} command (see \ref{aut:ctm:dm}). However, it is not enough to simply add to this list in order to add support for another name part as name parts typically have to be hard coded into bibliography drivers and the backend processing. See the example file \file{93-nameparts.tex} for details on how to define and use custom name parts. Also see \cmd{DeclareUniquenameTemplate} in \secref{aut:cav:amb} for information on how to customise name disambiguation using custom name parts.
 
-默认数据模型使用 \cmd{DeclareDatamodelConstant} 命令（见 \ref{aut:ctm:dm} 节）将支持的姓名成分定义成一个恒定列表。
+默认数据模型使用 \cmd{DeclareDatamodelConstant} 命令（见 \ref{aut:ctm:dm} 节）将支持的姓名成分定义成常值列表。
 然而，由于姓名成分通常需要硬编码到文献驱动程序和后端处理程序中，
 因此，如果想支持额外的姓名成分，将其简单地添加到姓名成分列表中是远远不够的。
 关于如何定义和使用定制姓名成分的细节，可以参考示例文件 \file{93-nameparts.tex}。
@@ -599,7 +599,7 @@
 %\item[Pattern fields] A literal field which must match a particular pattern. An example is the \bibfield{gender} field from \secref{bib:fld:spc}.
 
 \item[模式域（pattern field）] 是必须匹配某一特定模式的文本域。
-例子有 \secref{bib:fld:spc} 节的 \bibfield{gender} 域。
+例如 \secref{bib:fld:spc} 节的 \bibfield{gender} 域。
 
 %\item[Key fields] May hold printable data or localisation keys. A test is performed to determine whether the value of the field is a known localisation key (the localisation keys defined by default are listed in \secref{aut:lng:key}). If so, the localised string is printed. If not, the value is printed as is. A typical example is the \bibfield{type} field.
 
@@ -900,7 +900,7 @@
 
 在线出版物的电子标识符。
 它大致相当于 \acr{doi}，但针对于某个档案、资源库、服务或系统。
-参考 \secref{use:use:epr} 一节以及 \bibfield{eprinttype} 和 \bibfield{eprintclass} 域。
+参考 \secref{use:use:epr} 节以及 \bibfield{eprinttype} 和 \bibfield{eprintclass} 域。
 
 %\fielditem{eprintclass}{literal}
 
@@ -910,7 +910,7 @@
 
 由 \bibfield{eprinttype} 域指明的资源额外信息。
 它可以是档案的一部分、标识服务的路径、某个排序的分类等等。
-参考 \secref{use:use:epr} 一节以及 \bibfield{eprint} 和 \bibfield{eprinttype} 域。
+参考 \secref{use:use:epr} 节以及 \bibfield{eprint} 和 \bibfield{eprinttype} 域。
 
 %\fielditem{eprinttype}{literal}
 
@@ -919,7 +919,7 @@
 \fielditem{eprinttype}{文本}
 
 \bibfield{eprint} 标识符的类型，例如 \bibfield{eprint} 所指的档案、资源库、服务或系统的名称。
-参考 \secref{use:use:epr} 一节以及 \bibfield{eprint} 和 \bibfield{eprintclass} 域。
+参考 \secref{use:use:epr} 节以及 \bibfield{eprint} 和 \bibfield{eprintclass} 域。
 
 %\fielditem{eventdate}{date}
 
@@ -929,7 +929,7 @@
 
 会议、研讨会或其它在 \bibtype{proceedings} 和 \bibtype{inproceedings} 条目中事件的发生日期。
 该域还可以用于在 \secref{bib:typ:ctm} 一节所列的定制类型。
-参考 \bibfield{eventtitle} 和 \bibfield{venue} 域以及 \secref{bib:use:dat} 一节。
+参考 \bibfield{eventtitle} 和 \bibfield{venue} 域以及 \secref{bib:use:dat} 节。
 
 %\fielditem{eventtitle}{literal}
 
@@ -979,8 +979,8 @@
 \listitem{holder}{名称}
 
 \bibtype{patent} 的持有者（如果与 \bibfield{author} 不同的话）。
-注意，共同持有者需要各自放到额外的花括号里，参考 \secref{bib:use:inc} 一节。
-该域可以用于 \secref{bib:typ:ctm} 一节所列的定制类型中。
+注意，共同持有者需要各自放到额外的花括号里，参考 \secref{bib:use:inc} 节。
+该域可以用于 \secref{bib:typ:ctm} 节所列的定制类型中。
 
 %\fielditem{howpublished}{literal}
 
@@ -1009,7 +1009,7 @@
 大学或其它研究机构的名字，这取决于条目类型。
 传统的 \BibTeX 使用 \bibfield{school} 域来表示。
 本宏包也支持 \bibfield{school}，但只作为本域的别名。
-参考 \secref{bib:fld:als, bib:use:and}。
+另见 \secref{bib:fld:als, bib:use:and} 节。
 
 %\listitem{introduction}{name}
 
@@ -1074,7 +1074,7 @@
 由于 \bibfield{issue} 的位置与 \bibfield{month} 和 \bibfield{number} 类似，
 该域也可用于双重卷数或其它特殊场合\footnote{
 	例如增刊、特刊等。——译注}。
-参考 \bibfield{month} 和 \bibfield{number} 域以及 \secref{bib:use:iss} 一节。
+参考 \bibfield{month} 和 \bibfield{number} 域以及 \secref{bib:use:iss} 节。
 
 %\fielditem{issuesubtitle}{literal}
 
@@ -1127,7 +1127,7 @@
 那么该域就是替代常规标签而被引用样式所用的指定文本。
 例如，当|作者-年份|引用样式要生成条目的引用，但作者或年份缺失，
 那么它就会使用后备的 \bibfield{label}。
-详情请参考 \secref{bib:use:key} 节。
+详见 \secref{bib:use:key} 节。
 请注意，与 \bibfield{shorthand} 域相反，\bibfield{label} 只是作为后备而使用。
 同样参考 \bibfield{shorthand}。
 
@@ -1220,7 +1220,7 @@
 不可归类于其它域的杂项文献数据。
 \bibfield{note} 域可以用于记录自由格式的文献数据。
 典型的 \bibfield{note} 域包括一些出版信息，例如“Reprint of the edition London 1831”。
-参考 \bibfield{addendum}。
+参考 \bibfield{addendum} 域。
 
 %\fielditem{number}{integer}
 
@@ -1229,7 +1229,7 @@
 \fielditem{number}{整数}
 
 期刊的期数或者 \bibfield{series} 丛书中某本书的卷数\slash 期数。
-参考 \bibfield{issue} 以及 \secref{bib:use:ser, bib:use:iss}。
+参考 \bibfield{issue} 域以及 \secref{bib:use:ser, bib:use:iss} 节。
 在 \bibtype{patent} 条目中，这是专利或专利申请的号码或记录标识。
 应该是整数，但实际上不必是阿拉伯数字的形式，
 因为 \biber 为了排序会自动将罗马数字或者阿拉伯数码转成整数。
@@ -1341,7 +1341,7 @@
 \listitem{publisher}{文本}
 
 %The name(s) of the publisher(s). See also \secref{bib:use:and}.
-出版者的名字。参考 \secref{bib:use:and} 一节。
+出版者的名字。参考 \secref{bib:use:and} 节。
 
 %\fielditem{pubstate}{key}
 
@@ -1350,7 +1350,7 @@
 \fielditem{pubstate}{关键字}
 
 作品的出版状态，例如“in press”。
-已知的出版状态请参考 \secref{aut:lng:key:pst}  一节。
+已知的出版状态请参考 \secref{aut:lng:key:pst}  节。
 
 %\fielditem{reprinttitle}{literal}
 
@@ -1370,7 +1370,7 @@
 系列出版的丛书通常带有编号。
 其编号或者卷数由 \bibfield{number} 域给出。
 请注意，\bibtype{article} 条目类型也使用 \bibfield{series} 域，但是以一种特别的方式处理。
-参考 \secref{bib:use:ser} 一节。
+参考 \secref{bib:use:ser} 节。
 
 %\listitem{shortauthor}{name\LFMark}
 
@@ -1380,7 +1380,7 @@
 
 作者名的缩写形式。
 该域主要用于集体作者的缩写形式。
-参考 \secref{bib:use:inc} 一节。
+参考 \secref{bib:use:inc} 节。
 
 %\listitem{shorteditor}{name\LFMark}
 
@@ -1390,7 +1390,7 @@
 
 编辑名的缩写形式。
 该域主要用于集体编辑的缩写形式。
-参考 \secref{bib:use:inc} 一节。
+参考 \secref{bib:use:inc} 节。
 
 %\fielditem{shorthand}{literal\LFMark}
 
@@ -1493,7 +1493,7 @@
 在线出版物的 \acr{URL}。
 如果它不是 URL-转义的（没有“\%”字符），
 那么会根据 RFC 3987 \footnote{
-	参考\url{https://tools.ietf.org/html/rfc3987}——译注}
+	参考 \url{https://tools.ietf.org/html/rfc3987} ——译注}
 将其 URI-转义，也就是说，即使 Unicode 字符也会正确转义。
 
 %\fielditem{urldate}{date}
@@ -1777,7 +1777,7 @@ indexsorttitle = {LATEX Companion},
 而 \biblatex 宏包总是将其当作 \opt{american} 的别称。
 为了避免可能的混淆，最好使用语言标识符 \opt{american} 和 \opt{british}（\sty{babel}）或者语言选项来确定语言变种
 （\sty{polyglossia}，使用 \bibfield{langidopts} 域）。
-比较 \secref{bib:fld:dat} 一节中的 \bibfield{language} 域。
+比较 \secref{bib:fld:dat} 节中的 \bibfield{language} 域。
 
 %\fielditem{langidopts}{literal}
 
@@ -1822,7 +1822,7 @@ langidopts     = {variant=british},
 \fielditem{options}{分隔的 \keyval 选项}
 
 \keyval 形式的条目选项分隔值列表。
-该域用于设置每一条目的选项，详见 \secref{use:opt:bib} 一节。
+该域用于设置每一条目的选项，详见 \secref{use:opt:bib} 节。
 请注意，引用和文献样式会定义额外的条目选项。
 
 %\fielditem{presort}{string}
@@ -2566,8 +2566,8 @@ organization = {<<{American Society for Photogrammetry and Remote Sensing}>>
 因为显式的 \bibfield{year} 和 \bibfield{month} 域不能解析为日期的元信息标记，只能原样使用。
 样式作者需要注意，\bibfield{date} 或 \bibfield{origdate}  等日期域只在 \file{bib} 文件中有效。
 随着 \file{bib} 文件的处理，所有的日期都被解析并分为各个日期部件。
-通过\secref{aut:bbx:fld:dat} 节讨论的特殊域，日期和时间部件可以为样式所用。
-更多信息请参考该节和\pageref{aut:bbx:fld:tab1} 页的\tabref{aut:bbx:fld:tab1} 节。
+通过 \secref{aut:bbx:fld:dat} 节讨论的特殊域，日期和时间部件可以为样式所用。
+更多信息请参考该节和 \pageref{aut:bbx:fld:tab1} 页的\tabref{aut:bbx:fld:tab1}。
 
 %\acr{EDTF} dates are astronomical dates in which year <0> exists. When outputting dates in BCE or BC era (see the \opt{dateera} option below), note that they will typically be one year earlier since BCE/BC era do not have a year 0 (year 0 is 1 BCE/BC). This conversion is automatic. See examples in table \tabref{bib:use:tab2}.
 
@@ -2824,7 +2824,7 @@ pages		= {5--25},
 \bibfield{xref} 域与 \bibfield{crossref} 的不同之处在于子条目不会从父条目继承任何数据。
 如果一个父条目被若干子条目引用，那么它将被 \biblatex 自动添加到参考文献中。
 相关子条目数量的阈值由 \secref{use:opt:pre:gen} 节的 \opt{mincrossrefs} 宏包选项所控制。
-参考 \secref{bib:fld:spc} 一节。
+参考 \secref{bib:fld:spc} 节。
 
 \subsubsection{排序和编码问题}%\subsubsection{Sorting and Encoding Issues}
 \label{bib:cav:enc}

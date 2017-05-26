@@ -42,7 +42,7 @@
 提供的功能还包括：文献数据的Unicode支持、自定义排序、不同排序方式的多参考文献表、自定义标签和动态数据修改等。
 \biber/\biblatex 的版本兼容性见 \secref{int:pre:bibercompat} 节。
 该包可完全实现本地化，可与 \sty{babel} 和 \sty{polyglossia} 宏包配合使用。
-该包支持的语言详见表~\tabref{bib:fld:tab1}。
+该包支持的语言详见\tabref{bib:fld:tab1}。
 
 
 \subsection{许可}
@@ -153,6 +153,9 @@ Per Starbäck, Carl-Gustav Werner, Filip Åsblom (Swedish).
 
 \sty{babel} 和 \sty{polyglossia} 宏包提供了多语种排版的核心架构。
 如果你使用美式英语以外的语言写作，那么强烈推荐使用这两个宏包中的一个。
+\footnote{
+这里指的是 \sty{babel}/\sty{polyglossia} 支持的其它语言（如一些西方语种）。
+对于中文文档，出于兼容问题既不应当使用，也没有必要。——译注}
 你应当在 \biblatex 之前载入 \sty{babel} 或 \sty{polyglossia}，
 这样 \biblatex 宏包可以自动检测。
 
@@ -219,20 +222,21 @@ Per Starbäck, Carl-Gustav Werner, Filip Åsblom (Swedish).
 使用 \bibfield{langid} 域和宏包选项 \opt{autolang} 即可实现类似的功能。
 请注意，当载入 \sty{babel} 或 \sty{polyglossia} 宏包时 \biblatex 会自动调整主文档的语言。
 如果想要在文献中每个条目里切换语言，你只需要以上提到的特性。
-具体细节请参考 \secref{bib:fld:spc, use:opt:pre:gen} 以及 \secref{use:lng} 几节。
+详见 \secref{bib:fld:spc, use:opt:pre:gen} 节，另可见 \secref{use:lng} 节。
 
 \item[backref]
 %The \sty{backref} package creates back references in the bibliography. See the package options \opt{hyperref} and \opt{backref} in \secref{use:opt:pre:gen} for comparable functionality.
 \sty{backref} 宏包可以在参考文献中创建反向引用。
-类似的功能请参考 \secref{use:opt:pre:gen} 一节中的宏包选项 \opt{hyperref} 和 \opt{backref}。
+类似的功能请参考 \secref{use:opt:pre:gen} 节中的宏包选项 \opt{hyperref} 和 \opt{backref}。
 
 \item[bibtopic]
 %The \sty{bibtopic} package provides support for bibliographies subdivided by topic, type, or other criteria. For bibliographies subdivided by topic, see the category feature in \secref{use:bib:cat} and the corresponding filters in \secref{use:bib:bib}. Alternatively, you may use the \bibfield{keywords} field in conjunction with the \opt{keyword} and \opt{notkeyword} filters for comparable functionality, see \secref{bib:fld:spc, use:bib:bib} for details. For bibliographies subdivided by type, use the \opt{type} and \opt{nottype} filters. Also see \secref{use:use:div} for examples.
 \sty{bibtopic} 宏包支持根据主题、类型或者其它标准细分文献。
-对于按照主题细分文献，可以参考 \secref{use:bib:cat} 一节的类型特征以及 \secref{use:bib:bib} 一节中相应的。
-另外，你也可以使用 \bibfield{keywords} 域结合 \opt{keyword} 和 \opt{notkeyword} 过滤器来实现相应功能，细节请参考 \secref{bib:fld:spc, use:bib:bib}。
+对于按照主题细分文献，可以参考 \secref{use:bib:cat} 节的类型特征以及 \secref{use:bib:bib} 节中相应的过滤器。
+另外，也可以使用 \bibfield{keywords} 域结合 \opt{keyword} 和 \opt{notkeyword} 过滤器来实现相应功能，
+详见 \secref{bib:fld:spc, use:bib:bib} 节。
 对于按照类型细分文献，可以使用 \opt{type} 和 \opt{nottype} 过滤器。
-相关例子请参考 \secref{use:use:div}。
+相关例子请参考 \secref{use:use:div} 节。
 
 \item[bibunits]
 %The \sty{bibunits} package provides support for multiple partial (\eg per chapter) bibliographies. See \sty{chapterbib}.
@@ -250,7 +254,7 @@ Per Starbäck, Carl-Gustav Werner, Filip Åsblom (Swedish).
 %The \sty{cite} package automatically sorts numeric citations and can compress a list of consecutive numbers to a range. It also makes the punctuation used in citations configurable. For sorted and compressed numeric citations, see the \opt{sortcites} package option in \secref{use:opt:pre:gen} and the \texttt{numeric-comp} citation style in \secref{use:xbx:cbx}. For configurable punctuation, see \secref{use:fmt}.
 \sty{cite} 可以自动对引用编号进行排序，并且将连续的数字缩写为一个区间。
 它也可以配置引用中的标点符号。
-关于引用编号的排序和缩写，请参考 \secref{use:opt:pre:gen} 一节中的 \opt{sortcites} 宏包选项和 \secref{use:xbx:cbx} 一节中的 \texttt{numeric-comp} 引用样式。
+关于引用编号的排序和缩写，请参考 \secref{use:opt:pre:gen} 节中的 \opt{sortcites} 宏包选项和 \secref{use:xbx:cbx} 节中的 \texttt{numeric-comp} 引用样式。
 关于可配置的标点请参考 \secref{use:fmt}。
 
 \item[citeref]
@@ -260,12 +264,12 @@ Per Starbäck, Carl-Gustav Werner, Filip Åsblom (Swedish).
 \item[inlinebib]
 %The \sty{inlinebib} package is designed for traditional citations given in footnotes. For comparable functionality, see the verbose citation styles in \secref{use:xbx:cbx}.
 \sty{inlinebib} 宏包用于脚注文献这种传统引用样式。
-相应的功能请参考 \secref{use:xbx:cbx} 中详细的引用样式说明。
+相应的功能请参考 \secref{use:xbx:cbx} 节中关于详细引用样式的说明。
 
 \item[jurabib]
 %Originally designed for citations in law studies and (mostly German) judicial documents, the \sty{jurabib} package also provides features aimed at users in the humanities. In terms of the features provided, there are some similarities between \sty{jurabib} and \biblatex but the approaches taken by both packages are quite different. Since both \sty{jurabib} and \biblatex are full"=featured packages, the list of similarities and differences is too long to be discussed here.
-\sty{jurabib} 宏包原本用于法学和司法文件（主要是德文）中的引用，它也为人文学科中的使用者提供了一些特性。
-在提供这些特征方面，\sty{jurabib} 和 \biblatex 有一些类似之处，但是采用的手段是截然不同的。
+\sty{jurabib} 宏包原本用于法学和司法文件（主要是德文）中的引用，它也为人文学科的用户提供了一些特性。
+在提供这些特征方面，\sty{jurabib} 和 \biblatex 有一些类似之处，但是实现的手段是截然不同的。
 由于 \sty{jurabib} 和 \biblatex 都是那种功能齐备的宏包，鉴于篇幅这里不再赘述它们的异同之处。
 
 \item[mcite]
@@ -273,7 +277,7 @@ Per Starbäck, Carl-Gustav Werner, Filip Åsblom (Swedish).
 \sty{mcite} 提供了分组引用的支持，也就是说，不同条目可以指向同一处引用，并且在参考文献中作为同一条目列在一起。
 引用组依照被引用的条目定义，不过这只在未排序的参考文献中有效。
 \biblatex 宏包同样支持分组引用，在本手册中称之为 “条目集” 或 “参考文献集”。
-细节请参考 \secref{use:use:set,use:bib:set,use:cit:mct}。
+详见 \secref{use:use:set,use:bib:set,use:cit:mct} 节。
 
 \item[mciteplus]
 %A significantly enhanced reimplementation of the \sty{mcite} package which supports grouping in sorted bibliographies. See \sty{mcite}.
@@ -287,10 +291,10 @@ Per Starbäck, Carl-Gustav Werner, Filip Åsblom (Swedish).
 %The \sty{natbib} package supports numeric and author"=year citation schemes, incorporating sorting and compression code found in the \sty{cite} package. It also provides additional citation commands and several configuration options. See the \texttt{numeric} and \texttt{author-year} citation styles and their variants in \secref{use:xbx:cbx}, the \opt{sortcites} package option in \secref{use:opt:pre:gen}, the citation commands in \secref{use:cit}, and the facilities discussed in \secref{use:bib:hdg, use:bib:nts, use:fmt} for comparable functionality. Also see \secref{use:cit:nat}.
 \sty{natbib} 宏包支持编号和作者---年份引用格式，以及 \sty{cite} 宏包中的合并排序和压缩代码。
 它同样提供了一些额外的引用命令和几种设置选项。
-相应的功能请参考 \secref{use:xbx:cbx} 中的 \texttt{numeric} 和 \texttt{author-year} 引用样式及其变种，
-\secref{use:opt:pre:gen}中的 \opt{sortcites} 宏包选项，\secref{use:cit} 中的引用命令，
-以及 \secref{use:bib:hdg, use:bib:nts, use:fmt} 中讨论的工具。
-也可以参考 \secref{use:cit:nat}。
+相应的功能请参考 \secref{use:xbx:cbx} 节的 \texttt{numeric} 和 \texttt{author-year} 引用样式及其变种，
+\secref{use:opt:pre:gen} 节的 \opt{sortcites} 宏包选项，\secref{use:cit} 节的引用命令，
+以及 \secref{use:bib:hdg, use:bib:nts, use:fmt} 节讨论的工具。
+另见 \secref{use:cit:nat} 节。
 
 \item[splitbib]
 %The \sty{splitbib} package provides support for bibliographies subdivided by topic. See \sty{bibtopic}.
@@ -299,7 +303,8 @@ Per Starbäck, Carl-Gustav Werner, Filip Åsblom (Swedish).
 \item[titlesec]
 %The \sty{titlesec} package redefines user-level document division commands such as \cmd{chapter} or \cmd{section}. This approach is not compatible with internal command changes applied by the \sty{biblatex} \texttt{refsection} and \texttt{refsegment} option settings described in \secref{use:opt:pre:gen}.
 \sty{titlesec} 宏包重新定义了一些用户水平的文档划分命令，例如 \cmd{chapter} 或 \cmd{section}。
-这种方法与 \biblatex 的 \texttt{refsection} 和 \texttt{refsegment} 选项设置引起的内部命令改动不兼容，具体描述在 \secref{use:opt:pre:gen} 一节。
+这种方法与 \biblatex 的 \texttt{refsection} 和 \texttt{refsegment} 选项设置引起的内部命令改动不兼容，
+具体描述在 \secref{use:opt:pre:gen} 节。
 
 \item[ucs]
 %The \sty{ucs} package provides support for \utf encoded input. Either use \sty{inputenc}'s standard \file{utf8} module or a Unicode enabled engine such as \xetex or \luatex instead.
