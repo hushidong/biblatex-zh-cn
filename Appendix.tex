@@ -10,7 +10,7 @@
 %These are the driver default source mappings.
 
 \subsection{\opt{bibtex}}
-\opt{bibtex}驱动自然是应用最广，\biblatex/\biber 支持最成熟的数据格式。\secref{bib:typ:als}和\secref{bib:fld:als}节的别名通过这些默认数据源映射实现。
+\opt{bibtex}驱动当然是\biblatex/\biber 支持数据格式中最全面和成熟的。\secref{bib:typ:als}和\secref{bib:fld:als}节的别名通过下面这些默认数据源映射实现。
 %The \opt{bibtex} driver is of course the most comprehensive and mature of the \biblatex/\biber supported data formats. These source mapping defaults are how the aliases from sections \secref{bib:typ:als} and \secref{bib:fld:als} are implemented.
 
 \begin{ltxexample}
@@ -140,7 +140,7 @@ periodical &
 \end{longtable}
 \endgroup
 
-\section{默认的排序方式}
+\section{默认的排序格式}
 %\section{Default Sorting Schemes}
 \label{apx:srt}
 
@@ -261,13 +261,13 @@ ydnt &	presort\alt mm &
 \section{biblatex XML 数据源格式(\biblatexml)}%\biblatexml
 \label{apx:biblatexml}
 
-\biblatexml\ XML数据源格式是为\biblatex\ 用户设计的一个可扩展的现代数据源格式。\bibtex\ 格式\file{.bib}文件存在一些局限，特别是涉及到支持UTF-8和姓名格式问题时。\biber\ 通过使用采用修改的\texttt{btparse} C库以多种方式处理UTF-8方面的限制。但是\bibtex\ 的相当古老的姓名解析规则是根据简单的西方人姓名硬编码的。
+\biblatexml\ XML数据源格式是为\biblatex\ 用户设计的一个可扩展的现代数据源格式。\bibtex\ 格式\file{.bib}文件存在一些局限，特别是涉及到支持UTF-8和姓名格式问题时。\biber\ 通过采用修改的\texttt{btparse} C库等多种方式处理UTF-8方面的限制，但针对\bibtex\ 的相当古老的姓名解析规则是根据简单的西方人名硬编码的。
 %The \biblatexml\ XML datasource format is designed to be an extensible and modern data source format for \biblatex\ users. There are limitations with \bibtex\ format \file{.bib} files, in particular one might mention UTF-8 support and name formats. \biber\ goes some way to addressing the UTF-8 limitations by using a modified version of the \texttt{btparse} C library but the rather archaic name parsing rules for \bibtex\ are hard-coded and specific to simple Western names.
 
-\biblatexml 是为参考文献数据提供的一种XML格式。当\biber\ 读写\biblatexml\ 格式数据源时，它自动为数据源输出一个RelaXNG XML纲要，这一概要由活动的\biblatex\ 数据模型动态生成。\biblatexml\ 数据源因为可用的域依赖于数据模型所以不存在静态的纲要。\biblatexml\ 数据源格式具有相当高的自解析性---它常常仅需要从已有的\bibtex\ 格式数据源(为理解其格式，使用\biber 的 <tool> 模式)生成一个\biblatexml\ 数据源。\biber 也允许用户根据数据模型生成纲要验证\biblatexml\ 数据源。
+\biblatexml 是为参考文献数据提供的一种XML格式。当\biber\ 读写\biblatexml\ 格式数据源时，它自动为数据源输出一个RelaXNG XML纲要，这一概要由活动的\biblatex\ 数据模型动态生成。\biblatexml\ 数据源因为可用的域依赖于数据模型所以不存在静态的纲要。\biblatexml\ 数据源格式具有相当高的自解析性---要理解其格式，通常只需要从已有的\bibtex\ 格式数据源生成一个\biblatexml\ 数据源，然后分析其内容就可以做到。\biber 也允许用户根据数据模型生成纲要验证\biblatexml\ 数据源。
 %\biblatexml is an XML format for bibliographic data. When \biber\ either reads or writes \biblatexml\ format datasources, it automatically writes a RelaXNG XML schema for the datasources which is dynamically generated from the active \biblatex\ datamodel. There is no static schema for \biblatexml\ datasources because the allowable fields etc. depend on the data model. The format of \biblatexml\ datasources is relatively self-explanatory---it is usually only necessary to generate a \biblatexml\ datasource from existing \bibtex\ format datasources (using \biber's <tool> mode) in order to understand the format. \biber also allows users to validate \biblatexml\ datasources against the data model generated schema.
 
-因为\biblatexml\ 格式是 XML并且依赖于数据模型，且数据模型是用户可扩展的(见\secref{aut:ctm:dm})，\biblatexml\ 格式可以处理\bibtex\ 格式数据源无法处理的一些扩展内容比如新的姓名成分，子条目上的选项等。因为他是一种XML 格式，所以使用标准的XML处理库和工具转换成其他XML格式或HTML也相当简单。
+因为\biblatexml\ 格式是 XML并且依赖于数据模型，且数据模型是用户可扩展的(见\secref{aut:ctm:dm})，\biblatexml\ 格式可以处理\bibtex\ 格式数据源无法处理的一些扩展内容比如新的姓名成分，子条目上的选项等。因为它是一种XML 格式，所以使用标准的XML处理库和工具转换成其他XML格式或HTML也相当简单。
 %Since the \biblatexml\ format is XML and depends on the data model and the data model is extensible by the user (see \secref{aut:ctm:dm}), the \biblatexml\ format can deal with extensions that \bibtex\ format data sources cannot, e.g. new nameparts, options at sub-entry scope. Since it is an XML format, it is relatively easy to transform it into other XML formats or HTML using standard XML processing libraries and tools.
 
 下面用示例阐述该格式。习惯上，\biblatexml\ 文件扩展名为\file{.bltxml}，\file{kpsewhich}能识别这一格式。
@@ -281,7 +281,7 @@ ydnt &	presort\alt mm &
 <?xml version="1.0" encoding="UTF-8"?>
 \end{lstlisting}
 %
-纲要模型，类型和纲要类型空间为:
+纲要模型、类型和纲要类型空间为:
 %The schema model, type and schema type namespace are given in the following line:
 
 \begin{lstlisting}[language=xml]
@@ -312,7 +312,7 @@ ydnt &	presort\alt mm &
 </bltx:entries>
 \end{lstlisting}
 %
-正文是一个或多个\bibfield{entry}元素存在与顶层的\bibfield{entries}元素中，并且所有都处于\bibfield{bltx}命名空间内。一个条目具有一个\bibfield{id}属性对应于\bibtex\ 条目关键词，具有一个\bibfield{entrytype}属性对应于\bibtex\ 条目类型。例如:
+正文是一个或多个\bibfield{entry}元素存在于顶层的\bibfield{entries}元素中，并且所有都处于\bibfield{bltx}命名空间内。一个条目具有一个\bibfield{id}属性对应于\bibtex\ 条目关键词，具有一个\bibfield{entrytype}属性对应于\bibtex\ 条目类型。例如:
 %The body is one or more \bibfield{entry} elements inside the top-level \bibfield{entries} element and everything is in the \bibfield{bltx} namespace. An entry has an \bibfield{id} attribute corresponding to a \bibtex\ entry key and a \bibfield{entrytype} attribute corresponding to a \bibtex\ entrytype. For example, the \biblatexml\
 
 \begin{lstlisting}[language=xml]
@@ -357,7 +357,7 @@ ydnt &	presort\alt mm &
   </bltx:entry>
 \end{lstlisting}
 %
-这种简单映射下的一些例外需要注意。
+这种简单映射下的如下一些例外需要注意。
 %The following exceptions to this simple mapping are to be noted
 
 \subsubsection{关键词别名}%Key aliases
@@ -382,7 +382,7 @@ ydnt &	presort\alt mm &
 
 \subsubsection{姓名}%Names
 
-为了规范\biblatex 的姓名处理能力，\biblatexml\ 中的姓名配置更为复杂。用户需要更了解姓名成分，从而可以在更大范围上处理不同类型的姓名和姓名成分。\biblatexml\ 格式中的姓名类似于:
+为了规范\biblatex 的姓名处理能力，\biblatexml\ 中的姓名配置更为复杂。用户需要更了解姓名成分，从而可以在更大范围上处理不同类型的姓名和姓名成分。\biblatexml\ 格式中的一个姓名类似于:
 %Name specifications in \biblatexml\ are somewhat more complex in order to generalise the name handling abilities of \biblatex. The user has to be more explicit about the name parts and this allows a much great scope for the handling of different types of names and name parts. A name in \biblatexml\ format looks like this
 
 \begin{lstlisting}[language=xml]
@@ -420,11 +420,11 @@ ydnt &	presort\alt mm &
   %Each name is composed of name parts of a \bibfield{type} defined by the data model <nameparts> constant.
   \item 每个姓名成分可能具有可选的\bibfield{initial}属性，用于显式的指定姓名成分的首字母。如果不给出该选项，\biber\ 将尝试自动确定姓名成分的首字母。
   %Each name part may have an option \bibfield{initial} attribute which makes explicit the initial of the name part. If this is not present, \biber\ attempts to automatically determine the initial from the name part.
-  \item 姓名成分可以有姓名成分，所以可以处理混合姓名。\footnote{译者:不是很清楚，有没有例子？}
+  \item 姓名成分还可以包含下层姓名成分，所以可以处理混合姓名。
   %Name parts may have name parts so that compound names can be handled.
 \end{itemize}
 %
-不考虑\biblatexml 独有的功能，对应的\bibtex\ 的数据格式类似于:
+不考虑\biblatexml 独有的功能，该数据对应的\bibtex\ 的数据格式类似于:
 %Ignoring the \biblatexml-only features, a corresponding \bibtex\ format datasource would look like this:
 
 \begin{lstlisting}[style=bibtex]{}
@@ -464,7 +464,7 @@ ydnt &	presort\alt mm &
 %A range field is a list of ranges, each with its own \bibfield{item}. A range item has a \bibfield{start} element and an optional \bibfield{end} element, since ranges can be open-ended.
 
 \subsubsection{日期}%Dates
-数据源日期域(见\secref{bib:fld:typ})可以根据是否构成一个日期范围采用两种方式显示:
+数据源日期域(见\secref{bib:fld:typ})可以根据是否构成一个日期范围采用两种方式表示:
 %Datasource date fields (see \secref{bib:fld:typ}) can be represented in two ways, depending on whether they constitute a date range:
 
 \begin{lstlisting}[language=xml]
@@ -502,7 +502,7 @@ ydnt &	presort\alt mm &
 }
 \end{lstlisting}
 %
-如同\secref{aut:ctm:rel}，\bibfield{string}和\bibfield{options}和属性是可选的。
+如\secref{aut:ctm:rel}所述，\bibfield{string}和\bibfield{options}和属性是可选的。
 %As per \secref{aut:ctm:rel}, the \bibfield{string} and \bibfield{options} attributes are optional.
 
 \section{选项的作用范围}%Option Scope
@@ -648,21 +648,21 @@ use$<$name$>$	&\+&\+&\+&\+\\
 %\section{Revision History}
 \label{apx:log}
 
-更新历史是与宏包用户相关的一些更新列表。不影响用户接口或者宏包行为的更技术性的更新并未在列。更多的技术细节可以参考\file{CHANGES.org}文件。右侧的数字表示本手册中的相关的节号。
+更新历史是与宏包用户相关的一些更新列表。不影响用户接口或者宏包行为的更技术性的更新并未在列。更多的技术细节可以参考\file{CHANGES.org}文件。右侧的数字表示本手册中的相关节号。
 %This revision history is a list of changes relevant to users of this package. Changes of a more technical nature which do not affect the user interface or the behavior of the package are not included in the list. More technical details are to be found in the \file{CHANGES.org} file. The numbers on the right indicate the relevant section of this manual.
 
 \begin{changelog}
 
 \begin{release}{3.7}{2016-12-08}
-\item 修正了\cmd{bibdateeraprefix}的默认设置，\see{aut:fmt:lng}
+\item 修正了 \cmd{bibdateeraprefix}的默认设置，\see{aut:fmt:lng}
 %Corrected default for \cmd{bibdateeraprefix}\see{aut:fmt:lng}
-\item Added \cmd{DeclareSortInclusion}\see{aut:ctm:srt}
+\item 增加了 \cmd{DeclareSortInclusion}\see{aut:ctm:srt}
 %\cmd{DeclareSortInclusion}\see{aut:ctm:srt}
-\item Added \cmd{relateddelim$<$relatedtype$>$}\see{use:fmt:fmt}
+\item 增加了 \cmd{relateddelim$<$relatedtype$>$}\see{use:fmt:fmt}
 \end{release}
 
 \begin{release}{3.6}{2016-09-15}
-\item 修正了文档的一些内容，修复了labeldate本地化字符串先关的一个错误
+\item 修正了文档的一些内容，修复了labeldate本地化字符串相关的一个错误
 %Corrected some documentation and fixed a bug with labeldate localisation strings.
 \end{release}
 
@@ -679,7 +679,7 @@ use$<$name$>$	&\+&\+&\+&\+\\
 %Added \opt{suppress} option to inheritance specifications\see{aut:ctm:ref}
 \item 增加\cmd{ifuniquework}\see{aut:aux:tst}
 %Added \cmd{ifuniquework}\see{aut:aux:tst}
-\item 修改\cmd{DeclareStyleSourcemap}，用于多个时间\see{aut:ctm:map}
+\item 修改\cmd{DeclareStyleSourcemap}可多次使用\see{aut:ctm:map}
 %Changed \cmd{DeclareStyleSourcemap} so that it can be used multiple times\see{aut:ctm:map}
 \item 增加\cmd{forcezerosy} 和 \cmd{forcezerosmdt}\see{aut:fmt:ich}
 %Added \cmd{forcezerosy} and \cmd{forcezerosmdt}\see{aut:fmt:ich}
@@ -695,7 +695,7 @@ use$<$name$>$	&\+&\+&\+&\+\\
 %Added \cmd{DeclareLabelalphaNameTemplate}\see{aut:ctm:lab}
 \item 增加完整的\acr{EDTF}的0层次和1层次的规则用于解析和打印时间\see{bib:use:dat}
 %Added full \acr{EDTF} Levels 0 and 1 compliance for parsing and printing times\see{bib:use:dat}
-\item 修改日期完全符合\acr{EDTF}0层次和1层次的相关判断和本地化字符串\footnote{译注:句子有点疑惑?}\see{bib:use:dat}
+\item 修改日期完全符合\acr{EDTF}0层次和1层次规则，相关判断和本地化字符串\see{bib:use:dat}
 %Changed dates to be fully \acr{EDTF} Levels 0 and 1 compliant. Associated tests and localisation strings\see{bib:use:dat}
 \item 增加\opt{timezeros}\see{use:opt:pre:gen}
 %Added \opt{timezeros}\see{use:opt:pre:gen}
@@ -707,7 +707,7 @@ use$<$name$>$	&\+&\+&\+&\+\\
 %Added \cmd{DeclareUniquenameTemplate}\see{aut:cav:amb}
 \item 移除尝试RIS支持的内容
 %Removed experimental RIS support
-\item 在\bibtex 数据源中\opt{sortnamekeyscheme} 和 \opt{useprefix}现在可以根据具体姓名列表和具体姓名设置。
+\item 在\bibtex 数据源中，可以对具体姓名列表和具体姓名设置\opt{sortnamekeyscheme} 和 \opt{useprefix}。
 %\opt{sortnamekeyscheme} and \opt{useprefix} can be now be set per-namelist and per-name for \bibtex datasources\see{aut:ctm:srt}
 \item 增加\cmd{DeclareDelimcontextAlias}\see{use:fmt:csd}
 %Added \cmd{DeclareDelimcontextAlias}\see{use:fmt:csd}
@@ -740,7 +740,7 @@ use$<$name$>$	&\+&\+&\+&\+\\
 %Added \cmd{namelabeldelim}\see{use:fmt:fmt}
 \item 为\cmd{assignrefcontext*}宏增加带星号的版本\see{use:bib:context}
 %New starred variants of the \cmd{assignrefcontext*} macros\see{use:bib:context}
-\item 文本敏感的新分隔符接口\footnote{译注:context-sensitive？}\see{use:fmt:csd}
+\item 新的上下文敏感的分隔符接口\see{use:fmt:csd}
 %New context-sensitive delimiter interface\see{use:fmt:csd}
 \item 将\opt{prefixnumbers}选项移到\cmd{newrefcontext}并重命名为\opt{labelprefix}\see{use:bib:context}
 %Moved \opt{prefixnumbers} option to \cmd{newrefcontext} and renamed to \opt{labelprefix}\see{use:bib:context}
@@ -749,7 +749,7 @@ use$<$name$>$	&\+&\+&\+&\+\\
 \end{release}
 
 \begin{release}{3.3}{2016-03-01}
-\item 增加参考文献环境的自动分配的新宏\footnote{译注:refcontext？}\see{use:bib:context}
+\item 增加\gls{参考文献环境}自动分配的新宏\see{use:bib:context}
 %New macros for auto-assignment of refcontexts\see{use:bib:context}
 \item 增加了\biblatexml 格式的说明\see{apx:biblatexml}
 %Schema documentation for \biblatexml\see{apx:biblatexml}
@@ -798,13 +798,13 @@ use$<$name$>$	&\+&\+&\+&\+\\
 %\bibfield{labelname} and \bibfield{labeltitle} are now resolved by \biblatex instead of \biber for more flexibility and future extensibility
 \item 增加\cmd{entryclone}映射动作用于在数据源映射过程中复制条目\see{aut:ctm:map}
 %New \cmd{entryclone} sourcemap verb for cloning entries during sourcemapping\see{aut:ctm:map}
-\item 增加\cmd{pernottype}否定的具体条目相关的数据源映射动作\see{aut:ctm:map}
+\item 增加\cmd{pernottype}实现的排除具体条目类型的数据源映射\see{aut:ctm:map}
 %New \cmd{pernottype} negated per-type sourcemap verb\see{aut:ctm:map}
 \item 增加范围计算命令\cmd{frangelen}\see{aut:aux:msc}
 %New range calculation command \cmd{frangelen}\see{aut:aux:msc}
 \item 增加参考文献环境功能\see{use:bib:context}
 %New bibliography context functionality\see{use:bib:context}
-\item 数据模型中的姓名列表自动为创建\cmd{ifuse$<$name$>$}内部判断和布尔值\see{use:opt:bib:hyb} and \see{aut:aux:tst}
+\item 数据模型中的姓名列表自动创建\cmd{ifuse$<$name$>$}判断和布尔值\see{use:opt:bib:hyb} and \see{aut:aux:tst}
 %Name lists in the data model now automatically create internals for \cmd{ifuse$<$name$>$} tests and booleans\see{use:opt:bib:hyb} and \see{aut:aux:tst}
 \end{release}
 
