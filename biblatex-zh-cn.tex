@@ -29,7 +29,7 @@
 \setmonofont[Scale=MatchLowercase, Ligatures=TeX]{DejaVu Sans Mono}
 \setmainfont[Ligatures=TeX]{Linux Libertine O}
 \setsansfont[Ligatures=TeX]{Linux Biolinum O}
-\usepackage[american]{babel}%增加回来，因为一些表述需要用到比如low"=level等
+%\usepackage[american]{babel}%增加回来，因为一些表述需要用到比如low"=level等
 \usepackage[strict]{csquotes}
 \usepackage{tabularx}
 \usepackage{longtable}
@@ -204,8 +204,6 @@
 \tableofcontents
 \listoftables
 
-\printglossary[type=trans,style=longragged3colborder,nopostdot=true,nogroupskip]%long3colborder
-
 \input{Introduction}
 
 \input{DatabaseGuide}
@@ -216,6 +214,8 @@
 
 \input{Appendix}
 
+
+\printglossary[type=trans,style=longragged3colborder,nopostdot=true,nogroupskip]%long3colborder
 
 
 \end{document}
