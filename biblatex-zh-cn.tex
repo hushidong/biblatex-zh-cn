@@ -199,12 +199,10 @@
 }
 	%\end{quote}
 \end{trivlist}
-%\renewcommand{\contentsname}{目录}
-%\renewcommand{\listtablename}{表格}
+\renewcommand{\contentsname}{目录}
+\renewcommand{\listtablename}{表格}
 \tableofcontents
 \listoftables
-
-%\printglossary[type=trans,style=longragged3colborder,nopostdot=true,nogroupskip]%long3colborder
 
 \input{Introduction}
 
@@ -215,6 +213,10 @@
 \input{AuthorGuide}
 
 \input{Appendix}
+
+
+\printglossary[type=trans,style=longragged3colborder,nopostdot=true,nogroupskip]%long3colborder
+
 
 \end{document}
 %%% Local Variables:
