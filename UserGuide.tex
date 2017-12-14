@@ -7,9 +7,9 @@
 %This part of the manual documents the user interface of the \biblatex package. The user guide covers everything you need to know in order to use \biblatex with the default styles that come with this package. You should read the user guide first in any case. If you want to write your own citation and\slash or bibliography styles, continue with the author guide afterwards.
 
 本部分介绍了 \biblatex 宏包的用户接口。
-该使用指南涵盖了要使用 \biblatex 自带的标准样式所需的所有信息。
-无论怎样都应该首先阅读该使用指南。
-如果你想编写你自己的引用和文献样式，请继续阅读随后的作者指南。
+该使用指南涵盖了要使用 \biblatex 自带标准样式所需的所有信息。
+所以无论怎样都应该首先阅读该使用指南。
+如果你进一步想编写你自己的引用和文献样式，请继续阅读随后的作者指南。
 
 \subsection{宏包选项}
 %Package Options
@@ -193,7 +193,7 @@
 %A threshold affecting all lists of names (\bibfield{author}, \bibfield{editor}, etc.). If a list exceeds this threshold, \ie if it holds more than \prm{integer} names, it is automatically truncated according to the setting of the \opt{minnames} option. \opt{maxnames} is the master option which sets both \opt{maxbibnames} and \opt{maxcitenames}.
 
 影响所有名称列表（\bibfield{author}、\bibfield{editor} 等）的阈值。
-如果某个列表超过了该阈值，即，它包括的姓名数量超过 \prm{integer}，
+如果某个列表长度超过了该阈值，即，它包括的姓名数量超过 \prm{integer}，
 那么就会根据 \opt{minnames} 选项的设置进行自动截断。
 \opt{maxnames} 是设置 \opt{maxbibnames} 和 \opt{maxcitenames} 的主选项。
 
@@ -202,7 +202,7 @@
 %A limit affecting all lists of names (\bibfield{author}, \bibfield{editor}, etc.). If a list holds more than \prm{maxnames} names, it is automatically truncated to \prm{minnames} names. The \prm{minnames} value must be smaller than or equal to \prm{maxnames}. \opt{minnames} is the master option which sets both \opt{minbibnames} and \opt{mincitenames}.
 
 影响所有名称列表（\bibfield{author}、\bibfield{editor} 等）的限制值。
-如果某个列表包含的姓名数量超过 \prm{integer}，
+如果某个列表包含的姓名数量超过 \prm{maxnames}，
 那么就会根据 \opt{minnames} 选项的设置自动截断。
 \prm{minnames} 的值必须小于或等于 \prm{maxnames}。
 \opt{minnames} 是设置 \opt{minbibnames} 和 \opt{mincitenames} 的主选项。
@@ -759,9 +759,9 @@ January 21--30, 2010\par
 %
 %As seen in the above examples, the actual time format is language specific. Note that the AM/PM string is responsive to the \opt{abbreviate} package option, if this makes a difference in the specific locale. The leading zeros in the 24-hour formats may be controlled separately with the \opt{timezeros} package option. The separator between time components (\cmd{bibtimesep} and \cmd{bibtzminsep})and between the time and any timezone (\cmd{bibtimezonesep}) are also language specific and customisable, see \secref{use:fmt:lng}. There are global package options which determine whether seconds and timezones are printed (\opt{seconds} and \opt{timezones}, respectively, see \secref{use:opt:pre:gen}). Timezones, if present, are either <Z> or a numeric positive or negative offset. No default styles print time information. Custom styles may print times by using the \cmd{print<datetype>time} commands, see \secref{aut:bib:dat}.
 从以上例子可以看出，实际的时刻格式是与语言相关的。
-请注意，如果与指定的区域不同，那么上下午（AM/PM）字符串对应与 \opt{abbreviate} 宏包选项。
+请注意，如果与指定的区域不同，那么上下午（AM/PM）字符串对应于 \opt{abbreviate} 宏包选项。
 24小时格式首位补零的话可以单独用 \opt{timezeros} 宏包选项控制。
-此外与语言相关并可以单独定制的还有时刻成分之间的分隔符\cmd{bibtimesep}、\cmd{bibtzminsep}，
+此外与语言相关并可以单独定制的还有时刻成分之间的分隔符 \cmd{bibtimesep}、\cmd{bibtzminsep}，
 以及时刻与时区之间的分隔符 \cmd{bibtimezonesep}，见 \secref{use:fmt:lng} 节。
 还有一些全局的宏包选项可以控制是否打印秒和时区
 （分别是 \opt{seconds} 和 \opt{timezones}，见 \secref{use:opt:pre:gen} 节）。
@@ -772,7 +772,7 @@ January 21--30, 2010\par
 \optitem[24h]{labeltime}{\opt{12h}, \opt{24h}, \opt{24hcomp}}
 
 %Similar to the \opt{time} option but controls the format of the time part fields obtained from the field selected with \cmd{DeclareLabeldate}.
-类似于 \opt{time} 选项但是控制由 \cmd{DeclareLabeldate} 选择的域中得到的时刻部分的格式。
+类似于 \opt{time} 选项但是控制由 \cmd{DeclareLabeldate} 选择的域中得到的时刻部分格式。
 
 \optitem[24h]{\prm{datetype}time}{\opt{12h}, \opt{24h}, \opt{24hcomp}}
 
@@ -820,7 +820,7 @@ January 21--30, 2010\par
 如果该选项被激活，数字标签（也就是 \secref{aut:bbx:fld} 中讨论的 \bibfield{labelnumber} 域）在参考文献第一次打印出某条目时就被分配。
 进一步解释见 \secref{use:cav:lab} 节。
 该选项在后端将数据导出到 \file{bbl} 文件后仍然需要两次 \LaTeX 运行（在由分页变化等要求的编译之外）。
-需要注意的一件重要的事是，如果你在文档中改变了该选项值（或者那些依赖于本选项的选项值，例如与\cmd{printbibliography} 宏相关的选项，\secref{use:bib:bib} 节），
+需要注意的一件重要的事是，如果你在文档中改变了该选项值（或者那些依赖于本选项的选项值，例如与 \cmd{printbibliography} 宏相关的选项，\secref{use:bib:bib} 节），
 那么很可能需要删除当前的 \file{aux} 文件然后重新运行 \LaTeX 来获得正确的数字编号，
 见 \secref{aut:int} 节。
 
@@ -858,7 +858,7 @@ arXiv 链接的路径选择。
 
 指定 \file{tex} 文件的编码。
 该选项影响从后端转向 \biblatex  的数据。
-该选项对应于 \biber 的 \opt{--output-encoding} 选项。
+该选项对应于 \biber 的 \opt{-{}-output-encoding} 选项。
 可用的选择有：
 
 \begin{valuelist}
@@ -2133,7 +2133,7 @@ labeltitleyear & \rmfamily{---}   & extratitleyear &  labeltitle+labelyear\\
 排序格式由 \secref{use:opt:pre:gen} 节中的 \opt{sorting} 宏包选项确定。
 除了常规的数据域之外，还有一些特殊域也可用于优化文献排序。
 \Apxref{apx:srt:a1, apx:srt:a2} 大致概述了 \biblatex 支持的字母顺序排序格式。
-而年代顺序排序格式则列在 \apxref{apx:srt:chr} 中。
+而年代顺序排序格式则列在\apxref{apx:srt:chr} 中。
 以下依次是这些格式的一些解释。
 
 %The first item considered in the sorting process is always the \bibfield{presort} field of the entry. If this field is undefined, \biblatex will use the default value <\texttt{mm}> as a presort string. The next item considered is the \bibfield{sortkey} field. If this field is defined, it serves as the master sort key. Apart from the \bibfield{presort} field, no further data is considered in this case. If the \bibfield{sortkey} field is undefined, sorting continues with the name. The package will try using the \bibfield{sortname}, \bibfield{author}, \bibfield{editor}, and \bibfield{translator} fields, in this order. Which fields are considered also depends on the setting of the \opt{use$<$name$>$} options. If all such options are disabled, the \bibfield{sortname} field is ignored as well. Note that all name fields are responsive to \opt{maxnames} and \opt{minnames}. If no name field is available, either because all of them are undefined or because all \opt{use$<$name$>$} options are disabled, \biblatex will fall back to the \bibfield{sorttitle} and \bibfield{title} fields as a last resort. The remaining items are, in various order: the \bibfield{sortyear} field, if defined, or the first four digits of the \bibfield{year} field otherwise; the \bibfield{sorttitle} field, if defined, or the \bibfield{title} field otherwise; the \bibfield{volume} field. Note that the sorting schemes shown in \apxref{apx:srt:a2} include an additional item: \bibfield{labelalpha} is the label used by <alphabetic> bibliography styles. Strictly speaking, the string used for sorting is \bibfield{labelalpha}~+ \bibfield{extraalpha}. The sorting schemes in \apxref{apx:srt:a2} are intended to be used in conjunction with alphabetic styles only.
@@ -2261,7 +2261,7 @@ labeltitleyear & \rmfamily{---}   & extratitleyear &  labeltitle+labelyear\\
 %
 %Here the field name suffix \texttt{+an} is a user-definable\footnote{See \biber's \opt{--annotation-marker} option.} suffix which marks a data field as an annotation of the unsuffixed field. The format of annotation fields in \bibtex data sources is is as follows:
 这里域姓名后缀 \texttt{+an} 可以由用户定义\footnote{
-	见 \biber 的 \opt{--annotation-marker} 选项。}，
+	见 \biber 的 \opt{-{}-annotation-marker} 选项。}，
 用于标记某个数据域为去掉后缀的域的注解。
 \BibTeX 注解域的格式如下：
 
@@ -2415,7 +2415,7 @@ LANGUAGE+an = {1=annotation3; 2=annotation4}
 \BibTeX 格式。
 
 \item[biblatexml] %Experimental XML format for \biblatex. See \secref{apx:biblatexml}.
-针对 \biblatex 的实验性 XML 格式。见 \secref{apx:biblatexml}。
+针对 \biblatex 的实验性 XML 格式。见\apxref{apx:biblatexml}。
 
 \end{valuelist}
 
@@ -2480,7 +2480,7 @@ LANGUAGE+an = {1=annotation3; 2=annotation4}
 \prm{name} 对应于用 \cmd{defbibenvironment} 定义环境时的标识符。
 缺省状态下，\cmd{printbibliography} 命令使用标识符 \texttt{bibliography}；
 而 \cmd{printshorthands} 使用 \texttt{shorthands}。
-另见 \secref{use:bib:los,use:bib:hdg} 节。
+另见 \secref{use:bib:biblist,use:bib:hdg} 节。
 
 
 \valitem[bibliography/shorthands]{heading}{name}
@@ -2491,7 +2491,7 @@ LANGUAGE+an = {1=annotation3; 2=annotation4}
 该选项选择由 \cmd{defbibheading} 定义的标题名 \prm{name}。
 缺省状态下，\cmd{printbibliography} 命令使用标题名 \texttt{bibliography}；
 而 \cmd{printshorthands} 使用 \texttt{shorthands}。
-另见 \secref{use:bib:los,use:bib:hdg} 节。
+另见 \secref{use:bib:biblist,use:bib:hdg} 节。
 
 \valitem{title}{text}
 
@@ -4100,8 +4100,9 @@ LANGUAGE+an = {1=annotation3; 2=annotation4}
 %This command resets the citation style. This may be useful if the style replaces repeated citations with abbreviations like \emph{ibidem}, \emph{idem}, \emph{op. cit.}, etc. and you want to force a full citation at the beginning of a new chapter, section, or some other location. The command executes a style specific initialization hook defined with the \cmd{InitializeCitationStyle} command from \secref{aut:cbx:cbx}. It also resets the internal citation trackers of this package. The reset will affect the \cmd{ifciteseen}, \cmd{ifentryseen}, \cmd{ifciteibid}, and \cmd{ifciteidem} tests discussed in \secref{aut:aux:tst}. When used inside a \env{refsection} environment, the reset of the citation tracker is local to the current \env{refsection} environment. Also see the \opt{citereset} package option in \secref{use:opt:pre:gen}.
 
 该命令重新设置引用样式。
-如果样式使用 \emph{ibidem}、\emph{idem}、\emph{op. cit.} 等缩略语代替重复引用，
-而你想在新的章节开始或别的地方强制改为引用全称，那么该命令很有用。
+典型应用的场景为，
+样式使用 \emph{ibidem}、\emph{idem}、\emph{op.\ cit.} 等缩略语代替重复引用，
+而你想在新的章节开始或别的地方强制改为引用全称。
 该命令执行由 \secref{aut:cbx:cbx} 节的 \cmd{InitializeCitationStyle} 命令所定义的样式相关初始化钩子（hook）。
 它同样重新设置了本宏包的内部引用追踪器。
 该重置会影响 \secref{aut:aux:tst} 节讨论的 \cmd{ifciteseen}、\cmd{ifentryseen}、\cmd{ifciteibid} 和 \cmd{ifciteidem} 等测试。
@@ -4386,7 +4387,7 @@ LANGUAGE+an = {1=annotation3; 2=annotation4}
 
 %This is a \latex frontend to \tex's \cmd{hyphenation} command which defines hyphenation exceptions. The \prm{language} must be a language name known to the \sty{babel}/\sty{polyglossia} packages. The \prm{text} is a whitespace"=separated list of words. Hyphenation points are marked with a dash:
 
-这是 \TeX{} 的 \cmd{hyphenation} 命令的 \LaTeX 前端，用于定义了断词例外。
+这是 \TeX{} 的 \cmd{hyphenation} 命令的 \LaTeX 前端，用于定义断词例外。
 \prm{language} 必须是 \sty{babel}/\sty{polyglossia} 可知的语言名。
 \prm{text} 是空格分开的单词列表，断词点用短横线标记：
 
@@ -4400,8 +4401,7 @@ LANGUAGE+an = {1=annotation3; 2=annotation4}
 
 %This command declares new localisation strings, \ie it initializes a new \prm{key} to be used in the \prm{definitions} of \cmd{DefineBibliographyStrings}. The \prm{key} argument may also be a comma"=separated list of key names. The keys listed in \secref{aut:lng:key} are defined by default.
 
-该命令声明了新的本地化字符串，即初始化新的 \prm{key}，
-用在命令 \cmd{DefineBibliographyStrings} 的 \prm{definitions} 中。
+该命令声明了新的本地化字符串，即为命令 \cmd{DefineBibliographyStrings} 的 \prm{definitions} 初始化新的 \prm{key}。
 选项 \prm{key} 也可以是逗号分隔的键值名列表。
 默认的键名在 \secref{aut:lng:key} 节中列出。
 
@@ -4464,7 +4464,7 @@ LANGUAGE+an = {1=annotation3; 2=annotation4}
 \csitem{bibnamedelima}
 %This delimiter controls the spacing between the elements which make up a name part. It is inserted automatically after the first name element if the element is less than three characters long and before the last element. The default definition is an interword space penalized by the value of the \cnt{highnamepenalty} counter (\secref{use:fmt:len}). Please refer to \secref{use:cav:nam} for further details.
 该定界符控制组成姓名成分之间的空白。
-它将自动插入在 first name 之后（如果该成分少于三个字符长度）和最后的姓名成分之前。
+它将自动插入在名（first name）之后（如果该成分少于三个字符长度）和最后的姓名成分之前。
 缺省值是一个词间距加上由计数器 \cnt{highnamepenalty}（\secref{use:fmt:len}）的值控制的惩罚项。
 详见 \secref{use:cav:nam} 节。
 
@@ -4770,19 +4770,19 @@ Jones, Edward<<, and>> Joe Williams
 \csitem{prenotedelim}
 %The delimiter printed after the \prm{prenote} argument of a citation command. See \secref{use:cit} for details. The default is an interword space.
 引用命令的 \prm{prenote} 选项之后打印的定界符。
-详见 \secref{use:cit} 节。缺省值是一个词间距。
+详见 \secref{use:cit} 节。默认为一个词间距。
 
 \csitem{postnotedelim}
 %The delimiter printed before the \prm{postnote} argument of a citation command. See \secref{use:cit} for details. The default is a comma plus an interword space.
 引用命令的 \prm{postnote} 选项之前打印的定界符。
-详见 \secref{use:cit} 节。缺省值是一个词间距。
+详见 \secref{use:cit} 节。默认为一个词间距。
 
 \csitem{extpostnotedelim}
 %The delimiter printed between the citation and the parenthetical \prm{postnote} argument of a citation command when the postnote occurs outside of the citation parentheses. In the standard styles, this occurs when the citation uses the shorthand field of the entry. See \secref{use:cit} for details. The default is an interword space.
 在引用命令中，当后注出现在引用括号外时，引用和带括号的 \prm{postnote} 选项之间的定界符。
 在标准样式中，如果引用使用条目的shorthand域就会出现这一现象。
 详见 \secref{use:cit} 节。
-缺省值是一个词间距。
+默认为一个词间距。
 
 \cmditem{mkbibname\prm{namepart}}{text}
 %This command, which takes one argument, is used to format the name part <namepart> of name list fields. The default datamodel defines the name parts <family>, <given>, <prefix> and <suffix> and therefore the following macros are automatically defined:
@@ -4967,7 +4967,7 @@ Vol. E: Computer Modern Typefaces. 1986.
 %
 %Here, \cmd{delima} always prints <Z>. \verb+\printdelim{delima}+ in any context other than <textcite> also prints \cmd{delima} and hence <Z> but in a <textcite> context prints <Y>. See the \file{04-delimiters.tex} example file that comes with \biblatex\ for more information.
 这里，\cmd{delima} 总会打印“Z”。
-在任何“textcite”之外的 context 中，\verb+\printdelim{delima}+ 也会打印 \cmd{delima} 也就是“Z”，
+同时，\verb+\printdelim{delima}+ 在任何“textcite”之外的context 中也会打印 \cmd{delima} 也就是“Z”，
 而在“textcite”中则打印“Y”。
 更多信息参考 \biblatex 附带的示例文件 \file{04-delimiters.tex}。
 
@@ -4977,8 +4977,8 @@ Vol. E: Computer Modern Typefaces. 1986.
 %The commands in this section are language specific. When redefining them, you need to wrap the new definition in a \cmd{DeclareBibliographyExtras} command (in an \file{.lbx} file) or a \cmd{DefineBibliographyExtras} command (user documents), see \secref{use:lng} for details. Note that all commands starting with \cmd{mk\dots} take one or more arguments.
 
 本节中的命令是与语言相关的。
-因此重定义时需要将新的定义包裹在 \cmd{DeclareBibliographyExtras} 命令（在 \file{.lbx} 文件中）
-或者 \cmd{DefineBibliographyExtras} 命令中（用户文件中），详见 \secref{use:lng} 节。
+因此重定义时需要将新的定义包裹在 \file{.lbx} 文件的 \cmd{DeclareBibliographyExtras} 命令
+或者用户文件的 \cmd{DefineBibliographyExtras} 命令中，详见 \secref{use:lng} 节。
 请注意所有以 \cmd{mk\dots} 开头的命令都带有一个或更多选项。
 
 \begin{ltxsyntax}
@@ -5775,7 +5775,7 @@ author = {Edward Jones and <<{\forceE{E}}>>oin Maguire},
 条目集中每一项用 \cmd{entrysetpunct} 分隔（\secref{aut:fmt:fmt} 节）。
 \biblatex 宏包支持两种类型的条目集。
 静态条目集在 \file{bib} 文件中定义，这与其它条目类似。
-而动态条目集在文档导言区或者正文中用 \cmd{defbibentryset} （\secref{use:bib:set}）定义，
+而动态条目集在文档导言区或者正文中用 \cmd{defbibentryset}（\secref{use:bib:set}）定义，
 并且基于文档或参考文献分节。
 本节讨论条目集的定义问题；样式作者对于更多信息也可以参考 \secref{aut:cav:set} 节。
 
@@ -5993,8 +5993,9 @@ url = {http://books.google.com/books?id=<<XXu4AkRVBBoC>>},
 
 %Styles which print the fields \bibfield{abstract} and\slash or \bibfield{annotation} may support an alternative way of adding abstracts or annotations to the bibliography. Instead of including the text in the \file{bib} file, it may also be stored in an external \latex file. For example, instead of saying
 
-打印 \bibfield{abstract} 和/或  \bibfield{annotation} 域的样式可以支持另一种将摘要或注释添加到参考文献的方法。
-与将文本包含在 \file{bib} 文件中不同，它也可以保存在一个外部的 \LaTeX 文件中。
+对于打印 \bibfield{abstract} 和/或  \bibfield{annotation} 域的样式，
+这里介绍另一种添加摘要或注释到参考文献的方法。
+即，除了包含在 \file{bib} 文件中，相关文本也可以保存在外部的 \LaTeX 文件中。
 例如，除了在 \file{bib} 文件中写入如下内容之外，
 
 \begin{ltxexample}[style=bibtex]
@@ -6042,7 +6043,7 @@ This is an abstract of entry `key1'.
 	在任何一种情况下，选项必须在 \cmd{documentclass} 的可选项中全局地设置。
 }
 可以通过使用 \cmd{printbibliography}、\cmd{printbibheading} 和 \cmd{printshorthands} 的 \opt{heading} 选项来覆盖缺省标题。
-详见 \secref{use:bib:bib, use:bib:los, use:bib:hdg} 节。
+详见 \secref{use:bib:bib, use:bib:biblist, use:bib:hdg} 节。
 所有的缺省标题都在导入时调整以使得与这些文档类相称。
 如果 \biblatex 探测到这些文档类中的某一个，它还会提供以下额外的测试，这对定制标题定义很有用：
 
@@ -6350,7 +6351,7 @@ c & \cmd{bibinithyphendelim} &
 请注意，命令 \cmd{newrefsection} 和 \cmd{newrefsegment} 不会形成分组。
 详见 \secref{use:bib:sec, use:bib:seg} 节。
 
-\subsection{使用备选的 \BibTeX 后端}%\subsection{Using the fallback \bibtex\ backend}
+\subsection{使用备选的 \bibtex 后端}%\subsection{Using the fallback \bibtex\ backend}
 \label{use:bibtex}
 
 %To utilise all of the features described here, \biblatex must be used with the
@@ -6363,20 +6364,20 @@ c & \cmd{bibinithyphendelim} &
 \biblatex 必须使用 \biber 程序作为后端才能使用这里描述的所有特性。
 实际上，本文档正是默认这一假定。
 不过，如果只是使用\emph{受限制}的一部分功能，
-也可以使用历史悠久的 \BibTeX 程序
+也可以使用历史悠久的 \bibtex 程序
 （7-bit 的  \bin{bibtex} 或者 8-bit 的 \bin{bibtex8}）
 作为后端程序。
 
 %Using \bibtex as the backend requires that the option \opt{backend=bibtex} or \opt{backend=bibtex8} is given at load time. The \biblatex package will then write appropriate data for use by \bibtex into the auxiliary file(s) and a special data file (automatically included in those to be read by \bibtex).  The \bibtex(8) program should then be run on each auxiliary file: \biblatex will list all of the required files in the log.
 
-使用 \BibTeX 作为后端程序需要在载入时开启选项 \opt{backend=bibtex} 或 \opt{backend=bibtex8}.
-\biblatex 宏包随后会将合适的数据写入辅助文件以及特殊的数据文件中以供 \BibTeX 使用
-（自动包含那些被 \BibTeX 读取的文件）。
+使用 \bibtex 作为后端程序需要在载入时开启选项 \opt{backend=bibtex} 或 \opt{backend=bibtex8}.
+\biblatex 宏包随后会将合适的数据写入辅助文件以及特殊的数据文件中以供 \bibtex 使用
+（自动包含那些被 \bibtex 读取的文件）。
 然后 \bin{bibtex(8)} 程序应当运行在每一辅助文件上：
 \biblatex 会在日志文件中列出所有所需的文件。
 
 %Key limitations of the \bibtex backend are:
-\BibTeX 后端的主要局限有：
+\bibtex 后端的主要局限有：
 \begin{itemize}
 \item %Sorting is global and is limited to Ascii ordering
 排序是全局的，而且只限于按照 Ascii 顺序。

@@ -31,8 +31,8 @@
 注意，每种条目类型对域的使用是由参考文献样式决定的。
 因此，下面的列表有两个目的，一是说明本宏包标准样式支持的域，二是作为定制样式的模板。
 注意，所谓“必选”域并不是在所有情况下都严格必不可少的，详见 \secref{bib:use:key} 节。
-而标记“可选”的域技术上是可选的，
-不过通常来说，文献格式规则往往不仅需要“必选”域。
+另外，标记“可选”的域只是在技术层面上可选的，
+因为通常来说，仅有“必选”域对于文献格式规则往往是不够的。
 默认的数据模型为一些数据域、ISBN 和 \bibfield{gender} 等特殊域定义了一些约束。
 但这些约束仅用于校验这些域是否合乎数据模型（通过 \biber 的 \path{--validate_datamodel} 选项）。
 通用域如 \bibfield{abstract}、\bibfield{annotation}、\bibfield{label} 和 \bibfield{shorthand} 并不在下面的列表中，因为它们独立于条目类型；
@@ -157,7 +157,7 @@
 %Technical or other documentation, not necessarily in printed form. The \bibfield{author} or \bibfield{editor} is omissible in terms of \secref{bib:use:key}.
 
 技术或其它文档，不必是出版的形式。
-按照 \secref{bib:use:key} 一节，\bibfield{author} 或者 \bibfield{editor} 是可以省略的。
+按照 \secref{bib:use:key} 节，\bibfield{author} 或者 \bibfield{editor} 是可以省略的。
 
 \reqitem{author/editor, title, year/date}
 \optitem{subtitle, titleaddon, language, edition, type, series, number, version, note, organization, publisher, location, isbn, chapter, pages, pagetotal, addendum, pubstate, doi, eprint, eprintclass, eprinttype, url, urldate}
@@ -1125,7 +1125,7 @@
 
 如果缺失生成常规标签所需的某一数据，
 那么该域就是替代常规标签而被引用样式所用的指定文本。
-例如，当|作者-年份|引用样式要生成条目的引用，但作者或年份缺失，
+例如，当 |author-year|（|作者-年份|）引用样式要生成条目的引用，但作者或年份缺失，
 那么它就会使用后备的 \bibfield{label}。
 详见 \secref{bib:use:key} 节。
 请注意，与 \bibfield{shorthand} 域相反，\bibfield{label} 只是作为后备而使用。
@@ -2672,7 +2672,7 @@ organization = {<<{American Society for Photogrammetry and Remote Sensing}>>
 %	\label{bib:use:tab2}
 %\end{table}
 
-\begin{table}
+\begin{table}[hb]
 	\tablesetup
 	\begin{tabularx}{\textwidth}{@{}>{\ttfamily}llX@{}}
 		\toprule
