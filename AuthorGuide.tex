@@ -6971,17 +6971,17 @@ As \texttt{time} but controls the format of \cmd{print$<$datetype$>$time}.
 
 \subsubsection[消除姓名歧义]{消除姓名歧义}%Name Disambiguation
 \label{aut:cav:amb}
-在\secref{use:opt:pre:int} 节引入的\opt{uniquename} 和\opt{uniquelist} 选项支持多种操作模式。本节用举例方式介绍不同模式的差别。\opt{uniquename} 选项消除\bibfield{labelname} 列表中各姓名间的歧义，\opt{uniquelist} 消除因\opt{maxnames}\slash \opt{minnames} 截短导致的\bibfield{labelname} 列表歧义。两个选项可以单独使用也可以联合使用:
+在\secref{use:opt:pre:int} 节引入的\opt{uniquename} 和\opt{uniquelist} 选项支持多种操作模式。本节用举例方式介绍不同模式的差别。\opt{uniquename} 选项消除\bibfield{labelname} 列表中各姓名间的歧义，而\opt{uniquelist} 则消除因\opt{maxnames}\slash \opt{minnames} 截短导致的\bibfield{labelname} 列表歧义。两个选项可以单独使用也可以联合使用:
 %The \opt{uniquename} and \opt{uniquelist} options introduced in \secref{use:opt:pre:int} support various modes of operation. This section explains the differences between these modes by way of example. The \opt{uniquename} option disambiguates individual names in the \bibfield{labelname} list. The \opt{uniquelist} option disambiguates the \bibfield{labelname} list if it has become ambiguous after \opt{maxnames}\slash \opt{minnames} truncation. You can use either option stand-alone or combine both.
 
-消除姓名歧义原理是根据由一个或多个姓名成分构成的<base>来确定需要在其基础上添加什么(如果存在的话)使得姓名在当前参考文献节中是唯一的。消除姓名歧义由如下命令声明的uniquename模板控制:
+消除姓名歧义原理是根据由一个或多个姓名成分构成的<base>，来确定需要在其基础上添加什么(如果存在的话)，使得姓名在当前参考文献节中是唯一的。消除姓名歧义由如下命令声明的 uniquename 模板控制:
 %Name disambiguation works by taking a <base> which is composed of one or more nameparts and then determining what needs to be added, if anything, to this <base> to make the name unique in the current refsection. Name disambiguation is controlled by the uniquename template declared with the following command:
 
 \begin{ltxsyntax}
 
 \cmditem{DeclareUniquenameTemplate}{specification}
 
-\prm{specification} 是\cmd{namepart} 命令列表，定义了确定uniquename信息使用的姓名成分。
+\prm{specification} 是\cmd{namepart} 命令列表，定义了确定 uniquename 信息所使用的姓名成分。
 %The \prm{specification} is a list of \cmd{namepart} commands which define the nameparts to use in determining the uniquename information
 
 \cmditem{namepart}[options]{namepart}
@@ -6993,7 +6993,7 @@ As \texttt{time} but controls the format of \cmd{print$<$datetype$>$time}.
 
 \boolitem[false]{use}
 
-在构建uniquename信息中仅使用\prm{namepart}，如果存在相应的选项\opt{use<namepart>} 并且值为true。
+在构建 uniquename 信息中仅使用\prm{namepart}，如果存在相应的选项\opt{use<namepart>} 并且值为true。
 %Only use the \prm{namepart} in constructing the uniquename information if there is a corresponding option \opt{use<namepart>} and that option is true.
 
 \boolitem[false]{base}
