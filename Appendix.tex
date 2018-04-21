@@ -160,7 +160,7 @@ periodical &
 	L{0.150\textwidth}@{}%
 	L{0.300\textwidth}@{}}
 \toprule
-\multicolumn{1}{@{}H}{Option} & \multicolumn{5}{@{}H}{Sorting scheme} \\
+\multicolumn{1}{@{}H}{Option} & \multicolumn{5}{@{}H}{Template name} \\
 \cmidrule(r){1-1}\cmidrule{2-6}
 \endhead
 \bottomrule
@@ -202,7 +202,7 @@ nyvt &	presort\alt mm &
 	L{0.150\textwidth}@{}%
 	L{0.150\textwidth}@{}}
 \toprule
-\multicolumn{1}{@{}H}{Option} & \multicolumn{6}{@{}H}{Sorting scheme} \\
+\multicolumn{1}{@{}H}{Option} & \multicolumn{6}{@{}H}{Template name} \\
 \cmidrule(r){1-1}\cmidrule{2-7}
 \endhead
 \bottomrule
@@ -225,11 +225,11 @@ anyvt &	presort\alt mm &
 \end{longtable}
 \endgroup
 
-\subsection[纪年顺序]{纪年格式}%Chronological Schemes
+\subsection[纪年顺序]{纪年格式}%Chronological Templates
 \label{apx:srt:chr}
 
 下表给出了默认定义的纪年排序格式。更多解释见\secref{use:srt}节。
-%The following table shows the chronological sorting schemes defined by default. Please refer to \secref{use:srt} for explanation.
+%The following table shows the chronological sorting Templates defined by default. Please refer to \secref{use:srt} for explanation.
 
 \begingroup
 \sorttablesetup
@@ -240,7 +240,7 @@ anyvt &	presort\alt mm &
 	L{0.175\textwidth}@{}%
 	L{0.400\textwidth}@{}}
 \toprule
-\multicolumn{1}{@{}H}{Option} & \multicolumn{4}{@{}H}{Sorting scheme} \\
+\multicolumn{1}{@{}H}{Option} & \multicolumn{4}{@{}H}{Template name} \\
 \cmidrule(r){1-1}\cmidrule{2-5}
 \endhead
 \bottomrule
@@ -511,136 +511,174 @@ ydnt &	presort\alt mm &
 下表概括了各种包选项的作用范围(全局或者具体类型或者具体条目):
 %The following table provides an overview of the scope (global\slash per-type\slash per-entry) of various package options.
 
+Per-entry, per-namelist and per-name options are set in the datasource, for
+example, in a  \file{.bib}file. See the \biber documentation for details
+but here are a few examples. Per-entry:
+
+\begin{lstlisting}[style=bibtex]{}
+@BOOK{key,
+  OPTIONS = {sortingnamekeytemplatename=template1},
+}
+\end{lstlisting}
+%
+Per-namelist and per-name options require either the \biblatexml datasource
+format or the extend \bibtex name format supported by \biber (see the
+\biber documentation for details). Per-namelist:
+
+\begin{lstlisting}[style=bibtex]{}
+@BOOK{key,
+  AUTHOR = {sortingnamekeytemplatename=template1 and Arthur Smith and Bill Brown},
+}
+\end{lstlisting}
+%
+Per-name:
+
+\begin{lstlisting}[style=bibtex]{}
+@BOOK{key,
+  AUTHOR = {sortingnamekeytemplatename=template1, family=Smith, given=Arthur and Bill Brown},
+}
+\end{lstlisting}
+
 \begingroup
 \tablesetup
 \let\+\tickmarkyes
 \let\_\tickmarkno
 \begin{longtable}[l]{@{}%
-	V{0.4\textwidth}@{}%
-	C{0.15\textwidth}@{}%
-	C{0.15\textwidth}@{}%
-	C{0.15\textwidth}@{}%
-	C{0.15\textwidth}@{}}
+	V{0.3\textwidth}@{}%
+	C{0.1\textwidth}@{}%
+  C{0.1\textwidth}@{}%
+  C{0.1\textwidth}@{}%  
+  C{0.1\textwidth}@{}%
+  C{0.1\textwidth}@{}%
+  C{0.1\textwidth}@{}%
+  C{0.1\textwidth}@{}}
 \toprule
 \multicolumn{1}{@{}H}{Option} &
-\multicolumn{4}{@{}H}{Scope} \\
-\cmidrule{2-5}
+\multicolumn{7}{@{}H}{Scope} \\
+\cmidrule{2-8}
 & \multicolumn{1}{@{}H}{Load-time} &
 \multicolumn{1}{@{}H}{Global} &
+\multicolumn{1}{@{}H}{Per-refcontext} &
 \multicolumn{1}{@{}H}{Per-type} &
-\multicolumn{1}{@{}H}{Per-entry} \\
-\cmidrule(r){1-1}\cmidrule(r){2-2}\cmidrule(r){3-3}\cmidrule(r){4-4}\cmidrule{5-5}
+\multicolumn{1}{@{}H}{Per-entry} &
+\multicolumn{1}{@{}H}{Per-namelist} &
+\multicolumn{1}{@{}H}{Per-name} \\
+\cmidrule(r){1-1}\cmidrule(r){2-2}\cmidrule(r){3-3}\cmidrule(r){4-4}\cmidrule(r){5-5}\cmidrule(r){6-6}\cmidrule(r){7-7}\cmidrule(r){8-8}
 \endhead
 \bottomrule
 \endfoot
-abbreviate	&\+&\+&\_&\_\\
-alldates	&\+&\+&\_&\_\\
-alldatesusetime	&\+&\+&\_&\_\\
-alltimes	&\+&\+&\_&\_\\
-arxiv		&\+&\+&\_&\_\\
-autocite	&\+&\+&\_&\_\\
-autopunct	&\+&\+&\_&\_\\
-autolang		&\+&\+&\_&\_\\
-backend		&\+&\_&\_&\_\\
-backref		&\+&\+&\_&\_\\
-backrefsetstyle	&\+&\+&\_&\_\\
-backrefstyle	&\+&\+&\_&\_\\
-bibencoding	&\+&\+&\_&\_\\
-bibstyle	&\+&\_&\_&\_\\
-bibwarn		&\+&\+&\_&\_\\
-block		&\+&\+&\_&\_\\
-citecounter	&\+&\+&\_&\_\\
-citereset	&\+&\+&\_&\_\\
-citestyle	&\+&\_&\_&\_\\
-citetracker	&\+&\+&\_&\_\\
-clearlang	&\+&\+&\_&\_\\
-datamodel &\+&\_&\_&\_\\
-dataonly	&\_&\_&\+&\+\\
-date		&\+&\+&\_&\_\\
-labeldate		&\+&\+&\_&\_\\
-$<$datetype$>$date		&\+&\+&\_&\_\\
-dateabbrev	&\+&\+&\_&\_\\
-datecirca &\+&\+&\_&\_\\
-dateera &\+&\+&\_&\_\\
-dateerauto &\+&\+&\_&\_\\
-dateuncertain &\+&\+&\_&\_\\
-datezeros	&\+&\+&\_&\_\\
-defernumbers	&\+&\+&\_&\_\\
-doi		&\+&\+&\_&\_\\ % style
-eprint		&\+&\+&\_&\_\\ % style
-$<$namepart$>$inits	&\+&\+&\_&\_\\
-gregorianstart &\+&\+&\_&\_\\
-hyperref	&\+&\+&\_&\_\\
-ibidtracker	&\+&\+&\_&\_\\
-idemtracker	&\+&\+&\_&\_\\
-indexing	&\+&\+&\+&\+\\
-isbn		&\+&\+&\_&\_\\ % style
-julian &\+&\+&\_&\_\\
-labelalpha	&\+&\+&\+&\_\\
-labelnamefield  &\_&\_&\_&\+\\
-labelnumber	&\+&\+&\+&\_\\
-labeltitle	&\+&\+&\+&\_\\
-labeltitlefield &\_&\_&\_&\+\\
-labeltitleyear	&\+&\+&\+&\_\\
-labeldateparts	&\+&\+&\+&\_\\
-labeltime	&\+&\+&\_&\_\\
-labeldateusetime	&\+&\+&\_&\_\\
-$<$datetype$>$time	&\+&\+&\_&\_\\
-$<$datetype$>$dateusetime	&\+&\+&\_&\_\\
-language	&\+&\+&\_&\_\\
-loadfiles	&\+&\+&\_&\_\\
-loccittracker	&\+&\+&\_&\_\\
-maxalphanames	&\+&\+&\+&\+\\
-maxbibnames	&\+&\+&\+&\+\\
-maxcitenames	&\+&\+&\+&\+\\
-maxitems	&\+&\+&\+&\+\\
-maxnames	&\+&\+&\+&\+\\
-maxparens	&\+&\+&\_&\_\\
-mcite		&\+&\_&\_&\_\\
-minalphanames	&\+&\+&\+&\+\\
-minbibnames	&\+&\+&\+&\+\\
-mincitenames	&\+&\+&\+&\+\\
-mincrossrefs	&\+&\+&\_&\_\\
-minxrefs	&\+&\+&\_&\_\\
-minitems	&\+&\+&\+&\+\\
-minnames	&\+&\+&\+&\+\\
-natbib		&\+&\_&\_&\_\\
-noinherit		&\_&\_&\_&\+\\
-notetype	&\+&\+&\_&\_\\
-opcittracker	&\+&\+&\_&\_\\
-openbib		&\+&\+&\_&\_\\
-pagetracker	&\+&\+&\_&\_\\
-parentracker	&\+&\+&\_&\_\\
-punctfont	&\+&\+&\_&\_\\
-refsection	&\+&\+&\_&\_\\
-refsegment	&\+&\+&\_&\_\\
-safeinputenc	&\+&\+&\_&\_\\
-seconds	&\+&\+&\_&\_\\
-singletitle	&\+&\+&\+&\_\\
-skipbib		&\_&\_&\+&\+\\
-skipbiblist	&\_&\_&\+&\+\\
-skiplab		&\_&\_&\+&\+\\
-sortcase	&\+&\+&\_&\_\\
-sortcites	&\+&\+&\_&\_\\
-sorting		&\+&\+&\_&\_\\
-sortnamekeyscheme 	&\_&\_&\_&\+\\
-sortlocale	&\+&\+&\_&\_\\
-sortlos		&\+&\+&\_&\_\\
-sortupper	&\+&\+&\_&\_\\
-style		&\+&\_&\_&\_\\
-terseinits	&\+&\+&\_&\_\\
-texencoding	&\+&\+&\_&\_\\
-timezeros	&\+&\+&\_&\_\\
-timezones	&\+&\+&\_&\_\\
-uniquelist	&\+&\+&\+&\+\\
-uniquename	&\+&\+&\+&\+\\
-uniquetitle	&\+&\+&\+&\_\\
-uniquebaretitle	&\+&\+&\+&\_\\
-uniquework	&\+&\+&\+&\_\\
-uniqueprimaryauthor	&\+&\+&\_&\_\\
-url		&\+&\+&\_&\_\\
-useprefix	&\+&\+&\+&\+\\
-use$<$name$>$	&\+&\+&\+&\+\\
+abbreviate	&\+&\+&\_&\_&\_&\_&\_\\
+alldates	&\+&\+&\_&\_&\_&\_&\_\\
+alldatesusetime	&\+&\+&\_&\_&\_&\_&\_\\
+alltimes	&\+&\+&\_&\_&\_&\_&\_\\
+arxiv		&\+&\+&\_&\_&\_&\_&\_\\
+autocite	&\+&\+&\_&\_&\_&\_&\_\\
+autopunct	&\+&\+&\_&\_&\_&\_&\_\\
+autolang		&\+&\+&\_&\_&\_&\_&\_\\
+backend		&\+&\_&\_&\_&\_&\_&\_\\
+backref		&\+&\+&\_&\_&\_&\_&\_\\
+backrefsetstyle	&\+&\+&\_&\_&\_&\_&\_\\
+backrefstyle	&\+&\+&\_&\_&\_&\_&\_\\
+bibencoding	&\+&\+&\_&\_&\_&\_&\_\\
+bibstyle	&\+&\_&\_&\_&\_&\_&\_\\
+bibwarn		&\+&\+&\_&\_&\_&\_&\_\\
+block		&\+&\+&\_&\_&\_&\_&\_\\
+citecounter	&\+&\+&\_&\_&\_&\_&\_\\
+citereset	&\+&\+&\_&\_&\_&\_&\_\\
+citestyle	&\+&\_&\_&\_&\_&\_&\_\\
+citetracker	&\+&\+&\_&\_&\_&\_&\_\\
+clearlang	&\+&\+&\_&\_&\_&\_&\_\\
+datamodel &\+&\_&\_&\_&\_&\_&\_\\
+dataonly	&\_&\_&\_&\+&\+&\_&\_\\
+date		&\+&\+&\_&\_&\_&\_&\_\\
+labeldate		&\+&\+&\_&\_&\_&\_&\_\\
+$<$datetype$>$date		&\+&\+&\_&\_&\_&\_&\_\\
+dateabbrev	&\+&\+&\_&\_&\_&\_&\_\\
+datecirca &\+&\+&\_&\_&\_&\_&\_\\
+dateera &\+&\+&\_&\_&\_&\_&\_\\
+dateerauto &\+&\+&\_&\_&\_&\_&\_\\
+dateuncertain &\+&\+&\_&\_&\_&\_&\_\\
+datezeros	&\+&\+&\_&\_&\_&\_&\_\\
+defernumbers	&\+&\+&\_&\_&\_&\_&\_\\
+doi		&\+&\+&\_&\_&\_&\_&\_\\ % style
+eprint		&\+&\+&\_&\_&\_&\_&\_\\ % style
+$<$namepart$>$inits	&\+&\+&\_&\_&\_&\_&\_\\
+gregorianstart &\+&\+&\_&\_&\_&\_&\_\\
+hyperref	&\+&\+&\_&\_&\_&\_&\_\\
+ibidtracker	&\+&\+&\_&\_&\_&\_&\_\\
+idemtracker	&\+&\+&\_&\_&\_&\_&\_\\
+indexing	&\+&\+&\_&\+&\+&\_&\_\\
+isbn		&\+&\+&\_&\_&\_&\_&\_\\ % style
+julian &\+&\+&\_&\_&\_&\_&\_\\
+labelalpha	&\+&\+&\_&\+&\_&\_&\_\\
+labelalphanametemplatename	&\_&\_&\+&\_&\+&\+&\+\\
+labelnamefield  &\_&\_&\_&\_&\+&\_&\_\\
+labelnumber	&\+&\+&\_&\+&\_&\_&\_\\
+labeltitle	&\+&\+&\_&\+&\_&\_&\_\\
+labeltitlefield &\_&\_&\_&\_&\+&\_&\_\\
+labeltitleyear	&\+&\+&\_&\+&\_&\_&\_\\
+labeldateparts	&\+&\+&\_&\+&\_&\_&\_\\
+labeltime	&\+&\+&\_&\_&\_&\_&\_\\
+labeldateusetime	&\+&\+&\_&\_&\_&\_&\_\\
+labelprefix &\_&\_&\+&\_&\_&\_&\_\\
+$<$datetype$>$time	&\+&\+&\_&\_&\_&\_&\_\\
+$<$datetype$>$dateusetime	&\+&\+&\_&\_&\_&\_&\_\\
+language	&\+&\+&\_&\_&\_&\_&\_\\
+loadfiles	&\+&\+&\_&\_&\_&\_&\_\\
+loccittracker	&\+&\+&\_&\_&\_&\_&\_\\
+maxalphanames	&\+&\+&\_&\+&\+&\_&\_\\
+maxbibnames	&\+&\+&\_&\+&\+&\_&\_\\
+maxcitenames	&\+&\+&\_&\+&\+&\_&\_\\
+maxitems	&\+&\+&\_&\+&\+&\_&\_\\
+maxnames	&\+&\+&\_&\+&\+&\_&\_\\
+maxparens	&\+&\+&\_&\_&\_&\_&\_\\
+mcite		&\+&\_&\_&\_&\_&\_&\_\\
+minalphanames	&\+&\+&\_&\+&\+&\_&\_\\
+minbibnames	&\+&\+&\_&\+&\+&\_&\_\\
+mincitenames	&\+&\+&\_&\+&\+&\_&\_\\
+mincrossrefs	&\+&\+&\_&\_&\_&\_&\_\\
+minxrefs	&\+&\+&\_&\_&\_&\_&\_\\
+minitems	&\+&\+&\_&\+&\+&\_&\_\\
+minnames	&\+&\+&\_&\+&\+&\_&\_\\
+nametemplates &\_&\_&\+&\_&\+&\+&\+\\
+natbib		&\+&\_&\_&\_&\_&\_&\_\\
+noinherit		&\_&\_&\_&\_&\+&\_&\_\\
+notetype	&\+&\+&\_&\_&\_&\_&\_\\
+opcittracker	&\+&\+&\_&\_&\_&\_&\_\\
+openbib		&\+&\+&\_&\_&\_&\_&\_\\
+pagetracker	&\+&\+&\_&\_&\_&\_&\_\\
+parentracker	&\+&\+&\_&\_&\_&\_&\_\\
+punctfont	&\+&\+&\_&\_&\_&\_&\_\\
+refsection	&\+&\+&\_&\_&\_&\_&\_\\
+refsegment	&\+&\+&\_&\_&\_&\_&\_\\
+safeinputenc	&\+&\+&\_&\_&\_&\_&\_\\
+seconds	&\+&\+&\_&\_&\_&\_&\_\\
+singletitle	&\+&\+&\_&\+&\_&\_&\_\\
+skipbib		&\_&\_&\_&\+&\+&\_&\_\\
+skipbiblist	&\_&\_&\_&\+&\+&\_&\_\\
+skiplab		&\_&\_&\_&\+&\+&\_&\_\\
+sortcase	&\+&\+&\_&\_&\_&\_&\_\\
+sortcites	&\+&\+&\_&\_&\_&\_&\_\\
+sorting		&\+&\+&\_&\_&\_&\_&\_\\
+sortingnamekeytemplatename 	&\_&\_&\+&\_&\+&\+&\+\\
+sortlocale	&\+&\+&\_&\_&\_&\_&\_\\
+sortlos		&\+&\+&\_&\_&\_&\_&\_\\
+sortupper	&\+&\+&\_&\_&\_&\_&\_\\
+style		&\+&\_&\_&\_&\_&\_&\_\\
+terseinits	&\+&\+&\_&\_&\_&\_&\_\\
+texencoding	&\+&\+&\_&\_&\_&\_&\_\\
+timezeros	&\+&\+&\_&\_&\_&\_&\_\\
+timezones	&\+&\+&\_&\_&\_&\_&\_\\
+uniquelist	&\+&\+&\_&\+&\+&\_&\_\\
+uniquename	&\+&\+&\_&\+&\+&\_&\_\\
+uniquenametemplatename	&\_&\_&\+&\_&\+&\+&\+\\
+uniquetitle	&\+&\+&\_&\+&\_&\_&\_\\
+uniquebaretitle	&\+&\+&\_&\+&\_&\_&\_\\
+uniquework	&\+&\+&\_&\+&\_&\_&\_\\
+uniqueprimaryauthor	&\+&\+&\_&\_&\_&\_&\_\\
+url		&\+&\+&\_&\_&\_&\_&\_\\
+useprefix	&\+&\+&\_&\+&\+&\+&\+\\
+use$<$name$>$	&\+&\+&\_&\+&\+&\_&\_\\
 \end{longtable}
 \endgroup
 
@@ -652,6 +690,48 @@ use$<$name$>$	&\+&\+&\+&\+\\
 %This revision history is a list of changes relevant to users of this package. Changes of a more technical nature which do not affect the user interface or the behavior of the package are not included in the list. More technical details are to be found in the \file{CHANGES.org} file. The numbers on the right indicate the relevant section of this manual.
 
 \begin{changelog}
+\begin{release}{3.10}{2017-12-19}
+\item Changed \opt{edtf} to \opt{iso}\see{use:opt:pre:gen}
+\item Added \opt{noerroretextools} option\see{int:pre:inc}
+\end{release}
+
+\begin{release}{3.9}{2017-11-21}
+\item Added \cmd{iffieldplusstringbibstring}\see{aut:aux:tst}
+\item Fixed \cmd{mkpagetotal}\see{aut:aux:msc}
+\end{release}
+
+\begin{release}{3.8}{2017-11-04}
+\item Added \kvopt{hyperref}{manual} option\see{use:opt:pre:gen}
+\item Added field \bibfield{extradatescope}\see{aut:bbx:fld:lab}
+\item Added \cmd{DeclareExtradate}\see{aut:ctm:fld}
+\item Added \cmd{DeprecateFieldWithReplacement}, \cmd{DeprecateListWithReplacement} and \cmd{DeprecateNameWithReplacement}\see{aut:bib:dat}
+\item Added \cmd{letbibmacro}\see{aut:aux:msc}
+\item Renamed \opt{extrayear} to \opt{extradate}\see{aut:bbx:fld:lab}
+\item Added \opt{sortsets} global option\see{use:opt:pre:gen}
+\item Added \cmd{iflabelalphanametemplatename} and \cmd{uniquenametemplatename}\see{aut:aux:tst}
+\item Renamed \cmd{ifsortingnamescheme} to \cmd{ifsortingnamekeytemplatename}\see{aut:aux:tst}
+\item Renamed \opt{sortingnamekeyscheme} to \opt{sortingnamekeytemplate}\see{use:bib:context}
+\item Renamed \cmd{DeclareSortingNamekeyScheme} to \cmd{DeclareSortingNamekeyTemplate}\see{aut:ctm:srt}
+\item Renamed \cmd{DeclareSortingScheme} to \cmd{DeclareSortingTemplate}\see{aut:ctm:srt}
+\item Changes to \cmd{DeclareUniquenameTemplate} and \cmd{DeclareLabelalphaNameTemplate} scopes\see{aut:cav:amb} and \see{aut:ctm:lab}
+\item Added new \opt{disambiguation} option to \cmd{DeclareUniquenameTemplate}\see{aut:cav:amb}
+\item Added new user-facing versions of some entry-querying commands\see{use:eq}
+\item Changed \bibfield{origlanguage} to a list in line with \bibfield{language}\see{bib:fld:dat}
+\item Deprecated \bibfield{childentrykey} and \bibfield{childentrytype}\see{aut:bbx:fld:gen}
+\item Added \bibfield{bibnamehash} and name list specific variants\see{aut:bbx:fld:gen}
+\item Added ALA-LC Russian romanisation transliteration support\see{aut:ctm:srt}
+\item Added \bibfield{urlraw}\see{aut:bbx:fld:gen}
+\item Added \cmd{AtUsedriver}\see{aut:fmt:hok}
+\item Added Bulgarian localisation (Kaloyan Ganev)
+\item \bibfield{sortyear} is now a literal, not an integer\see{bib:fld:spc}
+\item Added \cmd{DeclareLanguageMappingSuffix}\see{aut:lng:cmd}
+\item Changed default for \cmd{DeclarePrefChars}\see{aut:pct:cfg}
+\item Added \cmd{authortypedelim}, \cmd{editortypedelim} and \cmd{translatortypedelim}\see{use:fmt:fmt}
+\item Added \cmd{DeclareDelimAlias}\see{use:fmt:csd}
+\item Added \opt{slovenian} as alias for \opt{slovene} due to Polyglossia
+  name for the language\see{bib:fld:spc}
+\item Added Ukrainian localisation (Sergiy M. Ponomarenko)
+\end{release}
 
 \begin{release}{3.7}{2016-12-08}
 \item 修正了 \cmd{bibdateeraprefix}的默认设置，\see{aut:fmt:lng}

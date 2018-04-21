@@ -1,7 +1,6 @@
 % Introduction.tex
 
-%\section{Introduction}
-%\label{int}
+%\section{Introduction}\label{int}
 
 \section{引言}
 \label{int}
@@ -17,7 +16,7 @@
 %scrartcl.cls，ltxdockit.cls，ltxdockit.cfg，ltxdockit.def，btxdockit.sty，ltxdockit.sty。需要修改一些默认设置和命令可在这些文件中查找。
 %还要注意，文档没有参考文献，使用texstudio自动编译时设置驱动是bibtex或bibtex8可一遍过？
 
-
+%\subsection[About]{About \biblatex}
 \subsection{关于 \biblatex}
 \label{int:abt}
 
@@ -26,6 +25,7 @@
 %The \biblatex\ package works with the \enquote{backend} (program) \biber, which is used to process \bibtex\ format data files and them performs all sorting, label generation (and a great deal more).
 %Formatting of the bibliography is entirely controlled by \tex\ macros.
 %Good working knowledge in \latex should be sufficient to design new bibliography and citation styles.
+
 \biblatex 包提供了一套与 \LaTeX\ 配合使用的高级参考文献工具。
 它重新实现了 \LaTeX 提供的参考文献功能。
 该包使用后端程序 \biber 来处理\BibTeX\ 格式的数据文件，并完成排序、标签生成(及更多其它功能)。
@@ -35,6 +35,7 @@
 %This package also supports subdivided bibliographies, multiple bibliographies within one document, and separate lists of bibliographic information such as abbreviations of various fields.
 %Bibliographies may be subdivided into parts and\slash or segmented by topics.
 %Just like the bibliography styles, all citation commands may be freely defined.
+
 \biblatex 也支持参考文献表细分、在一个文档内包含多个参考文献表、以及域缩写等参考文献信息表。
 参考文献表可以根据主题进行分块或者分段。
 与参考文献著录样式类似，所有的标注(引用)命令也可以自由定义。
@@ -43,6 +44,7 @@
 %Please refer to \secref{int:pre:bibercompat} for information on \biber/\biblatex version compatibility.
 %The package is completely localised and can interface with the \sty{babel} and \sty{polyglossia} packages.
 %Please refer to \tabref{bib:fld:tab1} for a list of languages currently supported by this package.
+
 提供的功能还包括：文献数据的Unicode支持、自定义排序、不同排序方式的多参考文献表、自定义标签和动态数据修改等。
 \biber/\biblatex 的版本兼容性见 \secref{int:pre:bibercompat} 节。
 该包可完全实现本地化，可与 \sty{babel} 和 \sty{polyglossia} 宏包配合使用。
@@ -332,6 +334,14 @@ Hans Fredrik Nordhaug (Norwegian)
 %The package redefines list handling macros in a way incompatible with \biblatex.
 \sty{etextools}宏包增强了\sty{etoolbox}宏包中处理列表的宏，并提供了少量用于定义命令的工具。
 该宏包重新定义列表处理宏的方式与\biblatex 是不兼容的。
+%If you must load the \sty{etextools} package at all costs, use the load-time option \opt{noerroretextools}.
+%With \kvopt{noerroretextools}{true} no error will be issued if \sty{etextools} is loaded, that message is degraded to a warning instead.
+%In that case you need to make sure that \cmd{forlistloop} has its original \sty{etoolbox} definition when \biblatex\ is loaded.
+
+如果无论如何都需要加载 \sty{etextools} 包，那么请使用加载时选项\opt{noerroretextools}。
+使用 \kvopt{noerroretextools}{true} 加载 \sty{etextools}时，将不会报告错误而只是给出警告信息。
+这种情况下，你需要确保在载入\biblatex\ 时\cmd{forlistloop}命令的定义是 \sty{etoolbox}包给出的原始定义。
+
 
 \end{marglist}
 
@@ -357,6 +367,7 @@ Hans Fredrik Nordhaug (Norwegian)
 		\sffamily\bfseries\spotcolor Biber 版本
 		& \sffamily\bfseries\spotcolor \biblatex\ 版本\\
 		\midrule
+                2.10 & 3.10\\
 		2.9 & 3.9\\
 		2.8 & 3.8\\
 		2.7 & 3.7\\

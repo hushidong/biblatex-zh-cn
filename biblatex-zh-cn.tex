@@ -1,26 +1,3 @@
-
-%注意:ltxdockit相关的文件包括:btxdockit.sty,ltxdockit.sty,ltxdockit.cls
-%ltxdockit.def,scratcl.cls,tocbasic.sty,ltxdockit.cgf等
-%需要修改文档的排版样式等，可以从这些文件入手去查。
-
-% 使用 ltxdoc.sty 定义的标记命令与效果
-% command string: \cs{foo}		\foo
-% command: \cmd{foo}		\foo
-% environment: \env{foo}		foo
-% length: \len{foo}		\foo
-% count: \cnt{foo}		foo
-% primary key: \prm{foo}		<foo>
-% mandatory prm: \mprm{foo}	{<foo>}
-% optional prm: \oprm{foo}	[<foo>]
-% option: \opt{foo}		foo
-% key-value option: \kvopt{foo}{bar}	foo=bar
-% file name: \file{foo}		foo
-% style name: \sty{foo}		foo
-% binary file: \bin{foo}	foo
-% acronym: acr{Foo}		\textsc{foo}	
-% key-value: \keyval 	<key>=<value>
-
-
 \documentclass{ltxdockit}[2011/03/25]
 \usepackage{btxdockit}
 \usepackage{format-biblatex-zh-cn}
@@ -179,6 +156,28 @@
   bib-lio-gra-phy
   white-space
 }
+
+
+%注意:ltxdockit相关的文件包括:btxdockit.sty,ltxdockit.sty,ltxdockit.cls
+%ltxdockit.def,scratcl.cls,tocbasic.sty,ltxdockit.cgf等
+%需要修改文档的排版样式等，可以从这些文件入手去查。
+
+% 使用 ltxdockit.sty 定义的标记命令与效果
+% command string: \cs{foo}		\foo
+% command: \cmd{foo}		\foo
+% environment: \env{foo}		foo
+% length: \len{foo}		\foo
+% count: \cnt{foo}		foo
+% primary key: \prm{foo}		<foo>
+% mandatory prm: \mprm{foo}	{<foo>}
+% optional prm: \oprm{foo}	[<foo>]
+% option: \opt{foo}		foo
+% key-value option: \kvopt{foo}{bar}	foo=bar
+% file name: \file{foo}		foo
+% style name: \sty{foo}		foo
+% binary file: \bin{foo}	foo
+% acronym: acr{Foo}		\textsc{foo}	
+% key-value: \keyval 	<key>=<value>
 
 \begin{document}
 

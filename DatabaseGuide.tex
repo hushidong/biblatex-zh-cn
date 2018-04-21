@@ -562,11 +562,11 @@
 其中，对于任何 \kvopt{datatype}{date} 数据模型域，\prm{datetype} 是在 <date> 之前的前缀字符串。
 例如，在默认数据模型中，日期域 \bibfield{date} 可能的前缀字符串包括<event>, <orig>, <url> 和空字符串 <>。
 
-%\item[Date fields] hold a date specification in \texttt{yyyy-mm-ddThh:nn[+|-][hh[:nn]|Z]} format or a date range in \texttt{yyyy-mm-ddThh:nn[+|-][hh[:nn]|Z]/yyyy-mm-ddThh:nn[+|-][hh[:nn]|Z]} format and other formats permitted by EDTF level 1, see \secref{bib:use:dat}. Date fields are special in that the date is parsed and split up into its datepart type components. The \bibfield{datepart} components (see above) are automatically defined and recognised when a field of datatype \bibfield{date} is defined in the datamodel. A typical example is the \bibfield{date} field.
+%\item[Date fields] hold a date specification in \texttt{yyyy-mm-ddThh:nn[+|-][hh[:nn]|Z]} format or a date range in \texttt{yyyy-mm-ddThh:nn[+|-][hh[:nn]|Z]/yyyy-mm-ddThh:nn[+|-][hh[:nn]|Z]} format and other formats permitted by \acr{ISO8601-2} Clause 4, level 1, see \secref{bib:use:dat}. Date fields are special in that the date is parsed and split up into its datepart type components. The \bibfield{datepart} components (see above) are automatically defined and recognised when a field of datatype \bibfield{date} is defined in the datamodel. A typical example is the \bibfield{date} field.
 
 \item[日期域（date field）] 保存形如 \texttt{yyyy-mm-ddThh:nn[+|-][hh[:nn]|Z]} 格式的日期，
 或者 \texttt{yyyy-mm-ddThh:nn[+|-][hh[:nn]|Z]/yyyy-mm-ddThh:nn[+|-][hh[:nn]|Z]} 格式的日期范围，
-和其它EDTF level 1允许的格式，见 \secref{bib:use:dat} 节。
+和其它\acr{ISO8601-2} 条款4 level 1允许的格式，见 \secref{bib:use:dat} 节。
 日期域的特殊之处在于，日期会被解析并分解成各个日期成分。
 在数据模型中，当定义了一个数据类型为 \bibfield{date} 的域后，那么相应的 \bibfield{datepart} 成分（见上文）会自动定义并识别。典型的例子是 \bibfield{date} 域。
 
@@ -1738,51 +1738,29 @@ indexsorttitle = {LATEX Companion},
 %Style authors should note that \biblatex automatically copies the value of either the \bibfield{indextitle} or the \bibfield{title} field to \bibfield{indexsorttitle} if the latter field is undefined.
 文献样式作者请注意，当 \bibfield{indexsorttitle} 没有定义时，\biblatex 会自动将 \bibfield{indextitle} 或 \bibfield{title} 域的值复制给该域。
 
-%\fielditem{keywords}{separated values}
+
+\fielditem{keywords}{分隔值} %\fielditem{keywords}{separated values}
 
 %A separated list of keywords. These keywords are intended for the bibliography filters (see \secref{use:bib:bib, use:use:div}), they are usually not printed. Note that with the default separator (comma), spaces around the separator are ignored.
+关键词的分隔值列表。这些关键词主要用于文献过滤器，通常不会打印出来(见\secref{use:bib:bib, use:use:div} 节)。请注意，使用默认的分隔符（西文逗号）时，分隔符左右的空格会被忽略。
 
-\fielditem{keywords}{分隔值}
-
-关键词的分隔值列表。
-这些关键词主要用于文献过滤器，通常不会打印出来(见\secref{use:bib:bib, use:use:div} 节)。
-请注意，使用默认的分隔符（西文逗号）时，分隔符左右的空格会被忽略。
-
-%\fielditem{options}{separated \keyval options}
+\fielditem{options}{分隔的 \keyval 选项} %\fielditem{options}{separated \keyval options}
 
 %A separated list of entry options in \keyval notation. This field is used to set options on a per"=entry basis. See \secref{use:opt:bib} for details. Note that citation and bibliography styles may define additional entry options.
+\keyval 形式的条目选项分隔值列表。该域用于设置每一条目的选项，详见 \secref{use:opt:bib} 节。请注意，标注和著录样式会定义额外的条目选项。
 
-\fielditem{options}{分隔的 \keyval 选项}
-
-\keyval 形式的条目选项分隔值列表。
-该域用于设置每一条目的选项，详见 \secref{use:opt:bib} 节。
-请注意，标注和著录样式会定义额外的条目选项。
-
-%\fielditem{presort}{string}
-
+\fielditem{presort}{字符串} %\fielditem{presort}{string}
 %A special field used to modify the sorting order of the bibliography. This field is the first item the sorting routine considers when sorting the bibliography, hence it may be used to arrange the entries in groups. This may be useful when creating subdivided bibliographies with the bibliography filters. Please refer to \secref{use:srt} for further details. Also see \secref{aut:ctm:srt}. This field is consumed by the backend processing and does not appear in the \path{.bbl}.
+用于修改文献排列顺序的特殊域。文献排序时，该域排序程序第一个考虑的项，因此可用于将文献条目分组。这在利用文献过滤器创建文献细分时很有用。更多细节请参考 \secref{use:srt} 以及 \secref{aut:ctm:srt} 节。该域在后端程序处理过程中被清楚，不出现在 \path{.bbl} 中。
 
-\fielditem{presort}{字符串}
 
-用于修改文献排列顺序的特殊域。文献排序时，该域排序程序第一个考虑的项，因此可用于将文献条目分组。
-这在利用文献过滤器创建文献细分时很有用。更多细节请参考 \secref{use:srt} 以及 \secref{aut:ctm:srt} 节。
-该域在后端程序处理过程中被清楚，不出现在 \path{.bbl} 中。
-
-%\fielditem{related}{separated values}
-
+\fielditem{related}{分隔值}%\fielditem{related}{separated values}
 %Citation keys of other entries which have a relationship to this entry. The relationship is specified by the \bibfield{relatedtype} field. Please refer to \secref{use:rel} for further details.
+与本条目关联的其它条目的引用关键字。其关联关系由 \bibfield{relatedtype} 域指定。更多细节请参考 \secref{use:rel} 节。
 
-\fielditem{related}{分隔值}
 
-与本条目关联的其它条目的引用关键字。其关联关系由 \bibfield{relatedtype} 域指定。
-更多细节请参考 \secref{use:rel} 节。
-
-%\fielditem{relatedoptions}{separated values}
-
+\fielditem{relatedoptions}{分隔值}%\fielditem{relatedoptions}{separated values}
 %Per"=type options to set for a related entry. Note that this does not set the options on the related entry itself, only the \opt{dataonly} clone which is used as a datasource for the parent entry.
-
-\fielditem{relatedoptions}{分隔值}
-
 为关联条目设置类型相关的选项。请注意，这不会设置关联条目本身的选项，而只会影响作为数据源的父条目的临时副本。
 
 %\fielditem{relatedtype}{identifier}
@@ -1882,12 +1860,8 @@ indexsorttitle = {LATEX Companion},
 
 \begin{fieldlist}
 
-%\listitem{name{[a--c]}}{name}
-
+\listitem{name{[a--c]}}{姓名}%\listitem{name{[a--c]}}{name}
 %Custom lists for special bibliography styles. Not used by the standard bibliography styles.
-
-\listitem{name{[a--c]}}{姓名}
-
 特殊文献样式的定制列表。标准文献样式不使用。
 
 %\fielditem{name{[a--c]}type}{key}
@@ -1940,30 +1914,19 @@ indexsorttitle = {LATEX Companion},
 
 \begin{fieldlist}
 
-%\listitem{address}{literal}
-%
+\listitem{address}{文本}%\listitem{address}{literal}
+
 %An alias for \bibfield{location}, provided for \bibtex compatibility. Traditional \bibtex uses the slightly misleading field name \bibfield{address} for the place of publication, \ie the location of the publisher, while \biblatex uses the generic field name \bibfield{location}. See \secref{bib:fld:dat,bib:use:and}.
+\bibfield{location} 的别名，用于兼容 \BibTeX 。传统的 \BibTeX 使用这一稍微有些误导性的域 \bibfield{address} 来表示出版地点，即出版者的所在地，而 \biblatex 使用更一般的 \bibfield{location} 域。见 \secref{bib:fld:dat,bib:use:and} 节。
 
-\listitem{address}{文本}
-
-\bibfield{location} 的别名，用于兼容 \BibTeX 。
-传统的 \BibTeX 使用这一稍微有些误导性的域 \bibfield{address} 来表示出版地点，即出版者的所在地，
-而 \biblatex 使用更一般的 \bibfield{location} 域。见 \secref{bib:fld:dat,bib:use:and} 节。
-
-%\fielditem{annote}{literal}
+\fielditem{annote}{文本}%\fielditem{annote}{literal}
 
 %An alias for \bibfield{annotation}, provided for \sty{jurabib} compatibility. See \secref{bib:fld:dat}.
-
-\fielditem{annote}{文本}
-
 \bibfield{annotation} 的别名，用于兼容 \sty{jurabib} 宏包。见 \secref{bib:fld:dat} 节。
 
-%\fielditem{archiveprefix}{literal}
+\fielditem{archiveprefix}{文本}%\fielditem{archiveprefix}{literal}
 
 %An alias for \bibfield{eprinttype}, provided for arXiv compatibility. See \secref{bib:fld:dat,use:use:epr}.
-
-\fielditem{archiveprefix}{文本}
-
 \bibfield{eprinttype} 的别名，用于兼容 arXiv 。见 \secref{bib:fld:dat,use:use:epr} 节。
 
 %\fielditem{journal}{literal}
@@ -1974,12 +1937,9 @@ indexsorttitle = {LATEX Companion},
 
 \bibfield{journaltitle} 的别名，用于兼容 \BibTeX 。见 \secref{bib:fld:dat} 节。
 
-%\fielditem{key}{literal}
+\fielditem{key}{文本}%\fielditem{key}{literal}
 
 %An alias for \bibfield{sortkey}, provided for \bibtex compatibility. See \secref{bib:fld:spc}.
-
-\fielditem{key}{文本}
-
 \bibfield{sortkey} 的别名，用于兼容 \BibTeX 。见 \secref{bib:fld:spc} 节。
 
 %\fielditem{pdf}{verbatim}
@@ -2014,14 +1974,9 @@ indexsorttitle = {LATEX Companion},
 \label{bib:use}
 
 %The entry types and fields supported by this package should for the most part be intuitive to use for anyone familiar with \bibtex. However, apart from the additional types and fields provided by this package, some of the familiar ones are handled in a way which is in need of explanation.
-
-对于熟悉 \BibTeX 的用户来说，本宏包支持的绝大部分条目类型和域都是很直观的。然而，且不说本宏包额外新增的类型和域，一些熟悉的类型和域的处理方式也需要进一步解释一下。
-
 %This package includes some compatibility code for \file{bib} files which were generated with a traditional \bibtex style in mind. Unfortunately, it is not possible to handle all legacy files automatically because \biblatex's data model is slightly different from traditional \bibtex. Therefore, such \file{bib} files will most likely require editing in order to work properly with this package. In sum, the following items are different from traditional \bibtex styles:
-
-本宏包考虑到包含一些兼容性代码，用于处理那些由传统 \BibTeX 样式生成的 \file{bib} 文件。
-但不幸的是，对所有的老文件都进行自动处理是不可能的，因为 \biblatex 的数据模型与传统的 \BibTeX 有少许不同。
-因此，为了能在本宏包中正确使用，这样的 \file{bib} 文件也许需要稍作修改。大体上，下列事项是与传统的 \BibTeX 样式不同的：
+对于熟悉 \BibTeX 的用户来说，本宏包支持的绝大部分条目类型和域都是很直观的。然而，且不说本宏包额外新增的类型和域，一些熟悉的类型和域的处理方式也需要进一步解释一下。
+宏包考虑到包含一些兼容性代码，用于处理那些由传统 \BibTeX 样式生成的 \file{bib} 文件。但不幸的是，对所有的老文件都进行自动处理是不可能的，因为 \biblatex 的数据模型与传统的 \BibTeX 有少许不同。因此，为了能在本宏包中正确使用，这样的 \file{bib} 文件也许需要稍作修改。大体上，下列事项是与传统的 \BibTeX 样式不同的：
 
 \begin{itemize}
 	\setlength{\itemsep}{0pt}
@@ -2346,37 +2301,33 @@ organization = {<<{American Society for Photogrammetry and Remote Sensing}>>
 \subsubsection{日期和时间规范}%\subsubsection{Date and Time Specifications}
 \label{bib:use:dat}
 
-%\begin{table}
-%	\tablesetup
-%	\begin{tabularx}{\textwidth}{@{}>{\ttfamily}llX@{}}
-%		\toprule
-%		\multicolumn{1}{@{}H}{Date Specification} &
-%		\multicolumn{2}{H}{Formatted Date (Examples)} \\
-%		\cmidrule(l){2-3}
-%		&
-%		\multicolumn{1}{H}{Short/12-hour Format} &
-%		\multicolumn{1}{H}{Long/24-hour Format} \\
-%		\cmidrule{1-1}\cmidrule(l){2-2}\cmidrule(l){3-3}
-%		1850			& 1850				& 1850 \\
-%		1997/			& 1997--			& 1997-- \\
-%		/1997			& --1997			& --1997 \\
-%		1997/unknown		& 1997--			& 1997-- \\
-%		1997/*		& 1997--			& 1997-- \\
-%		unknown/1997		& --1997			& --1997 \\
-%		*/1997		& --1997			& --1997 \\
-%		1997/open		& 1997--			& 1997-- \\
-%		open/1997		& --1997			& --1997 \\
-%		1967-02			& 02/1967			& February 1967 \\
-%		2009-01-31		& 31/01/2009			& 31st January 2009 \\
-%		1988/1992		& 1988--1992			& 1988--1992 \\
-%		2002-01/2002-02		& 01/2002--02/2002		& January 2002--February 2002 \\
-%		1995-03-30/1995-04-05	& 30/03/1995--05/04/1995	& 30th March 1995--5th April 1995 \\
-%		2004-04-05T14:34:00 & 05/04/2004 2:34 PM & 5th April 2004 14:34:00\\
-%		\bottomrule
-%	\end{tabularx}
-%	\caption{Date Specifications}
-%	\label{bib:use:tab1}
-%\end{table}
+\begin{table}
+\tablesetup
+\begin{tabularx}{\textwidth}{@{}>{\ttfamily}llX@{}}
+\toprule
+\multicolumn{1}{@{}H}{Date Specification} &
+\multicolumn{2}{H}{Formatted Date (Examples)} \\
+\cmidrule(l){2-3}
+&
+\multicolumn{1}{H}{Short/12-hour Format} &
+\multicolumn{1}{H}{Long/24-hour Format} \\
+\cmidrule{1-1}\cmidrule(l){2-2}\cmidrule(l){3-3}
+1850			& 1850				& 1850 \\
+1997/			& 1997--			& 1997-- \\
+/1997			& --1997			& --1997 \\
+1997/..		& 1997--			& 1997-- \\
+../1997		& --1997			& --1997 \\
+1967-02			& 02/1967			& February 1967 \\
+2009-01-31		& 31/01/2009			& 31st January 2009 \\
+1988/1992		& 1988--1992			& 1988--1992 \\
+2002-01/2002-02		& 01/2002--02/2002		& January 2002--February 2002 \\
+1995-03-30/1995-04-05	& 30/03/1995--05/04/1995	& 30th March 1995--5th April 1995 \\
+2004-04-05T14:34:00 & 05/04/2004 2:34 PM & 5th April 2004 14:34:00\\
+\bottomrule
+\end{tabularx}
+\caption{Date Specifications}
+\label{bib:use:tab1}
+\end{table}
 
 \begin{table}
 	\tablesetup
@@ -2392,12 +2343,9 @@ organization = {<<{American Society for Photogrammetry and Remote Sensing}>>
 		1850			& 1850				& 1850 \\
 		1997/			& 1997--			& 1997-- \\
 		/1997			& --1997			& --1997 \\
-		1997/unknown	& 1997--			& 1997-- \\
-		1997/*			& 1997--			& 1997-- \\
-		unknown/1997	& --1997			& --1997 \\
-		*/1997			& --1997			& --1997 \\
-		1997/open		& 1997--			& 1997-- \\
-		open/1997		& --1997			& --1997 \\
+		
+		1997/..			& 1997--			& 1997-- \\
+		../1997			& --1997			& --1997 \\
 		1967-02			& 02/1967			& February 1967 \\
 		2009-01-31		& 31/01/2009		& 31st January 2009 \\
 		1988/1992		& 1988--1992		& 1988--1992 \\
@@ -2410,24 +2358,19 @@ organization = {<<{American Society for Photogrammetry and Remote Sensing}>>
 	\label{bib:use:tab1}
 \end{table}
 
-%Date fields such as the default data model dates \bibfield{date}, \bibfield{origdate}, \bibfield{eventdate}, and \bibfield{urldate} adhere to  \acr{EDTF}\footnote{\url{https://www.loc.gov/standards/datetime/pre-submission.html}} (Extended Date/Time Format) specification levels 0 and 1. Also supported are the open-ended range specifications in section 4.5 of the current working draft of ISO8601-2\footnote{\url{http://www.loc.gov/standards/datetime/iso-tc154-wg5_n0039_iso_wd_8601-2_2016-02-16.pdf}}. \acr{EDTF} is a stricter subset of the somewhat messy formats allowed by \acr{ISO8601v2004} and is better suited to bibliographic data.
-日期域，例如默认数据模型的日期域 \bibfield{date}、\bibfield{origdate}、\bibfield{eventdate} 和 \bibfield{urldate}等，遵循扩展日期时间格式\footnote{\url{https://www.loc.gov/standards/datetime/pre-submission.html}}
-（Extended Date/Time Format, \acr{EDTF}）规范标准0和标准1。
-此外也支持ISO8601-2当前草案第4.5节中的开放式范围规范%
-\footnote{\url{http://www.loc.gov/standards/datetime/iso-tc154-wg5_n0039_iso_wd_8601-2_2016-02-16.pdf}}。
-相比于\acr{ISO8601v2004}允许的有些混乱的格式，\acr{EDTF} 是其中一个更严格的子集，更适用于参考文献数据。
-
-%In addition to the \acr{EDTF} empty date range markers, you may also specify an open ended/start date range by giving the range separator and omitting the end/start date (\eg \texttt{YYYY/}, \texttt{/YYYY}). See \tabref{bib:use:tab1} for some examples of valid date specifications and the formatted dates automatically generated by \biblatex. The formatted date is language specific and will be adapted automatically. If there is no \bibfield{date} field in an entry, \biblatex will also consider the fields \bibfield{year} and \bibfield{month} for backwards compatibility with traditional \bibtex but this is not encouraged as explicit \bibfield{year} and \bibfield{month} are not parsed for date meta-information markers or times and are used as-is.
-除了 \acr{EDTF} 空日期范围标记外，还通过给定范围分隔符并省略结束或开始日期的方式（例如 \texttt{YYYY/}、\texttt{/YYYY}）
-来指定无末端或无开端的日期范围。\tabref{bib:use:tab1} 列出了一些有效的日期规范以及由 \biblatex 自动生成的日期格式。
-日期格式与语言有关，因此会自动调整。如果条目中没有 \bibfield{date} 域，\biblatex 还会考虑 \bibfield{year} 和 \bibfield{month} 域。不过这仅仅出于对传统 \BibTeX 的向后兼容性考虑，并不鼓励使用。因为显式的 \bibfield{year} 和 \bibfield{month} 域不能解析为日期的元信息标记，只能原样使用。
+%Date fields such as the default data model dates \bibfield{date}, \bibfield{origdate}, \bibfield{eventdate}, and \bibfield{urldate} adhere to \acr{ISO8601-2} Extended Format specification level 1. 
+日期域，例如默认数据模型的日期域 \bibfield{date}、\bibfield{origdate}、\bibfield{eventdate} 和 \bibfield{urldate}等，遵循\acr{ISO8601-2}扩展格式规范 level 1。 
+%In addition to the \acr{ISO8601-2} empty date range markers, you may also specify an open ended/start date range by giving the range separator and omitting the end/start date (\eg \texttt{YYYY/}, \texttt{/YYYY}). See \tabref{bib:use:tab1} for some examples of valid date specifications and the formatted dates automatically generated by \biblatex. The formatted date is language specific and will be adapted automatically. If there is no \bibfield{date} field in an entry, \biblatex will also consider the fields \bibfield{year} and \bibfield{month} for backwards compatibility with traditional \bibtex but this is not encouraged as explicit \bibfield{year} and \bibfield{month} are not parsed for date meta-information markers or times and are used as-is.
+除了 \acr{ISO8601-2} 空日期范围标记外，还通过给定范围分隔符并省略结束或开始日期的方式（例如 \texttt{YYYY/}、\texttt{/YYYY}）来指定无末端或无开端的日期范围。
+\tabref{bib:use:tab1} 列出了一些有效的日期规范以及由 \biblatex 自动生成的日期格式。
+日期格式与语言有关，因此会自动调整。如果条目中没有 \bibfield{date} 域，\biblatex 还会考虑 \bibfield{year} 和 \bibfield{month} 域，不过这仅仅出于对传统 \BibTeX 的向后兼容性考虑，并不鼓励使用。因为显式的 \bibfield{year} 和 \bibfield{month} 域不能解析为日期的元信息标记，只能原样使用。
 
 %Style authors should note that date fields like \bibfield{date} or \bibfield{origdate} are only available in the \file{bib} file. All dates are parsed and dissected into their components as the \file{bib} file is processed. The date and time components are made available to styles by way of the special fields discussed in \secref{aut:bbx:fld:dat}. See this section and \tabref{aut:bbx:fld:tab1} on page~\pageref{aut:bbx:fld:tab1} for further information.
 样式作者需要注意，\bibfield{date} 或 \bibfield{origdate}  等日期域只在 \file{bib} 文件中有效。
-随着 \file{bib} 文件的处理，所有的日期都被解析并分解为各个日期成分。样式使用日期和时间成分主要通过通过 \secref{aut:bbx:fld:dat} 节讨论的特殊域。更多信息请参考该节和 \pageref{aut:bbx:fld:tab1} 页的\tabref{aut:bbx:fld:tab1}。
+随着 \file{bib} 文件的处理，所有的日期都被解析分解为各个日期成分。样式主要借助\secref{aut:bbx:fld:dat} 节讨论的特殊域来使用日期和时间成分。更多信息请参考该节和 \pageref{aut:bbx:fld:tab1} 页的\tabref{aut:bbx:fld:tab1}。
 
-%\acr{EDTF} dates are astronomical dates in which year <0> exists. When outputting dates in BCE or BC era (see the \opt{dateera} option below), note that they will typically be one year earlier since BCE/BC era do not have a year 0 (year 0 is 1 BCE/BC). This conversion is automatic. See examples in table \tabref{bib:use:tab2}.
-\acr{EDTF} 日期是天文学日期，其中第“0”年是存在的。
+%\acr{ISO8601-2} Extended Format dates are astronomical dates in which year <0> exists. When outputting dates in BCE or BC era (see the \opt{dateera} option below), note that they will typically be one year earlier since BCE/BC era do not have a year 0 (year 0 is 1 BCE/BC). This conversion is automatic. See examples in \tabref{bib:use:tab2}.
+\acr{ISO8601-2} 扩展格式日期是天文日期，其中第“0”年是存在的。
 当输出公元前年代（BCE/BC era）的日期时（见下面的 \opt{dateera} 选项），
 请注意它们通常要早一年，因为公元前年代没有第0年（第0年就是公元前1年）。
 该转换是自动完成的，见\tabref{bib:use:tab2} 中的例子。
@@ -2435,31 +2378,32 @@ organization = {<<{American Society for Photogrammetry and Remote Sensing}>>
 %Date field names \emph{must} end with the string <date>, as with the default date fields. Bear this in mind when adding new date fields to the datamodel (see \secref{aut:ctm:dm}). \biblatex will check all date fields after reading the date model and will exit with an error if it finds a date field which does not adhere to this naming convention.
 如同默认日期域，日期域的名称\emph{必须}以字符串“date”结尾。当需要在数据模型中添加新的日期域时（见 \secref{aut:ctm:dm} 节）必须记住这一点。\biblatex 在读入日期模型后会检查所有的日期域，如果发现有日期域不遵循这一命名约定就会报错并退出。
 
-%\acr{EDTF} supports dates before common era (BCE/BC) by way of a negative date format and supports  <approximate> (circa) and uncertain dates. Such date formats set internal markers which can be tested for so that appropriate localised markers (such as \opt{circa} or \opt{beforecommonera}) can be inserted. Also supported are <unspecified> dates (\acr{EDTF} 5.2.2) which are automatically expanded into appropriate data ranges accompanied by a field \bibfield{$<$datetype$>$dateunspecified} which details the granularity of the unspecified data.
-\acr{EDTF} 通过负日期格式支持公元前（before common era, BCE/BC）日期，此外还支持“近似”（circa）和不确定的日期。
-这样的日期格式设置可以检测的内部标记，进而可以插入合适的本地化标记（例如  \opt{circa} 或 \opt{beforecommonera}）。
-另外，不确定日期（\acr{EDTF} 5.2.2）会根据\bibfield{\prm{datetype}dateunspecified} 域指定的未定数据间隔尺寸，自动展开成合适的日期范围。
-%Styles may use this information to format such dates appropriately but the standard styles do not do this. See \tabref{bib:use:tab3} on page~\pageref{bib:use:tab3} for the allowed \acr{EDTF} <unspecified> formats, their range expansions and \bibfield{$<$datetype$>$dateunspecified} values (see \secref{aut:bbx:fld:gen}).
-参考文献样式可以使用该信息构造合适的日期格式，但标准样式不会使用。
-\pageref{bib:use:tab3} 页的\tabref{bib:use:tab3} 列出了允许的 \acr{EDTF} 未定日期格式、范围展开和 \bibfield{\prm{datetype}dateunspecified} 域的值（\secref{aut:bbx:fld:gen} 节）。
+%\acr{ISO8601-2} supports dates before common era (BCE/BC) by way of a negative date format and supports  <approximate> (circa) and uncertain dates. Such date formats set internal markers which can be tested for so that appropriate localised markers (such as \opt{circa} or \opt{beforecommonera}) can be inserted. Also supported are <unspecified> dates (\acr{ISO8601-2} 4.3) which are automatically expanded into appropriate data ranges accompanied by a field \bibfield{$<$datetype$>$dateunspecified} which details the granularity of the unspecified data. 
+\acr{ISO8601-2} 通过负日期格式支持公元前（before common era, BCE/BC）日期，此外还支持“近似”（circa）和不确定的日期。
+这样的日期格式设置可以检测的内部标记，进而可以插入合适的本地化标记（例如 \opt{circa} 或 \opt{beforecommonera}）。
+另外，不确定日期（\acr{ISO8601-2} 4.3）会根据\bibfield{$<$datetype$>$dateunspecified} 域指定的未定数据间隔尺寸，自动展开成合适的日期范围。
+
+%Styles may use this information to format such dates appropriately but the standard styles do not do this. See \tabref{bib:use:tab3} on page~\pageref{bib:use:tab3} for the allowed \acr{ISO8601-2} <unspecified> formats, their range expansions and \bibfield{$<$datetype$>$dateunspecified} values (see \secref{aut:bbx:fld:gen}).
+参考文献样式可以使用该信息构造合适的日期格式，但标准样式不使用。
+\pageref{bib:use:tab3} 页的\tabref{bib:use:tab3} 列出了允许的 \acr{ISO8601-2} 未定日期格式，及其范围展开和 \bibfield{\prm{datetype}dateunspecified} 域的值（\secref{aut:bbx:fld:gen} 节）。
 
 %\begin{table}
-%	\tablesetup
-%	\begin{tabularx}{\textwidth}{@{}>{\ttfamily}llX@{}}
-%		\toprule
-%		\multicolumn{1}{@{}H}{Date Specification} &
-%		\multicolumn{1}{H}{Expanded Range} &
-%		\multicolumn{1}{H}{Meta-information} \\
-%		\cmidrule{1-1}\cmidrule(l){2-2}\cmidrule(l){3-3}
-%		199u       & 1990/1999             & yearindecade \\
-%		19uu       & 1900/1999             & yearincentury \\
-%		1999-uu    & 1999-01/1999-12       & monthinyear \\
-%		1999-01-uu & 1999-01-01/1999-01-31 & dayinmonth \\
-%		1999-uu-uu & 1999-01-01/1999-12-31 & dayinyear \\
-%		\bottomrule
-%	\end{tabularx}
-%	\caption{EDTF 5.2.2 Unspecified Date Parsing}
-%	\label{bib:use:tab3}
+%\tablesetup
+%\begin{tabularx}{\textwidth}{@{}>{\ttfamily}llX@{}}
+%\toprule
+%\multicolumn{1}{@{}H}{Date Specification} &
+%\multicolumn{1}{H}{Expanded Range} &
+%\multicolumn{1}{H}{Meta-information} \\
+%\cmidrule{1-1}\cmidrule(l){2-2}\cmidrule(l){3-3}
+%199X       & 1990/1999             & yearindecade \\
+%19XX       & 1900/1999             & yearincentury \\
+%1999-XX    & 1999-01/1999-12       & monthinyear \\
+%1999-01-XX & 1999-01-01/1999-01-31 & dayinmonth \\
+%1999-XX-XX & 1999-01-01/1999-12-31 & dayinyear \\
+%\bottomrule
+%\end{tabularx}
+%\caption{ISO8601-2 4.3 Unspecified Date Parsing}
+%\label{bib:use:tab3}
 %\end{table}
 \begin{table}
 	\tablesetup
@@ -2469,19 +2413,19 @@ organization = {<<{American Society for Photogrammetry and Remote Sensing}>>
 		\multicolumn{1}{H}{扩展范围} &
 		\multicolumn{1}{H}{元信息} \\
 		\cmidrule{1-1}\cmidrule(l){2-2}\cmidrule(l){3-3}
-		199u       & 1990/1999             & yearindecade \\
-		19uu       & 1900/1999             & yearincentury \\
-		1999-uu    & 1999-01/1999-12       & monthinyear \\
-		1999-01-uu & 1999-01-01/1999-01-31 & dayinmonth \\
-		1999-uu-uu & 1999-01-01/1999-12-31 & dayinyear \\
+		199X       & 1990/1999             & yearindecade \\
+		19XX       & 1900/1999             & yearincentury \\
+		1999-XX    & 1999-01/1999-12       & monthinyear \\
+		1999-01-XX & 1999-01-01/1999-01-31 & dayinmonth \\
+		1999-XX-XX & 1999-01-01/1999-12-31 & dayinyear \\
 		\bottomrule
 	\end{tabularx}
-	\caption{EDTF 5.2.2 未定日期解析}%Unspecified Date Parsing
+	\caption{ISO8601-2 4.3 未定日期解析}%Unspecified Date Parsing
 	\label{bib:use:tab3}
 \end{table}
 
 %\tabref{bib:use:tab2} shows formats which use appropriate tests and formatting. See the date meta-information tests in \secref{aut:aux:tst} and the localisation strings in \secref{aut:lng:key:dt}. See also the \file{96-dates.tex} example file for complete examples of the tests and localisation strings use.
-\tabref{bib:use:tab2} 展示了使用恰当测试和格式化的日期格式。
+\tabref{bib:use:tab2} 展示了使用适当测试和格式化的日期格式。
 参考 \secref{aut:aux:tst} 节的日期元信息测试以及 \secref{aut:lng:key:dt} 节的本地化字符串。
 关于测试和本地化字符串使用的完整例子请参考 \file{96-dates.tex} 示例文件。
 
