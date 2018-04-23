@@ -558,12 +558,12 @@ January 21--30, 2010\par
 
 \opt{julian} 和 \opt{gregorianstart} 选项可以用于控制何时输出儒略历日期。
 
-\optitem[year]{labeldate}{\opt{year}, \opt{short}, \opt{long}, \opt{terse}, \opt{comp}, \opt{ymd}, \opt{edtf}}
+\optitem[year]{labeldate}{\opt{year}, \opt{short}, \opt{long}, \opt{terse}, \opt{comp}, \opt{ymd}, \opt{iso}}
 
 %Similar to the \opt{date} option but controls the format of the date field selected with \cmd{DeclareLabeldate}.
 类似于 \opt{date} 选项但是控制由 \cmd{DeclareLabeldate} 选择的日期域的格式。
 
-\optitem[comp]{\prm{datetype}date}{\opt{year}, \opt{short}, \opt{long}, \opt{terse}, \opt{comp}, \opt{ymd}, \opt{edtf}}
+\optitem[comp]{\prm{datetype}date}{\opt{year}, \opt{short}, \opt{long}, \opt{terse}, \opt{comp}, \opt{ymd}, \opt{iso}}
 
 %Similar to the \opt{date} option but controls the format of the \bibfield{$<$datetype$>$date} field in the datamodel.
 类似于 \opt{date} 选项但是控制数据模型中 \bibfield{\prm{datetype}date} 域的格式。
@@ -707,7 +707,7 @@ January 21--30, 2010\par
 \boolitem[false]{punctfont}
 
 %This option enables an alternative mechanism for dealing with unit punctuation after a field printed in a different font (for example, a title printed in italics). See \cmd{setpunctfont} in \secref{aut:pct:new} for details.
-该选项激活一个可选机制，用来处理不同字体打印的域（例如斜体的标题）之后的单位标点。详见 \secref{aut:pct:new} 节中的 \cmd{setpunctfont}。
+该选项激活一个可选机制，用来处理以不同字体打印的域之后的单元标点（例如以斜体打印的标题后的标点）。详见 \secref{aut:pct:new} 节中的 \cmd{setpunctfont}。
 
 \optitem[abs]{arxiv}{\opt{abs}, \opt{ps}, \opt{pdf}, \opt{format}}
 
@@ -2275,7 +2275,7 @@ LANGUAGE+an = {1=annotation3; 2=annotation4}
 \prm{name} 对应于用 \cmd{defbibenvironment} 定义环境时的标识符。
 缺省状态下，\cmd{printbibliography} 命令使用标识符 \texttt{bibliography}；
 而 \cmd{printshorthands} 使用 \texttt{shorthands}。
-另见 \secref{use:bib:los,use:bib:hdg} 节。
+另见 \secref{use:bib:biblist,use:bib:hdg} 节。
 
 
 \valitem[bibliography/shorthands]{heading}{name}
@@ -2286,7 +2286,7 @@ LANGUAGE+an = {1=annotation3; 2=annotation4}
 该选项选择由 \cmd{defbibheading} 定义的标题名 \prm{name}。
 缺省状态下，\cmd{printbibliography} 命令使用标题名 \texttt{bibliography}；
 而 \cmd{printshorthands} 使用 \texttt{shorthands}。
-另见 \secref{use:bib:los,use:bib:hdg} 节。
+另见 \secref{use:bib:biblist,use:bib:hdg} 节。
 
 \valitem{title}{text}
 
@@ -2400,7 +2400,7 @@ LANGUAGE+an = {1=annotation3; 2=annotation4}
 
 %This option applies to numerical citation\slash bibliography styles only and requires that the \opt{defernumbers} option from \secref{use:opt:pre:gen} be enabled globally. If enabled, it will reset the numerical labels assigned to the entries in the respective bibliography, \ie the numbering will restart at~1. You can also pass a number to this option, for example: \texttt{resetnumbers=10} to reset numbering to the specified number to aid numbering continuity across documents. Use this option with care as \biblatex can not guarantee unique labels globally if they are reset manually.
 
-该选项只用于数值引用/参考文献样式，
+该选项只用于顺序编码制的标注/著录样式，
 并且要求 \secref{use:opt:pre:gen} 中的 \opt{defernumbers} 选项全局启用。
 如果启用的话，它将重新设置分配给相应文献中条目的数值标签，即，编号会重新从 1 开始。
 此外还可以传递数值给该选项以重置编号为给定的数值，例如 \texttt{resetnumbers=10}，
@@ -3033,29 +3033,26 @@ LANGUAGE+an = {1=annotation3; 2=annotation4}
 %References in a bibliography are cited and printed in a <context>. The context determines the data which is actually used to cite or provide bibliographic data for an entry. A context consists of the following information (the <context> concept is designed for future extensibility):
 
 参考文献列表中文献的引用和打印都处于某个\emph{著录文境}（context）内。
-对于某一条目，著录文境决定了实际用于引用或者提供文献信息的数据。
-一个著录文境包括以下信息\footnote{
-设计“著录文境”这一概念的目的在于，使其在未来具有可扩展性。}：
+对于某一条目，著录文境决定了实际用于标注或者在文献表中打印的数据。
+一个著录文境包括以下信息(设计“著录文境”这一概念的目的在于，使其在未来具有可扩展性。)：
 
 \begin{itemize}
  \item %A sorting template
- 排序格式
+ 排序模板
  \item %A template for constructing the sorting keys for names
- 构建姓名排序关键字的格式
+ 构建姓名排序关键字的模板
  \item %A string prefix for citation schemes which use alphabetic or numeric labels
- 使用字母或数值标签的引用格式的前缀字符串
-
- \item A template for calculating name uniqueness information
- \item A template for constructing alphabetic labels for names
+ 使用字母或数值标签的标注格式的前缀字符串
+ \item %A template for calculating name uniqueness information
+ 计算姓名唯一性信息的模板
+ \item %A template for constructing alphabetic labels for names
+ 构造姓名的字母顺序标签的模板
 \end{itemize}
 %
 %The purpose of bibliography contexts is twofold. Firstly, they are used to set options which influence a printed bibliography and secondly to influence the data printed by citation commands.
 %The former use is the most common when one needs to print more than one bibliography list with different, for example, sorting.
-著录文境具有双重意义。
-首先，会用于设置影响打印参考文献的选项；
-其次，设置的选项还可以影响引用命令打印的数据。
-前一应用场景是很常见的，例如，
-打印多个带有不同排序格式的参考文献表。
+著录文境具有双重意义。首先，会用于设置影响参考表打印的选项；其次，设置的选项还可以影响标注命令输出的数据。
+前一应用场景是最常见的，例如，打印多个具有不同排序的参考文献表。
 
 \begin{ltxexample}
 \usepackage[sorting=nyt]{biblatex}
@@ -3068,22 +3065,12 @@ LANGUAGE+an = {1=annotation3; 2=annotation4}
 \end{ltxexample}
 %
 %Here we print two bibliographies, one with the default <nyt> sorting scheme and one with the <ydnt> sorting scheme.
-这里我们打印两个参考文献表。
-其中一个带有默认的“nyt”排序格式，另一个则使用“ydnt”排序格式。
+这里我们打印两个参考文献表。其中一个带有默认的“nyt”排序格式，另一个则使用“ydnt”排序格式。
 
 %To demonstrate the second type of use of bibliography contexts, we have to understand that the actual data for an entry can vary depending on the context. This is most obvious in the case of the \opt{extra*} fields like \opt{extrayear} which are generated by the backend according to the order of entries \emph{after} sorting so that they come out in the expected <a, b, c> order. This clearly shows that the \emph{data} in an entry can be different between sorting schemes. If a document contains more than one bibliography list with different sorting schemes, it can happen then that the \file{.bbl} contains sorting lists with the same entry but containing different data (a different value for \bibfield{extrayear}, for example). The purpose of bibliography contexts is to encapsulate things inside a context so that \biblatex can use the correct entry data. An example is printing a bibliography list with a different sorting order to the global sorting order where the \opt{extra*} fields are different for the same entry between sorting lists:
-为了说明著录文境的第二种类型应用，我们必须意识到这一点：
-条目的实际数据可以基于不同的著录文境而变化。
-在以下的情况中这一点尤其明显：
-由后端生成的 \opt{extra*} 域（例如 \opt{extrayear}）与条目在排序\emph{之后}的顺序有关，
-这样出来的结果就是预期的“a, b, c”的顺序。
-这就表明，条目的\emph{数据}在不同排序格式下可以不一样。
-如果文档中包含多个带有不同排序格式的参考文献列表，
-那么 \file{.bbl} 文件中可能出现多个排序列表，它们带有同一条目但是其数据不同（例如 \bibfield{extrayear} 的值可以不同）。
-著录文境的目的就在于将这些事项封装在一个语境内部，
-这样 \biblatex 就可以使用正确的条目数据。
-以下的例子展示了使用与全局排序格式不同的另一格式打印参考文献列表，
-使得同一条目的 \opt{extra*} 域在不同排序列表中是不同的：
+为了说明著录文境的第二类应用，我们必须理解一点：条目的实际应用数据可以随著录文境的变化而变化。
+\opt{extra*} 域（例如 \opt{extrayear}）就是一个最明显的例子：\opt{extrayear}是由后端根据排序\emph{之后}的条目顺序生成的，所以会出现以“a, b, c”表示的预期的顺序。这就清楚地表明，条目的\emph{数据}在不同排序格式下可以不一样。
+如果文档中包含多个具有不同排序格式的参考文献表，那么 \file{.bbl} 文件中就可能包含多个排序列表，列表中的条目相同但其数据可以不同（例如 \bibfield{extrayear} 的值可以不同）。著录文境的目的就在于将这些事项封装在一个语境内部，这样 \biblatex 就可以使用正确的条目数据。下面的例子打印一个使用与全局排序格式不同的排序格式的文献表，其中同一条目的 \opt{extra*} 域在不同排序的文献表中是不同的：
 
 \begin{ltxexample}
 \usepackage[sorting=nyt,style=authoryear]{biblatex}
@@ -3114,19 +3101,16 @@ LANGUAGE+an = {1=annotation3; 2=annotation4}
 \end{ltxexample}
 %
 %Here, the second use of the citations, along with the \cmd{printbibliography} command will use data from the context of the custom <yntd> sorting scheme which may well be different from the data associated with the default <nyt> scheme. That is, the citation labels (in an authoryear style which uses \opt{extrayear}) may be different \emph{for the exact same entries} between different bibliography contexts and so the citations themselves may look different.
-这里，第二次使用引用命令和 \cmd{printbibliography} 命令时会使用在定制“yntd”排序格式的著录文境中的数据，
-这与默认的“nyt”格式相关联的数据可能会不相同。
-也就是说，\emph{对于同一条目}，
-不同著录文境中的引用标签（在使用 \opt{extrayear} 的 \opt{authoryear} 样式中）可以不同，
-这样对其引用就可以不一致。
+这里，第二次使用的标注(引用)和 \cmd{printbibliography} 命令，会使用自定义的“yntd”排序格式所在著录文境中的数据，
+这些数据与默认“nyt”排序格式所在文境中的数据是不同的。也就是说，\emph{对于同一条目}，不同著录文境中标注的标签域的值
+（如\opt{authoryear} 样式中 \opt{extrayear} 域的值）可以不同，因此标注出来的标签自然就会不同。
 
 %Reference contexts can be declared with \cmd{DeclareRefcontext} and referred to by name, see below.
 
-引用文境可以使用 \cmd{DeclareRefcontext} 命令进行声明，
-然后通过文境的名称进行使用，见以下说明。
+著录文境可以使用 \cmd{DeclareRefcontext} 命令进行声明，然后通过文境名使用，见以下说明。
 
 %By default, data for a citation is drawn from the reference context of the last bibliography in which it was printed. For example:
-默认情况下，用于引用的数据来自于打印该条目的最后一个参考文献列表所在的引用文境。例如：
+默认情况下，用于标注的数据来自于打印该条目的最后一个参考文献表所在的著录文境。例如：
 
 \begin{ltxexample}[style=latex]{}
 \DeclareRefcontext{ap}{labelprefix=A}
@@ -3146,77 +3130,61 @@ LANGUAGE+an = {1=annotation3; 2=annotation4}
 \end{ltxexample}
 %
 %This example also shows the declaration and use of a named reference context. Assuming the entrykeys are indicative of their entrytypes, this is the default situation for the citations which corresponds to what users normally expect:
-这个例子同时展示了引用文境的声明和使用。
-在该例子中假设条目类型就是条目的键名，
-文献引用就对应与用户通常预料到的默认场景。
+这个例子也展示了文境的声明和使用。在该例中，假设条目类型就是条目的键名，
+这是标注的默认情况，是符合用户的一般期待的:
 
 \begin{itemize}
 \item %The citation of entry \bibfield{book} would draw its data from the global reference context, because the last bibliography in which it was printed was the one in the global reference context.
-条目 \bibfield{book} 的引用会从全局引用文境中提取数据，
-因为打印该条目的最后的参考文献列表位于全局引用文境中。
+条目 \bibfield{book} 的标注会从全局文境中提取数据，因为打印该条目的最后的文献表位于全局文境中。
 \item %The citation of entry \bibfield{article} would draw its data from reference context with \opt{labelprefix=A} and would therefore have a <A> prefix when cited.
-条目 \bibfield{article} 的引用会从带有 \opt{labelprefix=A} 的引用文境中提取数据，
-因此引用时会带有前缀“A”。
+条目 \bibfield{article} 的标注会从带有 \opt{labelprefix=A} 的文境中提取数据，因此引用时会带有前缀“A”。
 \item %The citation of entry \bibfield{misc} would draw its data from the reference context with \opt{sorting=ydnt}
-条目 \bibfield{misc} 的引用会从带有 \opt{sorting=ydnt} 的引用文境中提取数据。
+条目 \bibfield{misc} 的标注会从带有 \opt{sorting=ydnt} 的文境中提取数据。
 \end{itemize}
 %
 %In cases where the user has entries which occur in multiple bibliographies in different forms or with potentially different labels (in a numeric scheme with different \bibfield{labelprefix} values for example), it may be necessary to tell \biblatex from which reference context you wish to draw the citation information. As shown above this can be done by explicitly putting citations inside reference contexts. This can be onerous in a large document and so there is specific functionality for assigning citations to reference contexts programatically, see the \cmd{assignrefcontext*} macros below.
-有这样一种情况，条目在多个参考文献列表中并且有不同的形式或者可能带有不同的标签
-（例如，带有不同 \bibfield{labelprefix} 值的数字格式）。
-此时需要告诉 \biblatex 希望从哪个引用文境中提取引用信息。
-如上所述，这可以通过显式地将引用置于引用文境中而实现。
-但是在大文档中这种方式会很繁重，
-因此提供了将引用以程序化的方式分配到引用文境的功能，
-见下面的 \cmd{assignrefcontext*} 宏命令。
+当有一些条目同时出现在具有不同形式或可能具有不同标签的文献表中时（例如，顺序编码带有不同的 \bibfield{labelprefix} 值），你有必要告诉 \biblatex 希望从哪个文境中提取标注信息。如上所示，这可以通过显式地将标注(引用)命令置于具体的文境中来实现。但若在一个大文档中这种方式就会很麻烦，因此 biblatex 提供了一个特殊功能以将标注用代码指定方式分配到需要的文境中，见下面的 \cmd{assignrefcontext*} 宏命令。
 
 \begin{ltxsyntax}
 
 \cmditem{DeclareRefcontext}{name}{key=value, \dots}
 
 %Declares a named reference context with name \prm{name}. The \prm{key=value} options define the context attributes. All context attributes are optional and default to the global settings if absent. The valid options are:
-声明一个名称为 \prm{name} 的引用文境。
-\prm{key=value} 选项定义该文境的属性。
-所有的文境属性都是可选的，缺省为全局设置。
-有效的选项为：
+声明一个名称为 \prm{name} 的文境。\prm{key=value} 选项定义了该文境的属性。所有的文境属性都是可选的，缺省时等价于使用全局文境的设置。有效的选项为：
 
 \begin{optionlist*}
 
 \valitem{sorting}{name}
 
 %Specify a sorting template defined previously with \cmd{DeclareSortingtemplate}. This template is used to determine which data to retrieve and/or print for an entry in the commands inside the context.
-指定由之前的 \cmd{DeclareSortingScheme} 命令定义的排序格式。对于在该文境内引用命令中的条目，该格式用于确定检索和打印的数据。
+指定由 \cmd{DeclareSortingScheme} 命令预先定义的排序模板(格式)。该模板确定了文境内条目相关命令所要获取或打印的数据。
 
 \valitem{sortingnamekeytemplatename}{name}
 
 %Specify a sorting name key template defined previously with \cmd{DeclareSortingNamekeyTemplate}. This scheme is used to construct sorting keys for names inside the context.
-指定由之前的 \cmd{DeclareSortingNamekeyScheme} 命令定义的排序姓名关键字格式。该格式用于为文境内的姓名构建排序关键字。
+指定由 \cmd{DeclareSortingNamekeyScheme} 命令预先定义的姓名排序关键字模板(格式)。该模板用于构建文境内的姓名排序关键字。
 
 \valitem{uniquenametemplatename}{name}
 
-Specify a uniquename template defined previously with \cmd{DeclareUniquenameTemplate} (see \secref{aut:cav:amb}). This template is used to calculate uniqueness information for names inside the context. The template name can also be specified (in increasing order of preference) per"=entry, per"=name list and per"=name. See \secref{apx:opt} for information on setting per"=option, per"=namelist and per"=name options.
+%Specify a uniquename template defined previously with \cmd{DeclareUniquenameTemplate} (see \secref{aut:cav:amb}). This template is used to calculate uniqueness information for names inside the context. The template name can also be specified (in increasing order of preference) per"=entry, per"=name list and per"=name. See \secref{apx:opt} for information on setting per"=option, per"=namelist and per"=name options.
+指定由 \cmd{DeclareUniquenameTemplate} 预先定义的唯一性姓名模板(见\secref{aut:cav:amb})，该模板用于计算文境内姓名的唯一性信息。模板名也可以指定给单个条目、单个姓名列表、单个姓名中。
+设置单个条目、单个姓名列表、单个姓名的选项信息见\secref{apx:opt}。
 
 \valitem{labelalphanametemplatename}{name}
 
-Specify a template defined previously with \cmd{DeclareLabelalphaNameTemplate} (see \secref{aut:ctm:lab}). This template is used to construct name parts of alphabetic labels for names inside the context. The template name can also be specified (in increasing order of preference) per"=entry, per"=name list and per"=name. See \secref{apx:opt} for information on setting per"=option, per"=namelist and per"=name options.
+%Specify a template defined previously with \cmd{DeclareLabelalphaNameTemplate} (see \secref{aut:ctm:lab}). This template is used to construct name parts of alphabetic labels for names inside the context. The template name can also be specified (in increasing order of preference) per"=entry, per"=name list and per"=name. See \secref{apx:opt} for information on setting per"=option, per"=namelist and per"=name options.
+指定由 \cmd{DeclareLabelalphaNameTemplate} 预先定义的字母顺序姓名标签模板(见\secref{aut:ctm:lab})，该模板用于构造文境内姓名的字母顺序标签的姓名成分。模板名也可以指定给单个条目、单个姓名列表、单个姓名中。设置单个条目、单个姓名列表、单个姓名的选项信息见\secref{apx:opt}。
 
 \valitem{nametemplates}{name}
 
-A convenience meta-option which sets \opt{sortingnamekeytemplate}, \opt{uniquenametemplate} and \opt{labelalphanametemplate} to the same template name. This option can also be specified (in increasing order of preference) per"=entry, per"=name list and per"=name. See \secref{apx:opt} for information on setting per"=option, per"=namelist and per"=name options.
+%A convenience meta-option which sets \opt{sortingnamekeytemplate}, \opt{uniquenametemplate} and \opt{labelalphanametemplate} to the same template name. This option can also be specified (in increasing order of preference) per"=entry, per"=name list and per"=name. See \secref{apx:opt} for information on setting per"=option, per"=namelist and per"=name options.
+用于对同一模板名设置\opt{sortingnamekeytemplate}, \opt{uniquenametemplate} 和 \opt{labelalphanametemplate}的一个方便选项。该选项也可指定给单个条目、单个姓名列表、单个姓名中。设置单个条目、单个姓名列表、单个姓名的选项信息见\secref{apx:opt}。
 
 \valitem{labelprefix}{string}
 
 %This option applies to numerical citation\slash bibliography styles only and requires that the \opt{defernumbers} option from \secref{use:opt:pre:gen} be enabled globally. Setting this option will implicitly enable \opt{resetnumbers} for the any \cmd{printbibliography} in the scope of the context (unless overridden by a user-specified value for \opt{resetnumbers}). The option assigns the \prm{string} as a prefix to all entries in the reference context. For example, if the \prm{string} is \texttt{A}, the numerical labels printed will be \texttt{[A1]}, \texttt{[A2]}, \texttt{[A3]}, etc. This is useful for subdivided numerical bibliographies where each subbibliography uses a different prefix. The \prm{string} is available to styles in the \bibfield{labelprefix} field of all affected entries. See \secref{aut:bbx:fld:lab} for details.
-
-该选项只用于数字型引用和文献样式，
-需要全局开启 \secref{use:opt:pre:gen} 节中的 \opt{defernumbers} 选项。
-设置改选项也会为该文境范围内的任意 \cmd{printbibliography} 启用 \opt{resetnumbers} 选项
-（除非 \opt{resetnumbers} 被用户指定的值覆盖）。
-该选项将 \prm{string} 作为前缀分配到该引用文境中的所有条目。
-例如，如果 \prm{string} 是 \texttt{A}，那么打印出来的数值标签就会形如 \texttt{[A1]}, \texttt{[A2]}, \texttt{[A3]} 等。
-特别适用的场合是，将参考文献列表划分成带有不同前缀的子列表。
-\prm{string} 可以用于所有有关条目中 \bibfield{labelprefix} 域中的样式。
-详见 \secref{aut:bbx:fld:lab} 节。
+该选项只用于顺序编码的标注和著录样式样式，需要全局开启 \secref{use:opt:pre:gen} 节中的 \opt{defernumbers} 选项。设置该选项也会为文境范围内的任意 \cmd{printbibliography} 启用 \opt{resetnumbers} 选项（除非 \opt{resetnumbers} 被用户指定的值覆盖）。该选项将为文境内的所有条目分配一个 \prm{string} 的前缀。例如，如果 \prm{string} 是 \texttt{A}，那么打印出来的编码标签将形如 \texttt{[A1]}, \texttt{[A2]}, \texttt{[A3]} 等。这适用于划分成不同部分的子文献表使用不同前缀的情况。
+所有受影响条目的 \bibfield{labelprefix} 域的格式设置也能使用该\prm{string}。详见 \secref{aut:bbx:fld:lab} 节。
 
 \end{optionlist*}
 %
@@ -3224,22 +3192,18 @@ A convenience meta-option which sets \opt{sortingnamekeytemplate}, \opt{uniquena
 \envitem{refcontext}[key=value, \dots]{name}
 
 %Wraps a reference context environment. The possible \prm{key=value} optional arguments are as for \cmd{DeclareRefcontext} and override options given for the named reference context \prm{name}. \prm{name} can also be omitted as \verb+{}+ or by omitting even the empty braces\footnote{This slightly odd syntax possibility is a result of backwards compatibility with \biblatex $<$3.5}.
-
-将引用文境封装在一个环境内。
-可能的 \keyval 可选项和 \cmd{DeclareRefcontext} 中的相同，
-并且覆盖名为 \prm{name} 的引用文境的选项。
-\prm{name} 也可以省略成 \verb+{}+，甚至空的括号也可以省略\footnote{
-这种有点怪异的句法是出于对 \biblatex $<$3.5 的向后兼容性。}
+将文境封装在一个环境内。可能的 \prm{key=value} 可选设置和 \cmd{DeclareRefcontext} 中的相同，
+并且覆盖名为 \prm{name} 的文境的选项。\prm{name} 也可以省略成 \verb+{}+，甚至空的括号也可以省略
+\footnote{这种有点怪异的句法是出于对 \biblatex $<$3.5 的向后兼容性。}。
 
 %The \opt{refcontext} environment cannot be nested and \biblatex will generate an error if you try to do so.
-\env{refcontext} 环境不可以相互嵌套，如果这样的话 \biblatex 会报错。
+\env{refcontext} 环境不能相互嵌套，如果有嵌套，\biblatex 会报错。
 
 \cmditem{newrefcontext}[key=value, \dots]{name}
 
 %This command is similar to the \env{refcontext} environment except that it is a stand"=alone command rather than an environment. It automatically ends any previous reference context section begun with \cmd{newrefcontext} (if any) and immediately starts a new one. Note that the context section started by the last \cmd{newrefcontext} command in the document will extend to the very end of the document. Use \cmd{endrefcontext} if you want to terminate it earlier.
 该命令类似于 \env{refcontext} 环境，不同之处在于这是单独的命令而不是环境。
-它会自动结束任何之前以 \cmd{newrefcontext} 开始的引用文境片段（如果有的话），
-并立即开启新的引用文境。
+它会自动结束任何之前以 \cmd{newrefcontext} 开始的文境（如果有的话），并立即开启新的文境。
 注意，文档中最后的 \cmd{newrefcontext} 命令开启的引用文境会一直持续到文档的最后。
 如果想要提前终止，那么需要使用 \cmd{endrefcontext} 命令。
 
@@ -3247,8 +3211,7 @@ A convenience meta-option which sets \opt{sortingnamekeytemplate}, \opt{uniquena
 %
 %At the beginning of the document, there is always a global context containing global settings for each of the reference context options. Here is an example summarising the reference contexts with various settings:
 
-在文档的开始，总会有一个全局的文境，其中为每一引用文境选项进行了全局设置。
-这里的例子总结了引用文境的不同设置：
+在文档的开始，总会有一个全局的文境，并会设置了全局的文境选项。如下例子总结了文境的不同设置：
 
 \begin{ltxexample}[style=latex]{}
 \usepackage[sorting=nty]{biblatex}
@@ -3311,23 +3274,11 @@ A convenience meta-option which sets \opt{sortingnamekeytemplate}, \opt{uniquena
 
 \end{ltxsyntax}
 %These commands automate putting citations into refcontexts when the default behaviour is not sufficient. The default behaviour is that the data for a citation is drawn from the refcontext of the last bibliography in which it was printed. For citations that are used in some way but not printed in a bibliography or bibliography list, they default to drawing their data from the global refcontext established at the beginning of the document. To override this behaviour, instead of manually wrapping citation commands in \env{refcontext} environments, which might be error-prone and tedious, you can register a comma"=separated list of \prm{keywords}, \prm{categories} or \prm{entrykeys} which, respectively, make the entries with any of the specified keywords, entries in any of the specified categories (see \secref{use:use:div}) or entries with any of the specified citation keys draw their data from a particular refcontext specified by the \prm{refcontext key/values} which are parsed as the per the corresponding \env{refcontext} options. Such refcontext auto-assignments are specific to the current refsection. You may specify the same citation key in any of these commands but be aware that assignment is done in the order \prm{keywords}, \prm{categories}, \prm{entrykeys} with the later specifications overriding the earlier. \cmd{assignrefcontextentries} accepts a single asterisk instead of a list of entrykeys which allows the assignment of all keys in a refsection to a refcontext with having to explicitly list them. An example:
-
-当默认行为不充分时，这些命令会自动将引用置于引用文境中。
-默认行为是指，从最后打印条目的参考文献列表所在的引用文境中提取引用数据。
-对于没有在参考文献列表中打印但是以某种方式使用的引用，
-默认会从文档一开始建立的全局引用文境中提取数据。
-为了覆盖这一行为，可以手动将引用命令放置在 \env{refcontext} 环境内，
-但是这样容易出错并且很繁琐。
-除此之外，可以登记一个关于 \prm{keywords}、\prm{categories} 和 \prm{entrykeys} 的逗号分隔列表。
-这样，任何带有指定关键字的条目、任何指定类别的条目（见 \secref{use:use:div} 节）、任何指定引用关键字的条目都会分别从由 \prm{refcontext key/values} 指定的特定引用文境中提取数据，
-并按照对应的 \env{refcontext} 环境选项进行解析。
-这样的引用文境自动分配方式特定于当前的参考文献分节。
-你可以在任意的这些命令中指定相同的引用键，
-但需要注意的是，分配方式按照 \prm{keywords}, \prm{categories}, \prm{entrykeys} 的顺序，
-后面的规范会覆盖之前的规范。
-\cmd{assignrefcontextentries} 命令可以接受单个的星号作为选项以代替一列条目键，
-这样可以将某一参考文献分节中的所有条目键都分配给某个引用文境，而不必显式列出。
-例如：
+标注命令自动从打印当前条目的最后一个文献表所在文境提取数据这种默认方式有时是无法满足需求的。
+对于某些没有在文献表中打印条目但又以某种方式给出的标注命令，它们默认从文档开始时建立的全局文境获取数据。
+要覆盖这一行为，可以手动将标注命令放在 \env{refcontext} 环境内，但是这样容易出错并且很繁琐。
+而 \cmd{assignrefcontext*}这些命令可以用来设置一个由 \prm{keywords}、\prm{categories} 或 \prm{entrykeys} 构成的逗号分隔列表，使带有这些指定关键字、或属于任何指定类别(见 \secref{use:use:div} 节)、或指定引用关键字的条目可以从\prm{refcontext key/values}指出的特定文境获取数据，这些\prm{refcontext key/values}选项会被解析为对应的 \env{refcontext} 选项。这种文境自动分配是针对当前的参考文献分节的。当你在使用这些命令时可能会重复指定相同的条目，要注意的是 biblatex 通常会按照 \prm{keywords}, \prm{categories}, \prm{entrykeys} 的先后顺序由后面的设定覆盖前面的设定。
+\cmd{assignrefcontextentries} 命令可以接受单个星号来代替条目键列表，这时会将参考文献分节中的所有条目键都分配给某个文境，而不必显式列出。例如：
 
 \begin{ltxexample}[style=latex]{}
 \assignrefcontextentries[labelprefix=A]{key2}
@@ -3338,10 +3289,12 @@ A convenience meta-option which sets \opt{sortingnamekeytemplate}, \opt{uniquena
 \end{ltxexample}
 %
 %Here, the data for the citation of \bibfield{key2} will be drawn from refcontext \opt{labelprefix=A} and not \opt{labelprefix=B} (resulting in a label with prefix <A> and not <B>).
-%The starred versions do not override a local refcontext and so with:
-这里 \bibfield{key2} 的引用数据会从引用文境 \opt{labelprefix=A} 中提取，而不是 \opt{labelprefix=B}。
+
+这里 \bibfield{key2} 的标注用数据会从文境 \opt{labelprefix=A} 中提取，而不是 \opt{labelprefix=B}。
 即，标签的前缀是“A”不是“B”。
-带星号的版本不会覆盖局部的引用文境，也就是：
+
+%The starred versions do not override a local refcontext and so with:
+而带星号的版本不会覆盖局部的文境，所以对于如下设定：
 
 \begin{ltxexample}[style=latex]{}
 \assignrefcontextentries*[labelprefix=A]{key2}
@@ -3352,10 +3305,9 @@ A convenience meta-option which sets \opt{sortingnamekeytemplate}, \opt{uniquena
 \end{ltxexample}
 %
 %the data for the citation of \bibfield{key2} will be drawn from refcontext \opt{labelprefix=B}. Note that these commands are rarely necessary unless you have multiple bibliographies in which the same citations occur and \biblatex\ cannot by default tell which bibliography list a citation should refer to. See the example file \file{94-labelprefix.tex} for more details.
-\bibfield{key2} 的引用数据会从 \opt{labelprefix=B} 引用文境中提取。
-注意，这些命令大部分情况下都不必使用，
-除非多个参考文献表中有相同的文献引用，并且 \biblatex 按照默认设置不知道引用应该指向哪一个文献列表。
-详见文件 \file{94-labelprefix.tex} 中的例子。
+\bibfield{key2} 的引用数据会从 \opt{labelprefix=B} 文境中提取。注意，这些命令大部分情况下都不必使用，
+除非多个参考文献表中有相同文献的标注(引用)且 \biblatex 按照默认设置无法知道标注应该指向哪一个文献表。
+更多细节详见文件 \file{94-labelprefix.tex} 中的例子。
 
 \subsubsection{动态条目集}%\subsubsection{Dynamic Entry Sets}
 \label{use:bib:set}
@@ -3390,14 +3342,14 @@ A convenience meta-option which sets \opt{sortingnamekeytemplate}, \opt{uniquena
 
 %All citation commands generally take one mandatory and two optional arguments. The \prm{prenote} is text to be printed at the beginning of the citation. This is usually a notice such as <see> or <compare>. The \prm{postnote} is text to be printed at the very end of the citation. This is usually a page number. If only one of these arguments is given, it is taken as a postnote. If you want to specify a prenote but no postnote, you need to leave the second optional argument empty, as in |\cite[see][]{key}|. The \prm{key} argument to all citation commands is mandatory. This is the entry key or a comma"=separated list of keys corresponding to the entry keys in the \sty{bib} file. In sum, all basic citations commands listed further down have the following syntax:
 
-大体上，所有的引用命令都有一个必选参数和两个可选参数。
-前注 \prm{prenote} 是引用开始时打印的文本，通常是“see”或“compare”等提示。
-而后注 \prm{postnote} 是引用结束时打印的文本，通常是页码数。
+大体上，所有的标注(引用)命令都有一个必选参数和两个可选参数。
+前注 \prm{prenote} 是标注开始时打印的文本，通常是“see”或“compare”等提示。
+而后注 \prm{postnote} 是标注结束时打印的文本，通常是页码数。
 如果只给出一个可选参数，那么将视作后缀。
 如果想给出前注但不要后注，那么需要将第二个可选项设置为空，例如 |\cite[see][]{key}|。
-所有的引用命令中选项 \prm{key} 都是必须的，
+所有的标注(引用)命令中选项 \prm{key} 都是必须的，
 其内容是 \file{bib} 文件中的条目键或者对应于条目键的逗号分隔列表。
-总的来说，以下所有的基本引用命令都具有如下的句法结构：
+\emph{总的来说，以下所有的基本引用命令都具有如下的句法结构}：
 
 \begin{ltxsyntax}
 
@@ -3405,8 +3357,8 @@ A convenience meta-option which sets \opt{sortingnamekeytemplate}, \opt{uniquena
 
 %If the \opt{autopunct} package option from \secref{use:opt:pre:gen} is enabled, they will scan ahead for any \prm{punctuation} immediately following their last argument. This is useful to avoid spurious punctuation marks after citations. This feature is configured with \cmd{DeclareAutoPunctuation}, see \secref{aut:pct:cfg} for details.
 如果启用了 \secref{use:opt:pre:gen} 节中的 \opt{autopunct} 宏包选项，
-这些命令会首先扫描紧跟在最后选项的 \prm{punctuation} 标点符号。
-这可用于避免引用之后出现错误的标点符号。
+这些命令会继续扫描紧跟在最后一个参数后的标点符号(\prm{punctuation})。
+这可用于避免在标注之后出现错误的标点符号。
 该特性由 \cmd{DeclareAutoPunctuation} 命令配置，详见 \secref{aut:pct:cfg} 节。
 
 \end{ltxsyntax}
@@ -3416,8 +3368,8 @@ A convenience meta-option which sets \opt{sortingnamekeytemplate}, \opt{uniquena
 
 %The following commands are defined by the citation style. Citation styles may provide any arbitrary number of specialized commands, but these are the standard commands typically provided by general-purpose styles.
 
-下列命令由引用样式定义。
-引用样式可以提供任意特殊命令，但是这些是由通用样式提供的标准命令。
+下列命令由标注样式定义。
+标注样式可以提供任意特殊命令，但是这些是由通用样式提供的标准命令。
 
 \begin{ltxsyntax}
 
@@ -3427,11 +3379,9 @@ A convenience meta-option which sets \opt{sortingnamekeytemplate}, \opt{uniquena
 
 %These are the bare citation commands. They print the citation without any additions such as parentheses. The numeric and alphabetic styles still wrap the label in square brackets since the reference may be ambiguous otherwise. \cmd{Cite} is similar to \cmd{cite} but capitalizes the name prefix of the first name in the citation if the \opt{useprefix} option is enabled, provided that there is a name prefix and the citation style prints any name at all.
 
-基本引用命令。只打印出引用，而不带括号等任何附加物。
-不过数值和字母样式仍然会将标签放在方括号里，因为否则的话参考文献可能含糊不清。
-\cmd{Cite} 与 \cmd{cite} 类似，不同之处仅仅在于，
-如果开启了 \opt{useprefix} 选项，并且引用样式会打印全名，
-那么引用中名部分（first name）的前缀要大写。
+基本标注(引用)命令。打印出不带括号等任何附加物的标注标签。
+不过顺序数字编码和字母编码样式仍然会将标签放在方括号里，因为不这样的话引文可能含糊不清。
+\cmd{Cite} 与 \cmd{cite} 类似，不同之处仅仅在于如果开启了 \opt{useprefix} 选项它会大写名的前缀，假设姓名中存在前缀，且标注会打印姓名的所有成分。
 
 \cmditem{parencite}[prenote][postnote]{key}
 \cmditem{Parencite}[prenote][postnote]{key}
@@ -3439,10 +3389,8 @@ A convenience meta-option which sets \opt{sortingnamekeytemplate}, \opt{uniquena
 %These commands use a format similar to \cmd{cite} but enclose the entire citation in parentheses. The numeric and alphabetic styles use square brackets instead. \cmd{Parencite} is similar to \cmd{parencite} but capitalizes the name prefix of the first name in the citation if the \opt{useprefix} option is enabled, provided that there is a name prefix and the citation style prints any name at all.
 
 这些命令的格式类似于 \cmd{cite}，不过将引用全部放入圆括号内。
-不过数值和字母样式仍然使用方括号。
-\cmd{Parencite} 与 \cmd{parencite} 类似，
-不过，如果有姓名前缀并且引用样式打印全名，并且同时开启了 \opt{useprefix} 选项，
-那么 \cmd{Parencite} 会使得该姓名前缀首字母大写。
+不过数值和字母样式仍然使用方括号。\cmd{Parencite} 与 \cmd{parencite} 类似，
+不同之处仅仅在于如果开启了 \opt{useprefix} 选项它会大写名的前缀，假设姓名中存在前缀，且标注会打印姓名的所有成分。
 
 \cmditem{footcite}[prenote][postnote]{key}
 \cmditem{footcitetext}[prenote][postnote]{key}
@@ -3450,16 +3398,16 @@ A convenience meta-option which sets \opt{sortingnamekeytemplate}, \opt{uniquena
 %These command use a format similar to \cmd{cite} but put the entire citation in a footnote and add a period at the end. In the footnote, they automatically capitalize the name prefix of the first name if the \opt{useprefix} option is enabled, provided that there is a name prefix and the citation style prints any name at all. \cmd{footcitetext} differs from \cmd{footcite} in that it uses \cmd{footnotetext} instead of \cmd{footnote}.
 
 这些命令的格式类似于 \cmd{cite}，不过将引用的全部放入脚注内并在末尾加上句号。
-在脚注中，如果有姓名前缀并且引用样式打印全名，同时开启了 \opt{useprefix} 选项的话，那么该姓名前缀的首字母会自动大写。
+在脚注中，如果有姓名前缀并且标注样式打印姓名的全部成分，且开启了 \opt{useprefix} 选项的话，那么该姓名前缀的会自动大写。
 \cmd{footcitetext} 与 \cmd{footcite} 的不同之处在于它使用 \cmd{footnotetext} 而不是 \cmd{footnote} 命令。
 
 \end{ltxsyntax}
 
-\subsubsection{样式相关命令}%\subsubsection{Style-specific Commands}
+\subsubsection{与样式相关的命令}%\subsubsection{Style-specific Commands}
 \label{use:cit:cbx}
 
 %The following additional citation commands are only provided by some of the citation styles which ship with this package.
-下列额外的引用命令只由本宏包所带的某些引用样式提供。
+下列附加的标注(引用)命令只由本宏包所带的某些标注样式提供。
 
 \begin{ltxsyntax}
 
@@ -3467,16 +3415,13 @@ A convenience meta-option which sets \opt{sortingnamekeytemplate}, \opt{uniquena
 \cmditem{Textcite}[prenote][postnote]{key}
 
 %These citation commands are provided by all styles that come with this package. They are intended for use in the flow of text, replacing the subject of a sentence. They print the authors or editors followed by a citation label which is enclosed in parentheses. Depending on the citation style, the label may be a number, the year of publication, an abridged version of the title, or something else. The numeric and alphabetic styles use square brackets instead of parentheses. In the verbose styles, the label is provided in a footnote. Trailing punctuation is moved between the author or editor names and the footnote mark. \cmd{Textcite} is similar to \cmd{textcite} but capitalizes the name prefix of the first name in the citation if the \opt{useprefix} option is enabled, provided that there is a name prefix.
-
-这些引用命令在本宏包所带的所有样式中都有提供。
-它们用于正文中代替句子成分。
-它们打印出作者或编辑，后面接着在括号中括起来的引用标签。
-取决于引用样式，标签可以是数字、出版年份、缩写版本的标题等等。
-数值和字母样式会使用方括号来代替圆括号。
-在详细样式中，标签在脚注中提供。
-作者或编辑名与脚注标记的空格将被移除。
+这些标注(引用)命令在本宏包所带的所有样式中都有提供。它们用于文本流中，用以代替句子的主语。
+它们打印出作者或编辑，后面接着在括号中括起来的标注标签。
+取决于不同的标注样式，标签可以是数字、出版年份、缩写的标题等等。
+顺序编码和字母顺序样式会使用方括号来代替圆括号。
+在多词样式中，标签在脚注中给出。作者或编辑名与脚注标记的标点将被移除。
 \cmd{Textcite} 与 \cmd{textcite} 类似，
-不同之处在于如果有前缀名并且启用 \opt{useprefix} 选项的话，引用中的前缀名是大写的。
+不同之处在于，如果有姓名前缀且启用 \opt{useprefix} 选项的话，标注中的前缀名是大写的。
 
 \cmditem{smartcite}[prenote][postnote]{key}
 \cmditem{Smartcite}[prenote][postnote]{key}
@@ -3499,33 +3444,25 @@ A convenience meta-option which sets \opt{sortingnamekeytemplate}, \opt{uniquena
 \cmditem{supercite}{key}
 
 %This command, which is only provided by the numeric styles, prints numeric citations as superscripts without brackets. It uses \cmd{supercitedelim} instead of \cmd{multicitedelim} as citation delimiter. Note that any \prm{prenote} and \prm{postnote} arguments are ignored. If they are given, \cmd{supercite} will discard them and issue a warning message.
-该命令只在数值样式中提供，会以不带括号的上标形式打印出引用编号。
-它使用  \cmd{supercitedelim} 而不是 \cmd{multicitedelim} 作为引用定界符。
+该命令只在顺序编码样式中提供，会以不带括号的上标形式打印出数字标签。
+它使用  \cmd{supercitedelim} 而不是 \cmd{multicitedelim} 作为标注定界符。
 请注意，任何的  \prm{prenote} 和 \prm{postnote} 选项都会被忽略。
 如果给出的话也会弃掉它们并且显示警告信息。
 
 \end{ltxsyntax}
 
-\subsubsection{合格的引用列表}%\subsubsection{Qualified Citation Lists}
+\subsubsection{合格的标注列表}%\subsubsection{Qualified Citation Lists}
 \label{use:cit:mlt}
 
 %This package supports a class of special citation commands called <multicite> commands. The point of these commands is that their argument is a list of citations where each item forms a fully qualified citation with a pre- and\slash or postnote. This is particularly useful with parenthetical citations and citations given in footnotes. It is also possible to assign a pre- and\slash or postnote to the entire list. The multicite commands are built on top of backend commands like \cmd{parencite} and \cmd{footcite}. The citation style provides a multicite definition with \cmd{DeclareMultiCiteCommand} (see \secref{aut:cbx:cbx}). The following example illustrates the syntax of multicite commands:
-
-本宏包支持一类特殊的称之为“多重引用”的引用命令。
-这些命令的特点是，它们的选项是一列引用，其中每一项都具有完整的前注/后注形式。
-这对于带括号或脚注中给出的引用特别有用。
-也可以将一个前注或后注分配给整个列表。
-这种多重引用命令构建在 \cmd{parencite} 和 \cmd{footcite} 等后端命令之上。
-引用样式通过命令 \cmd{DeclareMultiCiteCommand}（见 \secref{aut:cbx:cbx} 节）提供了多重引用的定义。
-下面的例子展示了多重引用命令的语法。
+本宏包支持一类特殊的称为 <multicite> 的标注命令。这些命令的特点是，它们的参数是一个标注列表，其中每一项都具有完整的前注/后注形式。这对于带括号或脚注中给出的标注特别有用。也可以将一个前注或后注分配给整个列表。这种多重标注命令构建在 \cmd{parencite} 和 \cmd{footcite} 等后端命令基础之上。标注样式可以通过 \cmd{DeclareMultiCiteCommand}命令（见 \secref{aut:cbx:cbx} 节）对多重标注进行定义。下例展示了多重标注命令的语法:
 
 \begin{ltxexample}
 \parencites[35]{key1}[88--120]{key2}[23]{key3}
 \end{ltxexample}
 %
 %The format of the arguments is similar to that of the regular citation commands, except that only one citation command is given. If only one optional argument is given for an item in the list, it is taken as a postnote. If you want to specify a prenote but no postnote, you need to leave the second optional argument of the respective item empty:
-选项的格式与常规引用命令类似，不过只用给出一个引用命令。
-如果对于列表中的某一项只给出一个可选参数，那么将视为后注。
+参数的格式与常规标注命令类似，不过只需给出一个标注命令。如果列表中的某一项只给出一个可选参数，那么该可选参数将被视为后注。
 如果只想要前注而不要后注，那么需要将相应项的第二个可选参数设置为空：
 
 \begin{ltxexample}
@@ -3533,8 +3470,7 @@ A convenience meta-option which sets \opt{sortingnamekeytemplate}, \opt{uniquena
 \end{ltxexample}
 %
 %In addition to that, the entire citation list may also have a pre- and\slash or postnote. The syntax of these global notes differs from other optional arguments in that they are given in parentheses rather than the usual brackets:
-此外，整个的引用列表也可以有一个共同的前注或后注。
-与其他可选参数的语法不同，这些全局注记在圆括号而不是通常的方括号中：
+此外，整个的标注列表也可以有一个共同的前注或后注。与其他可选参数的语法不同，这些全局注记在圆括号而不是通常的方括号中：
 
 \begin{ltxexample}
 \parencites<<(>>and chapter 3<<)>>[35]{key1}[78]{key2}[23]{key3}
@@ -3543,10 +3479,8 @@ A convenience meta-option which sets \opt{sortingnamekeytemplate}, \opt{uniquena
 \end{ltxexample}
 %
 %Note that the multicite commands keep on scanning for arguments until they encounter a token that is not the start of an optional or mandatory argument. If a left brace or bracket follows a multicite command, you need to mask it by adding \cmd{relax} or a control space (a backslash followed by a space) after the last valid argument. This will cause the scanner to stop.
-请注意，多重引用命令会一直扫描选项，直到遇到一个不是可选或必选参数的字符记号。
-如果文本中接着多重引用命令的是一个左圆括号或方括号，
-那么需要手动在最后一个有效参数后添加 \cmd{relax} 命令或者控制空格（跟在反斜线后的空格）作为标记。
-这样才会停止该命令的扫描。
+请注意，多重标注命令会一直扫描选项，直到遇到一个不是可选或必选参数的记号为止。
+如果文本中紧接着多重标注命令的是一个左圆括号或方括号，那么需要手动在最后一个有效参数后添加 \cmd{relax} 命令或者控制空格（跟在反斜线后的空格）作为标记，这样才会停止该命令的扫描。
 
 \begin{ltxexample}[style=latex,showspaces]{}
 \parencites[35]{key1}[78]{key2}<<\relax>>[...]
@@ -3554,7 +3488,7 @@ A convenience meta-option which sets \opt{sortingnamekeytemplate}, \opt{uniquena
 \end{ltxexample}
 %
 %By default, this package provides the following multicite commands which correspond to regular commands from \secref{use:cit:std, use:cit:cbx}:
-默认情况下，本宏包提供了如下一些多重引用命令，分别对应于 \secref{use:cit:std, use:cit:cbx} 节中常规命令：
+默认情况下，本宏包提供了如下一些多重标注命令，分别对应于 \secref{use:cit:std, use:cit:cbx} 节中常规命令：
 
 \begin{ltxsyntax}
 
@@ -3562,40 +3496,40 @@ A convenience meta-option which sets \opt{sortingnamekeytemplate}, \opt{uniquena
 \cmditem{Cites}(multiprenote)(multipostnote)[prenote][postnote]{key}|...|[prenote][postnote]{key}
 
 %The multicite version of \cmd{cite} and \cmd{Cite}, respectively.
-\cmd{cite} 和 \cmd{Cite} 的多重引用版本。
+\cmd{cite} 和 \cmd{Cite} 的多重标注版本。
 
 \cmditem{parencites}(multiprenote)(multipostnote)[prenote][postnote]{key}|...|[prenote][postnote]{key}
 \cmditem{Parencites}(multiprenote)(multipostnote)[prenote][postnote]{key}|...|[prenote][postnote]{key}
 
 %The multicite version of \cmd{parencite} and \cmd{Parencite}, respectively.
-\cmd{parencite} 和 \cmd{Parencite} 的多重引用版本。
+\cmd{parencite} 和 \cmd{Parencite} 的多重标注版本。
 
 \cmditem{footcites}(multiprenote)(multipostnote)[prenote][postnote]{key}|...|[prenote][postnote]{key}
 \cmditem{footcitetexts}(multiprenote)(multipostnote)[prenote][postnote]{key}|...|[prenote][postnote]{key}
 
 %The multicite version of \cmd{footcite} and \cmd{footcitetext}, respectively.
-\cmd{footcite} 和 \cmd{footcitetext} 的多重引用版本。
+\cmd{footcite} 和 \cmd{footcitetext} 的多重标注版本。
 
 \cmditem{smartcites}(multiprenote)(multipostnote)[prenote][postnote]{key}|...|[prenote][postnote]{key}
 \cmditem{Smartcites}(multiprenote)(multipostnote)[prenote][postnote]{key}|...|[prenote][postnote]{key}
 
 %The multicite version of \cmd{smartcite} and \cmd{Smartcite}, respectively.
-\cmd{smartcite} 和 \cmd{Smartcite} 的多重引用版本。
+\cmd{smartcite} 和 \cmd{Smartcite} 的多重标注版本。
 
 \cmditem{textcites}(multiprenote)(multipostnote)[prenote][postnote]{key}|...|[prenote][postnote]{key}
 \cmditem{Textcites}(multiprenote)(multipostnote)[prenote][postnote]{key}|...|[prenote][postnote]{key}
 
 %The multicite version of \cmd{textcite} and \cmd{Textcite}, respectively.
-\cmd{textcite} 和 \cmd{Textcite} 的多重引用版本。
+\cmd{textcite} 和 \cmd{Textcite} 的多重标注版本。
 
 \cmditem{supercites}(multiprenote)(multipostnote)[prenote][postnote]{key}|...|[prenote][postnote]{key}
 
 %The multicite version of \cmd{supercite}. This command is only provided by the numeric styles.
-\cmd{supercite} 的多重引用版本。该命令只由数值样式提供。
+\cmd{supercite} 的多重标注版本。该命令只由顺序编码样式提供。
 
 \end{ltxsyntax}
 
-\subsubsection{样式无关命令} %\subsubsection{Style-independent Commands}
+\subsubsection{与样式无关的命令} %\subsubsection{Style-independent Commands}
 \label{use:cit:aut}
 
 %Sometimes it is desirable to give the citations in the source file in a format that is not tied to a specific citation style and can be modified globally in the preamble. The format of the citations is easily changed by loading a different citation style. However, when using commands such as \cmd{parencite} or \cmd{footcite}, the way the citations are integrated with the text is still effectively hard"=coded. The idea behind the \cmd{autocite} command is to provide higher"=level citation markup which makes global switching from inline citations to citations given in footnotes (or as superscripts) possible. The \cmd{autocite} command is built on top of backend commands like \cmd{parencite} and \cmd{footcite}. The citation style provides an \cmd{autocite} definition with \cmd{DeclareAutoCiteCommand} (see \secref{aut:cbx:cbx}). This definition may be activated with the \opt{autocite} package option from \secref{use:opt:pre:gen}. The citation style will usually initialize this package option to a value which is suitable for the style, see \secref{use:xbx:cbx} for details. Note that there are certain limits to high"=level citation markup. For example, inline author-year citation schemes often integrate citations so tightly with the text that it is virtually impossible to automatically convert them to footnotes. The \cmd{autocite} command is only applicable in cases in which you would normally use \cmd{parencite} or \cmd{footcite} (or \cmd{supercite}, with a numeric style). The citations should be given at the end of a sentence or a partial sentence, immediately preceding the terminal punctuation mark, and they should not be a part of the sentence in a grammatical sense (like \cmd{textcite}, for example).
