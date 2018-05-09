@@ -3205,8 +3205,8 @@ Borg, Connors, Emerson  [BCEm-004]
 
 \cmditem{DeclareSortingNamekeyTemplate}[name]{specification}
 
-定义姓名的排序关键词如何构建。这可以用来改变姓名的排序，因为在构建排序要比较的字符串时可以自由选择姓名成分来组合。如此定义的排序关键词的构建格式称为\prm{schemename}，默认是全局的(«global»)，如果该可选参数缺省的话。当为姓名构建排序关键词时，构建每个姓名成分的排序关键词，并利用一个专门的内部分隔符构成一个顺序的关键词列表。这一选项的目的是兼容语言或者需要自定义姓名排序的情况(例如，冰岛人的姓名有时是用名排序而不是姓)。该宏可以多次使用为不同姓名的定义格式，以便后面使用。姓名排序关键词格式具有如下作用范围，以优先级增加的顺序包括:
-%Defines how the sorting keys for names are constructed. This can change the sorting order of names arbitrarily because you can choose how to put together the name parts when constructing the string to compare when sorting. The sorting key construction scheme so defined is called \prm{schemename} which defaults to «global» if this optional parameter is absent. When constructing the sorting key for a name, a sorting key for each name part is constructed and the key for each name is formed into an ordered key list with a special internal separator. The point of this option is to accommodate languages or situations where sorting of names needs to be customised (for example, Icelandic names are sometimes sorted by given names rather than by family names). This macro may be used multiple times to define schemes with different names which can then be referred to later. Sorting name key schemes can have the following scopes, in order of increasing precedence:
+定义姓名的排序关键词如何构建。这可以用来改变姓名的排序，因为在构建排序要比较的字符串时可以自由选择姓名成分来组合。如此定义的排序关键词的构建格式称为\prm{Templatename}，默认是全局的(«global»)，如果该可选参数缺省的话。当为姓名构建排序关键词时，构建每个姓名成分的排序关键词，并利用一个专门的内部分隔符构成一个顺序的关键词列表。这一选项的目的是兼容语言或者需要自定义姓名排序的情况(例如，冰岛人的姓名有时是用名排序而不是姓)。该宏可以多次使用为不同姓名的定义格式，以便后面使用。姓名排序关键词格式具有如下作用范围，以优先级增加的顺序包括:
+%Defines how the sorting keys for names are constructed. This can change the sorting order of names arbitrarily because you can choose how to put together the name parts when constructing the string to compare when sorting. The sorting key construction scheme so defined is called \prm{Templatename} which defaults to «global» if this optional parameter is absent. When constructing the sorting key for a name, a sorting key for each name part is constructed and the key for each name is formed into an ordered key list with a special internal separator. The point of this option is to accommodate languages or situations where sorting of names needs to be customised (for example, Icelandic names are sometimes sorted by given names rather than by family names). This macro may be used multiple times to define schemes with different names which can then be referred to later. Sorting name key schemes can have the following scopes, in order of increasing precedence:
 
 \begin{itemize}
 \item 无可选姓名参数定义的默认格式。
@@ -3433,7 +3433,7 @@ Borg, Connors, Emerson  [BCEm-004]
 
 \cmditem{translit}{field or fieldset}{from}{to}
 
-指定数据域\bibfield{field} 或由\cmd{DeclareDatafieldSet}(见\secref{aut:ctm:dsets})声明的\prm{fieldset} 集中的所有域为排序目的应从\prm{from} 文字转换为\prm{to} 文字。域和集参数可以是 <*>使其应用于所有域。有效的\prm{from} 和\prm{to} 在表\ref{tab:translit} 中给出。注意\biblatex 无意于支持通用的转换，而仅做排序目的。如果需要更多的转换，可以在GitHub上的\biblatex\ 查找或询问。
+指定数据域\bibfield{field} 或由\cmd{DeclareDatafieldSet}(见\secref{aut:ctm:dsets})声明的\prm{fieldset} 集中的所有域为排序目的应从\prm{from} 文字转换为\prm{to} 文字。域和集参数可以是 <*> 使其应用于所有域。有效的\prm{from} 和\prm{to} 在表\ref{tab:translit} 中给出。注意\biblatex 无意于支持通用的转换，而仅做排序目的。如果需要更多的转换，可以在GitHub上的\biblatex\ 查找或询问。
 %Specifies that the data field \bibfield{field} or all fields in a fieldset \prm{fieldset} declared with \cmd{DeclareDatafieldSet} (see \secref{aut:ctm:dsets}) should be transliterated from script \prm{from} to script \prm{to} for sorting purposes. The field/set argument can also be <*> to apply transliteration to all fields. The valid \prm{from} and \prm{to} values are given in table \ref{tab:translit}. Note that \biblatex does not aim to support general transliteration, only those which are useful for sorting purposes. Please open a GitHub ticket for \biblatex\ if you think you need additional transliterations.
 
 下面给出一个标题转换的示例，从而可以正确的排序梵文:
