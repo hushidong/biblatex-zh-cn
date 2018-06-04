@@ -511,9 +511,12 @@ ydnt &	presort\alt mm &
 下表概括了各种包选项的作用范围(全局或者具体类型或者具体条目):
 %The following table provides an overview of the scope (global\slash per-type\slash per-entry) of various package options.
 
-Per-entry, per-namelist and per-name options are set in the datasource, for
-example, in a  \file{.bib}file. See the \biber documentation for details
-but here are a few examples. Per-entry:
+针对每个条目、每个姓名列表和每个姓名的选项是在数据源中例如\file{.bib}文件中设置的，详见 \biber 文档，这里也给出一些例子：
+%Per-entry, per-namelist and per-name options are set in the datasource, for
+%example, in a  \file{.bib}file. See the \biber documentation for details
+%but here are a few examples. Per-entry:
+
+针对条目的选项设置：
 
 \begin{lstlisting}[style=bibtex]{}
 @BOOK{key,
@@ -521,9 +524,11 @@ but here are a few examples. Per-entry:
 }
 \end{lstlisting}
 %
-Per-namelist and per-name options require either the \biblatexml datasource
-format or the extend \bibtex name format supported by \biber (see the
-\biber documentation for details). Per-namelist:
+
+针对姓名列表和单个姓名的选项设置需要使用 \biblatexml 数据源格式或者\biber 支持扩展的\bibtex 姓名格式(详见\biber 文档)，针对姓名列表的选项设置：
+%Per-namelist and per-name options require either the \biblatexml datasource
+%format or the extend \bibtex name format supported by \biber (see the
+%\biber documentation for details). Per-namelist:
 
 \begin{lstlisting}[style=bibtex]{}
 @BOOK{key,
@@ -531,7 +536,8 @@ format or the extend \bibtex name format supported by \biber (see the
 }
 \end{lstlisting}
 %
-Per-name:
+针对姓名列表的选项设置：
+%Per-name:
 
 \begin{lstlisting}[style=bibtex]{}
 @BOOK{key,
@@ -547,7 +553,7 @@ Per-name:
 	V{0.3\textwidth}@{}%
 	C{0.1\textwidth}@{}%
   C{0.1\textwidth}@{}%
-  C{0.1\textwidth}@{}%  
+  C{0.1\textwidth}@{}%
   C{0.1\textwidth}@{}%
   C{0.1\textwidth}@{}%
   C{0.1\textwidth}@{}%
