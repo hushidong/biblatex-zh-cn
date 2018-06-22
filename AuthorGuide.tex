@@ -1653,10 +1653,10 @@ eventdate	& 1995-01-31/1995-02-05	& eventday	& 31 \\
 关联条目功能由\secref{use:opt:pre:gen} 节的\opt{related} 包选项默认启用。来自关联条目的相关信息数据通过一个调用\cmd{usebibmacro\{related\}} 包含进来。标准样式调用该宏直到每个驱动结束。样式作者应该确保(留意)作为\bibfield{relatedtype} 域值的本地化字符串的存在，比如\texttt{translationof} 或者可能的\texttt{translatedas}。本地化键(关键词)的\prm{relatedtype}\texttt{s} 复数形式可以识别。在\bibfield{related} 中给出的超过1个的键的对应字符串都会打印。用于打印由\prm{relatedtype} 关联的条目的参考文献宏和格式化指令应以\texttt{related:\prm{relatedtype}} 为名进行定义。\path{biblatex.def} 包含了通用的关联类型的宏和格式，可以作为模板。特别的，\cmd{entrydata*} 命令在这些宏中是必须的，因为要获取关联条目的数据。应用了该功能的条目数据可以在\biblatex 发布的示例文件\path{biblatex-examples.bib} 中找到。针对该功能的一些用于控制关联条目间的分隔符的具体格式化宏见\secref{aut:fmt:fmt}。
 %The related entry feature is enabled by default by the package option \opt{related} from \secref{use:opt:pre:gen}. The related information entry data from the related entries is included via a \cmd{usebibmacro\{related\}} call. Standard styles call this macro towards the end of each driver. Style authors should ensure the existence of (or take note of existing) localisation strings which are useful as values for the \bibfield{relatedtype} field, such as \texttt{translationof} or perhaps \texttt{translatedas}. A plural variant can be identified with the localisation key \prm{relatedtype}\texttt{s}. This key's corresponding string is printed whenever more than one entry is specified in \bibfield{related}. Bibliography macros and formatting directives for printing entries related by \prm{relatedtype} should be defined using the name \texttt{related:\prm{relatedtype}}. The file \path{biblatex.def} contains macros and formats for some common relation types which can be used as templates. In particular, the \cmd{entrydata*} command is essential in such macros in order to make the data of the related entries available. Examples of entries using this feature can be found in the \biblatex distribution examples file \path{biblatex-examples.bib}. There are some specific formatting macros for this feature which control delimiters and separators in related entry information, see \secref{aut:fmt:fmt}.
 
-\subsubsection{数据源集}%Datasource Sets
+\subsubsection{数据源的域集合}%Datasource Sets
 \label{aut:ctm:dsets}
 
-在循环等操作中，能够定义数据源的域名的集是有用的。另外，\biber 可以利用这种集来对某些特定的数据源域集应用选项或者执行操作。下面的宏允许用来定义任意的数据源域集，这些数据源域以\sty{etoolbox} 列表的形式提供给\biblatex ，并通过\file{.bcf} 文件中传递给\biber 。
+能给数据源中域的集合命名，在循环等操作中是很有用的。\biber 可以利用这些集合名来对某些特定数据源的域集合应用某些选项或者执行某些操作。下面的宏允许用来定义任意的数据源的域集合，这些集合中的域在\biblatex 中以\sty{etoolbox} 列表表示，并通过\file{.bcf} 文件传递给\biber 。
 %It is useful to be able to define named sets of datasource field names for use in loops etc. In addition, \biber can use such sets in order to apply options and perform operations on particular sets of datasource fields. The following macros allow the user to define arbitrary sets of datasource fields, exposed to \biblatex as \sty{etoolbox} lists and to \biber in the \file{.bcf}.
 
 
@@ -1664,7 +1664,7 @@ eventdate	& 1995-01-31/1995-02-05	& eventday	& 31 \\
 
 \cmditem{DeclareDatafieldSet}{name}{specification}
 
-声明一个数据源域的集，其名为\prm{name}。
+声明一个数据源的域集合，集合名为\prm{name}。
 %Declare a set of datasource fields with name \prm{name}.
 
 \begin{optionlist*}
@@ -1674,7 +1674,7 @@ eventdate	& 1995-01-31/1995-02-05	& eventday	& 31 \\
 %The name of the set.
 \end{optionlist*}
 
-\prm{specification} 是1个或更多的\cmd{member}(成员)项:
+\prm{specification} 是一个或更多的\cmd{member}(成员)项:
 %The \prm{specification} is one or more \cmd{member} items:
 
 \cmditem{member}
@@ -1685,10 +1685,10 @@ eventdate	& 1995-01-31/1995-02-05	& eventday	& 31 \\
 \valitem{field}{fieldname}
 \end{optionlist*}
 
-一个\cmd{member} 说明将域添加到集中。域可以由数据模型\prm{fieldtype} 和/或 \prm{datatype} 指定 (见 \secref{aut:ctm:dm})。 或者，域也可以通过使用\prm{field} 选项显式地以名字添加。一旦完成定义，集就以\sty{etoolbox} 列表的形式存在，命名为\cmd{datafieldset<setname>} 并通过\file{.bcf} 文件传递给\biber。
+一个\cmd{member} 说明将域添加到集合中。域可以由数据模型\prm{fieldtype} 和/或 \prm{datatype} 指定 (见 \secref{aut:ctm:dm})。 或者，域也可以通过使用\prm{field} 选项显式地以域名添加。一旦完成定义，集就以\sty{etoolbox} 列表的形式存在，命名为\cmd{datafieldset<setname>} 并通过\file{.bcf} 文件传递给\biber。
 %A \cmd{member} specification appends fields to the set. Fields can be specified by datamodel \prm{fieldtype} and/or \prm{datatype} (see \secref{aut:ctm:dm}). Alternatively, fields can be explicitly added by name using the \prm{field} option. Once defined, the set is available as an \sty{etoolbox} list called \cmd{datafieldset<setname>} and is also passed via the \file{.bcf} to \biber.
 
-下面的示例就是\biblatex 为姓名域和标题域定义的默认集:
+如下示例就是\biblatex 为姓名域和标题域定义的默认集:
 %For example, here are the default sets defined by \biblatex for name fields and title fields:
 
 \end{ltxsyntax}
@@ -1709,7 +1709,8 @@ eventdate	& 1995-01-31/1995-02-05	& eventday	& 31 \\
 }
 \end{ltxexample}
 %
-这将以\sty{etoolbox} 列表形式定义\cmd{datafieldsetsetnames} 和\cmd{datafieldsetsettitles} 宏用来包含指定的数据源域成员的名称。\footnote{译者: 应用时要注意集的定义名称和使用的名称是不同的。}
+这将以\sty{etoolbox} 列表形式定义\cmd{datafieldsetsetnames} 和\cmd{datafieldsetsettitles} 宏，用来包含指定数据源的域成员的名称。
+%\footnote{译者: 应用时要注意集的定义名称和使用的名称是不同的。}
 %This defines the macros \cmd{datafieldsetsetnames} and \cmd{datafieldsetsettitles} as \sty{etoolbox} lists containing the names of the member datasource fields specified.
 
 \subsubsection{数据动态修改}%Dynamic Modification of Data
@@ -1795,7 +1796,7 @@ eventdate	& 1995-01-31/1995-02-05	& eventday	& 31 \\
 \valitem{foreach}{loopval}
 
 遍历\cmd{map} 内的\cmd{step}s，将包含在\prm{loopval} 中的逗号分隔的各个值设置到特殊变量|$MAPLOOP|中。%$
-\prm{loopval} 可以是一个显式的逗号分隔的值列表，也可以是由\cmd{DeclareDatafieldSet} (见\secref{aut:ctm:dsets})定义的任意数据域集的集名，从中获取数据源域并解析为一个逗号分隔的值列表。\prm{loopval} 以列表中的顺序处理。这使得一组\cmd{step}s操作可以遍历\prm{loopval} 的每个值。使用regexp 映射，可以创建一个CSV 域来配合该功能使用。特殊变量|$MAPUNIQ| %$
+\prm{loopval} 可以是一个显式的逗号分隔的值列表，也可以是由\cmd{DeclareDatafieldSet} (见\secref{aut:ctm:dsets})定义的任意数据域集合的集名，biber 从中获取数据域并解析为一个逗号分隔的值列表。\prm{loopval} 以列表中的顺序处理。这使得一组\cmd{step}s操作可以遍历\prm{loopval} 的每个值。使用regexp 映射，可以创建一个CSV 域来配合该功能使用。特殊变量|$MAPUNIQ| %$
 也可以在\cmd{step}s中用来随机生成一个唯一的字符串。这可以用于创建新条目的关键词。例如:
 
 %Loop over all \cmd{step}s in this \cmd{map}, setting the special variable |$MAPLOOP| %$
@@ -3982,7 +3983,7 @@ This command may only be used in the preamble.
 该例展示怎么模拟实现传统的\bibtex 的交叉引用机制。它默认启用继承功能，禁止覆盖，并清除所有的其它规则和映射。
 %This example demonstrates how to emulate traditional \bibtex's cross"=referencing mechanism. It enables inheritance by default, disables overwriting, and clears all other inheritance rules and mappings.
 
-在一个参考文献条目中，当值是由\cmd{DeclareDatafieldSet}(\secref{aut:ctm:dsets})定义的数据域集，可以给出一个<noinherit>选项。这会阻止具体条目对在该集中的域的继承。例如:
+在一个参考文献条目中，当值是由\cmd{DeclareDatafieldSet}(\secref{aut:ctm:dsets})定义的数据域的集合，可以给出一个<noinherit>选项。这会阻止具体条目对在该集中的域的继承。例如:
 %In a bibliography entry, you can give an option <noinherit> where the value is a datafield set defined with \cmd{DeclareDatafieldSet} (\secref{aut:ctm:dsets}). This will block inheritance of the fields in the set on a per-entry basis. For example:
 
 \begin{ltxexample}
@@ -4003,7 +4004,7 @@ This command may only be used in the preamble.
 }
 \end{lstlisting}
 %
-这里\bibfield{s1} 不会将\bibfield{s2} 的\bibfield{TITLE} 继承为\bibfield{BOOKTITLE}，因为这已经被数据域集所阻止，该集以\opt{noinherit} 选项的值的方式给出。
+这里\bibfield{s2} 的\bibfield{TITLE} 域将不会被继承为 \bibfield{s1} 的\bibfield{BOOKTITLE}，这一继承之所以被阻止是因为\opt{noinherit} 选项的值是数据域集合，且集合中包含\bibfield{BOOKTITLE}域。
 %Here, \bibfield{s1} will not inherit the \bibfield{TITLE} of \bibfield{s2} as \bibfield{BOOKTITLE} as this is blocked by the datafield set given as the value to the \opt{noinherit} option.
 %
 

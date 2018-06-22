@@ -1621,7 +1621,7 @@ labeltitleyear & \rmfamily{---}   & extratitleyear &  labeltitle+labelyear\\
 
 \item[verbose]
 %A verbose citation style which prints a full citation similar to a bibliography entry when an entry is cited for the first time, and a short citation afterwards. If available, the \bibfield{shorttitle} field is used in all short citations. If the \bibfield{shorthand} field is defined, the shorthand is introduced on the first citation and used as the short citation thereafter. This style may be used without a list of references and shorthands since all bibliographic data is provided on the first citation. It is intended for citations given in footnotes. The style will set the following package options at load time: \kvopt{autocite}{footnote}, \kvopt{citetracker}{context}. This style also provides an additional preamble option called \opt{citepages}. See the style example for details.
-多词标注样式（详细标注样式），在第一次引用某条目时会打印出类似于参考文献那样的长标注格式，并且在之后打印出短格式。
+完整信息样式（多词标注样式、详细标注样式），在第一次引用某条目时会打印出类似于参考文献那样的长标注格式，并且在之后打印出短格式。
 如果可用的话，\bibfield{shorttitle} 域会用在所有的短格式中。
 如果 \bibfield{shorthand} 域有定义，该shorthand会在第一次引用时被引入并在之后作为短格式被使用。
 由于在第一次引用时提供了所有的文献数据，因此该样式的使用不需要参考文献和shorthand列表。
@@ -2396,7 +2396,7 @@ LANGUAGE+an = {1=annotation3; 2=annotation4}
 
 %This option applies to numerical citation\slash bibliography styles only and requires that the \opt{defernumbers} option from \secref{use:opt:pre:gen} be enabled globally. If enabled, it will reset the numerical labels assigned to the entries in the respective bibliography, \ie the numbering will restart at~1. You can also pass a number to this option, for example: \texttt{resetnumbers=10} to reset numbering to the specified number to aid numbering continuity across documents. Use this option with care as \biblatex can not guarantee unique labels globally if they are reset manually.
 
-该选项只用于顺序编码制的标注/著录样式，
+该选项只用于顺序数字编码制的标注/著录样式，
 并且要求 \secref{use:opt:pre:gen} 中的 \opt{defernumbers} 选项全局启用。
 如果启用的话，它将重新设置分配给相应文献中条目的数值标签，即，编号会重新从 1 开始。
 此外还可以传递数值给该选项以重置编号为给定的数值，例如 \texttt{resetnumbers=10}，
@@ -2407,7 +2407,7 @@ LANGUAGE+an = {1=annotation3; 2=annotation4}
 
 %This option applies to numerical citation\slash bibliography styles only and requires that the \opt{defernumbers} option from \secref{use:opt:pre:gen} be enabled globally. If enabled, \biblatex will not assign a numerical label to the entries in the respective bibliography. This is useful when mixing a numerical subbibliography with one or more subbibliographies using a different scheme (\eg author-title or author-year).
 
-该选项只用于数值引用/参考文献样式，
+该选项只用于顺序数字编码制的标注/著录样式，
 并且要求 \secref{use:opt:pre:gen} 中的 \opt{defernumbers} 选项全局启用。
 如果启用的话，\biblatex 不会为相应文献中的条目分配数值标签。
 当数值型子文献和其它不同格式（例如作者-标题或者作者-年份）的子文献相混合时，这是很有用的。
@@ -3413,7 +3413,7 @@ LANGUAGE+an = {1=annotation3; 2=annotation4}
 它们打印出作者或编辑，后面接着在括号中括起来的标注标签。
 取决于不同的标注样式，标签可以是数字、出版年份、缩写的标题等等。
 顺序编码和字母顺序样式会使用方括号来代替圆括号。
-在多词样式中，标签在脚注中给出。作者或编辑名与脚注标记的标点将被移除。
+在完整信息(verbose)样式中，标签在脚注中给出。作者或编辑名与脚注标记的标点将被移除。
 \cmd{Textcite} 与 \cmd{textcite} 类似，
 不同之处在于，如果有姓名前缀且启用 \opt{useprefix} 选项的话，标注中的前缀名是大写的。
 
@@ -4443,7 +4443,7 @@ Jones, Edward<<, and>> Joe Williams
 
 \csitem{datecircaprintiso}
 %Prints \acr{ISO8601-2} format date circa information when the global option \opt{datecirca} is enabled and the \cmd{ifdatecirca} test is true. Prints \cmd{textasciitilde}.
-开启全局选项 \opt{datecirca} 并且 \cmd{ifdatecirca} 测试为真时打印 
+开启全局选项 \opt{datecirca} 并且 \cmd{ifdatecirca} 测试为真时打印
 \acr{ISO8601-2} 格式的日期约数信息。缺省打印 \cmd{textasciitilde}。
 
 \csitem{enddatecircaprintiso}
