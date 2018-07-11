@@ -7089,11 +7089,13 @@ As \texttt{time} but controls the format of \cmd{print$<$datetype$>$time}.
 
 类似于\cmd{AtBeginBibliography}，但仅影响下一个\cmd{printbibliography}。一旦执行该命令，原内部钩子定义将被清除。该命令可以用于正文中。
 %Similar to \cmd{AtBeginBibliography} but only affecting the next \cmd{printbibliography}. The internal hook is cleared after being executed once. This command may be used in the document body.
+
 \cmditem{AtUsedriver}{code}
 \cmditem*{AtUsedriver}*{code}
 
-Appends the \prm{code} to an internal hook executed when initializing \cmd{uisedriver}. The starred variant of the command clears the initialisation hook, so the defaults can be overwritten. This command may only be used in the preamble.
-The default setting is:
+%Appends the \prm{code} to an internal hook executed when initializing \cmd{uisedriver}. The starred variant of the command clears the initialisation hook, so the defaults can be overwritten. This command may only be used in the preamble.
+%The default setting is:
+为初始化\cmd{uisedriver}时执行的一个内部钩子添加代码\prm{code}。带星号的命令会清除该钩子的初始化设置，所以它能覆盖默认的设置。该命令只能用于导言区中，默认的设置为：
 
 \begin{ltxexample}
 \AtUsedriver{%
@@ -7150,6 +7152,7 @@ The default setting is:
 
 \cmditem{UseUsedriverHook}
 
+执行对应\cmd{AtUsedriver} 的内部钩子。
 Executes the internal hook corresponding to \cmd{AtUsedriver}.
 
 \cmditem{UseEveryCiteHook}

@@ -1449,12 +1449,14 @@ labeltitleyear & \rmfamily{---}   & extratitleyear &  labeltitle+labelyear\\
 
 \end{ltxsyntax}
 
-\subsection{标准样式}%Standard Styles
+\subsection{biblatex提供的标准参考文献样式}%Standard Styles
 \label{use:xbx}
 
 %This section provides a short description of all bibliography and citation styles which ship with the \biblatex package. If you want to write your own styles, see \secref{aut}.
 
-本节简要地描述了本宏包所带的所有文献和引用样式。
+我们常说的参考文献样式，在biblatex中，其实是著录样式和标注(引用)样式的统称。其中著录样式控制文献列表比如书后的文献表的格式，而标注样式则控制正文中引用参考文献所产生的标注的样式。
+
+本节将简要描述本宏包附带的所有著录样式和标注(引用)样式。
 如果你想自己写样式文件，请参考 \secref{aut} 节。
 
 \subsubsection{标注样式}%\subsubsection{Citation Styles}
@@ -1726,7 +1728,7 @@ labeltitleyear & \rmfamily{---}   & extratitleyear &  labeltitle+labelyear\\
 
 \end{marglist}
 
-\subsubsection{参考文献样式}%\subsubsection{Bibliography Styles}
+\subsubsection{著录样式}%\subsubsection{Bibliography Styles}
 \label{use:xbx:bbx}
 
 %All bibliography styles which come with this package use the same basic format for the individual bibliography entries. They only differ in the kind of label printed in the bibliography and the overall formatting of the list of references. There is a matching bibliography style for every citation style. Note that some bibliography styles are not mentioned below because they simply load a more generic style. For example, the bibliography style \texttt{authortitle-comp} will load the \texttt{authortitle} style.
@@ -3672,8 +3674,8 @@ LANGUAGE+an = {1=annotation3; 2=annotation4}
 
 %This command uses the bibliography driver for the respective entry type to create a full citation similar to the bibliography entry. It is thus related to the bibliography style rather than the citation style.
 
-该命令针对相应的条目类型使用参考文献驱动，从而创建类似于文献条目的完整引用格式。
-当然，这样的话就与参考文献样式相关而不是与引用样式相关。
+该命令针对相应的条目类型使用参考文献驱动，从而创建类似于文献条目的完整标注(引用)格式。
+当然，这样的话就与参考文献著录样式相关而不是与标注(引用)样式相关。
 
 \cmditem{footfullcite}[prenote][postnote]{key}
 
