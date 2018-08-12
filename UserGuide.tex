@@ -1707,7 +1707,7 @@ labeltitleyear & \rmfamily{---}   & extratitleyear &  labeltitle+labelyear\\
 
 \item[reading]
 %A citation style which goes with the bibliography style by the same name. It simply loads the \texttt{authortitle} style.
-一个同名的文献样式所带的引用样式，会载入 \texttt{authortitle} 样式。
+为配合同名的reading文献著录样式所引入的标注样式，它只是简单的载入 \texttt{authortitle} 标注样式作为 reading 标注样式。
 
 \end{marglist}
 
@@ -1791,7 +1791,7 @@ labeltitleyear & \rmfamily{---}   & extratitleyear &  labeltitle+labelyear\\
 它选择性地在参考文献中包含 \bibfield{annotation}、\bibfield{abstract}、\bibfield{library} 和 \bibfield{file} 等域。
 如果需要的话，它还会在参考文献中添加不同种类的短标题。
 该样式还额外提供了导言区选项 \opt{entryhead}、\opt{entrykey}、\opt{annotation}、\opt{abstract}、\opt{library} 和 \opt{file} 来控制是否在参考文献中打印相应的项目。
-详见样式例子。见 \secref{use:use:prf} 节。
+详细样式例子，见 \secref{use:use:prf} 节。
 该样式在载入时设置如下的宏包选项：
 \kvopt{loadfiles}{true}、\kvopt{entryhead}{true}、\kvopt{entrykey}{true}、\kvopt{annotation}{true}、\kvopt{abstract}{true}、\kvopt{library}{true}、\kvopt{file}{true}。
 
@@ -4625,7 +4625,7 @@ Vol. E: Computer Modern Typefaces. 1986.
 如果没有可选的 \prm{context}，那么被定义的 \prm{names} 与由 \cmd{newcommand} 给出的全局分隔符的定义是一致的——
 仅仅是一个简单的宏，用于替代 \cmd{name}。
 不过，通过使用能探测 context 的 \cmd{printdelim} 命令，仍然可以调用以这种方式定义的分隔符宏。
-带星号的命令会首先清楚所有 \prm{names} 中的 \prm{context} 声明。
+带星号的命令会首先清除所有 \prm{names} 中的 \prm{context} 声明。
 
 \cmditem{DeclareDelimAlias}{alias}{delim}
 \cmditem*{DeclareDelimAlias}*[context, \dots]{alias}{delim}

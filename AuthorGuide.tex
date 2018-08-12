@@ -4866,9 +4866,10 @@ title = {An Introduction to {L}a{T}e{X}}
 \DeclareFieldFormat{pagetotal}{<<\mkpagetotal[bookpagination]{#1}>>}
 \end{ltxexample}
 %
-在本例中可选参数\bibfield{bookpagination} 可省略。
+在本例中可选参数\bibfield{bookpagination} 可省略。pagination本地化字符串取自
+\texttt{$<$pagination$>$total} 和 \texttt{$<$pagination$>$totals}。
 %The optional argument \bibfield{bookpagination} is omissible in this case.
-The pagination strings are taken from \texttt{$<$pagination$>$total} and \texttt{$<$pagination$>$totals}.
+%The pagination strings are taken from \texttt{$<$pagination$>$total} and \texttt{$<$pagination$>$totals}.
 
 \begin{table}
 \tablesetup\lnstyle
@@ -7153,7 +7154,7 @@ As \texttt{time} but controls the format of \cmd{print$<$datetype$>$time}.
 \cmditem{UseUsedriverHook}
 
 执行对应\cmd{AtUsedriver} 的内部钩子。
-Executes the internal hook corresponding to \cmd{AtUsedriver}.
+%Executes the internal hook corresponding to \cmd{AtUsedriver}.
 
 \cmditem{UseEveryCiteHook}
 
