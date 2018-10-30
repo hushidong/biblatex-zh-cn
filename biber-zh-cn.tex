@@ -328,62 +328,62 @@ biber 是专门为biblatex设计的一种强大的后端引擎，它可以处理
 处理UTF-8全范围编码。
 \item %Sorts in a completely customisable manner using, when available,   CLDR collation tailoring
   排序实现完全自定义，需要时还可使用 CLDR 排序调整。
-  
+
 \item %Allows for per-entrytype options
 允许以条目为单位设置参数。
 
 \item %Automatically encodes the \verb+.bbl+ into any supported encoding   format\footnote{«Supported» here means encodings supported by the     Perl \texttt{Encode} module}
     能自动将.bbl文件转换为任意支持的编码格式。
-    
+
 \item %Processes all bibliography sections in one pass of the tool
 能在一次处理过程中处理完所有的参考文献节。
 
 \item %Output to GraphViz instead of \verb+.bbl+ in order to help visualise complex bibliographies with many crossrefs etc. (see section \ref{ref:vis})
   使用GraphViz代替.bbl文件来帮助实现具有很多交叉引用的复杂参考文献的可视化。（见3.12节）
-  
+
 \item %Handles UTF-8 citekeys and filenames (given a suitable fully UTF-8 compliant \TeX\ engine)
   能处理UTF-8编码的引用关键字和文件名（假设使用一个合适的完全兼容UTF-8的tex引擎）
-  
+
 \item %Creates entry sets dynamically and allows easily defined static entry sets,  all processed in one pass
   能在一次处理过程中动态创建条目集并允许简单定义静态条目集。
-  
+
 \item %«Syntactic» inheritance via new \bibtype{XDATA} entrytype and   field. This can be thought of as a field-based generalisation of the   \BibTeX\ \bibtype{STRING} functionality (which is also supported).
   通过新的@XDATA条目和域实现`句法'继承。这可以看成是BIBTEX @STRING功能（也支持）的一种基于域的一般化方法。
-  
+
 \item %«Semantic» inheritance via a generalisation of the \BibTeX\   crossreference mechanism. This is highly customisable by the   user---it is possible to choose which fields to inherit for which   entrytypes and to inherit fields under different names etc. Nested   crossreferences are also supported.
   通过BIBTEX交叉引用机制一般化的`语义'继承。可以由用户深度定制————可以选择将某些条目的某些域继承不同的域中等。也支持嵌套的交叉引用。
 
-  
+
 \item %Handles complex auto-expansion and contraction of names and   namelists (See section 4.11.4 of the \biblatex\ manual for an excellent explanation with examples, this is quite an impressive feature \ldots)
   能处理姓名和姓名列表的自动缩减和扩展（一个详细解释的例子见biblatex 手册的4.11.4节，这是一种令人印象深刻的功能）。
-  
+
 \item %Extensible modular datasource architecture for ease of adding more datasource types
   可扩展的模块化的数据源架构便于增加更多的数据源类型。
-  
+
 \item %Support for remote datasources
 支持远程的数据源。
 
 \item %User-definable mapping and suppression of fields and entrytypes in   datasources. You can use this to, for example, ignore all   \bibfield{ABSTRACT} fields completely. See section \ref{ref:map}
   可对数据源中的条目类型和域做用户自定义的映射和禁用。比如，可以利用它来完全忽略所有的ABSTRACT域，见3.1.2节。
 
-  
-  
+
+
 \item %Support for related entries, to enable generic treatment of things   like «translated as», «reprinted as», «reprint of» etc.
   支持关联条目以实现对类似«translated as», «reprinted as», «reprint of»
   等的通用处理。
-  
+
 \item %Customisable labels
 可定制的标签
 
 \item %Multiple bibliography lists in the same section with different   sorting and filtering
   在同一节内实现具有不同排序和过滤的多个文献表。
-  
+
 \item %No more restriction to a static data model of specific fields and   entrytypes
   不在对特定条目和域的静态数据模型做限制。
-  
+
 \item %Structural validation of the data against the data model with a   customisable validation model
   数据的结构化验证和可定制验证模型的数据模型
-  
+
 \item %Tool mode for operations on datasources directly
 对数据源直接操作的工具模式
 \end{itemize}
@@ -1936,45 +1936,59 @@ reverse order at UCA level 2.
 \noindent Use the UCA default setting for variable weight punctuation
 (which is to ignore it for sorting, effectively).
 
-\subsection{Encoding of files}\label{ref:enc}
+%\subsection{Encoding of files}\label{ref:enc}
+\subsection{文档的编码}\label{ref:enc}
 
-\biber\ takes care of re-encoding the datasource data as necessary. In
-normal use, \biblatex\ passes its \opt{bibencoding} option value to \biber\
-via the \verb+.bcf+ file and this corresponds to the \biber
-\opt{--input-encoding|e} option. \biblatex also passes the value of its
-\opt{texencoding} option (which maps to \biber's
-\opt{--output-encoding|-E} option) the default value of which depends on
-which \TeX\ engine and encoding packages you are using (see \biblatex\
-manual for details).
+%\biber\ takes care of re-encoding the datasource data as necessary. In
+%normal use, \biblatex\ passes its \opt{bibencoding} option value to \biber\
+%via the \verb+.bcf+ file and this corresponds to the \biber
+%\opt{--input-encoding|e} option. \biblatex also passes the value of its
+%\opt{texencoding} option (which maps to \biber's
+%\opt{--output-encoding|-E} option) the default value of which depends on
+%which \TeX\ engine and encoding packages you are using (see \biblatex\
+%manual for details).
 
-\noindent \biber\ performs the following tasks:
+\biber\ 满足数据源的再编码要求是非常必要的。在通常用法中，\biblatex\ 通过 \verb+.bcf+ 向\biber\ 传递\opt{bibencoding}选项值，该选项对应于 \biber 的 \opt{--input-encoding|e} 选项。\biblatex 还会传递 \opt{texencoding} 选项值(对应于 \biber 的\opt{--output-encoding|-E} 选项)，该选项的默认值依赖于\TeX\ 引擎和文档使用的编码宏包(详见\biblatex\ 手册)。
+
+%\noindent \biber\ performs the following tasks:
+\biber\ 执行如下任务：
 
 \begin{enumerate}
-\item Decodes the datasource into UTF-8 if it is not UTF-8 already
-\item Decodes \latex\ character macros in the datasource into UTF-8
-\item Encodes the output so that the \verb+.bbl+ is in
-  the encoding that \opt{--output-encoding|-E} specifies
-\item Warns if it is asked to output to the \verb+.bbl+ any UTF-8
-  decoded \latex\ character macros which are not in the
-  \opt{--output-encoding|-E} encoding. Replaces with a suitable \latex\ macro
+\item %Decodes the datasource into UTF-8 if it is not UTF-8 already
+如果数据源为非UTF-8编码，则将其转换(解码)为UTF-8
+\item %Decodes \latex\ character macros in the datasource into UTF-8
+将数据源中的\latex\ 字符宏解码为UTF-8字符
+\item %Encodes the output so that the \verb+.bbl+ is in the encoding that \opt{--output-encoding|-E} specifies
+将输出的\verb+.bbl+ 文件转换为\opt{--output-encoding|-E} 指定的编码
+\item %Warns if it is asked to output to the \verb+.bbl+ any UTF-8   decoded \latex\ character macros which are not in the   \opt{--output-encoding|-E} encoding. Replaces with a suitable \latex\ macro
+  当向 \verb+.bbl+ 文件输出已经解码为 UTF-8的\latex\ 字符宏时，如果该宏没有对应的 \opt{--output-encoding|-E} 编码则给出警告。并用合适的\latex\ 宏代替。
 \end{enumerate}
 
-\noindent Normally, you do not need to set the encoding options on the
-\biber\ command line as they are passed in the \verb+.bcf+ via the
-information in your \biblatex\ environment. However, you can override
-the \verb+.bcf+ settings with the command line. The resource chain for
-encoding settings is, in decreasing order
-of preference:\\[2ex]
+%\noindent Normally, you do not need to set the encoding options on the
+%\biber\ command line as they are passed in the \verb+.bcf+ via the
+%information in your \biblatex\ environment. However, you can override
+%the \verb+.bcf+ settings with the command line. The resource chain for
+%encoding settings is, in decreasing order
+%of preference:\\[2ex]
 
-\noindent\opt{--input-encoding|-e} and \opt{--output-encoding|-E} $\rightarrow$\\
-\hspace*{1em}\biber\ config file $\rightarrow$\\
-\hspace*{2em}\verb+.bcf+ control file
+一般情况下，用户无需在\biber\ 命令行中设置编码选项，因为这些通常由\biblatex\ 通过\verb+.bcf+ 文件传递进来。然而可以通过命令行来覆盖\verb+.bcf+ 文件中的设置。编码设置的优先级，按降序排列为：\\[2ex]
 
-\subsubsection{\latex\ macro decoding}\label{ldecode}
+%\noindent\opt{--input-encoding|-e} and \opt{--output-encoding|-E} $\rightarrow$\\
+%\hspace*{1em}\biber\ config file $\rightarrow$\\
+%\hspace*{2em}\verb+.bcf+ control file
 
-\noindent As mentioned above, \biber\ always converts as much as possible,
-including \latex\ character macros, into UTF-8. This is important for two
-main reasons. Firstly, this allows you to have, for example:
+\noindent\opt{--input-encoding|-e} 和 \opt{--output-encoding|-E} $\rightarrow$\\
+\hspace*{1em}\biber\ 配置文件 $\rightarrow$\\
+\hspace*{2em}\verb+.bcf+ 控制文件
+
+%\subsubsection{\latex\ macro decoding}\label{ldecode}
+\subsubsection{\latex\ 宏解码}\label{ldecode}
+
+%\noindent As mentioned above, \biber\ always converts as much as possible,
+%including \latex\ character macros, into UTF-8. This is important for two
+%main reasons. Firstly, this allows you to have, for example:
+
+如上所述，\biber\ 总是做尽可能多的转换，包括将\latex\ 字符宏转换为 UTF-8 。这之所以重要主要有两个原因。首先，这将允许出现如下例一般的情形：
 
 \begin{lstlisting}[style=bibtex, columns=fixed]{}
 @BOOK{key1,
@@ -1985,130 +1999,164 @@ main reasons. Firstly, this allows you to have, for example:
 }
 \end{lstlisting}
 %
-Here, because \biber decodes the macros into UTF-8, it knows that both
-books are by the same author because it's clear that the names are now the
-same. Secondly, this allows \biber to output normalised latex macros when a
-user selects \opt{--output-encoding=ascii} etc. This means that the many
-\biblatex comparison macros used in styles can deal with comparisons of
-fields containing macros reliably. The macro to UTF-8 conversion uses the
-decoding set specified with the \opt{--decodecharsset}, see below. To
-disable all macro to UTF-8 conversion, you can specify the virtual «null»
-set as a value for \opt{--decodecharsset} or \opt{output-safecharsset}.
-This effectively turns off macro to UTF-8 decoding or encoding respectively.
+%Here, because \biber decodes the macros into UTF-8, it knows that both
+%books are by the same author because it's clear that the names are now the
+%same. Secondly, this allows \biber to output normalised latex macros when a
+%user selects \opt{--output-encoding=ascii} etc. This means that the many
+%\biblatex comparison macros used in styles can deal with comparisons of
+%fields containing macros reliably. The macro to UTF-8 conversion uses the
+%decoding set specified with the \opt{--decodecharsset}, see below. To
+%disable all macro to UTF-8 conversion, you can specify the virtual «null»
+%set as a value for \opt{--decodecharsset} or \opt{output-safecharsset}.
+%This effectively turns off macro to UTF-8 decoding or encoding respectively.
 
-If you are using PDF\latex\ and \verb+\usepackage[utf8]{inputenc}+, it
-is possible that the UTF-8 characters resulting from \biber's
-internal \latex\ character macro decoding break \verb+inputenc+. This is
-because \verb+inputenc+ does not implement all of UTF-8, only a
-commonly used subset.
+这里，因为\biber 将宏解码为UTF-8，所以它知道例中的两本书相同的，很显然转换后两本书的作者名是一样的。
 
-An example--if you had \verb+\DJ+ in your \verb+.bib+ datasource,
-\biber\ decodes this correctly to «Đ» and this breaks \verb+inputenc+
-because it doesn't understand that UTF-8 character. The real solution here
-is to switch to a \TeX\ engine with full UTF-8 support like \XeTeX\ or Lua\TeX\
-as these don't use or need \verb+inputenc+. However, you can also try the
-\opt{--output-safechars} option which will try to convert any UTF-8 chars into
-\latex\ macros on output. For information on the \opt{--output-safechars}
-option, see section \ref{lencode}.
+其次，这也允许\biber 输出规范的latex 宏，当用户设置 \opt{--output-encoding=ascii} 等的时候。这意味着\biblatex 样式中使用的很多做比较用途的宏可以对包含宏的域进行可靠地比较。宏向UTF-8的转换使用 \opt{--decodecharsset} 选项指定的解码集，见下文。如果要禁止所有的宏转换为UTF-8 ，你可以指定一个空集 «null» 作为\opt{--decodecharsset} 选项的值，或者使用\opt{output-safecharsset} 选项。前者用于关闭宏向UTF-8转换，后者则用于阻止输出时的utf-8编码，即它会将utf-8字符转换回latex宏。
+
+%If you are using PDF\latex\ and \verb+\usepackage[utf8]{inputenc}+, it
+%is possible that the UTF-8 characters resulting from \biber's
+%internal \latex\ character macro decoding break \verb+inputenc+. This is
+%because \verb+inputenc+ does not implement all of UTF-8, only a
+%commonly used subset.
+
+如果使用PDF\latex\ 和 \verb+\usepackage[utf8]{inputenc}+ ，\biber 对内部 \latex\ 字符宏解码得到的UTF-8 可能破坏\verb+inputenc+ 。这是因为 \verb+inputenc+ 未实现全部UTF-8，而是只有一个常用子集。
+
+%An example--if you had \verb+\DJ+ in your \verb+.bib+ datasource,
+%\biber\ decodes this correctly to «Đ» and this breaks \verb+inputenc+
+%because it doesn't understand that UTF-8 character. The real solution here
+%is to switch to a \TeX\ engine with full UTF-8 support like \XeTeX\ or Lua\TeX\
+%as these don't use or need \verb+inputenc+. However, you can also try the
+%\opt{--output-safechars} option which will try to convert any UTF-8 chars into
+%\latex\ macros on output. For information on the \opt{--output-safechars}
+%option, see section \ref{lencode}.
+%\bigskip
+
+举个例子：如果你的\verb+.bib+ 数据源中存在有\verb+\DJ+ 字符，\biber\ 将其正确解码为 «Đ» ，但这破坏了\verb+inputenc+ ，因为它不理解UTF-8字符。其解决方法是使用完全支持UTF-8的\TeX\ 引擎，比如\XeTeX\ 或 Lua\TeX\ ，因为这些引擎不需要 \verb+inputenc+ 。然而，你也可以使用 \opt{--output-safechars} 选项，使其在输出时将UTF-8 字符转换为\latex\ 宏。关于\opt{--output-safechars} 的更多信息，见 \ref{lencode} 节。
 \bigskip
-\subsubsection{\latex\ macro encoding}\label{lencode}
 
-The opposite of decoding; converting UTF-8 characters into \latex\ macros.
-You can force this with the \opt{--output-safechars} option which will do a
-generally good job of making your \verb+.bbl+ plain ASCII. It can be useful
-in certain edge cases where your bibliography introduces characters which
-can't be handled by your main document. See section \ref{ldecode} above for
-an example such case.
+%\subsubsection{\latex\ macro encoding}\label{lencode}
+\subsubsection{\latex\ 宏的编码}\label{lencode}
 
-A common use case for \latex\ macro encoding is when the bibliography
-datasource is not ASCII but the \verb+.tex+ file is and so this case
-is automated for you: if the \biblatex\ option «\opt{texencoding}»
-(which corresponds to the \biber\ option «\opt{--output-encoding|-E}») is
-set to an ASCII encoding («\verb+ascii+» or «\verb+x-ascii+») and
-«\opt{--input-encoding|-e}» is not ASCII, \biber\ will automatically set
-\opt{--output-safechars}.
 
-Since \biber always decodes into UTF-8 internally, if the
-\opt{--output-encoding|-E} option is not set to UTF-8, \biber will
-automatically replace any characters which will not encode in the output
-encoding with equivalent \tex macros. You will also receive a warning about
-this.
+%The opposite of decoding; converting UTF-8 characters into \latex\ macros.
+%You can force this with the \opt{--output-safechars} option which will do a
+%generally good job of making your \verb+.bbl+ plain ASCII. It can be useful
+%in certain edge cases where your bibliography introduces characters which
+%can't be handled by your main document. See section \ref{ldecode} above for
+%an example such case.
 
-See also the \opt{biber --help} output for the \opt{--output-safecharsset}
-and \linebreak[4]\opt{--decodecharsset} options which can customise the set
-of conversion rules to use. The builtin sets of characters and macros which \biber\
-maps during encoding and decoding are documented\footnote{\url{https://sourceforge.net/projects/biblatex-biber/files/biblatex-biber/\biberversion/documentation/utf8-macro-map.html}}.
+解码的反面就是编码，即把UTF-8字符转换为\latex\ 宏。你可以利用 \opt{--output-safechars} 来强制实现这种转换，该选项一般工作得相当好，能确保 \verb+.bbl+ 是纯 ASCII 文档。这在一些特殊情况会很有用，比如文献中引入了主文档不能处理的字符的时候，示例见上面的\ref{ldecode} 节。
 
-It is possible to provide a customised encode/decode mapping file using the
-\opt{--recodedata} option. It must adhere to the format of the default
-data file for reencoding which is \file{recode\_data.xml} located in the
-same Perl install directory as \biber's \file{Recode.pm} module. Of course
-it is easier to find this in the \biber\ source tree. It is most likely
-that if you want to use a custom mapping file, you would copy the default
-file and edit it, removing some things and perhaps defining some custom
-recoding sets for use with \opt{--output-safecharsset} and
-\opt{--decodecharsset}.
+%A common use case for \latex\ macro encoding is when the bibliography
+%datasource is not ASCII but the \verb+.tex+ file is and so this case
+%is automated for you: if the \biblatex\ option «\opt{texencoding}»
+%(which corresponds to the \biber\ option «\opt{--output-encoding|-E}») is
+%set to an ASCII encoding («\verb+ascii+» or «\verb+x-ascii+») and
+%«\opt{--input-encoding|-e}» is not ASCII, \biber\ will automatically set
+%\opt{--output-safechars}.
 
-Be careful to classify the entries using the correct «type» attribute in
-the XML file as this determines how the macro is treated by the code that
-does the replacement. Just copy a similar type of macro from the default
-recoding data file if you are adding new entries, which is unlikely as the
-file is quite comprehensive. There is only one other thing to note. The
-«preferred» attribute tells \biber\ to use a specific \latex\ macro when
-mapping from UTF-8, just in case there is more than one mapping from
-UTF-8 for a particular character. It's unlikely you will need to use this.
+\latex\ 宏编码的常用情形是，文献数据源是非ASCII编码的，但\verb+.tex+ 文件是，如果做合适的设置，这中情况即可自动处理：\biblatex\ 选项 «\opt{texencoding}» (对应\biber\ 选项 «\opt{--output-encoding|-E}»)设置为ASCII编码(«\verb+ascii+» or «\verb+x-ascii+»)，且 «\opt{--input-encoding|-e}» 是非ASCII的，则\biber\ 将自动设置\opt{--output-safechars}。
+
+%Since \biber always decodes into UTF-8 internally, if the
+%\opt{--output-encoding|-E} option is not set to UTF-8, \biber will
+%automatically replace any characters which will not encode in the output
+%encoding with equivalent \tex macros. You will also receive a warning about
+%this.
+
+因为 \biber 总是会在内部做UTF-8 解码，如果 \opt{--output-encoding|-E} 不设置为 UTF-8 ，\biber 会把无法编码成指定输出编码的字符自动替换为等价的\tex 宏。这也将会给出警告。
+
+%See also the \opt{biber --help} output for the \opt{--output-safecharsset}
+%and \linebreak[4]\opt{--decodecharsset} options which can customise the set
+%of conversion rules to use. The builtin sets of characters and macros which \biber\
+%maps during encoding and decoding are documented\footnote{\url{https://sourceforge.net/projects/biblatex-biber/files/biblatex-biber/\biberversion/documentation/utf8-macro-map.html}}.
+
+关于\opt{--output-safecharsset} 和 \opt{--decodecharsset}(可用于定制要使用的转换规则集)，另可参考\opt{biber --help}输出。编码和解码过程中\biber\ 做内部映射的字符和宏的集见文档\footnote{\url{https://sourceforge.net/projects/biblatex-biber/files/biblatex-biber/\biberversion/documentation/utf8-macro-map.html}}。
+
+%It is possible to provide a customised encode/decode mapping file using the
+%\opt{--recodedata} option. It must adhere to the format of the default
+%data file for reencoding which is \file{recode\_data.xml} located in the
+%same Perl install directory as \biber's \file{Recode.pm} module. Of course
+%it is easier to find this in the \biber\ source tree. It is most likely
+%that if you want to use a custom mapping file, you would copy the default
+%file and edit it, removing some things and perhaps defining some custom
+%recoding sets for use with \opt{--output-safecharsset} and
+%\opt{--decodecharsset}.
+
+也可以使用\opt{--recodedata}选项来提供一个自定义的编码和解码映射文件。但必须遵守用于再编码的默认数据文件即\file{recode\_data.xml} 的格式，该文件具有与 \biber 的 \file{Recode.pm} 模块相同的perl安装路径。当然，通过\biber\ 源文件树能更容易的找到它们。更可能的情况是，当你需要使用一个自定义的映射文件时，可以复制默认文件并编辑它，删除相同的内容，然后定义一些定制的编码集配合 \opt{--output-safecharsset} 和 \opt{--decodecharsset} 使用。
+
+%Be careful to classify the entries using the correct «type» attribute in
+%the XML file as this determines how the macro is treated by the code that
+%does the replacement. Just copy a similar type of macro from the default
+%recoding data file if you are adding new entries, which is unlikely as the
+%file is quite comprehensive. There is only one other thing to note. The
+%«preferred» attribute tells \biber\ to use a specific \latex\ macro when
+%mapping from UTF-8, just in case there is more than one mapping from
+%UTF-8 for a particular character. It's unlikely you will need to use this.
+
+在XML文件中使用正确的 «type» 属性来分类项的时候要小心，因为这将决定执行替换的代码处理宏的方式。如果需要添加新的条目，只需要从默认编码数据文件中复制一个相似类型的宏，因为该文件相当复杂所以添加新项比较困难。还要注意另外一件事： «preferred» 属性告诉\biber\ 从UTF-8映射时使用指定的\latex\ 宏，因为对于一个特定的字符，可能有多种映射。当然一般也不必使用它。
 
 \bigskip
-\subsubsection{Examples}
+%\subsubsection{Examples}
+\subsubsection{示例}
 
 \biberex{biber}
 
-\noindent Set \opt{input-encoding} and \opt{output-encoding} from the
-config file or \verb+.bcf+
+%\noindent Set \opt{input-encoding} and \opt{output-encoding} from the
+%config file or \verb+.bcf+
+根据配置文件或 \verb+.bcf+ 文件设置 \opt{input-encoding} and \opt{output-encoding}。
 
 \biberex{biber --output-encoding=latin2}
 
-\noindent Encode the \verb+.bbl+ as latin2, overriding the
-\verb+.bcf+
+%\noindent Encode the \verb+.bbl+ as latin2, overriding the
+%\verb+.bcf+
+将 \verb+.bbl+ 编码为latin2，覆盖 \verb+.bcf+ 中的设置。
 
 \biberex{biber --output-safechars}
 
-\noindent Set \opt{input-encoding} and \opt{output-encoding} from the
-config file or \verb+.bcf+. Force encoding of UTF-8 chars to \latex\
-macros using default conversion set
+%\noindent Set \opt{input-encoding} and \opt{output-encoding} from the
+%config file or \verb+.bcf+. Force encoding of UTF-8 chars to \latex\
+%macros using default conversion set
+使用默认转换集，强制将UTF-8字符编码为\latex\ 宏。
 
 \biberex{biber --output-encoding=ascii}
 
-\noindent Encode the \verb+.bbl+ as ascii, overriding the
-\verb+.bcf+. Automatically sets \opt{--output-safechars} to force UTF-8
-to \latex\ macro conversion
+%\noindent Encode the \verb+.bbl+ as ascii, overriding the
+%\verb+.bcf+. Automatically sets \opt{--output-safechars} to force UTF-8
+%to \latex\ macro conversion
+自动设置 \opt{--output-safechars} 选项，强制将UTF-8字符编码为\latex\ 宏。
 
 \biberex{biber --output-encoding=ascii --output-safecharsset=full}
 
-\noindent Encode the \verb+.bbl+ as ascii, overriding the
-\verb+.bcf+. Automatically sets \opt{--output-safechars} to force UTF-8
-to \latex\ macro conversion using the full set of conversions
+%\noindent Encode the \verb+.bbl+ as ascii, overriding the
+%\verb+.bcf+. Automatically sets \opt{--output-safechars} to force UTF-8
+%to \latex\ macro conversion using the full set of conversions
+自动设置 \opt{--output-safechars} 选项，使用完整的转换集，强制将UTF-8字符编码为\latex\ 宏。
 
 \biberex{biber --decodecharsset=full}
 
-\noindent Set \opt{input-encoding} and \opt{output-encoding} from the
-config file or \verb+.bcf+. Use the full \latex\ macro to UTF-8
-conversion set because you have some more obscure character macros in
-your \verb+.bib+ datasource which you want to sort correctly
+%\noindent Set \opt{input-encoding} and \opt{output-encoding} from the
+%config file or \verb+.bcf+. Use the full \latex\ macro to UTF-8
+%conversion set because you have some more obscure character macros in
+%your \verb+.bib+ datasource which you want to sort correctly
+使用完整的转换集，强制将\latex\ 宏解码为UTF-8字符，因为bib文件中有很多字符宏，而你需要进行正确排序。
 
 \biberex{biber --recodedata=/tmp/recode.xml --decodecharsset=special}
 
-\noindent Specify a user-defined reencoding data file which defines a new
-reencoding set «special» and use this set for decoding \latex\
-macros to UTF-8.
+%\noindent Specify a user-defined reencoding data file which defines a new
+%reencoding set «special» and use this set for decoding \latex\
+%macros to UTF-8.
+使用一个自定义的重(再)编码数据文件，该文件定义了一个新的再编码集  «special» ，并适应该集将\latex\ 宏解码为UTF-8字符。
 
 \biberex{biber -u}
 
-\noindent Shortcut alias for \opt{biber --input-encoding=UTF-8}
+%\noindent Shortcut alias for \opt{biber --input-encoding=UTF-8}
+\opt{biber --input-encoding=UTF-8}选项的快捷方式
 
 \biberex{biber -U}
 
-\noindent Shortcut alias for \opt{biber --output-encoding=UTF-8}
+%\noindent Shortcut alias for \opt{biber --output-encoding=UTF-8}
+\opt{biber --output-encoding=UTF-8}选项的快捷方式
 
 \subsection{List and Name Separators}
 
