@@ -12,8 +12,7 @@
 无论如何，用户都应首先阅读这一部分内容。
 如果你想编写你自己的著录和标注(引用)样式，请继续阅读随后的作者指南。
 
-\subsection{宏包选项}
-%Package Options
+\subsection{宏包选项}%Package Options
 \label{use:opt}
 
 %All package options are given in \keyval notation. The value \texttt{true} is omissible with all boolean keys. For example, giving \opt{sortcites} without a value is equivalent to \kvopt{sortcites}{true}.
@@ -22,8 +21,7 @@
 对于所有的布尔型键值，\texttt{true} 是可以省略的。
 例如，给出不带值的 \opt{sortcites} 等价于 \kvopt{sortcites}{true}。
 
-\subsubsection{载入时选项}
-%Load-time Options
+\subsubsection{载入时选项}%Load-time Options
 \label{use:opt:ldt}
 
 %The following options must be used as \biblatex is loaded, \ie in the optional argument to \cmd{usepackage}.
@@ -92,12 +90,10 @@
 
 \end{optionlist}
 
-\subsubsection{导言区选项}
-%Preamble Options
+\subsubsection{导言区选项}%Preamble Options
 \label{use:opt:pre}
 
-\paragraph{一般选项}
-%General
+\paragraph{一般选项}%General
 \label{use:opt:pre:gen}
 
 %The following options may be used in the optional argument to \cmd{usepackage} as well as in the configuration file and the document preamble. The default value listed to the right is the package default. Note that bibliography and citation styles may modify the default setting at load time, see \secref{use:xbx} for details.
@@ -159,7 +155,7 @@
 当该选项激活时，文献表会按照“大写在前小写在后”的顺序排列。
 关闭该选项则使用“小写在前大写在后”的顺序。
 
-\optitem{sortlocale}{\opt{auto}, \prm{locale}}
+\optitem[auto]{sortlocale}{\opt{auto}, \prm{locale}}
 
 %This option sets the global sorting locale. Every sorting template inherits this locale if none is specified using the \prm{locale} option to \cmd{printbibliography}. Setting this to \opt{auto} requests that it be set to the \sty{babel}/\sty{polyglossia} main document language identifier, if these packages are used and \texttt{en\_US} otherwise. \biber will map \sty{babel}/\sty{polyglossia} language identifiers into sensible locale identifiers (see the \biber documentation). You can therefore specify either a normal locale identifier like \texttt{de\_DE\_phonebook}, \texttt{es\_ES} or one of the supported \sty{babel}/\sty{polyglossia} language identifiers if the mapping \biber makes of this is fine for you.
 该选项设置全局的排序区域语言(本地语言)。
@@ -224,6 +220,21 @@
 %Similar to \opt{minnames} but affects only the citations in the document body.
 
 类似于 \opt{minnames} 但只影响正文中的标注(引用)。
+\intitem[\prm{maxbibnames}]{maxsortnames}
+
+%Similar to \opt{maxnames} but affects only the names visible to sorting. Since this defaults to \prm{maxbibnames}, you should set this after \opt{maxbibnames} if \opt{maxbibnames} is explicitly set.
+
+类似于 \opt{maxnames} 但只影响排序可见的姓名。因为默认为\prm{maxbibnames}，
+所以当存在\opt{maxbibnames}的显式设置时，该选项设置需放在\opt{maxbibnames} 后面。
+
+
+\intitem[\prm{minbibnames}]{minsortnames}
+
+%Similar to \opt{minnames} but affects only the names visible to sorting. Since this defaults to \prm{minbibnames}, you should set this after \opt{minbibnames} if \opt{minbibnames} is explicitly set.
+
+类似于 \opt{minnames} 但只影响排序可见的姓名。因为默认为\prm{minbibnames}，
+所以当存在\opt{minbibnames}的显式设置时，该选项设置需放在\opt{minbibnames} 后面。
+
 
 \intitem[3]{maxitems}
 
@@ -251,11 +262,21 @@
 
 \optitem[autobib]{language}{\opt{autobib}, \opt{autocite}, \opt{auto}, \prm{language}}
 
-%This option controls multilingual support. When set to \opt{autobib}, \opt{autocite} or \opt{auto}, \biblatex will try to get the main document language from the \sty{babel}/\sty{polyglossia} package (and fall back to English if \sty{babel}/\sty{polyglossia} is not available). It is also possible to select the package language manually. In this case, the language chosen will override the \bibfield{langid} of entries and you should still choose a language switching environment with the \opt{autolang} option to select how the switch to the manually chosen language is handled. Please refer to \tabref{bib:fld:tab1} for a list of supported languages and the corresponding identifiers. \opt{autobib} switches the language for each entry in the bibliography using the \bibfield{langid} field and the language environment specified by the \opt{autolang} option. \opt{autocite} switches the language for each citation using the \bibfield{langid} field and the language environment specified by the \opt{autolang} option. \opt{auto} is a shorthand to set both \opt{autobib} and \opt{autocite}.
-该选项控制多语种支持功能。当其设置为 \opt{autobib}、\opt{autocite} 或 \opt{auto} 时，\biblatex 会尝试从 \sty{babel}/\sty{polyglossia} 宏包中获取文档的主语言（如果\sty{babel}/\sty{polyglossia} 宏包不可用则设置为后备的英语）。也可以手动选择文档的语言，手动选择的语言会覆盖条目的 \bibfield{langid} 域，并且仍需要使用 \opt{autolang} 选项选择语言切换环境，以确定如何处理手动选择语言的切换方式。关于所支持的语言和相应的标识符请参考 \tabref{bib:fld:tab1}。
-\opt{autobib} 使用条目中的 \bibfield{langid} 域和 \opt{autolang} 选项确定的语言环境为文献表中每个条目切换语言。
-\opt{autocite} 使用条目中的 \bibfield{langid} 域和 \opt{autolang} 选项确定的语言环境为每个标注(引用)切换语言。
-而 \opt{auto} 是同时设置 \opt{autobib} 和 \opt{autocite} 的缩略语。
+%This option controls multilingual support. By default \biblatex automatically picks up the active surrounding language from the \sty{babel}/\sty{polyglossia} package (and fall back to English if \sty{babel}/\sty{polyglossia} is not available). \opt{autobib} switches the language for each entry in the bibliography using the \bibfield{langid} field and the language environment specified by the \opt{autolang} option. \opt{autocite} switches the language for each citation using the \bibfield{langid} field and the language environment specified by the \opt{autolang} option. \opt{auto} is a shorthand to set both \opt{autobib} and \opt{autocite}. It is also possible to select the package language manually. In this case, the language chosen will override the \bibfield{langid} of entries and you should still choose a language switching environment with the \opt{autolang} option to select how the switch to the manually chosen language is handled. Please refer to \tabref{bib:fld:tab1} for a list of supported languages and the corresponding identifiers.
+
+该选项控制多语种支持功能。默认情况下，
+\biblatex 会通过\sty{babel}/\sty{polyglossia}获取当前环境激活的语言
+（如果\sty{babel}/\sty{polyglossia} 宏包不可用则设置为后备语言：英语）。
+\opt{autobib} 使用条目中的 \bibfield{langid} 域和 \opt{autolang} 选项
+设定的语言环境为文献表中每个条目切换语言。
+\opt{autocite} 使用条目中的 \bibfield{langid} 域和 \opt{autolang} 选项
+设定的语言环境为每个标注(引用)切换语言。
+而 \opt{auto} 则等价于同时设置 \opt{autobib} 和 \opt{autocite} 。
+也可以手动选择语言，手动选择的语言会覆盖条目的 \bibfield{langid} 域，
+并且仍需要使用 \opt{autolang} 选项来选择一个语言切换环境，
+以确定如何根据手动选择的语言进行不同的处理，比如断词等。
+关于所支持的语言和对应的标识符请参考 \tabref{bib:fld:tab1}。
+
 
 \boolitem[true]{clearlang}
 
@@ -277,9 +298,12 @@
 \begin{valuelist}
 
 \item[none]
-%Disable this feature, \ie do not use any language environment at all.
+%Do not use any additional enclosing language environment at all. This means that citations and the bibliography are set in the currently active language---this need not be the main language.
 
-关闭该功能，也就是不使用任何语言环境。
+
+不使用任何附加的包围语言环境。这意味着标注和文献表以当前激活的语言进行设置，
+该语言不必一定是主文档语言。
+
 
 \item[hyphen]
 %Enclose the entry in a \env{hyphenrules} environment. This will load hyphenation patterns for the language specified in the \env{hyphenation} field of the entry, if available.
@@ -333,6 +357,17 @@
 也可以直接重新定义 \cmd{newblockpunct} 命令实现不同的效果，见  \secref{use:fmt:fmt} 节。
 更多信息见 \secref{aut:pct:new} 节。
 
+\boolitem[false]{locallabelwidth}
+
+%This option controls whether \cmd{printbibliography} uses a locally calculated value for \cmd{labelnumberwidth} and \cmd{labelalphawidth} or the global value calculated from all entries. The local value is calculated separately for each bibliography and takes into account only the entries displayed in that bibliography. This option is useful if there are several bibliographies with wildly varying label lengths in the same document.
+
+该选项控制\cmd{printbibliography}是否针对\cmd{labelnumberwidth}和\cmd{labelalphawidth}
+使用局部计算的值或者根据所有条目计算的全局的值。局部值是根据每个文献表分别计算，
+仅考虑出现在该文献表中的条目。
+该选项对于一个文档内存在多个具有不同标签宽度的文献表的情况很有用。
+
+
+
 \optitem[foot+end]{notetype}{\opt{foot+end}, \opt{footonly}, \opt{endonly}}
 
 %This option controls the behavior of \cmd{mkbibfootnote}, \cmd{mkbibendnote}, and similar wrappers from \secref{aut:fmt:ich}. The possible choices are:
@@ -349,11 +384,14 @@
 强制尾注，即，\cmd{mkbibfootnote} 也生成尾注。
 \end{valuelist}
 
-\optitem[auto]{hyperref}{\opt{true}, \opt{false}, \opt{auto}}
+\optitem[auto]{hyperref}{\opt{true}, \opt{false}, \opt{auto}, \opt{manual}}
 
-%Whether or not to transform citations and back references into clickable hyperlinks. This feature requires the \sty{hyperref} package. It also requires support by the selected citation style. All standard styles which ship with this package support hyperlinks. \kvopt{hyperref}{auto} automatically detects if the \sty{hyperref} package has been loaded.
+%Whether or not to transform citations and back references into clickable hyperlinks. This feature requires the \sty{hyperref} package. It also requires support by the selected citation style. All standard styles which ship with this package support hyperlinks. \kvopt{hyperref}{auto} automatically detects if the \sty{hyperref} package has been loaded. This is the default setting. \kvopt{hyperref}{false} explicitly disables links even if \sty{hyperref} is loaded. \kvopt{hyperref}{true} enables links when \sty{hyperref} is loaded, it cannot explicitly enable links if \sty{hyperref} is not loaded, as such it works exactly like \kvopt{hyperref}{auto} except that it will issue a warning if \sty{hyperref} is not loaded. \kvopt{hyperref}{manual} gives full manual control over \sty{hyperref} interaction, it should only be needed by package authors in very special circumstances. With the \kvopt{hyperref}{manual} setting you are responsible to enable or disable \sty{hyperref} support manually with \cmd{BiblatexManualHyperrefOn} or \cmd{BiblatexManualHyperrefOff} yourself. One of the two commands must be called exactly once; \cmd{BiblatexManualHyperrefOn} can only be called after \sty{hyperref} is loaded.
 是否将标注(引用)和反向引用转化为可点击的超链接。这一功能需要 \sty{hyperref} 宏包。也需要标注样式的支持。
-本宏包所带的所有标准样式都支持超链接。\kvopt{hyperref}{auto} 会自动检测 \sty{hyperref} 宏包是否已载入。
+本宏包所带的所有标准样式都支持超链接。\kvopt{hyperref}{auto} 会自动检测 \sty{hyperref} 宏包是否已载入。这是默认设置。
+\kvopt{hyperref}{false}显式的关闭该功能，无论是否已载入\sty{hyperref} 。
+当\sty{hyperref} 宏包已载入，则\kvopt{hyperref}{true}启用该功能，若未载入，则类似\kvopt{hyperref}{auto}处理，并给出一个警告。\kvopt{hyperref}{manual} 选项将给出\sty{hyperref} 交互的完全人工控制，这通常仅是宏包作者在一些特殊场合使用。通过设置\kvopt{hyperref}{manual} ，你需要使用\cmd{BiblatexManualHyperrefOn} 或 \cmd{BiblatexManualHyperrefOff} 命令来启用和关闭\sty{hyperref} 支持。要求必须调用其中一个命令一次。\cmd{BiblatexManualHyperrefOn} 仅在\sty{hyperref} 宏包加载命令后面调用。
+
 
 \boolitem[false]{backref}
 
@@ -456,7 +494,7 @@
 %This option controls whether external files requested by way of the \cmd{printfile} command are loaded. See also \secref{use:use:prf} and \cmd{printfile} in \secref{aut:bib:dat}. Note that this feature is disabled by default for performance reasons.
 该选项控制是否载入 \cmd{printfile} 命令请求的外部文件。另参考 \secref{use:use:prf} 和 \secref{aut:bib:dat} 节中的 \cmd{printfile} 命令。请注意，出于性能考虑，该特性默认不激活。
 
-\optitem[none]{refsection}{\opt{none}, \opt{part}, \opt{chapter}, \opt{section}, \opt{subsection}}
+\optitem[none]{refsection}{\opt{none}, \opt{part}, \opt{chapter}, \opt{chapter+}, \opt{section}, \opt{section+}, \opt{subsection}, \opt{subsection+}}
 
 %This option automatically starts a new reference section at a document division such as a chapter or a section. This is equivalent to the \cmd{newrefsection} command, see \secref{use:bib:sec} for details. The following choice of document divisions is available:
 该选项自动在文档划分时（例如一章或一节）开始一个新的参考文献分节。这等价于 \cmd{newrefsection} 命令，参考 \secref{use:bib:sec} 节。可用的文档划分如下：
@@ -468,21 +506,30 @@
 在每个 \cmd{part} 命令处开始一个参考文献分节。
 \item[chapter] %Start a reference section at every \cmd{chapter} command.
 在每个 \cmd{chapter} 命令处开始一个参考文献分节。
+\item[chapter+] %Start a reference section at every \cmd{chapter} and every higher level of sectioning, i.e. \cmd{part}.
+在每个\cmd{chapter} 命令处及其更高层的分节处比如\cmd{part}处开始一个参考文献分节。
+
 \item[section] %Start a reference section at every \cmd{section} command.
 在每个 \cmd{section} 命令处开始一个参考文献分节。
+
+\item[section+] %Start a reference section at every \cmd{section} and every higher level of sectioning, i.e. \cmd{part} and \cmd{chapter} (if available).
+在每个\cmd{section} 命令处及其更高层的分节处比如\cmd{part}和\cmd{chapter}(如果存在)处开始一个参考文献分节。
+
 \item[subsection] %Start a reference section at every \cmd{subsection} command.
 在每个 \cmd{subsection} 命令处开始一个参考文献分节。
+\item[subsection+] %Start a reference section at every \cmd{subsection} and every higher level of sectioning, i.e. \cmd{part}, \cmd{chapter} (if available) and \cmd{section}.
+在每个\cmd{subsection} 命令处及其更高层的分节处比如\cmd{part}、\cmd{chapter}(如果存在)、\cmd{section}处开始一个参考文献分节。
 \end{valuelist}
 %
 %The starred versions of these commands will not start a new reference section.
 对应这些命令的带星号版本不会开始新的参考文献分节。
 
-\optitem[none]{refsegment}{\opt{none}, \opt{part}, \opt{chapter}, \opt{section}, \opt{subsection}}
+\optitem[none]{refsegment}{\opt{none}, \opt{part}, \opt{chapter}, \opt{chapter+}, \opt{section}, \opt{section+}, \opt{subsection}, \opt{subsection+}}
 
 %Similar to the \opt{refsection} option but starts a new reference segment. This is equivalent to the \cmd{newrefsegment} command, see \secref{use:bib:seg} for details. When using both options, note that you can only apply this option to a lower"=level document division than the one \opt{refsection} is applied to and that nested reference segments will be local to the enclosing reference section.
 类似于 \opt{refsection} 选项，但是开始一个新的参考文献片段。这等价于 \cmd{newrefsegment} 命令，详见 \secref{use:bib:seg} 节。当两个选项都使用时，请注意该选项只能应用到比 \opt{refsection} 选项应用的文档划分更低层划分中，同时，嵌套的参考文献片段相对于所附属的参考文献分节来讲是局部的。
 
-\optitem[none]{citereset}{\opt{none}, \opt{part}, \opt{chapter}, \opt{section}, \opt{subsection}}
+\optitem[none]{citereset}{\opt{none}, \opt{part}, \opt{chapter}, \opt{chapter+}, \opt{section}, \opt{section+}, \opt{subsection}, \opt{subsection+}}
 
 %This option automatically executes the \cmd{citereset} command from \secref{use:cit:msc} at a document division such as a chapter or a section. The following choice of document divisions is available:
 
@@ -748,8 +795,10 @@ arXiv 链接的路径选择。如果启用超链接支持，该选项会控制 a
 
 \optitem[auto]{bibencoding}{\opt{auto}, \prm{encoding}}
 
-%Specifies the encoding of the \file{bib} files. This corresponds to \biber's \opt{--input-encoding} option. The following choices are available:
-指定 \file{bib} 文件的编码。该选项对应于 \biber 程序的 |--output-encoding| 选项。可用选择有：
+%Specifies the default encoding of the \file{bib} files. This can be overridden on a per-datasource basis using the \opt{bibencoding} option to \cmd{addbibresource}, see \secref{use:bib:res}.  This corresponds to \biber's \opt{--input-encoding} option. The following choices are available:
+指定 \file{bib} 文件的默认编码。它可以利用\cmd{addbibresource}命令的\opt{bibencoding}选项，
+针对每个数据库进行重设。
+该选项对应于 \biber 程序的 |--output-encoding| 选项。可用选择有：
 
 \begin{valuelist}
 
@@ -1031,6 +1080,22 @@ arXiv 链接的路径选择。如果启用超链接支持，该选项会控制 a
 是否提供特殊域 \bibfield{labelnumber}，详见  \secref{aut:bbx:fld} 节。
 该选项可基于每一类型而设置。
 
+\boolitem[false]{noroman}
+
+%Whether or not to try to parse roman numerals encountered in integer fields for sorting purposes. Since \biber also tries to parse alphanumeric values when sorting integer fields, this roman numeral parsing can be a problem when, for example, <C> is encountered as this could be a roman numeral or a simple alphanumeric string which would have a different integer value depending on how it was parsed. It is likely that this is most useful on a per-entry basis for entries that have, for example, a \bibfield{volume} field with values such as <A>, <B>, <C>, <D> which should not be parsed as roman numerals since this would give incorrect integer values for <C> and <D>.
+
+%This option is also settable on a per-type and per-entry basis.
+
+控制是否在为排序目的对整数类型的域中遇到的罗马数字进行解析。
+因为\biber 在排序整数类型的域时也会对字母数字值进行解析，
+这一罗马数字解析可能会存在一定的问题，比如当遇到<C>时它可能会当做罗马数字，
+或者一个简单的字母数字字符串可能会有一个不同的整数值依赖于它所解析的方式。
+噶选项可能在每一条目条目的处理层级最有用，比如一些条目具有\bibfield{volume}域
+域的值可能包括 <A>, <B>, <C>, <D> ，这些值需要不被当做罗马数字解析，
+因为对于<C> 和 <D>这将会给出错误的整数值。
+该选项也可以在每一条目类型和每一条目的层级设置。
+
+
 \boolitem[false]{labeltitle}
 
 %Whether or not to provide the special field \bibfield{extratitle}, see \secref{aut:bbx:fld} for details. Note that the special field \bibfield{labeltitle} is always provided and this option controls rather whether \bibfield{labeltitle} is used to generate \bibfield{extratitle} information. This option is also settable on a per-type basis. Table \ref{use:opt:tab1} summarises the various \opt{extra*} disambiguation counters and what they track.
@@ -1147,10 +1212,11 @@ arXiv 链接的路径选择。如果启用超链接支持，该选项会控制 a
 \item[allfull] %Similar to \opt{full} but disambiguates all names in the \bibfield{labelname} list, beyond \opt{maxnames}\slash \opt{minnames}\slash \opt{uniquelist}.
 类似于 \opt{full}，但是会对 \bibfield{labelname} 列表中所有姓名消除歧义，
 即便超出了 \opt{maxnames}\slash \opt{minnames}\slash \opt{uniquelist} 选项。
-\item[mininit] %A variant of \texttt{init} which only disambiguates names in lists with identical last names.
-\texttt{init} 的变种，只对列表中有同一姓（last name）的姓名消除歧义。
-\item[minfull] %A variant of \texttt{full} which only disambiguates names in lists with identical last names.
-\texttt{full} 的变种，只对列表中有同一姓（last name）的姓名消除歧义。
+\item[mininit] %A variant of \texttt{init} which only disambiguates names in identical lists of base nameparts (by default, lists of family names).
+\texttt{init} 的变种，只对由基本姓名成分(默认是姓的列表)构成的相同列表消除歧义。
+
+\item[minfull] %A variant of \texttt{full} which only disambiguates names in identical lists of base nameparts (by default, lists of family names).
+\texttt{full} 的变种，只对由基本姓名成分(默认是姓的列表)构成的相同列表消除歧义。
 \end{valuelist}
 %
 %Note that the \opt{uniquename} option will also affect \opt{uniquelist}, the \cmd{ifsingletitle} test, and the \bibfield{extrayear} field. See \secref{aut:cav:amb} for further details and practical examples.
@@ -1212,8 +1278,9 @@ labeldateparts & labelyear        & extradate      &  labelname+\\
 		& labelendseason   &                &  \\
 		& labeltimezone    &                &  \\
 		& labelendtimezone &                &  \\
-labeltitle     & \rmfamily{---}   & extratitle     &  labelname+labeltitle\\
-labeltitleyear & \rmfamily{---}   & extratitleyear &  labeltitle+labelyear\\
+labeltitle     & {\rmfamily---}   & extratitle     &  labelname+labeltitle\\
+labeltitleyear & {\rmfamily---}   & extratitleyear &  labeltitle+labelyear\\
+{\rmfamily ---} & {\rmfamily ---}  & extraname      &  labelname\\
 \bottomrule
 \end{tabularx}
 \caption{歧义消除计数器}%Disambiguation counters
@@ -1286,7 +1353,8 @@ labeltitleyear & \rmfamily{---}   & extratitleyear &  labeltitle+labelyear\\
 
 \boolitem[true]{use\prm{name}}
 
-%As per \opt{useauthor}, \opt{useeditor} and \opt{usetranslator}, all name lists defined in the data model have an option controlling their behaviour in sorting and labelling automatically defined. Global, per-type and per-entry options called <use$<$name$>$>are automatically created.
+%As per \opt{useauthor}, \opt{useeditor} and \opt{usetranslator}, all name lists defined in the data model have an option controlling their behaviour in sorting and labelling automatically
+%defined. Global, per-type and per-entry options called <use$<$name$>$>are automatically created.
 
 按照 \opt{useauthor}、\opt{useeditor} 和 \opt{usetranslator}，
 数据模型中定义的所有的姓名列表都有一个选项用于控制自动定义的排序和标签行为。
@@ -1396,7 +1464,7 @@ labeltitleyear & \rmfamily{---}   & extratitleyear &  labeltitle+labelyear\\
 
 \end{optionlist}
 
-\subsubsection{遗留选项}
+\subsubsection{遗留选项}%Legacy Options
 
 %The following legacy option may be used globally in the optional argument to \cmd{documentclass} or locally in the optional argument to \cmd{usepackage}:
 下面的遗留选项可以全局地在 \cmd{documentclass} 的可选项中使用，
@@ -1918,7 +1986,7 @@ labeltitleyear & \rmfamily{---}   & extratitleyear &  labeltitle+labelyear\\
 如果你想覆盖\opt{dataonly} 选项，该选项是所有关联条目克隆的默认设置，那么该域会很有用。
 例如，如果你想在文档中展示克隆的关联条目中的一些作者，同时希望它们与其它条目的作者区分清楚，但是正常情况下这是无法实现的，因为克隆的关联条目由基于每一条目的 \opt{dataonly} 选项设置，而它又设置了 \kvopt{uniquename}{false} 和 \kvopt{uniquelist}{false}，这样 biblatex 不会对这一克隆的关联条目做任何姓名非歧义处理。这种情况下，你可以设置 \bibfield{relatedoptions} 为 \opt{skiplab, skipbib}，来覆盖默认的\opt{dataonly} 选项。
 
-\subsection{排序选项}
+\subsection{排序选项}%Sorting Options
 \label{use:srt}
 
 %This package supports fully customisable sorting templates for the bibliography. The default global sorting template is selected with the \opt{sorting} package option from \secref{use:opt:pre:gen}. Apart from the regular data fields there are also some special fields which may be used to optimize the sorting of the bibliography. \Apxref{apx:srt:a1, apx:srt:a2} give an outline of the default alphabetic sorting templates supported by \biblatex. Chronological sorting templates are listed in \apxref{apx:srt:chr}. A few explanations concerning the default templates are in order.
@@ -2016,54 +2084,47 @@ labeltitleyear & \rmfamily{---}   & extratitleyear &  labeltitle+labelyear\\
 %Data annotations are supported for \bibtex and \biblatexml data sources.
 \BibTeX 和 \biblatexml 数据源都支持数据注解。
 
-%Attaching annotations to data is easy in \biblatexml data sources as they are specified by simple XML attributes. Continuing with the example above, we would have:
-在 \biblatexml 数据源中添加数据注解是很容易的，
-因为可以通过简单的XML属性来指定。
-继续上面的例子，我们有：
 
-\begin{lstlisting}[language=xml]
-<bltx:entries xmlns:bltx="http://biblatex-biber.sourceforge.net/biblatexml">
-  <bltx:entry id="test" entrytype="misc">
-    <bltx:names type="author">
-      <bltx:name>
-        <bltx:namepart type="given" initial="F">First1</bltx:namepart>
-        <bltx:namepart type="family" initial="L" annotation="student">Last1</bltx:namepart>
-      </bltx:name>
-      <bltx:name annotation="corresponding">
-        <bltx:namepart type="given" initial="F">First2</bltx:namepart>
-        <bltx:namepart type="family" initial="L">Last2</bltx:namepart>
-      </bltx:name>
-      <bltx:name>
-        <bltx:namepart type="given" initial="F">First3</bltx:namepart>
-        <bltx:namepart type="family" initial="L">Last3</bltx:namepart>
-      </bltx:name>
-    </bltx:names>
-  </bltx:entry>
-</bltx:entries>
-\end{lstlisting}
-%
-%Here the annotations are attached in an obvious way to the data items. With \bibtex data sources, the format for annotations is not quite as intuitive:
-这里，向数据项目中添加注解的方式是很显然的。
-而在 \BibTeX 数据源中，注解的格式就没有那么直观了：
 
 \begin{lstlisting}[style=bibtex]{}
 @MISC{ann1,
-  AUTHOR    = {Last1, First1 and Last2, First2 and Last3, First3},
-  AUTHOR+an = {1:family=student;2=corresponding},
+  AUTHOR           = {Last1, First1 and Last2, First2 and Last3, First3},
+  AUTHOR+an        = {1:family=student;2=corresponding},
+  TITLE            = {The Title},
+  TITLE+an:default = {=titleannotation},
+  TITLE+an:french  = {="Le titre"},
+  TITLE+an:german  = {="Der Titel"},
 }
 \end{lstlisting}
 %
-%Here the field name suffix \texttt{+an} is a user-definable\footnote{See \biber's \opt{--annotation-marker} option.} suffix which marks a data field as an annotation of the unsuffixed field. The format of annotation fields in \bibtex data sources is is as follows:
+Here the field name suffix \texttt{+an} is a user-definable\footnote{See \biber's \opt{--annotation-marker} option.} suffix which marks a data field as an annotation of the unsuffixed field. Multiple annotations can be provided for the same field since all annotations are named. After the annotation marker is the optional named annotation marker \footnote{See \biber's \opt{--named-annotation-marker} option.} and an optional annotation name. The annotation name is <default> if not specified and so in the above example the following two are equivalent:
+
+
+
 这里域姓名后缀 \texttt{+an} 可以由用户定义\footnote{
 	见 \biber 的 \opt{--annotation-marker} 选项。}，
 用于标记某个数据域为去掉后缀的域的注解。
-\BibTeX 注解域的格式如下：
+同一个域可以提供多个注解因为所有的注解都有命名。
+在注解标记后是一个可选的命名了的注解标记
+ \footnote{见 \biber 的 \opt{--named-annotation-marker} 选项.}
+ 和一个可选的注解名。如果不特别给出，注解名就是<default> ，所以对于上述例子
+ 下面给出的两句注解是等价的：
+
+\begin{lstlisting}[style=bibtex]{}
+TITLE+an         = {=titleannotation},
+TITLE+an:default = {=titleannotation},
+\end{lstlisting}
+%
+The format of annotation fields in \bibtex data sources is is as follows:
+
+
+在\bibtex 数据源中，注解域的格式如下：
 
 \begin{lstlisting}
 <annotationspecs> ::= <annotationspec> [ ";" <annotationspec> ]
 <annotationspec>  ::= [ <itemcount> [ ":" <part> ] ] "=" <annotations>
 <annotations>     ::= <annotation> [ "," <annotation> ]
-<annotation>      ::= (string)
+<annotation>      ::= ["] (string) ["]
 \end{lstlisting}
 %
 %That is, one or more specifications separated by semi-colons. Each specification is an equals sign followed by a comma"=separated list of annotation keywords. To annotation a specific item in a list, put the number of the list item before the equals sign (lists start at 1). If you need to annotate a specific part of the list item, give its name after the list item number, preceded by a colon. Name part names are defined in the data model, see \secref{aut:bbx:drv}. Some examples:
@@ -2084,29 +2145,98 @@ LANGUAGE+an = {1=annotation3; 2=annotation4}
 }
 \end{lstlisting}
 %
-%To access the annotation information when formatting bibliography data, three macros are provided, corresponding to the three annotation scopes:
+
+%Attaching annotations to data is similar in \biblatexml data sources. Using the example above, we would have:
+
+在 \biblatexml 数据源中添加数据注解是类似的，
+可以通过简单的XML属性来指定。
+继续使用上面的例子，我们有：
+
+\begin{lstlisting}[language=xml]
+<bltx:entries xmlns:bltx="http://biblatex-biber.sourceforge.net/biblatexml">
+  <bltx:entry id="test" entrytype="misc">
+    <bltx:names type="author">
+      <bltx:name>
+        <bltx:namepart type="given" initial="F">First1</bltx:namepart>
+        <bltx:namepart type="family" initial="L">Last1</bltx:namepart>
+      </bltx:name>
+      <bltx:name>
+        <bltx:namepart type="given" initial="F">First2</bltx:namepart>
+        <bltx:namepart type="family" initial="L">Last2</bltx:namepart>
+      </bltx:name>
+      <bltx:name>
+        <bltx:namepart type="given" initial="F">First3</bltx:namepart>
+        <bltx:namepart type="family" initial="L">Last3</bltx:namepart>
+      </bltx:name>
+    </bltx:names>
+    </bltx:annotation field="author" item="1" part="family">student</bltx:annotation>
+    </bltx:annotation field="author" item="2">corresponding</bltx:annotation>
+  </bltx:entry>
+</bltx:entries>
+\end{lstlisting}
+%
+
+%To access the annotation information when formatting bibliography data, macros are provided, corresponding to the three annotation scopes:
 为了在文献格式中获取注解信息，
-这里提供了三个宏，分别对应与相应的注解尺度：
+这里提供了如下宏，分别对应于相应的注解尺度：
 
 \begin{ltxsyntax}
 
-\cmditem{iffieldannotation}{annotation}{true}{false}
+
+\cmditem{iffieldannotation}[field][annotationname]{annotation}{true}{false}
 
 %Executes \prm{true} if the current data field has an annotation \prm{annotation} and false otherwise.
 
 如果当前数据域有注解，那么执行 \prm{true}，否则为 false。
 
-\cmditem{ifitemannotation}{annotation}{true}{false}
+\cmditem{ifitemannotation}[field][annotationname][item]{annotation}{true}{false}
 
 %Executes \prm{true} if the current item in the current data field has an annotation \prm{annotation} and false otherwise.
 
 如果当前数据域的当前项目有注解，那么执行 \prm{true}，否则为 false。
 
-\cmditem{ifpartannotation}{part}{annotation}{true}{false}
+
+\cmditem{ifpartannotation}[field][annotationname][item]{part}{annotation}{true}{false}
 
 %Executes \prm{true} if the part named \prm{part} in current item in the current data field has an annotation \prm{annotation} and false otherwise.
 
 如果当前数据域中当前项目中名为 \prm{part} 的部分有注解，那么执行 \prm{true}，否则为 false。
+
+%Date fields are special and handled in a context where \cmd{currentfield} is not accessible. Thus there is a fourth command to test annotations for dates.
+
+日期域比较特殊，会在\cmd{currentfield} 无法访问的环境中处理，因此需要第4个命令来测试日期的注解。
+
+\cmditem{ifdateannotation}[annotationname]{datetype}{annotation}{true}{false}
+
+%Executes \prm{true} if the date field \prm{datetype} has an annotation \prm{annotation} and false otherwise. If \prm{annotatationname} is not given, then the annotation named <default> is assumed (this is the name given to annotations defined without an explicit name). The \prm{datetype} argument is mandatory, because it cannot be inferred in most contexts where \cmd{ifdateannotation} will be used.
+
+展开为\prm{true}，如果日期域\prm{datetype}存在注解\prm{annotation}，否则为false。如果\prm{annotatationname}未给出，那么会假定为<default>(该名称用来标识未显式给出名称的注解)。 \prm{datetype}参数时必须的，
+因为它在大多数使用\cmd{ifdateannotation}的环境中无法推断出来。
+
+\cmditem{hasfieldannotation}[field][annotationname]{true}{false}
+
+%Executes \prm{true} if the data field \prm{field} has a literal annotation \prm{annotationname} defined and false otherwise. If \prm{annotatationname} is not given, then the annotation named <default> is assumed (this is the name given to annotations defined without an explicit name). If \prm{field} is not given, the current data field as indicated by \cmd{currentfield}, \cmd{currentlist} or \cmd{currentname} (see \secref{aut:bib:fmt}) is assumed. Of course, this is only possible if these commands are defined, that is, inside formatting directives.
+
+展开为\prm{true}，如果数据域 \prm{field} 存在文本注解\prm{annotationname} ，否则为false。如果\prm{annotatationname}未给出，那么会假定为<default>(该名称用来标识未显式给出名称的注解)。如果\prm{field}未给出，则当前数据域为 \cmd{currentfield}, \cmd{currentlist} 或 \cmd{currentname}标识的域(见\secref{aut:bib:fmt})。 当然这仅在这些命令已定义情况下才有效，比如在一个格式化命令中。
+
+\cmditem{hasitemannotation}[field][annotationname][item]{true}{false}
+
+%Executes \prm{true} if the item \prm{item} in the data field \prm{field} has a literal annotation \prm{annotationname} defined and false otherwise. If \prm{annotatationname} is not given, then the annotation named <default> is assumed (this is the name given to annotations defined without an explicit name). The optional argument \prm{field} can be inferred if not provided as with \cmd{iffieldannotation}. If \prm{item} is not given, the number of the item currently being processed as given by \cnt{listcount} is used.
+
+展开为\prm{true}，如果数据域 \prm{field} 内的\prm{item}存在
+文本注解\prm{annotationname} ，否则为false。如果\prm{annotatationname}未给出，那么会假定为<default>(该名称用来标识未显式给出名称的注解)。
+可选参数\prm{field} 未给出时，可以通过\cmd{iffieldannotation}推断出来。
+如果\prm{item}未给出，当前处理的项的数量则由\cnt{listcount}给出。
+
+\cmditem{haspartannotation}[field][annotationname][item]{part}{true}{false}
+
+%Executes \prm{true} if the part named \prm{part} in the item \prm{item} in the data field \prm{field} has a literal annotation \prm{annotationname} defined and false otherwise. If \prm{annotatationname} is not given, then the annotation named <default> is assumed (this is the name given to annotations defined without an explicit name). The two optional arguments \prm{field} and \prm{item} can be inferred as in \cmd{ifitemannotation}. The parameter \prm{part} can never be inferred and is therefore a mandatory argument.
+
+展开为\prm{true}，如果数据域 \prm{field} 内的\prm{item}中的\prm{part}存在
+文本注解\prm{annotationname} ，否则为false。如果\prm{annotatationname}未给出，那么会假定为<default>(该名称用来标识未显式给出名称的注解)。
+两个可选参数\prm{field}和\prm{item}在\cmd{ifitemannotation}可以推断出来。
+\prm{part} 参数无法推断，因此是必须的。
+
 
 \end{ltxsyntax}
 %
@@ -2139,7 +2269,91 @@ LANGUAGE+an = {1=annotation3; 2=annotation4}
     {#1}}
 \end{lstlisting}
 
-\subsection{参考文献命令}%\subsection{Bibliography Commands}
+
+%\subsubsection{Literal Annotations}
+\subsubsection{文本注解}
+
+%If the annotation is a string enclosed in double-quotes, the annotation is a <literal> annotation. In this case the annotation can be retrieved and used as a string rather than as meta-information used to determine formatting. This is useful in order to be able to attached specific annotations to data which are to be printed as-is. For example:
+
+如果注解是包含在一个双引号中的字符串，注解就是文本注解。此时注解可以获取并作为一个字符串，而不是一个用来确定格式的元信息。这对于添加原样输出的附加具体注解会非常有用，比如：
+
+\begin{lstlisting}[style=bibtex]{}
+AUTHOR = {{American Educational Research Association} and {American Psychological Association}
+            and {National Council on Measurement in Education}},
+AUTHOR+an = {1:family="AERA"; 2:family="APA"; 3:family="NCME"}
+}
+\end{lstlisting}
+%
+%Such annotations are not keys whose presence can be tested for but are rather literal information attached to the data. The values are retrieved by the following macros
+这些注解不是可以测试存在的关键字，而是附加的文本信息，其值可以由如下宏获取：
+
+
+\begin{ltxsyntax}
+
+\cmditem{getfieldannotation}[field][annotationname]
+
+%Retrieves any literal annotation for the field \prm{field}. If \prm{annotatationname} is not given, then the annotation named <default> is assumed (this is the name given to annotations defined without an explicit name). If \prm{field} is not given, the current data field as indicated by \cmd{currentfield}, \cmd{currentlist} or \cmd{currentname} (see \secref{aut:bib:fmt}) is assumed. Of course, this is only possible if these commands are defined, that is, inside formatting directives.
+获取\prm{field}域的任意文本注解。如果\prm{annotatationname}未给出，
+则假定 <default>(这是未显式给出名称的注解名)。如果\prm{field}未给出，
+当前数据域假定为\cmd{currentfield}, \cmd{currentlist} 或 \cmd{currentname} (见\secref{aut:bib:fmt})表示的域。当然，这仅在这些命令定义的情况下才有效，比如在格式化命令中。
+
+\cmditem{getitemannotation}[field][annotationname][item]
+
+%Retrieves any literal annotation for the item \prm{item} in the field \prm{field}. If \prm{annotatationname} is not given, then the annotation named <default> is assumed (this is the name given to annotations defined without an explicit name). The optional argument \prm{field} can be inferred if not provided as with \cmd{getfieldannotation}. If \prm{item} is not given, the number of the item currently being processed as given by \cnt{listcount} is used.
+
+获取\prm{field}域\prm{item} 项的任意文本注解。如果\prm{annotatationname}未给出，
+则假定 <default>(这是未显式给出名称的注解名)。如果可选参数\prm{field}未给出，
+可以通过\cmd{getfieldannotation}推断出来。如果\prm{item} 未给出，则当前处理的项的序号\cnt{listcount} 给出。
+
+\cmditem{getpartannotation}[field][annotationname][item]{part}
+
+%Retrieves any literal annotation for the part \prm{part}. If \prm{annotatationname} is not given, then the annotation named <default> is assumed (this is the name given to annotations defined without an explicit name). The two optional arguments \prm{field} and \prm{item} can be inferred as in \cmd{getitemannotation}. The parameter \prm{part} can never be inferred and is therefore a mandatory argument.
+
+获取\prm{field}域\prm{item} 项的\prm{part}的任意文本注解。
+如果\prm{annotatationname}未给出，
+则假定 <default>(这是未显式给出名称的注解名)。可选参数\prm{field}和\prm{item} 
+在\cmd{getitemannotation}中时可以推断出来。\prm{part}参数无法推断，因此是必选参数。
+
+
+%Date fields are special and handled in a context where \cmd{currentfield} is not accessible. Thus there is a fourth command to access literal annotations for dates.
+
+日期域比较特殊，且常在\cmd{currentfield} 无法访问的环境中处理，因此需要第四个命令来访问日期的文本注解。
+
+\cmditem{getdateannotation}[annotationname]{datetype}
+
+%Retrieve a literal annotation for the datefield \prm{datetype}. If \prm{annotatationname} is not given, then the annotation named <default> is assumed (this is the name given to annotations defined without an explicit name). The \prm{datetype} argument is mandatory, because it cannot be inferred in most contexts where \cmd{getdateannotation} will be used.
+
+获取\prm{datetype}日期域的文本注解。如果\prm{annotatationname}未给出，
+则假定 <default>(这是未显式给出名称的注解名)。
+\prm{datetype} 是必须的，因为通常无法在使用 \cmd{getdateannotation} 的环境中推断出来。
+
+\end{ltxsyntax}
+%
+%So, for example, given the bibliography entry above, we could put the following in the preamble:
+因此，以上面的参考文献条目为例，我们可以将如下代码放入导言区：
+
+\begin{ltxexample}[style=latex]
+\renewcommand*{\mkbibnamefamily}[1]{%
+  #1\space\mkbibparens{\getpartannotation{family}}}
+\end{ltxexample}
+%
+In order to get something like this in the bibliography when formatting names:
+期望在格式化姓名时得到如下情况\footnote{译者注：可以用在比如(美国)安德森这样的情况中}：
+
+\begin{lstlisting}[style=bibtex]{}
+  American Educational Research Association (AERA) and
+  American Psychological Association (APA), and
+  National Council on Measurement in Education (NCME)
+}
+\end{lstlisting}
+%
+
+%Naturally there are semantically more elegant ways of dealing with corporate authors without using the <family> namepart (see \secref{aut:bbx:drv}) but this example demonstrates clearly a use for literal annotations.
+
+当然还有不使用<family>姓名成分的语义上更合理的处理方式(见\secref{aut:bbx:drv})，但这个示例清晰的证明了文本注解的一种用法。
+
+%\subsection{Bibliography Commands}
+\subsection{文献表命令}
 \label{use:bib}
 
 \subsubsection{数据源}%\subsubsection{Resources}
@@ -2170,6 +2384,12 @@ LANGUAGE+an = {1=annotation3; 2=annotation4}
 可用的 \prm{options} 如下：
 
 \begin{optionlist*}
+
+
+\valitem{bibencoding}{bibencoding}
+
+%This option can be used to override the global \opt{bibencoding} option for a particular \prm{resource}.
+该选项可以用来针对特定的 \prm{resource} 覆盖全局的\opt{bibencoding} 选项
 
 \valitem{label}{identifier}
 
@@ -2414,6 +2634,14 @@ LANGUAGE+an = {1=annotation3; 2=annotation4}
 如果启用的话，\biblatex 不会为相应文献中的条目分配数值标签。
 当数值型子文献和其它不同格式（例如作者-标题或者作者-年份）的子文献相混合时，这是很有用的。
 
+
+\boolitem[false]{locallabelwidth}
+
+%Calculate \cmd{labelnumberwidth}, \cmd{labelalphawidth} and similar lengths locally for the present bibliography and not globally for all entries. See also \opt{labelnumberwidth} in \secref{use:opt:pre:gen}.
+为当前文献表计算局部化的\cmd{labelnumberwidth}, \cmd{labelalphawidth}和类似长度，而不是针对全局的全部条目。
+另见\secref{use:opt:pre:gen}节的\opt{labelnumberwidth}
+
+
 \end{optionlist*}
 
 \begin{ltxsyntax}
@@ -2475,7 +2703,7 @@ LANGUAGE+an = {1=annotation3; 2=annotation4}
 
 \end{ltxsyntax}
 %
-%To print a bibliography with a different sorting scheme than the global sorting scheme, use the bibliography context switching commands from \secref{use:bib:context}.
+%To print a bibliography with a different sorting template than the global sorting scheme, use the bibliography context switching commands from \secref{use:bib:context}.
 如果想要在参考文献中使用非全局排序格式的另外一种排序格式，
 使用 \secref{use:bib:context} 节提供的文献内容切换命令。
 
@@ -2532,7 +2760,7 @@ LANGUAGE+an = {1=annotation3; 2=annotation4}
 \begin{itemize}
 \item %The default bibliography driver used to print the list entries
 用于打印列表条目的默认文献驱动。
-\item %A default filter declared with \cmd{DeclareBiblistFilter} (see \secref{aut:ctm:bibfilt}) used to filter the entries returned from \biber
+\item %A default bibliography list filter declared with \cmd{DeclareBiblistFilter} (see \secref{aut:ctm:bibfilt}) used to filter the entries returned from \biber
 使用 \cmd{DeclareBiblistFilter} 声明的默认filter（见 \secref{aut:ctm:bibfilt} 节），
 用于过滤 \biber 返回的条目。
 \item %A default check declared with \cmd{defbibcheck} (see \secref{use:bib:flt}) used to post-process the list entries
@@ -2544,6 +2772,25 @@ LANGUAGE+an = {1=annotation3; 2=annotation4}
 默认使用的排序格式名称。
 \end{itemize}
 
+
+%The two additional options can be used to change some of the defaults set by the mandatory argument.
+
+两个附加选项可以用来改变必须参数设置的默认值。
+
+\begin{optionlist*}
+\valitem[\prm{biblistname}]{driver}{driver}
+
+%Change the bibliography driver used to print the list entries.
+改变用来输出列表条目的驱动。
+% \prm{driver} must be a valid driver declared with \cmd{DeclareBibliographyDriver} (see \secref{aut:bbx:bbx}).
+
+\valitem[\prm{biblistname}]{biblistfilter}{biblistfilter}
+
+%Change the bibliography list filter used to filter the entries. \prm{biblistfilter} must be a valid bibliography list filter defined with \cmd{DeclareBiblistFilter} (see \secref{aut:ctm:bibfilt}).
+
+改变文献列表过滤器。\prm{biblistfilter} 必须是一个\cmd{DeclareBiblistFilter}定义的有效的文献列表过滤器(见\secref{aut:ctm:bibfilt})。 
+\end{optionlist*}
+
 %In terms of sorting the list, the default is to sort use the sorting scheme named after the bibliography list (if it exists) and only then to fall back to the current context sorting scheme is this is not defined (see \secref{use:bib:context}).
 
 在列表的排序方面，默认使用与该文献列表同名的排序格式（如果存在的话）。
@@ -2554,9 +2801,10 @@ LANGUAGE+an = {1=annotation3; 2=annotation4}
 最常用的文献列表是关于某些条目的速记列表，
 出于向后兼容性专门有一个别名 \cmd{printshorthands[\dots]}，定义如下：
 
-\begin{lstlisting}[style=latex]{}
+\begin{ltxexample}
 \printbiblist[...]{shorthand}
-\end{lstlisting}
+\end{ltxexample}
+
 
 %\biblatex provides automatic support for data source fields in the default data model marked as <Label fields> (See \secref{bib:fld:dat}). Such fields automatically have defined for them:
 
@@ -2602,7 +2850,7 @@ LANGUAGE+an = {1=annotation3; 2=annotation4}
 使用定义的“shortjournal”文献驱动来打印条目。
 \item %Uses the default <biblist> heading but overrides the title with <Journal Shorthands>
 使用默认的“biblist”标题，但是这里用“Journal Shorthands”来代替。
-\item %Uses the current bibliography context sorting scheme if no scheme exists with the name \bibfield{shortjournal}
+\item %Uses the current bibliography context sorting template if no template exists with the name \bibfield{shortjournal}
 如果没有名为 \bibfield{shortjournal} 的格式，那么使用当前文献内容排序格式。
 \end{itemize}
 %
@@ -2740,7 +2988,8 @@ LANGUAGE+an = {1=annotation3; 2=annotation4}
 
 \cmditem{DeclareBibliographyCategory}{category}
 
-%Declares a new \prm{category}, to be used in conjunction with \cmd{addtocategory} and the \opt{category} and \opt{notcategory} filters of \cmd{printbibliography}. This command is used in the document preamble.
+%Declares a new \prm{category}, to be used in conjunction with \cmd{addtocategory} and the
+%\opt{category} and \opt{notcategory} filters of \cmd{printbibliography}. This command is used in the document preamble.
 
 声明一个新的 \prm{category}，
 可以和 \cmd{addtocategory} 以及 \cmd{printbibliography} 的 \opt{category}、\opt{notcategory} filter结合使用。
@@ -3060,7 +3309,7 @@ LANGUAGE+an = {1=annotation3; 2=annotation4}
 \printbibliography
 \end{ltxexample}
 %
-%Here we print two bibliographies, one with the default <nyt> sorting scheme and one with the <ydnt> sorting scheme.
+%Here we print two bibliographies, one with the default <nyt> sorting template and one with the <ydnt> sorting scheme.
 这里我们打印两个参考文献表。其中一个带有默认的“nyt”排序格式，另一个则使用“ydnt”排序格式。
 
 %To demonstrate the second type of use of bibliography contexts, we have to understand that the actual data for an entry can vary depending on the context. This is most obvious in the case of the \opt{extra*} fields like \opt{extrayear} which are generated by the backend according to the order of entries \emph{after} sorting so that they come out in the expected <a, b, c> order. This clearly shows that the \emph{data} in an entry can be different between sorting schemes. If a document contains more than one bibliography list with different sorting schemes, it can happen then that the \file{.bbl} contains sorting lists with the same entry but containing different data (a different value for \bibfield{extrayear}, for example). The purpose of bibliography contexts is to encapsulate things inside a context so that \biblatex can use the correct entry data. An example is printing a bibliography list with a different sorting order to the global sorting order where the \opt{extra*} fields are different for the same entry between sorting lists:
@@ -3592,7 +3841,8 @@ LANGUAGE+an = {1=annotation3; 2=annotation4}
 \cmditem{Citeauthor}[prenote][postnote]{key}
 \cmditem*{Citeauthor*}[prenote][postnote]{key}
 
-%These commands print the authors. Strictly speaking, it prints the \bibfield{labelname} list, which may be the \bibfield{author}, the \bibfield{editor}, or the \bibfield{translator}. \cmd{Citeauthor} is similar to \cmd{citeauthor} but capitalizes the name prefix of the first name in the citation if the \opt{useprefix} option is enabled, provided that there is a name prefix. The starred variants effectively force maxcitenames to 1 for just this command on so only print the first name in the labelname list (potentially followed by the «et al» string if there are more names). This allows more natural textual flow when refering to a paper in the singular when otherwise \cmd{citeauthor} would generate a (naturally plural) list of names.
+%These commands print the authors. Strictly speaking, it prints the \bibfield{labelname} list, which may be the
+%\bibfield{author}, the \bibfield{editor}, or the \bibfield{translator}. \cmd{Citeauthor} is similar to \cmd{citeauthor} but capitalizes the name prefix of the first name in the citation if the \opt{useprefix} option is enabled, provided that there is a name prefix. The starred variants effectively force maxcitenames to 1 for just this command on so only print the first name in the labelname list (potentially followed by the «et al» string if there are more names). This allows more natural textual flow when refering to a paper in the singular when otherwise \cmd{citeauthor} would generate a (naturally plural) list of names.
 
 这些命令打印出作者。
 严格地讲，打印出的是 \bibfield{labelnames} 列表，
@@ -3662,7 +3912,9 @@ LANGUAGE+an = {1=annotation3; 2=annotation4}
 \cmditem{nocite}{key}
 \cmditem*{nocite}|\{*\}|
 
-%This command is similar to the standard \latex \cmd{nocite} command. It adds the \prm{key} to the bibliography without printing a citation. If the \prm{key} is an asterisk, all entries available in the in-scope bibliography datasource(s) are added to the bibliography. Like all other citation commands, \cmd{nocite} commands in the document body are local to the enclosing \env{refsection} environment, if any. In contrast to standard \latex, \cmd{nocite} may also be used in the document preamble. In this case, the references are assigned to reference section~0.
+%This command is similar to the standard \latex \cmd{nocite} command. It
+adds the \prm{key} to the bibliography without printing a citation. If the
+\prm{key} is an asterisk, all entries available in the in-scope bibliography datasource(s) are added to the bibliography. Like all other citation commands, \cmd{nocite} commands in the document body are local to the enclosing \env{refsection} environment, if any. In contrast to standard \latex, \cmd{nocite} may also be used in the document preamble. In this case, the references are assigned to reference section~0.
 
 该命令类似于 \LaTeX\ 中的 \cmd{nocite} 命令。
 它将没有引用的条目 \prm{key} 添加到参考文献中。
@@ -4041,7 +4293,7 @@ LANGUAGE+an = {1=annotation3; 2=annotation4}
 
 \begin{table}
 \tablesetup
-\begin{tabular}{@{}V{0.5\textwidth}@{}V{0.1\textwidth}@{}p{0.4\textwidth}@{}}
+\begin{tabular}{@{}V{0.6\textwidth}@{}V{0.1\textwidth}@{}p{0.3\textwidth}@{}}
 \toprule
 %\multicolumn{1}{@{}H}{Input} &
 %\multicolumn{1}{@{}H}{Output} &
@@ -4141,7 +4393,8 @@ The \prm{language} must be a language name known to the \sty{babel}/\sty{polyglo
 \cmditem{NewBibliographyString}{key}
 
 %This command declares new localisation strings, \ie it initializes a new \prm{key} to be used in the
-\prm{definitions} of \cmd{DefineBibliographyStrings}. The \prm{key} argument may also be a comma"=separated list of key names. The keys listed in \secref{aut:lng:key} are defined by default.
+%\prm{definitions} of \cmd{DefineBibliographyStrings}. The \prm{key} argument may also be a comma"=separated
+%list of key names. The keys listed in \secref{aut:lng:key} are defined by default.
 该命令声明了新的本地化字符串，即初始化新的 \prm{key}，用在命令 \cmd{DefineBibliographyStrings} 的 \prm{definitions} 中。选项 \prm{key} 也可以是逗号分隔的键值名列表。默认的键名在 \secref{aut:lng:key} 节中列出。
 \end{ltxsyntax}
 
@@ -4313,8 +4566,8 @@ Jones<<,>> Edward
 用于替代文献中连续重复的作者或编辑的破折号。
 缺省值是一个 <em> 或 <en> 长度横线，取决于文献列表的缩进。
 
-\csitem{labelnamepunct}
-%The separator printed after the name used for alphabetizing in the bibliography (\bibfield{author} or \bibfield{editor}, if the \bibfield{author} field is undefined). With the default styles, this separator replaces \cmd{newunitpunct} at this location. The default definition is \cmd{newunitpunct}, \ie it is not handled differently from regular unit punctuation.
+\csitem{labelnamepunct}\DeprecatedMark
+%A separator to be printed after the name used for alphabetizing in the bibliography (\bibfield{author} or \bibfield{editor}, if the \bibfield{author} field is undefined). With the default styles, this separator replaces \cmd{newunitpunct} at this location. The default definition is \cmd{newunitpunct}, \ie it is not handled differently from regular unit punctuation.
 在参考文献按字母排序时用在名字之后的分隔符（\bibfield{author}，在其未定义时是 \bibfield{editor}）。
 对于缺省样式，该分隔符在此位置代替 \cmd{newunitpunct}。
 缺省定义是 \cmd{newunitpunct}，即对其处理与常规单元标点没有不同之处。
@@ -4586,8 +4839,7 @@ A. Smith. Title. 2000, (Orig. pub. as<<->>Origtitle)
 如下是一个五卷作品的例子，其中卷A-E是相关条目：
 
 \begin{ltxexample}
-Donald E. Knuth. Computers & Typesetting. 5 vols. Reading, Mass.: Addison-
-Wesley, 1984-1986.
+Donald E. Knuth. Computers & Typesetting. 5 vols. Reading, Mass.: Addison-Wesley, 1984-1986.
 Vol. A: The TEXbook. 1984.
 Vol. B: TEX: The Program. 1986.
 Vol. C: The METAFONTbook. By. 1986.
@@ -4600,6 +4852,14 @@ Vol. E: Computer Modern Typefaces. 1986.
 \prm{relatedtype} 类型的相关联条目中，多重关联条目数据之间的分隔符。
 没有缺省值。
 如果这样的类型相关的定界符不存在，那么将使用 \cmd{relateddelim}。
+
+\csitem{begrelateddelim}
+%The generic separator before the block of related entries. The default definition is \cmd{newunitpunct}.
+该分隔符用于关联条目块前面，默认定义为\cmd{newunitpunct}。
+
+\csitem{begrelateddelim$<$relatedtype$>$}
+%The separator between the block of related entries of type <relatedtype>. There is no default, if such a type-specific delimiter does not exist, \cmd{relateddelim} is used.
+用于<relatedtype>类型关联条目间的风格符，没有默认值，当未制定具体类型的分隔符时，使用\cmd{relateddelim}。
 
 \end{ltxsyntax}
 
@@ -4628,12 +4888,42 @@ Vol. E: Computer Modern Typefaces. 1986.
 带星号的命令会首先清除所有 \prm{names} 中的 \prm{context} 声明。
 
 \cmditem{DeclareDelimAlias}{alias}{delim}
-\cmditem*{DeclareDelimAlias}*[context, \dots]{alias}{delim}
+\cmditem*{DeclareDelimAlias}*[alias context, \dots]{alias}[delim context]{delim}
 
 
-%Declares \prm{alias} to be an alias for the delimiter \prm{delim}. The assigment is valid for all existing contexts of \prm{alias}.The starred version assigns the alias for the given \opt{contexts} only---if the optional argument is empty, assigment is for the global/empty context.
-将\prm{alias}声明为分隔符\prm{delim}的别名。该声明对于现有的全部文境都有效。带星号的版本则将声明限定在给出的文境内——当可选参数为空时，声明时针对全局/空文境的。
+%Declares \prm{alias} to be an alias for the delimiter \prm{delim}. The assigment is performed for all existing contexts of \prm{alias}.
+%The starred version assigns the alias for specific contexts only. The first optional argument \prm{alias context} holds a list of contexts for which the assignment is going to be performed. If it is empty or missing the global/empty context is assumed. The second optional argument \prm{delim context} specifies the context of the target delimiter. This argument may not be a list, it can only hold one context. If it is missing the \prm{alias context} is assumed (if \prm{alias context} is a list, the assignment is performed separately for each list item), if it is empty the global context is used.
 
+
+将\prm{alias}声明为分隔符\prm{delim}的别名。该声明对于现有的全部文境都有效。
+带星号的版本则将声明限定在给出的文境内——当可选参数为空时，声明时针对全局/空文境的。
+带星号版本仅针对制定的环境设置别名。第一个可选参数\prm{alias context}保存需要设置的分隔符环境的列表。如果为空，则假定为全局环境。
+第二个可选参数\prm{delim context}指定目标分隔符的环境。
+如果缺失，则假定为\prm{alias context}。如果\prm{alias context}是一个列表，则会对其中每一项赋值，如果为空则使用全局环境。
+
+
+
+\begin{ltxexample}[style=latex]
+\DeclareDelimAlias*[bib,biblist]{finalnamedelim}[]{multinamedelim}
+\end{ltxexample}
+%
+%Defines the \opt{bib} and \opt{biblist} contexts of \cmd{finalnamedelim} as aliases of \cmd{multinamedelim} in global context.
+%On the other hand
+
+将\opt{bib}和\opt{biblist}环境中使用的\cmd{finalnamedelim}定义为
+全局环境中 \cmd{multinamedelim}的别名。
+另一方面：
+
+\begin{ltxexample}[style=latex]
+\DeclareDelimAlias*[bib,biblist]{finalnamedelim}{multinamedelim}
+\end{ltxexample}
+%
+%defines \cmd{finalnamedelim} in the context \opt{bib} to be an alias of \cmd{multinamedelim} in the \opt{bib} context and defines \cmd{finalnamedelim} in \opt{biblist} context to be an alias of \cmd{multinamedelim} in \opt{biblist}.
+
+则将 \opt{bib} 环境中的\cmd{finalnamedelim}定义
+为\opt{bib} 环境中的\cmd{multinamedelim} 的别名，且将\opt{biblist}环境中
+的\cmd{finalnamedelim}定义
+为\opt{biblist}环境中的\cmd{multinamedelim}的别名。
 
 \cmditem{printdelim}[context]{name}
 
@@ -4681,7 +4971,7 @@ Vol. E: Computer Modern Typefaces. 1986.
 因此期望 context 为 \opt{textcite} 的分隔符定义就无法运行。
 为此，该命令可以将 \prm{alias} 作为 \prm{name} 的别称，例如：
 
-\begin{ltxexample}[style=latex]{}
+\begin{ltxexample}[style=latex]
 \DeclareDelimcontextAlias{cbx@textcite}{textcite}
 \end{ltxexample}
 %
@@ -4711,6 +5001,7 @@ Vol. E: Computer Modern Typefaces. 1986.
 
 \begin{ltxexample}[style=latex]{}
 \DeclareDelimFormat{nametitledelim}{\addcomma\space}
+\DeclareDelimFormat[bib,biblist]{nametitledelim}{\labelnamepunct}
 \DeclareDelimFormat[textcite]{nametitledelim}{\addspace}
 \end{ltxexample}
 %
@@ -5110,13 +5401,15 @@ Goossens, Mittelbach, and Samarin; Bertram and Wenworth<<;>> and Knuth
 %The facilities discussed in this section are specific to certain localisation modules.
 本节讨论的功能特定于某些本地化模块。
 
-\subsubsection{保加利亚文}%\subsubsection{Bulgarian}
+%\subsubsection{Bulgarian}
+\subsubsection{保加利亚文}
 \label{use:loc:bul}
 
 %Like the Greek localisation module, the Bulgarian module also requires \utf support. It will not work with any other encoding.
 类似于希腊文本地化模块，保加利亚语模块也需要\utf 支持，采用其他编码均无效。
 
-\subsubsection{美式英文}%\subsubsection{American}
+%\subsubsection{American}
+\subsubsection{美式英文}
 \label{use:loc:us}
 
 %The American localisation module uses \cmd{uspunctuation} from \secref{aut:pct:cfg} to enable <American-style> punctuation. If this feature is enabled, all trailing commas and periods after \cmd{mkbibquote} will be moved inside the quotes. If you want to disable this feature, use \cmd{stdpunctuation} as follows:
@@ -5145,7 +5438,8 @@ Goossens, Mittelbach, and Samarin; Bertram and Wenworth<<;>> and Knuth
 除了以上只在需要显式指明 \texttt{american} 时才启用的特性，
 \biblatex 宏包本质上将 \texttt{english} 作为 \opt{american} 的别名。
 
-\subsubsection{西班牙文}%\subsubsection{Spanish}
+%\subsubsection{Spanish}
+\subsubsection{西班牙文}
 \label{use:loc:esp}
 
 %Handling the word <and> is more difficult in Spanish than in the other languages supported by this package because it may be <y> or <e>, depending on the initial sound of the following word. Therefore, the Spanish localisation module does not use the localisation string <\texttt{and}> but a special internal <smart and> command. The behavior of this command is controlled by the \cnt{smartand} counter.
@@ -5217,6 +5511,14 @@ author = {Edward Jones and <<{\forceE{E}}>>oin Maguire},
 
 与希腊文模块类似，俄文模块同样需要 \utf 支持。
 与其它编码不兼容。
+
+
+%\subsubsection{Hungarian}
+\subsubsection{匈牙利语}
+\label{use:loc:hun}
+
+The Hungarian localisation module needs to redefine certain field formats to obtain the grammatically correct word order. This means that these field formats are overwritten whenever the Hungarian localisation is active, no matter whether they were defined in the preamble or by a custom style. So please be aware that using the Hungarian localisation module may cause the bibliography output to deviate from the format dictated by the loaded style and preamble definitions. Changes to this behaviour need to be made using \cmd{DefineBibliographyExtras}. In particular \cmd{mkpageprefix} is redefined to output the page number as a prefix following Hungarian convention, and all formats of fields involving pages were modified so that page ranges are printed as ordinal ranges. The Hungarian localisation module will print a warning to remind you of these changes whenever it is loaded in a document. The warning tells you how to silence it.
+
 
 \subsection{关于用法的注意事项}%\subsection{Usage Notes}
 \label{use:use}
@@ -5999,24 +6301,18 @@ Suffix	& --- \\
 姓名中的空格、标点和断行行为由六个宏所控制：
 
 \begin{namedelims}
-a & \cmd{bibnamedelima} &
-%Inserted by the backend after the first element of every name part if that element is less than three characters long and before the last element of every name part.
+a & \cmd{bibnamedelima} & %Inserted by the backend after the first element of every name part if that element is less than three characters long and before the last element of every name part.
 由后端程序插入在每一名部分的第一个元素后（如果该元素少于三个字符长度），在每一名部分的最后元素之前。\\
-b & \cmd{bibnamedelimb} &
-%Inserted by the backend between all elements of a name part where \cmd{bibnamedelima} does not apply.
+b & \cmd{bibnamedelimb} & %Inserted by the backend between all elements of a name part where \cmd{bibnamedelima} does not apply.
 由后端程序插入在名部分的元素之间且 \cmd{bibnamedelima} 没有使用之处。\\
-c & \cmd{bibnamedelimc} &
-%Inserted by a formatting directive between the name prefix and the family name if \kvopt{useprefix}{true}. If \kvopt{useprefix}{false}, \cmd{bibnamedelimd} is used instead.
+c & \cmd{bibnamedelimc} & %Inserted by a formatting directive between the name prefix and the family name if \kvopt{useprefix}{true}. If \kvopt{useprefix}{false}, \cmd{bibnamedelimd} is used instead.
 当 \kvopt{useprefix}{true} 时，由格式指令插入在 name prefix 和 last name 之间。
 如果 \kvopt{useprefix}{false}，将使用 \cmd{bibnamedelimd}。\\
-d & \cmd{bibnamedelimd} &
-%Inserted by a formatting directive between name parts where \cmd{bibnamedelimc} does not apply.
+d & \cmd{bibnamedelimd} & %Inserted by a formatting directive between name parts where \cmd{bibnamedelimc} does not apply.
 由格式指令插入在名部分之间且 \cmd{bibnamedelimc} 没有使用之处。\\
-i & \cmd{bibnamedelimi} &
-%Replaces \cmd{bibnamedelima/b} after initials
+i & \cmd{bibnamedelimi} & %Replaces \cmd{bibnamedelima/b} after initials
 在首字符缩写之后代替 \cmd{bibnamedelima/b} 的命令。\\
-p & \cmd{revsdnamepunct} &
-%Inserted by a formatting directive after the family name when the name parts are reversed.
+p & \cmd{revsdnamepunct} & %Inserted by a formatting directive after the family name when the name parts are reversed.
 当名部分顺序反过来时，由格式指令插入在 last name 之后。
 \end{namedelims}
 %
@@ -6062,14 +6358,11 @@ Suffix	& --- \\
 首字符缩写的空格和标点同样由后端程序处理，并且可以通过重定义以下三个宏来定制：
 
 \begin{namedelims}
-a & \cmd{bibinitperiod} &
-%Inserted by the backend after initials.
+a & \cmd{bibinitperiod} & %Inserted by the backend after initials.
 由后端程序插入在首字母缩写之后。\\
-b & \cmd{bibinitdelim} &
-%Inserted by the backend between multiple initials.
+b & \cmd{bibinitdelim} & %Inserted by the backend between multiple initials.
 由后端程序插入在多个首字母缩写之间。\\
-c & \cmd{bibinithyphendelim} &
-%Inserted by the backend between the initials of hyphenated name parts, replacing \cmd{bibinitperiod} and \cmd{bibinitdelim}.
+c & \cmd{bibinithyphendelim} & %Inserted by the backend between the initials of hyphenated name parts, replacing \cmd{bibinitperiod} and \cmd{bibinitdelim}.
 由后端程序插入在带有连字符的名部分中首字母缩写之间，用以代替 \cmd{bibinitperiod} 和 \cmd{bibinitdelim}。\\
 \end{namedelims}
 %
@@ -6175,7 +6468,8 @@ c & \cmd{bibinithyphendelim} &
 \item %The data model is fixed
 数据模型是固定的。
 
-\item %Cross-referencing is more limited and entry sets must be written into the \path{.bib} file
+\item %Cross-referencing is more limited and entry sets must be written
+into the \path{.bib} file
 交叉引用有限制，条目集必须写入 \path{.bib} 文件。
 \item %Fixed memory capacity (using the \verb|--wolfgang| option with
 %\verb|bibtex8| is strongly recommended to minimize the likelihood of

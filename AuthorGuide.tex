@@ -418,24 +418,38 @@ and Samarin}}}
 
 %Note these per-namepart uniqueness macros are essentially an override of the \opt{uniquename} value (see \secref{aut:aux:tst}) for the name as a whole. Styles can choose to use either the less granular \opt{uniquename} value or the more detailed per-namepart values. Usually the general \opt{uniquename} value is enough for ordinary Western names but the more granular information per-namepart is provided to allow sophisticated name uniqueness processing for more complex name schemata.
 注意，这些按姓名成分处理唯一性的宏实质上是对用于整个姓名的\opt{uniquename}值的覆盖(见\secref{aut:aux:tst})。样式可以选择使用更粗粒度的\opt{uniquename} 值或者更详细的依照姓名成分的值。通常情况下，\opt{uniquename}对于一般的西方姓名已经足够，但也提供了更细粒度的信息用于在复杂姓名格式中进行姓名唯一性的精细处理。
-%The name formatting directive is executed once for each name in the name list. Here is an example:
-姓名的格式化执令对姓名列表中的每一个姓名进行处理，示例如下:
+%The name formatting directive is executed once for each name in the name list. Here is a simplified example---the standard name formats are more intricate:
+姓名的格式化指令对姓名列表中的每一个姓名进行处理，下面是一个简单示例，标准的格式化处理要更复杂:
 
 \begin{ltxexample}
 \DeclareNameFormat{author}{%
   \ifthenelse{\value{listcount}=1}
     {\namepartfamily%
-     \ifblank{\namepartgiven}{}{\addcomma\space\namepartgiven}}
-    {\ifblank{\namepartgiven}{}{\namepartgiven\space}%
+     \ifdefvoid{\namepartgiven}{}{\addcomma\space\namepartgiven}}
+    {\ifdefvoid{\namepartgiven}{}{\namepartgiven\space}%
      \namepartfamily}%
   \ifthenelse{\value{listcount}<\value{liststop}}
     {\addcomma\space}
     {}}
 \end{ltxexample}
 %
-上述格式化指令调换了第一个作者的姓名前后顺序(«Last, First»)，而其余姓名则是常规顺序(«First Last»)。 注意: 当仅有一个姓名成分时，必须确保要它是姓(last name)，因此我们需要检查实际数据中姓名的哪些成分存在。如果姓名的一些成分不存在，则相应的宏就为空。如同抄录列表的指令，在各独立项之间插入的分隔符也由格式化指令控制，因为我们也要检查当前位置是处于列表中还是在其末尾，这也是第二个\cmd{ifthenelse} 命令做的事情。
-%The above directive reverses the name of the first author («Family, Given»)/(«Last, First») and prints the remaining names in their regular sequence («Given Family»)/(«First Last»). Note that the only component which is guaranteed to be available is the last/family name, hence we have to check which parts of the name are actually present. If a certain name part is not available, the corresponding macro will be empty. As with directives for literal lists, the separator to be inserted between the individual items in the name list is also handled by the formatting directive, hence we have to check whether we are in the middle of the list or at the end when inserting it. This is what the second \cmd{ifthenelse} test does.
+%The above directive reverses the name of the first author («Family, Given»)/(«Last, First») and prints the remaining names in their regular sequence («Given Family»)/(«First Last»). Note that the only component which is guaranteed to be available is the last/family name, hence we have to check which parts of the name are actually present. If a certain name part is not available, the corresponding macro will be empty. As with directives for literal lists, the separator to be inserted between the individual items in the name list is also handled by the formatting directive, hence we have to check whether we are in the middle of the list or at the end when inserting it. This is what the second \cmd{ifthenelse} test does. See also \secref{aut:bib:fmt}.
+上述格式化指令调换了第一个作者的姓名前后顺序(«Last, First»)，而其余姓名则是常规顺序(«First Last»)。 
+注意: 当仅有一个姓名成分时，必须确保要它是姓(last name)，因此我们需要检查实际数据中姓名的哪些成分存在。
+如果姓名的一些成分不存在，则相应的宏就为空。如同抄录列表的指令，在各独立项之间插入的分隔符也由格式化指令控制，
+因为我们也要检查当前位置是处于列表中还是在其末尾，这也是第二个\cmd{ifthenelse} 命令做的事情。
+另见\secref{aut:bib:fmt}节.
 
+
+
+%A similar output that also respects the \cmd{multinamedelim} and \cmd{finalnamedelim} commands as well as the <prefix> and <suffix> name parts can be achieved with
+
+一个涉及到\cmd{multinamedelim}和\cmd{finalnamedelim}命令，
+及前缀(<prefix>) 和后缀(<suffix>)姓名成分的类似输出可以通过如下方式实现:
+
+\begin{ltxexample}
+\DeclareNameAlias{author}{family-given/given-family}
+\end{ltxexample}
 
 \subsubsection{特殊域}%Special Fields
 \label{aut:bbx:fld}
@@ -492,12 +506,14 @@ and Samarin}}}
 \fielditem{labelnamesource}{literal}
 
 保存给\bibfield{labelname} 提供信息的域的域名，由\cmd{DeclareLabelname} 确定。
-%Holds the name of the field used to populate \bibfield{labelname},determined by \cmd{DeclareLabelname}.
+%Holds the name of the field used to populate \bibfield{labelname},
+%determined by \cmd{DeclareLabelname}.
 
 \fielditem{labeltitlesource}{literal}
 
 保存给\bibfield{labeltitle} 提供信息的域的域名，由\cmd{DeclareLabeltitle} 确定。
-%Holds the name of the field used to populate \bibfield{labeltitle},determined by \cmd{DeclareLabeltitle}.
+%Holds the name of the field used to populate \bibfield{labeltitle},
+%determined by \cmd{DeclareLabeltitle}.
 
 \fielditem{labeldatesource}{literal}
 
@@ -506,7 +522,8 @@ and Samarin}}}
 
 \begin{itemize}
 \item 由\cmd{DeclareLabeldate} 选择的日期域域名中<date>前的前缀内容。
-%The prefix coming before <date> of the date field name chosen by \cmd{DeclareLabeldate}
+%The prefix coming before <date> of the date field name chosen by 
+%\cmd{DeclareLabeldate}
 \item 一个域的域名。
 %The name of a field
 \item 一个抄录或本地化字符串。\footnote{译者: literal 译为抄录}
@@ -551,18 +568,21 @@ and Samarin}}}
 
 \fielditem{entrysetcount}{integer}
 
-	该域保存的整数用于指明一个条目集中某个集成员的位置(起始值是\texttt{1})。该域仅对一个条目集的子条目有用。
+	
 %This field holds an integer indicating the position of a set member in the entry set (starting at \texttt{1}). This field is only available in the subentries of an entry set.
+该域保存的整数用于指明一个条目集中某个集成员的位置(起始值是\texttt{1})。该域仅对一个条目集的子条目有用。
 
 \fielditem{hash}{string}
 
-	该域非常特殊，仅在姓名格式化命令中使用。它保存一个hash字符串，用于唯一地确定姓名列表中的各个姓名。姓名列表中的所有姓名都具有该信息。另可参见\bibfield{namehash} 和\bibfield{fullhash}。
 %This field is special in that it is only available locally in name formatting directives. It holds a hash string which uniquely identifies individual names in a name list. This information is available for all names in all name lists. See also \bibfield{namehash} and \bibfield{fullhash}.
+该域非常特殊，仅在姓名格式化命令中使用。它保存一个hash字符串，用于唯一地确定姓名列表中的各个姓名。姓名列表中的所有姓名都具有该信息。另可参见\bibfield{namehash} 和\bibfield{fullhash}。
+
 
 \fielditem{namehash}{string}
 
-	一个hash字符串用于唯一确定\bibfield{labelname} 列表。用于再现检查。比如，一个将再次出现的作者和编者用一个类似<idem>的字符串代替的标注样式，可以用\cmd{savefield} 命令保存\bibfield{namehash} 域，并用于后面的\cmd{iffieldequals} 比较中(见\secref{aut:aux:dat, aut:aux:tst})。\bibfield{namehash} 域由截短的\bibfield{labelname} 列表确定，即与\opt{maxnames} 和\opt{minnames} 选项相关。另可参见\bibfield{hash} 和\bibfield{fullhash}。
 %A hash string which uniquely identifies the \bibfield{labelname} list. This is useful for recurrence checks. For example, a citation style which replaces recurrent authors or editors with a string like <idem> could save the \bibfield{namehash} field with \cmd{savefield} and use it in a comparison with \cmd{iffieldequals} later (see \secref{aut:aux:dat, aut:aux:tst}). The \bibfield{namehash} is derived from the truncated \bibfield{labelname} list, \ie it is responsive to \opt{maxnames} and \opt{minnames}. See also \bibfield{hash} and \bibfield{fullhash}.
+一个hash字符串用于唯一确定\bibfield{labelname} 列表。用于再现检查。比如，一个将再次出现的作者和编者用一个类似<idem>的字符串代替的标注样式，可以用\cmd{savefield} 命令保存\bibfield{namehash} 域，并用于后面的\cmd{iffieldequals} 比较中(见\secref{aut:aux:dat, aut:aux:tst})。\bibfield{namehash} 域由截短的\bibfield{labelname} 列表确定，即与\opt{maxnames} 和\opt{minnames} 选项相关。另可参见\bibfield{hash} 和\bibfield{fullhash}。
+
 
 \fielditem{bibnamehash}{string}
 
@@ -573,8 +593,9 @@ dashes should replace repeated authors) behave differently.
 
 \fielditem{$<$namelist$>$namehash}{string}
 
-类似于\bibfield{namehash}，但用于 <namelist>姓名列表。
+
 %As \bibfield{namehash} for the name list called <namelist>.
+类似于\bibfield{namehash}，但用于 <namelist>姓名列表。
 
 \fielditem{$<$namelist$>$bibnamehash}{string}
 
@@ -582,39 +603,46 @@ As \bibfield{bibnamehash} for the name list called <namelist>.
 
 \fielditem{fullhash}{string}
 
-	一个hash字符串用于唯一确定\bibfield{labelname} 列表。该域与\bibfield{namehash} 有两点不同:1.产生hash时忽略\bibfield{shortauthor} 和\bibfield{shorteditor} 列表。2.该hash指的是完整的列表，忽略\opt{maxnames} 和\opt{minnames} 选项。另可参见\bibfield{hash} 和\bibfield{namehash}。
 %A hash string which uniquely identifies the \bibfield{labelname} list. This fields differs from \bibfield{namehash} in two details: 1) The \bibfield{shortauthor} and \bibfield{shorteditor} lists are ignored when generating the hash. 2) The hash always refers to the full list, ignoring \opt{maxnames} and \opt{minnames}. See also \bibfield{hash} and \bibfield{namehash}.
+一个hash字符串用于唯一确定\bibfield{labelname} 列表。该域与\bibfield{namehash} 有两点不同:1.产生hash时忽略\bibfield{shortauthor} 和\bibfield{shorteditor} 列表。2.该hash指的是完整的列表，忽略\opt{maxnames} 和\opt{minnames} 选项。另可参见\bibfield{hash} 和\bibfield{namehash}。
+
 
 \fielditem{$<$namelist$>$fullhash}{string}
 
-类似于\bibfield{fullhash}，但用于 <namelist>姓名列表。
 %As \bibfield{fullhash} for the name list called <namelist>.
+类似于\bibfield{fullhash}，但用于 <namelist>姓名列表。
+
 
 \listitem{pageref}{literal}
 
-	如果\opt{backref} 包选项启用，该域保存条目被引用所在各页的页码。如果文档中有\env{refsection} 环境，反向引用仅包含当前参考文献节(refsection)内的页码信息。
 %If the \opt{backref} package option is enabled, this list holds the page numbers of the pages on which the respective bibliography entry is cited. If there are \env{refsection} environments in the document, the back references are local to the reference sections.
+如果\opt{backref} 包选项启用，该域保存条目被引用所在各页的页码。如果文档中有\env{refsection} 环境，反向引用仅包含当前参考文献节(refsection)内的页码信息。
+
 
 \fielditem{sortinit}{literal}
 
-	该域保存排序所使用信息的首字符。%使用\bibtex 时，该域也用来代替\bibfield{sortinithash} 域。
 %This field holds the initial character of the information used during sorting.
+该域保存排序所使用信息的首字符。%使用\bibtex 时，该域也用来代替\bibfield{sortinithash} 域。
+
 
 \fielditem{sortinithash}{string}
 
-	%使用\biber 时，
-该域保存排序字符串的第一个扩展字素集(基本上是第一个字符)的Unicode排序规则算法主权重的hash值。可用于按照字母表顺序划分参考文献列表，该域在\cmd{bibinitsep} 命令内部使用(见\secref{use:fmt:len})。
 %This field holds a hash of the (locale-specific) Unicode Collation Algorithm primary weight of the first extended grapheme cluster (essentially the first character) of the string used during sorting. This is useful when subdividing the bibliography alphabetically and is used internally by \cmd{bibinitsep} (see \secref{use:fmt:len}).
+%使用\biber 时，
+该域保存排序字符串的第一个扩展字素集(基本上是第一个字符)的Unicode排序规则算法主权重的hash值。可用于按照字母表顺序划分参考文献列表，该域在\cmd{bibinitsep} 命令内部使用(见\secref{use:fmt:len})。
+
 
 \fielditem{clonesourcekey}{string}
 
-	该域保存复制条目的来源条目的关键词。例如，关联条目处理中\bibfield{related} 域所涉及的条目往往需要进行复制。
-%This field holds the entry key of the entry from which an entry was cloned. Clones are created for entries which are mentioned in \bibfield{related} fields as part of related entry processing, for example.
+%This field holds the entry key of the entry from which an entry was cloned. Clones are created for 
+%entries which are mentioned in \bibfield{related} fields as part of related entry processing, for example.
+该域保存复制条目的来源条目的关键词。例如，关联条目处理中\bibfield{related} 域所涉及的条目往往需要进行复制。
 
 \fielditem{urlraw}{verbatim}
 
-\bibfield{url}域的未编码，原始版本。用于当显示的网址与点击时的链接网址不一致的情况，比如网址带有一些特殊的或unicode字符的情况。倘若没有这些特殊字符，它与\bibfield{url}域是一致的。
 %This is the unencoded, raw version of any \bibfield{url}. This is intended for use when the display version and clickable link version of a URL are different. This can be the case when the URL contains special or Unicode characters. In the case where no such characters occur, may be identical to the \bibfield{url}.
+\bibfield{url}域的未编码，原始版本。用于当显示的网址与点击时的链接网址不一致的情况，比如网址带有一些特殊的或unicode字符的情况。倘若没有这些特殊字符，它与\bibfield{url}域是一致的。
+
 
 \end{fieldlist}
 
@@ -636,72 +664,94 @@ As \bibfield{bibnamehash} for the name list called <namelist>.
 
 \listitem{labelname}{name}
 
-	标注标签中打印的姓名。该列表可以是\bibfield{shortauthor}, \bibfield{author},  \bibfield{shorteditor}, \bibfield{editor}, 或\bibfield{translator} 域的复制值，正常情况以该顺序检测。如果没有作者(authors)和编者(authors)，该列表是未定义的。注意: 该列表也与\opt{use$<$name$>$} 相关，见\secref{use:opt:bib}。标注样式打印引用标签中的姓名时使用这一列表。提供该列表仅为方便起见，没有附加的意义。该域可以定制，详见\secref{aut:ctm:fld}。
-%The name to be printed in citations. This list is a copy of either the \bibfield{shortauthor}, the \bibfield{author}, the \bibfield{shorteditor}, the \bibfield{editor}, or the \bibfield{translator} list, which are normally checked for in this order. If no authors and editors are available, this list is undefined. Note that this list is also responsive to the \opt{use$<$name$>$}, options, see \secref{use:opt:bib}. Citation styles should use this list when printing the name in a citation. This list is provided for convenience only and does not carry any additional meaning.This field may be customized. See \secref{aut:ctm:fld} for details.
+%The name to be printed in citations. This list is a copy of either the \bibfield{shortauthor}, the \bibfield{author}, the \bibfield{shorteditor}, the \bibfield{editor}, or the \bibfield{translator} list, which are normally checked for in this order. If no authors and editors are available, this list is undefined. Note that this list is also responsive to the \opt{use$<$name$>$}, options, see \secref{use:opt:bib}. Citation styles should use this list when printing the name in a citation. This list is provided for convenience only and does not carry any additional meaning. 
+%This field may be customized. See \secref{aut:ctm:fld} for details.
+标注标签中打印的姓名。该列表可以是\bibfield{shortauthor}, \bibfield{author},  \bibfield{shorteditor}, \bibfield{editor}, 或\bibfield{translator} 域的复制值，正常情况以该顺序检测。如果没有作者(authors)和编者(authors)，该列表是未定义的。注意: 该列表也与\opt{use$<$name$>$} 相关，见\secref{use:opt:bib}。标注样式打印引用标签中的姓名时使用这一列表。提供该列表仅为方便起见，没有附加的意义。该域可以定制，详见\secref{aut:ctm:fld}。
+
+
+\fielditem{extraname}{integer}
+
+%Holds a count of the number of bibliography entries within a refsection which derive from the same \bibfield{labelname} list. This counter takes account of \opt{uniquename} settings (see \secref{use:opt:pre:int}). While not used by any standard styles, this field is useful in styles which wish to number bibliography entries on a per-\bibfield{labelname} basis. This field will only exist if there is a \bibfield{labelname}. The \bibfield{extraname} counter is related to, but conceptually different from \cmd{ifsingletitle} (see \secref{use:opt:pre:int} and \secref{aut:aux:tst}).
+保存一个参考文献节内具有相同\bibfield{labelname}姓名列表的文献条目的数量。标准样式不使用。
+该域对于希望在每个\bibfield{labelname}层次统计文献条目数很有用。该域仅在\bibfield{labelname}域存在时才会存在，
+\bibfield{extraname}计数器逻辑上与 \cmd{ifsingletitle}类似，但概念不同(见\secref{use:opt:pre:int} 和 \secref{aut:aux:tst})。
 
 \fielditem{labelnumber}{literal}
 
-参考文献条目的序号，用于顺序编码类的样式。如果定义了\bibfield{shorthand} 域，\biblatex 不再给各条目赋予一个数值。这种情况下，\bibfield{labelnumber} 就是shorthand而不是一个数字。顺序编码类的样式必须使用该域的值而不是一个计数器值。注意: 使用该域需要启用包选项\opt{labelnumber}，详见\secref{use:opt:pre:int}。另可参见\secref{use:opt:pre:gen} 节的\opt{defernumbers} 选项。
 %The number of the bibliography entry, as required by numeric citation schemes. If the \bibfield{shorthand} field is defined, \biblatex does not assign a number to the respective entry. In this case \bibfield{labelnumber} is the shorthand rather than a number. Numeric styles must use the value of this field instead of a counter. Note that this field needs to be requested with the package option \opt{labelnumber}, see \secref{use:opt:pre:int} for details. Also see the package option \opt{defernumbers} in \secref{use:opt:pre:gen}.
+参考文献条目的序号，用于顺序编码类的样式。如果定义了\bibfield{shorthand} 域，\biblatex 不再给各条目赋予一个数值。这种情况下，\bibfield{labelnumber} 就是shorthand而不是一个数字。顺序编码类的样式必须使用该域的值而不是一个计数器值。注意: 使用该域需要启用包选项\opt{labelnumber}，详见\secref{use:opt:pre:int}。另可参见\secref{use:opt:pre:gen} 节的\opt{defernumbers} 选项。
+
 
 \fielditem{labelprefix}{literal}
 
-如果要在一个subbibliography文献表的所有条目前都添加一个固定的字符串，设置了\cmd{newrefcontext} 命令的\opt{labelprefix} 选项，那么所有受影响的\bibfield{labelprefix} 域将提供该字符串。如果未设置前缀，相应条目的\bibfield{labelprefix} 域是未定义的。详见\secref{use:bib:context} 节\cmd{newrefcontext} 命令的\opt{labelprefix} 选项。如果定义了\bibfield{shorthand} 域，\biblatex 不会给相应条目的\bibfield{labelprefix} 域设置前缀。这种情况下\bibfield{labelprefix} 是未定义的。
 %If the \opt{labelprefix} option of \cmd{newrefcontext} has been set in order to prefix all entries in a subbibliography with a fixed string, this string is available in the \bibfield{labelprefix} field of all affected entries. If no prefix has been set, the \bibfield{labelprefix} field of the respective entry is undefined. See the \opt{labelprefix} option of \cmd{newrefcontext} in \secref{use:bib:context} for details. If the \bibfield{shorthand} field is defined, \biblatex does not assign the prefix to the \bibfield{labelprefix} field of the respective entry. In this case, the \bibfield{labelprefix} field is undefined.
+如果要在一个subbibliography文献表的所有条目前都添加一个固定的字符串，设置了\cmd{newrefcontext} 命令的\opt{labelprefix} 选项，那么所有受影响的\bibfield{labelprefix} 域将提供该字符串。如果未设置前缀，相应条目的\bibfield{labelprefix} 域是未定义的。详见\secref{use:bib:context} 节\cmd{newrefcontext} 命令的\opt{labelprefix} 选项。如果定义了\bibfield{shorthand} 域，\biblatex 不会给相应条目的\bibfield{labelprefix} 域设置前缀。这种情况下\bibfield{labelprefix} 是未定义的。
+
 
 \fielditem{labeltitle}{literal}
-一篇文献可打印题名(标题)。在一些环境中，一个样式可能需要在一些可能的标题域中选择一个标题。例如，标注样式打印短标题可能需要打印\bibfield{shorttitle} 域(如果它存在的话)，否则将打印\bibfield{title} 域。构建\bibfield{labeltitle} 时考虑的域的列表可以自定义。详见 \secref{aut:ctm:fld}。注意: 使用\bibfield{extratitle} 域要求启用\opt{labeltitle} 包选项，详见\secref{use:opt:pre:int}。另可参见\bibfield{extratitle}。也要注意使用\bibfield{extratitleyear} 域也需要启用\opt{labeltitleyear} 包选项，另可参见\bibfield{extratitleyear}。
 %The printable title of a work. In some circumstances, a style might need to choose a title from a list of a possible title fields. For example, citation styles printing short titles may want to print the \bibfield{shorttitle} field if it exists but otherwise print the \bibfield{title} field. The list of fields to be considered when constructing \bibfield{labeltitle} may be customized. See \secref{aut:ctm:fld} for details. Note that the \bibfield{extratitle} field needs to be requested with the package option \opt{labeltitle}, see \secref{use:opt:pre:int} for details. See also \bibfield{extratitle}. Note also that the \bibfield{extratitleyear} field needs to be requested with the package option \opt{labeltitleyear}. See also \bibfield{extratitleyear}.
+一篇文献可打印题名(标题)。在一些环境中，一个样式可能需要在一些可能的标题域中选择一个标题。例如，标注样式打印短标题可能需要打印\bibfield{shorttitle} 域(如果它存在的话)，否则将打印\bibfield{title} 域。构建\bibfield{labeltitle} 时考虑的域的列表可以自定义。详见 \secref{aut:ctm:fld}。注意: 使用\bibfield{extratitle} 域要求启用\opt{labeltitle} 包选项，详见\secref{use:opt:pre:int}。另可参见\bibfield{extratitle}。也要注意使用\bibfield{extratitleyear} 域也需要启用\opt{labeltitleyear} 包选项，另可参见\bibfield{extratitleyear}。
+
 
 \fielditem{extratitle}{integer}
 
-该命令有时很有用，比如在author-title标注样式中，用于区分标题相同的文献。当有文献具有相同的\bibfield{labelname} 和\bibfield{labeltitle} 时，\bibfield{extratitle} 域保存一个整数，可以利用\cmd{mknumalph} 转换为一个字母或者以其它方式格式化(或者可以仅仅作为一个标志，用于表示将一些其它域比如日期与\bibfield{labeltitle} 域合并)。当文献表中具有相同\bibfield{labeltitle} 和\bibfield{labelname} 的文献只有一篇时，该域不定义。注意:使用\bibfield{extratitle} 域需要启用\opt{labeltitle} 包选项，详见\secref{use:opt:pre:int}。另可参见\bibfield{labeltitle}。\ref{use:opt:tab1} 总结了各种\opt{extra*} 计数器及其作用。
 %It is sometimes useful, for example in author"=title citation schemes, to be able to disambiguate works with the same title. For works by the same \bibfield{labelname} with the same \bibfield{labeltitle}, the \bibfield{extratitle} field holds an integer which may be converted to a letter with \cmd{mknumalph} or formatted in some other way (or it can be merely used as a flag to say that some other field such as a date should be used in conjunction with the \bibfield{labeltitle} field). This field is undefined if there is only one work with the same \bibfield{labeltitle} by the same \bibfield{labelname} in the bibliography. Note that the \bibfield{extratitle} field needs to be requested with the package option \opt{labeltitle}, see \secref{use:opt:pre:int} for details. See also \bibfield{labeltitle}. Table \ref{use:opt:tab1} summarises the various \opt{extra*} disambiguation counters and what they track.
+该命令有时很有用，比如在author-title标注样式中，用于区分标题相同的文献。当有文献具有相同的\bibfield{labelname} 和\bibfield{labeltitle} 时，\bibfield{extratitle} 域保存一个整数，可以利用\cmd{mknumalph} 转换为一个字母或者以其它方式格式化(或者可以仅仅作为一个标志，用于表示将一些其它域比如日期与\bibfield{labeltitle} 域合并)。当文献表中具有相同\bibfield{labeltitle} 和\bibfield{labelname} 的文献只有一篇时，该域不定义。注意:使用\bibfield{extratitle} 域需要启用\opt{labeltitle} 包选项，详见\secref{use:opt:pre:int}。另可参见\bibfield{labeltitle}。\ref{use:opt:tab1} 总结了各种\opt{extra*} 计数器及其作用。
+
 
 \fielditem{extratitleyear}{integer}
 
-该命令有时很有用，比如在author-title标注样式中，用于区分标题相同年份相同但没有责任者的文献。当有文献具有相同的\bibfield{labeltitle} 和\bibfield{labelyear}，\bibfield{extratitleyear} 域保存一个整数，可以利用\cmd{mknumalph} 转换为一个字母或者以其它方式格式化(或者可以仅仅作为一个标志，用于表示将一些其它域比如出版者与\bibfield{labelyear} 域合并)。当文献表中具有相同\bibfield{labeltitle} 和\bibfield{labelyear} 的文献只有一篇时，该域不定义。注意: 使用\bibfield{extratitle} 域需要启用\opt{labeltitleyear} 包选项，详见\secref{use:opt:pre:int}。另可参见\bibfield{labeltitleyear}。\ref{use:opt:tab1} 总结了各种\opt{extra*} 计数器及其作用。
 %It is sometimes useful, for example in author"=title citation schemes, to be able to disambiguate works with the same title in the same year but with no author. For works with the same \bibfield{labeltitle} and with the same \bibfield{labelyear}, the \bibfield{extratitleyear} field holds an integer which may be converted to a letter with \cmd{mknumalph} or formatted in some other way (or it can be merely used as a flag to say that some other field such as a publisher should be used in conjunction with the \bibfield{labelyear} field). This field is undefined if there is only one work with the same \bibfield{labeltitle} and \bibfield{labelyear} in the bibliography. Note that the \bibfield{extratitleyear} field needs to be requested with the package option \opt{labeltitleyear}, see \secref{use:opt:pre:int} for details. See also \bibfield{labeltitleyear}. Table \ref{use:opt:tab1} summarises the various \opt{extra*} disambiguation counters and what they track.
+该命令有时很有用，比如在author-title标注样式中，用于区分标题相同年份相同但没有责任者的文献。当有文献具有相同的\bibfield{labeltitle} 和\bibfield{labelyear}，\bibfield{extratitleyear} 域保存一个整数，可以利用\cmd{mknumalph} 转换为一个字母或者以其它方式格式化(或者可以仅仅作为一个标志，用于表示将一些其它域比如出版者与\bibfield{labelyear} 域合并)。当文献表中具有相同\bibfield{labeltitle} 和\bibfield{labelyear} 的文献只有一篇时，该域不定义。注意: 使用\bibfield{extratitle} 域需要启用\opt{labeltitleyear} 包选项，详见\secref{use:opt:pre:int}。另可参见\bibfield{labeltitleyear}。\ref{use:opt:tab1} 总结了各种\opt{extra*} 计数器及其作用。
+
 
 \fielditem{labelyear}{literal}
 
-\cmd{DeclareLabeldate}(\secref{aut:ctm:fld})命令选择的日期域的年，或者\bibfield{year} 域，用于作者年制的标签。一个完整的作者年制的标签由\bibfield{labelyear} 加\bibfield{extrayear} 域构成。注意使用\bibfield{labelyear} 和\bibfield{extrayear} 域需要启用\opt{labeldateparts} 包选项，详见\secref{use:opt:pre:int}。另可参见\bibfield{extrayear}。
 %The year of the date field selected by \cmd{DeclareLabeldate} (\secref{aut:ctm:fld}) or the \bibfield{year} field, for use in author-year labels. A complete author-year label consists of the fields \bibfield{labelyear} plus \bibfield{extrayear}. Note that the \bibfield{labelyear} and \bibfield{extrayear} fields need to be requested with the package option \opt{labeldateparts}, see \secref{use:opt:pre:int} for details. See also \bibfield{extrayear}.
+\cmd{DeclareLabeldate}(\secref{aut:ctm:fld})命令选择的日期域的年，或者\bibfield{year} 域，用于作者年制的标签。一个完整的作者年制的标签由\bibfield{labelyear} 加\bibfield{extrayear} 域构成。注意使用\bibfield{labelyear} 和\bibfield{extrayear} 域需要启用\opt{labeldateparts} 包选项，详见\secref{use:opt:pre:int}。另可参见\bibfield{extrayear}。
+
 
 \fielditem{labelendyear}{literal}
 
-\cmd{DeclareLabeldate} (\secref{aut:ctm:fld})命令选择的日期域的终止年，如果选择的日期是一个范围。
 %The end year of the date field selected by \cmd{DeclareLabeldate} (\secref{aut:ctm:fld}) if the selected date is a range.
+\cmd{DeclareLabeldate} (\secref{aut:ctm:fld})命令选择的日期域的终止年，如果选择的日期是一个范围。
+
 
 \fielditem{labelmonth}{datepart}
 
-\cmd{DeclareLabeldate}(\secref{aut:ctm:fld})命令选择的日期域的月，或者\bibfield{month} 域，用于作者年制的标签。注意使用\bibfield{labelmonth} 域需要启用 \opt{labeldateparts} 包选项，详见\secref{use:opt:pre:int}。
 %The month of the date field selected by \cmd{DeclareLabeldate} (\secref{aut:ctm:fld}), or the \bibfield{month} field for use in author-year labels. Note that the \bibfield{labelmonth} field needs to be requested with the package option \opt{labeldateparts}, see \secref{use:opt:pre:int} for details.
+\cmd{DeclareLabeldate}(\secref{aut:ctm:fld})命令选择的日期域的月，或者\bibfield{month} 域，用于作者年制的标签。注意使用\bibfield{labelmonth} 域需要启用 \opt{labeldateparts} 包选项，详见\secref{use:opt:pre:int}。
+
 
 \fielditem{labelendmonth}{datepart}
 
-\cmd{DeclareLabeldate} (\secref{aut:ctm:fld})命令选择的日期域的终止月，如果选择的日期是一个范围。
 %The end month of the date field selected by \cmd{DeclareLabeldate} (\secref{aut:ctm:fld}) if the selected date is a range.
+\cmd{DeclareLabeldate} (\secref{aut:ctm:fld})命令选择的日期域的终止月，如果选择的日期是一个范围。
+
 
 \fielditem{labelday}{datepart}
 
-\cmd{DeclareLabeldate}(\secref{aut:ctm:fld})命令选择的日期域的日，或者\bibfield{month} 域，用于作者年制的标签。注意使用 \bibfield{labelday} 域要求启用 \opt{labeldateparts} 包选项，详见\secref{use:opt:pre:int}。
 %The month of the date field selected by \cmd{DeclareLabeldate} (\secref{aut:ctm:fld}) for use in author-year labels. Note that the \bibfield{labelday} field needs to be requested with the package option \opt{labeldateparts}, see \secref{use:opt:pre:int} for details.
+\cmd{DeclareLabeldate}(\secref{aut:ctm:fld})命令选择的日期域的日，或者\bibfield{month} 域，用于作者年制的标签。注意使用 \bibfield{labelday} 域要求启用 \opt{labeldateparts} 包选项，详见\secref{use:opt:pre:int}。
+
 
 \fielditem{labelendday}{datepart}
 
-\cmd{DeclareLabeldate} (\secref{aut:ctm:fld})命令选择的日期域的终止日，如果选择的日期是一个范围。
 %The end day of the date field selected by \cmd{DeclareLabeldate} (\secref{aut:ctm:fld}) if the selected date is a range.
+\cmd{DeclareLabeldate} (\secref{aut:ctm:fld})命令选择的日期域的终止日，如果选择的日期是一个范围。
+
 
 \fielditem{extradate}{integer}
 
-当参考文献表中包含两个或更多的具有相同作者的文献且出版年份也相同时，author-year标注样式常需要在年后面附加一个字母以示区分。这种情况下，\bibfield{extradate} 域保存一个整数可以利用\cmd{mknumalph} 转换为一个字母或者以其它方式格式化。当文献表中某作者的文献只有一篇或者所有该作者的文献的出版年不同时，该域不定义。完整的作者年标签由\bibfield{labelyear} 加\bibfield{extradate} 域构成。注意使用\bibfield{labelyear} 和\bibfield{extradate} 域需要启用\opt{labeldateparts} 包选项，详见\secref{use:opt:pre:int}。另可参见\bibfield{labelyear}。\ref{use:opt:tab1} 总结了各种\opt{extra*} 计数器及其作用。
 %The author"=year citation scheme usually requires a letter to be appended to the year if the bibliography contains two or more works by the same author which were all published in the same year. In this case, the \bibfield{extradate} field holds an integer which may be converted to a letter with \cmd{mknumalph} or formatted in some other way. This field is undefined if there is only one work by the author in the bibliography or if all works by the author have different publication years. A complete author-year label consists of the fields \bibfield{labelyear} plus \bibfield{extradate}. Note that the \bibfield{labelyear} and \bibfield{extradate} fields need to be requested with the package option \opt{labeldateparts}, see \secref{use:opt:pre:int} for details. See also \bibfield{labelyear}. Table \ref{use:opt:tab1} summarises the various \opt{extra*} disambiguation counters and what they track.
+当参考文献表中包含两个或更多的具有相同作者的文献且出版年份也相同时，author-year标注样式常需要在年后面附加一个字母以示区分。这种情况下，\bibfield{extradate} 域保存一个整数可以利用\cmd{mknumalph} 转换为一个字母或者以其它方式格式化。当文献表中某作者的文献只有一篇或者所有该作者的文献的出版年不同时，该域不定义。完整的作者年标签由\bibfield{labelyear} 加\bibfield{extradate} 域构成。注意使用\bibfield{labelyear} 和\bibfield{extradate} 域需要启用\opt{labeldateparts} 包选项，详见\secref{use:opt:pre:int}。另可参见\bibfield{labelyear}。\ref{use:opt:tab1} 总结了各种\opt{extra*} 计数器及其作用。
+
 
 \fielditem{extradatescope}{literal}
 
-该域包含确定\bibfield{extradate}值的专用域的域名，标准样式不使用，但可能用于控制\bibfield{extradate}域值的配置。
 %This field contains the name of the most specific field which determined the value of \bibfield{extradate}. It is not used by the standard styles but may be useful in controlling the placement of the \bibfield{extradate} field value.
+该域包含确定\bibfield{extradate}值的专用域的域名，标准样式不使用，但可能用于控制\bibfield{extradate}域值的配置。
+
 
 \end{fieldlist}
 
@@ -735,7 +785,7 @@ As \bibfield{bibnamehash} for the name list called <namelist>.
 将告诉你相应的日期和一个无期限的(open-ended)范围已经定义。 无期限(Open-ended，无终止日期的)范围由一个空的\texttt{endyear} 成分表示(而不是一个未定义的\texttt{endyear} 成分)。更多示例详见\secref{bib:use:dat} 节和\pageref{bib:use:tab1} 页的表\ref{bib:use:tab1}。
 %will tell you if the corresponding date is defined and an open"=ended range. Open"=ended ranges are indicated by an empty \texttt{endyear} component (as opposed to an undefined \texttt{endyear} component). See \secref{bib:use:dat} and \tabref{bib:use:tab1} on page~\pageref{bib:use:tab1} for further examples.
 
-{
+\begingroup
 \tablesetup
 \begin{longtable}[l]{%
 	@{}V{0.15\textwidth}%
@@ -884,7 +934,7 @@ eventdate	& 1995-01-31/1995-02-05	& eventday	& 31 \\
 \caption{日期接口(译者注:biblatex3.7版提供的四个可解析日期接口，分别是date，origdate，eventdate，urldate，在多数场合已经够用)}%Date Interface
 \label{aut:bbx:fld:tab1}
 \end{longtable}
-}
+\endgroup
 
 \begin{fieldlist}
 
@@ -925,8 +975,8 @@ eventdate	& 1995-01-31/1995-02-05	& eventday	& 31 \\
 
 \fielditem{season}{datepart}
 
-该域保存由\acr{EDTF} 5.2.5(见\secref{bib:use:dat})规定的\bibfield{date} 域的季节成分，它包含一个季节本地化字符串。当日期是一个范围时，它保存开始日期的季节成分。
-%This field holds the season component of the \bibfield{date} field as specified by \acr{EDTF} 5.2.5 (\secref{bib:use:dat}). It contains a season localisation string (\secref{aut:lng:key:dt}). If the date is a range, it holds the season component of the start date.
+该域保存由\acr{ISO8601-2} 4.7(见\secref{bib:use:dat})规定的\bibfield{date} 域的季节成分，它包含一个季节本地化字符串。当日期是一个范围时，它保存开始日期的季节成分。
+%This field holds the season component of the \bibfield{date} field as specified by \acr{ISO8601-2} 4.7 (\secref{bib:use:dat}). It contains a season localisation string (\secref{aut:lng:key:dt}). If the date is a range, it holds the season component of the start date.
 
 \fielditem{endhour}{datepart}
 
@@ -1005,8 +1055,8 @@ eventdate	& 1995-01-31/1995-02-05	& eventday	& 31 \\
 
 \fielditem{origseason}{datepart}
 
-该域保存由\acr{EDTF} 5.2.5(见\secref{bib:use:dat})规定的\bibfield{origdate} 域的季节成分，它包含一个季节本地化字符串。当日期是一个范围时，它保存开始日期的季节成分。
-%This field holds the season component of the \bibfield{origdate} field as specified by \acr{EDTF} 5.2.5 (\secref{bib:use:dat}). It contains a season localisation string (\secref{aut:lng:key:dt}). If the date is a range, it holds the season component of the start date.
+该域保存由\acr{ISO8601-2} 4.7(见\secref{bib:use:dat})规定的\bibfield{origdate} 域的季节成分，它包含一个季节本地化字符串。当日期是一个范围时，它保存开始日期的季节成分。
+%This field holds the season component of the \bibfield{origdate} field as specified by \acr{ISO8601-2} 4.7 (\secref{bib:use:dat}). It contains a season localisation string (\secref{aut:lng:key:dt}). If the date is a range, it holds the season component of the start date.
 
 \fielditem{origendhour}{datepart}
 
@@ -1085,8 +1135,8 @@ eventdate	& 1995-01-31/1995-02-05	& eventday	& 31 \\
 
 \fielditem{eventseason}{datepart}
 
-该域保存由\acr{EDTF} 5.2.5(见\secref{bib:use:dat})规定的\bibfield{eventdate} 域的季节成分，它包含一个季节本地化字符串。当日期是一个范围时，它保存开始日期的季节成分。
-%This field holds the season component of the \bibfield{eventdate} field as specified by \acr{EDTF} 5.2.5 (\secref{bib:use:dat}). It contains a season localisation string (\secref{aut:lng:key:dt}). If the date is a range, it holds the season component of the start date.
+该域保存由\acr{ISO8601-2} 4.7(见\secref{bib:use:dat})规定的\bibfield{eventdate} 域的季节成分，它包含一个季节本地化字符串。当日期是一个范围时，它保存开始日期的季节成分。
+%This field holds the season component of the \bibfield{eventdate} field as specified by \acr{ISO8601-2} 4.7 (\secref{bib:use:dat}). It contains a season localisation string (\secref{aut:lng:key:dt}). If the date is a range, it holds the season component of the start date.
 
 \fielditem{eventendhour}{datepart}
 
@@ -1165,8 +1215,8 @@ eventdate	& 1995-01-31/1995-02-05	& eventday	& 31 \\
 
 \fielditem{urlseason}{datepart}
 
-该域保存由\acr{EDTF} 5.2.5(见\secref{bib:use:dat})规定的 \bibfield{urldate} 域的季节成分，它包含一个季节本地化字符串。当日期是一个范围时，它保存开始日期的季节成分。
-%This field holds the season component of the \bibfield{urldate} field as specified by \acr{EDTF} 5.2.5 (\secref{bib:use:dat}). It contains a season localisation string (\secref{aut:lng:key:dt}). If the date is a range, it holds the season component of the start date.
+该域保存由\acr{ISO8601-2} 4.7(见\secref{bib:use:dat})规定的 \bibfield{urldate} 域的季节成分，它包含一个季节本地化字符串。当日期是一个范围时，它保存开始日期的季节成分。
+%This field holds the season component of the \bibfield{urldate} field as specified by \acr{ISO8601-2} 4.7 (\secref{bib:use:dat}). It contains a season localisation string (\secref{aut:lng:key:dt}). If the date is a range, it holds the season component of the start date.
 
 \fielditem{urlendhour}{datepart}
 
@@ -1248,15 +1298,15 @@ eventdate	& 1995-01-31/1995-02-05	& eventday	& 31 \\
 
 \cmditem{DeclareCiteCommand}{command}[wrapper]{precode}{loopcode}{sepcode}{postcode} \cmditem*{DeclareCiteCommand*}{command}[wrapper]{precode}{loopcode}{sepcode}{postcode}
 
+%This is the core command used to define all citation commands. It takes one optional and five mandatory arguments. The \prm{command} is the command to be defined, for example \cmd{cite}. If the optional \prm{wrapper} argument is given, the entire citation will be passed to the \prm{wrapper} as an argument, \ie the wrapper command must take one mandatory argument.\footnote{Typical examples of wrapper commands are \cmd{mkbibparens} and \cmd{mkbibfootnote}.} The \prm{precode} is arbitrary code to be executed at the beginning of the citation. It will typically handle the \prm{prenote} argument which is available in the \bibfield{prenote} field. It may also be used to initialize macros required by the \prm{loopcode}. The \prm{loopcode} is arbitrary code to be executed for each entry key passed to the \prm{command}. This is the core code which prints the citation labels or any other data. The \prm{sepcode} is arbitrary code to be executed after each iteration of the \prm{loopcode}. It will only be executed if a list of entry keys is passed to the \prm{command}. The \prm{sepcode} will usually insert some kind of separator, such as a comma or a semicolon. The \prm{postcode} is arbitrary code to be executed at the end of the citation. The \prm{postcode} will typically handle the \prm{postnote} argument which is available in the \bibfield{postnote} field.\footnote{The bibliographic data available to the \prm{loopcode} is the data of the entry currently being processed. In addition to that, the data of the first entry is available to the \prm{precode} and the data of the last one is available to the \prm{postcode}. <First> and <last> refer to the order in which the citations are printed. If the \opt{sortcites} package option is active, this is the order of the list after sorting. Note that no bibliographic data is available to the \prm{sepcode}.} The starred variant of \cmd{DeclareCiteCommand} defines a starred \prm{command}. For example, |\DeclareCiteCommand*{cite}| would define |\cite*|.\footnote{Note that the regular variant of \cmd{DeclareCiteCommand} defines a starred version of the \prm{command} implicitly, unless the starred version has been defined before. This is intended as a fallback. The implicit definition is an alias for the regular variant.}
+
 这是用于定义所有标注(引用)命令的核心命令。它有1个可选参数和5个必选参数。\prm{command} 是要定义的命令，比如\cmd{cite}。如果给出可选的\prm{wrapper} 参数，整个标注将会作为一个参数传递给\prm{wrapper}，即包围(wrapper)命令必须要取得一个必选参数。\footnote{典型的包围命令是\cmd{mkbibparens} 和\cmd{mkbibfootnote}。}
-%This is the core command used to define all citation commands. It takes one optional and five mandatory arguments. The \prm{command} is the command to be defined, for example \cmd{cite}. If the optional \prm{wrapper} argument is given, the entire citation will be passed to the \prm{wrapper} as an argument, \ie the wrapper command must take one mandatory argument.\footnote{Typical examples of wrapper commands are \cmd{mkbibparens} and \cmd{mkbibfootnote}.}
 \prm{precode} 是在标注开始时执行的任意代码。典型地，它将处理由\bibfield{prenote} 域提供的\prm{prenote} 参数。它可以可用来对\prm{loopcode} 所需的宏进行初始化。\prm{loopcode} 是每个条目关键词传递给\prm{command} 命令时执行的任意代码。它是打印标注标签或其它任意数据的核心代码。\prm{sepcode} 是每次执行\prm{loopcode} 完成后执行的代码。它仅在条目关键词列表传递给\prm{command} 时起作用。\prm{sepcode} 常用于插入一些分隔符，比如逗号或分号等。
-%The \prm{precode} is arbitrary code to be executed at the beginning of the citation. It will typically handle the \prm{prenote} argument which is available in the \bibfield{prenote} field. It may also be used to initialize macros required by the \prm{loopcode}. The \prm{loopcode} is arbitrary code to be executed for each entry key passed to the \prm{command}. This is the core code which prints the citation labels or any other data. The \prm{sepcode} is arbitrary code to be executed after each iteration of the \prm{loopcode}. It will only be executed if a list of entry keys is passed to the \prm{command}. The \prm{sepcode} will usually insert some kind of separator, such as a comma or a semicolon.
 \prm{postcode} 是在标注结束时执行的代码。典型地，它将处理由\bibfield{postnote} 域提供的\prm{postnote} 参数。\footnote{能给\prm{loopcode} 提供的参考文献数据是正在处理的条目数据。此外，第一个(<First>)条目的数据可以用于\prm{precode}，最后一个(<last>)条目的数据可以用于\prm{postcode}。<First> and <last> 指的是标注的打印顺序。如果\opt{sortcites} 包选项启用，这是经过排序处理后的顺序。注意: 任何参考文献数据无法用于\prm{sepcode}。}
-%The \prm{postcode} is arbitrary code to be executed at the end of the citation. The \prm{postcode} will typically handle the \prm{postnote} argument which is available in the \bibfield{postnote} field.\footnote{The bibliographic data available to the \prm{loopcode} is the data of the entry currently being processed. In addition to that, the data of the first entry is available to the \prm{precode} and the data of the last one is available to the \prm{postcode}. <First> and <last> refer to the order in which the citations are printed. If the \opt{sortcites} package option is active, this is the order of the list after sorting. Note that no bibliographic data is available to the \prm{sepcode}.}
 带星号的\cmd{DeclareCiteCommand} 命令定义了一个带星号的\prm{command}。例如|\DeclareCiteCommand*{cite}|命令将定义|\cite*|。
 \footnote{注意:无星号的\cmd{DeclareCiteCommand} 命令也将定义隐式的定义一个带星号的标注命令，除非该标注命令前面已经定义。这只是用于提供备选。这种隐式方式定义的命令将等同于不带星号的命令。}
-%The starred variant of \cmd{DeclareCiteCommand} defines a starred \prm{command}. For example, |\DeclareCiteCommand*{cite}| would define |\cite*|.\footnote{Note that the regular variant of \cmd{DeclareCiteCommand} defines a starred version of the \prm{command} implicitly, unless the starred version has been defined before. This is intended as a fallback. The implicit definition is an alias for the regular variant.}
+
+
 
 \cmditem{DeclareMultiCiteCommand}{command}[wrapper]{cite}{delimiter}
 
@@ -1274,10 +1324,11 @@ eventdate	& 1995-01-31/1995-02-05	& eventday	& 31 \\
 
 \cmditem{DeclareAutoCiteCommand}{name}[position]{cite}{multicite}
 
+%This command provides definitions for the \cmd{autocite} and \cmd{autocites} commands from \secref{use:cit:aut}. The definitions are enabled with the \opt{autocite} package option from \secref{use:opt:pre:gen}. The \prm{name} is an identifier which serves as the value passed to the package option. The autocite commands are built on top of backend commands like \cmd{parencite} and \cmd{parencites}. The arguments \prm{cite} and \prm{multicite} specify the backend commands to use. The \prm{cite} argument refers to \cmd{autocite} and \prm{multicite} refers to \cmd{autocites}. The \prm{position} argument controls the handling of any punctuation marks after the citation. Possible values are \texttt{l}, \texttt{r}, \texttt{f}. \texttt{r} means that the punctuation is placed to the right of the citation, \ie it will not be moved around. \texttt{l} means that any punctuation after the citation is moved to the left of the citation. \texttt{f} is like \texttt{r} in a footnote and like \texttt{l} otherwise. This argument is optional and defaults to \texttt{r}. See also \cmd{DeclareAutoPunctuation} in \secref{aut:pct:cfg} and the \opt{autopunct} package option in \secref{use:opt:pre:gen}. The following examples are real definitions taken from \path{biblatex.def}:
 该命令为\cmd{autocite} 和\cmd{autocites} 类命令提供定义(见\secref{use:cit:aut})。要使定义生效需要启用 \secref{use:opt:pre:gen} 节的\opt{autocite} 包选项。\prm{name} 是一个标识向包选项传递一个值。autocite类命令是在\cmd{parencite} 和\cmd{parencites} 等后端命令基础上构建的。\prm{cite} 和\prm{multicite} 参数指定了使用的后端命令。\prm{cite} 参数用于\cmd{autocite}，而\prm{multicite} 用于\cmd{autocites}。
-%This command provides definitions for the \cmd{autocite} and \cmd{autocites} commands from \secref{use:cit:aut}. The definitions are enabled with the \opt{autocite} package option from \secref{use:opt:pre:gen}. The \prm{name} is an identifier which serves as the value passed to the package option. The autocite commands are built on top of backend commands like \cmd{parencite} and \cmd{parencites}. The arguments \prm{cite} and \prm{multicite} specify the backend commands to use. The \prm{cite} argument refers to \cmd{autocite} and \prm{multicite} refers to \cmd{autocites}.
 \prm{position} 参数控制标注后的任何标点符号的处理。可能的值是\texttt{l}, \texttt{r}, \texttt{f}。\texttt{r} 表示标点置于标注的右侧，即它不会移动。 \texttt{l} 表示将标点移动到标注的左侧。\texttt{f} 在脚注中的作用类似于\texttt{r}，在其它情况下则类似于\texttt{l}。该参数是可选的，默认是\texttt{r}。另可参见\secref{aut:pct:cfg} 节的\cmd{DeclareAutoPunctuation} 命令和\secref{use:opt:pre:gen} 节的\opt{autopunct} 包选项。下面的示例取自\path{biblatex.def} 中的真实定义:
-%The \prm{position} argument controls the handling of any punctuation marks after the citation. Possible values are \texttt{l}, \texttt{r}, \texttt{f}. \texttt{r} means that the punctuation is placed to the right of the citation, \ie it will not be moved around. \texttt{l} means that any punctuation after the citation is moved to the left of the citation. \texttt{f} is like \texttt{r} in a footnote and like \texttt{l} otherwise. This argument is optional and defaults to \texttt{r}. See also \cmd{DeclareAutoPunctuation} in \secref{aut:pct:cfg} and the \opt{autopunct} package option in \secref{use:opt:pre:gen}. The following examples are real definitions taken from \path{biblatex.def}:
+
+
 
 \begin{ltxexample}
 \DeclareAutoCiteCommand{plain}{\cite}{\cites}
@@ -1293,6 +1344,40 @@ eventdate	& 1995-01-31/1995-02-05	& eventday	& 31 \\
 \ExecuteBibliographyOptions{autocite=<<name>>}
 \end{ltxexample}
 
+\cmditem{DeclareCitePunctuationPosition}{command}{position}
+
+%Set up the cite command \prm{command} to move punctuation marks after the citation like \cmd{autocite}. The \prm{position} argument can take the values \opt{r}, \opt{l}, \opt{f}, \opt{c}, \opt{o} and \opt{d}.
+%If an unknown \prm{position} identifier is used, it defaults to \opt{o}.
+
+设置命令\prm{command}实现类似\cmd{autocite}的标点移动。
+位置(\prm{position})参数的值包括 \opt{r}, \opt{l}, \opt{f}, \opt{c}, \opt{o} and \opt{d}。
+当给出的位置标识不在这些值中，则默认设置为\opt{o}。
+
+\begin{valuelist}
+\item[r] %The punctuation mark is not moved and remains to the right of the citation.
+移动标点符号，保留在标注的右侧。
+
+\item[l] %The punctuation mark is moved to the left of the citation and thus appears before it.
+移动标点符号到标注的左侧，即在标注之前显示。
+
+\item[f] %Like \opt{r} in footnotes and like \opt{l} otherwise.
+在脚注中同\opt{r}，否则同\opt{l}。
+
+\item[c] %Pass the punctuation on to the internal implementation of the citation commands. It will then be executed within the \prm{wrapper} command if given.
+传递标点进入标注命令内部，将在标注命令内部的\prm{wrapper}命令中执行。
+
+
+\item[o] %Retain the default set-up of \opt{c} for citation defined commands without \prm{wrapper} command and \opt{l} for citation commands defined with a \prm{wrapper} command.
+当标注命令中不存在\prm{wrapper}时，与\opt{c}默认设置相同。
+当标注命令中存在\prm{wrapper}命令，则与\opt{l}默认设置相同。
+
+
+\item[d] %Drop the explicit punctuation mark. It will only be available as the field \bibfield{postpunct}.
+丢弃显式的标点符号，标点符号仅由域\bibfield{postpunct}提供。
+
+\end{valuelist}
+%
+This command can not be used for \cmd{autocite}, to configure \cmd{autocite} use the optional \prm{position} argument for \cmd{DeclareAutoCiteCommand}.
 \end{ltxsyntax}
 
 \subsubsection{特殊域}%Special Fields
@@ -1349,7 +1434,7 @@ eventdate	& 1995-01-31/1995-02-05	& eventday	& 31 \\
 
 用于在打印\prm{field}, \prm{list}, \prm{name} 时给出表示不允许的警告信息\prm{message}。它能为那些需要在样式中修改域名的样式作者提供帮助。注意: 不允许的项只能是未在当前工作的数据模型中定义的项，\prm{field}, \prm{list} 或\prm{name} 不能出现在\cmd{DeclareDatamodelFields} 命令的参数中。
 %When an attempt is made to print \prm{field}, \prm{list}, \prm{name}, a
-%deprecation warning issued with the additional \prm{message}.  This aids
+%deprecation warning is issued with the additional \prm{message}.  This aids
 %style authors who are changing field names in their style. Note that the
 %deprecated item must no longer be defined in the datamodel for this work;
 %\prm{field}, \prm{list} or \prm{name} cannot be listed anywhere as an
@@ -1380,10 +1465,11 @@ eventdate	& 1995-01-31/1995-02-05	& eventday	& 31 \\
 %anywhere as an argument to \cmd{DeclareDatamodelFields}.
 \cmditem{printfield}[format]{field}
 
+%This command prints a \prm{field} using the formatting directive \prm{format}, as defined with \cmd{DeclareFieldFormat}. If a type"=specific \prm{format} has been declared, the type"=specific formatting directive takes precedence over the generic one. If the \prm{field} is undefined, nothing is printed. If the \prm{format} is omitted, \cmd{printfield} tries using the name of the field as a format name. For example, if the \bibfield{title} field is to be printed and the \prm{format} is not specified, it will try to use the field format \texttt{title}.\footnote{In other words, \texttt{\textbackslash printfield\{title\}} is equivalent to \texttt{\textbackslash printfield[title]\{title\}}.} In this case, any type"=specific formatting directive will also take precedence over the generic one. If all of these formats are undefined, it falls back to \texttt{default} as a last resort. Note that \cmd{printfield} provides the name of the field currently being processed in \cmd{currentfield} for use in field formatting directives.
 该命令使用由\cmd{DeclareFieldFormat} 定义的格式化指令\prm{format} 打印\prm{field}。如果声明了具体条目类型(type-specific)的格式指令，那么它将优先于设置的通用格式化指令。如果\prm{field} 未定义则不作打印。如果\prm{format} 缺省，\cmd{printfield} 将尝试使用以域名为指令名的格式化指令。例如:要打印\bibfield{title} 域，且\prm{format} 未指定，它将尝试使用域格式化指令\texttt{title}。\footnote{换句话说，\texttt{\textbackslash printfield\{title\}} 等价于\texttt{\textbackslash printfield[title]\{title\}}。}
-%This command prints a \prm{field} using the formatting directive \prm{format}, as defined with \cmd{DeclareFieldFormat}. If a type"=specific \prm{format} has been declared, the type"=specific formatting directive takes precedence over the generic one. If the \prm{field} is undefined, nothing is printed. If the \prm{format} is omitted, \cmd{printfield} tries using the name of the field as a format name. For example, if the \bibfield{title} field is to be printed and the \prm{format} is not specified, it will try to use the field format \texttt{title}.\footnote{In other words, \texttt{\textbackslash printfield\{title\}} is equivalent to \texttt{\textbackslash printfield[title]\{title\}}.}
 这种情况下，任何具体类型的格式化指令将优先于通用指令。如果所有的这些格式都未定义，它将回退到\texttt{default} 作为最后的选择。注意: \cmd{printfield} 为格式化指令提供当前正在\cmd{currentfield} 中处理的域名。
-%In this case, any type"=specific formatting directive will also take precedence over the generic one. If all of these formats are undefined, it falls back to \texttt{default} as a last resort. Note that \cmd{printfield} provides the name of the field currently being processed in \cmd{currentfield} for use in field formatting directives.
+
+
 
 \cmditem{printlist}[format][start\ensuremath\rangle--\ensuremath\langle stop]{literal list}
 
@@ -1414,10 +1500,12 @@ eventdate	& 1995-01-31/1995-02-05	& eventday	& 31 \\
 \printnames[...][-\value{listtotal}]{...}
 \end{ltxexample}
 
+%Whenever \cmd{printnames} and \cmd{printlist} process a list, information concerning the current state is accessible by way of four counters: the \cnt{listtotal} counter holds the total number of items in the current list, \cnt{listcount} holds the number of the item currently being processed, \cnt{liststart} is the \prm{start} argument passed to \cmd{printnames} or \cmd{printlist}, \cnt{liststop} is the \prm{stop} argument. These counters are intended for use in list formatting directives. \cnt{listtotal} may also be used in the second optional argument to \cmd{printnames} and \cmd{printlist}. Note that these counters are local to list formatting directives and do not hold meaningful values when used anywhere else. For every list, there is also a counter by the same name which holds the total number of items in the corresponding list. For example, the \cnt{author} counter holds the total number of items in the \bibfield{author} list. These counters are similar to \cnt{listtotal} except that they may also be used independently of list formatting directives. There are also \cnt{maxnames} and \cnt{minnames} as well as \cnt{maxitems} and \cnt{minitems} counters which hold the values of the corresponding package options. See \secref{aut:fmt:ilc} for a complete list of such internal counters. Note that \cmd{printnames} provides the name of the name list currently being processed in \cmd{currentname} for use in name formatting directives.
+
 当\cmd{printnames} 和\cmd{printlist} 处理一个列表时，当前状态的信息可以通过4个计数器获知: \cnt{listtotal} 计数器保存当前列表中项的总数，\cnt{listcount} 保存当前正在处理的项的序号，\cnt{liststart} 是传递给\cmd{printnames} 或\cmd{printlist} 命令的 \prm{start} 参数，\cnt{liststop} 则是 \prm{stop} 参数。这些计数器用于列表的格式化指令。\cnt{listtotal} 也可以在\cmd{printnames} 和\cmd{printlist} 命令第二个可选参数中使用。
-%Whenever \cmd{printnames} and \cmd{printlist} process a list, information concerning the current state is accessible by way of four counters: the \cnt{listtotal} counter holds the total number of items in the current list, \cnt{listcount} holds the number of the item currently being processed, \cnt{liststart} is the \prm{start} argument passed to \cmd{printnames} or \cmd{printlist}, \cnt{liststop} is the \prm{stop} argument. These counters are intended for use in list formatting directives. \cnt{listtotal} may also be used in the second optional argument to \cmd{printnames} and \cmd{printlist}.
 注意，这些计数器仅在列表格式化指令中有意义在其它任何地方都无效。对于每类列表，都有一个具有相同名字的计数器保存该类列表的项的总数。例如，\cnt{author} 计数器保存\bibfield{author} 列表中的项的总数。这些计数器类似于\cnt{listtotal}，但可用于列表格式化指令之外。还有\cnt{maxnames} ，\cnt{minnames}， \cnt{maxitems} 和\cnt{minitems} 计数器，用于保存相应的包选项的值。这些内部计数器的完整列表详见\secref{aut:fmt:ilc}。注意: \cmd{printnames} 为格式化指令提供当前正在\cmd{currentname} 中处理的域名。
-%Note that these counters are local to list formatting directives and do not hold meaningful values when used anywhere else. For every list, there is also a counter by the same name which holds the total number of items in the corresponding list. For example, the \cnt{author} counter holds the total number of items in the \bibfield{author} list. These counters are similar to \cnt{listtotal} except that they may also be used independently of list formatting directives. There are also \cnt{maxnames} and \cnt{minnames} as well as \cnt{maxitems} and \cnt{minitems} counters which hold the values of the corresponding package options. See \secref{aut:fmt:ilc} for a complete list of such internal counters. Note that \cmd{printnames} provides the name of the name list currently being processed in \cmd{currentname} for use in name formatting directives.
+
+
 
 \cmditem{printtext}[format]{text}
 
@@ -1436,8 +1524,8 @@ eventdate	& 1995-01-31/1995-02-05	& eventday	& 31 \\
 
 \csitem{printdateextra}
 
-类似于\cmd{printdate}，但指定的日期域是\bibfield{extrayear} 域。用于设计作者年制的参考文献样式。
-%Similar to \cmd{printdate} but incorporates the \bibfield{extrayear} field in the date specification. This is useful for bibliography styles designed for author-year citations.
+类似于\cmd{printdate}，但指定的日期域是\bibfield{extradate} 域。用于设计作者年制的参考文献样式。
+%Similar to \cmd{printdate} but incorporates the \bibfield{extradate} field in the date specification. This is useful for bibliography styles designed for author-year citations.
 
 \csitem{printlabeldate}
 
@@ -1446,8 +1534,8 @@ eventdate	& 1995-01-31/1995-02-05	& eventday	& 31 \\
 
 \csitem{printlabeldateextra}
 
-类似于\cmd{printlabeldate}，但指定的日期域是\bibfield{extrayear} 域，用于设计作者年制的参考文献样式。
-%Similar to \cmd{printlabeldate} but incorporates the \bibfield{extrayear} field in the date specification. This is useful for bibliography styles designed for author-year citations.
+类似于\cmd{printlabeldate}，但指定的日期域是\bibfield{extradate} 域，用于设计作者年制的参考文献样式。
+%Similar to \cmd{printlabeldate} but incorporates the \bibfield{extradate} field in the date specification. This is useful for bibliography styles designed for author-year citations.
 
 \csitem{print$<$datetype$>$date}
 
@@ -1505,12 +1593,14 @@ eventdate	& 1995-01-31/1995-02-05	& eventday	& 31 \\
 \cmditem{DeclareListInputHandler}{list}{code}
 
 类似于\cmd{DeclareFieldInputHandler}，但用于列表。在\prm{code} 内，宏\cmd{NewValue} 包含了列表的值，而\cmd{NewCount} 保存列表中项的序号。
-%As \cmd{DeclareFieldInputHandler} but for lists. Within the \prm{code}, the macro \cmd{NewValue} contains the value of the list and \cmd{NewCount} contains the number of items in the list.
+%As \cmd{DeclareFieldInputHandler} but for lists. Within the \prm{code}, the macro \cmd{NewValue} 
+%contains the value of the list and \cmd{NewCount} contains the number of items in the list.
 
 \cmditem{DeclareNameInputHandler}{name}{code}
 
 类似于\cmd{DeclareFieldInputHandler}，但用于姓名列表。在\prm{code} 内，宏\cmd{NewValue} 包含了姓名列表的值，而\cmd{NewCount} 保存列表中姓名的序号，\cmd{NewOption} 保存了\file{.bbl} 文件传递的各个姓名相关的任意选项。
-%As \cmd{DeclareFieldInputHandler} but for names. Within the \prm{code}, the macro \cmd{NewValue} contains the value of the name, \cmd{NewCount} contains the number of individual names in the name and \cmd{NewOption} contains any per-name options passed in the \file{.bbl}.
+%As \cmd{DeclareFieldInputHandler} but for names. Within the \prm{code}, the macro \cmd{NewValue} 
+%contains the value of the name, \cmd{NewCount} contains the number of individual names in the name and \cmd{NewOption} contains any per-name options passed in the \file{.bbl}.
 
 \end{ltxsyntax}
 
@@ -1568,6 +1658,24 @@ eventdate	& 1995-01-31/1995-02-05	& eventday	& 31 \\
 如果一个姓名的某些成分没有给出，相应的宏将为空，因此可以使用，比如\sty{etoolbox} 中\cmd{ifdefvoid} 这类的判断来检查姓名的各个成分。正在处理的姓名列表名在\prm{code} 中以\cmd{currentname} 表示。注意格式化指令也会处理在列表各项间插入的标点。需要对当前项是在列表中间或者末尾进行检测，即检查\cnt{listcount} 是否小于或等于\cnt{liststop}(见\secref{use:cav:nam} 节)。带星的命令类似于不带星的命令，区别在于它还将清除所有对具体条目类型做的格式定义。
 %If a certain part of a name is not available, the corresponding macro will be empty, hence you may use, for example, the \sty{etoolbox} tests like \cmd{ifdefvoid} to check for the individual parts of a name. The name of the name list currently being processed is available to the \prm{code} as \cmd{currentname}. Note that the formatting directive also handles the punctuation to be inserted between separate names and between the individual parts of a name. You need to check whether you are in the middle of or at the end of the list, \ie whether \cnt{listcount} is smaller than or equal to \cnt{liststop}. See also \secref{use:cav:nam}. The starred variant of this command is similar to the regular version, except that all type-specific formats are cleared.
 
+\cmditem{DeclareListWrapperFormat}[entrytype, \dots]{format}{code}
+\cmditem*{DeclareListWrapperFormat}*{format}{code}
+
+%Defines the list wrapper format \prm{format}. This formatting directive is arbitrary \prm{code} to be executed once for the entire list processed by \cmd{printlist}. The name of the literal list currently being processed is available to the \prm{code} as \cmd{currentlist}. If an \prm{entrytype} is specified, the format is specific to that type. The \prm{entrytype} argument may be a comma"=separated list of values. The starred variant of this command is similar to the regular version, except that all type-specific formats are cleared.
+定义列表的封套(wrapper)格式。该格式化指令可以是任意代码，在\cmd{printlist}处理整个列表时仅执行一次。
+文本列表名在处理过程中可以通过\cmd{currentlist}在\prm{code}中使用。如果制定了条目类型，该格式仅对该类型有效。
+\prm{entrytype}参数可以是逗号分隔的列表。该命令带星号版本的差别在于它会清除所有制定条目类型的格式设置。
+
+
+\cmditem{DeclareNameWrapperFormat}[entrytype, \dots]{format}{code}
+\cmditem*{DeclareNameWrapperFormat}*{format}{code}
+
+%Defines the list wrapper format \prm{format}. This formatting directive is arbitrary \prm{code} to be executed once for the entire name list processed by \cmd{printnames}. The name of the literal list currently being processed is available to the \prm{code} as \cmd{currentname}. If an \prm{entrytype} is specified, the format is specific to that type. The \prm{entrytype} argument may be a comma"=separated list of values. The starred variant of this command is similar to the regular version, except that all type-specific formats are cleared.
+定义姓名列表的封套(wrapper)格式。该格式化指令可以是任意代码，在\cmd{printlist}处理整个列表时仅执行一次。
+文本列表名在处理过程中可以通过\cmd{currentnames}在\prm{code}中使用。如果制定了条目类型，该格式仅对该类型有效。
+\prm{entrytype}参数可以是逗号分隔的列表。该命令带星号版本的差别在于它会清除所有制定条目类型的格式设置。
+
+
 \cmditem{DeclareIndexFieldFormat}[entrytype, \dots]{format}{code}
 \cmditem*{DeclareIndexFieldFormat}*{format}{code}
 
@@ -1586,6 +1694,19 @@ eventdate	& 1995-01-31/1995-02-05	& eventday	& 31 \\
 定义姓名列表格式\prm{format}。该格式化指令是由\cmd{indexnames} 命令执行的任意\prm{code}。列表中当前值作为唯一参数传递给\prm{code}。正在处理的列表名在\prm{code} 中以\cmd{currentname} 表示。如果指定一种条目类型(\prm{entrytype})，那么格式是该类型专属的。\prm{entrytype} 可以是一个逗号分隔(comma"=separated)的值列表。该命令类似于\cmd{DeclareNameFormat}，差别在于\prm{code} 处理的数据不是用于打印而是用于索引。注意\cmd{indexnames} 将执行\prm{code} 本身，即\prm{code} 必须包含\cmd{index} 或类似命令。带星的命令类似于不带星的命令，区别在于它还将清除所有对具体条目类型做的格式定义。
 %Defines the name list format \prm{format}. This formatting directive is arbitrary \prm{code} to be executed for every name in a list processed by \cmd{indexnames}. The name of the name list currently being processed is available to the \prm{code} as \cmd{currentname}. If an \prm{entrytype} is specified, the format is specific to that type. The \prm{entrytype} argument may be a comma"=separated list of values. The parts of the name will be passed to the \prm{code} as separate arguments. This command is very similar to \cmd{DeclareNameFormat} except that the data handled by the \prm{code} is not intended to be printed but written to the index. Note that \cmd{indexnames} will execute the \prm{code} as is, \ie the \prm{code} must include \cmd{index} or a similar command. The starred variant of this command is similar to the regular version, except that all type-specific formats are cleared.
 
+\cmditem{DeclareIndexListWrapperFormat}[entrytype, \dots]{format}{code}
+\cmditem*{DeclareIndexListWrapperFormat}*{format}{code}
+
+%Similar to \cmd{DeclareIndexListFormat} but for the list format used for indices.
+类似于\cmd{DeclareIndexListFormat}，但仅用于索引中。
+
+
+\cmditem{DeclareIndexNameWrapperFormat}[entrytype, \dots]{format}{code}
+\cmditem*{DeclareIndexNameWrapperFormat}*{format}{code}
+
+%Similar to \cmd{DeclareIndexNameFormat} but for the name list format used for indices.
+类似于\cmd{DeclareIndexNameFormat}，但仅用于索引中。
+
 \cmditem{DeclareFieldAlias}[entry type]{alias}[format entry type]{format}
 
 声明\prm{alias} 作为域格式\prm{format} 的别名。如果指定一种条目类型(\prm{entrytype})，别名是该类型专属的。\prm{format entry type} 是后端格式的条目类型。这仅在声明某一具体条目类型的格式化指令的别名时需要。
@@ -1601,6 +1722,20 @@ eventdate	& 1995-01-31/1995-02-05	& eventday	& 31 \\
 声明\prm{alias} 作为姓名列表格式\prm{format} 的别名。如果指定一种条目类型(\prm{entrytype})，别名是该类型专属的。\prm{format entry type} 是后端格式的条目类型。这仅在声明某一具体条目类型的格式化指令的别名时需要。
 %Declares \prm{alias} to be an alias for the name list format \prm{format}. If an \prm{entrytype} is specified, the alias is specific to that type. The \prm{format entry type} is the entry type of the backend format. This is only required when declaring an alias for a type"=specific formatting directive.
 
+\cmditem{DeclareListWrapperAlias}[entry type]{alias}[format entry type]{format}
+
+%Declares \prm{alias} to be an alias for the outer list format \prm{format}. If an \prm{entrytype} is specified, the alias is specific to that type. The \prm{format entry type} is the entry type of the backend format. This is only required when declaring an alias for a type"=specific formatting directive.
+声明一个列表封套格式\prm{format}的别名。如果指定了\prm{entrytype}，该别名仅对该类型有效。
+\prm{format entry type}是基础格式的类型，这类别名通常仅在声明指定类型的格式化指令的别名时需要。
+
+
+\cmditem{DeclareNameWrapperAlias}[entry type]{alias}[format entry type]{format}
+
+%Declares \prm{alias} to be an alias for the outer name list format \prm{format}. If an \prm{entrytype} is specified, the alias is specific to that type. The \prm{format entry type} is the entry type of the backend format. This is only required when declaring an alias for a type"=specific formatting directive.
+声明一个列表封套格式\prm{format}的别名。如果指定了\prm{entrytype}，该别名仅对该类型有效。
+\prm{format entry type}是基础格式的类型，这类别名通常仅在声明指定类型的格式化指令的别名时需要。
+
+
 \cmditem{DeclareIndexFieldAlias}[entry type]{alias}[format entry type]{format}
 
 声明\prm{alias} 作为域格式\prm{format} 的别名。如果指定一种条目类型(\prm{entrytype})，别名是该类型专属的。\prm{format entry type} 是后端格式的条目类型。这仅在声明某一具体条目类型的格式化指令的别名时需要。
@@ -1615,6 +1750,71 @@ eventdate	& 1995-01-31/1995-02-05	& eventday	& 31 \\
 
 声明\prm{alias} 作为姓名列表格式\prm{format} 的别名。如果指定一种条目类型(\prm{entrytype})，别名是该类型专属的。\prm{format entry type} 是后端格式的条目类型。这仅在声明某一具体条目类型的格式化指令的别名时需要。
 %Declares \prm{alias} to be an alias for the name list format \prm{format}. If an \prm{entrytype} is specified, the alias is specific to that type. The \prm{format entry type} is the entry type of the backend format. This is only required when declaring an alias for a type"=specific formatting directive.
+
+
+\cmditem{DeclareIndexListWrapperAlias}[entrytype, \dots]{format}{code}
+
+%Similar to \cmd{DeclareIndexListFormat} but for the list format used for indices.
+类似于\cmd{DeclareIndexListFormat}，但仅用于索引中。
+
+\cmditem{DeclareIndexNameWrapperAlias}[entrytype, \dots]{format}{code}
+
+%Similar to \cmd{DeclareIndexNameFormat} but for the name list format used for indices.
+类似于\cmd{DeclareIndexNameFormat}，但仅用于索引中。
+
+\cmditem{DeprecateFieldFormatWithReplacement}[entry type]{alias}[format entry type]{format}
+
+%Declares \prm{alias} to be an alias for the name list format \prm{format} and issue a deprecation warning. If an \prm{entrytype} is specified, the alias is specific to that type. The \prm{format entry type} is the entry type of the backend format. This is only required when declaring an alias for a type"=specific formatting directive.
+声明姓名列表格式\prm{format}的别名，并给出一个表示不推荐的警告。
+如果指定了\prm{entrytype}，该别名仅对该类型有效。
+\prm{format entry type}是基础格式的类型，这类别名通常仅在声明指定类型的格式化指令的别名时需要。
+
+
+
+\cmditem{DeprecateListFormatWithReplacement}[entry type]{alias}[format entry type]{format}
+
+%Similar to \cmd{DeprecateFieldFormatWithReplacement} but for list formats.
+类似于\cmd{DeprecateFieldFormatWithReplacement}，但用于列表。
+
+\cmditem{DeprecateNameFormatWithReplacement}[entry type]{alias}[format entry type]{format}
+
+%Similar to \cmd{DeprecateFieldFormatWithReplacement} but for name formats.
+类似于\cmd{DeprecateFieldFormatWithReplacement}，但用于姓名列表。
+
+\cmditem{DeprecateListWrapperFormatWithReplacement}[entry type]{alias}[format entry type]{format}
+
+%Similar to \cmd{DeprecateFieldFormatWithReplacement} but for outer list formats.
+类似于\cmd{DeprecateFieldFormatWithReplacement}，但用于列表封套。
+
+\cmditem{DeprecateNameWrapperFormatWithReplacement}[entry type]{alias}[format entry type]{format}
+
+%Similar to \cmd{DeprecateFieldFormatWithReplacement} but for outer name formats.
+类似于\cmd{DeprecateFieldFormatWithReplacement}，但用于姓名封套。
+
+\cmditem{DeprecateIndexFieldFormatWithReplacement}[entry type]{alias}[format entry type]{format}
+
+%Similar to \cmd{DeprecateFieldFormatWithReplacement} but for index field formats.
+类似于\cmd{DeprecateFieldFormatWithReplacement}，但用于索引中的域。
+
+\cmditem{DeprecateIndexListFormatWithReplacement}[entry type]{alias}[format entry type]{format}
+
+%Similar to \cmd{DeprecateFieldFormatWithReplacement} but for index list formats.
+类似于\cmd{DeprecateFieldFormatWithReplacement}，但用于索引中的列表。
+
+\cmditem{DeprecateIndexNameFormatWithReplacement}[entry type]{alias}[format entry type]{format}
+
+%Similar to \cmd{DeprecateFieldFormatWithReplacement} but for index name formats.
+类似于\cmd{DeprecateFieldFormatWithReplacement}，但用于索引中的姓名列表。
+
+\cmditem{DeprecateIndexListWrapperFormatWithReplacement}[entry type]{alias}[format entry type]{format}
+
+%Similar to \cmd{DeprecateFieldFormatWithReplacement} but for index list formats.
+类似于\cmd{DeprecateFieldFormatWithReplacement}，但用于索引中的列表封套。
+
+\cmditem{DeprecateIndexNameWrapperFormatWithReplacement}[entry type]{alias}[format entry type]{format}
+
+%Similar to \cmd{DeprecateFieldFormatWithReplacement} but for index name formats.
+类似于\cmd{DeprecateFieldFormatWithReplacement}，但用于索引中的姓名列表封套。
 
 \end{ltxsyntax}
 
@@ -1753,11 +1953,16 @@ eventdate	& 1995-01-31/1995-02-05	& eventday	& 31 \\
 \item 用标准的Perl 正则表达式匹配和替换，修改域的内容。
 %Modify the contents of a field using standard Perl regular expression match and replace
 \item 将上述操作限制在来自特定数据源的条目，这些特定数据源在\cmd{addresource} 宏中定义。
-%Restrict any of the above operations to entries coming from particular datasources which you defined in \cmd{addresource} macros
+%Restrict any of the above operations to entries coming from 
+%particular datasources which you defined in \cmd{addresource} macros
+
 \item 将上述操作限制在某些条目类型。
-%Restrict any of the above operations to entries only of a certain entrytype
+%Restrict any of the above operations to entries only of a certain 
+%entrytype
+
 \item 将上述操作限制在某一特定的参考文献节。
-%Restrict any of the above operations to entries in a particular reference section
+%Restrict any of the above operations to entries in a particular 
+%reference section
 \end{itemize}
 
 \prm{specification} 是一个不限数量的\cmd{maps} 指令的列表，这些指令说明了应用于某一特定数据源类型的映射规则的容器(\secref{use:bib:res})。为实现良好的代码显示效果，可以自由使用空格、制表符、行末符号来整理\prm{specification} 中的代码。但空行是不允许的。这一命令仅能用于导言区并且只能使用一次---后面的命令将覆盖前面的定义。
@@ -1801,7 +2006,7 @@ eventdate	& 1995-01-31/1995-02-05	& eventday	& 31 \\
 
 %Loop over all \cmd{step}s in this \cmd{map}, setting the special variable |$MAPLOOP| %$
 %to each of the comma-separated values contained in \prm{loopval}. \prm{loopval} can either be the name of a datafield set defined with \cmd{DeclareDatafieldSet} (see \secref{aut:ctm:dsets}), a datasource field which is fetched and parsed as a comma"=separated values list or an explicit comma"=separated values list. \prm{loopval} is determined in this order. This allows the user to repeat a group of \cmd{step}s for each value \prm{loopval}. Using regexp maps, it is possible to create a CSV field for use with this functionality. The special variable |$MAPUNIQ| %$
-%may also be used the \cmd{step}s to generate a random unique string. This can be useful when creating keys for new entries. An example:
+%may also be used in the \cmd{step}s to generate a random unique string. This can be useful when creating keys for new entries. An example:
 
 \begin{ltxexample}[style=latex]{}
 \DeclareSourcemap{
@@ -1849,7 +2054,9 @@ eventdate	& 1995-01-31/1995-02-05	& eventday	& 31 \\
 \valitem{notfield}{entryfield}
 \valitem{fieldtarget}{entryfield}
 \valitem{match}{regexp}
+\valitem{matchi}{regexp}
 \valitem{notmatch}{regexp}
+\valitem{notmatchi}{regexp}
 \valitem{replace}{regexp}
 \valitem{fieldset}{entryfield}
 \valitem{fieldvalue}{string}
@@ -1857,6 +2064,7 @@ eventdate	& 1995-01-31/1995-02-05	& eventday	& 31 \\
 \valitem{entrynew}{entrynewkey}
 \valitem{entrynewtype}{string}
 \valitem{entrytarget}{string}
+\boolitem[false]{entrynocite}
 \boolitem[false]{entrynull}
 \boolitem[false]{append}
 \boolitem[false]{final}
@@ -1872,10 +2080,23 @@ eventdate	& 1995-01-31/1995-02-05	& eventday	& 31 \\
 
 \begin{itemize}
 \item 如果设置\texttt{entrynew}，将创建一个条目关键词为\texttt{entrynewkey} 的新条目，条目的类型在选项\texttt{entrynewtype} 中给出。这一条目仅在当前条目的处理过程中有效，能以\texttt{entrytarget} 进行引用。在\texttt{entrynewkey} 中，可以使用标准的Perl正则表达式来引用从之前的\texttt{match} 步获取的匹配字符串。
-%If \texttt{entrynew} is set, a new entry is created with the entry key \texttt{entrynewkey} and the entry type given in the option \texttt{entrynewtype}. This  entry is only in-scope during the processing of the current entry and can be referenced by \texttt{entrytarget}.  In \texttt{entrynewkey}, you may use standard Perl regular expression   backreferences to captures from a  previous \texttt{match} step.
+%If \texttt{entrynew} is set, a new entry is created with the entry key \texttt{entrynewkey} and the entry type given in the option \texttt{entrynewtype}. This  
+%entry is only in-scope during the processing of the current entry and can be referenced by 
+%\texttt{entrytarget}.  In \texttt{entrynewkey}, you may use standard Perl regular expression   
+%backreferences to captures from a  previous \texttt{match} step.
 
 \item 当一个\texttt{fieldset} 步设置的\texttt{entrytarget} 为一个由\texttt{entrynew} 创建的条目的关键词，域设置的目标将是\texttt{entrytarget} 条目而不是当前正在处理的条目。这使得用户可以创建新的条目并且设置它的域。
-%When a \texttt{fieldset} step has \texttt{entrytarget} set to the entrykey of an entry   created by \texttt{entrynew}, the target for the field set will be the \texttt{entrytarget} entry   rather than the entry being currently processed. This allows users to create new entries and set   fields in them.
+%When a \texttt{fieldset} step has \texttt{entrytarget} set to the entrykey of an entry   
+%created by \texttt{entrynew}, the target for the field set will be the \texttt{entrytarget} entry   
+%rather than the entry being currently processed. This allows users to create new entries and set   
+%fields in them.
+
+\item %If \texttt{entrynocite} is used in a \texttt{entrynew} or
+  %\texttt{entryclone} step, the new/clone entry will be included in the
+  %\file{.bbl} as if the entry/clone had been \cmd{nocite}ed in the document.
+如果\texttt{entrynocite}在一个\texttt{entrynew}或\texttt{entryclone}步中使用，
+该新/克隆条目将会出现在\file{.bbl}中就好像在正文中对该条目使用了\cmd{nocite}。
+  
 
 \item 如果设置\texttt{entrynull}，\cmd{map} 过程立即终止，当前条目不创建。如同该条目不存在于数据源。显然，需要利用前面的映射步来选择需要应用该操作的条目。
 %If \texttt{entrynull} is set, processing of the \cmd{map}
@@ -1902,13 +2123,17 @@ eventdate	& 1995-01-31/1995-02-05	& eventday	& 31 \\
 %  \texttt{fieldtarget}, if defined. If
 %  \texttt{final} is \texttt{true} then if there is no \texttt{fieldsource} \prm{entryfield} in the entry, processing of the parent \cmd{map} immediately terminates.
 
-\item 如果使用\texttt{notfield}，仅当\prm{entryfield} 不存在时才会应用该映射步。
-%If \texttt{notfield} is used then only apply the step if the \prm{entryfield} does not exist.
+\item 如\prm{entryfield}存在，那么\texttt{notfield}就为true，常与\texttt{final}联用，当条目不包含\prm{entryfield}则映射终止。
+%If \texttt{notfield} is true only if the \prm{entryfield} does not 
+%  exist. Usually used with \texttt{final} so that if an entry does contain
+%  \prm{entryfield}, the map terminates.
 
-\item 如果定义了\texttt{match} 但没有定义\texttt{replace}，仅当\texttt{fieldsource} \prm{entryfield} 匹配\texttt{match} 正则表达式时(如果使用\texttt{notmatch} 则是不匹配)应用该映射步\footnote{正则表达式是Perl 5.16 全集正则表达式。这意味着需要处理特殊字符，见后面的示例}。可以使用圆括号获取匹配内容，并在后面\texttt{fieldvalue} 设置中引用(\$1\ldots\$9)。这使得可以将一些域的部分内容提取出来放入其它一些域中。
+\item 如果定义了\texttt{match} 但没有定义\texttt{replace}，仅当\texttt{fieldsource} \prm{entryfield} 匹配\texttt{match} 正则表达式时
+(如果使用\texttt{notmatch} 则逻辑相反，当使用以<i>结尾的版本时是大小写敏感的)
+应用该映射步\footnote{正则表达式是Perl 5.16 全集正则表达式。这意味着需要处理特殊字符，见后面的示例}。可以使用圆括号获取匹配内容，并在后面\texttt{fieldvalue} 设置中引用(\$1\ldots\$9)。这使得可以将一些域的部分内容提取出来放入其它一些域中。
 %If \texttt{match} is defined but
 %  \texttt{replace} is not, only apply the step if the \texttt{fieldsource} \prm{entryfield} matches the
-%  \texttt{match} regular expression (logic is reversed if you use \texttt{notmatch} instead)\footnote{Regular expressions are full Perl 5.16 regular expressions. This means you may need to deal with special characters, see examples.}. You may use capture parenthesis as usual and refer to these (\$1\ldots\$9) in later \texttt{fieldvalue} specifications. This allows you to pull out parts of some fields and put these parts in other fields.
+%  \texttt{match} regular expression (logic is reversed if you use \texttt{notmatch} and case-insensitive if you use the versions ending in <i>)\footnote{Regular expressions are full Perl 5.16 regular expressions. This means you may need to deal with special characters, see examples.}. You may use capture parenthesis as usual and refer to these (\$1\ldots\$9) in later \texttt{fieldvalue} specifications. This allows you to pull out parts of some fields and put these parts in other fields.
 
 \item 如果定义了\texttt{match} 和\texttt{replace}，对\texttt{fieldsource} \prm{entryfield} 的值执行正则表达式匹配和替换操作。
 %Perform a regular expression match and replace on the value of the \texttt{fieldsource} \prm{entryfield} if \texttt{match} and \texttt{replace} are defined.
@@ -1949,6 +2174,11 @@ eventdate	& 1995-01-31/1995-02-05	& eventday	& 31 \\
 %pseudo-field \bibfield{entrykey} for \texttt{fieldsource}
 %which is the citation key of the entry. With \biblatexml\ the \bibfield{entrykey} is a normal attribute and can be reference like any other attribute. Naturally, this <field> cannot
 %be changed (used as \texttt{fieldset}, \texttt{fieldtarget} or changed using \texttt{replace}).
+
+%Macros used in \cmd{step} are expanded. Unexpandable contents should be protected with \cmd{detokenize}, regular expressions can be escaped using the dedicated \cmd{regexp} command (see the examples below).
+
+在\cmd{step}中使用的宏是会展开的，要求不展开的内容应该利用\cmd{detokenize}命令进行表或，
+而正则表达式则可以利用下面的\cmd{regexp}命令来避开该问题。
 
 \begin{ltxsyntax}
 
@@ -2763,16 +2993,16 @@ name={2-+} -> Use all names starting with the second name (respecting max/minalp
 
 \cmditem{DeclareLabelalphaNameTemplate}[name]{specification}
 
-定义\opt{labelalphaname}模板\prm{name}。\prm{name}是可选的默认是\prm{<global>}。
-当\cmd{DeclareLabelalphaTemplate}的\cmd{field}设置中包含一个姓名列表时，这些模板可以确定从姓名列表中抽取标签字符串的方式。
+
 %Defines the \opt{labelalphaname} template \prm{name}. The \prm{name} is optional and defaults to \prm{<global>}.
 %Such templates specify how to extract a label string from a name list when a \cmd{field} specification in \cmd{DeclareLabelalphaTemplate} contains a name list.
 
+定义\opt{labelalphaname}模板\prm{name}。\prm{name}是可选的默认是\prm{<global>}。
+当\cmd{DeclareLabelalphaTemplate}的\cmd{field}设置中包含一个姓名列表时，这些模板可以确定从姓名列表中抽取标签字符串的方式。
 
 %老版本信息
 %\cmditem{DeclareLabelalphaNameTemplate}[entrytype, \dots]{specification}
 %当\cmd{DeclareLabelalphaTemplate} 中的一个\cmd{field} 设置包含有一个姓名列表时，由该命令指出从姓名列表中抽取标签字符串的模板。该模板可以根据具体的条目类型定义。
-%Specifies the template to use to extract a label string from a name list when a \cmd{field} specification in \cmd{DeclareLabelalphaTemplate} contains a name list. The template can be specified per"=entrytype.
 
 \cmditem{namepart}[options]{namepart}
 
@@ -3223,7 +3453,7 @@ Borg, Connors, Emerson  [BCEm-004]
 \end{itemize}
 
 默认情况下，仅有一个全局格式，\prm{specification} 定义如下:
-%By default there is only a global template which has the following :
+%By default there is only a global template which has the following \prm{specification}:
 
 \begin{ltxexample}
 \DeclareSortingNamekeyTemplate{
@@ -3273,7 +3503,8 @@ Borg, Connors, Emerson  [BCEm-004]
 \boolitem[true]{inits}
 
 表示仅使用姓名成分\prm{name} 的首字母来构建排序关键词。
-%Indicates that only the initials of namepart \prm{name} are to be used in constructing the sorting specification.
+%Indicates that only the initials of namepart \prm{name} are to be used in 
+%constructing the sorting specification.
 
 \end{optionlist*}
 
@@ -3328,7 +3559,8 @@ Borg, Connors, Emerson  [BCEm-004]
 \end{lstlisting}
 %
 或者在一个姓名中使用，通过将其作为\biber 支持的姓名信息格式的一个扩展成分传递该选项(见\biber 文档):
-%or just a single name by passing the option as part of the extended name information format which \biber supports (see \biber doc):
+%or just a single name by passing the option as part of the extended name information 
+%format which \biber supports (see \biber doc):
 
 \begin{lstlisting}[style=bibtex]{}
 @BOOK{key,
@@ -3429,16 +3661,19 @@ Borg, Connors, Emerson  [BCEm-004]
 
 \cmditem{DeclareSortTranslit}[entrytype]{specification}
 
-能用不同文字或字母书写的语言对于一种文字常常仅有CLDR排序方式，为了进行排序往往需要将其转换为支持的文字。一个常见示例是梵文(Sanskrit)，它常用罗马化的婆罗米系文字书写正式文献，但需要在<sa> locale中排序，而这需要Devanāgarī文字。这意味着需要在内部转换排序文字。\cmd{DeclareSortTranslit} 声明条目的那个部分需要为排序目的而转化。如果没有\prm{entrytype} 参数，\prm{specification} 用于所有条目。\prm{specification} 包含一个或多个\cmd{translit} 命令。
-%Languages which can be written in different scripts or alphabets often only have  sorting tailoring for one script and it is expected that you transliterate into the supported script for sorting purposes. A common example is Sanskrit which is often written in academic contexts in IAST romanised script but which needs to be sorted in the <sa> locale which expects the Devanāgarī script. This means that it is necessary to transliterate into the sorting script internally. \cmd{DeclareSortTranslit} declares which parts of an entry you would like to transliterate for sorting purposes. Without the \prm{entrytype} parameter, the \prm{specification} applies to all entrytypes. The \prm{specification} is one or more \cmd{translit} commands:
+%Languages which can be written in different scripts or alphabets often only have  CLDR sorting tailoring for one script and it is expected that you transliterate into the supported script for sorting purposes. A common example is Sanskrit which is often written in academic contexts in IAST 
+%romanised script but which needs to be sorted in the <sa> locale which expects the Devanāgarī script. This means that it is necessary to transliterate into the sorting script internally. \cmd{DeclareSortTranslit} declares which parts of an entry you would like to transliterate for sorting purposes. Without the \prm{entrytype} parameter, the \prm{specification} applies to all entrytypes. The \prm{specification} is one or more \cmd{translit} commands:
 
-\cmditem{translit}{field or fieldset}{from}{to}
+能用不同文字或字母书写的语言对于一种文字常常仅有CLDR排序方式，为了进行排序往往需要将其转换为支持的文字。一个常见示例是梵文(Sanskrit)，它常用罗马化的婆罗米系文字书写正式文献，但需要在<sa> locale中排序，而这需要Devanāgarī文字。这意味着需要在内部转换排序文字。\cmd{DeclareSortTranslit} 声明条目的那个部分需要为排序目的而转化。如果没有\prm{entrytype} 参数，\prm{specification} 用于所有条目。\prm{specification} 包含一个或多个\cmd{translit} 命令。
+
+
+\cmditem{translit}[langids]{field or fieldset}{from}{to}
 
 指定数据域\bibfield{field} 或由\cmd{DeclareDatafieldSet}(见\secref{aut:ctm:dsets})声明的\prm{fieldset} 集中的所有域为排序目的应从\prm{from} 文字转换为\prm{to} 文字。域和集参数可以是 <*> 使其应用于所有域。有效的\prm{from} 和\prm{to} 在表\ref{tab:translit} 中给出。注意\biblatex 无意于支持通用的转换，而仅做排序目的。如果需要更多的转换，可以在GitHub上的\biblatex\ 查找或询问。
 %Specifies that the data field \bibfield{field} or all fields in a fieldset \prm{fieldset} declared with \cmd{DeclareDatafieldSet} (see \secref{aut:ctm:dsets}) should be transliterated from script \prm{from} to script \prm{to} for sorting purposes. The field/set argument can also be <*> to apply transliteration to all fields. The valid \prm{from} and \prm{to} values are given in table \ref{tab:translit}. Note that \biblatex does not aim to support general transliteration, only those which are useful for sorting purposes. Please open a GitHub ticket for \biblatex\ if you think you need additional transliterations.
 
 下面给出一个标题转换的示例，从而可以正确的排序梵文:
-%An example of transliterating titles so that they sort correctly in Sanskrit:
+%An example of transliterating titles so that they sort correctly in Sanskrit. This example assumes that entries that should have their title fields transliterated have a \bibfield{langid} field set to <sanskrit>.:
 
 \begin{ltxexample}
 \DeclareDatafieldSet{settitles}{
@@ -3452,7 +3687,7 @@ Borg, Connors, Emerson  [BCEm-004]
 }
 
 \DeclareSortTranslit{
-  \translit[settitles]{iast}{devanagari}
+  \translit[sanskrit]{settitles}{iast}{devanagari}
 }
 \end{ltxexample}
 
@@ -3466,8 +3701,8 @@ Borg, Connors, Emerson  [BCEm-004]
   & \sffamily\bfseries\spotcolor To
   & Description\\
 \midrule
-iast & devanagari & Sanskrit IAST\footnote{International Alphabet of Sanskrit Transliteration} to Devanāgarī\\
-russian & ala-lc & ALA-LC\footnote{American Library Association---Library of Congress} romanisation for Russian\\
+iast & devanagari & Sanskrit IAST to Devanāgarī\\
+russian & ala-lc & ALA-LC romanisation for Russian\\
 russian & bgn/pcgn-standard & BGN/PCGN:1947 (Standard Variant), Cyrillic to Latin, Russian\\
  \bottomrule
 \end{tabular}
@@ -3569,7 +3804,7 @@ russian & bgn/pcgn-standard & BGN/PCGN:1947 (Standard Variant), Cyrillic to Lati
 定义正则表达式用来在排序时对特定的域或者特定类型的域的内容做剥离处理。\prm{specification} 是\cmd{nosort} 指令的无分隔列表，\cmd{nosort} 指令用于定义正则表达式来移除特定域或特定类型的域中的某些内容。可以自由使用空格，制表符，行末符来调整代码呈现格式以达到满意视觉效果，空行不允许。该命令只能用于导言中。
 %Defines regular expressions to strip from particular fields or types of fields when sorting. The \prm{specification} is an undelimited list of \cmd{nosort} directives which specify the regular expressions to remove from particular fields or type of field. Spaces, tabs and line endings may be used freely to visually arrange the \prm{specification}. Blank lines are not permissible. This command may only be used in the preamble.
 
-\cmditem{nosort}{field or field type}{regexp}
+\cmditem{nosort}{field or datafield set}{regexp}
 
 可以给出任意数量的\cmd{nosort} 命令，这些命令将\prm{field} 或\prm{field type} 中的\prm{regexp} 移除。\prm{field type} 简单方便的构建了一个语义类似的域的集，在这些域中希望移除regexp。表\ref{aut:nosort} 给出了可用的域类型。因为正则表达式常包含特殊字符，最好将他们用\cmd{regexp} 宏包围起来---使得能将表达式正确地传递给\biber 。
 %Any number of \cmd{nosort} commands can be given each of which specifies to remove the \prm{regexp} from the \prm{field} or \prm{field type}. A \prm{field type} is simple a convenience grouping of semantically similar fields from which you might want to remove a regexp. Table \ref{aut:nosort} shows the available field types. Since regular expressions usually contain special characters, it is best to enclose them in the provided \cmd{regexp} macro as shown---this will pass the expression through to \biber correctly.
@@ -3582,14 +3817,14 @@ russian & bgn/pcgn-standard & BGN/PCGN:1947 (Standard Variant), Cyrillic to Lati
 \begin{ltxexample}
 \DeclareNosort{
   % strip prefixes like 'al-' when sorting names
-  \nosort{type_names}{\regexp{<<\A\p{L}{2}\p{Pd}>>}}
+  \nosort{setnames}{\regexp{<<\A\p{L}{2}\p{Pd}>>}}
   % strip some diacritics when sorting names
-  \nosort{type_names}{\regexp{<<[\x{2bf}\x{2018}]>>}}
+  \nosort{setnames}{\regexp{<<[\x{2bf}\x{2018}]>>}}
 }
 \end{ltxexample}
 %
 排序时，\biber 默认从姓名中去除一对变音符以及前缀。如果排序时需要忽略掉\bibfield{title} 域开头的«The»，那么可以设置如下:
-%This \biber default strips a couple of diacritics and also strips prefixes from names when sorting. Suppose you wanted to ignore «The» at the beginning of a \bibfield{title} field when sorting:
+%This \biber default strips a couple of diacritics and also strips two-letter prefixes (like «Al-») from names when sorting. Suppose you wanted to ignore «The» at the beginning of a \bibfield{title} field when sorting:
 
 \begin{ltxexample}
 \DeclareNosort{
@@ -3602,7 +3837,7 @@ russian & bgn/pcgn-standard & BGN/PCGN:1947 (Standard Variant), Cyrillic to Lati
 
 \begin{ltxexample}
 \DeclareNosort{
-  \nosort{<<type_title>>}{\regexp{<<\AThe\s+>>}}
+  \nosort{<<settitles>>}{\regexp{<<\AThe\s+>>}}
 }
 \end{ltxexample}
 
@@ -3837,16 +4072,15 @@ This command may only be used in the preamble.
 \begin{optionlist*}
 
 \boolitem[true]{all} 是否默认从父条目继承所有的域
-%Whether or not to inherit all fields from the parent by default.
+%\boolitem[true]{all} Whether or not to inherit all fields from the parent by default.
+
+%\kvopt{all}{true} means that the child entry inherits all fields from the parent, unless a more specific inheritance rule has been set up with \cmd{DeclareDataInheritance}. If an inheritance rule is defined for a field, data inheritance is controlled by that rule. means that no data is inherited from the parent by default and each field to be inherited requires an explicit inheritance rule set up with \cmd{DeclareDataInheritance}. The package default is \kvopt{all}{true}.
 
 \kvopt{all}{true} 意为子条目从父条目继承所有域，除非有\cmd{DeclareDataInheritance} 设置的更具体的继承规则。如果对于一个域定义了继承规则，则数据继承由该规则控制。
-%means that the child entry inherits all fields from the parent, unless a more specific inheritance rule has been set up with \cmd{DeclareDataInheritance}. If an inheritance rule is defined for a field, data inheritance is controlled by that rule.
-
 \kvopt{all}{false} 意为默认不从父条目继承数据，每个域都需要根据\cmd{DeclareDataInheritance} 设定的明确继承规则来执行继承。包默认是\kvopt{all}{true}。
-%means that no data is inherited from the parent by default and each field to be inherited requires an explicit inheritance rule set up with \cmd{DeclareDataInheritance}. The package default is \kvopt{all}{true}.
 
 \boolitem[false]{override} 是否用源域覆盖目标域，当两者都存在时。该选项能作用于自动继承和显式继承两种规则。包默认是\kvopt{override}{false}，即子条目存在的域都不覆盖。
-%Whether or not to overwrite target fields with source fields if both are defined. This applies both to automatic inheritance and to explicit inheritance rules. The package default is \kvopt{override}{false}, \ie existing fields of the child entry are not overwritten.
+%\boolitem[false]{override} Whether or not to overwrite target fields with source fields if both are defined. This applies both to automatic inheritance and to explicit inheritance rules. The package default is \kvopt{override}{false}, \ie existing fields of the child entry are not overwritten.
 
 \valitem{ignore}{csv list of uniqueness options}
 
@@ -3964,7 +4198,8 @@ This command may only be used in the preamble.
 \end{ltxexample}
 %
 这一规则阻止对\bibfield{introduction} 域的继承。应用的目标条目是\bibtype{inbook} 或 \bibtype{incollection}，源条目则是任意的。
-%This rule prevents inheritance of the \bibfield{introduction} field. It applies to all targets of type \bibtype{inbook} or \bibtype{incollection}, regardless of the source entry type.
+%This rule prevents inheritance of the \bibfield{introduction} field. It applies to all targets of type 
+%\bibtype{inbook} or \bibtype{incollection}, regardless of the source entry type.
 
 \begin{ltxexample}
 \DeclareDataInheritance{<<*>>}{<<*>>}{
@@ -3984,7 +4219,10 @@ This command may only be used in the preamble.
 %This example demonstrates how to emulate traditional \bibtex's cross"=referencing mechanism. It enables inheritance by default, disables overwriting, and clears all other inheritance rules and mappings.
 
 在一个参考文献条目中，当值是由\cmd{DeclareDatafieldSet}(\secref{aut:ctm:dsets})定义的数据域的集合，可以给出一个<noinherit>选项。这会阻止具体条目对在该集中的域的继承。例如:
-%In a bibliography entry, you can give an option <noinherit> where the value is a datafield set defined with \cmd{DeclareDatafieldSet} (\secref{aut:ctm:dsets}). This will block inheritance of the fields in the set on a per-entry basis. For example:
+%In a bibliography entry, you can give an option <noinherit> where the value 
+%is a datafield set defined with \cmd{DeclareDatafieldSet} 
+%(\secref{aut:ctm:dsets}). This will block inheritance of the fields in the 
+%set on a per-entry basis. For example:
 
 \begin{ltxexample}
 \DeclareDatafieldSet{nobtitle}{
@@ -4005,7 +4243,9 @@ This command may only be used in the preamble.
 \end{lstlisting}
 %
 这里\bibfield{s2} 的\bibfield{TITLE} 域将不会被继承为 \bibfield{s1} 的\bibfield{BOOKTITLE}，这一继承之所以被阻止是因为\opt{noinherit} 选项的值是数据域集合，且集合中包含\bibfield{BOOKTITLE}域。
-%Here, \bibfield{s1} will not inherit the \bibfield{TITLE} of \bibfield{s2} as \bibfield{BOOKTITLE} as this is blocked by the datafield set given as the value to the \opt{noinherit} option.
+%Here, \bibfield{s1} will not inherit the \bibfield{TITLE} of \bibfield{s2} 
+%as \bibfield{BOOKTITLE} as this is blocked by the datafield set given as 
+%the value to the \opt{noinherit} option.
 %
 
 需要重点注意的是，如果他们已经具有某一类型日期的某一成分，子条目不会从父条目继承该类型日期的任何成分域。例如:
@@ -4178,7 +4418,8 @@ This command may only be used in the preamble.
 \end{description}
 
 该命令用于确定是否打印\secref{aut:lng:key:dt} 节的本地化字符串\footnote{译者:这里的location strings 应是笔误，而应是local strings，这从\secref{aut:lng:key:dt} 节内容可以看出}。
-%This command is useful for determining whether to print the location strings in \secref{aut:lng:key:dt}.
+%This command is useful for determining whether to print the location 
+%strings in \secref{aut:lng:key:dt}.
 
 \cmditem{ifdateera}{era}{true}{false}
 
@@ -4209,22 +4450,59 @@ This command may only be used in the preamble.
 
 类似于\cmd{ifend$<$datetype$>$dateuncertain}，但用于\cmd{mkbibdate*} 格式化命令(\secref{aut:fmt:lng})，在这些格式化命令中恰当使用\cmd{ifend$<$datetype$>$dateuncertain} 命令等价于应用该命令。
 %As \cmd{ifend$<$datetype$>$dateuncertain} but for use in \cmd{mkbibdate*} formatting commands (\secref{aut:fmt:lng}) inside which the appropriate \cmd{ifend$<$datetype$>$dateuncertain} command is aliased to this command.
+\cmditem{if$<$datetype$>$dateunknown}{true}{false}
+
+%Expands to \prm{true} if the date <datetype>date (\opt{date}, \opt{urldate}, \opt{eventdate} etc.) is marked as unknown (as opposed to open) in the source and \prm{false} otherwise.  See \secref{bib:use:dat}.
+展开为\prm{true}，如果数据源中日期<datetype>date (\opt{date}, \opt{urldate}, \opt{eventdate} etc.) 标记为未知(与未终止(open)不同)，
+否则展开为\prm{false}，见 \secref{bib:use:dat}节。
+
+
+\cmditem{ifdateunknown}{true}{false}
+
+%As \cmd{if$<$datetype$>$dateunknown} but for use in \cmd{mkbibdate*} formatting commands (\secref{aut:fmt:lng}) inside which the appropriate \cmd{if$<$datetype$>$dateunknown} command is aliased to this command.
+类似于\cmd{if$<$datetype$>$dateunknown}，但用在\cmd{mkbibdate*} 格式化命令中(见\secref{aut:fmt:lng})，
+在这类命令中类似的\cmd{if$<$datetype$>$dateunknown}命令逻辑与\cmd{ifdateunknown}一致。
+
+
+\cmditem{ifenddateunknown}{true}{false}
+
+%As \cmd{ifend$<$datetype$>$dateunknown} but for use in \cmd{mkbibdate*} formatting commands (\secref{aut:fmt:lng}) inside which the appropriate \cmd{ifend$<$datetype$>$dateunknown} command is aliased to this command.
+类似于\cmd{ifend$<$datetype$>$dateunknown}，但用在\cmd{mkbibdate*} 格式化命令中(见\secref{aut:fmt:lng})，
+在这类命令中类似的\cmd{ifend$<$datetype$>$dateunknown}命令逻辑与\cmd{ifenddateunknown}一致。
+
 
 \cmditem{iflabeldateisdate}{true}{false}
 
-Expands to \prm{true} if labeldate is defined and was obtained from date, and to \prm{false} otherwise.
+%Expands to \prm{true} if labeldate is defined and was obtained from date, and to \prm{false} otherwise.
+展开为\prm{true}如果labeldate已定义且从date中获取，否则为\prm{false}
+
+
 
 \cmditem{ifdatehasyearonlyprecision}{datetype}{true}{false}
 
-Expands to \prm{true} if the \prm{datetype}date is defined and would be shown with year precision \cmd{print$<$datetype$>$date}, and to false otherwise.
+%Expands to \prm{true} if the \prm{datetype}date is defined and would be shown with year precision \cmd{print$<$datetype$>$date}, and to false otherwise.
+展开为\prm{true}，如果\prm{datetype}date已定义，且将在\cmd{print$<$datetype$>$date}命令中以明确年份显示，否则为\prm{false}。
+
 
 \cmditem{ifdatehastime}{datetype}{true}{false}
 
-Expands to \prm{true} if the \prm{datetype}date is defined, has a time component and \opt{$<$datetype$>$dateusetime} is true, and to false otherwise.
+%Expands to \prm{true} if the \prm{datetype}date is defined, has a time component and \opt{$<$datetype$>$dateusetime} is true, and to false otherwise.
+展开为\prm{true}，如果\prm{datetype}date已定义，且包含时间成分，且\opt{$<$datetype$>$dateusetime}为\prm{true}，否则为\prm{false}。
+
 
 \cmditem{ifdateshavedifferentprecision}{datetype1}{datetype2}{true}{false}
 
-Expands to \prm{true} if the two dates \prm{datetype1} and \prm{datetype2} would show in different precision when printed with \cmd{print$<$datetype1$>$date} and \cmd{print$<$datetype2$>$date} respectively, and to \prm{false} otherwise.
+%Expands to \prm{true} if the two dates \prm{datetype1} and \prm{datetype2} would show in different precision when printed with \cmd{print$<$datetype1$>$date} and \cmd{print$<$datetype2$>$date} respectively, and to \prm{false} otherwise.
+展开为\prm{true}，如果两个日期\prm{datetype1}和\prm{datetype2}以不同精度在\cmd{print$<$datetype1$>$date}和
+\cmd{print$<$datetype2$>$date}命令中分别打印时，否则展开为\prm{false}。
+
+
+\cmditem{ifdateyearsequal}{datetype1}{datetype2}{true}{false}
+
+%Expands to \prm{true} if the two dates \prm{datetype1} and \prm{datetype2} have the same year and era. Since the sign of the date is saved in the era field, years should be compared using this command to avoid confusion when the two years have opposite signs
+
+展开为\prm{true}，如果两个日期\prm{datetype1}和\prm{datetype2}具有相同的年份和纪年。
+因为日期纪年的符号保存在era域中，可以利用该命令来避免混淆，当两个年份具有相反纪年时，比如公元前和公元后。
 
 
 \cmditem{ifcaselang}[language]{true}{false}
@@ -4242,11 +4520,15 @@ Expands to \prm{true} if the two dates \prm{datetype1} and \prm{datetype2} would
 
 \cmditem{ifuniquenametemplatename}{string}{true}{false}
 
-Expands to \prm{true} if the \prm{string} is equal to the current in scope uniqueness name key template name (see \ref{aut:ctm:srt}), and to \prm{false} otherwise.
+%Expands to \prm{true} if the \prm{string} is equal to the current in scope uniqueness name key template name (see \ref{aut:ctm:srt}), and to \prm{false} otherwise.
+展开为\prm{true}，如果\prm{string}等于当前范围内的唯一姓名关键字模板名(见\ref{aut:ctm:srt})，否则展开为\prm{false}。
+
 
 \cmditem{iflabelalphanametemplatename}{string}{true}{false}
 
-Expands to \prm{true} if the \prm{string} is equal to the current in scope alphabetic label name template name (see \ref{aut:ctm:srt}), and to \prm{false} otherwise.
+%Expands to \prm{true} if the \prm{string} is equal to the current in scope alphabetic label name template name (see \ref{aut:ctm:srt}), and to \prm{false} otherwise.
+展开为\prm{true}，如果\prm{string}等于当前范围内的唯一标签姓名模板名(见\ref{aut:ctm:srt})，否则展开为\prm{false}。
+
 \cmditem{iffieldundef}{field}{true}{false}
 
 展开为\prm{true}，如果\prm{field} 未定义，否则展开为\prm{false}
@@ -4383,6 +4665,10 @@ Expands to \prm{true} if the \prm{string} is equal to the current in scope alpha
 
 %Expands to \prm{true} if there is only one work by the \opt{labelname} name in the bibliography, and to \prm{false} otherwise. If \opt{labelname} is not set for an entry, this will always expand to \prm{false}. Note that this feature needs to be enabled explicitly with the package option \opt{singletitle}.
 展开为\prm{true}，如果文献表中只有一篇文献具有\opt{labelname}，否则展开为\prm{false}。如果条目的\opt{labelname} 未设置，总是展开为\prm{false}。注意: 使用该功能需要显式启用宏包选项\opt{singletitle}。
+\cmditem{ifnocite}{true}{false}
+
+%Expands to \prm{true} if the entry was \emph{only} included in the \file{.bbl} via \cmd{nocite}. That is, returns \prm{false} if an entry was both \cmd{nocite}'d and \cmd{cite}'d.
+展开为\prm{true}，如果条目仅是通过\cmd{nocite}而被包含在\file{.bbl}中，即如果一个条目均被\cmd{nocite}和\cmd{cite}命令引用时，返回为\prm{false}。
 
 \cmditem{ifuniquetitle}{true}{false}
 
@@ -4402,8 +4688,7 @@ Expands to \prm{true} if the \prm{string} is equal to the current in scope alpha
 \cmditem{ifuniqueprimaryauthor}{true}{false}
 
 展开为\prm{true}，如果一篇文献的对于其\opt{labelname} 的第一作者的姓是唯一的，否则展开为\prm{false}。如果条目的\opt{labelname} 未设置，将展开为\prm{false}。注意: 使用该功能需要显式启用包选项\opt{uniqueprimaryauthor}。
-%Expands to \prm{true} if there is only one work by the primary (first) author family
-%name of \opt{labelname} and to \prm{false} otherwise. If \opt{labelname} is not set for an entry, this will always expand to \prm{false}. Note that this feature needs to be enabled explicitly with the package option \opt{uniqueprimaryauthor}.
+%Expands to \prm{true} if there is only one work by the primary (first) author name of \opt{labelname} and to \prm{false} otherwise. If \opt{labelname} is not set for an entry, this will always expand to \prm{false}. Note that this feature needs to be enabled explicitly with the package option \opt{uniqueprimaryauthor}.
 
 \cmditem{ifandothers}{list}{true}{false}
 
@@ -4469,13 +4754,13 @@ Expands to \prm{true} if the \prm{string} is equal to the current in scope alpha
 \ifentryseen{<<\thefield{xref}>>}{true}{false}
 \end{ltxexample}
 %
-除了一个额外参数，\cmd{ifentryseen} 的操作类似于\cmd{ifciteseen}。
-%Apart from the additional argument, \cmd{ifentryseen} behaves like \cmd{ifciteseen}.
+除了一个额外参数，\cmd{ifentryseen} 的操作类似于\cmd{ifciteseen}。 在正文中使用的面向用户的类似命令见\secref{use:eq}。
+%Apart from the additional argument, \cmd{ifentryseen} behaves like \cmd{ifciteseen}. A user-facing version of this command is available for use in documents see \secref{use:eq}.
 
 \cmditem{ifentryinbib}{entrykey}{true}{false}
 
-如果\prm{entrykey} 出现当前文献表中，执行\prm{true}，否则执行\prm{false}。该命令用于参考文献著录样式。
-%Executes \prm{true} if the entry \prm{entrykey} appears in the current bibliography, and \prm{false} otherwise. This command is intended for use in bibliography styles.
+如果\prm{entrykey} 出现当前文献表中，执行\prm{true}，否则执行\prm{false}。该命令用于参考文献著录样式。在正文中使用的面向用户的类似命令见\secref{use:eq}。
+%Executes \prm{true} if the entry \prm{entrykey} appears in the current bibliography, and \prm{false} otherwise. A user-facing version of this command is available for use in documents see \secref{use:eq}.
 
 \cmditem{iffirstcitekey}{true}{false}
 
@@ -4628,17 +4913,26 @@ Similar to \cmd{iffieldbibstring}, but appends \prm{string} to the value of \prm
 这一计数器表示当前处理条目在当前reference section中的引用次数。注意: 该功能需要显式启用包选项\opt{citecounter}。如果选项设置为\texttt{context}，正文和脚注中的引用分别计数。这种情况下，\cnt{citecounter} 记录其所在环境中的值。
 %This counter indicates how many times the entry currently being processed is cited in the current reference section. Note that this feature needs to be enabled explicitly with the package option \opt{citecounter}. If the option is set to \texttt{context}, citations in the body text and in footnotes are counted separately. In this case, \cnt{citecounter} will hold the value of the context it is used in.
 
+\cntitem{maxcitecounter}
+
+%This counter holds the maximum value of \cnt{citecounter} across all entries in the current reference section. Like \cnt{citecounter} it is only available if the \opt{citecounter} option is enabled and tracks footnotes and text separately if the option is set to \texttt{context}.
+This counter holds the maximum value of \cnt{citecounter} across all entries in the current reference section. 
+Like \cnt{citecounter} it is only available if the \opt{citecounter} option is enabled and tracks footnotes and 
+text separately if the option is set to \texttt{context}.
+该计数器保存当前文献节中遍历所有条目后的\cnt{citecounter}值，类似于\cnt{citecounter}，它仅在\opt{citecounter}选项启用时有效，
+如果该选项设置为\texttt{context}，那么脚注和正文中分别计算。
+
+
 \cntitem{uniquename}
+%This counter refers to the \bibfield{labelname} list. It is set on a per-name basis. Its value is \texttt{0} if the base name (by default the <family> part of the name) is unique, \texttt{1} if adding the other parts of the name (as specified in the uniquename template defined by \cmd{DeclareUniquenameTemplate})as initials will make it unique, and \texttt{2} if the full name is required to disambiguate the name. This information is required by author-year and author-title citation schemes which add additional parts of the name when citing different authors with the same last name. For example, (given the default \cmd{DeclareUniquenameTemplate} definition) if there is one <John Doe> and one <Edward Doe> in the list of references, this counter will be set to \texttt{1}. If there is one <John Doe> and one <Jane Doe>, the value of the counter will be \texttt{2}. If the option is set to \texttt{init}\slash \texttt{allinit}\slash \texttt{mininit}, the counter will be limited to \texttt{1}. This is useful for citations styles which use initials to disambiguate names but never print the full name in citations. If adding the initials is not sufficient to disambiguate the name, \cnt{uniquename} will also be set to \texttt{0} for that name. This feature needs to be enabled explicitly with the package option \opt{uniquename}. Note that the \cnt{uniquename} counter is local to \cmd{printnames} and that it is only set for the \bibfield{labelname} list and to the name list \bibfield{labelname} has been derived from (typically \bibfield{author} or \bibfield{editor}). Its value is zero in any other context, i.e., it must be evaluated in the name formatting directives handling name lists. See \secref{aut:cav:amb} for further details and practical examples.
 这一计数器用于\bibfield{labelname} 列表。它以每个名字为基础进行设置。如果姓不同，它的值设置为0，当增加姓名的其它成分的首字母使得姓名能区分时，则设置为1，如果需要完整的姓名才能区分，则设置为2。作者年制和作者标题制的标注格式需要这一信息来增加姓名的其它成分以对同姓的不同作者进行引用。比如: (考虑默认的\cmd{DeclareUniquenameTemplate} 定义)当引用列表中有一个<John Doe> 和一个<Edward Doe>，该计数器将设置为1。如果有一个<John Doe>和一个<Jane Doe>，该计数器将设置为2。如果选项设置成\texttt{init}\slash \texttt{allinit}\slash \texttt{mininit}，那么计数器将限制值最大为\texttt{1}。
-%This counter refers to the \bibfield{labelname} list. It is set on a per-name basis. Its value is \texttt{0} if the base name (by default the <family> part of the name) is unique, \texttt{1} if adding the other parts of the name (as specified in the uniquename template defined by \cmd{DeclareUniquenameTemplate})as initials will make it unique, and \texttt{2} if the full name is required to disambiguate the name. This information is required by author-year and author-title citation schemes which add additional parts of the name when citing different authors with the same last name. For example, (given the default \cmd{DeclareUniquenameTemplate} definition) if there is one <John Doe> and one <Edward Doe> in the list of references, this counter will be set to \texttt{1}. If there is one <John Doe> and one <Jane Doe>, the value of the counter will be \texttt{2}. If the option is set to \texttt{init}\slash \texttt{allinit}\slash \texttt{mininit}, the counter will be limited to \texttt{1}.
 这对于标注样式不打印全名而使用首字母来区分姓名很有用。如果添加首字母还无法区分姓名，\cnt{uniquename} 也将设置为\texttt{0}。该功能需要显式启用包选项\opt{uniquename}。注意\cnt{uniquename} 是\cmd{printnames} 局部使用的，仅根据\bibfield{labelname} 列表或其来源姓名列表(典型如\bibfield{author} 或\bibfield{editor})设置。它的值在其它环境中都是0，即它仅在处理姓名的格式化指令中计算，更多细节和实例见\secref{aut:cav:amb}。
-%This is useful for citations styles which use initials to disambiguate names but never print the full name in citations. If adding the initials is not sufficient to disambiguate the name, \cnt{uniquename} will also be set to \texttt{0} for that name. This feature needs to be enabled explicitly with the package option \opt{uniquename}. Note that the \cnt{uniquename} counter is local to \cmd{printnames} and that it is only set for the \bibfield{labelname} list and to the name list \bibfield{labelname} has been derived from (typically \bibfield{author} or \bibfield{editor}). Its value is zero in any other context, i.e., it must be evaluated in the name formatting directives handling name lists. See \secref{aut:cav:amb} for further details and practical examples.
 
 \cntitem{uniquelist}
+%This counter refers to the \bibfield{labelname} list. It is set on a per-field basis. Its value indicates the number of names required to disambiguate the name list if automatic \cnt{maxnames}\slash \cnt{minnames} truncation would lead to ambiguous citations. For example, if there is one work by <Doe\slash Smith\slash Johnson> and another one by <Doe\slash Edwards\slash Williams>, setting \kvopt{maxnames}{1} would lead to <Doe et al.> in both cases. In this case, \cnt{uniquelist} would be set to \texttt{2} on the \bibfield{labelname} lists of both entries because at least the first two names are required to disambiguate them. Note that the \cnt{uniquelist} counter is local to \cmd{printnames} and that it is only set for the \bibfield{labelname} list and to the name list \bibfield{labelname} has been derived from (typically \bibfield{author} or \bibfield{editor}). Its value is zero in any other context. If available, the \cnt{uniquelist} value will be used automatically by \cmd{printnames} when processing the name list, \ie it will automatically override \cnt{maxnames}\slash \cnt{minnames}. This feature needs to be enabled explicitly with the package option \opt{uniquelist}. See \secref{aut:cav:amb} for further details and practical examples.
 该计数器用于\bibfield{labelname} 列表。它以每个域为基础进行设置。它的值表示当使用\cnt{maxnames}\slash \cnt{minnames} 自动将姓名列表截短后导致标注歧义时，消除歧义需要的最小姓名数。比如，有一篇作者是<Doe\slash Smith\slash Johnson>的文献和另一篇作者是<Doe\slash Edwards\slash Williams>的文献，设置\kvopt{maxnames}{1} 将导致两篇的作者都是<Doe et al.>。 这种情况下，两个条目的\bibfield{labelname} 列表的\cnt{uniquelist} 将设置成\texttt{2}，因为至少需要两个名字来区分。
-%This counter refers to the \bibfield{labelname} list. It is set on a per-field basis. Its value indicates the number of names required to disambiguate the name list if automatic \cnt{maxnames}\slash \cnt{minnames} truncation would lead to ambiguous citations. For example, if there is one work by <Doe\slash Smith\slash Johnson> and another one by <Doe\slash Edwards\slash Williams>, setting \kvopt{maxnames}{1} would lead to <Doe et al.> in both cases. In this case, \cnt{uniquelist} would be set to \texttt{2} on the \bibfield{labelname} lists of both entries because at least the first two names are required to disambiguate them.
 注意\cnt{uniquelist} 是\cmd{printnames} 命令局部使用的，仅根据\bibfield{labelname} 列表或其来源姓名列表(典型如\bibfield{author} 或\bibfield{editor})设置。它的值在其它环境中都是0，即它仅在处理姓名的格式化指令中计算，如果该值存在，则\cmd{printnames} 命令在处理姓名列表时将自动应用，即自动覆盖\cnt{maxnames}\slash \cnt{minnames}。该功能需要显式启用选项\opt{uniquelist}。更多细节和实例见\secref{aut:cav:amb}。
-%Note that the \cnt{uniquelist} counter is local to \cmd{printnames} and that it is only set for the \bibfield{labelname} list and to the name list \bibfield{labelname} has been derived from (typically \bibfield{author} or \bibfield{editor}). Its value is zero in any other context. If available, the \cnt{uniquelist} value will be used automatically by \cmd{printnames} when processing the name list, \ie it will automatically override \cnt{maxnames}\slash \cnt{minnames}. This feature needs to be enabled explicitly with the package option \opt{uniquelist}. See \secref{aut:cav:amb} for further details and practical examples.
+
 
 \cntitem{parenlevel}
 
@@ -4731,7 +5025,8 @@ The regular variant of this command sanitizes \prm{name} while the starred varia
 \cmditem*{usebibmacro*}{name}
 
 该命令执行由\cmd{newbibmacro} 定义的宏\prm{name}。如果宏带参数，只要简单的跟在\prm{name} 后面即可。该命令的常规形式会处理(净化，改造，sanitize)\prm{name}，而带星的命令不会。
-%This command executes the macro \prm{name}, as defined with \cmd{newbibmacro}. If the macro takes any arguments, they are simply appended after \prm{name}. The regular variant of this command sanitizes \prm{name} while the starred variant does not.
+%This command executes the macro \prm{name}, as defined with \cmd{newbibmacro}. If the macro takes any arguments, they are simply appended after \prm{name}. The regular variant of this command sanitizes 
+%\prm{name} while the starred variant does not.
 
 \cmditem{savecommand}{command}
 \cmditem{restorecommand}{command}
@@ -4763,6 +5058,21 @@ The regular variant of this command sanitizes \prm{name} while the starred varia
 这两个命令用来保存和恢复格式化指令\prm{format}，其中\prm{format} 由\cmd{DeclareNameFormat} 定义。两个命令都在局部范围内起作用。它们主要用于本地化文件中。
 %These commands save and restore the formatting directive \prm{format}, as defined with \cmd{DeclareNameFormat}. Both commands work within a local scope. They are mainly provided for use in localisation files.
 
+\cmditem{savelistwrapperformat}[entry type]{format}
+\cmditem{restorelistwrapperformat}[entry type]{format}
+
+%These commands save and restore the formatting directive \prm{format}, as defined with \cmd{DeclareListWrapperFormat}. Both commands work within a local scope. They are mainly provided for use in localisation files.
+这些命令用于保存和恢复\cmd{DeclareListWrapperFormat}定义的格式，通常在局部范围使用，主要用于本地化文件处理中。
+
+
+\cmditem{savenamewrapperformat}[entry type]{format}
+\cmditem{restorenamewrapperformat}[entry type]{format}
+
+%These commands save and restore the formatting directive \prm{format}, as defined with \cmd{DeclareNameWrapperFormat}. Both commands work within a local scope. They are mainly provided for use in localisation files.
+这些命令用于保存和恢复\cmd{DeclareNameWrapperFormat}定义的格式，通常在局部范围使用，主要用于本地化文件处理中。
+
+
+
 \cmditem{ifbibmacroundef}{name}{true}{false}
 
 如果参考文献宏\prm{name} 未定义，展开为\prm{true} 否则为\prm{false}。
@@ -4771,9 +5081,11 @@ The regular variant of this command sanitizes \prm{name} while the starred varia
 \cmditem{iffieldformatundef}[entry type]{name}{true}{false}
 \cmditem{iflistformatundef}[entry type]{name}{true}{false}
 \cmditem{ifnameformatundef}[entry type]{name}{true}{false}
-
+\cmditem{iflistwrapperformatundef}[entry type]{name}{true}{false}
+\cmditem{ifnamewrapperformatundef}[entry type]{name}{true}{false}
 如果参考文献格式化指令\prm{format} 未定义，展开为\prm{true} 否则为\prm{false}。
-%Expands to \prm{true} if the formatting directive \prm{format} is undefined, and to \prm{false} otherwise.
+%Expands to \prm{true} if the formatting directive \prm{format} is undefined, and to \prm{false} 
+%otherwise.
 
 \cmditem{usedriver}{code}{entrytype}
 
@@ -4841,8 +5153,33 @@ An introduction to LaTeX
 title = {An Introduction to {L}a{T}e{X}}
 \end{lstlisting}
 %
-这种方式存在一个问题是括号会压缩被包围字母两侧的字距。最好的方式是如第一个示例所示的那样，将整个单词都包围起来。
+这种方式存在一个问题是括号会压缩被包围字母两侧的字距。最好的方式是如第一个示例所示的那样，将整个单词都包围起来。标题中的宏也必须要用花括号仅保护。
 %The problem with this convention is that the braces will suppress the kerning on both sides of the enclosed letter. It is preferable to wrap the entire word in braces as shown in the first example.
+%Macros in titles must also be protected with braces
+
+\begin{lstlisting}[style=bibtex]{}
+title = {The {\TeX book}},
+\end{lstlisting}
+%
+%Due to its complex implementation this command can not accept arbitrary input, it only safely operates on raw text or field data. In the standard styles the \texttt{title} and other \texttt{title}-like field formats do not work together with \cmd{MakeSentenceCase} because of their argument structure, so the standard styles offer a dedicated \texttt{titlecase} field format to apply this command. To enable sentence casing in standard styles for languages that support it you would use:
+
+因为实现的复杂性，该命令不接受任意的输入，它仅在处理原始文本或域数据时才是安全。
+在标准样式中，\texttt{title}类的域格式因为其参数结构不做\cmd{MakeSentenceCase}格式处理，
+所以标准样式特意提供了\texttt{titlecase}域格式来实现这类命令。要在标准样式中对支持的语言启用句子模式，那么需要:
+
+\begin{ltxexample}
+\DeclareFieldFormat{titlecase}{<<\MakeSentenceCase*{#1}>>}
+\end{ltxexample}
+%
+%Sentence casing can then be disabled by resetting that field format to
+然后，句子模式设置可以通过如下域格式来取消:
+
+\begin{ltxexample}
+\DeclareFieldFormat{titlecase}{<<#1>>}
+\end{ltxexample}
+
+%Custom styles may follow a different approach, but style authors are encouraged to apply the same general ideas to their styles.
+定制样式可以采用另一种方法，但鼓励样式作者采用相同的通用方法。
 
 \cmditem{mkpageprefix}[pagination][postpro]{text}
 
@@ -4850,7 +5187,7 @@ title = {An Introduction to {L}a{T}e{X}}
 %This command is intended for use in field formatting directives which format the page numbers in the \prm{postnote} argument of citation commands and the \bibfield{pages} field of bibliography entries. It will parse its \prm{text} argument and prefix it with <p.> or <pp.> by default. The optional \prm{pagination} argument holds the name of a field indicating the pagination type. This may be either \bibfield{pagination} or \bibfield{bookpagination}, with \bibfield{pagination} being the default. The spacing between the prefix and the \prm{text} may be modified by redefining \cmd{ppspace}. The default is an unbreakable interword space. See \secref{bib:use:pag, use:cav:pag} for further details. See also \cmd{DeclareNumChars}, \cmd{DeclareRangeChars}, \cmd{DeclareRangeCommands}, and \cmd{NumCheckSetup}. The optional \prm{postpro} argument specifies a macro to be used for post-processing the \prm{text}. If only one optional argument is given, it is taken as \prm{pagination}. Here are two typical examples:
 
 \begin{ltxexample}
-\DeclareFieldFormat{postnote}{<<\mkpageprefix[pagination]{#1}>>}
+\DeclareFieldFormat{postnote}{<<\mkpageprefix[pagination][\mknormrange]{#1}>>}
 \DeclareFieldFormat{pages}{<<\mkpageprefix[bookpagination]{#1}>>}
 \end{ltxexample}
 %
@@ -4910,10 +5247,10 @@ title = {An Introduction to {L}a{T}e{X}}
 \cmditem{mkcomprange}[postpro]{text}
 \cmditem*{mkcomprange*}[postpro]{text}
 
+%This command, which is intended for use in field formatting directives, will parse its \prm{text} argument for page ranges and compress them. For example, «125--129» may be formatted as «125--9». You may configure the behavior of \cmd{mkcomprange} by adjusting the \latex counters \cnt{mincomprange}, \cnt{maxcomprange}, and \cnt{mincompwidth}, as illustrated in \tabref{aut:aux:tab1}. The default settings are \texttt{10}, \texttt{100000}, and \texttt{1}, respectively. This means that the command tries to compress as much as possible by default. Use \cmd{setcounter} to adjust the parameters. The scanner recognizes \cmd{bibrangedash} and hyphens as range dashes. It will normalize the dash by replacing any number of consecutive hyphens with \cmd{bibrangedash}. Lists of ranges delimited with \cmd{bibrangessep} are also supported. The backend will normalise any comma or semi-colons surrounded by optional space by replacing them with \cmd{bibrangessep}. If you want to hide a character from the list/range scanner for some reason, wrap the character or the entire string in curly braces. The optional \prm{postpro} argument specifies a macro to be used for post-processing the \prm{text}. This is important if you want to combine \cmd{mkcomprange} with other formatting macros which also need to parse their \prm{text} argument, such as \cmd{mkpageprefix}. Simply nesting these commands will not work as expected. Use the \prm{postpro} argument to set up the processing chain as follows:
 该命令用于域格式化指令，将\prm{text} 参数解析为页码范围并且压缩这些范围。例如，«125--129»可能格式化为«125--9»。可以通过调整\latex 计数器\cnt{mincomprange}, \cnt{maxcomprange} 和 \cnt{mincompwidth} 来设置\cmd{mkcomprange} 的操作方式，如表\ref{aut:aux:tab1} 所示。默认的设置分别是\texttt{10}, \texttt{100000}, and \texttt{1}。
-%This command, which is intended for use in field formatting directives, will parse its \prm{text} argument for page ranges and compress them. For example, «125--129» may be formatted as «125--9». You may configure the behavior of \cmd{mkcomprange} by adjusting the \latex counters \cnt{mincomprange}, \cnt{maxcomprange}, and \cnt{mincompwidth}, as illustrated in \tabref{aut:aux:tab1}. The default settings are \texttt{10}, \texttt{100000}, and \texttt{1}, respectively.
 这意味着该命令默认是尽可能的压缩。使用\cmd{setcounter} 来调整参数。扫描程序将\cmd{bibrangedash} 和hyphens作为范围间隔符。它通过将使用\cmd{bibrangedash} 的任意数量连续连字符替换破折号(dash)实现正规化。支持以\cmd{bibrangessep} 分隔的多范围列表。后端会将逗号或冒号(commas/semicolon)的多范围分隔符转换为\cmd{bibrangessep}。如果因为某些原因需要对list/range扫描程序隐藏一个字符，那么可以将该字符或者整个字符串用花括号包围起来。可选参数\prm{postpro} 指定了一个用于对\prm{text} 进行后处理的宏。这对于需要将\cmd{mkcomprange} 和其它也要解析它们自身的\prm{text} 参数的格式化宏(比如\cmd{mkpageprefix})联合使用非常重要。简单的嵌套可能无法如期正常工作。使用\prm{postpro} 参数构建的处理链，如下:
-%This means that the command tries to compress as much as possible by default. Use \cmd{setcounter} to adjust the parameters. The scanner recognizes \cmd{bibrangedash} and hyphens as range dashes. It will normalize the dash by replacing any number of consecutive hyphens with \cmd{bibrangedash}. Lists of ranges delimited with \cmd{bibrangessep} are also supported. The backend will normalise any comma or semi-colons surrounded by optional space by replacing them with \cmd{bibrangessep}. If you want to hide a character from the list/range scanner for some reason, wrap the character or the entire string in curly braces. The optional \prm{postpro} argument specifies a macro to be used for post-processing the \prm{text}. This is important if you want to combine \cmd{mkcomprange} with other formatting macros which also need to parse their \prm{text} argument, such as \cmd{mkpageprefix}. Simply nesting these commands will not work as expected. Use the \prm{postpro} argument to set up the processing chain as follows:
+
 
 \begin{ltxexample}
 \DeclareFieldFormat{postnote}{\mkcomprange[<<{>>\mkpageprefix[pagination]<<}>>]{#1}}
@@ -4934,6 +5271,18 @@ title = {An Introduction to {L}a{T}e{X}}
 pp. 5, 123-9, 423-39
 p. 5, pp. 123-9, pp. 423-39
 \end{ltxexample}
+
+\cmditem{mknormrange}[postpro]{text}
+\cmditem*{mknormrange*}[postpro]{text}
+
+%This command, which is intended for use in field formatting directives, will parse its \prm{text} argument for page ranges and will normalise them. The command is similar to \cmd{mkcomprange} except that the page ranges will not be compressed. The scanner recognises \cmd{bibrangedash} and hyphens as range dashes. It will normalize the dash by replacing any number of consecutive hyphens with \cmd{bibrangedash}. Lists of ranges delimited with \cmd{bibrangessep} are also supported. The scanner will normalise any comma or semi-colons surrounded by optional space by replacing them with \cmd{bibrangessep}. If you want to hide a character from the list/range scanner for some reason, wrap the character or the entire string in curly braces. The optional \prm{postpro} argument specifies a macro to be used for post-processing the \prm{text}. See \cmd{mkcomprange} on how to use this argument. The starred version of this command differs from the regular one in the way the \prm{postpro} argument is applied to a list of values.
+该命令用于域的格式化指令中，将会解析其\prm{text}参数来实现和规范页码范围。
+该命令类似于\cmd{mkcomprange}，不同在于页码范围不被压缩。
+扫描器识别\cmd{bibrangedash}，并处理为一个范围破折号。
+它会规范破折号来代替连续的\cmd{bibrangedash}。以\cmd{bibrangessep}分隔的范围列表，也支撑这一处理。
+扫描器将规范任意逗号或分号为\cmd{bibrangessep}。如果想要隐藏他们，那么将其或整个字符串用花括号包围起来。
+可选参数\prm{postpro}指定了\prm{text}后处理中用的宏。如何使用该参数见\cmd{mkcomprange}。带星号的版本差别在于\prm{postpro}参数应用于列表。
+
 
 \cmditem{mkfirstpage}[postpro]{text}
 \cmditem*{mkfirstpage*}[postpro]{text}
@@ -5014,9 +5363,10 @@ pages = <ⅥⅠ-ⅻ, 145-7, 135-39> & |\rangelen{pages}| returns '14'
 \begin{ltxexample}
 \DeclareRangeChars{~,;-+/}
 \end{ltxexample}
-On engines that fully support Unicode the default is
-\begin{ltxexample}
-\DeclareRangeChars{~,;-–—+/}
+
+For engines that fully support Unicode these defaults are extended with
+\begin{ltxexample}[escapeinside={(*@}{@*)}]
+\DeclareRangeChars*{(*@–—@*)}
 \end{ltxexample}
 %
 这意味着比如<3--5>, <35+>, <8/9>等字符串会被\cmd{ifnumerals} 和\cmd{ifpages} 认为是一个范围。这些字符串中的非范围字符将被认为是数字。因此，类似于<3a--5a>和<35b+>之类的字符串默认情况下不被认为是范围。更多细节详见\secref{bib:use:pag, use:cav:pag}。
@@ -5072,16 +5422,19 @@ On engines that fully support Unicode the default is
 %该命令用于\file{cbx}\slash\file{bbx} 文件和\file{bib} 文件的\texttt{@preamble}(导言)中。它检测选择的后端程序，如果后端不是\biber 则发出警告。可选参数\prm{severity} 是一个整数用于指定警告的严重程度。当值等于1时将触发一个消息陈述推荐使用\biber；当值等于2触发一个警告陈述需要使用\biber ，否则样式或\slash\file{bib} 文件可能无法正常工作；当值等于3触发一个错误信息陈述\biber 是严格必须的，样式或\slash\file{bib} 文件在其它后端下将无法正常工作。如果\cmd{RequireBiber} 命令多次使用，\prm{severity} 应取最大值。\file{cbx}\slash\file{bbx} 文件和所有\file{bib} 文件的\texttt{@preamble}(导言)部分作为两个方面，其追踪是分别进行的。如果可选参数\prm{severity} 缺省，那么默认值是2(触发一个警告信息)。
 
 \boolitem{pagetracker}
+\leavevmode\vspace{\numexpr2\baselineskip}% fix margin spilling into the text
 
 这些命令将启用或关闭局部引用追踪器(这将影响来自\secref{aut:aux:tst} 节的\cmd{iffirstonpage} 和\cmd{ifsamepage} 判断)。可在标注命令定义或者正文中的任意位置使用。要使标注命令完全排除页码追踪，可以在\cmd{DeclareCiteCommand} 命令的\prm{precode} 参数中使用\cmd{pagetrackerfalse}。详见\secref{aut:cbx:cbx}。注意: 当全局页码追踪关闭时，这些命令无效。
 %These commands activate or deactivate the citation tracker locally (this will affect the \cmd{iffirstonpage} and \cmd{ifsamepage} test from \secref{aut:aux:tst}). They are intended for use in the definition of citation commands or anywhere in the document body. If a citation command is to be excluded from page tracking, use \cmd{pagetrackerfalse} in the \prm{precode} argument of \cmd{DeclareCiteCommand}. See \secref{aut:cbx:cbx} for details. Note that these commands have no effect if page tracking has been disabled globally.
 
 \boolitem{citetracker}
+\leavevmode\vspace{\numexpr2\baselineskip}% fix margin spilling into the text
 
 这些命令将启用或关闭所有的局部引用追踪器(这将影响来自\secref{aut:aux:tst} 节的 \cmd{ifciteseen}, \cmd{ifentryseen}, \cmd{ifciteibid}, 和\cmd{ifciteidem} 判断)。可在标注命令定义或者正文中的任意位置使用。要使标注命令完全排除页码追踪，可以在\cmd{DeclareCiteCommand} 命令的\prm{precode} 参数中使用\cmd{citetrackerfalse}。详见\secref{aut:cbx:cbx}。注意: 当全局追踪关闭时，这些命令无效。
 %These commands activate or deactivate all citation trackers locally (this will affect the \cmd{ifciteseen}, \cmd{ifentryseen}, \cmd{ifciteibid}, and \cmd{ifciteidem} tests from \secref{aut:aux:tst}). They are intended for use in the definition of citation commands or anywhere in the document body. If a citation command is to be excluded from tracking, use \cmd{citetrackerfalse} in the \prm{precode} argument of \cmd{DeclareCiteCommand}. See \secref{aut:cbx:cbx} for details. Note that these commands have no effect if tracking has been disabled globally.
 
 \boolitem{backtracker}
+\leavevmode\vspace{\numexpr2\baselineskip}% fix margin spilling into the text
 
 这些命令将启用或关闭所有的局部\texttt{backref} 追踪器。可在标注命令定义或者正文中的任意位置使用。要使标注命令完全排除反向链接追踪，可以在\cmd{DeclareCiteCommand} 命令的\prm{precode} 参数中使用\cmd{backtrackerfalse}。注意: 当\texttt{backref} 选项未进行全局设置，这些命令无效。
 %These commands activate or deactivate the \texttt{backref} tracker locally. They are intended for use in the definition of citation commands or anywhere in the document body. If a citation command is to be excluded from backtracking, use \cmd{backtrackerfalse} in the \prm{precode} argument of \cmd{DeclareCiteCommand}. Note that these commands have no effect if the \texttt{backref} option has been not been set globally.
@@ -5315,16 +5668,15 @@ On engines that fully support Unicode the default is
 \cmditem*{DeclarePrefChars*}{characters}
 
 该命令声明，测试是否将在姓名前缀和姓之间插入\cmd{bibnamedelimc} 时，需做特殊处理的字符。如果一个字符在\prm{characters} 中，那么\cmd{bibnamedelimc} 不会插入。它用于一些前缀特殊的缩写名中比如<d'Argent>，其中撇号之后没有空格，默认设置为:
-This command declares characters that are to be treated specially when testing to see if \cmd{bibnamedelimc} is to be inserted between a name prefix and a family name. If a character is in the list of \prm{characters}, \cmd{bibnamedelimc} is not inserted. It is used to allow abbreviated name prefices like <d'Argent> where no space should be inserted after the apostrophe. The starred version appends its argument to the list of prefix characters, the unstarred version replaces current setting. The default setting is:
+%This command declares characters that are to be treated specially when testing to see if \cmd{bibnamedelimc} is to be inserted between a name prefix and a family name. If a character is in the list of \prm{characters}, \cmd{bibnamedelimc} is not inserted. It is used to allow abbreviated name prefices like <d'Argent> where no space should be inserted after the apostrophe. The starred version appends its argument to the list of prefix characters, the unstarred version replaces current setting. The default setting is:
 
 \begin{ltxexample}
 \DeclarePrefChars{'-}
 \end{ltxexample}
 
-On engines that fully support Unicode the default is
-
-\begin{ltxexample}
-\DeclarePrefChars{'’-}
+For engines that fully support Unicode these defaults are extended with
+\begin{ltxexample}[escapeinside={(*@}{@*)}]
+\DeclarePrefChars*{(*@’@*)}
 \end{ltxexample}
 \cmditem{DeclareAutoPunctuation}{characters}
 
@@ -5435,7 +5787,9 @@ On engines that fully support Unicode the default is
 \cmditem{bibstring}[wrapper]{key}
 
 打印本地化字符串\prm{key}，其中\prm{key} 是一个以小写字母书写的标识(见\secref{aut:lng:key})。需要时字符串会大写，详见\secref{aut:pct:cfg} 节。根据\secref{use:opt:pre:gen} 节的\opt{abbreviate} 包选项，\cmd{bibstring} 打印短字符串或长字符串。如果本地化字符串处于嵌套中，即\cmd{bibstring} 用在另一个字符串中，它的作用类似于\cmd{bibxstring}。如果给出\prm{wrapper} 参数，字符串将传递给\prm{wrapper} 用于格式化。这常用于字体命令比如\cmd{emph} 等。
-%Prints the localisation string \prm{key}, where \prm{key} is an identifier in lowercase letters (see \secref{aut:lng:key}). The string will be capitalized as required, see \secref{aut:pct:cfg} for details. Depending on the \opt{abbreviate} package option from \secref{use:opt:pre:gen}, \cmd{bibstring} prints the short or the long version of the string. If localisation strings are nested, \ie if \cmd{bibstring} is used in another string, it will behave like \cmd{bibxstring}. If the \prm{wrapper} argument is given, the string is passed to the \prm{wrapper} for formatting. This is intended for font commands such as \cmd{emph}.
+%Prints the localisation string \prm{key}, where \prm{key} is an identifier in lowercase letters (see \secref{aut:lng:key}). The string will be capitalized as required, see \secref{aut:pct:cfg} for details. 
+%Depending on the \opt{abbreviate} package option from \secref{use:opt:pre:gen}, \cmd{bibstring} prints the short or the long version of the string. If localisation strings are nested, \ie if \cmd{bibstring} is used in another string, it will behave like \cmd{bibxstring}. 
+%If the \prm{wrapper} argument is given, the string is passed to the \prm{wrapper} for formatting. This is intended for font commands such as \cmd{emph}.
 
 \cmditem{biblstring}[wrapper]{key}
 
@@ -5595,7 +5949,8 @@ On engines that fully support Unicode the default is
 \cmditem{DeclareRedundantLanguages}{language, language, ...}{langid, langid, ...}
 
 该命令提供了\secref{use:opt:pre:gen} 节\opt{clearlang} 语言选项要求的语言映射。\prm{language} 是\bibfield{language} 域给出的字符串(不需要可选的\texttt{lang} 前缀)，\prm{langid} 是\sty{babel}/\sty{polyglossia} 的语言标识，在加载\sty{babel} 包的\cmd{usepackage} 命令可选参数或者使用\sty{polyglossia} 包的\cmd{setdefaultlanguage} 或\cmd{setotherlanguages} 命令中给出。这一命令可以用于\file{lbx} 文件中或者文档导言区中。下面是一些示例:
-%This command provides the language mappings required by the \opt{clearlang} option from \secref{use:opt:pre:gen}. The \prm{language} is the string given in the \bibfield{language} field (without the optional \texttt{lang} prefix); \prm{langid} is \sty{babel}/\sty{polyglossia}'s language identifier, as given in the optional argument of \cmd{usepackage} when loading \sty{babel} or the argument of \cmd{setdefaultlanguage} or \cmd{setotherlanguages} when using \sty{polyglossia}. This command may be used in \file{lbx} files or in the document preamble. Here are some examples:
+%This command provides the language mappings required by the \opt{clearlang} option from \secref{use:opt:pre:gen}. 
+%The \prm{language} is the string given in the \bibfield{language} field (without the optional \texttt{lang} prefix); \prm{langid} is \sty{babel}/\sty{polyglossia}'s language identifier, as given in the optional argument of \cmd{usepackage} when loading \sty{babel} or the argument of \cmd{setdefaultlanguage} or \cmd{setotherlanguages} when using \sty{polyglossia}. This command may be used in \file{lbx} files or in the document preamble. Here are some examples:
 
 \begin{ltxexample}
 \DeclareRedundantLanguages{french}{french}
@@ -5615,15 +5970,23 @@ On engines that fully support Unicode the default is
 
 \cmditem{DeclareLanguageMappingSuffix}{suffix}
 
-This command defines a language file suffix which will be added when looking for \file{.lbx} language string definition files. This is intended for styles which provide their own \file{.lbx} files so that they will be used automatically. For example, the APA style defines:
+%This command defines a language file suffix which will be added when looking for \file{.lbx} language string definition files. This is intended for styles which provide their own \file{.lbx} files so that they will be used automatically. For example, the APA style defines:
+该命令定义了语言文件的后缀，将在搜索\file{.lbx}语言字符串定义文件时加入。用于一些样式提供了自身的\file{.lbx}文件的情况，使其可以自动加载使用，
+例如APA样式定义了:
 
 \begin{ltxexample}
 \DeclareLanguageMappingSuffix{-apa}
 \end{ltxexample}
 %
-When the document language is <german>, \biblatex will look for the file \file{german-apa.lbx} which defines some APA specific strings and in turn loads \file{german.lbx}. If \cmd{DeclareLanguageMapping} is defined for a language, this overrides \cmd{DeclareLanguageMappingSuffix}.
+%When the document language is <german>, \biblatex will look for the file \file{german-apa.lbx} which defines some APA specific strings and in turn loads \file{german.lbx}. If \cmd{DeclareLanguageMapping} is defined for a language, this overrides \cmd{DeclareLanguageMappingSuffix}.
 
-Note that the suffix will not be applied to language files loaded recursively by the loading of a language file. For example, given the suffix defined above, when loading <ngerman>, \biblatex will look for the file \file{ngerman-apa.lbx} and if this recursively loads <german>, then biblatex will look for \file{german.lbx} and \emph{not} \file{german-apa.lbx}.
+当文档语言是<german>，\biblatex 会搜索 \file{german-apa.lbx}文件，该文件定义了一些特殊的字符串，然后再加载\file{german.lbx}。
+如果\cmd{DeclareLanguageMapping}是未某种语言定义的，那么将会覆盖\cmd{DeclareLanguageMappingSuffix}的定义。
+
+
+%The suffix will be applied to other language files loaded recursively by the loading of a language file. For example, given the suffix defined above, when loading <ngerman>, \biblatex will look for the file \file{ngerman-apa.lbx} and if this recursively loads <german>, then biblatex will look for \file{german-apa.lbx}. Infinite recursion is of course avoided.
+后缀将会应用到语言文件中调用的其它语言文件中。对于上面的例子，当加载<ngerman>，也会搜索\file{ngerman-apa.lbx} ，
+如果该文件还调用了<german>，那么biblatex还会搜索\file{german-apa.lbx}，当然会避免无限循环的情况。
 
 
 \cmditem{NewBibliographyString}{key}
@@ -6134,9 +6497,11 @@ Keys for \bibfield{translator}\slash \bibfield{annotator}\slash \prm{role} combi
 \item[langfrench] The language <French>.
 \item[langgerman] The language <German>.
 \item[langgreek] The language <Greek>.
+\item[langhungarian] The language <Hungarian>.
 \item[langitalian] The language <Italian>.
 \item[langjapanese] The language <Japanese>.
 \item[langlatin] The language <Latin>.
+\item[langlatvian] The language <Latvian>.
 \item[langnorwegian] The language <Norwegian>.
 \item[langpolish] The language <Polish>.
 \item[langportuguese] The language <Portuguese>.
@@ -6166,9 +6531,11 @@ Keys for \bibfield{translator}\slash \bibfield{annotator}\slash \prm{role} combi
 \item[fromfrench] The expression <from [the] French>.
 \item[fromgerman] The expression <from [the] German>.
 \item[fromgreek] The expression <from [the] Greek>.
+\item[fromhungarian] The language <from [the] Hungarian>.
 \item[fromitalian] The expression <from [the] Italian>.
 \item[fromjapanese] The expression <from [the] Japanese>.
 \item[fromlatin] The expression <from [the] Latin>.
+\item[fromlatvian] The expression <from [the] Latvian>.
 \item[fromnorwegian] The expression <from [the] Norwegian>.
 \item[frompolish] The expression <from [the] Polish>.
 \item[fromportuguese] The expression <from [the] Portuguese>.
@@ -6265,7 +6632,7 @@ Keys for \bibfield{translator}\slash \bibfield{annotator}\slash \prm{role} combi
 \end{keymarglist}
 
 从\acr{EDTF} 日期解析的季节的缩略词:
-%Abbreviation strings for seasons parsed from \acr{EDTF} dates:
+%Abbreviation strings for seasons parsed from \acr{ISO8601-2} Extended Format dates:
 
 \begin{keymarglist}
 \item[spring] 词<spring>(表示:春)
@@ -6369,9 +6736,13 @@ AM/PM的缩略词:
 用于代替参考文献表中接连再出现的责任者的破折号。默认是一个<em>或<en>破折号，根据文献表的缩进选取。
 %The dash to be used as a replacement for recurrent authors or editors in the bibliography. The default is an <em> or an <en> dash, depending on the indentation of the list of references.
 
-\csitem{labelnamepunct}
+\csitem{labelnamepunct}\DeprecatedMark
+
+%A separator to be printed after the name used for alphabetizing in the bibliography (\bibfield{author} or \bibfield{editor}, if the \bibfield{author} field is undefined) instead of \cmd{newunitpunct}. The default is \cmd{newunitpunct}, \ie it is not handled differently from regular unit punctuation but permits convenient reconfiguration. This punctuation command is deprecated and has been superseded by the context-sensitive \cmd{nametitledelim} (see \secref{use:fmt:csd}). For backwards compatibility reasons, however, \cmd{nametitledelim} still defaults to \cmd{labelnamepunct} in the \texttt{bib} and \texttt{biblist} contexts. Style authors may want to consider replacing \cmd{labelnampunct} with \texttt{\textbackslash printdelim\{nametitledelim\}} and users may want to prefer modifying the context-sensitive \texttt{nametitledelim} with \cmd{DeclareDelimFormat} over redefining \cmd{labelnamepunct}.
+
+
 该分隔符在文献表中用来按字母顺序排列的责任者(\bibfield{author} 或\bibfield{editor},如果\bibfield{author} 域未定义)之后打印。使用该分隔符代替该位置的\cmd{newunitpunct}。默认是\cmd{newunitpunct}，即它与一般的单元标点并无不同，但允许方便地重设。
-%The separator to be printed after the name used for alphabetizing in the bibliography (\bibfield{author} or \bibfield{editor}, if the \bibfield{author} field is undefined). Use this separator instead of \cmd{newunitpunct} at this location. The default is \cmd{newunitpunct}, \ie it is not handled differently from regular unit punctuation but permits convenient reconfiguration.
+
 
 \csitem{subtitlepunct}
 该分隔符在\bibfield{title} 和\bibfield{subtitle} 域，\bibfield{booktitle} 和\bibfield{booksubtitle}，以及\bibfield{maintitle} 和 \bibfield{mainsubtitle} 之间打印。替代该位置处的\cmd{newunitpunct}。默认是\cmd{newunitpunct}，即它与一般的单元标点并无不同，但允许方便地重设。
@@ -6471,8 +6842,8 @@ The delimiter printed between the translator and the \texttt{translator} string.
 %The delimiter to be printed after the \prm{prenote} argument of a citation command.
 
 \csitem{postnotedelim}
-在标注命令的\prm{postnote} 参数后面打印的分隔符。
-%The delimiter to be printed after the \prm{postnote} argument of a citation command.
+在标注命令的\prm{postnote} 参数前面打印的分隔符。
+%The delimiter to be printed before the \prm{postnote} argument of a citation command.
 
 \csitem{extpostnotedelim}
 当postnote出现在标注括号外时，标注命令中在标注和插入的\prm{postnote} 参数之间打印的分隔符。在标准样式中，这仅发生在标注使用条目的缩略域时。
@@ -6505,6 +6876,16 @@ The delimiter printed between the translator and the \texttt{translator} string.
 \csitem{relateddelim$<$relatedtype$>$}
 在<relatedtype>类型的关联条目中的多个关联条目数据之间打印的分隔符。没有默认设置，如果不指定具体类型的分隔符，则使用\cmd{relateddelim}。
 %The separator between the data of multiple related entries inside related entries of type <relatedtype>. There is no default, if such a type-specific delimiter does not exist, \cmd{relateddelim} is used.
+
+\csitem{begrelateddelim}
+%The generic separator before the block of related entries. The default definition is \cmd{newunitpunct}.
+在关联条目块前面的一般分隔符。默认定义是\cmd{newunitpunct}.
+
+\csitem{begrelateddelim$<$relatedtype$>$}
+%The separator between the block of related entries of type <relatedtype>. There is no default, if such a type-specific delimiter does not exist, \cmd{relateddelim} is used.
+在<relatedtype>类型关联条目块前面的一般分隔符。无默认定义，当具体类型的定义不存在，则使用\cmd{relateddelim} 。
+
+
 
 \end{ltxsyntax}
 
@@ -6919,7 +7300,8 @@ As \texttt{time} but controls the format of \cmd{print$<$datetype$>$time}.
 \lenitem{labelnumberwidth}
 
 表示最宽\bibfield{labelnumber} 的长度。顺序编码著录样式应在参考文献表环境的定义中考虑该长度。
-%This length register indicates the width of the widest \bibfield{labelnumber}. Numeric bibliography styles should incorporate this length in the definition of the bibliography environment.
+%This length register indicates the width of the widest \bibfield{labelnumber}. Numeric bibliography styles 
+%should incorporate this length in the definition of the bibliography environment.
 
 \lenitem{labelalphawidth}
 
@@ -6935,6 +7317,21 @@ As \texttt{time} but controls the format of \cmd{print$<$datetype$>$time}.
 
 该计数器保存在\bibfield{extradate} 域中能找到的最大数值。
 %This counter holds the highest number found in any \bibfield{extradate} field.
+
+\cntitem{maxextraname}
+
+%This counter holds the highest number found in any \bibfield{extraname} field.
+该计数器保存任意\bibfield{extraname}域中保存的最大值。
+
+\cntitem{maxextratitle}
+
+%This counter holds the highest number found in any \bibfield{extratitle} field.
+该计数器保存任意\bibfield{extratitle}域中保存的最大值。
+
+\cntitem{maxextratitleyear}
+
+%This counter holds the highest number found in any \bibfield{extratitleyear} field.
+该计数器保存任意\bibfield{extratitleyear}域中保存的最大值。
 
 \cntitem{refsection}
 
@@ -7233,6 +7630,16 @@ As \texttt{time} but controls the format of \cmd{print$<$datetype$>$time}.
 因为该域仅在处理标注指向一个集成员时定义，所以没有必要添加任何更多的判断。
 %Since this field is only defined when processing citations referring to a set member, there is no need to add any additional tests.
 
+%Citing entry sets directly requires that a meaningful way of identifying sets is available in the style. This is obvious for styles based on numeric or alphabetic labels but not obvious (and rarely required) in styles which construct citations based on textual names/titles/dates etc. The default provided styles which no not construct citations based on labels (\texttt{authoryear}, \texttt{authortitle}, \texttt{verbose} etc.) therefore do not support citing sets directly as there is no obvious default identifier to use in such cases and such styles rarely, if ever, employ sets anyway. Custom styles may of course choose to define and print a citation identifier for directly cited sets.
+
+引用一个条目集，需要样式提供一个有效识别的条目集的方式。
+这在基于数字顺序和字母顺序编码的样式中是显然的，但在基于文本比如names/titles/dates等的标签的样式中通常是无法显著区分的，或者极少需要的。
+在不基于标签(label)构造标注的样式(\texttt{authoryear}, \texttt{authortitle}, \texttt{verbose} etc.)中，通常不支持直接的条目集引用，
+因为没有一个默认的显著的标识符来区分，且这类样式记号以这种方式使用。
+定制样式当然可以定义或打印一个标注标识符用于直接引用。
+
+
+
 \subsubsection{电子出版信息}%Electronic Publishing Information
 \label{aut:cav:epr}
 标准样式主要支持arXiv网站的文献\footnote{译者:arXiv 原先是由物理学家保罗·金斯巴格在1991年建立的网站，本意在收集物理学的论文预印本，随后括及天文、数学等其它领域。金斯巴格因为这个网站获得了2002年的麦克阿瑟奖。arXiv 原先挂在洛斯阿拉莫斯国家实验室，是故早期被称为「LANL 预印本数据库」。目前的 arXiv 落脚于康乃尔大学，并在全球各地设有镜像站点。网站在1999年改名为 arXiv.org 。}。其它资源的支持很容易增加。标准样式以如下方式处理\bibfield{eprint} 域:
@@ -7308,8 +7715,11 @@ Defines the \opt{uniquename} template \prm{name}. The \prm{name} is optional and
 
 \boolitem[false]{base}
 
+
+%The \prm{namepart} is part of the <base> which is the main piece of namepart(s) information which is being disambiguated by uniqueness information. For example, a family name which may be disambiguated by further given names. <base> \prm{namepart}s must occur before any non-<base> \prm{nameparts}.
+
 \prm{namepart} 是<base>的部分，<base>是用作唯一性区分的namepart(s)信息的主段。
-%The \prm{namepart} is part of the <base> which is the main piece of namepart(s) information which is being disambiguated by uniqueness information.
+
 \choitem{disambiguation}{none, init, initorfull, full}
 
 The \prm{namepart} will be disambiguated at most by information at the given value. If this option is not present then the default is inferred from the \opt{uniquename} package option setting (see \secref{use:opt:wu}). The <disambiguation> option is ignored for \prm{namepart}s which have the <base> option set to <true> since it is these nameparts which are being disambiguated by the value of the non-base \prm{namepart}s and therefore <disambiguation> does not apply.
@@ -7924,6 +8334,9 @@ Title <<(.>> Series Number<<)>>
 \DeclareLanguageMapping{american}{american-mla}
 \end{ltxexample}
 %
+%Use \cmd{DeclareLanguageMappingSuffix} (see \secref{aut:lng:cmd}) to define such a mapping for all languages.
+使用\cmd{DeclareLanguageMappingSuffix}(see \secref{aut:lng:cmd})来定义针对所有语言的映射。
+
 因为替换的\file{lbx} 文件可以从标准的\path{american.lbx} 模型中继承字符串，所以\path{american-mla.lbx} 可以简化为:
 %Since the alternative \file{lbx} file can inherit strings from the standard \path{american.lbx} module, \path{american-mla.lbx} may be as short as this:
 

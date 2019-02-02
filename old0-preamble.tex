@@ -1,0 +1,151 @@
+\documentclass{ltxdockit}[2011/03/25]
+\usepackage{btxdockit}
+\usepackage{fontspec}
+\usepackage{hyperref}
+\usepackage{zref-xr}
+
+\setmonofont{Courier New}
+\setmainfont[Ligatures=TeX]{Linux Libertine O}
+\setsansfont[Ligatures=TeX]{Linux Biolinum O}
+\usepackage[american]{babel}
+\usepackage[strict]{csquotes}
+\usepackage{tabularx}
+\usepackage{longtable}
+\usepackage{booktabs}
+\usepackage{shortvrb}
+\usepackage{pifont}
+\usepackage{microtype}
+\usepackage{typearea}
+\usepackage{mdframed}
+\areaset[current]{370pt}{700pt}
+\lstset{
+    basicstyle=\ttfamily,
+    keepspaces=true,
+    upquote=true,
+    frame=single,
+    breaklines=true,
+    postbreak=\raisebox{0ex}[0ex][0ex]{\ensuremath{\color{red}\hookrightarrow\space}}
+}
+\KOMAoptions{numbers=noenddot}
+\addtokomafont{title}{\sffamily}
+\addtokomafont{paragraph}{\spotcolor}
+\addtokomafont{section}{\spotcolor}
+\addtokomafont{subsection}{\spotcolor}
+\addtokomafont{subsubsection}{\spotcolor}
+\addtokomafont{descriptionlabel}{\spotcolor}
+\setkomafont{caption}{\bfseries\sffamily\spotcolor}
+\setkomafont{captionlabel}{\bfseries\sffamily\spotcolor}
+\pretocmd{\cmd}{\sloppy}{}{}
+\pretocmd{\bibfield}{\sloppy}{}{}
+\pretocmd{\bibtype}{\sloppy}{}{}
+\makeatletter
+\patchcmd{\paragraph}
+  {3.25ex \@plus1ex \@minus.2ex}{-3.25ex\@plus -1ex \@minus -.2ex}{}{}
+\patchcmd{\paragraph}{-1em}{1.5ex \@plus .2ex}{}{}
+\makeatother
+
+\MakeAutoQuote{«}{»}
+\MakeAutoQuote*{<}{>}
+\MakeShortVerb{\|}
+
+\newcommand*{\biber}{\sty{biber}\xspace}
+\newcommand*{\biblatex}{\sty{biblatex}\xspace}
+\newcommand*{\biblatexml}{\sty{biblatexml}\xspace}
+\newcommand*{\biblatexhome}{http://sourceforge.net/projects/biblatex/}
+\newcommand*{\biblatexctan}{http://ctan.org/pkg/biblatex/}
+
+\titlepage{%
+  title={The \biblatex Package},
+  subtitle={Programmable Bibliographies and Citations},
+  url={\biblatexhome},
+  author={Philipp Lehman \\(with Philip Kime, Moritz Wemheuer, Audrey Boruvka and Joseph Wright)},
+  email={},
+  revision={3.12},
+  date={\today}}
+
+\hypersetup{%
+  pdftitle={The \biblatex Package},
+  pdfsubject={Programmable Bibliographies and Citations},
+  pdfauthor={Philipp Lehman, Philip Kime, Moritz Wemheuer},
+  pdfkeywords={tex, latex, bibtex, bibliography, references, citation}}
+
+% tables
+
+\newcolumntype{H}{>{\sffamily\bfseries\spotcolor}l}
+\newcolumntype{L}{>{\raggedright\let\\=\tabularnewline}p}
+\newcolumntype{R}{>{\raggedleft\let\\=\tabularnewline}p}
+\newcolumntype{C}{>{\centering\let\\=\tabularnewline}p}
+\newcolumntype{V}{>{\raggedright\let\\=\tabularnewline\ttfamily}p}
+
+\newcommand*{\sorttablesetup}{%
+  \tablesetup
+  \ttfamily
+  \def\new{\makebox[1.25em][r]{\ensuremath\rightarrow}\,}%
+  \def\alt{\par\makebox[1.25em][r]{\ensuremath\hookrightarrow}\,}%
+  \def\note##1{\textrm{##1}}}
+
+\newcommand{\tickmarkyes}{\Pisymbol{psy}{183}}
+\newcommand{\tickmarkno}{\textendash}
+\providecommand*{\textln}[1]{#1}
+\providecommand*{\lnstyle}{}
+
+% markup and misc
+
+\setcounter{secnumdepth}{4}
+
+\makeatletter
+
+\newenvironment{nameparts}
+  {\trivlist\item
+   \tabular{@{}ll@{}}}
+  {\endtabular\endtrivlist}
+
+\newenvironment{namedelims}
+  {\trivlist\item
+   \tabularx{\textwidth}{@{}c@{=}l>{\raggedright\let\\=\tabularnewline}X@{}}}
+  {\endtabularx\endtrivlist}
+
+\newenvironment{namesample}
+  {\def\delim##1##2{\@delim{##1}{\normalfont\tiny\bfseries##2}}%
+   \def\@delim##1##2{{%
+     \setbox\@tempboxa\hbox{##1}%
+     \@tempdima=\wd\@tempboxa
+     \wd\@tempboxa=\z@
+     \box\@tempboxa
+     \begingroup\spotcolor
+     \setbox\@tempboxa\hb@xt@\@tempdima{\hss##2\hss}%
+     \vrule\lower1.25ex\box\@tempboxa
+     \endgroup}}%
+   \ttfamily\trivlist
+   \setlength\itemsep{0.5\baselineskip}}
+  {\endtrivlist}
+
+\makeatother
+
+\newrobustcmd*{\Deprecated}{%
+  \textcolor{spot}{\margnotefont Deprecated}}
+\newrobustcmd*{\DeprecatedMark}{%
+  \leavevmode\marginpar{\Deprecated}}
+\newrobustcmd*{\LF}{%
+  \textcolor{spot}{\margnotefont Label field}}
+\newrobustcmd*{\LFMark}{%
+  \leavevmode\marginpar{\LF}}
+\newrobustcmd*{\CSdelim}{%
+  \textcolor{spot}{\margnotefont Context Sensitive}}
+\newrobustcmd*{\CSdelimMark}{%
+  \leavevmode\marginpar{\CSdelim}}
+
+
+% following snippet is based on code by Michael Ummels (TeX Stack Exchange)
+% <http://tex.stackexchange.com/a/13073/8305>
+\makeatletter
+  \newcommand\fnurl@[1]{\footnote{\url@{#1}}}
+  \DeclareRobustCommand{\fnurl}{\hyper@normalise\fnurl@}
+\makeatother
+
+\hyphenation{%
+  star-red
+  bib-lio-gra-phy
+  white-space
+}
+

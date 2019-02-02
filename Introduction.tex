@@ -1,11 +1,11 @@
 % Introduction.tex
 
-%\section{Introduction}\label{int}
+%\section{Introduction}
 
 \section{引言}
 \label{int}
 
-%This document is a systematic reference manual for the \biblatex package. Look at the sample documents which ship with \biblatex to get a first impression.\fnurl{\biblatexctan doc/examples}
+%This document is a systematic reference manual for the \biblatex package. Look at the sample documents which come with \biblatex to get a first impression.\fnurl{\biblatexctan doc/examples}
 %For a quick start guide, browse \secref{int:abt, bib:typ, bib:fld, bib:use, use:opt, use:xbx, use:bib, use:cit, use:use}.
 
 这份文档是系统介绍 \biblatex 宏包的参考手册。
@@ -20,41 +20,28 @@
 \subsection{关于 \biblatex}
 \label{int:abt}
 
-%This package provides advanced bibliographic facilities for use with \latex.
-%The package is a complete reimplementation of the bibliographic facilities provided by \latex.
-%The \biblatex\ package works with the \enquote{backend} (program) \biber, which is used to process \bibtex\ format data files and them performs all sorting, label generation (and a great deal more).
-%Formatting of the bibliography is entirely controlled by \tex\ macros.
-%Good working knowledge in \latex should be sufficient to design new bibliography and citation styles.
+
+%This package provides advanced bibliographic facilities for use with \latex. The package is a complete reimplementation of the bibliographic facilities provided by \latex. The \biblatex\ package works with the \enquote{backend} (program) \biber, which is used to process \bibtex\ format data files and them performs all sorting, label generation (and a great deal more).Formatting of the bibliography is entirely controlled by \tex\ macros.Good working knowledge in \latex should be sufficient to design new bibliography and citation styles. This package also supports subdivided bibliographies, multiple bibliographies within one document, and separate lists of bibliographic information such as abbreviations of various fields. Bibliographies may be subdivided into parts and\slash or segmented by topics. Just like the bibliography styles, all citation commands may be freely defined. Features such as full Unicode support for bibliography data, customisable sorting, multiple bibliographies with different sorting, customisable labels and dynamic data modification are available. Please refer to \secref{int:pre:bibercompat} for information on \biber/\biblatex version compatibility. The package is completely localised and can interface with the \sty{babel} and \sty{polyglossia} packages. Please refer to \tabref{bib:fld:tab1} for a list of languages currently supported by this package.
 
 \biblatex 包提供了一套与 \LaTeX\ 配合使用的高级参考文献工具。
 它重新实现了 \LaTeX 提供的参考文献功能。
 该包使用后端程序 \biber 来处理\BibTeX\ 格式的数据文件，并完成排序、标签生成(及更多其它功能)。
 参考文献的格式化完全由 \TeX\ 宏指令控制。
 具备良好的 \LaTeX 知识就足以设计新的参考文献著录样式和标注样式。
-
-%This package also supports subdivided bibliographies, multiple bibliographies within one document, and separate lists of bibliographic information such as abbreviations of various fields.
-%Bibliographies may be subdivided into parts and\slash or segmented by topics.
-%Just like the bibliography styles, all citation commands may be freely defined.
-
 \biblatex 也支持参考文献表细分、在一个文档内包含多个参考文献表、以及域缩写等参考文献信息表。
 参考文献表可以根据主题进行分块或者分段。
 与参考文献著录样式类似，所有的标注(引用)命令也可以自由定义。
-
-%Features such as full Unicode support for bibliography data, customisable sorting, multiple bibliographies with different sorting, customisable labels and dynamic data modification are available.
-%Please refer to \secref{int:pre:bibercompat} for information on \biber/\biblatex version compatibility.
-%The package is completely localised and can interface with the \sty{babel} and \sty{polyglossia} packages.
-%Please refer to \tabref{bib:fld:tab1} for a list of languages currently supported by this package.
-
 提供的功能还包括：文献数据的Unicode支持、自定义排序、不同排序方式的多参考文献表、自定义标签和动态数据修改等。
 \biber/\biblatex 的版本兼容性见 \secref{int:pre:bibercompat} 节。
 该包可完全实现本地化，可与 \sty{babel} 和 \sty{polyglossia} 宏包配合使用。
 该包支持的语言详见\tabref{bib:fld:tab1}。
 
-
+%\subsection{License}
 \subsection{许可}
 
 Copyright \textcopyright\ 2006--2012 Philipp Lehman, 2012--2013 Philip Kime, Audrey Boruvka, Joseph Wright. Permission is granted to copy, distribute and\slash or modify this software under  the terms of the \lppl, version 1.3.\fnurl{http://www.ctan.org/tex-archive/macros/latex/base/lppl.txt}
 
+%\subsection{Feedback}
 \subsection{反馈}
 \label{int:feb}
 
@@ -65,6 +52,7 @@ Copyright \textcopyright\ 2006--2012 Philipp Lehman, 2012--2013 Philip Kime, Aud
 如果你不想报告bug或者请求新功能，而只是需要帮助，
 可以考虑在 \texttt{comp.text.tex} 新闻组或者 \TeX-\LaTeX\ Stack Exchange 提交问题。\fnurl{http://tex.stackexchange.com/questions/tagged/biblatex}
 
+%\subsection{Acknowledgements}
 \subsection{致谢}
 
 The language modules of this package are made possible thanks to the following contributors:
@@ -73,16 +61,18 @@ Kaloyan Ganev (Bulgarian);
 Sebastià Vila-Marta (Catalan);
 Ivo Pletikosić (Croatian);
 Michal Hoftich (Czech);
-Jonas Nyrup (Danish);
+Christian Mondrup, Jonas Nyrup (Danish);
 Johannes Wilm (Danish\slash Norwegian);
 Alexander van Loon, Pieter Belmans, Hendrik Maryns (Dutch);
-Benson Muite (Estonian);
+Kristian Kankainen, Benson Muite (Estonian);
 Hannu Väisänen, Janne Kujanpää (Finnish);
 Denis Bitouzé (French);
 Apostolos Syropoulos, Prokopis (Greek);
+Márton Marczell, Bence Ferdinandy (Hungarian);
 Baldur Kristinsson (Icelandic);
 Enrico Gregorio, Andrea Marchitelli (Italian);
-Håkon Malmedal (Norwegian);
+Rihards Skuja (Latvian);
+Håkon Malmedal, Hans Fredrik Nordhaug (Norwegian);
 Anastasia Kandulina, Yuriy Chernyshov (Polish);
 José Carlos Santos (Portuguese);
 Oleg Domanov (Russian);
@@ -91,7 +81,7 @@ Tea Tušar and Bogdan Filipič (Slovene);
 Ignacio Fernández Galván (Spanish);
 Per Starbäck, Carl-Gustav Werner, Filip Åsblom (Swedish).
 Sergiy M. Ponomarenko (Ukrainian);
-Hans Fredrik Nordhaug (Norwegian)
+
 
 %\subsection{Prerequisites}
 \subsection{前提与必备}
@@ -140,10 +130,17 @@ Hans Fredrik Nordhaug (Norwegian)
 自动加载，它提供的前端可用于将机器可读信息写入辅助 log 文件，
 可以从 \acr{CTAN} 下载。\fnurl{http://ctan.org/pkg/logreq/}
 
-\item[xstring]
+
+\item[pdftexcmds]
+%This \latex package, which is loaded automatically, implements \pdftex primitives for \luatex, it also offers a unified interface for these primitives across engines. It is available from \acr{CTAN}.\fnurl{http://ctan.org/pkg/pdftexcmds/}
+自动加载，为\luatex 实现 \pdftex 的原始命令，也为不同引擎提供了统一接口，
+可以从 \acr{CTAN} 下载。\fnurl{http://ctan.org/pkg/pdftexcmds/}
+
+
+%\item[xstring]
 %This \latex package, which is also loaded automatically, provides advanced string processing macros It is available from \acr{CTAN}.\fnurl{http://ctan.org/pkg/xstring/}
-自动加载，提供了一些高级字符串处理宏。
-可以从 \acr{CTAN} 下载。\fnurl{http://ctan.org/pkg/xstring/}
+%自动加载，提供了一些高级字符串处理宏。
+%可以从 \acr{CTAN} 下载。\fnurl{http://ctan.org/pkg/xstring/}
 
 \end{marglist}
 
@@ -334,12 +331,15 @@ Hans Fredrik Nordhaug (Norwegian)
 %The package redefines list handling macros in a way incompatible with \biblatex.
 \sty{etextools}宏包增强了\sty{etoolbox}宏包中处理列表的宏，并提供了少量用于定义命令的工具。
 该宏包重新定义列表处理宏的方式与\biblatex 是不兼容的。
-%If you must load the \sty{etextools} package at all costs, use the load-time option \opt{noerroretextools}.
-%With \kvopt{noerroretextools}{true} no error will be issued if \sty{etextools} is loaded, that message is degraded to a warning instead.
-%In that case you need to make sure that \cmd{forlistloop} has its original \sty{etoolbox} definition when \biblatex\ is loaded.
 
-如果无论如何都需要加载 \sty{etextools} 包，那么请使用加载时选项\opt{noerroretextools}。
-使用 \kvopt{noerroretextools}{true} 加载 \sty{etextools}时，将不会报告错误而只是给出警告信息。
+
+%If you must load the \sty{etextools} package at all costs, define the control sequence \cs{blx@noerroretextools} before you load \biblatex.
+%If \cs{blx@noerroretextools} is defined, no error will be issued if \sty{etextools} is loaded, the message is degraded to a warning instead.
+%In that case you need to make sure that all redefined macros used by \biblatex\ (currently only \cmd{forlistloop}) have their original \sty{etoolbox} definitions when \biblatex\ is loaded.
+
+如果无论如何都需要加载 \sty{etextools} 包，
+那么请在加载\biblatex 前定义宏\opt{noerroretextools}。
+如果定义了\cs{blx@noerroretextools}， 加载 \sty{etextools} 将不会报错而只是给出警告信息。
 这种情况下，你需要确保在载入\biblatex\ 时\cmd{forlistloop}命令的定义是 \sty{etoolbox}包给出的原始定义。
 
 
@@ -367,6 +367,7 @@ Hans Fredrik Nordhaug (Norwegian)
 		\sffamily\bfseries\spotcolor Biber 版本
 		& \sffamily\bfseries\spotcolor \biblatex\ 版本\\
 		\midrule
+                2.11 & 3.11\\
                 2.10 & 3.10\\
 		2.9 & 3.9\\
 		2.8 & 3.8\\

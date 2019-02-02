@@ -1,0 +1,1538 @@
+\section{Database Guide}
+\label{bib}
+
+This section describes the default data model defined in the \file{blx-dm.def} file which is part of \path{biblatex}. The data model is defined using the macros documented in \secref{aut:ctm:dm}. It is possible to redefine the data model which both \biblatex and \biber use so that datasources can contain new entrytypes and fields (which of course will need style support). The data model specification also allows for constraints to be defined so that data sources can be validated against the data model (using \biber's \opt{--validate-datamodel} option). Users who want to customise the data model need to look at the \file{blx-dm.def} file and to read \secref{aut:ctm:dm}.
+
+\subsection{Entry Types}
+\label{bib:typ}
+
+This section gives an overview of the entry types supported by the default \biblatex data model along with the fields supported by each type.
+
+\subsubsection{Regular Types}
+\label{bib:typ:blx}
+
+The lists below indicate the fields supported by each entry type. Note that the mapping of fields to an entry type is ultimately at the discretion of the bibliography style. The lists below therefore serve two purposes. They indicate the fields supported by the standard styles which come with this package and they also serve as a model for custom styles. Note that the <required> fields are not strictly required in all cases, see \secref{bib:use:key} for details. The fields marked as <optional> are optional in a technical sense. Bibliographical formatting rules usually require more than just the <required> fields. The default data model defined a few constraints for the format of date fields, ISBNs and some special fields like \bibfield{gender} but the constraints are only used if validating against the data model with \biber's \opt{--validate-datamodel} option. Generic fields like \bibfield{abstract} and \bibfield{annotation} or \bibfield{label} and \bibfield{shorthand} are not included in the lists below because they are independent of the entry type. The special fields discussed in \secref{bib:fld:spc}, which are also independent of the entry type, are not included in the lists either. See the default data model specification in the file \file{blx-dm.def} which comes with \biblatex for a complete specification.
+
+\begin{typelist}
+
+\typeitem{article}
+
+An article in a journal, magazine, newspaper, or other periodical which forms a self"=contained unit with its own title. The title of the periodical is given in the \bibfield{journaltitle} field. If the issue has its own title in addition to the main title of the periodical, it goes in the \bibfield{issuetitle} field. Note that \bibfield{editor} and related fields refer to the journal while \bibfield{translator} and related fields refer to the article.
+
+\reqitem{author, title, journaltitle, year/date}
+\optitem{translator, annotator, commentator, subtitle, titleaddon, editor, editora, editorb, editorc, journalsubtitle, issuetitle, issuesubtitle, language, origlanguage, series, volume, number, eid, issue, month, pages, version, note, issn, addendum, pubstate, doi, eprint, eprintclass, eprinttype, url, urldate}
+
+\typeitem{book}
+
+A single"=volume book with one or more authors where the authors share credit for the work as a whole. This entry type also covers the function of the \bibtype{inbook} type of traditional \bibtex, see \secref{bib:use:inb} for details.
+
+\reqitem{author, title, year/date}
+\optitem{editor, editora, editorb, editorc, translator, annotator, commentator, introduction, foreword, afterword, subtitle, titleaddon, maintitle, mainsubtitle, maintitleaddon, language, origlanguage, volume, part, edition, volumes, series, number, note, publisher, location, isbn, chapter, pages, pagetotal, addendum, pubstate, doi, eprint, eprintclass, eprinttype, url, urldate}
+
+\typeitem{mvbook}
+
+A multi"=volume \bibtype{book}. For backwards compatibility, multi"=volume books are also supported by the entry type \bibtype{book}. However, it is advisable to make use of the dedicated entry type \bibtype{mvbook}.
+
+\reqitem{author, title, year/date}
+\optitem{editor, editora, editorb, editorc, translator, annotator, commentator, introduction, foreword, afterword, subtitle, titleaddon, language, origlanguage, edition, volumes, series, number, note, publisher, location, isbn, pagetotal, addendum, pubstate, doi, eprint, eprintclass, eprinttype, url, urldate}
+
+\typeitem{inbook}
+
+A part of a book which forms a self"=contained unit with its own title. Note that the profile of this entry type is different from standard \bibtex, see \secref{bib:use:inb}.
+
+\reqitem{author, title, booktitle, year/date}
+\optitem{bookauthor, editor, editora, editorb, editorc, translator, annotator, commentator, introduction, foreword, afterword, subtitle, titleaddon, maintitle, mainsubtitle, maintitleaddon, booksubtitle, booktitleaddon, language, origlanguage, volume, part, edition, volumes, series, number, note, publisher, location, isbn, chapter, pages, addendum, pubstate, doi, eprint, eprintclass, eprinttype, url, urldate}
+
+\typeitem{bookinbook}
+
+This type is similar to \bibtype{inbook} but intended for works originally published as a stand-alone book. A typical example are books reprinted in the collected works of an author.
+
+\typeitem{suppbook}
+
+Supplemental material in a \bibtype{book}. This type is closely related to the \bibtype{inbook} entry type. While \bibtype{inbook} is primarily intended for a part of a book with its own title (\eg a single essay in a collection of essays by the same author), this type is provided for elements such as prefaces, introductions, forewords, afterwords, etc. which often have a generic title only. Style guides may require such items to be formatted differently from other \bibtype{inbook} items. The standard styles will treat this entry type as an alias for \bibtype{inbook}.
+
+\typeitem{booklet}
+
+A book"=like work without a formal publisher or sponsoring institution. Use the field \bibfield{howpublished} to supply publishing information in free format, if applicable. The field \bibfield{type} may be useful as well.
+
+\reqitem{author/editor, title, year/date}
+\optitem{subtitle, titleaddon, language, howpublished, type, note, location, chapter, pages, pagetotal, addendum, pubstate, doi, eprint, eprintclass, eprinttype, url, urldate}
+
+\typeitem{collection}
+
+A single"=volume collection with multiple, self"=contained contributions by distinct authors which have their own title. The work as a whole has no overall author but it will usually have an editor.
+
+\reqitem{editor, title, year/date}
+\optitem{editora, editorb, editorc, translator, annotator, commentator, introduction, foreword, afterword, subtitle, titleaddon, maintitle, mainsubtitle, maintitleaddon, language, origlanguage, volume, part, edition, volumes, series, number, note, publisher, location, isbn, chapter, pages, pagetotal, addendum, pubstate, doi, eprint, eprintclass, eprinttype, url, urldate}
+
+\typeitem{mvcollection}
+
+A multi"=volume \bibtype{collection}. For backwards compatibility, multi"=volume collections are also supported by the entry type \bibtype{collection}. However, it is advisable to make use of the dedicated entry type \bibtype{mvcollection}.
+
+\reqitem{editor, title, year/date}
+\optitem{editora, editorb, editorc, translator, annotator, commentator, introduction, foreword, afterword, subtitle, titleaddon, language, origlanguage, edition, volumes, series, number, note, publisher, location, isbn, pagetotal, addendum, pubstate, doi, eprint, eprintclass, eprinttype, url, urldate}
+
+\typeitem{incollection}
+
+A contribution to a collection which forms a self"=contained unit with a distinct author and title. The \bibfield{author} refers to the \bibfield{title}, the \bibfield{editor} to the \bibfield{booktitle}, \ie the title of the collection.
+
+\reqitem{author, title, booktitle, year/date}
+\optitem{editor, editora, editorb, editorc, translator, annotator, commentator, introduction, foreword, afterword, subtitle, titleaddon, maintitle, mainsubtitle, maintitleaddon, booksubtitle, booktitleaddon, language, origlanguage, volume, part, edition, volumes, series, number, note, publisher, location, isbn, chapter, pages, addendum, pubstate, doi, eprint, eprintclass, eprinttype, url, urldate}
+
+\typeitem{suppcollection}
+
+Supplemental material in a \bibtype{collection}. This type is similar to \bibtype{suppbook} but related to the \bibtype{collection} entry type. The standard styles will treat this entry type as an alias for \bibtype{incollection}.
+
+\typeitem{manual}
+
+Technical or other documentation, not necessarily in printed form. The \bibfield{author} or \bibfield{editor} is omissible in terms of \secref{bib:use:key}.
+
+\reqitem{author/editor, title, year/date}
+\optitem{subtitle, titleaddon, language, edition, type, series, number, version, note, organization, publisher, location, isbn, chapter, pages, pagetotal, addendum, pubstate, doi, eprint, eprintclass, eprinttype, url, urldate}
+
+\typeitem{misc}
+
+A fallback type for entries which do not fit into any other category. Use the field \bibfield{howpublished} to supply publishing information in free format, if applicable. The field \bibfield{type} may be useful as well. \bibfield{author}, \bibfield{editor}, and \bibfield{year} are omissible in terms of \secref{bib:use:key}.
+
+\reqitem{author/editor, title, year/date}
+\optitem{subtitle, titleaddon, language, howpublished, type, version, note, organization, location, month, addendum, pubstate, doi, eprint, eprintclass, eprinttype, url, urldate}
+
+\typeitem{online}
+
+An online resource. \bibfield{author}, \bibfield{editor}, and \bibfield{year} are omissible in terms of \secref{bib:use:key}. This entry type is intended for sources such as web sites which are intrinsically online resources. Note that all entry types support the \bibfield{url} field. For example, when adding an article from an online journal, it may be preferable to use the \bibtype{article} type and its \bibfield{url} field.
+
+\reqitem{author/editor, title, year/date, url}
+\optitem{subtitle, titleaddon, language, version, note, organization, month, addendum, pubstate, doi, eprint, eprintclass, eprinttype, urldate}
+
+\typeitem{patent}
+
+A patent or patent request. The number or record token is given in the \bibfield{number} field. Use the \bibfield{type} field to specify the type and the \bibfield{location} field to indicate the scope of the patent, if different from the scope implied by the \bibfield{type}. Note that the \bibfield{location} field is treated as a key list with this entry type, see \secref{bib:fld:typ} for details.
+
+\reqitem{author, title, number, year/date}
+\optitem{holder, subtitle, titleaddon, type, version, location, note, month, addendum, pubstate, doi, eprint, eprintclass, eprinttype, url, urldate}
+
+\typeitem{periodical}
+
+An complete issue of a periodical, such as a special issue of a journal. The title of the periodical is given in the \bibfield{title} field. If the issue has its own title in addition to the main title of the periodical, it goes in the \bibfield{issuetitle} field. The \bibfield{editor} is omissible in terms of \secref{bib:use:key}.
+
+\reqitem{editor, title, year/date}
+\optitem{editora, editorb, editorc, subtitle, issuetitle, issuesubtitle, language, series, volume, number, issue, month, note, issn, addendum, pubstate, doi, eprint, eprintclass, eprinttype, url, urldate}
+
+\typeitem{suppperiodical}
+
+Supplemental material in a \bibtype{periodical}. This type is similar to \bibtype{suppbook} but related to the \bibtype{periodical} entry type. The role of this entry type may be more obvious if you bear in mind that the \bibtype{article} type could also be called \bibtype{inperiodical}. This type may be useful when referring to items such as regular columns, obituaries, letters to the editor, etc. which only have a generic title. Style guides may require such items to be formatted differently from articles in the strict sense of the word. The standard styles will treat this entry type as an alias for \bibtype{article}.
+
+\typeitem{proceedings}
+
+A single"=volume conference proceedings. This type is very similar to \bibtype{collection}. It supports an optional \bibfield{organization} field which holds the sponsoring institution. The \bibfield{editor} is omissible in terms of \secref{bib:use:key}.
+
+\reqitem{title, year/date}
+\optitem{editor, subtitle, titleaddon, maintitle, mainsubtitle, maintitleaddon, eventtitle, eventtitleaddon, eventdate, venue, language, volume, part, volumes, series, number, note, organization, publisher, location, month, isbn, chapter, pages, pagetotal, addendum, pubstate, doi, eprint, eprintclass, eprinttype, url, urldate}
+
+\typeitem{mvproceedings}
+
+A multi"=volume \bibtype{proceedings} entry. For backwards compatibility, multi"=volume proceedings are also supported by the entry type \bibtype{proceedings}. However, it is advisable to make use of the dedicated entry type \bibtype{mvproceedings}
+
+\reqitem{title, year/date}
+\optitem{editor, subtitle, titleaddon, eventtitle, eventtitleaddon, eventdate, venue, language, volumes, series, number, note, organization, publisher, location, month, isbn, pagetotal, addendum, pubstate, doi, eprint, eprintclass, eprinttype, url, urldate}
+
+\typeitem{inproceedings}
+
+An article in a conference proceedings. This type is similar to \bibtype{incollection}. It supports an optional \bibfield{organization} field.
+
+\reqitem{author, title, booktitle, year/date}
+\optitem{editor, subtitle, titleaddon, maintitle, mainsubtitle, maintitleaddon, booksubtitle, booktitleaddon, eventtitle, eventtitleaddon, eventdate, venue, language, volume, part, volumes, series, number, note, organization, publisher, location, month, isbn, chapter, pages, addendum, pubstate, doi, eprint, eprintclass, eprinttype, url, urldate}
+
+\typeitem{reference}
+
+A single"=volume work of reference such as an encyclopedia or a dictionary. This is a more specific variant of the generic \bibtype{collection} entry type. The standard styles will treat this entry type as an alias for \bibtype{collection}.
+
+\typeitem{mvreference}
+
+A multi"=volume \bibtype{reference} entry. The standard styles will treat this entry type as an alias for \bibtype{mvcollection}. For backwards compatibility, multi"=volume references are also supported by the entry type \bibtype{reference}. However, it is advisable to make use of the dedicated entry type \bibtype{mvreference}.
+
+\typeitem{inreference}
+
+An article in a work of reference. This is a more specific variant of the generic \bibtype{incollection} entry type. The standard styles will treat this entry type as an alias for \bibtype{incollection}.
+
+\typeitem{report}
+
+A technical report, research report, or white paper published by a university or some other institution. Use the \bibfield{type} field to specify the type of report. The sponsoring institution goes in the \bibfield{institution} field.
+
+\reqitem{author, title, type, institution, year/date}
+\optitem{subtitle, titleaddon, language, number, version, note, location, month, isrn, chapter, pages, pagetotal, addendum, pubstate, doi, eprint, eprintclass, eprinttype, url, urldate}
+
+\typeitem{set}
+
+An entry set. This entry type is special, see \secref{use:use:set} for details.
+
+\typeitem{thesis}
+
+A thesis written for an educational institution to satisfy the requirements for a degree. Use the \bibfield{type} field to specify the type of thesis.
+
+\reqitem{author, title, type, institution, year/date}
+\optitem{subtitle, titleaddon, language, note, location, month, isbn, chapter, pages, pagetotal, addendum, pubstate, doi, eprint, eprintclass, eprinttype, url, urldate}
+
+\typeitem{unpublished}
+
+A work with an author and a title which has not been formally published, such as a manuscript or the script of a talk. Use the fields \bibfield{howpublished} and \bibfield{note} to supply additional information in free format, if applicable.
+
+\reqitem{author, title, year/date}
+\optitem{subtitle, titleaddon, type, eventtitle, eventtitleaddon, eventdate, venue, language, howpublished, note, location, isbn, month, addendum, pubstate, url, urldate}
+
+\typeitem{xdata}
+
+This entry type is special. \bibtype{xdata} entries hold data which may be inherited by other entries using the \bibfield{xdata} field. Entries of this type only serve as data containers; they may not be cited or added to the bibliography. See \secref{use:use:xdat} for details.
+
+\typeitem{custom[a--f]}
+
+Custom types for special bibliography styles. The standard styles defined no bibliography drivers for these types.
+
+\end{typelist}
+
+\subsubsection{Type Aliases}
+\label{bib:typ:als}
+
+The entry types listed in this section are provided for backwards compatibility with traditional \bibtex styles. These aliases are resolved by the backend as the data is processed. Bibliography styles will see the entry type the alias points to, not the alias name. All unknown entry types are generally exported as \bibtype{misc}.
+
+\begin{typelist}
+
+\typeitem{conference} A legacy alias for \bibtype{inproceedings}.
+
+\typeitem{electronic} An alias for \bibtype{online}.
+
+\typeitem{mastersthesis} Similar to \bibtype{thesis} except that the \bibfield{type} field is optional and defaults to the localised term <Master's thesis>. You may still use the \bibfield{type} field to override that.
+
+\typeitem{phdthesis} Similar to \bibtype{thesis} except that the \bibfield{type} field is optional and defaults to the localised term <PhD thesis>. You may still use the \bibfield{type} field to override that.
+
+\typeitem{techreport} Similar to \bibtype{report} except that the \bibfield{type} field is optional and defaults to the localised term <technical report>. You may still use the \bibfield{type} field to override that.
+
+\typeitem{www}
+
+An alias for \bibtype{online}, provided for \sty{jurabib} compatibility.
+
+\end{typelist}
+
+\subsubsection{Non-standard Types}
+\label{bib:typ:ctm}
+
+The types in this section are similar to the custom types \bibtype{custom[a--f]}, \ie the standard bibliography styles provide no bibliography drivers for these types. When using the standard styles, they will therefore generally be treated as \bibtype{misc} entries---exceptions to this rule are noted in the descriptions below. The types are known to the default data model and will be happily accepted by \biber.
+
+\begin{typelist}
+
+\typeitem{artwork}
+
+Works of the visual arts such as paintings, sculpture, and installations.
+
+\typeitem{audio}
+
+Audio recordings, typically on audio \acr{CD}, \acr{DVD}, audio cassette, or similar media. See also \bibtype{music}.
+
+\typeitem{bibnote}
+
+This special entry type is not meant to be used in the \file{bib} file like other types. It is provided for third-party packages like \sty{notes2bib} which merge notes into the bibliography. The notes should go into the \bibfield{note} field. Be advised that the \bibtype{bibnote} type is not related to the \cmd{defbibnote} command in any way. \cmd{defbibnote} is for adding comments at the beginning or the end of the bibliography, whereas the \bibtype{bibnote} type is meant for packages which render endnotes as bibliography entries.
+
+\typeitem{commentary}
+
+Commentaries which have a status different from regular books, such as legal commentaries.
+
+\typeitem{image}
+
+Images, pictures, photographs, and similar media.
+
+\typeitem{jurisdiction}
+
+Court decisions, court recordings, and similar things.
+
+\typeitem{legislation}
+
+Laws, bills, legislative proposals, and similar things.
+
+\typeitem{legal}
+
+Legal documents such as treaties.
+
+\typeitem{letter}
+
+Personal correspondence such as letters, emails, memoranda, etc.
+
+\typeitem{movie}
+
+Motion pictures. See also \bibtype{video}.
+
+\typeitem{music}
+
+Musical recordings. This is a more specific variant of \bibtype{audio}.
+
+\typeitem{performance}
+
+Musical and theatrical performances as well as other works of the performing arts. This type refers to the event as opposed to a recording, a score, or a printed play.
+
+\typeitem{review}
+
+Reviews of some other work. This is a more specific variant of the \bibtype{article} type. The standard styles will treat this entry type as an alias for \bibtype{article}.
+
+\typeitem{software}
+
+Computer software.
+
+\typeitem{standard}
+
+National and international standards issued by a standards body such as the International Organization for Standardization.
+
+\typeitem{video}
+
+Audiovisual recordings, typically on \acr{DVD}, \acr{VHS} cassette, or similar media. See also \bibtype{movie}.
+
+\end{typelist}
+
+\subsection{Entry Fields}
+\label{bib:fld}
+
+This section gives an overview of the fields supported by the \biblatex default data model. See \secref{bib:fld:typ} for an introduction to the data types used by the data model specification and \secref{bib:fld:dat, bib:fld:spc} for the actual field listings.
+
+\subsubsection{Data Types}
+\label{bib:fld:typ}
+
+In datasources such as a \file{bib} file, all bibliographic data is specified in fields. Some of those fields, for example \bibfield{author} and \bibfield{editor}, may contain a list of items. This list structure is implemented by the \bibtex file format via the keyword <|and|>, which is used to separate the individual items in the list. The \biblatex package implements three distinct data types to handle bibliographic data: name lists, literal lists, and fields. There are also several list and field subtypes and a content type which can be used to semantically distinguish fields which are otherwise not distinguishable on the basis of only their datatype (see \secref{aut:ctm:dm}). This section gives an overview of the data types supported by this package. See \secref{bib:fld:dat, bib:fld:spc} for information about the mapping of the \bibtex file format fields to \biblatex's data types.
+
+\begin{description}
+
+\item[Name lists] are parsed and split up into the individual items at the \texttt{and} delimiter. Each item in the list is then dissected into the name part components: by default the given name, the name prefix (von, van, of, da, de, della, \dots), the family name, and the name suffix (junior, senior, \dots). The valid name parts can be customised by changing the datamodel definition described in \secref{aut:bbx:drv}. Name lists may be truncated in the \file{bib} file with the keyword <\texttt{and others}>. Typical examples of name lists are \bibfield{author} and \bibfield{editor}.
+
+Name list fields automatically have an \cmd{ifuse*} test created as per the name lists in the default data model (see \secref{aut:aux:tst}). They are also automatically have a \opt{ifuse*} option created which controls labelling and sorting behaviour with the name (see \secref{use:opt:bib:hyb}). \biber supports a customisable set of name parts but currently this is defined to be the same set of parts as supported by traditional \bibtex:
+
+\begin{itemize}
+\item Family name (also known as <last> part)
+\item Given name (also known as <first> part)
+\item Name prefix (also known as <von> part)
+\item Name suffix (also known as <Jr> part)
+\end{itemize}
+
+The supported list of name parts is defined as a constant list in the default data model using the \cmd{DeclareDatamodelConstant} command (see \ref{aut:ctm:dm}). However, it is not enough to simply add to this list in order to add support for another name part as name parts typically have to be hard coded into bibliography drivers and the backend processing. See the example file \file{93-nameparts.tex} for details on how to define and use custom name parts. Also see \cmd{DeclareUniquenameTemplate} in \secref{aut:cav:amb} for information on how to customise name disambiguation using custom name parts.
+
+\item[Literal lists] are parsed and split up into the individual items at the \texttt{and} delimiter but not dissected further. Literal lists may be truncated in the \file{bib} file with the keyword <\texttt{and others}>. There are two subtypes:
+
+\begin{description}
+
+\item[Literal lists] in the strict sense are handled as described above. The individual items are simply printed as is. Typical examples of such literal lists are \bibfield{publisher} and \bibfield{location}.
+
+\item[Key lists] are a variant of literal lists which may hold printable data or localisation keys. For each item in the list, a test is performed to determine whether it is a known localisation key (the localisation keys defined by default are listed in \secref{aut:lng:key}). If so, the localised string is printed. If not, the item is printed as is. A typical example of a key list is \bibfield{language}.
+
+\end{description}
+\end{description}
+
+\begin{description}
+
+\item[Fields] are usually printed as a whole. There are several subtypes:
+
+\begin{description}
+
+\item[Literal fields] are printed as is. Typical examples of literal fields are \bibfield{title} and \bibfield{note}.
+
+\item[Range fields] consist of one or more ranges where all dashes are normalized and replaced by the command \cmd{bibrangedash}. A range is something optionally followed by one or more dashes optionally followed by some non-dash (e.g. \texttt{5--7}). Any number of consecutive dashes will only yield a single range dash. A typical example of a range field is the \bibfield{pages} field. See also the \cmd{bibrangessep} command which can be used to customise the separator between multiple ranges. Range fields will be skipped and will generate a warning if they do not consist of one or more ranges. You can normalise messy range fields before they are parsed using \cmd{DeclareSourcemap} (see \secref{aut:ctm:map}).
+
+\item[Integer fields] hold integers which may be converted to ordinals or strings as they are printed. A typical example is the \bibfield{extradate} or \bibfield{volume} field. Such fields are sorted as integers. \biber makes a (quite serious) effort to map non-arabic representations (roman numerals for example) to integers for sorting purposes. See the \opt{noroman} option which can be used to suppress roman numeral parsing. This can help in cases where there is an ambiguity between parsing as roman numerals or alphanumeric (e.g. <C>), see \secref{use:opt:pre:int}.
+
+\item[Datepart fields] hold unformatted integers which may be converted to ordinals or strings as they are printed. A typical example is the \bibfield{month} field. For every field of datatype \bibfield{date} in the datamodel, datepart fields are automatically created with the following names: \bibfield{$<$datetype$>$year}, \bibfield{$<$datetype$>$endyear}, \bibfield{$<$datetype$>$month}, \bibfield{$<$datetype$>$endmonth}, \bibfield{$<$datetype$>$day}, \bibfield{$<$datetype$>$endday}, \bibfield{$<$datetype$>$hour}, \bibfield{$<$datetype$>$endhour}, \bibfield{$<$datetype$>$minute}, \bibfield{$<$datetype$>$endminute}, \bibfield{$<$datetype$>$second}, \bibfield{$<$datetype$>$endsecond}, \bibfield{$<$datetype$>$timezone}, \bibfield{$<$datetype$>$endtimezone}. $<$datetype$>$ is the string preceding <date> for any datamodel field of \kvopt{datatype}{date}. For example, in the default datamodel, <event>, <orig>, <url> and the empty string <> for the date field \bibfield{date}.
+
+\item[Date fields] hold a date specification in \texttt{yyyy-mm-ddThh:nn[+|-][hh[:nn]|Z]} format or a date range in \texttt{yyyy-mm-ddThh:nn[+|-][hh[:nn]|Z]/yyyy-mm-ddThh:nn[+|-][hh[:nn]|Z]} format and other formats permitted by \acr{ISO8601-2} Clause 4, level 1, see \secref{bib:use:dat}. Date fields are special in that the date is parsed and split up into its datepart type components. The \bibfield{datepart} components (see above) are automatically defined and recognised when a field of datatype \bibfield{date} is defined in the datamodel. A typical example is the \bibfield{date} field.
+
+\item[Verbatim fields] are processed in verbatim mode and may contain special characters. Typical examples of verbatim fields are \bibfield{file} and \bibfield{doi}.
+
+\item[URI fields] are processed in verbatim mode and may contain special characters. They are also URL-escaped if they don't look like they already are. The typical example of a uri field is \bibfield{url}.
+
+\item[Separated value fields] A separated list of literal values. Examples are the \bibfield{keywords} and \bibfield{options} fields. The separator can be configured to be any Perl regular expression via the \opt{xsvsep} option which defaults to the usual \bibtex comma surrounded by optional whitespace.
+
+\item[Pattern fields] A literal field which must match a particular pattern. An example is the \bibfield{gender} field from \secref{bib:fld:spc}.
+
+\item[Key fields] May hold printable data or localisation keys. A test is performed to determine whether the value of the field is a known localisation key (the localisation keys defined by default are listed in \secref{aut:lng:key}). If so, the localised string is printed. If not, the value is printed as is. A typical example is the \bibfield{type} field.
+
+\item[Code fields] Holds \tex code.
+
+\end{description}
+\end{description}
+
+\subsubsection{Data Fields}
+\label{bib:fld:dat}
+
+The fields listed in this section are the regular ones holding printable data in the default data model. The name on the left is the default data model name of the field as used by \biblatex and its backend. The \biblatex data type is given to the right of the name. See \secref{bib:fld:typ} for explanation of the various data types.
+
+Some fields are marked as <label> fields which means that they are often used as abbreviation labels when printing bibliography lists in the sense of section \secref{use:bib:biblist}. \biblatex automatically creates supporting macros for such fields. See \secref{use:bib:biblist}.
+
+\begin{fieldlist}
+
+\fielditem{abstract}{literal}
+
+This field is intended for recording abstracts in a \file{bib} file, to be printed by a special bibliography style. It is not used by all standard bibliography styles.
+
+\fielditem{addendum}{literal}
+
+Miscellaneous bibliographic data to be printed at the end of the entry. This is similar to the \bibfield{note} field except that it is printed at the end of the bibliography entry.
+
+\listitem{afterword}{name}
+
+The author(s) of an afterword to the work. If the author of the afterword is identical to the \bibfield{editor} and\slash or \bibfield{translator}, the standard styles will automatically concatenate these fields in the bibliography. See also \bibfield{introduction} and \bibfield{foreword}.
+
+\fielditem{annotation}{literal}
+
+This field may be useful when implementing a style for annotated bibliographies. It is not used by all standard bibliography styles. Note that this field is completely unrelated to \bibfield{annotator}. The \bibfield{annotator} is the author of annotations which are part of the work cited.
+
+\listitem{annotator}{name}
+
+The author(s) of annotations to the work. If the annotator is identical to the \bibfield{editor} and\slash or \bibfield{translator}, the standard styles will automatically concatenate these fields in the bibliography. See also \bibfield{commentator}.
+
+\listitem{author}{name}
+
+The author(s) of the \bibfield{title}.
+
+\fielditem{authortype}{key}
+
+The type of author. This field will affect the string (if any) used to introduce the author. Not used by the standard bibliography styles.
+
+\listitem{bookauthor}{name}
+
+The author(s) of the \bibfield{booktitle}.
+
+\fielditem{bookpagination}{key}
+
+If the work is published as part of another one, this is the pagination scheme of the enclosing work, \ie \bibfield{bookpagination} relates to \bibfield{pagination} like \bibfield{booktitle} to \bibfield{title}. The value of this field will affect the formatting of the \bibfield{pages} and \bibfield{pagetotal} fields. The key should be given in the singular form. Possible keys are \texttt{page}, \texttt{column}, \texttt{line}, \texttt{verse}, \texttt{section}, and \texttt{paragraph}. See also \bibfield{pagination} as well as \secref{bib:use:pag}.
+
+\fielditem{booksubtitle}{literal}
+
+The subtitle related to the \bibfield{booktitle}. If the \bibfield{subtitle} field refers to a work which is part of a larger publication, a possible subtitle of the main work is given in this field. See also \bibfield{subtitle}.
+
+\fielditem{booktitle}{literal}
+
+If the \bibfield{title} field indicates the title of a work which is part of a larger publication, the title of the main work is given in this field. See also \bibfield{title}.
+
+\fielditem{booktitleaddon}{literal}
+
+An annex to the \bibfield{booktitle}, to be printed in a different font.
+
+\fielditem{chapter}{literal}
+
+A chapter or section or any other unit of a work.
+
+\listitem{commentator}{name}
+
+The author(s) of a commentary to the work. Note that this field is intended for commented editions which have a commentator in addition to the author. If the work is a stand"=alone commentary, the commentator should be given in the \bibfield{author} field. If the commentator is identical to the \bibfield{editor} and\slash or \bibfield{translator}, the standard styles will automatically concatenate these fields in the bibliography. See also \bibfield{annotator}.
+
+\fielditem{date}{date}
+
+The publication date. See also \bibfield{month} and \bibfield{year} as well as \secref{bib:use:dat}.
+
+\fielditem{doi}{verbatim}
+
+The Digital Object Identifier of the work.
+
+\fielditem{edition}{integer or literal}
+
+The edition of a printed publication. This must be an integer, not an ordinal. Don't say |edition={First}| or |edition={1st}| but |edition={1}|. The bibliography style converts this to a language dependent ordinal. It is also possible to give the edition as a literal string, for example «Third, revised and expanded edition».
+
+\listitem{editor}{name}
+
+The editor(s) of the \bibfield{title}, \bibfield{booktitle}, or \bibfield{maintitle}, depending on the entry type. Use the \bibfield{editortype} field to specify the role if it is different from <\texttt{editor}>. See \secref{bib:use:edr} for further hints.
+
+\listitem{editora}{name}
+
+A secondary editor performing a different editorial role, such as compiling, redacting, etc. Use the \bibfield{editoratype} field to specify the role. See \secref{bib:use:edr} for further hints.
+
+\listitem{editorb}{name}
+
+Another secondary editor performing a different role. Use the \bibfield{editorbtype} field to specify the role. See \secref{bib:use:edr} for further hints.
+
+\listitem{editorc}{name}
+
+Another secondary editor performing a different role. Use the \bibfield{editorctype} field to specify the role. See \secref{bib:use:edr} for further hints.
+
+\fielditem{editortype}{key}
+
+The type of editorial role performed by the \bibfield{editor}. Roles supported by default are \texttt{editor}, \texttt{compiler}, \texttt{founder}, \texttt{continuator}, \texttt{redactor}, \texttt{reviser}, \texttt{collaborator}, \texttt{organizer}. The role <\texttt{editor}> is the default. In this case, the field is omissible. See \secref{bib:use:edr} for further hints.
+
+\fielditem{editoratype}{key}
+
+Similar to \bibfield{editortype} but referring to the \bibfield{editora} field. See \secref{bib:use:edr} for further hints.
+
+\fielditem{editorbtype}{key}
+
+Similar to \bibfield{editortype} but referring to the \bibfield{editorb} field. See \secref{bib:use:edr} for further hints.
+
+\fielditem{editorctype}{key}
+
+Similar to \bibfield{editortype} but referring to the \bibfield{editorc} field. See \secref{bib:use:edr} for further hints.
+
+\fielditem{eid}{literal}
+
+The electronic identifier of an \bibtype{article}.
+
+\fielditem{entrysubtype}{literal}
+
+This field, which is not used by the standard styles, may be used to specify a subtype of an entry type. This may be useful for bibliography styles which support a finer"=grained set of entry types.
+
+\fielditem{eprint}{verbatim}
+
+The electronic identifier of an online publication. This is roughly comparable to a \acr{doi} but specific to a certain archive, repository, service, or system. See \secref{use:use:epr} for details. Also see \bibfield{eprinttype} and \bibfield{eprintclass}.
+
+\fielditem{eprintclass}{literal}
+
+Additional information related to the resource indicated by the \bibfield{eprinttype} field. This could be a section of an archive, a path indicating a service, a classification of some sort, etc. See \secref{use:use:epr} for details. Also see \bibfield{eprint} and \bibfield{eprinttype}.
+
+\fielditem{eprinttype}{literal}
+
+The type of \bibfield{eprint} identifier, \eg the name of the archive, repository, service, or system the \bibfield{eprint} field refers to. See \secref{use:use:epr} for details. Also see \bibfield{eprint} and \bibfield{eprintclass}.
+
+\fielditem{eventdate}{date}
+
+The date of a conference, a symposium, or some other event in \bibtype{proceedings} and \bibtype{inproceedings} entries. This field may also be useful for the custom types listed in \secref{bib:typ:ctm}. See also \bibfield{eventtitle} and \bibfield{venue} as well as \secref{bib:use:dat}.
+
+\fielditem{eventtitle}{literal}
+
+The title of a conference, a symposium, or some other event in \bibtype{proceedings} and \bibtype{inproceedings} entries. This field may also be useful for the custom types listed in \secref{bib:typ:ctm}. Note that this field holds the plain title of the event. Things like «Proceedings of the Fifth XYZ Conference» go into the \bibfield{titleaddon} or \bibfield{booktitleaddon} field, respectively. See also \bibfield{eventdate} and \bibfield{venue}.
+
+\fielditem{eventtitleaddon}{literal}
+
+An annex to the \bibfield{eventtitle} field. Can be used for known event acronyms, for example.
+
+\fielditem{file}{verbatim}
+
+A local link to a \acr{pdf} or other version of the work. Not used by the standard bibliography styles.
+
+\listitem{foreword}{name}
+
+The author(s) of a foreword to the work. If the author of the foreword is identical to the \bibfield{editor} and\slash or \bibfield{translator}, the standard styles will automatically concatenate these fields in the bibliography. See also \bibfield{introduction} and \bibfield{afterword}.
+
+\listitem{holder}{name}
+
+The holder(s) of a \bibtype{patent}, if different from the \bibfield{author}. Note that corporate holders need to be wrapped in an additional set of braces, see \secref{bib:use:inc} for details. This list may also be useful for the custom types listed in \secref{bib:typ:ctm}.
+
+\fielditem{howpublished}{literal}
+
+A publication notice for unusual publications which do not fit into any of the common categories.
+
+\fielditem{indextitle}{literal}
+
+A title to use for indexing instead of the regular \bibfield{title} field. This field may be useful if you have an entry with a title like «An Introduction to \dots» and want that indexed as «Introduction to \dots, An». Style authors should note that \biblatex automatically copies the value of the \bibfield{title} field to \bibfield{indextitle} if the latter field is undefined.
+
+\listitem{institution}{literal}
+
+The name of a university or some other institution, depending on the entry type. Traditional \bibtex uses the field name \bibfield{school} for theses, which is supported as an alias. See also \secref{bib:fld:als, bib:use:and}.
+
+\listitem{introduction}{name}
+
+The author(s) of an introduction to the work. If the author of the introduction is identical to the \bibfield{editor} and\slash or \bibfield{translator}, the standard styles will automatically concatenate these fields in the bibliography. See also \bibfield{foreword} and \bibfield{afterword}.
+
+\fielditem{isan}{literal}
+
+The International Standard Audiovisual Number of an audiovisual work. Not used by the standard bibliography styles.
+
+\fielditem{isbn}{literal}
+
+The International Standard Book Number of a book.
+
+\fielditem{ismn}{literal}
+
+The International Standard Music Number for printed music such as musical scores. Not used by the standard bibliography styles.
+
+\fielditem{isrn}{literal}
+
+The International Standard Technical Report Number of a technical report.
+
+\fielditem{issn}{literal}
+
+The International Standard Serial Number of a periodical.
+
+\fielditem{issue}{literal}
+
+The issue of a journal. This field is intended for journals whose individual issues are identified by a designation such as <Spring> or <Summer> rather than the month or a number. The placement of \bibfield{issue} is similar to \bibfield{month} and \bibfield{number}, integer ranges and short designators are better written to the \bibfield{number} field. See also \bibfield{month}, \bibfield{number}, and \secref{bib:use:iss}.
+
+\fielditem{issuesubtitle}{literal}
+
+The subtitle of a specific issue of a journal or other periodical.
+
+\fielditem{issuetitle}{literal}
+
+The title of a specific issue of a journal or other periodical.
+
+\fielditem{iswc}{literal}
+
+The International Standard Work Code of a musical work. Not used by the standard bibliography styles.
+
+\fielditem{journalsubtitle}{literal}
+
+The subtitle of a journal, a newspaper, or some other periodical.
+
+\fielditem{journaltitle}{literal}
+
+The name of a journal, a newspaper, or some other periodical.
+
+\fielditem{label}{literal}
+
+A designation to be used by the citation style as a substitute for the regular label if any data required to generate the regular label is missing. For example, when an author"=year citation style is generating a citation for an entry which is missing the author or the year, it may fall back to \bibfield{label}. See \secref{bib:use:key} for details. Note that, in contrast to \bibfield{shorthand}, \bibfield{label} is only used as a fallback. See also \bibfield{shorthand}.
+
+\listitem{language}{key}
+
+The language(s) of the work. Languages may be specified literally or as localisation keys. If localisation keys are used, the prefix \texttt{lang} is omissible. See also \bibfield{origlanguage} and compare \bibfield{langid} in \secref{bib:fld:spc}.
+
+\fielditem{library}{literal}
+
+This field may be useful to record information such as a library name and a call number. This may be printed by a special bibliography style if desired. Not used by the standard bibliography styles.
+
+\listitem{location}{literal}
+
+The place(s) of publication, \ie the location of the \bibfield{publisher} or \bibfield{institution}, depending on the entry type. Traditional \bibtex uses the field name \bibfield{address}, which is supported as an alias. See also \secref{bib:fld:als, bib:use:and}. With \bibtype{patent} entries, this list indicates the scope of a patent. This list may also be useful for the custom types listed in \secref{bib:typ:ctm}.
+
+\fielditem{mainsubtitle}{literal}
+
+The subtitle related to the \bibfield{maintitle}. See also \bibfield{subtitle}.
+
+\fielditem{maintitle}{literal}
+
+The main title of a multi"=volume book, such as \emph{Collected Works}. If the \bibfield{title} or \bibfield{booktitle} field indicates the title of a single volume which is part of multi"=volume book, the title of the complete work is given in this field.
+
+\fielditem{maintitleaddon}{literal}
+
+An annex to the \bibfield{maintitle}, to be printed in a different font.
+
+\fielditem{month}{literal}
+
+The publication month. This must be an integer, not an ordinal or a string. Don't say |month={January}| but |month={1}|. The bibliography style converts this to a language dependent string or ordinal where required. This field is a literal field only when given
+explicitly in the data (for plain \bibtex compatibility for example). It is
+however better to use the \bibfield{date} field as this supports many more features. See \secref{bib:use:dat}.
+
+\fielditem{nameaddon}{literal}
+
+An addon to be printed immediately after the author name in the bibliography. Not used by the standard bibliography styles. This field may be useful to add an alias or pen name (or give the real name if the pseudonym is commonly used to refer to that author).
+
+\fielditem{note}{literal}
+
+Miscellaneous bibliographic data which does not fit into any other field. The \bibfield{note} field may be used to record bibliographic data in a free format. Publication facts such as «Reprint of the edition London 1831» are typical candidates for the \bibfield{note} field. See also \bibfield{addendum}.
+
+\fielditem{number}{literal}
+
+The number of a journal or the volume\slash number of a book in a \bibfield{series}. See also \bibfield{issue} as well as \secref{bib:use:ser, bib:use:iss}. With \bibtype{patent} entries, this is the number or record token of a patent or patent request. Normally this field will be an integer or an integer range, but in certain cases it may also contain «S1», «Suppl.\ 1», in these cases the output should be scrutinised carefully.
+
+\listitem{organization}{literal}
+
+The organization(s) that published a \bibtype{manual} or an \bibtype{online} resource, or sponsored a conference. See also \secref{bib:use:and}.
+
+\fielditem{origdate}{date}
+
+If the work is a translation, a reprint, or something similar, the publication date of the original edition. Not used by the standard bibliography styles. See also \bibfield{date}.
+
+\listitem{origlanguage}{key}
+
+If the work is a translation, the language(s) of the original work. See also \bibfield{language}.
+
+\listitem{origlocation}{literal}
+
+If the work is a translation, a reprint, or something similar, the \bibfield{location} of the original edition. Not used by the standard bibliography styles. See also \bibfield{location} and \secref{bib:use:and}.
+
+\listitem{origpublisher}{literal}
+
+If the work is a translation, a reprint, or something similar, the \bibfield{publisher} of the original edition. Not used by the standard bibliography styles. See also \bibfield{publisher} and \secref{bib:use:and}.
+
+\fielditem{origtitle}{literal}
+
+If the work is a translation, the \bibfield{title} of the original work. Not used by the standard bibliography styles. See also \bibfield{title}.
+
+\fielditem{pages}{range}
+
+One or more page numbers or page ranges. If the work is published as part of another one, such as an article in a journal or a collection, this field holds the relevant page range in that other work. It may also be used to limit the reference to a specific part of a work (a chapter in a book, for example).
+
+\fielditem{pagetotal}{literal}
+
+The total number of pages of the work.
+
+\fielditem{pagination}{key}
+
+The pagination of the work. The value of this field will affect the formatting the \prm{postnote} argument to a citation command. The key should be given in the singular form. Possible keys are \texttt{page}, \texttt{column}, \texttt{line}, \texttt{verse}, \texttt{section}, and \texttt{paragraph}. See also \bibfield{bookpagination} as well as \secref{bib:use:pag, use:cav:pag}.
+
+\fielditem{part}{literal}
+
+The number of a partial volume. This field applies to books only, not to journals. It may be used when a logical volume consists of two or more physical ones. In this case the number of the logical volume goes in the \bibfield{volume} field and the number of the part of that volume in the \bibfield{part} field. See also \bibfield{volume}.
+
+\listitem{publisher}{literal}
+
+The name(s) of the publisher(s). See also \secref{bib:use:and}.
+
+\fielditem{pubstate}{key}
+
+The publication state of the work, \eg\ <in press>. See \secref{aut:lng:key:pst} for known publication states.
+
+\fielditem{reprinttitle}{literal}
+
+The title of a reprint of the work. Not used by the standard styles.
+
+\fielditem{series}{literal}
+
+The name of a publication series, such as «Studies in \dots», or the number of a journal series. Books in a publication series are usually numbered. The number or volume of a book in a series is given in the \bibfield{number} field. Note that the \bibtype{article} entry type makes use of the \bibfield{series} field as well, but handles it in a special way. See \secref{bib:use:ser} for details.
+
+\listitem{shortauthor}{name\LFMark}
+
+The author(s) of the work, given in an abbreviated form. This field is mainly intended for abbreviated forms of corporate authors, see \secref{bib:use:inc} for details.
+
+\listitem{shorteditor}{name\LFMark}
+
+The editor(s) of the work, given in an abbreviated form. This field is mainly intended for abbreviated forms of corporate editors, see \secref{bib:use:inc} for details.
+
+\fielditem{shorthand}{literal\LFMark}
+
+A special designation to be used by the citation style instead of the usual label. If defined, it overrides the default label. See also \bibfield{label}.
+
+\fielditem{shorthandintro}{literal}
+
+The verbose citation styles which comes with this package use a phrase like «henceforth cited as [shorthand]» to introduce shorthands on the first citation. If the \bibfield{shorthandintro} field is defined, it overrides the standard phrase. Note that the alternative phrase must include the shorthand.
+
+\fielditem{shortjournal}{literal\LFMark}
+
+A short version or an acronym of the \bibfield{journaltitle}. Not used by the standard bibliography styles.
+
+\fielditem{shortseries}{literal\LFMark}
+
+A short version or an acronym of the \bibfield{series} field. Not used by the standard bibliography styles.
+
+\fielditem{shorttitle}{literal\LFMark}
+
+The title in an abridged form. This field is usually not included in the bibliography. It is intended for citations in author"=title format. If present, the author"=title citation styles use this field instead of \bibfield{title}.
+
+\fielditem{subtitle}{literal}
+
+The subtitle of the work.
+
+\fielditem{title}{literal}
+
+The title of the work.
+
+\fielditem{titleaddon}{literal}
+
+An annex to the \bibfield{title}, to be printed in a different font.
+
+\listitem{translator}{name}
+
+The translator(s) of the \bibfield{title} or \bibfield{booktitle}, depending on the entry type. If the translator is identical to the \bibfield{editor}, the standard styles will automatically concatenate these fields in the bibliography.
+
+\fielditem{type}{key}
+
+The type of a \bibfield{manual}, \bibfield{patent}, \bibfield{report}, or \bibfield{thesis}. This field may also be useful for the custom types listed in \secref{bib:typ:ctm}.
+
+\fielditem{url}{uri}
+
+The \acr{URL} of an online publication. If it is not URL-escaped (no <\%> chars) it will be URI-escaped according to RFC 3987, that is, even Unicode chars will be correctly escaped.
+
+\fielditem{urldate}{date}
+
+The access date of the address specified in the \bibfield{url} field. See also \secref{bib:use:dat}.
+
+\fielditem{venue}{literal}
+
+The location of a conference, a symposium, or some other event in \bibtype{proceedings} and \bibtype{inproceedings} entries. This field may also be useful for the custom types listed in \secref{bib:typ:ctm}. Note that the \bibfield{location} list holds the place of publication. It therefore corresponds to the \bibfield{publisher} and \bibfield{institution} lists. The location of the event is given in the \bibfield{venue} field. See also \bibfield{eventdate} and \bibfield{eventtitle}.
+
+\fielditem{version}{literal}
+
+The revision number of a piece of software, a manual, etc.
+
+\fielditem{volume}{integer}
+
+The volume of a multi"=volume book or a periodical. It is expected to be an integer, not necessarily in arabic numerals since \biber will automatically from roman numerals or arabic letter to integers internally for sorting purposes. See also \bibfield{part}. See the \opt{noroman} option which can be used to suppress roman numeral parsing. This can help in cases where there is an ambiguity between parsing as roman numerals or alphanumeric (e.g. <C>), see \secref{use:opt:pre:int}.
+
+\fielditem{volumes}{integer}
+
+The total number of volumes of a multi"=volume work. Depending on the entry type, this field refers to \bibfield{title} or \bibfield{maintitle}. It is expected to be an integer, not necessarily in arabic numerals since \biber will automatically from roman numerals or arabic letter to integers internally for sorting purposes. See the \opt{noroman} option which can be used to suppress roman numeral parsing. This can help in cases where there is an ambiguity between parsing as roman numerals or alphanumeric (e.g. <C>), see \secref{use:opt:pre:int}.
+
+\fielditem{year}{literal}
+
+The year of publication. This field is a literal field only when given
+explicitly in the data (for plain \bibtex compatibility for example). It is
+however better to use the \bibfield{date} field as this is compatible with
+plain years too and supports many more features. See \secref{bib:use:dat}.
+
+\end{fieldlist}
+
+\subsubsection{Special Fields}
+\label{bib:fld:spc}
+
+The fields listed in this section do not hold printable data but serve a different purpose. They apply to all entry types in the default data model.
+
+\begin{fieldlist}
+
+\fielditem{crossref}{entry key}
+
+This field holds an entry key for the cross"=referencing feature. Child entries with a \bibfield{crossref} field inherit data from the parent entry specified in the \bibfield{crossref} field. If the number of child entries referencing a specific parent entry hits a certain threshold, the parent entry is automatically added to the bibliography even if it has not been cited explicitly. The threshold is settable with the \opt{mincrossrefs} package option from \secref{use:opt:pre:gen}. Style authors should note that whether or not the \bibfield{crossref} fields of the child entries are defined on the \biblatex level depends on the availability of the parent entry. If the parent entry is available, the \bibfield{crossref} fields of the child entries will be defined. If not, the child entries still inherit the data from the parent entry but their \bibfield{crossref} fields will be undefined. Whether the parent entry is added to the bibliography implicitly because of the threshold or explicitly because it has been cited does not matter. See also the \bibfield{xref} field in this section as well as \secref{bib:cav:ref}.
+
+\fielditem{entryset}{separated values}
+
+This field is specific to entry sets. See \secref{use:use:set} for details. This field is consumed by the backend processing and does not appear in the \path{.bbl}.
+
+\fielditem{execute}{code}
+
+A special field which holds arbitrary \tex code to be executed whenever the data of the respective entry is accessed. This may be useful to handle special cases. Conceptually, this field is comparable to the hooks \cmd{AtEveryBibitem}, \cmd{AtEveryLositem}, and \cmd{AtEveryCitekey} from \secref{aut:fmt:hok}, except that it is definable on a per"=entry basis in the \file{bib} file. Any code in this field is executed automatically immediately after these hooks.
+
+\fielditem{gender}{Pattern matching one of: \opt{sf}, \opt{sm}, \opt{sn}, \opt{pf}, \opt{pm}, \opt{pn}, \opt{pp}}
+
+The gender of the author or the gender of the editor, if there is no author. The following identifiers are supported: \opt{sf} (feminine singular, a single female name), \opt{sm} (masculine singular, a single male name), \opt{sn} (neuter singular, a single neuter name), \opt{pf} (feminine plural, a list of female names), \opt{pm} (masculine plural, a list of male names), \opt{pn} (neuter plural, a list of neuter names), \opt{pp} (plural, a mixed gender list of names). This information is only required by special bibliography and citation styles and only in certain languages. For example, a citation style may replace recurrent author names with a term such as <idem>. If the Latin word is used, as is custom in English and French, there is no need to specify the gender. In German publications, however, such key terms are usually given in German and in this case they are gender"=sensitive.
+
+\begin{table}
+\tablesetup
+\begin{tabularx}{\textwidth}{@{}p{90pt}@{}p{160pt}@{}X@{}}
+\toprule
+\multicolumn{1}{@{}H}{Language} &
+\multicolumn{1}{@{}H}{Region/Dialect} &
+\multicolumn{1}{@{}H}{Identifiers} \\
+\cmidrule(r){1-1}\cmidrule(r){2-2}\cmidrule{3-3}
+Bulgarian    & Bulgaria       & \opt{bulgarian} \\
+Catalan      & Spain, France, Andorra, Italy & \opt{catalan} \\
+Croatian     & Croatia, Bosnia and Herzegovina, Serbia & \opt{croatian} \\
+Czech        & Czech Republic & \opt{czech} \\
+Danish       & Denmark        & \opt{danish} \\
+Dutch        & Netherlands    & \opt{dutch} \\
+English      & USA            & \opt{american}, \opt{USenglish}, \opt{english} \\
+             & United Kingdom & \opt{british}, \opt{UKenglish} \\
+             & Canada         & \opt{canadian} \\
+             & Australia      & \opt{australian} \\
+             & New Zealand    & \opt{newzealand} \\
+Estonian     & Estonia        & \opt{estonian} \\
+Finnish      & Finland        & \opt{finnish} \\
+French       & France, Canada & \opt{french} \\
+German       & Germany        & \opt{german} \\
+             & Austria        & \opt{austrian} \\
+             & Switzerland    & \opt{swissgerman} \\
+German (new) & Germany        & \opt{ngerman} \\
+             & Austria        & \opt{naustrian} \\
+             & Switzerland    & \opt{nswissgerman} \\
+Greek        & Greece         & \opt{greek} \\
+Hungarian    & Hungary        & \opt{magyar}, \opt{hungarian} \\
+Icelandic    & Iceland        & \opt{icelandic} \\
+Italian      & Italy          & \opt{italian} \\
+Latvian      & Latvia         & \opt{latvian} \\
+Norwegian (Bokmål)  & Norway  & \opt{norsk} \\
+Norwegian (Nynorsk) & Norway  & \opt{nynorsk} \\
+Polish       & Poland         & \opt{polish} \\
+Portuguese   & Brazil         & \opt{brazil} \\
+             & Portugal       & \opt{portuguese}, \opt{portuges} \\
+Russian      & Russia         & \opt{russian} \\
+Slovak       & Slovakia       & \opt{slovak} \\
+Slovene      & Slovenia       & \opt{slovene}, \opt{slovenian} \\
+Spanish      & Spain          & \opt{spanish} \\
+Swedish      & Sweden         & \opt{swedish} \\
+Ukrainian    & Ukraine        & \opt{ukrainian} \\
+\bottomrule
+\end{tabularx}
+\caption{Supported Languages}
+\label{bib:fld:tab1}
+\end{table}
+
+\fielditem{langid}{identifier}
+
+The language id of the bibliography entry. The alias \bibfield{hyphenation} is provided for backwards compatibility. The identifier must be a language name known to the \sty{babel}/\sty{polyglossia} packages. This information may be used to switch hyphenation patterns and localise strings in the bibliography. Note that the language names are case sensitive. The languages currently supported by this package are given in \tabref{bib:fld:tab1}. Note that \sty{babel} treats the identifier \opt{english} as an alias for \opt{british} or \opt{american}, depending on the \sty{babel} version. The \biblatex package always treats it as an alias for \opt{american}. It is preferable to use the language identifiers \opt{american} and \opt{british} (\sty{babel}) or a language specific option to specify a language variant (\sty{polyglossia}, using the \bibfield{langidopts} field) to avoid any possible confusion. Compare \bibfield{language} in \secref{bib:fld:dat}.
+
+\fielditem{langidopts}{literal}
+
+For \sty{polyglossia} users, allows per-entry language specific options. The literal value of this field is passed to \sty{polyglossia}'s language switching facility when using the package option \opt{autolang=langname}. For example, the fields:
+
+\begin{lstlisting}[style=bibtex]{}
+langid         = {english},
+langidopts     = {variant=british},
+\end{lstlisting}
+%
+would wrap the bibliography entry in:
+
+\begin{ltxexample}
+\english[variant=british]
+...
+\endenglish
+\end{ltxexample}
+%
+
+\fielditem{ids}{separated list of entrykeys}
+
+Citation key aliases for the main citation key. An entry may be cited by any of its aliases and \biblatex will treat the citation as if it had used the primary citation key. This is to aid users who change their citation keys but have legacy documents which use older keys for the same entry. This field is consumed by the backend processing and does not appear in the \path{.bbl}.
+
+\fielditem{indexsorttitle}{literal}
+
+The title used when sorting the index. In contrast to \bibfield{indextitle}, this field is used for sorting only. The printed title in the index is the \bibfield{indextitle} or the \bibfield{title} field. This field may be useful if the title contains special characters or commands which interfere with the sorting of the index. Consider this example:
+
+\begin{lstlisting}[style=bibtex]{}
+title          = {The \LaTeX\ Companion},
+indextitle     = {\LaTeX\ Companion, The},
+indexsorttitle = {LATEX Companion},
+\end{lstlisting}
+%
+Style authors should note that \biblatex automatically copies the value of either the \bibfield{indextitle} or the \bibfield{title} field to \bibfield{indexsorttitle} if the latter field is undefined.
+
+\fielditem{keywords}{separated values}
+
+A separated list of keywords. These keywords are intended for the bibliography filters (see \secref{use:bib:bib, use:use:div}), they are usually not printed. Note that with the default separator (comma), spaces around the separator are ignored.
+
+\fielditem{options}{separated \keyval options}
+
+A separated list of entry options in \keyval notation. This field is used to set options on a per"=entry basis. See \secref{use:opt:bib} for details. Note that citation and bibliography styles may define additional entry options.
+
+\fielditem{presort}{string}
+
+A special field used to modify the sorting order of the bibliography. This field is the first item the sorting routine considers when sorting the bibliography, hence it may be used to arrange the entries in groups. This may be useful when creating subdivided bibliographies with the bibliography filters. Please refer to \secref{use:srt} for further details. Also see \secref{aut:ctm:srt}. This field is consumed by the backend processing and does not appear in the \path{.bbl}.
+
+\fielditem{related}{separated values}
+
+Citation keys of other entries which have a relationship to this entry. The relationship is specified by the \bibfield{relatedtype} field. Please refer to \secref{use:rel} for further details.
+
+\fielditem{relatedoptions}{separated values}
+
+Per"=type options to set for a related entry. Note that this does not set the options on the related entry itself, only the \opt{dataonly} clone which is used as a datasource for the parent entry.
+
+\fielditem{relatedtype}{identifier}
+
+An identifier which specified the type of relationship for the keys listed in the \bibfield{related} field. The identifier is a localised bibliography string printed
+before the data from the related entry list. It is also used to identify type-specific
+formatting directives and bibliography macros for the related entries. Please refer to \secref{use:rel} for further details.
+
+\fielditem{relatedstring}{literal}
+
+A field used to override the bibliography string specified by \bibfield{relatedtype}. Please refer to \secref{use:rel} for further details.
+
+\fielditem{sortkey}{literal}
+
+A field used to modify the sorting order of the bibliography. Think of this field as the master sort key. If present, \biblatex uses this field during sorting and ignores everything else, except for the \bibfield{presort} field. Please refer to \secref{use:srt} for further details. This field is consumed by the backend processing and does not appear in the \path{.bbl}.
+
+\listitem{sortname}{name}
+
+A name or a list of names used to modify the sorting order of the bibliography. If present, this list is used instead of \bibfield{author} or \bibfield{editor} when sorting the bibliography. Please refer to \secref{use:srt} for further details. This field is consumed by the backend processing and does not appear in the \path{.bbl}.
+
+\fielditem{sortshorthand}{literal}
+
+Similar to \bibfield{sortkey} but used in the list of shorthands. If present, \biblatex uses this field instead of \bibfield{shorthand} when sorting the list of shorthands. This is useful if the \bibfield{shorthand} field holds shorthands with formatting commands such as \cmd{emph} or \cmd{textbf}. This field is consumed by the backend processing and does not appear in the \path{.bbl}.
+
+\fielditem{sorttitle}{literal}
+
+A field used to modify the sorting order of the bibliography. If present, this field is used instead of the \bibfield{title} field when sorting the bibliography. The \bibfield{sorttitle} field may come in handy if you have an entry with a title like «An Introduction to\dots» and want that alphabetized under <I> rather than <A>. In this case, you could put «Introduction to\dots» in the \bibfield{sorttitle} field. Please refer to \secref{use:srt} for further details. This field is consumed by the backend processing and does not appear in the \path{.bbl}.
+
+\fielditem{sortyear}{integer}
+
+A field used to modify the sorting order of the bibliography. In the default sorting templates, if this field is present, it is used instead of the \bibfield{year} field when sorting the bibliography. Please refer to \secref{use:srt} for further details. This field is consumed by the backend processing and does not appear in the \path{.bbl}.
+
+\fielditem{xdata}{separated list of entrykeys}
+
+This field inherits data from one or more \bibtype{xdata} entries. Conceptually, the \bibfield{xdata} field is related to \bibfield{crossref} and \bibfield{xref}: \bibfield{crossref} establishes a logical parent/child relation and inherits data; \bibfield{xref} establishes as logical parent/child relation without inheriting data; \bibfield{xdata} inherits data without establishing a relation. The value of the \bibfield{xdata} may be a single entry key or a separated list of keys. See \secref{use:use:xdat} for further details. This field is consumed by the backend processing and does not appear in the \path{.bbl}.
+
+\fielditem{xref}{entry key}
+
+This field is an alternative cross"=referencing mechanism. It differs from \bibfield{crossref} in that the child entry will not inherit any data from the parent entry specified in the \bibfield{xref} field. If the number of child entries referencing a specific parent entry hits a certain threshold, the parent entry is automatically added to the bibliography even if it has not been cited explicitly. The threshold is settable with the \opt{minxrefs} package option from \secref{use:opt:pre:gen}. Style authors should note that whether or not the \bibfield{xref} fields of the child entries are defined on the \biblatex level depends on the availability of the parent entry. If the parent entry is available, the \bibfield{xref} fields of the child entries will be defined. If not, their \bibfield{xref} fields will be undefined. Whether the parent entry is added to the bibliography implicitly because of the threshold or explicitly because it has been cited does not matter. See also the \bibfield{crossref} field in this section as well as \secref{bib:cav:ref}.
+
+\end{fieldlist}
+
+\subsubsection{Custom Fields}
+\label{bib:fld:ctm}
+
+The fields listed in this section are intended for special bibliography styles. They are not used by the standard bibliography styles.
+
+\begin{fieldlist}
+
+\listitem{name{[a--c]}}{name}
+
+Custom lists for special bibliography styles. Not used by the standard bibliography styles.
+
+\fielditem{name{[a--c]}type}{key}
+
+Similar to \bibfield{authortype} and \bibfield{editortype} but referring to the fields \bibfield{name{[a--c]}}. Not used by the standard bibliography styles.
+
+\listitem{list{[a--f]}}{literal}
+
+Custom lists for special bibliography styles. Not used by the standard bibliography styles.
+
+\fielditem{user{[a--f]}}{literal}
+
+Custom fields for special bibliography styles. Not used by the standard bibliography styles.
+
+\fielditem{verb{[a--c]}}{literal}
+
+Similar to the custom fields above except that these are verbatim fields. Not used by the standard bibliography styles.
+
+\end{fieldlist}
+
+\subsubsection{Field Aliases}
+\label{bib:fld:als}
+
+The aliases listed in this section are provided for backwards compatibility with traditional \bibtex and other applications based on traditional \bibtex styles. Note that these aliases are immediately resolved as the \file{bib} file is processed. All bibliography and citation styles must use the names of the fields they point to, not the alias. In \file{bib} files, you may use either the alias or the field name but not both at the same time.
+
+\begin{fieldlist}
+
+\listitem{address}{literal}
+
+An alias for \bibfield{location}, provided for \bibtex compatibility. Traditional \bibtex uses the slightly misleading field name \bibfield{address} for the place of publication, \ie the location of the publisher, while \biblatex uses the generic field name \bibfield{location}. See \secref{bib:fld:dat,bib:use:and}.
+
+\fielditem{annote}{literal}
+
+An alias for \bibfield{annotation}, provided for \sty{jurabib} compatibility. See \secref{bib:fld:dat}.
+
+\fielditem{archiveprefix}{literal}
+
+An alias for \bibfield{eprinttype}, provided for arXiv compatibility. See \secref{bib:fld:dat,use:use:epr}.
+
+\fielditem{journal}{literal}
+
+An alias for \bibfield{journaltitle}, provided for \bibtex compatibility. See \secref{bib:fld:dat}.
+
+\fielditem{key}{literal}
+
+An alias for \bibfield{sortkey}, provided for \bibtex compatibility. See \secref{bib:fld:spc}.
+
+\fielditem{pdf}{verbatim}
+
+An alias for \bibfield{file}, provided for JabRef compatibility. See \secref{bib:fld:dat}.
+
+\fielditem{primaryclass}{literal}
+
+An alias for \bibfield{eprintclass}, provided for arXiv compatibility. See \secref{bib:fld:dat,use:use:epr}.
+
+\listitem{school}{literal}
+
+An alias for \bibfield{institution}, provided for \bibtex compatibility. The \bibfield{institution} field is used by traditional \bibtex for technical reports whereas the \bibfield{school} field holds the institution associated with theses. The \biblatex package employs the generic field name \bibfield{institution} in both cases. See \secref{bib:fld:dat,bib:use:and}.
+
+\end{fieldlist}
+
+\subsection{Usage Notes}
+\label{bib:use}
+
+The entry types and fields supported by this package should for the most part be intuitive to use for anyone familiar with \bibtex. However, apart from the additional types and fields provided by this package, some of the familiar ones are handled in a way which is in need of explanation.
+This package includes some compatibility code for \file{bib} files which were generated with a traditional \bibtex style in mind. Unfortunately, it is not possible to handle all legacy files automatically because \biblatex's data model is slightly different from traditional \bibtex. Therefore, such \file{bib} files will most likely require editing in order to work properly with this package. In sum, the following items are different from traditional \bibtex styles:
+
+\begin{itemize}
+\setlength{\itemsep}{0pt}
+\item The entry type \bibtype{inbook}. See \secref{bib:typ:blx, bib:use:inb} for details.
+\item The fields \bibfield{institution}, \bibfield{organization}, and \bibfield{publisher} as well as the aliases \bibfield{address} and \bibfield{school}. See \secref{bib:fld:dat, bib:fld:als, bib:use:and} for details.
+\item The handling of certain types of titles. See \secref{bib:use:ttl} for details.
+\item The field \bibfield{series}. See \secref{bib:fld:dat, bib:use:ser} for details.
+\item The fields \bibfield{year} and \bibfield{month}. See \secref{bib:fld:dat, bib:use:dat, bib:use:iss} for details.
+\item The field \bibfield{edition}. See \secref{bib:fld:dat} for details.
+\item The field \bibfield{key}. See \secref{bib:use:key} for details.
+\end{itemize}
+
+Users of the \sty{jurabib} package should note that the \bibfield{shortauthor} field is treated as a name list by \biblatex, see \secref{bib:use:inc} for details.
+
+\subsubsection{The Entry Type \bibtype{inbook}}
+\label{bib:use:inb}
+
+Use the \bibtype{inbook} entry type for a self"=contained part of a book with its own title only. It relates to \bibtype{book} just like \bibtype{incollection} relates to \bibtype{collection}. See \secref{bib:use:ttl} for examples. If you want to refer to a chapter or section of a book, simply use the \bibfield{book} type and add a \bibfield{chapter} and\slash or \bibfield{pages} field. Whether a bibliography should at all include references to chapters or sections is controversial because a chapter is not a bibliographic entity.
+
+\subsubsection{Missing and Omissible Data}
+\label{bib:use:key}
+
+The fields marked as <required> in \secref{bib:typ:blx} are not strictly required in all cases. The bibliography styles which come with this package can get by with as little as a \bibfield{title} field for most entry types. A book published anonymously, a periodical without an explicit editor, or a software manual without an explicit author should pose no problem as far as the bibliography is concerned. Citation styles, however, may have different requirements. For example, an author"=year citation scheme obviously requires an \bibfield{author}\slash \bibfield{editor} and a \bibfield{year} field.
+
+You may generally use the \bibfield{label} field to provide a substitute for any missing data required for citations. How the \bibfield{label} field is employed depends on the citation style. The author"=year citation styles which come with this package use the \bibfield{label} field as a fallback if either the \bibfield{author}\slash \bibfield{editor} or the \bibfield{year} is missing. The numeric styles, on the other hand, do not use it at all since the numeric scheme is independent of the available data. The author"=title styles ignore it as well, because the bare \bibfield{title} is usually sufficient to form a unique citation and a title is expected to be available in any case. The \bibfield{label} field may also be used to override the non"=numeric portion of the automatically generated \bibfield{labelalpha} field used by alphabetic citation styles. See \secref{aut:bbx:fld} for details.
+
+Note that traditional \bibtex styles support a \bibfield{key} field which is used for alphabetizing if both \bibfield{author} and \bibfield{editor} are missing. The \biblatex package treats \bibfield{key} as an alias for \bibfield{sortkey}. In addition to that, it offers very fine-grained sorting controls, see \secref{bib:fld:spc, use:srt} for details. The \sty{natbib} package employs the \bibfield{key} field as a fallback label for citations. Use the \bibfield{label} field instead.
+
+\subsubsection{Corporate Authors and Editors}
+\label{bib:use:inc}
+
+Corporate authors and editors are given in the \bibfield{author} or \bibfield{editor} field, respectively. Note that they must be wrapped in an extra pair of curly braces to prevent data parsing from treating them as personal names which are to be dissected into their components. Use the \bibfield{shortauthor} field if you want to give an abbreviated form of the name or an acronym for use in citations.
+
+\begin{lstlisting}[style=bibtex]{}
+author       = {<<{National Aeronautics and Space Administration}>>},
+shortauthor  = {NASA},
+\end{lstlisting}
+%
+The default citation styles will use the short name in all citations while the full name is printed in the bibliography. For corporate editors, use the corresponding fields \sty{editor} and \sty{shorteditor}. Since all of these fields are treated as name lists, it is possible to mix personal names and corporate names, provided that the names of all corporations and institutions are wrapped in braces.
+
+\begin{lstlisting}[style=bibtex]{}
+editor       = {<<{National Aeronautics and Space Administration}>>
+                and Doe, John},
+shorteditor  = {NASA and Doe, John},
+\end{lstlisting}
+%
+Users switching from the \sty{jurabib} package to \biblatex should note that the \bibfield{shortauthor} field is treated as a name list.
+
+\subsubsection{Literal Lists}
+\label{bib:use:and}
+
+The fields \bibfield{institution}, \bibfield{organization}, \bibfield{publisher}, and \bibfield{location} are literal lists in terms of \secref{bib:fld}. This also applies to \bibfield{origlocation}, \bibfield{origpublisher} and to the field aliases \bibfield{address} and \bibfield{school}. All of these fields may contain a list of items separated by the keyword <|and|>. If they contain a literal <|and|>, it must be wrapped in braces.
+
+\begin{lstlisting}[style=bibtex]{}
+publisher    = {William Reid <<{and}>> Company},
+institution  = {Office of Information Management <<{and}>> Communications},
+organization = {American Society for Photogrammetry <<{and}>> Remote Sensing
+                and
+		American Congress on Surveying <<{and}>> Mapping},
+\end{lstlisting}
+%
+Note the difference between a literal <|{and}|> and the list separator <|and|> in the above examples. You may also wrap the entire name in braces:
+
+\begin{lstlisting}[style=bibtex]{}
+publisher    = {<<{William Reid and Company}>>},
+institution  = {<<{Office of Information Management and Communications}>>},
+organization = {<<{American Society for Photogrammetry and Remote Sensing}>>
+                and
+		<<{American Congress on Surveying and Mapping}>>},
+\end{lstlisting}
+%
+Legacy files which have not been updated for use with \biblatex will still work if these fields do not contain a literal <and>. However, note that you will miss out on the additional features of literal lists in this case, such as configurable formatting and automatic truncation.
+
+\subsubsection{Titles}
+\label{bib:use:ttl}
+
+The following examples demonstrate how to handle different types of titles. Let's start with a five"=volume work which is referred to as a whole:
+
+\begin{lstlisting}[style=bibtex]{}
+@MvBook{works,
+  author     = {Shakespeare, William},
+  title      = {Collected Works},
+  volumes    = {5},
+  ...
+\end{lstlisting}
+%
+The individual volumes of a multi"=volume work usually have a title of their own. Suppose the fourth volume of the \emph{Collected Works} includes Shakespeare's sonnets and we are referring to this volume only:
+
+\begin{lstlisting}[style=bibtex]{}
+@Book{works:4,
+  author     = {Shakespeare, William},
+  maintitle  = {Collected Works},
+  title      = {Sonnets},
+  volume     = {4},
+  ...
+\end{lstlisting}
+%
+If the individual volumes do not have a title, we put the main title in the \bibfield{title} field and include a volume number:
+
+\begin{lstlisting}[style=bibtex]{}
+@Book{works:4,
+  author     = {Shakespeare, William},
+  title      = {Collected Works},
+  volume     = {4},
+  ...
+\end{lstlisting}
+%
+In the next example, we are referring to a part of a volume, but this part is a self"=contained work with its own title. The respective volume also has a title and there is still the main title of the entire edition:
+
+\begin{lstlisting}[style=bibtex]{}
+@InBook{lear,
+  author     = {Shakespeare, William},
+  bookauthor = {Shakespeare, William},
+  maintitle  = {Collected Works},
+  booktitle  = {Tragedies},
+  title      = {King Lear},
+  volume     = {1},
+  pages      = {53-159},
+  ...
+\end{lstlisting}
+%
+Suppose the first volume of the \emph{Collected Works} includes a reprinted essay by a well"=known scholar. This is not the usual introduction by the editor but a self"=contained work. The \emph{Collected Works} also have a separate editor:
+
+\begin{lstlisting}[style=bibtex]{}
+@InBook{stage,
+  author     = {Expert, Edward},
+  title      = {Shakespeare and the Elizabethan Stage},
+  bookauthor = {Shakespeare, William},
+  editor     = {Bookmaker, Bernard},
+  maintitle  = {Collected Works},
+  booktitle  = {Tragedies},
+  volume     = {1},
+  pages      = {7-49},
+  ...
+\end{lstlisting}
+%
+See \secref{bib:use:ser} for further examples.
+
+\subsubsection{Editorial Roles}
+\label{bib:use:edr}
+
+The type of editorial role performed by an editor in one of the \bibfield{editor} fields (\ie \bibfield{editor}, \bibfield{editora}, \bibfield{editorb}, \bibfield{editorc}) may be specified in the corresponding \bibfield{editor...type} field. The following roles are supported by default. The role <\texttt{editor}> is the default. In this case, the \bibfield{editortype} field is omissible.
+
+\begin{marglist}
+\setlength{\itemsep}{0pt}
+\item[editor] The main editor. This is the most generic editorial role and the default value.
+\item[compiler] Similar to \texttt{editor} but used if the task of the editor is mainly compiling.
+\item[founder] The founding editor of a periodical or a comprehensive publication project such as a <Collected Works> edition or a long"=running legal commentary.
+\item[continuator] An editor who continued the work of the founding editor (\texttt{founder}) but was subsequently replaced by the current editor (\texttt{editor}).
+\item[redactor] A secondary editor whose task is redacting the work.
+\item[reviser] A secondary editor whose task is revising the work.
+\item[collaborator] A secondary editor or a consultant to the editor.
+\item[organizer] Similar to \texttt{editor} but used if the task of the editor is mainly organizing.
+\end{marglist}
+%
+For example, if the task of the editor is compiling, you may indicate that in the corresponding \bibfield{editortype} field:
+
+\begin{lstlisting}[style=bibtex]{}
+@Collection{...,
+  editor      = {Editor, Edward},
+  editortype  = {compiler},
+  ...
+\end{lstlisting}
+%
+There may also be secondary editors in addition to the main editor:
+
+\begin{lstlisting}[style=bibtex]{}
+@Book{...,
+  author      = {...},
+  editor      = {Editor, Edward},
+  editora     = {Redactor, Randolph},
+  editoratype = {redactor},
+  editorb     = {Consultant, Conrad},
+  editorbtype = {collaborator},
+  ...
+\end{lstlisting}
+%
+Periodicals or long"=running publication projects may see several generations of editors. For example, there may be a founding editor in addition to the current editor:
+
+\begin{lstlisting}[style=bibtex]{}
+@Book{...,
+  author      = {...},
+  editor      = {Editor, Edward},
+  editora     = {Founder, Frederic},
+  editoratype = {founder},
+  ...
+\end{lstlisting}
+%
+Note that only the \bibfield{editor} is considered in citations and when sorting the bibliography. If an entry is typically cited by the founding editor (and sorted accordingly in the bibliography), the founder goes into the \bibfield{editor} field and the current editor moves to one of the \bibfield{editor...} fields:
+
+\begin{lstlisting}[style=bibtex]{}
+@Collection{...,
+  editor      = {Founder, Frederic},
+  editortype  = {founder},
+  editora     = {Editor, Edward},
+  ...
+\end{lstlisting}
+%
+You may add more roles by initializing and defining a new localisation key whose name corresponds to the identifier in the \bibfield{editor...type} field. See \secref{use:lng,aut:lng:cmd} for details.
+
+\subsubsection{Publication and Journal Series}
+\label{bib:use:ser}
+
+The \bibfield{series} field is used by traditional \bibtex styles both for the main title of a multi"=volume work and for a publication series, \ie a loosely related sequence of books by the same publisher which deal with the same general topic or belong to the same field of research. This may be ambiguous. This package introduces a \bibfield{maintitle} field for multi"=volume works and employs \bibfield{series} for publication series only. The volume or number of a book in the series goes in the \bibfield{number} field in this case:
+
+\begin{lstlisting}[style=bibtex]{}
+@Book{...,
+  author        = {Expert, Edward},
+  title         = {Shakespeare and the Elizabethan Age},
+  series        = {Studies in English Literature and Drama},
+  number        = {57},
+  ...
+\end{lstlisting}
+%
+The \bibtype{article} entry type makes use of the \bibfield{series} field as well, but handles it in a special way. First, a test is performed to determine whether the value of the field is an integer. If so, it will be printed as an ordinal. If not, another test is performed to determine whether it is a localisation key. If so, the localised string is printed. If not, the value is printed as is. Consider the following example of a journal published in numbered series:
+
+\begin{lstlisting}[style=bibtex]{}
+@Article{...,
+  journal         = {Journal Name},
+  series          = {3},
+  volume          = {15},
+  number          = {7},
+  year            = {1995},
+  ...
+\end{lstlisting}
+%
+This entry will be printed as «\emph{Journal Name}. 3rd ser. 15.7 (1995)». Some journals use designations such as «old series» and «new series» instead of a number. Such designations may be given in the \bibfield{series} field as well, either as a literal string or as a localisation key. Consider the following example which makes use of the localisation key \texttt{newseries}:
+
+\begin{lstlisting}[style=bibtex]{}
+@Article{...,
+  journal         = {Journal Name},
+  series          = {newseries},
+  volume          = {9},
+  year            = {1998},
+  ...
+\end{lstlisting}
+%
+This entry will be printed as «\emph{Journal Name}. New ser. 9 (1998)». See \secref{aut:lng:key} for a list of localisation keys defined by default.
+
+\subsubsection{Date and Time Specifications}
+\label{bib:use:dat}
+
+\begin{table}
+\tablesetup
+\begin{tabularx}{\textwidth}{@{}>{\ttfamily}llX@{}}
+\toprule
+\multicolumn{1}{@{}H}{Date Specification} &
+\multicolumn{2}{H}{Formatted Date (Examples)} \\
+\cmidrule(l){2-3}
+&
+\multicolumn{1}{H}{Short/12-hour Format} &
+\multicolumn{1}{H}{Long/24-hour Format} \\
+\cmidrule{1-1}\cmidrule(l){2-2}\cmidrule(l){3-3}
+1850			& 1850				& 1850 \\
+1997/			& 1997--			& 1997-- \\
+/1997			& --1997			& --1997 \\
+1997/..		& 1997--			& 1997-- \\
+../1997		& --1997			& --1997 \\
+1967-02			& 02/1967			& February 1967 \\
+2009-01-31		& 31/01/2009			& 31st January 2009 \\
+1988/1992		& 1988--1992			& 1988--1992 \\
+2002-01/2002-02		& 01/2002--02/2002		& January 2002--February 2002 \\
+1995-03-30/1995-04-05	& 30/03/1995--05/04/1995	& 30th March 1995--5th April 1995 \\
+2004-04-05T14:34:00 & 05/04/2004 2:34 PM & 5th April 2004 14:34:00\\
+\bottomrule
+\end{tabularx}
+\caption{Date Specifications}
+\label{bib:use:tab1}
+\end{table}
+
+Date fields such as the default data model dates \bibfield{date}, \bibfield{origdate}, \bibfield{eventdate}, and \bibfield{urldate} adhere to \acr{ISO8601-2} Extended Format specification level 1. In addition to the \acr{ISO8601-2} empty date range markers, you may also specify an open ended/start date range by giving the range separator and omitting the end/start date (\eg \texttt{YYYY/}, \texttt{/YYYY}). See \tabref{bib:use:tab1} for some examples of valid date specifications and the formatted dates automatically generated by \biblatex. The formatted date is language specific and will be adapted automatically. If there is no \bibfield{date} field in an entry, \biblatex will also consider the fields \bibfield{year} and \bibfield{month} for backwards compatibility with traditional \bibtex but this is not encouraged as explicit \bibfield{year} and \bibfield{month} are not parsed for date meta-information markers or times and are used as-is. Style authors should note that date fields like \bibfield{date} or \bibfield{origdate} are only available in the \file{bib} file. All dates are parsed and dissected into their components as the \file{bib} file is processed. The date and time components are made available to styles by way of the special fields discussed in \secref{aut:bbx:fld:dat}. See this section and \tabref{aut:bbx:fld:tab1} on page~\pageref{aut:bbx:fld:tab1} for further information.
+
+\acr{ISO8601-2} Extended Format dates are astronomical dates in which year <0> exists. When outputting dates in BCE or BC era (see the \opt{dateera} option below), note that they will typically be one year earlier since BCE/BC era do not have a year 0 (year 0 is 1 BCE/BC). This conversion is automatic. See examples in \tabref{bib:use:tab2}.
+
+Date field names \emph{must} end with the string <date>, as with the default date fields. Bear this in mind when adding new date fields to the datamodel (see \secref{aut:ctm:dm}). \biblatex will check all date fields after reading the date model and will exit with an error if it finds a date field which does not adhere to this naming convention.
+
+\acr{ISO8601-2} supports dates before common era (BCE/BC) by way of a negative date format and supports  <approximate> (circa) and uncertain dates. Such date formats set internal markers which can be tested for so that appropriate localised markers (such as \opt{circa} or \opt{beforecommonera}) can be inserted. Also supported are <unspecified> dates (\acr{ISO8601-2} 4.3) which are automatically expanded into appropriate data ranges accompanied by a field \bibfield{$<$datetype$>$dateunspecified} which details the granularity of the unspecified data. Styles may use this information to format such dates appropriately but the standard styles do not do this. See \tabref{bib:use:tab3} on page~\pageref{bib:use:tab3} for the allowed \acr{ISO8601-2} <unspecified> formats, their range expansions and \bibfield{$<$datetype$>$dateunspecified} values (see \secref{aut:bbx:fld:gen}).
+
+\begin{table}
+\tablesetup
+\begin{tabularx}{\textwidth}{@{}>{\ttfamily}llX@{}}
+\toprule
+\multicolumn{1}{@{}H}{Date Specification} &
+\multicolumn{1}{H}{Expanded Range} &
+\multicolumn{1}{H}{Meta-information} \\
+\cmidrule{1-1}\cmidrule(l){2-2}\cmidrule(l){3-3}
+199X       & 1990/1999             & yearindecade \\
+19XX       & 1900/1999             & yearincentury \\
+1999-XX    & 1999-01/1999-12       & monthinyear \\
+1999-01-XX & 1999-01-01/1999-01-31 & dayinmonth \\
+1999-XX-XX & 1999-01-01/1999-12-31 & dayinyear \\
+\bottomrule
+\end{tabularx}
+\caption{ISO8601-2 4.3 Unspecified Date Parsing}
+\label{bib:use:tab3}
+\end{table}
+
+\tabref{bib:use:tab2} shows formats which use appropriate tests and formatting. See the date meta-information tests in \secref{aut:aux:tst} and the localisation strings in \secref{aut:lng:key:dt}. See also the \file{96-dates.tex} example file for complete examples of the tests and localisation strings use.
+
+The output of <circa>, uncertainty and era information in standard styles (or custom styles not customising the internal \cmd{mkdaterange*} macros) is controlled by the package options \opt{datecirca}, \opt{dateuncertain}, \opt{dateera} and \opt{dateeraauto} (see \secref{use:opt:pre:gen}). See \tabref{bib:use:tab2} on page~\pageref{bib:use:tab2} for examples which assumes these options are all used.
+
+\begin{table}
+\tablesetup
+\begin{tabularx}{\textwidth}{@{}>{\ttfamily}llX@{}}
+\toprule
+\multicolumn{1}{@{}H}{Date Specification} &
+\multicolumn{2}{H}{Formatted Date (Examples)} \\
+\cmidrule(l){2-3}
+&
+\multicolumn{1}{H}{Output Format} &
+\multicolumn{1}{H}{Output Format Notes} \\
+\cmidrule{1-1}\cmidrule(l){2-2}\cmidrule(l){3-3}
+0000        & 1 BC            & \kvopt{dateera}{christian} prints \opt{beforechrist} localisation\\
+-0876			  & 877 BCE			     & \kvopt{dateera}{secular} prints \opt{beforecommonera} localisation string\\
+-0877/-0866 & 878 BC--867 BC & using \cmd{ifdateera} test and \opt{beforechrist} localisation string\\
+0768 & 0768 CE & using \opt{dateeraauto} set to <1000>  and \opt{commonera} localisation string\\
+-0343-02 & 344-02 BCE & \\
+0343-02-03 & 343-02-03 CE & with \opt{dateeraauto=400} \\
+0343-02-03 & 343-02-02 CE & with \opt{dateeraauto=400} and \opt{julian} \\
+1723\textasciitilde & circa 1723 & using \cmd{ifdatecirca} test\\
+1723? & 1723? & using \cmd{ifdateuncertain} test\\
+1723\% & circa 1723? & using \cmd{ifdateuncertain} and \cmd{ifdatecirca} tests\\
+2004-22 & 2004 & also, \bibfield{season} is set to the localisation string <summer>\\
+2004-24 & 2004 & also, \bibfield{season} is set to the localisation string <winter>\\
+\bottomrule
+\end{tabularx}
+\caption{Enhanced Date Specifications}
+\label{bib:use:tab2}
+\end{table}
+
+\subsubsection{Months and Journal Issues}
+\label{bib:use:iss}
+
+The \bibfield{month} field is an integer field. The bibliography style converts the month to a language"=dependent string as required. For backwards compatibility, you may also use the following three"=letter abbreviations in the \bibfield{month} field: \texttt{jan}, \texttt{feb}, \texttt{mar}, \texttt{apr}, \texttt{may}, \texttt{jun}, \texttt{jul}, \texttt{aug}, \texttt{sep}, \texttt{oct}, \texttt{nov}, \texttt{dec}. Note that these abbreviations are \bibtex strings which must be given without any braces or quotes. When using them, don't say |month={jan}| or |month="jan"| but |month=jan|. It is not possible to specify a month such as |month={8/9}|. Use the \bibfield{date} field for date ranges instead. Quarterly journals are typically identified by a designation such as <Spring> or <Summer> which should be given in the \bibfield{issue} field. The placement of the \bibfield{issue} field in \bibtype{article} entries is similar to and overrides the \bibfield{month} field.
+
+\subsubsection{Pagination}
+\label{bib:use:pag}
+
+When specifying a page or page range, either in the \bibfield{pages} field of an entry or in the \prm{postnote} argument to a citation command, it is convenient to have \biblatex add prefixes like <p.> or <pp.> automatically and this is indeed what this package does by default. However, some works may use a different pagination scheme or may not be cited by page but rather by verse or line number. This is when the \bibfield{pagination} and \bibfield{bookpagination} fields come into play. As an example, consider the following entry:
+
+\begin{lstlisting}[style=bibtex]{}
+@InBook{key,
+  title          = {...},
+  pagination     = {verse},
+  booktitle      = {...},
+  bookpagination = {page},
+  pages          = {53--65},
+  ...
+\end{lstlisting}
+%
+The \bibfield{bookpagination} field affects the formatting of the \bibfield{pages} and \bibfield{pagetotal} fields in the list of references. Since \texttt{page} is the default, this field is omissible in the above example. In this case, the page range will be formatted as <pp.~53--65>. Suppose that, when quoting from this work, it is customary to use verse numbers rather than page numbers in citations. This is reflected by the \bibfield{pagination} field, which affects the formatting of the \prm{postnote} argument to any citation command. With a citation like |\cite[17]{key}|, the postnote will be formatted as <v.~17>. Setting the \bibfield{pagination} field to \texttt{section} would yield <\S~17>. See \secref{use:cav:pag} for further usage instructions.
+
+The \bibfield{pagination} and \bibfield{bookpagination} fields are key fields. This package will try to use their value as a localisation key, provided that the key is defined. Always use the singular form of the key name in \file{bib} files, the plural is formed automatically. The keys \texttt{page}, \texttt{column}, \texttt{line}, \texttt{verse}, \texttt{section}, and \texttt{paragraph} are predefined, with \texttt{page} being the default. The string <\texttt{none}> has a special meaning when used in a \bibfield{pagination} or \bibfield{bookpagination} field. It suppresses the prefix for the respective entry. If there are no predefined localisation keys for the pagination scheme required by a certain entry, you can simply add them. See the commands \cmd{NewBibliographyString} and \cmd{DefineBibliographyStrings} in \secref{use:lng}. You need to define two localisation strings for each additional pagination scheme: the singular form (whose localisation key corresponds to the value of the \bibfield{pagination} field) and the plural form (whose localisation key must be the singular plus the letter <\texttt{s}>). See the predefined keys in \secref{aut:lng:key} for examples.
+
+\subsection{Hints and Caveats}
+\label{bib:cav}
+
+This section provides some additional hints concerning the data interface of this package. It also addresses some common problems.
+
+\subsubsection{Cross-referencing}
+\label{bib:cav:ref}
+
+\biber features a highly customizable cross-referencing mechanism with flexible data inheritance rules. Duplicating certain fields in the parent entry or adding empty fields to the child entry is no longer required. Entries are specified in a natural way:
+
+\begin{lstlisting}[style=bibtex]{}
+@Book{book,
+  author	= {Author},
+  title		= {Booktitle},
+  subtitle	= {Booksubtitle},
+  publisher	= {Publisher},
+  location	= {Location},
+  date		= {1995},
+}
+@InBook{inbook,
+  crossref	= {book},
+  title		= {Title},
+  pages		= {5--25},
+}
+\end{lstlisting}
+%
+The \bibfield{title} field of the parent will be copied to the \bibfield{booktitle} field of the child, the \bibfield{subtitle} becomes the \bibfield{booksubtitle}. The \bibfield{author} of the parent becomes the \bibfield{bookauthor} of the child and, since the child does not provide an \bibfield{author} field, it is also duplicated as the \bibfield{author} of the child. After data inheritance, the child entry is similar to this:
+
+\begin{lstlisting}[style=bibtex]{}
+author	  	= {Author},
+bookauthor	= {Author},
+title		= {Title},
+booktitle	= {Booktitle},
+booksubtitle	= {Booksubtitle},
+publisher	= {Publisher},
+location	= {Location},
+date		= {1995},
+pages		= {5--25},
+\end{lstlisting}
+%
+See \apxref{apx:ref} for a list of mapping rules set up by default. Note that all of this is customizable. See \secref{aut:ctm:ref} on how to configure \biber's cross"=referencing mechanism. See also \secref{bib:fld:spc}.
+
+\paragraph{The \bibfield{xref} field}
+\label{bib:cav:ref:ref}
+
+In addition to the \bibfield{crossref} field, \biblatex supports a simplified cross"=referencing mechanism based on the \bibfield{xref} field. This is useful if you want to establish a parent\slash child relation between two associated entries but prefer to keep them independent as far as the data is concerned. The \bibfield{xref} field differs from \bibfield{crossref} in that the child entry will not inherit any data from the parent. If the parent is referenced by a certain number of child entries, \biblatex will automatically add it to the bibliography. The threshold is controlled by the \opt{minxrefs} package option  from \secref{use:opt:pre:gen}.u See also \secref{bib:fld:spc}.
+
+\subsubsection{Sorting and Encoding Issues}
+\label{bib:cav:enc}
+
+\biber handles Ascii, 8-bit encodings such as Latin\,1, and \utf. It features true Unicode support and is capable of reencoding the \file{bib} data on the fly in a robust way. For sorting, \biber uses a Perl implementation of the Unicode Collation Algorithm (\acr{UCA}), as outlined in Unicode Technical Standard \#10.\fnurl{http://unicode.org/reports/tr10/} Collation tailoring based on the Unicode Common Locale Data Repository (\acr{CLDR}) is also supported.\fnurl{http://cldr.unicode.org/}
+
+Supporting Unicode implies much more than handling \utf input. Unicode is a complex standard covering more than its most well-known parts, the Unicode character encoding and transport encodings such as \utf. It also standardizes aspects such as string collation, which is required for language-sensitive sorting. For example, by using the Unicode Collation Algorithm, \biber can handle the character <ß> without any manual intervention. All you need to do to get localised sorting is specify the locale:
+
+\begin{ltxexample}
+\usepackage[sortlocale=de]{biblatex}
+\end{ltxexample}
+%
+or if you are using German as the main document language via \sty{babel} or \sty{polyglossia}:
+
+\begin{ltxexample}
+\usepackage[sortlocale=auto]{biblatex}
+\end{ltxexample}
+%
+This will make \biblatex pass the \sty{babel}/\sty{polyglossia} main document language
+as the locale which \biber will map into a suitable default locale. \biber
+will not try to get locale information from its environment as this makes
+document processing dependent on something not in the document which is
+against \tex's spirit of reproducibility. This also makes sense since
+\sty{babel}/\sty{polyglossia} are in fact the relevant environment for a document. Note
+that this will also work with 8-bit encodings such as Latin\,9, \ie you can
+take advantage of Unicode-based sorting even though you are not using \utf
+input. See \secref{bib:cav:enc:enc} on how to specify input and data
+encodings properly.
+
+\paragraph{Specifying Encodings}
+\label{bib:cav:enc:enc}
+When using a non-Ascii encoding in the \file{bib} file, it is important to understand what \biblatex can do for you and what may require manual intervention. The package takes care of the \latex side, \ie it ensures that the data imported from the \file{bbl} file is interpreted correctly, provided that the \opt{bibencoding} package option (or the datasource specific override for this, see \secref{use:bib:res}) is set properly. All of this is handled automatically and no further steps, apart from setting the \opt{bibencoding} option in certain cases, are required. Here are a few typical usage scenarios along with the relevant lines from the document preamble:
+
+\begin{itemize}
+\setlength{\itemsep}{0pt}
+
+\item Ascii notation in both the \file{tex} and the \file{bib} file with \pdftex or traditional \tex:
+
+\begin{ltxexample}
+\usepackage{biblatex}
+\end{ltxexample}
+
+\item Latin\,1 encoding (\acr{ISO}-8859-1) in the \file{tex} file, Ascii notation in the \file{bib} file with \pdftex or traditional \tex :
+
+\begin{ltxexample}
+\usepackage[latin1]{inputenc}
+\usepackage[bibencoding=ascii]{biblatex}
+\end{ltxexample}
+
+\item Latin\,9 encoding (\acr{ISO}-8859-15) in both the \file{tex} and the \file{bib} file with \pdftex or traditional:
+
+\begin{ltxexample}
+\usepackage[latin9]{inputenc}
+\usepackage[bibencoding=auto]{biblatex}
+\end{ltxexample}
+%
+Since \kvopt{bibencoding}{auto} is the default setting, the option is omissible. The following setup will have the same effect:
+
+\begin{ltxexample}
+\usepackage[latin9]{inputenc}
+\usepackage{biblatex}
+\end{ltxexample}
+
+\item \utf encoding in the \file{tex} file, Latin\,1 (\acr{ISO}-8859-1) in the \file{bib} file with \pdftex or traditional \tex:
+
+\begin{ltxexample}
+\usepackage[utf8]{inputenc}
+\usepackage[bibencoding=latin1]{biblatex}
+\end{ltxexample}
+
+The same scenario with \latex release 2018-04-01 or above, \xetex or \luatex in native \utf mode:
+
+\begin{ltxexample}
+\usepackage[bibencoding=latin1]{biblatex}
+\end{ltxexample}
+
+\end{itemize}
+
+\biber can handle Ascii notation, 8-bit encodings such as Latin\,1, and \utf. It is also capable of reencoding the \file{bib} data on the fly (replacing the limited macro-level reencoding feature of \biblatex). This will happen automatically if required, provided that you specify the encoding of the \file{bib} files properly. In addition to the scenarios discussed above, \biber can also handle the following cases:
+
+\begin{itemize}
+
+\item Transparent \utf workflow, \ie \utf encoding in both the \file{tex} and the \file{bib} file with \pdftex or traditional \tex:
+
+\begin{ltxexample}
+\usepackage[utf8]{inputenc}
+\usepackage[bibencoding=auto]{biblatex}
+\end{ltxexample}
+%
+Since \kvopt{bibencoding}{auto} is the default setting, the option is omissible:
+
+\begin{ltxexample}
+\usepackage[utf8]{inputenc}
+\usepackage{biblatex}
+\end{ltxexample}
+
+The same scenario with \xetex or \luatex in native \utf mode:
+
+\begin{ltxexample}
+\usepackage{biblatex}
+\end{ltxexample}
+
+\item It is even possible to combine an 8-bit encoded \file{tex} file with \utf encoding in the \file{bib} file, provided that all characters in the \file{bib} file are also covered by the selected 8-bit encoding:
+
+\begin{ltxexample}
+\usepackage[latin1]{inputenc}
+\usepackage[bibencoding=utf8]{biblatex}
+\end{ltxexample}
+
+\end{itemize}
+
+Some workarounds may be required when using traditional \tex or \pdftex with \utf encoding because \sty{inputenc}'s \file{utf8} module does not cover all of Unicode. Roughly speaking, it only covers the Western European Unicode range. When loading \sty{inputenc} with the \file{utf8} option, \biblatex will normally instruct \biber to reencode the \file{bib} data to \utf. This may lead to \sty{inputenc} errors if some of the characters in the \file{bib} file are outside the limited Unicode range supported by \sty{inputenc}.
+
+\begin{itemize}
+
+\item If you are affected by this problem, try setting the \opt{safeinputenc} option:
+
+\begin{ltxexample}
+\usepackage[utf8]{inputenc}
+\usepackage[safeinputenc]{biblatex}
+\end{ltxexample}
+%
+If this option is enabled, \biblatex will ignore \sty{inputenc}'s \opt{utf8} option and use Ascii. \biber will then try to convert the \file{bib} data to Ascii notation. For example, it will convert \k{S} to |\k{S}|. This option is similar to setting \kvopt{texencoding}{ascii} but will only take effect in this specific scenario (\sty{inputenc}\slash \sty{inputenx} with \utf). This workaround takes advantage of the fact that both Unicode and the \utf transport encoding are backwards compatible with Ascii.
+
+\end{itemize}
+
+This solution may be acceptable as a workaround if the data in the \file{bib} file is mostly Ascii anyway, with only a few strings, such as some authors' names, causing problems. However, keep in mind that it will not magically make traditional \tex or \pdftex support Unicode. It may help if the occasional odd character is not supported by \sty{inputenc}, but may still be processed by \tex when using an accent command (\eg |\d{S}| instead of \d{S}). If you need full Unicode support, however, switch to \xetex or \luatex.
+
+Typical errors when \sty{inputenc} cannot handle a certain UTF-8 character are:
+
+\begin{verbatim}
+! Package inputenc Error: Unicode char <char> (U+<codepoint>)
+(inputenc)                not set up for use with LaTeX.
+\end{verbatim}
+%
+but also less obvious things like:
+
+\begin{verbatim}
+! Argument of \UTFviii@three@octets has an extra }.
+\end{verbatim}
+

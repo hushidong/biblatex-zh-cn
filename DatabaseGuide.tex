@@ -23,7 +23,8 @@
 \subsubsection{常规类型}
 \label{bib:typ:blx}
 
-%The lists below indicate the fields supported by each entry type. Note that the mapping of fields to an entry type is ultimately at the discretion of the bibliography style. The lists below therefore serve two purposes. They indicate the fields supported by the standard styles which ship with this package and they also serve as a model for custom styles. Note that the <required> fields are not strictly required in all cases, see \secref{bib:use:key} for details. The fields marked as <optional> are optional in a technical sense. Bibliographical formatting rules usually require more than just the <required> fields.
+%The lists below indicate the fields supported by each entry type. Note that the mapping of fields to an entry type is ultimately at the discretion of the bibliography style. The lists below therefore serve two purposes. They indicate the fields supported by the standard styles which ship with this package and they also serve as a model for custom styles. Note that the <required> fields are not strictly required in all cases, see \secref{bib:use:key} for details. The fields marked as <optional> are optional in a technical sense. Bibliographical formatting rules usually require more than just the <required> fields.The default data model defined a few constraints for the format of date fields, ISBNs and some special fields like \bibfield{gender} but the constraints are only used if validating against the data model with \biber's \opt{--validate-datamodel} option. Generic fields like \bibfield{abstract} and \bibfield{annotation} or \bibfield{label} and \bibfield{shorthand} are not included in the lists below because they are independent of the entry type. The special fields discussed in \secref{bib:fld:spc}, which are also independent of the entry type, are not included in the lists either. See the default data model specification in the file \file{blx-dm.def} which comes with \biblatex for a complete specification.
+
 下面的列表说明了每种条目类型支持的域。
 注意，每种条目类型对域的使用是由参考文献样式决定的。
 因此，下面的列表有两个目的，一是说明本宏包标准样式支持的域，二是作为定制样式的模板。
@@ -31,7 +32,6 @@
 而标记“可选”的域技术上是可选的，
 不过通常来说，文献格式化规则往往不会仅限于“必选”域。
 
-%The default data model defined a few constraints for the format of date fields, ISBNs and some special fields like \bibfield{gender} but the constraints are only used if validating against the data model with \biber's \opt{--validate-datamodel} option. Generic fields like \bibfield{abstract} and \bibfield{annotation} or \bibfield{label} and \bibfield{shorthand} are not included in the lists below because they are independent of the entry type. The special fields discussed in \secref{bib:fld:spc}, which are also independent of the entry type, are not included in the lists either. See the default data model specification in the file \file{blx-dm.def} which comes with \biblatex for a complete specification.
 默认的数据模型为日期域、ISBN类的域和 \bibfield{gender} 等特殊域定义了一些约束。
 但这些约束仅用于校验这些域是否合乎数据模型（通过 \biber 的 \path{--validate_datamodel} 选项）。
 通用域如 \bibfield{abstract}、\bibfield{annotation}、\bibfield{label} 和 \bibfield{shorthand} 并不在下面的列表中，因为它们独立于条目类型；
@@ -206,7 +206,7 @@
 根据 \secref{bib:use:key} 节，\bibfield{editor} 域可以省略。
 
 \reqitem{editor, title, year/date}
-\optitem{editora, editorb, editorc, subtitle, issuetitle, issuesubtitle, language, series, volume, number, issue, date, month, year, note, issn, addendum, pubstate, doi, eprint, eprintclass, eprinttype, url, urldate}
+\optitem{editora, editorb, editorc, subtitle, issuetitle, issuesubtitle, language, series, volume, number, issue, month, note, issn, addendum, pubstate, doi, eprint, eprintclass, eprinttype, url, urldate}
 
 \typeitem{suppperiodical}
 
@@ -307,7 +307,7 @@
 允许的话，可使用 \bibfield{howpublished} 域和 \bibfield{note} 域提供自由格式的附加信息。
 
 \reqitem{author, title, year/date}
-\optitem{subtitle, titleaddon, language, howpublished, note, location, isbn, date, month, year, addendum, pubstate, url, urldate}
+\optitem{subtitle, titleaddon, type, eventtitle, eventtitleaddon, eventdate, venue, language, howpublished, note, location, isbn, month, addendum, pubstate, url, urldate}
 
 \typeitem{xdata}
 
@@ -318,7 +318,7 @@
 
 \typeitem{custom[a--f]}
 
-%Custom types for special bibliography styles. Not used by the standard styles.
+%Custom types for special bibliography styles. The standard styles defined no bibliography drivers for these types.
 
 用于特殊参考文献样式的自定义条目类型，标准样式中不使用。
 
@@ -360,8 +360,8 @@
 
 \end{typelist}
 
-%\subsubsection{Unsupported Types}
-\subsubsection{不支持的条目类型}
+%\subsubsection{Non-standard Types}
+\subsubsection{非标准条目类型}
 \label{bib:typ:ctm}
 
 %The types in this section are similar to the custom types \bibtype{custom[a--f]}, \ie the standard bibliography styles provide no support for these types. When using the standard styles, they will be treated as \bibtype{misc} entries.
@@ -1171,11 +1171,13 @@
 
 \bibfield{maintitle} 的附言，会用不同的字体打印。
 
-%\fielditem{month}{datepart}
+%\fielditem{month}{literal}
 
-%The publication month. This must be an integer, not an ordinal or a string. Don't say |month={January}| but |month={1}|. The bibliography style converts this to a language dependent string or ordinal where required. This field is a literal field only when given explicitly in the data (for plain \bibtex compatibility for example). It is however better to use the \bibfield{date} field as this supports many more features. See also \bibfield{date} as well as \secref{bib:use:iss, bib:use:dat}.
+%The publication month. This must be an integer, not an ordinal or a string. Don't say |month={January}| but |month={1}|. The bibliography style converts this to a language dependent string or ordinal where required. This field is a literal field only when given
+%explicitly in the data (for plain \bibtex compatibility for example). It is
+%however better to use the \bibfield{date} field as this supports many more features. See \secref{bib:use:dat}.
 
-\fielditem{month}{日期成分}
+\fielditem{month}{文本}
 
 出版月份。必须是整数，而不能是序数或字符串。例如，使用 |month={1}| 而不是 |month={January}|。文献样式会在需要时将它转换为语言相关的字符串或序数。当显式给出数据时(例如为兼容原始的\bibtex )，该域转变为一个文本域。然而最好还是使用\bibfield{date}，因为它能支持更多的功能。参考 \bibfield{date} 以及 \secref{bib:use:iss, bib:use:dat}。
 
@@ -1463,7 +1465,7 @@
 
 %The \acr{URL} of an online publication. If it is not URL-escaped (no <\%> chars) it will be URI-escaped according to RFC 3987, that is, even Unicode chars will be correctly escaped.
 
-\fielditem{url}{uri}
+\fielditem{url}{网址}
 
 在线出版物的 \acr{URL}。
 如果它不是 URL-转义的（没有“\%”字符），
@@ -1587,7 +1589,7 @@
 
 %\begin{table}
 %\tablesetup
-%\begin{tabularx}{\textwidth}{@{}p{80pt}@{}p{170pt}@{}X@{}}
+%\begin{tabularx}{\textwidth}{@{}p{90pt}@{}p{160pt}@{}X@{}}
 %\toprule
 %\multicolumn{1}{@{}H}{Language} &
 %\multicolumn{1}{@{}H}{Region/Dialect} &
@@ -1614,8 +1616,12 @@
 %			 & Austria        & \opt{naustrian} \\
 %			 & Switzerland    & \opt{nswissgerman} \\
 %Greek        & Greece         & \opt{greek} \\
+%Hungarian    & Hungary        & \opt{magyar}, \opt{hungarian} \\
+%Icelandic    & Iceland        & \opt{icelandic} \\
 %Italian      & Italy          & \opt{italian} \\
-%Norwegian    & Norway         & \opt{norsk}, \opt{nynorsk} \\
+%Latvian      & Latvia         & \opt{latvian} \\
+%Norwegian (Bokmål)  & Norway  & \opt{norsk} \\
+%Norwegian (Nynorsk) & Norway  & \opt{nynorsk} \\
 %Polish       & Poland         & \opt{polish} \\
 %Portuguese   & Brazil         & \opt{brazil} \\
 %		   	 & Portugal       & \opt{portuguese}, \opt{portuges} \\
@@ -1661,8 +1667,12 @@
 				& 奥地利        & \opt{naustrian} \\
 				& 瑞士    & \opt{nswissgerman} \\
 希腊语        & 希腊         & \opt{greek} \\
+匈牙利语    & 匈牙利       & \opt{magyar}, \opt{hungarian} \\
+冰岛语    & 冰岛       & \opt{icelandic} \\
 意大利语      & 意大利          & \opt{italian} \\
-挪威语   	 & 挪威         & \opt{norwegian}, \opt{norsk}, \opt{nynorsk} \\
+拉脱维亚      & 拉脱维亚        & \opt{latvian} \\
+挪威语 (博克马尔语)  & 挪威  & \opt{norsk} \\
+挪威语(尼诺斯克)   	 & 挪威         & \opt{nynorsk} \\
 波兰语       & 波兰         & \opt{polish} \\
 葡萄牙语  	 & 巴西         & \opt{brazil} \\
 			& 葡萄牙       & \opt{portuguese}, \opt{portuges} \\
@@ -1679,9 +1689,9 @@
 \end{table}
 
 %\fielditem{langid}{identifier}
-
-%The language id of the bibliography entry. The alias \bibfield{hyphenation} is provided for backwards compatibility. The identifier must be a language name known to the \sty{babel}/\sty{polyglossia} packages. This information may be used to switch hyphenation patterns and localise strings in the bibliography. Note that the language names are case sensitive. The languages currently supported by this package are given in \tabref{bib:fld:tab1}. Note that \sty{babel} treats the identifier \opt{english} as an alias for \opt{british} or \opt{american}, depending on the \sty{babel} version. The \biblatex package always treats it as an alias for \opt{american}. It is preferable to use the language identifiers \opt{american} and \opt{british} (\sty{babel}) or a language specific option to specify a language variant (\sty{polyglossia}, using the \bibfield{langidopts} field) to avoid any possible confusion. Compare \bibfield{language} in \secref{bib:fld:dat}.
 \fielditem{langid}{标识符}
+%The language id of the bibliography entry. The alias \bibfield{hyphenation} is provided for backwards compatibility. The identifier must be a language name known to the \sty{babel}/\sty{polyglossia} packages. This information may be used to switch hyphenation patterns and localise strings in the bibliography. Note that the language names are case sensitive. The languages currently supported by this package are given in \tabref{bib:fld:tab1}. Note that \sty{babel} treats the identifier \opt{english} as an alias for \opt{british} or \opt{american}, depending on the \sty{babel} version. The \biblatex package always treats it as an alias for \opt{american}. It is preferable to use the language identifiers \opt{american} and \opt{british} (\sty{babel}) or a language specific option to specify a language variant (\sty{polyglossia}, using the \bibfield{langidopts} field) to avoid any possible confusion. Compare \bibfield{language} in \secref{bib:fld:dat}.
+
 
 文献条目的语种标识。出于向后兼容性考虑，提供了别名 \bibfield{hyphenation}。标识符必须是 \sty{babel}/\sty{polyglossia} 宏包中的语言名称。该信息用于在文献表中切换断词模式和本地化字符串。请注意，语言名是大小写敏感的。目前本宏包支持的语言在\tabref{bib:fld:tab1} 中给出。需要注意的是，\sty{babel} 宏包将标识符 \opt{english} 当作 \opt{british} 或 \opt{american} 的别名，具体取决于 \sty{babel} 的版本。而 \biblatex 宏包总是将其当作 \opt{american} 的别名。
 为了避免可能的混淆，最好使用语言标识符 \opt{american} 和 \opt{british}（\sty{babel}）或者一个语言选项来指定一种变体语言
@@ -1701,7 +1711,7 @@
 langid         = {english},
 langidopts     = {variant=british},
 \end{lstlisting}
-
+%
 %would wrap the bibliography entry in:
 会将文献条目置于如下代码块中
 
@@ -1749,25 +1759,29 @@ indexsorttitle = {LATEX Companion},
 %A separated list of entry options in \keyval notation. This field is used to set options on a per"=entry basis. See \secref{use:opt:bib} for details. Note that citation and bibliography styles may define additional entry options.
 \keyval 形式的条目选项分隔值列表。该域用于设置每一条目的选项，详见 \secref{use:opt:bib} 节。请注意，标注和著录样式会定义额外的条目选项。
 
-\fielditem{presort}{字符串} %\fielditem{presort}{string}
+ %\fielditem{presort}{string}
+\fielditem{presort}{字符串}
 %A special field used to modify the sorting order of the bibliography. This field is the first item the sorting routine considers when sorting the bibliography, hence it may be used to arrange the entries in groups. This may be useful when creating subdivided bibliographies with the bibliography filters. Please refer to \secref{use:srt} for further details. Also see \secref{aut:ctm:srt}. This field is consumed by the backend processing and does not appear in the \path{.bbl}.
 用于修改文献排列顺序的特殊域。文献排序时，该域排序程序第一个考虑的项，因此可用于将文献条目分组。这在利用文献过滤器创建文献细分时很有用。更多细节请参考 \secref{use:srt} 以及 \secref{aut:ctm:srt} 节。该域在后端程序处理过程中被清楚，不出现在 \path{.bbl} 中。
 
-
-\fielditem{related}{分隔值}%\fielditem{related}{separated values}
+%\fielditem{related}{separated values}
+\fielditem{related}{分隔值}
 %Citation keys of other entries which have a relationship to this entry. The relationship is specified by the \bibfield{relatedtype} field. Please refer to \secref{use:rel} for further details.
 与本条目关联的其它条目的引用关键字。其关联关系由 \bibfield{relatedtype} 域指定。更多细节请参考 \secref{use:rel} 节。
 
-
-\fielditem{relatedoptions}{分隔值}%\fielditem{relatedoptions}{separated values}
+%\fielditem{relatedoptions}{separated values}
+\fielditem{relatedoptions}{分隔值}
 %Per"=type options to set for a related entry. Note that this does not set the options on the related entry itself, only the \opt{dataonly} clone which is used as a datasource for the parent entry.
 为关联条目设置类型相关的选项。请注意，这不会设置关联条目本身的选项，而只会影响作为数据源的父条目的临时副本。
 
 %\fielditem{relatedtype}{identifier}
-
-%An identifier which specified the type of relationship for the keys listed in the \bibfield{related} field. The identifier is a localised bibliography string printed before the data from the related entry list. It is also used to identify type-specific formatting directives and bibliography macros for the related entries. Please refer to \secref{use:rel} for further details.
-
 \fielditem{relatedtype}{标识符}
+
+%An identifier which specified the type of relationship for the keys listed in the \bibfield{related} field. The identifier is a localised bibliography string printed
+%before the data from the related entry list. It is also used to identify type-specific
+%formatting directives and bibliography macros for the related entries. Please refer to \secref{use:rel} for further details.
+
+
 标识符，为列在 \bibfield{related} 域中的关键字列表指定关联关系类型。
 该标识符是本地化字符串，会在来自关联条目列表的数据之前打印。
 该域也用于为关联条目指明类型相关的格式化指令和参考文献宏。详见 \secref{use:rel} 节。
@@ -1821,7 +1835,7 @@ indexsorttitle = {LATEX Companion},
 
 %\fielditem{sortyear}{integer}
 
-%A field used to modify the sorting order of the bibliography. If present, this field is used instead of the \bibfield{year} field when sorting the bibliography. Please refer to \secref{use:srt} for further details. This field is consumed by the backend processing and does not appear in the \path{.bbl}.
+%A field used to modify the sorting order of the bibliography. In the default sorting templates, if this field is present, it is used instead of the \bibfield{year} field when sorting the bibliography. Please refer to \secref{use:srt} for further details. This field is consumed by the backend processing and does not appear in the \path{.bbl}.
 
 \fielditem{sortyear}{整数}
 
@@ -1860,15 +1874,17 @@ indexsorttitle = {LATEX Companion},
 
 \begin{fieldlist}
 
-\listitem{name{[a--c]}}{姓名}%\listitem{name{[a--c]}}{name}
+%\listitem{name{[a--c]}}{name}
+\listitem{name{[a--c]}}{姓名}
 %Custom lists for special bibliography styles. Not used by the standard bibliography styles.
 特殊文献样式的定制列表。标准文献样式不使用。
 
 %\fielditem{name{[a--c]}type}{key}
+\fielditem{name{[a--c]}type}{关键字}
 
 %Similar to \bibfield{authortype} and \bibfield{editortype} but referring to the fields \bibfield{name{[a--c]}}. Not used by the standard bibliography styles.
 
-\fielditem{name{[a--c]}type}{关键字}
+
 
 类似于 \bibfield{authortype} 和 \bibfield{editortype} 域，
 不过对应的是 \bibfield{name{[a--c]}} 域。
@@ -1930,14 +1946,14 @@ indexsorttitle = {LATEX Companion},
 \bibfield{eprinttype} 的别名，用于兼容 arXiv 。见 \secref{bib:fld:dat,use:use:epr} 节。
 
 %\fielditem{journal}{literal}
-
-%An alias for \bibfield{journaltitle}, provided for \bibtex compatibility. See \secref{bib:fld:dat}.
-
 \fielditem{journal}{文本}
+%An alias for \bibfield{journaltitle}, provided for \bibtex compatibility. See \secref{bib:fld:dat}.
 
 \bibfield{journaltitle} 的别名，用于兼容 \BibTeX 。见 \secref{bib:fld:dat} 节。
 
-\fielditem{key}{文本}%\fielditem{key}{literal}
+
+%\fielditem{key}{literal}
+\fielditem{key}{文本}
 
 %An alias for \bibfield{sortkey}, provided for \bibtex compatibility. See \secref{bib:fld:spc}.
 \bibfield{sortkey} 的别名，用于兼容 \BibTeX 。见 \secref{bib:fld:spc} 节。
@@ -1979,27 +1995,22 @@ indexsorttitle = {LATEX Companion},
 宏包考虑到包含一些兼容性代码，用于处理那些由传统 \BibTeX 样式生成的 \file{bib} 文件。但不幸的是，对所有的老文件都进行自动处理是不可能的，因为 \biblatex 的数据模型与传统的 \BibTeX 有少许不同。因此，为了能在本宏包中正确使用，这样的 \file{bib} 文件也许需要稍作修改。大体上，下列事项是与传统的 \BibTeX 样式不同的：
 
 \begin{itemize}
-	\setlength{\itemsep}{0pt}
-	%\item The entry type \bibtype{inbook}. See \secref{bib:typ:blx, bib:use:inb} for details.
-	\item \bibtype{inbook} 条目类型。详见 \secref{bib:typ:blx, bib:use:inb} 节。
-
-	%\item The fields \bibfield{institution}, \bibfield{organization}, and \bibfield{publisher} as well as the aliases \bibfield{address} and \bibfield{school}. See \secref{bib:fld:dat, bib:fld:als, bib:use:and} for details.
-	\item \bibfield{institution}、\bibfield{organization}、\bibfield{publisher} 域以及相应的别名 \bibfield{address} 和 \bibfield{school}。详见 \secref{bib:fld:dat, bib:fld:als, bib:use:and} 节。
-
-	%\item The handling of certain types of titles. See \secref{bib:use:ttl} for details.
-	\item 一些标题类型的处理。详见 \secref{bib:use:ttl} 节。
-
-	%\item The field \bibfield{series}. See \secref{bib:fld:dat, bib:use:ser} for details.
-	\item \bibfield{series} 域。详见 \secref{bib:fld:dat, bib:use:ser} 节。
-
-	%\item The fields \bibfield{year} and \bibfield{month}. See \secref{bib:fld:dat, bib:use:dat, bib:use:iss} for details.
-	\item \bibfield{year} 和 \bibfield{month} 域。详见 \secref{bib:fld:dat, bib:use:dat, bib:use:iss} 节。
-
-	%\item The field \bibfield{edition}. See \secref{bib:fld:dat} for details.
-	\item \bibfield{edition} 域。详见 \secref{bib:fld:dat} 节。
-
-	%\item The field \bibfield{key}. See \secref{bib:use:key} for details.
-	\item \bibfield{key} 域。详见 \secref{bib:use:key} 节。
+\setlength{\itemsep}{0pt}
+\item 
+%The entry type \bibtype{inbook}. See \secref{bib:typ:blx, bib:use:inb} for details.	\bibtype{inbook} 
+条目类型。详见 \secref{bib:typ:blx, bib:use:inb} 节。
+\item %The fields \bibfield{institution}, \bibfield{organization}, and \bibfield{publisher} as well as the aliases \bibfield{address} and \bibfield{school}. See \secref{bib:fld:dat, bib:fld:als, bib:use:and} for details.
+	域\bibfield{institution}、\bibfield{organization}、\bibfield{publisher} 以及相应的别名 \bibfield{address} 和 \bibfield{school}。详见 \secref{bib:fld:dat, bib:fld:als, bib:use:and} 节。
+\item %The handling of certain types of titles. See \secref{bib:use:ttl} for details.
+	一些标题类型的处理。详见 \secref{bib:use:ttl} 节。
+\item %The field \bibfield{series}. See \secref{bib:fld:dat, bib:use:ser} for details.
+	\bibfield{series} 域。详见 \secref{bib:fld:dat, bib:use:ser} 节。
+\item %The fields \bibfield{year} and \bibfield{month}. See \secref{bib:fld:dat, bib:use:dat, bib:use:iss} for details.
+	\bibfield{year} 和 \bibfield{month} 域。详见 \secref{bib:fld:dat, bib:use:dat, bib:use:iss} 节。
+\item %The field \bibfield{edition}. See \secref{bib:fld:dat} for details.
+	\bibfield{edition} 域。详见 \secref{bib:fld:dat} 节。
+\item %The field \bibfield{key}. See \secref{bib:use:key} for details.
+\bibfield{key} 域。详见 \secref{bib:use:key} 节。
 \end{itemize}
 
 %Users of the \sty{jurabib} package should note that the \bibfield{shortauthor} field is treated as a name list by \sty{biblatex}, see \secref{bib:use:inc} for details.
@@ -2301,66 +2312,66 @@ organization = {<<{American Society for Photogrammetry and Remote Sensing}>>
 \subsubsection{日期和时间规范}%\subsubsection{Date and Time Specifications}
 \label{bib:use:dat}
 
+%\begin{table}
+%\tablesetup
+%\begin{tabularx}{\textwidth}{@{}>{\ttfamily}llX@{}}
+%\toprule
+%\multicolumn{1}{@{}H}{Date Specification} &
+%\multicolumn{2}{H}{Formatted Date (Examples)} \\
+%\cmidrule(l){2-3}
+%&
+%\multicolumn{1}{H}{Short/12-hour Format} &
+%\multicolumn{1}{H}{Long/24-hour Format} \\
+%\cmidrule{1-1}\cmidrule(l){2-2}\cmidrule(l){3-3}
+%1850			& 1850				& 1850 \\
+%1997/			& 1997--			& 1997-- \\
+%/1997			& --1997			& --1997 \\
+%1997/..		& 1997--			& 1997-- \\
+%../1997		& --1997			& --1997 \\
+%1967-02			& 02/1967			& February 1967 \\
+%2009-01-31		& 31/01/2009			& 31st January 2009 \\
+%1988/1992		& 1988--1992			& 1988--1992 \\
+%2002-01/2002-02		& 01/2002--02/2002		& January 2002--February 2002 \\
+%1995-03-30/1995-04-05	& 30/03/1995--05/04/1995	& 30th March 1995--5th April 1995 \\
+%2004-04-05T14:34:00 & 05/04/2004 2:34 PM & 5th April 2004 14:34:00\\
+%\bottomrule
+%\end{tabularx}
+%\caption{Date Specifications}
+%\label{bib:use:tab1}
+%\end{table}
+
 \begin{table}
-\tablesetup
+	\tablesetup
 \begin{tabularx}{\textwidth}{@{}>{\ttfamily}llX@{}}
 \toprule
-\multicolumn{1}{@{}H}{Date Specification} &
-\multicolumn{2}{H}{Formatted Date (Examples)} \\
+\multicolumn{1}{@{}H}{日期规格} &
+\multicolumn{2}{H}{日期格式（例）} \\
 \cmidrule(l){2-3}
 &
-\multicolumn{1}{H}{Short/12-hour Format} &
-\multicolumn{1}{H}{Long/24-hour Format} \\
+\multicolumn{1}{H}{短格式/12小时格式} &
+\multicolumn{1}{H}{长格式/24小时格式} \\
 \cmidrule{1-1}\cmidrule(l){2-2}\cmidrule(l){3-3}
 1850			& 1850				& 1850 \\
 1997/			& 1997--			& 1997-- \\
 /1997			& --1997			& --1997 \\
-1997/..		& 1997--			& 1997-- \\
-../1997		& --1997			& --1997 \\
+
+1997/..			& 1997--			& 1997-- \\
+../1997			& --1997			& --1997 \\
 1967-02			& 02/1967			& February 1967 \\
-2009-01-31		& 31/01/2009			& 31st January 2009 \\
-1988/1992		& 1988--1992			& 1988--1992 \\
-2002-01/2002-02		& 01/2002--02/2002		& January 2002--February 2002 \\
+2009-01-31		& 31/01/2009		& 31st January 2009 \\
+1988/1992		& 1988--1992		& 1988--1992 \\
+2002-01/2002-02	& 01/2002--02/2002	& January 2002--February 2002 \\
 1995-03-30/1995-04-05	& 30/03/1995--05/04/1995	& 30th March 1995--5th April 1995 \\
 2004-04-05T14:34:00 & 05/04/2004 2:34 PM & 5th April 2004 14:34:00\\
 \bottomrule
-\end{tabularx}
-\caption{Date Specifications}
-\label{bib:use:tab1}
-\end{table}
-
-\begin{table}
-	\tablesetup
-	\begin{tabularx}{\textwidth}{@{}>{\ttfamily}llX@{}}
-		\toprule
-		\multicolumn{1}{@{}H}{日期规格} &
-		\multicolumn{2}{H}{日期格式（例）} \\
-		\cmidrule(l){2-3}
-		&
-		\multicolumn{1}{H}{短格式/12小时格式} &
-		\multicolumn{1}{H}{长格式/24小时格式} \\
-		\cmidrule{1-1}\cmidrule(l){2-2}\cmidrule(l){3-3}
-		1850			& 1850				& 1850 \\
-		1997/			& 1997--			& 1997-- \\
-		/1997			& --1997			& --1997 \\
-		
-		1997/..			& 1997--			& 1997-- \\
-		../1997			& --1997			& --1997 \\
-		1967-02			& 02/1967			& February 1967 \\
-		2009-01-31		& 31/01/2009		& 31st January 2009 \\
-		1988/1992		& 1988--1992		& 1988--1992 \\
-		2002-01/2002-02	& 01/2002--02/2002	& January 2002--February 2002 \\
-		1995-03-30/1995-04-05	& 30/03/1995--05/04/1995	& 30th March 1995--5th April 1995 \\
-		2004-04-05T14:34:00 & 05/04/2004 2:34 PM & 5th April 2004 14:34:00\\
-		\bottomrule
 	\end{tabularx}
 	\caption{日期规范}
 	\label{bib:use:tab1}
 \end{table}
 
-%Date fields such as the default data model dates \bibfield{date}, \bibfield{origdate}, \bibfield{eventdate}, and \bibfield{urldate} adhere to \acr{ISO8601-2} Extended Format specification level 1.
+%Date fields such as the default data model dates \bibfield{date}, \bibfield{origdate}, \bibfield{eventdate}, and \bibfield{urldate} adhere to \acr{ISO8601-2} Extended Format specification level 1. In addition to the \acr{ISO8601-2} empty date range markers, you may also specify an open ended/start date range by giving the range separator and omitting the end/start date (\eg \texttt{YYYY/}, \texttt{/YYYY}). See \tabref{bib:use:tab1} for some examples of valid date specifications and the formatted dates automatically generated by \biblatex. The formatted date is language specific and will be adapted automatically. If there is no \bibfield{date} field in an entry, \biblatex will also consider the fields \bibfield{year} and \bibfield{month} for backwards compatibility with traditional \bibtex but this is not encouraged as explicit \bibfield{year} and \bibfield{month} are not parsed for date meta-information markers or times and are used as-is.
+
 日期域，例如默认数据模型的日期域 \bibfield{date}、\bibfield{origdate}、\bibfield{eventdate} 和 \bibfield{urldate}等，遵循\acr{ISO8601-2}扩展格式规范 level 1。
-%In addition to the \acr{ISO8601-2} empty date range markers, you may also specify an open ended/start date range by giving the range separator and omitting the end/start date (\eg \texttt{YYYY/}, \texttt{/YYYY}). See \tabref{bib:use:tab1} for some examples of valid date specifications and the formatted dates automatically generated by \biblatex. The formatted date is language specific and will be adapted automatically. If there is no \bibfield{date} field in an entry, \biblatex will also consider the fields \bibfield{year} and \bibfield{month} for backwards compatibility with traditional \bibtex but this is not encouraged as explicit \bibfield{year} and \bibfield{month} are not parsed for date meta-information markers or times and are used as-is.
 除了 \acr{ISO8601-2} 空日期范围标记外，还通过给定范围分隔符并省略结束或开始日期的方式（例如 \texttt{YYYY/}、\texttt{/YYYY}）来指定无末端或无开端的日期范围。
 \tabref{bib:use:tab1} 列出了一些有效的日期规范以及由 \biblatex 自动生成的日期格式。
 日期格式与语言有关，因此会自动调整。如果条目中没有 \bibfield{date} 域，\biblatex 还会考虑 \bibfield{year} 和 \bibfield{month} 域，不过这仅仅出于对传统 \BibTeX 的向后兼容性考虑，并不鼓励使用。因为显式的 \bibfield{year} 和 \bibfield{month} 域不能解析为日期的元信息标记，只能原样使用。
@@ -2496,12 +2507,11 @@ organization = {<<{American Society for Photogrammetry and Remote Sensing}>>
 \subsubsection{月份和期刊的期号}
 \label{bib:use:iss}
 
-%The \bibfield{month} field is an integer field. The bibliography style converts the month to a language"=dependent string as required. For backwards compatibility, you may also use the following three"=letter abbreviations in the \bibfield{month} field: \texttt{jan}, \texttt{feb}, \texttt{mar}, \texttt{apr}, \texttt{may}, \texttt{jun}, \texttt{jul}, \texttt{aug}, \texttt{sep}, \texttt{oct}, \texttt{nov}, \texttt{dec}.
+%The \bibfield{month} field is an integer field. The bibliography style converts the month to a language"=dependent string as required. For backwards compatibility, you may also use the following three"=letter abbreviations in the \bibfield{month} field: \texttt{jan}, \texttt{feb}, \texttt{mar}, \texttt{apr}, \texttt{may}, \texttt{jun}, \texttt{jul}, \texttt{aug}, \texttt{sep}, \texttt{oct}, \texttt{nov}, \texttt{dec}.Note that these abbreviations are \bibtex strings which must be given without any braces or quotes. When using them, don't say |month={jan}| or |month="jan"| but |month=jan|. It is not possible to specify a month such as |month={8/9}|. Use the \bibfield{date} field for date ranges instead. Quarterly journals are typically identified by a designation such as <Spring> or <Summer> which should be given in the \bibfield{issue} field. The placement of the \bibfield{issue} field in \bibtype{article} entries is similar to and overrides the \bibfield{month} field.
 \bibfield{month} 是整数域。文献样式按照要求将月份转化成不同语言的字符串。
 出于向后兼容考虑，你也可以在 \bibfield{month} 域中使用以下的三字母缩写形式：
 \texttt{jan}、\texttt{feb}、\texttt{mar}、\texttt{apr}、\texttt{may}、\texttt{jun}、
 \texttt{jul}、\texttt{aug}、\texttt{sep}、\texttt{oct}、\texttt{nov}、\texttt{dec}。
-%Note that these abbreviations are \bibtex strings which must be given without any braces or quotes. When using them, don't say |month={jan}| or |month="jan"| but |month=jan|. It is not possible to specify a month such as |month={8/9}|. Use the \bibfield{date} field for date ranges instead. Quarterly journals are typically identified by a designation such as <Spring> or <Summer> which should be given in the \bibfield{issue} field. The placement of the \bibfield{issue} field in \bibtype{article} entries is similar to and overrides the \bibfield{month} field.
 请注意，这些缩写词是 \BibTeX 字符串，不能带有任何括号或引号。
 即，不要用 |month={jan}| 或 |month="jan"|，而直接使用 |month=jan|。
 不可以像 |month={8/9}| 这样指定月份，而可以使用 \bibfield{date} 域来表示日期范围。
@@ -2535,9 +2545,8 @@ organization = {<<{American Society for Photogrammetry and Remote Sensing}>>
 若设置 \bibfield{pagination} 域为 \texttt{section}，那么就会产生“\S~17”。
 用法的进一步说明，请参考 \secref{use:cav:pag} 节。
 
-%The \bibfield{pagination} and \bibfield{bookpagination} fields are key fields. This package will try to use their value as a localization key, provided that the key is defined. Always use the singular form of the key name in \file{bib} files, the plural is formed automatically. The keys \texttt{page}, \texttt{column}, \texttt{line}, \texttt{verse}, \texttt{section}, and \texttt{paragraph} are predefined, with \texttt{page} being the default.
+%The \bibfield{pagination} and \bibfield{bookpagination} fields are key fields. This package will try to use their value as a localization key, provided that the key is defined. Always use the singular form of the key name in \file{bib} files, the plural is formed automatically. The keys \texttt{page}, \texttt{column}, \texttt{line}, \texttt{verse}, \texttt{section}, and \texttt{paragraph} are predefined, with \texttt{page} being the default. The string <\texttt{none}> has a special meaning when used in a \bibfield{pagination} or \bibfield{bookpagination} field. It suppresses the prefix for the respective entry. If there are no predefined localization keys for the pagination scheme required by a certain entry, you can simply add them. See the commands \cmd{NewBibliographyString} and \cmd{DefineBibliographyStrings} in \secref{use:lng}. You need to define two localization strings for each additional pagination scheme: the singular form (whose localization key corresponds to the value of the \bibfield{pagination} field) and the plural form (whose localization key must be the singular plus the letter <\texttt{s}>). See the predefined keys in \secref{aut:lng:key} for examples.
 \bibfield{pagination} 和 \bibfield{bookpagination} 都是关键字域。如果关键字是已定义的，本宏包会尝试使用这些域的值作为本地化关键字。在 \file{bib} 文件中要使用关键字名的单数形式，复数形式是自动形成的。预定义的关键字有 \texttt{page}、\texttt{column}、\texttt{line}、\texttt{verse}、\texttt{section} 和 \texttt{paragraph}，其中 \texttt{page} 是默认值。
-%The string <\texttt{none}> has a special meaning when used in a \bibfield{pagination} or \bibfield{bookpagination} field. It suppresses the prefix for the respective entry. If there are no predefined localization keys for the pagination scheme required by a certain entry, you can simply add them. See the commands \cmd{NewBibliographyString} and \cmd{DefineBibliographyStrings} in \secref{use:lng}. You need to define two localization strings for each additional pagination scheme: the singular form (whose localization key corresponds to the value of the \bibfield{pagination} field) and the plural form (whose localization key must be the singular plus the letter <\texttt{s}>). See the predefined keys in \secref{aut:lng:key} for examples.
 在使用 \bibfield{pagination} 和 \bibfield{bookpagination} 时，字符串“\texttt{none}”有特殊意义，
 它将取消相应条目页码标记的前缀。如果某一条目页码标记格式使用的本地化关键字未定义，你可以直接添加它们。
 参考 \secref{use:lng} 节中的 \cmd{NewBibliographyString} 和 \cmd{DefineBibliographyStrings} 命令。
@@ -2714,8 +2723,8 @@ pages		= {5--25},
 \usepackage[bibencoding=latin1]{biblatex}
 \end{ltxexample}
 
-%The same scenario with \xetex or \luatex in native \utf mode:
-在原生 \utf 模式下使用 \XeTeX 或 \LuaTeX 编译的相同场景：
+%The same scenario with \latex release 2018-04-01 or above, \xetex or \luatex in native \utf mode:
+在原生 \utf 模式下使用\latex (2018-04-01及以上版本) \XeTeX 或 \LuaTeX 编译的相同场景：
 
 \begin{ltxexample}
 \usepackage[bibencoding=latin1]{biblatex}
@@ -2782,16 +2791,14 @@ pages		= {5--25},
 \usepackage[safeinputenc]{biblatex}
 \end{ltxexample}
 %
-%If this option is enabled, \biblatex will ignore \sty{inputenc}'s \opt{utf8} option and use Ascii. \biber will then try to convert the \file{bib} data to Ascii notation. For example, it will convert \k{S} to |\k{S}|.
+%If this option is enabled, \biblatex will ignore \sty{inputenc}'s \opt{utf8} option and use Ascii. \biber will then try to convert the \file{bib} data to Ascii notation. For example, it will convert \k{S} to |\k{S}|. This option is similar to setting \kvopt{texencoding}{ascii} but will only take effect in this specific scenario (\sty{inputenc}\slash \sty{inputenx} with \utf). This workaround takes advantage of the fact that both Unicode and the \utf transport encoding are backwards compatible with Ascii.
 如果该选项被启用，\biblatex 会忽略 \sty{inputenc} 的 \opt{utf8} 选项而使用Ascii。\biber 随后会尝试将 \file{bib} 数据转化为Ascii记法。例如，它将 \k{S} 转化为 |\k{S}|。
-%This option is similar to setting \kvopt{texencoding}{ascii} but will only take effect in this specific scenario (\sty{inputenc}\slash \sty{inputenx} with \utf). This workaround takes advantage of the fact that both Unicode and the \utf transport encoding are backwards compatible with Ascii.
 该选项类似于设置 \kvopt{texencoding}{ascii} 但是只影响这一特定场合（带有 \utf 的 \sty{inputenc}\slash \sty{inputenx} 宏包）。这一变通处理利用了一个事实：Unicode和\utf 传输编码都向后兼容Ascii。
 
 \end{itemize}
 
-%This solution may be acceptable as a workaround if the data in the \file{bib} file is mostly Ascii anyway, with only a few strings, such as some authors' names, causing problems.
+%This solution may be acceptable as a workaround if the data in the \file{bib} file is mostly Ascii anyway, with only a few strings, such as some authors' names, causing problems. However, keep in mind that it will not magically make traditional \tex or \pdftex support Unicode. It may help if the occasional odd character is not supported by \sty{inputenc}, but may still be processed by \tex when using an accent command (\eg |\d{S}| instead of \d{S}). If you need full Unicode support, however, switch to \xetex or \luatex.
 如果 \file{bib} 文件中的数据主要是Ascii，仅含有很少部分会导致问题的字符串（例如一些作者的名字），那么这一变通方法式可以接受的。
-%However, keep in mind that it will not magically make traditional \tex or \pdftex support Unicode. It may help if the occasional odd character is not supported by \sty{inputenc}, but may still be processed by \tex when using an accent command (\eg |\d{S}| instead of \d{S}). If you need full Unicode support, however, switch to \xetex or \luatex.
 然而，需要记住的是，它不会奇迹般地让传统的 \TeX 或 \pdfTeX 支持Unicode。当使用重音命令（例如用 |\d{S}| 取代 \d{S}）时，如果遇到零星一些\sty{inputenc} 不支持字符，但仍需要用\TeX 处理，这种方式会有所帮助。然而，如果你需要完全的Unicode支持，请使用 \XeTeX 或 \LuaTeX 。
 
 %Typical errors when \sty{inputenc} cannot handle a certain UTF-8 character are:
