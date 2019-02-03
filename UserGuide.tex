@@ -2311,7 +2311,7 @@ AUTHOR+an = {1:family="AERA"; 2:family="APA"; 3:family="NCME"}
 
 获取\prm{field}域\prm{item} 项的\prm{part}的任意文本注解。
 如果\prm{annotatationname}未给出，
-则假定 <default>(这是未显式给出名称的注解名)。可选参数\prm{field}和\prm{item} 
+则假定 <default>(这是未显式给出名称的注解名)。可选参数\prm{field}和\prm{item}
 在\cmd{getitemannotation}中时可以推断出来。\prm{part}参数无法推断，因此是必选参数。
 
 
@@ -2788,7 +2788,7 @@ In order to get something like this in the bibliography when formatting names:
 
 %Change the bibliography list filter used to filter the entries. \prm{biblistfilter} must be a valid bibliography list filter defined with \cmd{DeclareBiblistFilter} (see \secref{aut:ctm:bibfilt}).
 
-改变文献列表过滤器。\prm{biblistfilter} 必须是一个\cmd{DeclareBiblistFilter}定义的有效的文献列表过滤器(见\secref{aut:ctm:bibfilt})。 
+改变文献列表过滤器。\prm{biblistfilter} 必须是一个\cmd{DeclareBiblistFilter}定义的有效的文献列表过滤器(见\secref{aut:ctm:bibfilt})。
 \end{optionlist*}
 
 %In terms of sorting the list, the default is to sort use the sorting scheme named after the bibliography list (if it exists) and only then to fall back to the current context sorting scheme is this is not defined (see \secref{use:bib:context}).
@@ -3913,8 +3913,8 @@ In order to get something like this in the bibliography when formatting names:
 \cmditem*{nocite}|\{*\}|
 
 %This command is similar to the standard \latex \cmd{nocite} command. It
-adds the \prm{key} to the bibliography without printing a citation. If the
-\prm{key} is an asterisk, all entries available in the in-scope bibliography datasource(s) are added to the bibliography. Like all other citation commands, \cmd{nocite} commands in the document body are local to the enclosing \env{refsection} environment, if any. In contrast to standard \latex, \cmd{nocite} may also be used in the document preamble. In this case, the references are assigned to reference section~0.
+%adds the \prm{key} to the bibliography without printing a citation. If the
+%\prm{key} is an asterisk, all entries available in the in-scope bibliography datasource(s) are added to the bibliography. Like all other citation commands, \cmd{nocite} commands in the document body are local to the enclosing \env{refsection} environment, if any. In contrast to standard \latex, \cmd{nocite} may also be used in the document preamble. In this case, the references are assigned to reference section~0.
 
 该命令类似于 \LaTeX\ 中的 \cmd{nocite} 命令。
 它将没有引用的条目 \prm{key} 添加到参考文献中。
