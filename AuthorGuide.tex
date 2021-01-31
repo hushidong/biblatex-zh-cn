@@ -13,7 +13,8 @@
 在讨论\biblatex 提供的命令和工具之前，我们首先介绍一些基本概念。\biblatex 包以一种特殊方式使用辅助文件。最值得注意的是当使用\bibtex 后端程序时，\file{bbl} 文件的使用方式存在差别，即只有一个\file{bst} 文件可用来实现结构化的数据接口，该文件并非用来输出可打印数据。
 
 使用\latex 的标准参考文献工具，一个文档通常包含任意数量的文献引用命令，以及常放在文档末尾的\cmd{bibliographystyle} 和\cmd{bibliography} 命令。文献引用命令在文档中的位置是任意的，而\cmd{bibliographystyle} 和\cmd{bibliography} 命令则标记了打印参考文献表的位置，比如:
-%Before we get to the commands and facilities provided by \biblatex, we will have a look at some of its fundamental concepts. The \biblatex package uses auxiliary files in a special way. Most notably, the \file{bbl} file is used differently and when using \bibtex as the backend, there is only one \file{bst} file which implements a structured data interface rather than exporting printable data. With \latex's standard bibliographic facilities, a document includes any number of citation commands in the document body plus \cmd{bibliographystyle} and \cmd{bibliography}, usually towards the end of the document. The location of the former is arbitrary, the latter marks the spot where the list of references is to be printed:
+Before we get to the commands and facilities provided by \biblatex, we will have a look at some of its fundamental concepts. The \biblatex package uses auxiliary files in a special way. Most notably, the \file{bbl} file is used differently and there is no concept of a style-dependent \file{bst} file. With \latex's standard bibliographic facilities, a document includes any number of citation commands in the document body plus \cmd{bibliographystyle} and \cmd{bibliography}, usually towards the end of the document. The location of the former is arbitrary, the latter marks the spot where the list of references is to be printed:
+
 
 \begin{ltxexample}
 \documentclass{...}
@@ -125,7 +126,8 @@ and Samarin}}}
 \begin{enumerate}
 
 \item 运行\bin{latex}:第一步类似于上述的传统方式:将\cmd{bibstyle} 和 \cmd{bibdata} 以及所有引用的\cmd{citation} 命令写入到\file{aux} 文件中(以\bibtex 为后端程序)或者写到\file{bcf} 文件中(以\biber 为后端程序)。然后等待后端程序提供需要的数据。当以\bibtex 为后端程序时，\biblatex 使用一个特殊的\file{bst} 文件，该文件用于实现\bibtex 后端程序的数据接口，因此\cmd{bibstyle} 命令必须是|\bibstyle{biblatex}|。
-    %Run \bin{latex}: The first step is similar to the traditional procedure described above: \cmd{bibstyle} and \cmd{bibdata} commands are written to the \file{aux} file (\bibtex backend) or \file{bcf} file (\biber backend), along with \cmd{citation} commands for all citations. We then wait for the backend to supply the required data. With \bibtex as a backend, since \biblatex uses a special \file{bst} file which implements its data interface on the \bibtex end, the \cmd{bibstyle} command is always |\bibstyle{biblatex}|.
+
+Run \bin{latex}: The first step is similar to the traditional procedure described above: \cmd{bibstyle} and \cmd{bibdata} commands are written to th \file{bcf} file, along with \cmd{citation} commands for all citations. We then wait for the backend to supply the required data.
 
 
 \item 运行\bin{biber} 或 \bin{bibtex}:后端程序为辅助文件中所有\cmd{citation} 命令提供所需的条目，这些条目的数据来自\file{bib} 文件。然而，它并不在\file{bbl} 文件中写出一个可打印的参考文献表，而是一个结构化表达的参考文献数据。类似于\file{aux} 文件，读入该\file{bbl} 文件时不打印任何东西，仅是将数据存入内存中。
@@ -236,6 +238,7 @@ and Samarin}}}
 如果一个参考文献驱动用于处理多个条目类型，该命令可以用来定义以\prm{entrytype} 命名的驱动的别名。\prm{alias} 选项可以是一个星号，这种情况下，该驱动将作为未定义具体驱动的条目类型的驱动。
 %If a bibliography driver covers more than one entry type, this command may be used to define an alias where \prm{entrytype} is the name of a defined driver. This command is optional. The \prm{alias} argument may also be an asterisk. In this case, the \prm{entrytype} driver serves as a fallback which is used if no specific driver for an entry has been defined.
 
+Note that an alias declared with \cmd{DeclareBibliographyAlias} only <reroutes> the bibliography driver from \prm{alias} to \prm{entrytype}. Type-specific formatting directives still operate with the old \prm{alias} name. \cmd{DeclareBibliographyAlias} thus provides only a <soft> alias. If a complete alias is desired so that \prm{alias} and \prm{entrytype} are completely indistinguishable and use the same type-specific formatting, an approach with source mapping would be more appropriate (cf.~the mappings for \secref{bib:typ:als} in \secref{apx:maps:bibtex}, this would give a <hard> alias).
 \cmditem{DeclareBibliographyOption}[datatype]{key}[value]{code}
 
 该命令以\keyval 格式定义额外的导言区选项。\prm{key} 是选项键。\prm{code} 是当使用该选项时执行的任意\tex 代码。键值作为|#1|传递给\prm{code}。可选的\prm{value} 是当该选项仅有键名而无键值给出时的默认键值。这对于布尔选项非常有用。\prm{datatype} 是选项的数据类型(datatype)，如果缺省，那么默认为 <boolean>(布尔类型)。一个定义示例如下:
@@ -254,11 +257,17 @@ and Samarin}}}
 \DeclareDatamodelConstant[type=list]{optiondatatypes}{boolean,integer,string,xml}
 \end{ltxexample}
 
+\cmditem{DeclareTypeOption}[datatype]{key}[value]{code}
+
+Similar to \cmd{DeclareBibliographyOption} but defines options which are settable on a per"=type basis using the optional argument of \cmd{ExecuteBibliographyOptions} (see \secref{use:cfg:opt}). The \prm{code} is executed whenever \biblatex prepares the data of an entry of the type for which the option has been set for use by a citation command or a bibliography driver.
 \cmditem{DeclareEntryOption}[datatype]{key}[value]{code}
 
 类似于\cmd{DeclareBibliographyOption}，但用于定义具体条目类型的\bibfield{options} 域(见\secref{bib:fld:spc} 节)中的可设选项。\prm{code} 在\biblatex 为标注命令和参考文献驱动准备数据时执行。
 %Similar to \cmd{DeclareBibliographyOption} but defines options which are settable on a per"=entry basis in the \bibfield{options} field from \secref{bib:fld:spc}. The \prm{code} is executed whenever \biblatex prepares the data of the entry for use by a citation command or a bibliography driver.
 
+\cmditem{DeclareBiblatexOption}{scope,\dots}[datatype]{key}[value]{code}
+
+This command is a convenient interface to declare an option for several scopes at once. The \prm{scope} argument may be a comma"=separated list of scopes for which the option will be declared. Currently the scopes \opt{global}, \opt{type}, \opt{entry}, \opt{namelist} and \opt{name} are supported, the first three of which are equivalent to defining the option with \cmd{DeclareBibliographyOption}, \cmd{DeclareTypeOption} and \cmd{DeclareEntryOption}, respectively.
 \end{ltxsyntax}
 
 \subsubsection{参考文献表环境}%Bibliography Environments
@@ -393,7 +402,8 @@ and Samarin}}}
 \end{ltxexample}
 %
 可以对其进行设置，比如添加更多姓名成分来处理类似父系姓的问题(见文件\file{93-nameparts.tex})。自然的，数据源需要一个扩展的姓名格式。\biblatexml (\secref{apx:biblatexml})可以处理该问题，其中有一个扩展的姓名格式，当使用\biber 后端时(见\biber 文档)，可以处理自定义的姓名成分。
-%This can be customised to add more name parts to deal with things like patronymics (see the example file \file{93-nameparts.tex}). Naturally this needs an extended name format for data sources. \biblatexml (\secref{apx:biblatexml}) handles this natively and there is an extended name format which can handle custom nameparts available when using \biber (see \biber documentation).
+This can be customised to add more name parts to deal with things like patronymics (see the example file \file{93-nameparts.tex}). This needs an extended name format for data sources since the standard \bibtex name format is very limited. \biblatexml (\secref{apx:biblatexml}) handles this natively and there is an extended name format which can handle custom nameparts when using \biber (see \secref{use:enf}).
+
 
 在姓名格式中，姓名成分常量声明将为数据模型中定义的每个姓名成分提供两个宏:
 %Inside name formats, the nameparts constant declaration makes available two macros for each name part defined in the datamodel:
@@ -490,6 +500,12 @@ and Samarin}}}
 
 \file{bib} 文件中某一项的条目关键词(entry key)。这是一个字符串，用于\biblatex 及其后端程序确定\file{bib} 文件中的某一条目。
 %The entry key of an item in the \file{bib} file. This is the string used by \biblatex and the backend to identify an entry in the \file{bib} file.
+
+ Note that the set of characters allowed and usable in the string for \bibfield{entrykey} depends on the backend (\biber, \bibtex) as well as the \latex engine (\pdflatex, \lualatex, \xelatex).
+Generally, ASCII-letters (\texttt{a-z}, \texttt{A-Z}) and numbers (\texttt{0-9}) are safe, so are the punctuation characters full stop (\texttt{.}) and solidus (\texttt{/}). The punctuation characters \texttt{-\_:;!?} are also safe even if they are made active by \sty{babel}/\sty{polyglossia}. If a Unicode engine is used, non-ASCII characters are also acceptable.
+Curly braces (\texttt{\{\}}), commas, spaces, backslashes (\texttt{\textbackslash}), hashes (\texttt{\#}), percent characters (\texttt{\%}) and tildes (\texttt{\textasciitilde}) are always forbidden. \biber additionally forbids round brackets (\texttt{()}), quotation marks (\texttt{\textquotedbl}, \texttt{\textquotesingle}), and the equals sign (\texttt{=}).
+The \bibfield{entrykey} is case sensitive, but it is not recommended to exploit that fact too much by introducing two different entries whose key differs only in capitalisation (\eg\ \texttt{sigfridsson} and \texttt{Sigfridsson}).
+For full portability it is advisable to stick to a scheme of lowercase (and if so desired uppercase) ASCII-letters, numbers and a small set of acceptable punctuation characters, say \texttt{.:-}.
 
 \fielditem{childentrykey}{string}\DeprecatedMark
 
@@ -670,7 +686,7 @@ As \bibfield{bibnamehash} for the name list called <namelist>.
 \fielditem{extraalpha}{integer}
 
 	当参考文献中包含同一作者同年出版的多个引文时，<alphabetic>标注样式的标签常需要一个额外的字母加以区分。这种情况下\bibfield{extraalpha} 域保存一个整数，该整数可用命令\cmd{mknumalph} 转换成字母或以其他方式格式化。该域类似于在作者年(author-year)样式中\bibfield{extrayear} 的作用。完整的 <alphabetic>的标签由\bibfield{labelalpha} 加 \bibfield{extraalpha} 构成。注意: 使用\bibfield{labelalpha} 和 \bibfield{extraalpha} 域需要启用包选项 \opt{labelalpha}(详见\secref{use:opt:pre:int})。另可参见\secref{use:fmt:fmt} 节的\bibfield{labelalpha} 和 \ cmd{labelalphaothers}。表\ref{use:opt:tab1} 总结了用于消除歧义的不同\opt{extra*}\gls{计数器} 及其记录的信息。
-%The <alphabetic> citation scheme usually requires a letter to be appended to the label if the bibliography contains two or more works by the same author which were all published in the same year. In this case, the \bibfield{extraalpha} field holds an integer which may be converted to a letter with \cmd{mknumalph} or formatted in some other way. This field is similar to the role of \bibfield{extrayear} in the author"=year scheme. A complete <alphabetic> label consists of the fields \bibfield{labelalpha} plus \bibfield{extraalpha}. Note that the \bibfield{labelalpha} and \bibfield{extraalpha} fields need to be requested with the package option \opt{labelalpha}, see \secref{use:opt:pre:int} for details. See also \bibfield{labelalpha} as well as \cmd{labelalphaothers} in \secref{use:fmt:fmt}. Table \ref{use:opt:tab1} summarises the various \opt{extra*} disambiguation counters and what they track.
+%The <alphabetic> citation scheme usually requires a letter to be appended to the label if the bibliography contains two or more works by the same author which were all published in the same year. In this case, the \bibfield{extraalpha} field holds an integer which may be converted to a letter with \cmd{mknumalph} or formatted in some other way. This field is similar to the role of \bibfield{extradate} in the author"=year scheme. A complete <alphabetic> label consists of the fields \bibfield{labelalpha} plus \bibfield{extraalpha}. Note that the \bibfield{labelalpha} and \bibfield{extraalpha} fields need to be requested with the package option \opt{labelalpha}, see \secref{use:opt:pre:int} for details. See also \bibfield{labelalpha} as well as \cmd{labelalphaothers} in \secref{use:fmt:fmt}. Table \ref{use:opt:tab1} summarises the various \opt{extra*} disambiguation counters and what they track.
 
 \listitem{labelname}{name}
 
@@ -717,7 +733,7 @@ As \bibfield{bibnamehash} for the name list called <namelist>.
 
 \fielditem{labelyear}{literal}
 
-%The year of the date field selected by \cmd{DeclareLabeldate} (\secref{aut:ctm:fld}) or the \bibfield{year} field, for use in author-year labels. A complete author-year label consists of the fields \bibfield{labelyear} plus \bibfield{extrayear}. Note that the \bibfield{labelyear} and \bibfield{extrayear} fields need to be requested with the package option \opt{labeldateparts}, see \secref{use:opt:pre:int} for details. See also \bibfield{extrayear}.
+%The year of the date field selected by \cmd{DeclareLabeldate} (\secref{aut:ctm:fld}) or the \bibfield{year} field, for use in author-year labels. A complete author-year label consists of the fields \bibfield{labelyear} plus \bibfield{extradate}. Note that the \bibfield{labelyear} and \bibfield{extradate} fields need to be requested with the package option \opt{labeldateparts}, see \secref{use:opt:pre:int} for details. See also \bibfield{extradate}.
 \cmd{DeclareLabeldate}(\secref{aut:ctm:fld})命令选择的日期域的年，或者\bibfield{year} 域，用于作者年制的标签。一个完整的作者年制的标签由\bibfield{labelyear} 加\bibfield{extrayear} 域构成。注意使用\bibfield{labelyear} 和\bibfield{extrayear} 域需要启用\opt{labeldateparts} 包选项，详见\secref{use:opt:pre:int}。另可参见\bibfield{extrayear}。
 
 
@@ -1026,7 +1042,8 @@ eventdate	& 1995-01-31/1995-02-05	& eventday	& 31 \\
 \fielditem{endseason}{datepart}
 
 如果\bibfield{date} 域中给出的日期是一个范围，该域保存\acr{EDTF} 5.2.5 (\secref{bib:use:dat})规定的结束日期的季节成分。它包含一个季节本地化字符串(见\secref{aut:lng:key:dt})，空的(但已定义)的\bibfield{endseason} 成分表示无期限的日期范围。
-%If the date specification in the \bibfield{date} field is a range, this field holds the season component of the end date as specified by \acr{EDTF} 5.2.5 (\secref{bib:use:dat}). It contains a season localisation string (\secref{aut:lng:key:dt}). A blank (but defined) \bibfield{endseason} component indicates an open ended \bibfield{date} range.
+If the date specification in the \bibfield{date} field is a range, this field holds the season component of the end date as specified by \acr{ISO8601-2} 4.7 (\secref{bib:use:dat}). It contains a season localisation string (\secref{aut:lng:key:dt}). A blank (but defined) \bibfield{endseason} component indicates an open ended \bibfield{date} range.
+
 
 \fielditem{orighour}{datepart}
 
@@ -1106,7 +1123,7 @@ eventdate	& 1995-01-31/1995-02-05	& eventday	& 31 \\
 \fielditem{origendseason}{datepart}
 
 如果\bibfield{origdate} 域中给出的日期是一个范围，该域保存\acr{EDTF} 5.2.5 (\secref{bib:use:dat})规定的结束日期的季节成分。它包含一个季节本地化字符串(见\secref{aut:lng:key:dt})，空的(但已定义)的\bibfield{origendseason} 成分表示无期限的\bibfield{origdate} 范围。
-%If the date specification in the \bibfield{origdate} field is a range, this field holds the season component of the end date as specified by \acr{EDTF} 5.2.5 (\secref{bib:use:dat}). It contains a season localisation string (\secref{aut:lng:key:dt}). A blank (but defined) \bibfield{origendseason} component indicates an open ended \bibfield{origdate} range.
+If the date specification in the \bibfield{origdate} field is a range, this field holds the season component of the end date as specified by \acr{ISO8601-2} 4.7 (\secref{bib:use:dat}). It contains a season localisation string (\secref{aut:lng:key:dt}). A blank (but defined) \bibfield{origendseason} component indicates an open ended \bibfield{origdate} range.
 
 \fielditem{eventhour}{datepart}
 
@@ -1186,7 +1203,8 @@ eventdate	& 1995-01-31/1995-02-05	& eventday	& 31 \\
 \fielditem{eventendseason}{datepart}
 
 如果\bibfield{eventdate} 域中给出的日期是一个范围，该域保存\acr{EDTF} 5.2.5 (\secref{bib:use:dat})规定的结束日期的季节成分。它包含一个季节本地化字符串(见\secref{aut:lng:key:dt})，空的(但已定义)的\bibfield{eventendseason} 成分表示无期限的\bibfield{eventdate} 范围。
-%If the date specification in the \bibfield{eventdate} field is a range, this field holds the season component of the end date as specified by \acr{EDTF} 5.2.5 (\secref{bib:use:dat}). It contains a season localisation string (\secref{aut:lng:key:dt}). A blank (but defined) \bibfield{eventendseason} component indicates an open ended \bibfield{eventdate} range.
+If the date specification in the \bibfield{eventdate} field is a range, this field holds the season component of the end date as specified by \acr{ISO8601-2} 4.7 (\secref{bib:use:dat}). It contains a season localisation string (\secref{aut:lng:key:dt}). A blank (but defined) \bibfield{eventendseason} component indicates an open ended \bibfield{eventdate} range.
+
 
 \fielditem{urlhour}{datepart}
 
@@ -1266,7 +1284,8 @@ eventdate	& 1995-01-31/1995-02-05	& eventday	& 31 \\
 \fielditem{urlendseason}{datepart}
 
 如果\bibfield{urldate} 域中给出的日期是一个范围，该域保存\acr{EDTF} 5.2.5 (\secref{bib:use:dat})规定的结束日期的季节成分。它包含一个季节本地化字符串(见\secref{aut:lng:key:dt})，空的(但已定义)的\bibfield{urlendseason} 成分表示无期限的\bibfield{eventdate} 范围。
-%If the date specification in the \bibfield{urldate} field is a range, this field holds the season component of the end date as specified by \acr{EDTF} 5.2.5 (\secref{bib:use:dat}). It contains a season localisation string (\secref{aut:lng:key:dt}). A blank (but defined) \bibfield{urlendseason} component indicates an open ended \bibfield{urldate} range.
+If the date specification in the \bibfield{urldate} field is a range, this field holds the season component of the end date as specified by \acr{ISO8601-2} 4.7 (\secref{bib:use:dat}). It contains a season localisation string (\secref{aut:lng:key:dt}). A blank (but defined) \bibfield{urlendseason} component indicates an open ended \bibfield{urldate} range.
+
 
 \end{fieldlist}
 
@@ -1418,6 +1437,13 @@ This command can not be used for \cmd{autocite}, to configure \cmd{autocite} use
 作为\prm{multipostnote} 参数向ulticite类标注命令传递。该域仅用于标注而不能用在参考文献表中。如果\prm{multipostnote} 参数缺省或为空，该域不定义。
 %The \prm{multipostnote} argument passed to a multicite command. This field is specific to citations and not available in the bibliography. If the \prm{multipostnote} argument is missing or empty, this field is undefined.
 
+\fielditem{volcitevolume}{literal}
+
+The \prm{volume} argument passed to \cmd{volcite} or a related citation command (\secref{use:cit:spc}). This field is specific to \cmd{volcite} citations and not available in the bibliography or other citations.
+
+\fielditem{volcitepages}{literal}
+
+The \prm{pages} argument passed to \cmd{volcite} or a related citation command (\secref{use:cit:spc}). This field is specific to \cmd{volcite} citations and not available in the bibliography or other citations. If the \prm{pages} argument is missing or empty, this field is undefined.
 \fielditem{postpunct}{punctuation command}
 
 作为拖尾的标点参数隐式地向标注命令传递。该域仅用于标注而不能用在参考文献表中。如果一个标注命令后面跟着的字符不在\cmd{DeclareAutoPunctuation} (\secref{aut:pct:cfg})命令的定义中，该域不定义。
@@ -1591,7 +1617,8 @@ This command can not be used for \cmd{autocite}, to configure \cmd{autocite} use
 \cmditem{DeclareFieldInputHandler}{field}{code}
 
 该命令用于定义从\file{.bbl} 读取数据所采用的域的数据输入处理器。在\prm{code} 内，宏\cmd{NewValue} 包含了域的值。比如，要忽略出现的\bibfield{volumes} 域，可以作:
-%This command can be used to define a data input handler for \prm{field} when it is read from the \file{.bbl}. Within the \prm{code}, the macro \cmd{NewValue} contains the value of the field. For example, to ignore the \bibfield{volumes} field when it appears, you could do
+This command can be used to define a data input handler for \prm{field} when it is read from the \file{.bbl}. The \prm{code} is passed one argument (\lstinline{#1}), which contains the input field value, it should then redefine the command \cmd{NewValue}, which holds the desired output field value. For example, to ignore the \bibfield{volumes} field when it appears, you could do
+
 
 \begin{ltxexample}
 \DeclareFieldInputHandler{volumes}{\def\NewValue{}}
@@ -1599,6 +1626,11 @@ This command can not be used for \cmd{autocite}, to configure \cmd{autocite} use
 %
 一般情况下，要删除和修改域需要使用\cmd{DeclareSourcemap}(见\secref{aut:ctm:map} 节)，而这一替代方法在一些情形下会很有用，例如当强调的是数据的外观而不是数据本身时，因为\prm{code} 可以是任意的\tex 代码。
 %Generally, you would want to use \cmd{DeclareSourcemap} (see \secref{aut:ctm:map}) to remove and modify fields but this alternative method may be useful in some circumstances when the emphasis is on appearance rather than data since the \prm{code} can be arbitraty \tex.
+In general, \cmd{DeclareFieldInputHandler} should not be used to apply formatting to a field, since that should happen with \cmd{DeclareFieldFormat}, so the following is just a toy example that shows how \cmd{DeclareFieldInputHandler} works.
+
+\begin{ltxexample}
+\DeclareFieldInputHandler{volumes}{\def\NewValue{\textbf{#1}}}
+\end{ltxexample}
 
 \cmditem{DeclareListInputHandler}{list}{code}
 
@@ -1606,11 +1638,14 @@ This command can not be used for \cmd{autocite}, to configure \cmd{autocite} use
 %As \cmd{DeclareFieldInputHandler} but for lists. Within the \prm{code}, the macro \cmd{NewValue}
 %contains the value of the list and \cmd{NewCount} contains the number of items in the list.
 
+Note that \cmd{NewValue} as well as the single argument to \prm{code} contain the internal representation of the list.
+
 \cmditem{DeclareNameInputHandler}{name}{code}
 
 类似于\cmd{DeclareFieldInputHandler}，但用于姓名列表。在\prm{code} 内，宏\cmd{NewValue} 包含了姓名列表的值，而\cmd{NewCount} 保存列表中姓名的序号，\cmd{NewOption} 保存了\file{.bbl} 文件传递的各个姓名相关的任意选项。
 %As \cmd{DeclareFieldInputHandler} but for names. Within the \prm{code}, the macro \cmd{NewValue}
 %contains the value of the name, \cmd{NewCount} contains the number of individual names in the name and \cmd{NewOption} contains any per-name options passed in the \file{.bbl}.
+Note that \cmd{NewValue} as well as the single argument to \prm{code} contain the internal representation of the name list.
 
 \end{ltxsyntax}
 
@@ -1852,6 +1887,7 @@ This command can not be used for \cmd{autocite}, to configure \cmd{autocite} use
 \begin{keymarglist}
 \item[related] 与当前条目存在某种程度关联性的条目关键词列表\footnote{译者: 这里separated list 译为分离列表，列表}。注意: 条目关键词\footnote{译者: 这里的key关键词就是是条目关键词，引用关键词，即bibtex 键} 的顺序很重要。来自多个关联条目的数据是按该域中关键词的顺序打印的。
 %\item[related] A separated list of keys of entries which are related to this entry in some way. Note the the order of the keys is important. The data from multiple related entries is printed in the order of the keys listed in this field.
+
 \item[relatedtype] 关联类型。主要用于三个目的: 第一，如果该域的值解析为一个本地化字符串的标识，那么得到的本地化字符串将在来自关联条目的数据之前打印。第二，如果存在名为\texttt{related:\prm{relatedtype}} 的宏，它将用于格式化来自关联条目的数据，如果宏不存在，则使用\texttt{related:default} 宏。最后，如果存在名为\texttt{related:\prm{relatedtype}} 的格式，它将用来格式化本地化字符串和关联条目数据。如果没有具体类型的格式，那么使用\texttt{related} 格式。
 %The type of relationship. This serves three purposes. If the value of this field resolves to a localisation string identifier, then the resulting localised string is printed before the data from the related entries. Secondly, if there is a macro called \texttt{related:\prm{relatedtype}}, this is used to format the data from the related entries. If no such macro exists, then the macro \texttt{related:default} is used. Lastly, if there is a format named \texttt{related:\prm{relatedtype}}, then it is used to format both the localised string and related entry data. If there is no related type specific format, the \texttt{related} format is used.
 \item[relatedstring] 如果一个条目包含该域，如果该域的值解析为一个本地化字符串的标识，那么本地化字符串的键值将在来自关联条目的数据之前打印。如果该域没有指定一个本地化键，则原样打印该域的值。如果\bibfield{relatedtype} 和 \bibfield{relatedstring} 都出现在条目中，\bibfield{relatedstring} 用于数据之前的字符串(但\bibfield{relatedtype} 仍然用于确定打印数据时的格式和宏)。
@@ -1963,6 +1999,9 @@ This command can not be used for \cmd{autocite}, to configure \cmd{autocite} use
 \item 用标准的Perl 正则表达式匹配和替换，修改域的内容。
 %Modify the contents of a field using standard Perl regular expression match and replace
 \item 将上述操作限制在来自特定数据源的条目，这些特定数据源在\cmd{addresource} 宏中定义。
+
+\item Modify the contents of a field using standard Perl regular expression
+  match and replace\footnote{See for example \url{https://perldoc.perl.org/perlretut.html}, \url{https://perldoc.perl.org/perlrequick.html} and \url{https://perldoc.perl.org/perlre.html}. There are many more resources available about regular expessions in Perl.}
 %Restrict any of the above operations to entries coming from
 %particular datasources which you defined in \cmd{addresource} macros
 
@@ -1976,7 +2015,8 @@ This command can not be used for \cmd{autocite}, to configure \cmd{autocite} use
 \end{itemize}
 
 \prm{specification} 是一个不限数量的\cmd{maps} 指令的列表，这些指令说明了应用于某一特定数据源类型的映射规则的容器(\secref{use:bib:res})。为实现良好的代码显示效果，可以自由使用空格、制表符、行末符号来整理\prm{specification} 中的代码。但空行是不允许的。这一命令仅能用于导言区并且只能使用一次---后面的命令将覆盖前面的定义。
-%The \prm{specification} is an undelimited list of \cmd{maps} directives which specify containers for mappings rules applying to a particular data source type (\secref{use:bib:res}). Spaces, tabs, and line endings may be used freely to visually arrange the \prm{specification}. Blank lines are not permissible. This command may only be used in the preamble and may only be used once---subsequent uses will overwrite earlier definitions.
+The \prm{specification} is an undelimited list of \cmd{maps} directives which specify containers for mappings rules applying to a particular data source type (\secref{use:bib:res}). Spaces, tabs, and line endings may be used freely to visually arrange the \prm{specification}. Blank lines are not permissible. This command may only be used in the preamble and can be used multiple times, the maps being run in order of definition.
+
 
 \cmditem{maps}[options]{elements}
 
@@ -2074,9 +2114,15 @@ This command can not be used for \cmd{autocite}, to configure \cmd{autocite} use
 \valitem{entrynew}{entrynewkey}
 \valitem{entrynewtype}{string}
 \valitem{entrytarget}{string}
+\boolitem[false]{cited}
+\boolitem[false]{nocited}
+\boolitem[false]{citedornocited}
+\boolitem[false]{allnocited}
+\boolitem[false]{starnocited}
 \boolitem[false]{entrynocite}
 \boolitem[false]{entrynull}
 \boolitem[false]{append}
+\boolitem[false]{appendstrict}
 \boolitem[false]{final}
 \boolitem[false]{null}
 \boolitem[false]{origfield}
@@ -2087,6 +2133,19 @@ This command can not be used for \cmd{autocite}, to configure \cmd{autocite} use
 %For all boolean \cmd{step} options, the short form \opt{option} is equivalent to \kvopt{option}{true}. The following rules for a mapping step apply:
 
 \renewcommand{\labelitemii}{$\circ$}
+
+Note that the options \opt{cited}, \opt{nocited}, \opt{citedornocited},
+\opt{allnocited} and \opt{starnocited} are unique in that they can make the
+results of a sourcemap differ depending on the refsection. This is because
+a datasource to which source mapping applies may be used in several
+refsections and source mappings are applied when fetching the data from the
+datasources for a refsection. Citation commands are local to a refsection
+and therefore may differ for the same entry from refsection to refsection.
+For example, the same entry may be \cmd{cite}d in one refsection but
+\cmd{nocite}d in another, resulting in different source map results and
+therefore data between the refsections. This can be avoided if desired, by
+limiting source maps to specific refsections only (see \opt{refsection}
+option to the \cmd{map} command above).
 
 \begin{itemize}
 \item 如果设置\texttt{entrynew}，将创建一个条目关键词为\texttt{entrynewkey} 的新条目，条目的类型在选项\texttt{entrynewtype} 中给出。这一条目仅在当前条目的处理过程中有效，能以\texttt{entrytarget} 进行引用。在\texttt{entrynewkey} 中，可以使用标准的Perl正则表达式来引用从之前的\texttt{match} 步获取的匹配字符串。
@@ -2122,6 +2181,18 @@ This command can not be used for \cmd{autocite}, to configure \cmd{autocite} use
 %  current entry and can be modified by passing its key as the value to \texttt{entrytarget}.
 %  In \texttt{clonekey}, you may use standard Perl regular expression backreferences to
 %  captures from a previous \texttt{match} step.
+
+\item If \texttt{cited} is used then only apply the step if the entry key
+  of an entry was specifically cited via \cmd{cite}.
+\item If \texttt{nocited} is used then only apply the step if the entry key
+  of an entry was specifically nocited via \cmd{nocite} or was included via \cmd{nocite\{*\}}.
+\item If \texttt{citedornocited} is used then only apply the step if the entry key
+  of an entry was specifically cited via \cmd{cite} or specifically nocited via \cmd{nocite}.
+\item If \texttt{allnocited} is used then only apply the step if the entry key
+  of an entry was included via \cmd{nocite\{*\}}.
+\item If \texttt{starnocited} is used then only apply the step if the entry key
+  of an entry was included solely because of \cmd{nocite\{*\}}. This
+  implies that the entry was neither explicitly \cmd{cite}ed nor explicitly \cmd{nocite}ed.
 
 \item 将\texttt{typesource} \prm{entrytype} 修改到\texttt{typetarget} \prm{entrytype}，如果定义存在的话。如果\texttt{final} 为\texttt{true}，且条目的\prm{entrytype} 不是\texttt{typesource}，父元素\cmd{map} 将立即终止。
 %Change the \texttt{typesource} \prm{entrytype} to the
@@ -2585,6 +2656,7 @@ This command can not be used for \cmd{autocite}, to configure \cmd{autocite} use
 默认数据模型在核心\biblatex 文件\file{blx-dm.def} 中定义，使用本节给出的宏。默认数据模型详见\secref{bib} 节。数据模型由\biblatex 及后端在内部使用。在实际中，改变数据模型意味着为数据源定义条目类型和域，并可根据数据模型进行验证。自然，这通常只有在样式能支持新的条目类型时有用，并且也可能引起样式间的可移植性问题。(尽管这一问题可以使用\secref{aut:ctm:map} 节介绍的动态数据修改来解决。)
 %The default data model is defined in the core \biblatex file \file{blx-dm.def} using the macros described in this section. The default data model is described in detail in \secref{bib}. The data model is used internally by \biblatex and also by the backend. In practice, changing the data model means that you can define the entrytypes and fields for your datasources and validate your data against the data model. Naturally, this is not much use unless your style supports any new entrytypes or fields and it raises issues of portability between styles (although this can be mitigated by using the dynamic data modification functionality described in \secref{aut:ctm:map}).
 
+Note that while the \biber/\bibtex input site is not case sensitive when it comes to entry types and field names (Perl's Unicode case folding is used to normalise field names and entry types), the \latex side is case sensitive and uses the exact capitalisation from the data model.
 根据数据模型验证意味着，将数据源映射到数据模型后，\biber (使用\path{--validate_datamodel} 选项)可以检查:
 %Validation against the data model means that after mapping your data sources into the data model, \biber (using its \path{--validate_datamodel} option) can check:
 
@@ -3491,7 +3563,9 @@ Borg, Connors, Emerson  [BCEm-004]
 \cmditem{keypart}{part}
 
 \prm{part} 是一个\cmd{namepart} 和\cmd{literal} 设置构成的有序列表，这些设置联接在一起构建姓名排序关键词的一部分。
-%\prm{part} is an ordered list of of \cmd{namepart} and \cmd{literal} specifications which are concatenated together when constructing a part of the name sorting key.
+\prm{part} is an ordered list of of \cmd{namepart} and \cmd{literal} specifications which are concatenated together when constructing a part of the name sorting key. The \cmd{keyparts} are then concatenated together with terminal padding to ensure correct sorting.
+
+
 
 \cmditem{literal}{string}
 
@@ -3671,8 +3745,9 @@ Borg, Connors, Emerson  [BCEm-004]
 
 \cmditem{DeclareSortTranslit}[entrytype]{specification}
 
-%Languages which can be written in different scripts or alphabets often only have  CLDR sorting tailoring for one script and it is expected that you transliterate into the supported script for sorting purposes. A common example is Sanskrit which is often written in academic contexts in IAST
-%romanised script but which needs to be sorted in the <sa> locale which expects the Devanāgarī script. This means that it is necessary to transliterate into the sorting script internally. \cmd{DeclareSortTranslit} declares which parts of an entry you would like to transliterate for sorting purposes. Without the \prm{entrytype} parameter, the \prm{specification} applies to all entrytypes. The \prm{specification} is one or more \cmd{translit} commands:
+Languages which can be written in different scripts or alphabets often only have CLDR sorting tailoring for one script and it is expected that you transliterate into the supported script for sorting purposes. A common example is Sanskrit which is often written in academic contexts in IAST
+romanised script but which needs to be sorted in the <sa> locale which expects the Devanāgarī script. Another common case is transliteration of Russian Cyrillic into Latin as defined by the ALA-LC standard. Such requirement means that it is necessary to transliterate into the sorting script internally. \cmd{DeclareSortTranslit} declares which parts of an entry you would like to transliterate for sorting purposes. Without the \prm{entrytype} parameter, the \prm{specification} applies to all entrytypes. The \prm{specification} is one or more \cmd{translit} commands:
+
 
 能用不同文字或字母书写的语言对于一种文字常常仅有CLDR排序方式，为了进行排序往往需要将其转换为支持的文字。一个常见示例是梵文(Sanskrit)，它常用罗马化的婆罗米系文字书写正式文献，但需要在<sa> locale中排序，而这需要Devanāgarī文字。这意味着需要在内部转换排序文字。\cmd{DeclareSortTranslit} 声明条目的那个部分需要为排序目的而转化。如果没有\prm{entrytype} 参数，\prm{specification} 用于所有条目。\prm{specification} 包含一个或多个\cmd{translit} 命令。
 
@@ -3680,7 +3755,8 @@ Borg, Connors, Emerson  [BCEm-004]
 \cmditem{translit}[langids]{field or fieldset}{from}{to}
 
 指定数据域\bibfield{field} 或由\cmd{DeclareDatafieldSet}(见\secref{aut:ctm:dsets})声明的\prm{fieldset} 集中的所有域为排序目的应从\prm{from} 文字转换为\prm{to} 文字。域和集参数可以是 <*> 使其应用于所有域。有效的\prm{from} 和\prm{to} 在表\ref{tab:translit} 中给出。注意\biblatex 无意于支持通用的转换，而仅做排序目的。如果需要更多的转换，可以在GitHub上的\biblatex\ 查找或询问。
-%Specifies that the data field \bibfield{field} or all fields in a fieldset \prm{fieldset} declared with \cmd{DeclareDatafieldSet} (see \secref{aut:ctm:dsets}) should be transliterated from script \prm{from} to script \prm{to} for sorting purposes. The field/set argument can also be <*> to apply transliteration to all fields. The valid \prm{from} and \prm{to} values are given in table \ref{tab:translit}. Note that \biblatex does not aim to support general transliteration, only those which are useful for sorting purposes. Please open a GitHub ticket for \biblatex\ if you think you need additional transliterations.
+Specifies that the data field \bibfield{field} or all fields in a fieldset \prm{fieldset} declared with \cmd{DeclareDatafieldSet} (see \secref{aut:ctm:dsets}) should be transliterated from script \prm{from} to script \prm{to} for sorting purposes. The field/set argument should be <*> to apply transliteration to all fields. The valid \prm{from} and \prm{to} values are given in table \ref{tab:translit}. The optional \prm{langids} parameter is a comma-separated list of \bibfield{langid} fields and the transliteration will apply only to bibliography entries containing one of the \bibfield{langid}s in the list. Note that \biblatex does not aim to support general transliteration, only those which are useful for sorting purposes. Please open a GitHub ticket for \biblatex\ if you think you need additional transliterations.
+
 
 下面给出一个标题转换的示例，从而可以正确的排序梵文:
 %An example of transliterating titles so that they sort correctly in Sanskrit. This example assumes that entries that should have their title fields transliterated have a \bibfield{langid} field set to <sanskrit>.:
@@ -3817,7 +3893,8 @@ russian & bgn/pcgn-standard & BGN/PCGN:1947 (Standard Variant), Cyrillic to Lati
 \cmditem{nosort}{field or datafield set}{regexp}
 
 可以给出任意数量的\cmd{nosort} 命令，这些命令将\prm{field} 或\prm{field type} 中的\prm{regexp} 移除。\prm{field type} 简单方便的构建了一个语义类似的域的集，在这些域中希望移除regexp。表\ref{aut:nosort} 给出了可用的域类型。因为正则表达式常包含特殊字符，最好将他们用\cmd{regexp} 宏包围起来---使得能将表达式正确地传递给\biber 。
-%Any number of \cmd{nosort} commands can be given each of which specifies to remove the \prm{regexp} from the \prm{field} or \prm{field type}. A \prm{field type} is simple a convenience grouping of semantically similar fields from which you might want to remove a regexp. Table \ref{aut:nosort} shows the available field types. Since regular expressions usually contain special characters, it is best to enclose them in the provided \cmd{regexp} macro as shown---this will pass the expression through to \biber correctly.
+Any number of \cmd{nosort} commands can be given each of which specifies to remove the \prm{regexp} from the \prm{field} or \prm{datafield set}. A \prm{datafield set} is simply a convenience grouping of semantically similar fields from which you might want to remove a regexp. See \secref{aut:ctm:dsets} for the avaiable sets, their members and customisation. Since regular expressions usually contain special characters, it is best to enclose them in the provided \cmd{regexp} macro as shown---this will pass the expression through to \biber correctly.
+
 
 \end{ltxsyntax}
 
@@ -4084,7 +4161,8 @@ This command may only be used in the preamble.
 \boolitem[true]{all} 是否默认从父条目继承所有的域
 %\boolitem[true]{all} Whether or not to inherit all fields from the parent by default.
 
-%\kvopt{all}{true} means that the child entry inherits all fields from the parent, unless a more specific inheritance rule has been set up with \cmd{DeclareDataInheritance}. If an inheritance rule is defined for a field, data inheritance is controlled by that rule. means that no data is inherited from the parent by default and each field to be inherited requires an explicit inheritance rule set up with \cmd{DeclareDataInheritance}. The package default is \kvopt{all}{true}.
+\kvopt{all}{true} means that the child entry inherits all fields from the parent, unless a more specific inheritance rule has been set up with \cmd{DeclareDataInheritance}. If an inheritance rule is defined for a field, data inheritance is controlled by that rule. \kvopt{all}{false} means that no data is inherited from the parent by default and each field to be inherited requires an explicit inheritance rule set up with \cmd{DeclareDataInheritance}. The package default is \kvopt{all}{true}.
+
 
 \kvopt{all}{true} 意为子条目从父条目继承所有域，除非有\cmd{DeclareDataInheritance} 设置的更具体的继承规则。如果对于一个域定义了继承规则，则数据继承由该规则控制。
 \kvopt{all}{false} 意为默认不从父条目继承数据，每个域都需要根据\cmd{DeclareDataInheritance} 设定的明确继承规则来执行继承。包默认是\kvopt{all}{true}。
@@ -4115,7 +4193,8 @@ This command may only be used in the preamble.
 %Defines an exception to the default inheritance rules.
 
 \cmd{DeclareDataInheritance} 为一个具体的\prm{source} 和\prm{target} 组合设置继承选项\prm{options}。\prm{source} 和\prm{target} 参数指定了父条目和子条目。星号匹配所有的类型，可用于任一参数中。
-%sets the inheritance \prm{options} for a specific \prm{source} and \prm{target} combination. The \prm{source} and \prm{target} arguments specify the parent and the child entry type. The asterisk matches all types and is permissible in either argument.
+\cmd{DeclareDataInheritance} sets the inheritance \prm{options} for a specific \prm{source} and \prm{target} combination. The \prm{source} and \prm{target} arguments specify the parent and the child entry type. The asterisk matches all types and is permissible in either argument.
+
 
 \cmditem{DeclareDataInheritance}[options]{source, \dots}{target, \dots}{rules}
 
@@ -4322,6 +4401,18 @@ This command may only be used in the preamble.
 类似于\cmd{thelist}，差别在于该命令能自动处理列表的内部表示，因此列表的值可以安全地用于控制序列名的构建。
 %Similar to \cmd{thelist}, except that the list internal representation is automatically sanitized such that its value may safely be used in the formation of a control sequence name.
 
+\cmditem{thefirstlistitem}{literal list}
+
+Expands to the unformatted first item in \prm{literal list}. If the \prm{literal list} is undefined, this command expands to an empty string.
+
+\cmditem{strfirstlistitem}{literal list}
+
+Similar to \cmd{thefirstlistitem}, except that the item is automatically sanitized such that its value may safely be used in the formation of a control sequence name.
+
+\cmditem{usefirstlistitem}{command}{literal list}
+
+Executes \prm{command} using the unformatted first item of \prm{literal list} as its argument.
+
 \cmditem{thename}{name list}
 
 %Expands to the unformatted \prm{name list}. If the list is undefined, this command expands to an empty string. Note that this command will dump the \prm{name list} in the internal format used by this package. This format is not suitable for printing.
@@ -4514,6 +4605,13 @@ This command may only be used in the preamble.
 展开为\prm{true}，如果两个日期\prm{datetype1}和\prm{datetype2}具有相同的年份和纪年。
 因为日期纪年的符号保存在era域中，可以利用该命令来避免混淆，当两个年份具有相反纪年时，比如公元前和公元后。
 
+\cmditem{ifdatesequal}{datetype1}{datetype2}{true}{false}
+
+Expands to \prm{true} if the two dates \prm{datetype1} and \prm{datetype2} are the same. Here \prm{datetype2} may be the <end> bit of \prm{datetype1} (or vice versa).
+
+\cmditem{ifdaterangesequal}{datetype1}{datetype2}{true}{false}
+
+Expands to \prm{true} if the two date ranges---that is the start and the end date---\prm{datetype1} and \prm{datetype2} are the same.
 
 \cmditem{ifcaselang}[language]{true}{false}
 
@@ -4699,7 +4797,8 @@ This command may only be used in the preamble.
 \cmditem{ifuniqueprimaryauthor}{true}{false}
 
 展开为\prm{true}，如果一篇文献的对于其\opt{labelname} 的第一作者的姓是唯一的，否则展开为\prm{false}。如果条目的\opt{labelname} 未设置，将展开为\prm{false}。注意: 使用该功能需要显式启用包选项\opt{uniqueprimaryauthor}。
-%Expands to \prm{true} if there is only one work by the primary (first) author name of \opt{labelname} and to \prm{false} otherwise. If \opt{labelname} is not set for an entry, this will always expand to \prm{false}. Note that this feature needs to be enabled explicitly with the package option \opt{uniqueprimaryauthor}.
+Expands to \prm{true} if the primary (first) author name of \opt{labelname} is unique in the bibliography list and to \prm{false} otherwise. This effectively answers the question <is there more than one author with the same base name>. The base name parts are defined by \cmd{DeclareUniquenameTemplate} see \secref{aut:cav:amb}. This is required by some styles (e.g. APA) which mandates primary author disambiguation only and only if there are (different) primary authors with the same family name. If \opt{labelname} is not set for an entry, this will always expand to \prm{false}. Note that this feature needs to be enabled explicitly with the package option \opt{uniqueprimaryauthor}.
+
 
 \cmditem{ifandothers}{list}{true}{false}
 
@@ -4739,7 +4838,7 @@ This command may only be used in the preamble.
 \cmditem{ifentrykeyword}{entrykey}{keyword}{true}{false}
 
 将条目关键词作为第一个参数的\cmd{ifkeyword} 命令的变化形式，用于判断当前处理条目是否是某一条目。
-%A variant of \cmd{ifkeyword} which takes an entry key as its first argument. This is useful for testing an entry other than the one currently processed.
+%A variant of \cmd{ifkeyword} which takes an entry key as its first argument. This is useful for testing an entry other than the one currently processed. A user-facing version of this command is available for use in documents see \secref{use:eq}.
 
 \cmditem{ifcategory}{category}{true}{false}
 
@@ -4750,6 +4849,8 @@ This command may only be used in the preamble.
 
 将条目关键词作为第一个参数的\cmd{ifcategory} 命令的变化形式，用于判断当前处理条目是否是某一条目。
 %A variant of \cmd{ifcategory} which takes an entry key as its first argument. This is useful for testing an entry other than the one currently processed.
+
+A user-facing version of this command is available for use in documents see \secref{use:eq}
 
 \cmditem{ifciteseen}{true}{false}
 
@@ -4834,12 +4935,12 @@ This command may only be used in the preamble.
 
 如果\prm{string} 是一个阿拉伯或者罗马数字的范围或列表，展开为\prm{true}，否则为\prm{false}，该命令鲁棒。相比于\cmd{ifnumeral} 命令，当参数像 «52--58», «14/15», «1,~3,~5» 等时，该命令会执行\prm{true}。
 另可参见\secref{aut:aux:msc} 节的\cmd{DeclareNumChars}，\cmd{NumCheckSetup}，\cmd{DeclareRangeCommands} 和 \cmd{NumCheckSetup} 命令。
-%Executes \prm{true} if the \prm{string} is a range or a list of Arabic or Roman numerals, and \prm{false} otherwise. This command is robust. In contrast to \cmd{ifnumeral}, it will also execute \prm{true} with arguments like «52--58», «14/15», «1,~3,~5», and so on. See also \cmd{DeclareNumChars}, \cmd{DeclareRangeChars}, \cmd{DeclareRangeCommands}, and \cmd{NumCheckSetup} in \secref{aut:aux:msc}.
+%Executes \prm{true} if the \prm{string} is a range or a list of Arabic or Roman numerals, and \prm{false} otherwise. This command is robust. In contrast to \cmd{ifnumeral}, it will also execute \prm{true} with arguments like «52--58», «14/15», «1,~3,~5», and so on. See also \cmd{DeclareNumChars}, \cmd{DeclareRangeChars}, \cmd{DeclareRangeCommands},\cmd{NumCheckSetup}, and \cmd{NumsCheckSetup} in \secref{aut:aux:msc}.
 
 \cmditem{ifpages}{string}{true}{false}
 
 类似于\cmd{ifnumerals}，但也考虑\secref{aut:aux:msc} 节的\cmd{DeclarePageCommands} 命令。
-%Similar to \cmd{ifnumerals}, but also considers \cmd{DeclarePageCommands} from \secref{aut:aux:msc}.
+%Similar to \cmd{ifnumerals}, but also considers \cmd{DeclarePageCommands} and \cmd{PagesCheckSetup} from \secref{aut:aux:msc}.
 
 \cmditem{iffieldint}{field}{true}{false}
 
@@ -4897,6 +4998,9 @@ This command may only be used in the preamble.
 当处于标注中则展开为\prm{true}，否则为\prm{false}。注意这一命令与其所在的最外层环境有关。比如，当由\cmd{DeclareCiteCommand} 命令定义的标注命令执行一个由\cmd{DeclareBibliographyDriver} 定义的驱动，则任何在该驱动中的\cmd{ifcitation} 都会展开为\prm{true}。一个例子见\secref{aut:cav:mif} 节。
 %Expands to \prm{true} when located in a citation, and to \prm{false} otherwise. Note that this command is responsive to the outermost context in which it is used. For example, if a citation command defined with \cmd{DeclareCiteCommand} executes a driver defined with \cmd{DeclareBibliographyDriver}, any \cmd{ifcitation} tests in the driver code will yield \prm{true}. See \secref{aut:cav:mif} for a practical example.
 
+\cmditem{ifvolcite}{true}{false}
+
+Expands to \prm{true} when located in \cmd{volcite} or a related citation command (\secref{use:cit:spc}), and to \prm{false} otherwise.
 \cmditem{ifbibliography}{true}{false}
 
 当处于文献表中则展开为\prm{true}，否则为\prm{false}。注意这一命令与其所在的最外层环境有关。比如，当由\cmd{DeclareBibliographyDriver} 命令定义的驱动执行一个由\cmd{DeclareCiteCommand} 定义的标注，则任何在该标注中的\cmd{ifbibliography} 都会展开为\prm{true}。一个例子见\secref{aut:cav:mif} 节。
@@ -4939,6 +5043,8 @@ This command may only be used in the preamble.
 %This counter refers to the \bibfield{labelname} list. It is set on a per-name basis. Its value is \texttt{0} if the base name (by default the <family> part of the name) is unique, \texttt{1} if adding the other parts of the name (as specified in the uniquename template defined by \cmd{DeclareUniquenameTemplate})as initials will make it unique, and \texttt{2} if the full name is required to disambiguate the name. This information is required by author-year and author-title citation schemes which add additional parts of the name when citing different authors with the same last name. For example, (given the default \cmd{DeclareUniquenameTemplate} definition) if there is one <John Doe> and one <Edward Doe> in the list of references, this counter will be set to \texttt{1}. If there is one <John Doe> and one <Jane Doe>, the value of the counter will be \texttt{2}. If the option is set to \texttt{init}\slash \texttt{allinit}\slash \texttt{mininit}, the counter will be limited to \texttt{1}. This is useful for citations styles which use initials to disambiguate names but never print the full name in citations. If adding the initials is not sufficient to disambiguate the name, \cnt{uniquename} will also be set to \texttt{0} for that name. This feature needs to be enabled explicitly with the package option \opt{uniquename}. Note that the \cnt{uniquename} counter is local to \cmd{printnames} and that it is only set for the \bibfield{labelname} list and to the name list \bibfield{labelname} has been derived from (typically \bibfield{author} or \bibfield{editor}). Its value is zero in any other context, i.e., it must be evaluated in the name formatting directives handling name lists. See \secref{aut:cav:amb} for further details and practical examples.
 这一计数器用于\bibfield{labelname} 列表。它以每个名字为基础进行设置。如果姓不同，它的值设置为0，当增加姓名的其它成分的首字母使得姓名能区分时，则设置为1，如果需要完整的姓名才能区分，则设置为2。作者年制和作者标题制的标注格式需要这一信息来增加姓名的其它成分以对同姓的不同作者进行引用。比如: (考虑默认的\cmd{DeclareUniquenameTemplate} 定义)当引用列表中有一个<John Doe> 和一个<Edward Doe>，该计数器将设置为1。如果有一个<John Doe>和一个<Jane Doe>，该计数器将设置为2。如果选项设置成\texttt{init}\slash \texttt{allinit}\slash \texttt{mininit}，那么计数器将限制值最大为\texttt{1}。
 这对于标注样式不打印全名而使用首字母来区分姓名很有用。如果添加首字母还无法区分姓名，\cnt{uniquename} 也将设置为\texttt{0}。该功能需要显式启用包选项\opt{uniquename}。注意\cnt{uniquename} 是\cmd{printnames} 局部使用的，仅根据\bibfield{labelname} 列表或其来源姓名列表(典型如\bibfield{author} 或\bibfield{editor})设置。它的值在其它环境中都是0，即它仅在处理姓名的格式化指令中计算，更多细节和实例见\secref{aut:cav:amb}。
+
+This counter refers to the \bibfield{labelname} list. It is set on a per-name basis. Its value is \texttt{0} if the base parts of the name (by default just the <family> part of the name) are unique, \texttt{1} if adding the other non-base parts of the name (as specified in the uniquename template defined by \cmd{DeclareUniquenameTemplate}) as initials will make it unique, and \texttt{2} if adding the full form of the non-base parts of the name are required to disambiguate the name. This information is required by author-year and author-title citation schemes which add additional parts of the name when citing different authors with the same family name. For example, (given the default \cmd{DeclareUniquenameTemplate} definition) if there is one <John Doe> and one <Edward Doe> in the list of references, this counter will be set to \texttt{1}. If there is one <John Doe> and one <Jane Doe>, the value of the counter will be \texttt{2}. If the option is set to \texttt{init}\slash \texttt{allinit}\slash \texttt{mininit}, the counter will be limited to \texttt{1}. This is useful for citations styles which use initials to disambiguate names but never print the full name in citations. If adding the initials is not sufficient to disambiguate the name, \cnt{uniquename} will also be set to \texttt{0} for that name. This feature needs to be enabled explicitly with the package option \opt{uniquename}. Note that the \cnt{uniquename} counter is local to \cmd{printnames} and that it is only set for the \bibfield{labelname} list and for the name list that \bibfield{labelname} has been derived from (typically \bibfield{author} or \bibfield{editor}). Its value is zero in any other context, i.e., it must be evaluated in the name formatting directives handling name lists. See \secref{aut:cav:amb} for further details and practical examples. This counter can be overridden on a per-namepart basis by consulting the \cmd{namepart<namepart>un} macros during name formatting, see \secref{aut:bbx:drv}.
 
 \cntitem{uniquelist}
 %This counter refers to the \bibfield{labelname} list. It is set on a per-field basis. Its value indicates the number of names required to disambiguate the name list if automatic \cnt{maxnames}\slash \cnt{minnames} truncation would lead to ambiguous citations. For example, if there is one work by <Doe\slash Smith\slash Johnson> and another one by <Doe\slash Edwards\slash Williams>, setting \kvopt{maxnames}{1} would lead to <Doe et al.> in both cases. In this case, \cnt{uniquelist} would be set to \texttt{2} on the \bibfield{labelname} lists of both entries because at least the first two names are required to disambiguate them. Note that the \cnt{uniquelist} counter is local to \cmd{printnames} and that it is only set for the \bibfield{labelname} list and to the name list \bibfield{labelname} has been derived from (typically \bibfield{author} or \bibfield{editor}). Its value is zero in any other context. If available, the \cnt{uniquelist} value will be used automatically by \cmd{printnames} when processing the name list, \ie it will automatically override \cnt{maxnames}\slash \cnt{minnames}. This feature needs to be enabled explicitly with the package option \opt{uniquelist}. See \secref{aut:cav:amb} for further details and practical examples.
@@ -5104,6 +5210,8 @@ The regular variant of this command sanitizes \prm{name} while the starred varia
 执行\prm{entrytype} 类条目的参考文献驱动。在由\cmd{DeclareCiteCommand} 定义的标注命令的\prm{loopcode} 中调用该命令是打印类似于一个参考文献条目的完整标注的简单方法。诸如\cmd{newblock} 等命令无法用于标注，自动省略。附加的初始化命令可以通过\prm{code} 参数传递。该参数在一个编组内执行，这一编组用于运行相应驱动。注意: 该参数语法上是必须的，但可以留空。也要注意如果\opt{autolang} 包选项启用的话，该命令会自动切换语言。
 %Executes the bibliography driver for an \prm{entrytype}. Calling this command in the \prm{loopcode} of a citation command defined with \cmd{DeclareCiteCommand} is a simple way to print full citations similar to a bibliography entry. Commands such as \cmd{newblock}, which are not applicable in a citation, are disabled automatically. Additional initialization commands may be passed as the \prm{code} argument. This argument is executed inside the group in which \cmd{usedriver} runs the respective driver. Note that it is mandatory in terms of the syntax but may be left empty. Also note that this command will automatically switch languages if the \opt{autolang} package option is enabled.
 
+Executes the bibliography driver for an \prm{entrytype}. Calling this command in the \prm{loopcode} of a citation command defined with \cmd{DeclareCiteCommand} is a simple way to print full citations similar to a bibliography entry. Commands such as \cmd{newblock}, which are not applicable in a citation, are disabled automatically by default. The global initialization can be changed with \cmd{AtUsedriver}, see \secref{aut:fmt:hok}. Additional local initialization commands may be passed as the \prm{code} argument. This argument is executed inside the group in which \cmd{usedriver} runs the respective driver. Note that it is mandatory in terms of the syntax but may be left empty. Also note that this command will automatically switch languages if the \opt{autolang} package option is enabled.
+
 \cmditem{bibhypertarget}{name}{text}
 
 \sty{hyperref} 的\cmd{hypertarget} 命令的封套(包围命令)。\prm{name} 是超链接锚的名字，\prm{text} 的内容作为超链接锚，可以是任意可打印文字或代码。如果文档中存在\env{refsection} 环境，\prm{name} 是基于当前refsection环境。如果\opt{hyperref} 包选项未启用或者\sty{hyperref} 包未加载，该命令简单的传递\prm{text} 变量。另可参见\secref{aut:fmt:ich} 节的格式化指令\texttt{bibhypertarget}。
@@ -5145,6 +5253,10 @@ The regular variant of this command sanitizes \prm{name} while the starred varia
 将\prm{text} 参数转换为sentence case(句子模式)，即字符串中的第一个单词首字母大写而剩下其他部分转换为小写。该命令是鲁棒的。带星号的命令与常规命令(不带星号)的差别在于它能考虑条目的语言，根据\bibfield{langid} 域指定。只有当\bibfield{langid} 未定义或者值为由\cmd{DeclareCaseLangs} 命令(见后面)声明的某种语言时，它才将\prm{text} 转换为句子模式。\footnote{默认情况下，如下语言支持转换: \texttt{american}, \texttt{british}, \texttt{canadian}, \texttt{english}, \texttt{australian}, \texttt{newzealand} as well as the aliases \texttt{USenglish} and \texttt{UKenglish}. 要扩展或修改该列表请使用\cmd{DeclareCaseLangs} 命令。} 否则\prm{text} 不做任何改变。推荐使用\cmd{MakeSentenceCase*} 而不是常规命令。两个命令都支持\file{bib} 文件的传统\bibtex 规范，即: 遇到任何以花括号包围的内容大小写都不作变化，例如:
 %Converts its \prm{text} argument to sentence case, \ie the first word is capitalized and the remainder of the string is converted to lowercase. This command is robust. The starred variant differs from the regular version in that it considers the language of the entry, as specified in the \bibfield{langid} field. If the \bibfield{langid} field is defined and holds a language declared with \cmd{DeclareCaseLangs} (see below)\footnote{By default, converting to sentence case is enabled for the following language identifiers: \texttt{american}, \texttt{british}, \texttt{canadian}, \texttt{english}, \texttt{australian}, \texttt{newzealand} as well as the aliases \texttt{USenglish} and \texttt{UKenglish}. Use \cmd{DeclareCaseLangs} to extend or change this list.}, then the sentence case conversion is performed. If the \bibfield{langid} field is undefined, then the language list declared with \cmd{DeclareCaseLangs} is checked for the presence of the main document language derived from the \opt{language} option. If found, sentence case conversion is performed, if not, the \prm{text} is not altered in any way. It is recommended to use \cmd{MakeSentenceCase*} rather than the regular variant in formatting directives. Both variants support the traditional \bibtex convention for \file{bib} files that anything wrapped in a pair of curly braces is not modified when changing the case. For example:
 
+ Depending on the option \opt{casechanger} \cmd{MakeCaseChange} and \cmd{MakeCaseChange*} are either implemented using the \sty{expl3} module \sty{l3text} or original \LaTeXe code.
+
+Both variants support the traditional \bibtex convention for \file{bib} files that anything wrapped in a pair of curly braces is not modified when changing the case. For example:
+
 \begin{ltxexample}
 \MakeSentenceCase{an Introduction to LaTeX}
 \MakeSentenceCase{an Introduction to {LaTeX}}
@@ -5179,6 +5291,47 @@ title = {The {\TeX book}},
 在标准样式中，\texttt{title}类的域格式因为其参数结构不做\cmd{MakeSentenceCase}格式处理，
 所以标准样式特意提供了\texttt{titlecase}域格式来实现这类命令。要在标准样式中对支持的语言启用句子模式，那么需要:
 
+The behaviour of \cmd{MakeSentenceCase} differs slightly between the \opt{latex2e} and \opt{expl3} implementation. Generally speaking, the \opt{expl3} code is closer to the \bibtex behaviour of \texttt{change.case\$}. It is also better equipped to deal with non-ASCII input and macros than the \opt{latex2e} implementation. \cmd{MakeSentenceCase} behaves as follows.
+\begin{itemize}\setlength{\labelsep}{1em}
+  \item The first letter of its argument is capitalised with \cmd{MakeUppercase}. This is different from \bibtex's \texttt{change.case\$}, which does not touch the first letter of its argument.
+
+  Note that with the \opt{latex2e} code a pair of braces that starts with a control sequence will be treated as a single character for capitalisation purposes. This means that the entire argument of a command protected with a single pair of braces is capitalised.
+  \item With the \opt{latex2e} code expandable commands are expanded before the case change, which means that the case change applies to the replacement text. Unexpandable commands are not touched.
+
+  \bibtex does not interpret macros and therefore passes commands through unchanged (this does not necessarily apply to the \emph{arguments} of those commands). The \opt{expl3} implementation also does not expand commands and only applies case change to the arguments.
+  \item Text wrapped in one or more pairs of braces is protected from case change \emph{unless} it starts with a control sequence. This is the same behaviour as with \bibtex. Note that the braces could either be explicit groups or argument delimiters.
+  \item Text in a single pair of braces that starts with a control sequence is not protected and will be subject to case changes. Note that this need not apply to braces that are argument delimiters, in fact the \opt{latex2e} implementation of \cmd{MakeSentenceCase} may in some cases produce an error or otherwise undesirable output if the argument of a command starts with a control sequence. \bibtex's case change function does not differentiate between argument delimiters and brace groups and always subjects text at brace level~1 to case change if it starts with a control sequence.
+\end{itemize}
+
+For most intents and purposes the following rules should give a sensible result.
+\begin{itemize}\setlength{\labelsep}{1em}
+  \item Protect all words whose case should not be changed by wrapping them in one pair of braces.
+  \item If words are already in the braced argument of a command such as \cmd{mkbibquote} or \cmd{emph}, they are automatically protected.
+  \begin{itemize}
+    \item To \emph{undo} this protection wrap the command in braces again.
+    \item It is not possible to selectively re-apply protection if it has been undone with an additional pair of braces. If a more fine-grained control is needed, work-arounds like splitting the argument could be tried.
+  \end{itemize}
+  \item While it is possible to protect words from case change at the beginning of a field with a pair of braces, it is not possible to undo the case protection that a command automatically implies by wrapping it in braces in that position. In that case work-arounds are necessary.
+\end{itemize}
+%
+\begin{lstlisting}[style=bibtex]{}
+title = {The Story of {HMS} \emph{Erebus}
+         in {\emph{Really}} Strong Wind},
+\end{lstlisting}
+would be converted to sentence case by \cmd{MakeSentenceCase} as
+\begin{quote}
+The story of HMS \emph{Erebus} in {\emph{really}} strong wind
+\end{quote}
+
+If the \sty{expl3} implementation of the case changing functions is selected, the \bibtex case protection behaviour can be exchanged for a slightly simpler version. When \opt{bibtexcaseprotection} set to \opt{false}, braces no longer automatically imply case protection. Instead words can be protected from case change with \cmd{NoCaseChange}. The examples from above would then read
+\begin{lstlisting}[style=bibtex]{}
+title = {An Introduction to \NoCaseChange{LaTeX}},
+title = {The Story of \NoCaseChange{HMS \emph{Erebus}}
+         in \emph{Really} Strong Wind},
+\end{lstlisting}
+Generally, this option should allow for a saner case protection input, because curly braces are no longer overloaded with different levels of meaning, but it is a big departure from the standard case protection input that has been with the \latex world for a long time.
+
+Due to its complex implementation \cmd{MakeSentenceCase} can not accept arbitrary input, it only safely operates on raw text or field data. In the standard styles the \bibfield{title} and other \bibfield{title}-like field formats do not work together with \cmd{MakeSentenceCase} because of their argument structure, so the standard styles offer a dedicated \texttt{titlecase} field format to apply this command. To enable sentence casing in standard styles for languages that support it you would use:
 \begin{ltxexample}
 \DeclareFieldFormat{titlecase}{<<\MakeSentenceCase*{#1}>>}
 \end{ltxexample}
@@ -5283,9 +5436,11 @@ title = {The {\TeX book}},
 pp. 5, 123-9, 423-39
 p. 5, pp. 123-9, pp. 423-39
 \end{ltxexample}
+%
+The second optional argument \prm{itempostpro} is used to post-process each individual number item in the formatted list. It can be used to convert numbers from cardinals to ordinals. If only one optional argument is present, it is treated as \prm{postpro}.
 
-\cmditem{mknormrange}[postpro]{text}
-\cmditem*{mknormrange*}[postpro]{text}
+\cmditem{mknormrange}[postpro][itempostpro]{text}
+\cmditem*{mknormrange*}[postpro][itempostpro]{text}
 
 %This command, which is intended for use in field formatting directives, will parse its \prm{text} argument for page ranges and will normalise them. The command is similar to \cmd{mkcomprange} except that the page ranges will not be compressed. The scanner recognises \cmd{bibrangedash} and hyphens as range dashes. It will normalize the dash by replacing any number of consecutive hyphens with \cmd{bibrangedash}. Lists of ranges delimited with \cmd{bibrangessep} are also supported. The scanner will normalise any comma or semi-colons surrounded by optional space by replacing them with \cmd{bibrangessep}. If you want to hide a character from the list/range scanner for some reason, wrap the character or the entire string in curly braces. The optional \prm{postpro} argument specifies a macro to be used for post-processing the \prm{text}. See \cmd{mkcomprange} on how to use this argument. The starred version of this command differs from the regular one in the way the \prm{postpro} argument is applied to a list of values.
 该命令用于域的格式化指令中，将会解析其\prm{text}参数来实现和规范页码范围。
@@ -5295,12 +5450,15 @@ p. 5, pp. 123-9, pp. 423-39
 扫描器将规范任意逗号或分号为\cmd{bibrangessep}。如果想要隐藏他们，那么将其或整个字符串用花括号包围起来。
 可选参数\prm{postpro}指定了\prm{text}后处理中用的宏。如何使用该参数见\cmd{mkcomprange}。带星号的版本差别在于\prm{postpro}参数应用于列表。
 
+This command, which is intended for use in field formatting directives, will parse its \prm{text} argument for page ranges and will normalise them. The command is similar to \cmd{mkcomprange} except that the page ranges will not be compressed. The scanner recognises \cmd{bibrangedash} and hyphens as range dashes. It will normalize the dash by replacing any number of consecutive hyphens with \cmd{bibrangedash}. Lists of ranges delimited with \cmd{bibrangessep} are also supported. The scanner will normalise any comma or semicolons surrounded by optional space by replacing them with \cmd{bibrangessep}. If you want to hide a character from the list/range scanner for some reason, wrap the character or the entire string in curly braces. The optional \prm{postpro} argument specifies a macro to be used for post-processing the \prm{text}. See \cmd{mkcomprange} on how to use this argument. The starred version of this command differs from the regular one in the way the \prm{postpro} argument is applied to a list of values. The second optional argument \prm{itempostpro} is used to post-process each individual number item in the formatted list. It can be used to convert numbers from cardinals to ordinals. If only one optional argument is present, it is treated as \prm{postpro}.
 
-\cmditem{mkfirstpage}[postpro]{text}
-\cmditem*{mkfirstpage*}[postpro]{text}
+\cmditem{mkfirstpage}[postpro][itempostpro]{text}
+\cmditem*{mkfirstpage*}[postpro][itempostpro]{text}
 
 该命令用于域格式化指令，将\prm{text} 参数解析为页码范围并且仅打印这些范围的起始页码。扫描程序将\cmd{bibrangedash} 和hyphens作为范围间隔符。支持范围列表以\cmd{bibrangessep} 分隔。如果因为某些原因需要对list/range扫描程序隐藏一个字符，那么可以将该字符或者整个字符串用花括号包围起来。可选参数\prm{postpro} 指定了一个用于对\prm{text} 进行后处理的宏。怎么使用该参数见\cmd{mkcomprange} 命令。带星的命令的差别在于\prm{postpro} 参数应用于列表的各项。例如:
 %This command, which is intended for use in field formatting directives, will parse its \prm{text} argument for page ranges and print the start page of the range only. The scanner recognizes \cmd{bibrangedash} and hyphens as range dashes. Lists of ranges delimited with \cmd{bibrangessep} are also supported. If you want to hide a character from the list/range scanner for some reason, wrap the character or the entire string in curly braces. The optional \prm{postpro} argument specifies a macro to be used for post-processing the \prm{text}. See \cmd{mkcomprange} on how to use this argument. The starred version of this command differs from the regular one in the way the \prm{postpro} argument is applied to a list of values. For example:
+
+This command, which is intended for use in field formatting directives, will parse its \prm{text} argument for page ranges and print the start page of the range only. The scanner recognizes \cmd{bibrangedash} and hyphens as range dashes. Lists of ranges delimited with \cmd{bibrangessep} are also supported. If you want to hide a character from the list/range scanner for some reason, wrap the character or the entire string in curly braces. The optional \prm{postpro} argument specifies a macro to be used for post-processing the \prm{text}. See \cmd{mkcomprange} on how to use this argument. The starred version of this command differs from the regular one in the way the \prm{postpro} argument is applied to a list of values. The second optional argument \prm{itempostpro} is used to post-process each individual number item in the formatted list. It can be used to convert numbers from cardinals to ordinals. If only one optional argument is present, it is treated as \prm{postpro}. For example:
 
 \begin{ltxexample}
 \mkfirstpage[\mkpageprefix]{5, 123-129, 423-439}
@@ -5311,7 +5469,7 @@ p. 5, pp. 123-9, pp. 423-39
 %will output:
 
 \begin{ltxexample}
-p. 5, 123, 423
+pp. 5, 123, 423
 p. 5, p. 123, p. 423
 \end{ltxexample}
 
@@ -5412,6 +5570,34 @@ For engines that fully support Unicode these defaults are extended with
 该命令用于临时重定义一些将与\secref{aut:aux:tst} 节的\cmd{ifnumeral}, \cmd{ifnumerals}, \cmd{ifpages} 命令执行的判断产生冲突的命令。该设置也将影响\cmd{iffieldnum}, \cmd{iffieldnums}, \cmd{iffieldpages}, \cmd{mkpageprefix} 和\cmd{mkpagetotal}。这些命令将在组内执行\prm{code}。因为上述命令将展开为字符串用于分析，可以利用将冲突命令展开为空字符串(将被判断命令忽略)的方式来移除这些命令。更多细节参见\secref{bib:use:pag, use:cav:pag}。
 %Use this command to temporarily redefine any commands which interfere with the tests performed by \cmd{ifnumeral}, \cmd{ifnumerals}, and \cmd{ifpages} from \secref{aut:aux:tst}. The setup will also affect \cmd{iffieldnum}, \cmd{iffieldnums}, \cmd{iffieldpages} as well as \cmd{mkpageprefix} and \cmd{mkpagetotal}. The \prm{code} will be executed in a group by these commands. Since the above mentioned commands will expand the string to be analyzed, it is possible to remove commands to be ignored by the tests by making them expand to an empty string. See also \secref{bib:use:pag, use:cav:pag} for further details.
 
+\cmditem{NumsCheckSetup}{code}
+
+Like \cmd{NumCheckSetup} but only applies to \cmd{ifnumerals} and \cmd{ifpages} from \secref{aut:aux:tst} and their derivative tests.
+
+\cmditem{PagesCheckSetup}{code}
+
+Like \cmd{NumCheckSetup} but only applies to \cmd{ifpages} from \secref{aut:aux:tst} and its derivative tests. The default setting is makes \cmd{pnfmt} transparent to the test:
+
+\begin{ltxexample}
+\PagesCheckSetup{\let\pnfmt\@firstofone}
+\end{ltxexample}
+
+\cmditem{DeclareBabelToExplLanguageMapping}{babel language}{expl language}
+
+This command is only available if the \sty{expl3} case changing code is used.
+
+Use \prm{expl language} as \prm{language} argument for the \sty{l3text} case changing functions when \sty{babel language} is active. This command is only required if \prm{babel language} should correspond to a language for which \sty{l3text} has special rules set up. The default invocations of this command are
+\begin{ltxexample}
+\DeclareBabelToExplLanguageMapping{dutch}{nl}
+\DeclareBabelToExplLanguageMapping{greek}{el}
+\DeclareBabelToExplLanguageMapping{turkish}{tr}
+\end{ltxexample}
+
+\cmditem{UndeclareBabelToExplLanguageMapping}{babel language}
+
+This command is only available if the \sty{expl3} case changing code is used.
+
+Removes the \sty{babel}-to-\sty{expl3} language mapping for \prm{babel language}. If the argument is an asterisk \texttt{*}, all language mappings are removed.
 \cmditem{DeclareCaseLangs}{languages}
 \cmditem*{DeclareCaseLangs*}{languages}
 
@@ -5813,6 +5999,17 @@ For engines that fully support Unicode these defaults are extended with
 类似于\cmd{bibstring}，但总是打印短字符串，忽略\opt{abbreviate} 选项。
 %Similar to \cmd{bibstring} but always prints the short string, ignoring the \opt{abbreviate} option.
 
+\cmditem{bibncpstring}[wrapper]{key}
+
+Similar to \cmd{bibstring} but the term is never capitalized.
+
+\cmditem{bibncplstring}[wrapper]{key}
+
+Similar to \cmd{biblstring} but the term is never capitalized.
+
+\cmditem{bibncpsstring}[wrapper]{key}
+
+Similar to \cmd{bibsstring} but the term is never capitalized.
 \cmditem{bibcpstring}[wrapper]{key}
 
 类似于\cmd{bibstring}，但字符串总是首字母大写
@@ -5877,6 +6074,11 @@ For engines that fully support Unicode these defaults are extended with
 
 从当前语言转换到主文档语言。可以用在上述本地化字符串命令的\prm{wrapper} 参数中。
 %Switches from the current language to the main document language. This can be used the \prm{wrapper} argument in the localisation string commands above.
+Switches from the current language to the main document language. This command is deprecated. Use the text-macro \cmd{textmainlang} instead. With \sty{babel} this command will need to be wrapped into \emph{two} groups to have purely local effect.
+
+\cmditem{textmainlang}{text}
+
+Locally switches from the current language to the main document language to typeset \prm{text}. This can be used the \prm{wrapper} argument in the localisation string commands above.
 
 \end{ltxsyntax}
 
@@ -6496,6 +6698,7 @@ Keys for \bibfield{translator}\slash \bibfield{annotator}\slash \prm{role} combi
 
 \begin{keymarglist}
 \item[langamerican] The language <American> or <American English>.
+\item[langbasque] The language <Basque>.
 \item[langbrazilian] The language <Brazilian> or <Brazilian Portuguese>.
 \item[langbulgarian] The language <Bulgarian>.
 \item[langcatalan] The language <Catalan>.
@@ -6514,14 +6717,17 @@ Keys for \bibfield{translator}\slash \bibfield{annotator}\slash \prm{role} combi
 \item[langjapanese] The language <Japanese>.
 \item[langlatin] The language <Latin>.
 \item[langlatvian] The language <Latvian>.
+\item[langlithuanian] The language <Lithuanian>.
 \item[langnorwegian] The language <Norwegian>.
 \item[langpolish] The language <Polish>.
 \item[langportuguese] The language <Portuguese>.
 \item[langrussian] The language <Russian>.
+\item[langserbian] The language <Serbian>.
 \item[langslovak] The language <Slovak>.
 \item[langslovene] The language <Slovene>.
 \item[langspanish] The language <Spanish>.
 \item[langswedish] The language <Swedish>.
+\item[langturkish] The language <Turkish>.
 \item[langukrainian] The language <Ukrainian>.
 \end{keymarglist}
 %
@@ -6530,6 +6736,7 @@ Keys for \bibfield{translator}\slash \bibfield{annotator}\slash \prm{role} combi
 
 \begin{keymarglist}
 \item[fromamerican] The expression <from [the] American> or <from [the] American English>.
+\item[frombasque] The expression <from [the] Basque>.
 \item[frombrazilian] The expression <from [the] Brazilian> or <from [the] Brazilian Portuguese>.
 \item[frombulgarian] The expression <from [the] Bulgarian>.
 \item[fromcatalan] The expression <from [the] Catalan>.
@@ -6548,14 +6755,17 @@ Keys for \bibfield{translator}\slash \bibfield{annotator}\slash \prm{role} combi
 \item[fromjapanese] The expression <from [the] Japanese>.
 \item[fromlatin] The expression <from [the] Latin>.
 \item[fromlatvian] The expression <from [the] Latvian>.
+\item[fromlithuanian] The language <from [the] Lithuanian>.
 \item[fromnorwegian] The expression <from [the] Norwegian>.
 \item[frompolish] The expression <from [the] Polish>.
 \item[fromportuguese] The expression <from [the] Portuguese>.
 \item[fromrussian] The expression <from [the] Russian>.
+\item[fromserbian] The expression <from [the] Serbian>.
 \item[fromslovak] The expression <from [the] Slovak>.
 \item[fromslovene] The expression <from [the] Slovene>.
 \item[fromspanish] The expression <from [the] Spanish>.
 \item[fromswedish] The expression <from [the] Swedish>.
+\item[fromturkish] The expression <from [the] Turkish>.
 \item[fromukrainian] The expression <from [the] Ukrainian>.
 \end{keymarglist}
 
@@ -6674,6 +6884,26 @@ AM/PM的缩略词:
 %This section corresponds to \secref{use:fmt:fmt} in the user part of the manual. The commands and hooks discussed here are meant to be redefined by users, but bibliography and citation styles may provide a default definition which is different from the package default. These commands are defined in \path{biblatex.def}. Note that all commands starting with \cmd{mk\dots} take one mandatory argument.
 
 \begin{ltxsyntax}
+\csitem{bibsetup}
+Arbitrary code to be executed at the beginning of the bibliography, intended for commands which affect the layout of the bibliography.
+
+\csitem{bibfont}
+Arbitrary code setting the font used in the bibliography. This is very similar to \cmd{bibsetup} but intended for switching fonts.
+
+\csitem{citesetup}
+Arbitrary code to be executed at the beginning of each citation command.
+
+\csitem{newblockpunct}
+The separator inserted between <blocks> in the sense explained in \secref{aut:pct:new}. The default definition is controlled by the package option \opt{block} (see \secref{use:opt:pre:gen}).
+
+\csitem{newunitpunct}
+The separator inserted between <units> in the sense explained in \secref{aut:pct:new}. This will usually be a period or a comma plus an interword space. The default definition is a period and a space.
+
+\csitem{finentrypunct}
+The punctuation printed at the very end of every bibliography entry, usually a period. The default definition is a period.
+
+\csitem{entrysetpunct}
+The punctuation printed between bibliography subentries of an entry set. The default definition is a semicolon and a space.
 
 \csitem{bibnamedelima}
 这一分隔符控制构成姓名成分的元素间的间距。它由后端自动添加，位于第一个元素后面如果该元素少于三个字符长度和最后一个元素之前。默认的定义为\cmd{addhighpenspace}，即一个由\cnt{highnamepenalty} 计数器(\secref{use:fmt:len} 节)值控制的空间，更多细节见\secref{use:cav:nam}。
@@ -6772,6 +7002,9 @@ AM/PM的缩略词:
 该分隔符在\bibfield{pageref} 域前打印。替代该位置处的\cmd{newunitpunct}。默认是一个词内空格。
 %The separator to be printed before the \bibfield{pageref} field. Use this separator instead of \cmd{newunitpunct} at this location. The default is an interword space.
 
+\csitem{bibeidpunct}
+The separator printed before the \bibfield{eid} field (similar to \cmd{bibpagespunct}). The default is a comma plus an interword space.
+
 \csitem{multinamedelim}
 该分隔符在\bibfield{author} 或\bibfield{editor} 之类的姓名列表的各项之间打印，如果列表中存在超过2个姓名的话。如果列表中仅有两个姓名，则使用\cmd{finalnamedelim}。该命令应在姓名列表的所有格式化指令中使用。
 %The delimiter to be printed between multiple items in a name list like \bibfield{author} or \bibfield{editor} if there are more than two names in the list. If there are only two names in the list, use the \cmd{finalnamedelim} instead. This command should be incorporated in all formatting directives for name lists.
@@ -6779,6 +7012,8 @@ AM/PM的缩略词:
 \csitem{finalnamedelim}
 用于替代姓名列表中最后一个名字前的\cmd{multinamedelim}。
 %Use this command instead of \cmd{multinamedelim} before the final name in a name list.
+
+The default is the localised term <and>, separated by interword spaces.
 
 \csitem{revsdnamedelim}
 
@@ -6805,12 +7040,31 @@ AM/PM的缩略词:
 
 \csitem{multicitedelim}
 该分隔符在传递给当个标注命令的多个条目关键词之间打印。该命令应在标注命令定义中使用，例如在传递给\cmd{DeclareCiteCommand} 的\prm{sepcode} 参数中。详见\secref{aut:cbx:cbx}。
-%The delimiter printed between citations if multiple entry keys are passed to a single citation command. This command should be incorporated in the definition of all citation commands, for example in the \prm{sepcode} argument passed to \cmd{DeclareCiteCommand}. See \secref{aut:cbx:cbx} for details.
+%The delimiter printed between citations if multiple entry keys are passed to a single citation command. This command should be incorporated in the definition of all citation commands, for example in the \prm{sepcode} argument passed to \cmd{DeclareCiteCommand}. See \secref{aut:cbx:cbx} for details.The default is a semicolon plus an interword space.
+
+\csitem{multiciterangedelim}
+The delimiter printed between two citations if they are compressed to a range. The default is \cmd{bibrangedash}.
+
+\csitem{multicitesubentrydelim}
+The delimiter printed between subentry citations of the same set. This delimiter is only used in citation styles that reduce citations of the same set to a more compact form (\opt{subentry} of \texttt{numeric-comp}). The default is a comma.
+
+\csitem{multicitesubentryrangedelim}
+The delimiter printed between two citations of the same set if they are compressed to a range. The default is \cmd{multiciterangedelim}.
 
 \csitem{supercitedelim}
 类似于\cmd{multicitedelim}，但仅用于\cmd{supercite} 命令中。
 %Similar to \cmd{multinamedelim}, but intended for the \cmd{supercite} command only.
 %这里原文有笔误。
+The default is a comma.
+
+\csitem{superciterangedelim}
+Analogue of \cmd{multiciterangedelim} for \cmd{supercite}. The default is \cmd{bibrangedash}.
+
+\csitem{supercitesubentrydelim}
+Analogue of \cmd{multicitesubentrydelim} for \cmd{supercite}. The default is \cmd{supercitedelim}.
+
+\csitem{supercitesubentryrangedelim}
+Analogue of \cmd{multicitesubentryrangedelim} for \cmd{supercite}. The default is \cmd{superciterangedelim}.
 
 \csitem{compcitedelim}
 类似于\cmd{multicitedelim}，但仅用于压缩(<compress>)多个引用的标注样式中，即打印作者一次，如果后面接着的引用文献的作者相同的话。
@@ -6820,9 +7074,12 @@ AM/PM的缩略词:
 类似于\cmd{multicitedelim}，但仅用于\cmd{textcite} 和相关命令(\secref{use:cit:cbx})中。
 %Similar to \cmd{multicitedelim}, but intended for \cmd{textcite} and related commands (\secref{use:cit:cbx}).
 
+The default is a comma plus an interword space. The standard styles modify this provisional definition to ensure that the delimiter before the final citation is the localised term <and>, separated by interword spaces.
+
 \csitem{nametitledelim}
 在责任者和标题之间打印的分隔符。该命令应在作者标题制和一些长标注样式的所有标注命令定义中使用。
 %The delimiter to be printed between the author\slash editor and the title. This command should be incorporated in the definition of all citation commands of author-title and some verbose citation styles.
+The delimiter to be printed between the author\slash editor and the title. This command should be incorporated in the definition of all citation commands of author-title and some verbose citation styles and in the bibliography drivers---in author-year bibliographies \cs{nametitledelim} may be printed between the author\slash editor-year block and the title. The default definition inside bibliographies is the now deprecated \cmd{labelnamepunct} (for backwrds compatibility reasons) and is a comma plus an interword space otherwise.
 
 \csitem{nameyeardelim}
 在责任者和年份之间打印的分隔符。该命令应在作者年制标注样式的所有标注命令定义中使用。
@@ -6836,6 +7093,9 @@ AM/PM的缩略词:
 作者年制标注样式中labelname的替代者(当labelname不存在时)与年份之间打印的分隔符。仅用于无labelname的情况，因为当其存在时使用的是\cmd{nameyeardelim}。
 %The delimiter printed between the substitute for the labelname when it does not exist (usually the label or title in standard styles) and the year in author-year citation styles. This is only used when there is no labelname since when the labelname exists, \cmd{nameyeardelim} is used.
 
+This command should be incorporated in the definition of all citation commands of author-year citation styles and in the bibliography drivers. The default definition is an interword space.
+
+
 \csitem{authortypedelim}
 The delimiter printed between the author and the \texttt{authortype}.
 
@@ -6844,7 +7104,14 @@ The delimiter printed between the editor and the \texttt{editor} or \texttt{edit
 
 \csitem{translatortypedelim}
 The delimiter printed between the translator and the \texttt{translator} string.
+The delimiter printed between the translator and the \texttt{translator} string. The default is a comma followed by a space.
 
+
+\csitem{labelalphaothers}
+A string to be appended to the non"=numeric portion of the \bibfield{labelalpha} field (\ie the field holding the citation label used by alphabetic citation styles) if the number of authors\slash editors exceeds the \opt{maxalphanames} threshold or the \bibfield{author}\slash \bibfield{editor} list was truncated in the \file{bib} file with the keyword <\texttt{and others}>. This will typically be a single character such as a plus sign or an asterisk. The default is a plus sign. This command may also be redefined to an empty string to disable this feature. In any case, it must be redefined in the preamble.
+
+\csitem{sortalphaothers}
+Similar to \cmd{labelalphaothers} but used in the sorting process. Setting it to a different value is advisable if the latter contains formatting commands. If \cmd{sortalphaothers} is not redefined, it defaults to \cmd{labelalphaothers}.
 \csitem{volcitedelim}
 在\cmd{volcite} 和相关命令的卷部分和页码/文本部分之间打印的分隔符(见\secref{use:cit:spc})。
 %The delimiter to be printed between the volume portion and the page/text portion of \cmd{volcite} and related commands (\secref{use:cit:spc}).
@@ -6861,6 +7128,11 @@ The delimiter printed between the translator and the \texttt{translator} string.
 当postnote出现在标注括号外时，标注命令中在标注和插入的\prm{postnote} 参数之间打印的分隔符。在标准样式中，这仅发生在标注使用条目的缩略域时。
 %The delimiter printed between the citation and the parenthetical \prm{postnote} argument of a citation command when the postnote occurs outside of the citation parentheses. In the standard styles, this occurs when the citation uses the shorthand field of the entry.
 
+\csitem{multiprenotedelim}\CSdelimMark
+The delimiter to be printed after the \prm{multiprenote} argument of a citation command.
+
+\csitem{multipostnotedelim}\CSdelimMark
+The delimiter to be printed before the \prm{multipostnote} argument of a citation command.
 \cmditem{mkbibnamefamily}{text}
 姓的格式化钩子，用于姓名列表的所有格式化指令中。
 %Formatting hook for the family name, to be used in all formatting directives for name lists.
@@ -6877,6 +7149,60 @@ The delimiter printed between the translator and the \texttt{translator} string.
 类似于\cmd{mkbibnamefamily}，当用于姓名后缀。
 %Similar to \cmd{mkbibnamefamily}, but intended for the name suffix.
 
+
+\cmditem{mkbibname<namepart>}{text}
+Formatting hook for the name part <namepart>, to be used in all formatting directives for name lists. The default datamodel defines the name parts <family>, <given>, <prefix> and <suffix> and therefore the following macros are automatically defined:
+
+\begin{ltxexample}
+\mkbibnamefamily
+\mkbibnamegiven
+\mkbibnameprefix
+\mkbibnamesuffix
+\end{ltxexample}
+
+\cmditem{mkbibcompletename<formatorder>}{text}
+Formatting hook for the complete name in format order <formatorder>. The default styles use the name format orders <family>, <family-given> and <given-family>, therefore the following macros are automatically defined:
+
+\begin{ltxexample}
+\mkbibcompletenamefamily
+\mkbibcompletenamefamilygiven
+\mkbibcompletenamegivenfamily
+\end{ltxexample}
+%
+These formatting hooks should enclose the complete name in the bibliography macro \cmd{name:<formatorder>}. Initially all hooks expand to \cmd{mkbibcompletename}.
+
+\cmditem{mkbibcompletename}{text}
+The initial value of all default formatting hooks \cmd{mkbibcompletename<formatorder>}.
+
+\csitem{datecircadelim}\CSdelimMark
+When formatting dates with the global option \opt{datecirca} enabled, the delimiter printed after any localised <circa> term. Defaults to interword space.
+
+\csitem{dateeradelim}\CSdelimMark
+When formatting dates with the global option \opt{dateera} set, the delimiter printed before the localisation era term. Defaults to interword space.
+
+\csitem{dateuncertainprint}
+Prints date uncertainty information when the global option \opt{dateuncertain} is enabled and the \cmd{ifdateuncertain} test is true. By default, prints the language specific \cmd{bibdateuncertain} string (\secref{use:fmt:lng}).
+
+\csitem{enddateuncertainprint}
+Prints date uncertainty information when the global option \opt{dateuncertain} is enabled and the \cmd{ifenddateuncertain} test is true. By default, prints the language specific \cmd{bibdateuncertain} string (\secref{use:fmt:lng}).
+
+\csitem{datecircaprint}
+Prints date circa information when the global option \opt{datecirca} is enabled and the \cmd{ifdatecirca} test is true. By default, prints the <circa> localised term (\secref{aut:lng:key:dt}) and the \opt{datecircadelim} delimiter.
+
+\csitem{enddatecircaprint}
+Prints date circa information when the global option \opt{datecirca} is enabled and the \cmd{ifenddatecirca} test is true. By default, prints the <circa> localised term (\secref{aut:lng:key:dt}) and the \opt{datecircadelim} delimiter.
+
+\csitem{datecircaprintiso}
+Prints \acr{ISO8601-2} format date circa information when the global option \opt{datecirca} is enabled and the \cmd{ifdatecirca} test is true. Prints \cmd{textasciitilde}.
+
+\csitem{enddatecircaprintiso}
+Prints \acr{ISO8601-2} format date circa information when the global option \opt{datecirca} is enabled and the \cmd{ifenddatecirca} test is true. Prints \cmd{textasciitilde}.
+
+\csitem{dateeraprint}{yearfield}
+Prints date era information when the global option \opt{dateera} is set to <secular> or <christian>. By default, prints the \opt{dateeradelim} delimiter and the appropriate localised era term (\secref{aut:lng:key:dt}). If the \opt{dateeraauto} option is set, then the passed \prm{yearfield} (which is the name of a year field such as <year>, <origyear>, <endeventyear> etc.) is tested to see if its value is earlier than the \opt{dateeraauto} threshold and if so, then the BCE/CE localisation will be output too. The default setting for \opt{dateeraauto} is 0 and so only BCE/BC localisation strings are candidates for output. Detects whether the start or end year era information is to be printed by looking at the \prm{yearfield} name passed to it.
+
+\csitem{dateeraprintpre}
+Prints date era information when the global option \opt{dateera} is set to <astronomical>. By default, prints \opt{bibdataeraprefix}. Detects whether the start or end year era information is to be printed by looking at the \prm{yearfield} name passed to it.
 \csitem{relatedpunct}
 在相关类型参考文献本地化字符串和第一个关联条目数据之间的分隔符。
 %The separator between the relatedtype bibliography localisation string and the data from the first related entry.
@@ -6975,10 +7301,13 @@ UTC时区的具体语言的打印字符串，默认是<Z>。
 分隔时间的可选时区成分的具体语言的标记，默认为空。
 %The language specific marker which separates an optional time zone component from a time. Empty by default.
 
+\csitem{bibtzminsep}
+
+The language specific marker which separates hour and minute component of offset timezones. Defaults to a \cmd{bibtimesep}.
 \csitem{bibdatetimesep}
 
 当时间和日期同时打印时分隔时间成分和日期成分的具体语言的分隔符。(见\secref{use:opt:pre:gen} 节的\opt{$<$datetype$>$dateusetime} 选项)。默认是一个空格对于non-EDTF输出格式，对于EDTF输出格式则是'T'。
-%The language specific separator printed between date and time components when printing time components along with date components (see the \opt{$<$datetype$>$dateusetime} option in \secref{use:opt:pre:gen}). Defaults to a space for non-EDTF output formats, and 'T' for EDTF output format.
+The language specific separator printed between date and time components when printing time components along with date components (see the \opt{$<$datetype$>$dateusetime} option in \secref{use:opt:pre:gen}). Defaults to a space for non-\acr{ISO8601-2} output formats, and 'T' for \acr{ISO8601-2} output format.
 
 \csitem{finalandcomma}
 
@@ -7045,6 +7374,15 @@ UTC时区的具体语言的打印字符串，默认是<Z>。
 文献表中各条目间的垂直间距。使用\env{list} 环境的参考文献样式应在环境定义中设置\len{itemsep} 为\len{bibitemsep}。
 %The vertical space between the individual entries in the bibliography. Bibliography styles using \env{list} environments should set \len{itemsep} to \len{bibitemsep} in the definition of the respective environment.
 
+This length is initialized to \cmd{itemsep} at load-time.
+
+\lenitem{bibnamesep}
+
+Vertical space to be inserted between two entries in the bibliography whenever an entry starts with a name which is different from the initial name of the previous entry. The default value is zero. Setting this length to a positive value greater than \len{bibitemsep} will group the bibliography by author\slash editor name. Note that \len{bibitemsep}, \len{bibnamesep}, and \len{bibinitsep} obey the rules for \cmd{addvspace}, that is, when vertical space introduced by any of these commands immediately follows on from space introduced by another of them, the resulting total space is equal to the largest of them.
+
+\lenitem{bibinitsep}
+
+Vertical space to be inserted between two entries in the bibliography whenever an entry starts with a letter which is different from the initial letter of the previous entry. The default value is zero. Setting this length to a positive value greater than \len{bibitemsep} will group the bibliography alphabetically. Note that \len{bibitemsep}, \len{bibnamesep}, and \len{bibinitsep} obey the rules for \cmd{addvspace}, that is, when vertical space introduced by any of these commands immediately follows on from space introduced by another of them, the resulting total space is equal to the largest of them.
 \lenitem{bibparsep}
 
 文献表中条目内段落间的垂直间距。使用\env{list} 环境的参考文献样式应在环境定义中设置\len{parsep} 为\len{bibparsep}。
@@ -7055,15 +7393,26 @@ UTC时区的具体语言的打印字符串，默认是<Z>。
 用于\cmd{addabbrvspace}, \cmd{addabthinspace} 和\cmd{adddotspace} 的阀值，详见\secref{aut:pct:spc} 节。
 %The penalty used by \cmd{addabbrvspace}, \cmd{addabthinspace}, and \cmd{adddotspace}, see \secref{aut:pct:spc} for details.
 
+\cntitem{highnamepenalty}
+
+用于\cmd{addhighpenspace} 和\cmd{addhpthinspace} 的阀值，详见\secref{aut:pct:spc} 节。
+%The penalty used by \cmd{addhighpenspace} and \cmd{addhpthinspace}, see \secref{aut:pct:spc} for details.
+
+
 \cntitem{lownamepenalty}
 
 用于\cmd{addlowpenspace} 和\cmd{addlpthinspace} 的阀值，详见\secref{aut:pct:spc} 节。
 %The penalty used by \cmd{addlowpenspace} and \cmd{addlpthinspace}, see \secref{aut:pct:spc} for details.
 
-\cntitem{highnamepenalty}
 
-用于\cmd{addhighpenspace} 和\cmd{addhpthinspace} 的阀值，详见\secref{aut:pct:spc} 节。
-%The penalty used by \cmd{addhighpenspace} and \cmd{addhpthinspace}, see \secref{aut:pct:spc} for details.
+
+\cntitem{biburlbigbreakpenalty}
+
+The \sty{biblatex} version of \sty{url}'s \len{UrlBigBreakPenalty}. The default value is \texttt{100}.
+
+\cntitem{biburlbreakpenalty}
+
+The \sty{biblatex} version of \sty{url}'s \len{UrlBreakPenalty}. The default value is \texttt{200}.
 
 \cntitem{biburlnumpenalty}
 
@@ -7080,6 +7429,21 @@ UTC时区的具体语言的打印字符串，默认是<Z>。
 类似于\cnt{biburlnumpenalty}，差别在于它将会在所有小写字母后面添加断点。
 %Similar to \cnt{biburlnumpenalty}, except that it will add a breakpoint after all lowercase letters.
 
+\lenitem{biburlbigskip}
+
+The \sty{biblatex} version of \len{Urlmuskip}. This length holds the additional (stretchable) space inserted around breakable characters in the \cmd{url} command from the \sty{url} package. The default value is \texttt{0mu plus 3mu}.
+
+\lenitem{biburlnumskip}
+
+The additional space inserted after numbers in strings formatted with the \cmd{url} command from the \sty{url} package. This will affect \acr{url}s and \acr{doi}s in the bibliography. If \acr{url}s and/or \acr{doi}s in the bibliography run into the margin, it may help to set this length to add some small stretchable space, for example \texttt{0mu plus 1mu}. The default setting is \texttt{0mu}. This value is only used if \cnt{biburlnumpenalty} is set to a value different from zero.
+
+\lenitem{biburlucskip}
+
+Similar to \cnt{biburlnumskip}, except that it will add space after all uppercase letters.
+
+\lenitem{biburllcskip}
+
+Similar to \cnt{biburlnumskip}, except that it will add space after all uppercase letters.
 \end{ltxsyntax}
 
 \subsubsection{辅助命令和钩子}%Auxiliary Commands and Hooks
@@ -7194,32 +7558,32 @@ UTC时区的具体语言的打印字符串，默认是<Z>。
 
 该命令根据\opt{datezeros} 包选项(\secref{use:opt:pre:gen})设置移除或增添年份的前导零串。用于在日期格式化宏的定义中。
 %This command strips leading zeros from a year or enforces them, depending on the \opt{datezeros} package option (\secref{use:opt:pre:gen}). It is intended for use in the definition of date formatting macros.
-
+If zeros are enforced, this command calls \cmd{forcezerosy} and thus expands its argument with \cmd{protected@edef}.
 \cmditem{mkmonthzeros}{integer}
 
 该命令根据\opt{datezeros} 包选项(\secref{use:opt:pre:gen})设置移除或增添月份的前导零串。用于在日期格式化宏的定义中。
 %This command strips leading zeros from a month or enforces them, depending on the \opt{datezeros} package option (\secref{use:opt:pre:gen}). It is intended for use in the definition of date formatting macros.
-
+ If zeros are enforced, this command calls \cmd{forcezerosmdt} and thus expands its argument with \cmd{protected@edef}.
 \cmditem{mkdayzeros}{integer}
 
 该命令根据\opt{datezeros} 包选项(\secref{use:opt:pre:gen})设置移除或增添日的前导零串。用于在日期格式化宏的定义中。
 %This command strips leading zeros from a day or enforces them, depending on the \opt{datezeros} package option (\secref{use:opt:pre:gen}). It is intended for use in the definition of date formatting macros.
-
+ If zeros are enforced, this command calls \cmd{forcezerosmdt} and thus expands its argument with \cmd{protected@edef}.
 \cmditem{mktimezeros}{integer}
 
 该命令根据\opt{timezeros} 包选项(\secref{use:opt:pre:gen})设置移除或增添时间的前导零串。用于在日期格式化宏的定义中。
 %This command strips leading zeros from a number or preserves them, depending on the \opt{timezeros} package option (\secref{use:opt:pre:gen}). It is intended for use in the definition of time formatting macros.
-
+ If zeros are enforced, this command calls \cmd{forcezerosmdt} and thus expands its argument with \cmd{protected@edef}.
 \cmditem{forcezerosy}{integer}
 
 该命令将零串添加到年份中(或者任何4位数的数字中)。用于日期格式化和序数中。
 %This command adds zeros to a year (or any number supposed to be 4-digits). It is intended for date formatting and ordinals.
-
+ If zeros are enforced, this command calls \cmd{forcezerosmdt} and thus expands its argument with \cmd{protected@edef}.
 \cmditem{forcezerosmdt}{integer}
 
 该命令将零串添加到月份、日或时间成分中(或者任何2位数的数字中)。用于日期/时间格式化和序数中。
 %This command adds zeros to a month, day or time part (or any number supposed to be 2-digits). It is intended for date/time formatting and ordinals.
-
+ If zeros are enforced, this command calls \cmd{forcezerosmdt} and thus expands its argument with \cmd{protected@edef}.
 \cmditem{stripzeros}{integer}
 
 该命令移除数字中的前导零串。用于日期格式化和序数中。
@@ -7550,6 +7914,16 @@ As \texttt{time} but controls the format of \cmd{print$<$datetype$>$time}.
 类似于\cmd{AtEveryMultiCite}，但仅影响下一个multicite命令。一旦执行该命令，原内部钩子定义将被清除。该命令可以用于正文中。
 %Similar to \cmd{AtEveryMultiCite} but only affecting the next multicite command. The internal hook is cleared after being executed once. This command may be used in the document body.
 
+\cmditem{AtVolcite}{code}
+\cmditem*{AtVolcite}*{code}
+
+Appends the \prm{code} to an internal hook executed when initializing \cmd{volcite}. The starred variant of the command clears the initialisation hook, so the defaults can be overwritten. This command may only be used in the preamble.
+The default setting is:
+
+\begin{ltxexample}
+\AtVolcite{%
+  \DeclareFieldAlias{postnote}{volcitenote}}
+\end{ltxexample}
 \cmditem{AtDataInput}[entrytype]{code}
 
 向参考文献数据从\file{bbl} 文件导入后每个条目执行一次的内部钩子添加\prm{code}。\prm{entrytype} 是\prm{code} 应用的条目类型。如果要应用于所有条目类型，则忽略该可选参数。\prm{code} 在条目导入后立即执行。该命令只能用于导言中。注意:\prm{code} 对于一个条目可能被执行多次，这发生在当一个相同条目在不同的\env{refsection} 环境中引用或者\opt{sorting} 选项设置包含多余一个的排序格式时。当数据导入时，\cnt{refsection} 计数器保存各参考文献节的序号。
@@ -7595,10 +7969,81 @@ As \texttt{time} but controls the format of \cmd{print$<$datetype$>$time}.
 执行对应\cmd{AtNextMultiCite} 的内部钩子。
 %Executes and clears the internal hook corresponding to \cmd{AtNextMultiCite}.
 
+\cmditem{UseVolciteHook}
+
+Executes the internal hook corresponding to \cmd{AtVolcite}.
+
 \cmditem{DeferNextCitekeyHook}
 
 局部地取消由\cmd{AtNextCitekey} 设定的内部钩子。其本质是当钩子在\cmd{DeclareCiteCommand} (见\secref{aut:cbx:cbx})的\prm{precode} 参数中执行时，将该钩子延迟到标注列表中的下一个条目关键词。
 %Locally un-defines the internal hook specified by \cmd{AtNextCitekey}. This essentially defers the hook to the next entry key in the citation list, when executed in the \prm{precode} argument of \cmd{DeclareCiteCommand} (\secref{aut:cbx:cbx}).
+
+\cmditem{AtEveryEntrykey}{code}{success}{failure}
+
+Appends \prm{code} to an internal hook executed every time an entrykey is processed for a citation command or \cmd{nocite}. The \prm{code} is passed one argument (\lstinline{#1}), which contains the entrykey. If the code can be appended to the hook \prm{success} is executed, otherwise \prm{failure} is executed. Unlike \cmd{AtEveryCitekey} the entry data of the current entrykey is not available when \prm{code} is processed, indeed it is not even known whether or not there is any entry data at all.
+
+\end{ltxsyntax}
+
+\subsubsection{File hooks}
+\label{aut:fmt:hok:fil}
+\biblatex has rudimentary support for injecting arbitrary code before and after a file is loaded via file hooks. For files that are loaded using \biblatex's file interface---that includes all bibliography and citation styles---the following three hooks are available
+
+\begin{ltxsyntax}
+\cmditem{blx@filehook@preload@$<$filename with extension$>$}
+
+If \file{$<$filename with extension$>$} is found, this hook is exected before it is loaded.
+
+\cmditem{blx@filehook@postload@$<$filename with extension$>$}
+
+If \file{$<$filename with extension$>$} is found, this hook is exected after it is loaded.
+
+\cmditem{blx@filehook@failure@$<$filename with extension$>$}
+
+This hook is executed if \file{$<$filename with extension$>$} can not be found.
+\end{ltxsyntax}
+
+\biblatex generally only loads files once even if they were requested multiple times,
+so the hooks will only be executed once.
+Naturally, the file hooks need to be populated before the files are loaded, so the safest would be to populate them before \biblatex is loaded.
+It is advisable to only append code to avoid overwriting previous hook contents.
+Since the name of the file hook include the dot and the file extension they will usually have to be defined with a command like \cmd{csappto} from \sty{etoolbox}.
+
+The \file{.lbx} files are special and may have to be loaded several times in some situations.
+Their file hooks are
+
+\begin{ltxsyntax}
+\cmditem{blx@lbxfilehook@once@preload@$<$filename with extension$>$}
+
+If \file{$<$filename with extension$>$} is found, this hook is exected before it is loaded in a situation where the \file{.lbx} files are loaded only once.
+
+\cmditem{blx@lbxfilehook@once@postload@$<$filename with extension$>$}
+
+If \file{$<$filename with extension$>$} is found, this hook is exected after it is loaded in a situation where the \file{.lbx} files are loaded only once.
+
+\cmditem{blx@lbxfilehook@once@failure@$<$filename with extension$>$}
+
+This hook is executed if \file{$<$filename with extension$>$} can not be found in a situation where the \file{.lbx} files are loaded only once.
+
+\cmditem{blx@lbxfilehook@simple@preload@$<$filename with extension$>$}
+
+If \file{$<$filename with extension$>$} is found, this hook is exected before it is loaded in a situation where the \file{.lbx} files may be loaded multiple times.
+
+\cmditem{blx@lbxfilehook@simple@postload@$<$filename with extension$>$}
+
+If \file{$<$filename with extension$>$} is found, this hook is exected after it is loaded in a situation where the \file{.lbx} files may be loaded multiple times.
+
+\cmditem{blx@lbxfilehook@simple@failure@$<$filename with extension$>$}
+
+This hook is executed if \file{$<$filename with extension$>$} can not be found in a situation where the \file{.lbx} files may be loaded multiple times.
+
+
+The following code sets up \sty{beamer} to print the bibliography labels instead of its bibliography icons when \file{numeric.bbx} after is loaded
+\begin{ltxexample}
+\csappto{blx@filehook@postload@numeric.bbx}{%
+  \mode<presentation>{%
+    \setbeamertemplate{bibliography item}{%
+      \insertbiblabel}}}
+\end{ltxexample}
 
 \end{ltxsyntax}
 
@@ -7729,6 +8174,8 @@ Defines the \opt{uniquename} template \prm{name}. The \prm{name} is optional and
 
 
 %The \prm{namepart} is part of the <base> which is the main piece of namepart(s) information which is being disambiguated by uniqueness information. For example, a family name which may be disambiguated by further given names. <base> \prm{namepart}s must occur before any non-<base> \prm{nameparts}.
+
+ There \emph{must} be at least one <base> \prm{namepart} and \biber will report an error if this is not the case.
 
 \prm{namepart} 是<base>的部分，<base>是用作唯一性区分的namepart(s)信息的主段。
 
@@ -8013,6 +8460,8 @@ Vogel et al. 2001
 
 当引用命令出现在浮动体(比如图和表的题注)中，因为浮动体无论是物理上还是逻辑上都在文本流之外，这会导致的学术反向引用(比如<ibidem>，意为“出处同上”)和基于页码追踪器的反向引用难以区分，因此这种引用的逻辑很难在其中应用。为避免这种问题，标注(引用)和页码追踪器在所有的浮动体中临时关闭。并且，这些追踪器加上反向引用追踪器(\opt{backref})在目录，图和表目录中也临时关闭。
 %If a citation is given in a float (typically in the caption of a figure or table), scholarly back references like <ibidem> or back references based on the page tracker get ambiguous because floats are objects which are (physically and logically) placed outside the flow of text, hence the logic of such references applies poorly to them. To avoid any such ambiguities, the citation and page trackers are temporarily disabled in all floats. In addition to that, these trackers plus the back reference tracker (\opt{backref}) are temporarily disabled in the table of contents, the list of figures, and the list of tables.
+
+ If a citation is given in a float (typically in the caption of a figure or table), scholarly back references like <ibidem> or back references based on the page tracker get ambiguous because floats are objects which are (physically and logically) placed outside the flow of text, hence the logic of such references applies poorly to them. To avoid any such ambiguities, the citation and page trackers are temporarily disabled in all floats unless explicitly requested with \opt{trackfloats}. In addition to that, these trackers plus the back reference tracker (\opt{backref}) are temporarily disabled in the table of contents, the list of figures, and the list of tables.
 
 \subsubsection{混合编程接口}%Mixing Programming Interfaces
 \label{aut:cav:mif}

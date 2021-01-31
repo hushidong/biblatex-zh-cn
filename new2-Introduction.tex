@@ -1,7 +1,7 @@
 \section{Introduction}
 \label{int}
 
-This document is a systematic reference manual for the \biblatex package. Look at the sample documents which come with \biblatex to get a first impression.\fnurl{\biblatexctan doc/examples}
+This document is a systematic reference manual for the \biblatex package. Look at the sample documents which come with \biblatex to get a first impression.\fnurl{https://ctan.org/tex-archive/macros/latex/contrib/biblatex/doc/examples}
 For a quick start guide, browse \secref{int:abt, bib:typ, bib:fld, bib:use, use:opt, use:xbx, use:bib, use:cit, use:use}.
 
 \subsection[About]{About \biblatex}
@@ -11,16 +11,24 @@ This package provides advanced bibliographic facilities for use with \latex. The
 
 \subsection{License}
 
-Copyright \textcopyright\ 2006--2012 Philipp Lehman, 2012--2017 Philip Kime, Audrey Boruvka, Joseph Wright, 2018- Philip Kime and Moritz Wemheuer. Permission is granted to copy, distribute and\slash or modify this software under  the terms of the \lppl, version 1.3.\fnurl{http://www.latex-project.org/lppl.txt}
+Copyright \textcopyright\ 2006--2012 Philipp Lehman, 2012--2017 Philip Kime, Audrey Boruvka, Joseph Wright, 2018-- Philip Kime and Moritz Wemheuer. Permission is granted to copy, distribute and\slash or modify this software under  the terms of the \lppl, version~1.3.\fnurl{https://www.latex-project.org/lppl.txt}
 
 \subsection{Feedback}
 \label{int:feb}
 
-Please use the \biblatex project page on GitHub to report bugs and submit feature requests.\fnurl{http://github.com/plk/biblatex} Before making a feature request, please ensure that you have thoroughly studied this manual. If you do not want to report a bug or request a feature but are simply in need of assistance, you might want to consider posting your question on the \texttt{comp.text.tex} newsgroup or \tex-\latex Stack Exchange.\fnurl{http://tex.stackexchange.com/questions/tagged/biblatex}
+Please use the \biblatex project page on GitHub to report bugs and submit feature requests.\fnurl{https://github.com/plk/biblatex} Before making a feature request, please ensure that you have thoroughly studied this manual. If you do not want to report a bug or request a feature but are simply in need of assistance, you might want to consider posting your question on the \texttt{comp.text.tex} newsgroup or \tex-\latex Stack Exchange.\fnurl{https://tex.stackexchange.com/questions/tagged/biblatex}
 
 \subsection{Acknowledgements}
 
-The language modules of this package are made possible thanks to the following contributors:
+The package was originally written by Philipp Lehman and much of his excellent
+original code remains in the core. Philip Kime took over the package in
+2012 with Moritz Wemheuer making regular and valuable contributions from 2017.
+The main authors would like to acknowledge the valuable help of Audrey
+Boruvka and Joseph Wright who helped with the transition of ownership in
+2012 and following years.
+
+The language modules of this package are made possible thanks to the following contributors:\\
+Ander Zarketa-Astigarraga (Basque);
 Augusto Ritter Stoffel, Mateus Araújo, Gustavo Barros (Brazilian);
 Kaloyan Ganev (Bulgarian);
 Sebastià Vila-Marta (Catalan);
@@ -37,14 +45,17 @@ Márton Marczell, Bence Ferdinandy (Hungarian);
 Baldur Kristinsson (Icelandic);
 Enrico Gregorio, Andrea Marchitelli (Italian);
 Rihards Skuja (Latvian);
+Valdemaras Klumbys (Lithuanian);
 Håkon Malmedal, Hans Fredrik Nordhaug (Norwegian);
 Anastasia Kandulina, Yuriy Chernyshov (Polish);
 José Carlos Santos (Portuguese);
 Oleg Domanov (Russian);
+Andrej Radović (Serbian);
 Martin Vrábel, Dávid Lupták (Slovak);
 Tea Tušar, Bogdan Filipič (Slovene);
 Ignacio Fernández Galván (Spanish);
 Per Starbäck, Carl-Gustav Werner, Filip Åsblom (Swedish);
+Abdulkerim Gok (Turkish);
 Sergiy M. Ponomarenko (Ukrainian).
 
 \subsection{Prerequisites}
@@ -63,19 +74,21 @@ The resources listed in this section are strictly required for \biblatex to func
 The \biblatex package requires \etex. \tex distributions have been providing \etex binaries for quite some time, the popular distributions use them by default these days. The \biblatex package checks if it is running under \etex. Simply try compiling your documents as you usually do, the chances are that it just works. If you get an error message, try compiling the document with \bin{elatex} instead of \bin{latex} or \bin{pdfelatex} instead of \bin{pdflatex}, respectively.
 
 \item[\biber]
-\biber is the backend of \biblatex used to transfer data from source files to the \latex code. \biber comes with TeX Live and is also available from SourceForge.\fnurl{http://biblatex-biber.sourceforge.net/}. \biber uses the \texttt{btparse} C library for \bibtex format file parsing which aimed to be compatible with \bibtex's parsing rules but also aimed at correcting some of the common problems. For details, see the manual page for the Perl \texttt{Text::BibTeX} module\fnurl{http://search.cpan.org/~ambs/Text-BibTeX}.
+\biber is the backend of \biblatex used to transfer data from source files to the \latex code. \biber comes with TeX Live and is also available from SourceForge.\fnurl{https://biblatex-biber.sourceforge.net/}. \biber uses the \texttt{btparse} C library for \bibtex format file parsing which aimed to be compatible with \bibtex's parsing rules but also aimed at correcting some of the common problems. For details, see the manual page for the Perl \texttt{Text::BibTeX} module\fnurl{https://metacpan.org/release/Text-BibTeX}.
 
 \item[etoolbox]
-This \latex package, which is loaded automatically, provides generic programming facilities required by \biblatex. It is available from \acr{CTAN}.\fnurl{http://ctan.org/pkg/etoolbox}
+This \latex package, which is loaded automatically, provides generic programming facilities required by \biblatex. It is available from \acr{CTAN}.\fnurl{https://ctan.org/pkg/etoolbox}
 
 \item[kvoptions]
-This \latex package, which is also loaded automatically, is used for internal option handling. It is available with the \sty{oberdiek} package bundle from \acr{CTAN}.\fnurl{http://ctan.org/pkg/kvoptions}
+This \latex package, which is also loaded automatically, is used for internal option handling. It is available from \acr{CTAN}.\fnurl{https://ctan.org/pkg/kvoptions}
 
 \item[logreq]
-This \latex package, which is also loaded automatically, provides a frontend for writing machine-readable messages to an auxiliary log file. It is available from \acr{CTAN}.\fnurl{http://ctan.org/pkg/logreq/}
+This \latex package, which is also loaded automatically, provides a frontend for writing machine-readable messages to an auxiliary log file. It is available from \acr{CTAN}.\fnurl{https://ctan.org/pkg/logreq/}
 
 \item[pdftexcmds]
-This \latex package, which is loaded automatically, implements \pdftex primitives for \luatex, it also offers a unified interface for these primitives across engines. It is available from \acr{CTAN}.\fnurl{http://ctan.org/pkg/pdftexcmds/}
+This \latex package, which is loaded automatically, implements \pdftex primitives for \luatex, it also offers a unified interface for these primitives across engines. It is available from \acr{CTAN}.\fnurl{https://ctan.org/pkg/pdftexcmds/}
+
+\biblatex uses \sty{pdftexcmds} to access the MD5 hash primitives, so version~0.27 (2018/01/30) or above is strongly recommended.
 
 \end{marglist}
 
@@ -84,18 +97,31 @@ Apart from the above resources, \biblatex also requires the standard \latex pack
 \subsubsection{Recommended Packages}
 \label{int:pre:rec}
 
-The packages listed in this section are not required for \biblatex to function, but they provide recommended additional functions or enhance existing features. The package loading order does not matter.
+The packages listed in this section are not strictly required for \biblatex to function, but they provide recommended additional functions or enhance existing features.
 
 \begin{marglist}
 
 \item[babel/polyglossia]
-The \sty{babel} and \sty{polyglossia} packages provides the core architecture for multilingual typesetting. If you are writing in a language other than American English, using one of these packages is strongly recommended. You should load \sty{babel} or \sty{polyglossia} before \biblatex and then \biblatex will detect \sty{babel} or \sty{polyglossia} automatically.
+The \sty{babel} and \sty{polyglossia} packages provides the core architecture for multilingual typesetting. If you are writing in a language other than American English, using one of these packages is strongly recommended. You should load \sty{babel} or \sty{polyglossia} before \biblatex and then \biblatex will detect \sty{babel} or \sty{polyglossia} automatically. (While \sty{babel} may be loaded after \biblatex if so desired, \sty{polyglossia} must always be loaded before \biblatex.)
+
+\biblatex has only limited support for \sty{polyglossia} versions prior to~v1.45 (2019/10/27). Additional useful features for \biblatex were added in version~1.49. If \sty{polyglossia} is used, it should be updated to version~1.49 (2020/04/08) or above.
+
+The minimum supported \sty{babel} version is~v3.9r (2016/04/23).
 
 \item[csquotes]
-If this package is available, \biblatex will use its language sensitive quotation facilities to enclose certain titles in quotation marks. If not, \biblatex uses quotes suitable for American English as a fallback. When writing in a language other than American English, loading \sty{csquotes} is strongly recommended.\fnurl{http://ctan.org/pkg/csquotes/}
+If this package is available, \biblatex will use its language sensitive quotation facilities to enclose certain titles in quotation marks. If not, \biblatex uses quotes suitable for American English as a fallback. When writing in a language other than American English, loading \sty{csquotes} is strongly recommended.\fnurl{https://ctan.org/pkg/csquotes/}
+
+\end{marglist}
+
+\subsubsection{Additional Useful Packages}
+\label{int:pre:add}
+
+The packages listed in this section are not required for \biblatex to function, but provide additional specialist functions or enhance existing features. These packages generally only need to be loaded if their functionality is explicitly desired. The package loading order usually does not matter.
+
+\begin{marglist}
 
 \item[xpatch]
-The \sty{xpatch} package extends the patching commands of \sty{etoolbox} to \biblatex bibliography macros, drivers and formatting directives.\fnurl{http://ctan.org/pkg/xpatch/}
+The \sty{xpatch} package extends the patching commands of \sty{etoolbox} to \biblatex bibliography macros, drivers and formatting directives.\fnurl{https://ctan.org/pkg/xpatch/} Its commands are useful to apply surgical-precision changes to bibliography macros, drivers or formatting directives without having to restate the whole definition to change it. The \biblatex core does not need or use these patching commands and styles that make use of them should load the package themselves.
 
 \end{marglist}
 
@@ -117,6 +143,8 @@ When using the \sty{memoir} class, the default bibliography headings are adapted
 
 \item[\acr{KOMA}-Script]
 When using any of the \sty{scrartcl}, \sty{scrbook}, or \sty{scrreprt} classes, the default bibliography headings are adapted such that they blend with the default layout of these classes. See \secref{use:cav:scr} for further usage hints.
+
+If available \biblatex makes use of some of the more recent of \acr{KOMA}-Script's \emph{do-hooks}. The relevant hooks are present from version~3.27 (2019/10/12) onwards, which is therefore the minimum version recommendation.
 
 \end{marglist}
 
@@ -173,7 +201,11 @@ The \sty{splitbib} package provides support for bibliographies subdivided by top
 The \sty{titlesec} package redefines user-level document division commands such as \cmd{chapter} or \cmd{section}. This approach is not compatible with internal command changes applied by the \biblatex \opt{refsection}, \opt{refsegment} and \opt{citereset} option settings described in \secref{use:opt:pre:gen}.
 
 \item[ucs]
-The \sty{ucs} package provides support for \utf encoded input. Either use \sty{inputenc}'s standard \file{utf8} module or a Unicode enabled engine such as \xetex or \luatex instead.
+The \sty{ucs} package provides support for \utf encoded input, but it does so in a way incompatible with \biblatex.
+
+If you get an error about \sty{ucs} being loaded, but you don't load it explicitly in your preamble, check that you don't load \sty{inputenc}'s \file{utf8x} module: \verb|\usepackage[utf8x]{inputenc}| will also load \sty{ucs}.
+
+Instead of \sty{ucs}/\file{utf8x} use a Unicode engine such as \xetex or \luatex if you want full Unicode support. If you use \pdftex or \tex, the Unicode characters predefined by the \latex format are usually enough for many use cases (this is true for \latex from April 2018 or later, in older versions load \sty{inputenc} with the \file{utf8} module) and missing characters can be defined using \cmd{DeclareUnicodeCharacter} or \sty{newunicodechar}'s \cmd{newunicodechar}.
 
 \item[etextools]
 The \sty{etextools} package provides enhancements to list macros defined by \sty{etoolbox} and a few other tools for command definitions.
@@ -195,12 +227,18 @@ during processing if it encounters information which comes from a
 compatibility matrix for the recent versions.
 
 \begin{table}
+\caption{\biber/\biblatex\ compatibility matrix}
+\label{tab:int:pre:bibercompat}
 \tablesetup\centering
 \begin{tabular}{cc}
 \toprule
 \sffamily\bfseries\spotcolor Biber version
   & \sffamily\bfseries\spotcolor \biblatex\ version\\
 \midrule
+2.15 & 3.15\\
+2.14 & 3.14\\
+2.13 & 3.13\\
+2.12 & 3.12\\
 2.11 & 3.11\\
 2.10 & 3.10\\
 2.9 & 3.9\\
@@ -235,7 +273,5 @@ compatibility matrix for the recent versions.
 0.9 & 1.4x\\
 \bottomrule
 \end{tabular}
-\caption{\biber/\biblatex\ compatibility matrix}
-\label{tab:int:pre:bibercompat}
 \end{table}
 

@@ -28,10 +28,7 @@
 }
 \KOMAoptions{numbers=noenddot}
 \addtokomafont{title}{\sffamily}
-\addtokomafont{paragraph}{\spotcolor}
-\addtokomafont{section}{\spotcolor}
-\addtokomafont{subsection}{\spotcolor}
-\addtokomafont{subsubsection}{\spotcolor}
+\addtokomafont{disposition}{\spotcolor}
 \addtokomafont{descriptionlabel}{\spotcolor}
 \setkomafont{caption}{\bfseries\sffamily\spotcolor}
 \setkomafont{captionlabel}{\bfseries\sffamily\spotcolor}
@@ -39,28 +36,35 @@
 \pretocmd{\bibfield}{\sloppy}{}{}
 \pretocmd{\bibtype}{\sloppy}{}{}
 \makeatletter
-\patchcmd{\paragraph}
-  {3.25ex \@plus1ex \@minus.2ex}{-3.25ex\@plus -1ex \@minus -.2ex}{}{}
-\patchcmd{\paragraph}{-1em}{1.5ex \@plus .2ex}{}{}
+\RedeclareSectionCommand[%
+  beforeskip=-3.25ex\@plus -1ex \@minus -.2ex,%
+  afterskip=1.5ex \@plus .2ex,%
+]{paragraph}
+\RedeclareSectionCommand[%
+  beforeskip=-3.25ex\@plus -1ex \@minus -.2ex,%
+  indent=\z@,%
+]{subparagraph}
 \makeatother
 
 \MakeAutoQuote{«}{»}
 \MakeAutoQuote*{<}{>}
 \MakeShortVerb{\|}
 
+\newcommand*{\allowbreakhere}{\discretionary{}{}{}}
+
 \newcommand*{\biber}{\sty{biber}\xspace}
 \newcommand*{\biblatex}{\sty{biblatex}\xspace}
 \newcommand*{\biblatexml}{\sty{biblatexml}\xspace}
-\newcommand*{\biblatexhome}{http://sourceforge.net/projects/biblatex/}
-\newcommand*{\biblatexctan}{http://ctan.org/pkg/biblatex/}
+\newcommand*{\biblatexhome}{https://sourceforge.net/projects/biblatex/}
+\newcommand*{\biblatexctan}{https://ctan.org/pkg/biblatex/}
 
 \titlepage{%
   title={The \biblatex Package},
   subtitle={Programmable Bibliographies and Citations},
   url={\biblatexhome},
-  author={Philipp Lehman \\(with Philip Kime, Moritz Wemheuer, Audrey Boruvka and Joseph Wright)},
+  author={Philip Kime, Moritz Wemheuer, Philipp Lehman},
   email={},
-  revision={3.12},
+  revision={3.16},
   date={\today}}
 
 \hypersetup{%
@@ -135,6 +139,17 @@
 \newrobustcmd*{\CSdelimMark}{%
   \leavevmode\marginpar{\CSdelim}}
 
+
+\newcommand*{\seestyleexample}[1]{%
+  \leavevmode
+  \marginpar{%
+    \raggedright
+    \footnotesize
+    Style example:\\
+    \href{file:examples/#1.pdf}{local},
+    \href{http://mirrors.ctan.org/macros/latex/contrib/biblatex/doc/examples/#1.pdf}
+    {online}.}%
+  \ignorespaces}
 
 % following snippet is based on code by Michael Ummels (TeX Stack Exchange)
 % <http://tex.stackexchange.com/a/13073/8305>

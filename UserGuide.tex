@@ -87,6 +87,9 @@
 
 加载一个标注(引用)模块，该模块提供 \sty{mcite}\slash 类 \sty{mciteplus} 的标注(引用)命令。
 详见 \secref{use:cit:mct} 节。
+\optitem[auto]{casechanger}{\opt{auto}, \opt{latex2e}, \opt{expl3}}
+
+This option selects the implementation of \biblatex's case changing functions, most prominently \cmd{MakeSentenceCase*}. \opt{expl3} selects the new implementation based on the \latex3 module \sty{l3text}. Note that the \sty{l3text} module assumes \utf input and that your \sty{expl3} version should be new enough (at least version 2020-04-06). \opt{latex2e} selects the original implementation, which has tricky brace protection behaviour and some shortcomings when dealing with non-ASCII characters. The default \opt{auto} selects the case changing code based on the available \sty{expl3} version and detected document encoding (\opt{expl3} is selected if \sty{expl3} is at least version 2020-04-06 and the document encoding is detected as \utf).
 
 \end{optionlist}
 
@@ -165,11 +168,7 @@
 因此，你可以指定标准的本地化标识符，例如 \texttt{de\_DE\_phonebook}、\texttt{es\_ES}；
 或者指定本宏包支持的 \sty{babel}/\sty{polyglossia} 语言标识符，如果你对\biber 的语言映射还满意的话。
 
-\boolitem[true]{related}
 
-%Whether or not to use information from related entries or not. See \secref{use:rel}.
-
-是否使用来自关联条目的信息。参考 \secref{use:rel} 节。
 
 \boolitem[false]{sortcites}
 
@@ -188,11 +187,17 @@
 \intitem[3]{maxnames}
 
 %A threshold affecting all lists of names (\bibfield{author}, \bibfield{editor}, etc.). If a list exceeds this threshold, \ie if it holds more than \prm{integer} names, it is automatically truncated according to the setting of the \opt{minnames} option. \opt{maxnames} is the master option which sets both \opt{maxbibnames} and \opt{maxcitenames}.
+
+A threshold affecting all lists of names (\bibfield{author}, \bibfield{editor}, etc.). If a list exceeds this threshold, \ie if it holds more than \prm{integer} names, it is automatically truncated according to the setting of the \opt{minnames} option. \opt{maxnames} is the master option which sets \opt{maxbibnames}, \opt{maxcitenames} and \opt{maxsortnames}. Note that the \opt{uniquelist} feature can locally override \opt{maxnames}, see the documentation of the \opt{uniquelist} option in \secref{use:opt:pre:int} and \secref{aut:cav:amb}.
+
 影响所有名称列表（\bibfield{author}、\bibfield{editor} 等）的阈值。如果某个列表超过了该阈值，即，它包含的姓名数量超过 \prm{integer}，那么就会根据 \opt{minnames} 选项的设置进行自动截断。\opt{maxnames} 是设置 \opt{maxbibnames} 和 \opt{maxcitenames} 两个选项的支配选项。
 
 \intitem[1]{minnames}
 
 %A limit affecting all lists of names (\bibfield{author}, \bibfield{editor}, etc.). If a list holds more than \prm{maxnames} names, it is automatically truncated to \prm{minnames} names. The \prm{minnames} value must be smaller than or equal to \prm{maxnames}. \opt{minnames} is the master option which sets both \opt{minbibnames} and \opt{mincitenames}.
+
+A limit affecting all lists of names (\bibfield{author}, \bibfield{editor}, etc.). If a list holds more than \prm{maxnames} names, it is automatically truncated to \prm{minnames} names. The \prm{minnames} value must be smaller than or equal to \prm{maxnames}. \opt{minnames} is the master option which sets both \opt{minbibnames} and \opt{mincitenames}. Like \opt{maxnames} the value of \opt{minnames} can be overridden by \opt{uniquelist}.
+
 影响所有名称列表（\bibfield{author}、\bibfield{editor} 等）的限制值。如果某个列表包含的姓名数量超过 \prm{integer}，
 那么就会自动截断至\opt{minnames}个姓名。\prm{minnames} 的值必须小于或等于 \prm{maxnames}。
 \opt{minnames} 是设置 \opt{minbibnames} 和 \opt{mincitenames} 两个选项的支配选项。
@@ -262,10 +267,13 @@
 
 \optitem[autobib]{language}{\opt{autobib}, \opt{autocite}, \opt{auto}, \prm{language}}
 
-%This option controls multilingual support. By default \biblatex automatically picks up the active surrounding language from the \sty{babel}/\sty{polyglossia} package (and fall back to English if \sty{babel}/\sty{polyglossia} is not available). \opt{autobib} switches the language for each entry in the bibliography using the \bibfield{langid} field and the language environment specified by the \opt{autolang} option. \opt{autocite} switches the language for each citation using the \bibfield{langid} field and the language environment specified by the \opt{autolang} option. \opt{auto} is a shorthand to set both \opt{autobib} and \opt{autocite}. It is also possible to select the package language manually. In this case, the language chosen will override the \bibfield{langid} of entries and you should still choose a language switching environment with the \opt{autolang} option to select how the switch to the manually chosen language is handled. Please refer to \tabref{bib:fld:tab1} for a list of supported languages and the corresponding identifiers.
+%This option controls multilingual support. By default \biblatex automatically picks up the active surrounding language from the \sty{babel}/\sty{polyglossia} package \footnote{Note that \biblatex can only detect the base language (\eg \texttt{english}), but not the language variant (\eg \texttt{british}) or other properties (\eg \texttt{spelling=new} for \texttt{german}) from \sty{polyglossia}. That means that the \biblatex localisation of the base language is used for all variants, even for variants whose <\sty{babel} equivalent> has a localisation of its own. To remind you of these shortcomings a warning will be issued if \biblatex is used with \sty{polyglossia}, the warning explains how it can be disabled.} (and fall back to English if \sty{babel}/\sty{polyglossia} is not available). \opt{autobib} switches the language for each entry in the bibliography using the \bibfield{langid} field and the language environment specified by the \opt{autolang} option. \opt{autocite} switches the language for each citation using the \bibfield{langid} field and the language environment specified by the \opt{autolang} option. \opt{auto} is a shorthand to set both \opt{autobib} and \opt{autocite}. It is also possible to select the package language manually. In this case, the language chosen will override the \bibfield{langid} of entries and you should still choose a language switching environment with the \opt{autolang} option to select how the switch to the manually chosen language is handled. Please refer to \tabref{bib:fld:tab1} for a list of supported languages and the corresponding identifiers.
+
+This option controls multilingual support. By default \biblatex automatically picks up the active surrounding language from the \sty{babel}/\sty{polyglossia} package\footnote{Note that \biblatex has only limited support for \sty{polyglossia} versions prior to v1.45. If \sty{polyglossia} is used, it should be updated to version~1.45 (2019/10/27) or above.} (and fall back to English if \sty{babel}/\sty{polyglossia} is not available). \opt{autobib} switches the language for each entry in the bibliography using the \bibfield{langid} field and the language environment specified by the \opt{autolang} option. \opt{autocite} switches the language for each citation using the \bibfield{langid} field and the language environment specified by the \opt{autolang} option. \opt{auto} is a shorthand to set both \opt{autobib} and \opt{autocite}. It is also possible to select the package language manually. In this case, the language chosen will override the \bibfield{langid} of entries and you should still choose a language switching environment with the \opt{autolang} option to select how the switch to the manually chosen language is handled. Please refer to \tabref{bib:fld:tab1} for a list of supported languages and the corresponding identifiers.
 
 该选项控制多语种支持功能。默认情况下，
-\biblatex 会通过\sty{babel}/\sty{polyglossia}获取当前环境激活的语言
+\biblatex 会通过\sty{babel}/\sty{polyglossia}\footnote{注意：\biblatex 只能识别基础语言比如(\eg \texttt{english})，无法识别语言变种(\eg \texttt{british})或
+其它来自\sty{polyglossia}包的特性(\eg \texttt{spelling=new} for \texttt{german})。这意味着 \biblatex 中基础语言的本地化系统也用于所有的变体，甚至在\sty{babel}中有自己的本地化字符串系统的变种也一样。为提示这一问题，biblatex 会在使用\sty{polyglossia}时给出警告，其信息解释了如何关闭这一警告。} 获取当前环境激活的语言
 （如果\sty{babel}/\sty{polyglossia} 宏包不可用则设置为后备语言：英语）。
 \opt{autobib} 使用条目中的 \bibfield{langid} 域和 \opt{autolang} 选项
 设定的语言环境为文献表中每个条目切换语言。
@@ -281,13 +289,17 @@
 \boolitem[true]{clearlang}
 
 %If this option is enabled, \biblatex will automatically clear the \bibfield{language} field of all entries whose language matches the \sty{babel}/\sty{polyglossia} language of the document (or the language specified explicitly with the \opt{language} option) in order to omit redundant language specifications. The language mappings required by this feature are provided by the \cmd{DeclareRedundantLanguages} command from \secref{aut:lng:cmd}.
+%This option is also settable on a per-type and per-entry basis.
 
 如果激活该选项，\biblatex 会自动清除那些与文档的 \sty{babel}/\sty{polyglossia} 语言（或者由 \opt{language} 选项显式指定的语言）相匹配的所有条目的 \bibfield{language} 域，以便略去冗余的语言设定。
-该功能所需的语言映射由 \secref{aut:lng:cmd} 节的 \cmd{DeclareRedundantLanguages} 命令提供。
+该功能所需的语言映射由 \secref{aut:lng:cmd} 节的 \cmd{DeclareRedundantLanguages} 命令提供。该选项也可以针对条目类型和具体条目进行设置。
 
 \optitem[none]{autolang}{\opt{none}, \opt{hyphen}, \opt{other}, \opt{other*}, \opt{langname}}
 
 %This option controls which \sty{babel} language environment\footnote{\sty{polyglossia} understands the \sty{babel} language environments too and so this option controls both the \sty{babel} and \sty{polyglossia} language environments.} is used if the \sty{babel}/\sty{polyglossia} package is loaded and a bibliography entry includes a \bibfield{langid} field (see \secref{bib:fld:spc}). Note that \biblatex automatically adjusts to the main document language if \sty{babel}/\sty{polyglossia} is loaded. In multilingual documents, it will also continually adjust to the current language as far as citations and the default language of the bibliography is concerned. The effect of language adjustment depends on the language environment selected by this option. The possible choices are:
+
+This option controls which \sty{babel} language environment\footnote{\sty{polyglossia} understands the \sty{babel} language environments too and so this option controls both the \sty{babel} and \sty{polyglossia} language environments.} is used if the \sty{babel}/\sty{polyglossia} package is loaded and a bibliography entry includes a \bibfield{langid} field (see \secref{bib:fld:spc}). Note that regardless of the selected value \biblatex automatically adjusts to the main document language if \sty{babel}/\sty{polyglossia} is loaded. In multilingual documents, it will also continually adjust to the current language as far as citations and the default language of the bibliography is concerned. The effect of additional language adjustment, which can negate the effect of picking up the surrounding language, depends on the language environment selected by this option. The possible choices are:
+
 如果载入了 \sty{babel}/\sty{polyglossia} 宏包并且文献条目包含 \bibfield{langid} 域
 （见 \secref{bib:fld:spc} 节），那么该选项可以控制使用哪种 \sty{babel} 语言环境
 \footnote{	\sty{polyglossia} 宏包也可以理解 \sty{babel} 的语言环境，	因此本选项可以同时控制 \sty{babel}/\sty{polyglossia} 语言环境。}。
@@ -307,6 +319,9 @@
 
 \item[hyphen]
 %Enclose the entry in a \env{hyphenrules} environment. This will load hyphenation patterns for the language specified in the \env{hyphenation} field of the entry, if available.
+
+Enclose the entry in a \env{hyphenrules} environment. This will load hyphenation patterns for the language specified in the \bibfield{langid} field of the entry, if available. Localisation strings and extra language definitions are not changed and taken from the surrounding language environment.
+
 将条目装入  \env{hyphenrules} 环境中。如果可用的话，会为条目的 \env{hyphenation} 域指定的语言导入断词模式。
 
 \item[other]
@@ -317,6 +332,10 @@
 
 \item[other*]
 %Enclose the entry in an \env{otherlanguage*} environment. Please note that \sty{biblatex} treats \env{otherlanguage*} like \env{otherlanguage} but other packages may make a distinction in this case.
+
+Enclose the entry in an \env{otherlanguage*} environment. Please note that \biblatex treats \env{otherlanguage*} like \env{otherlanguage} if \opt{langhook} is set to \opt{extras}.
+
+
 将条目装入 \env{otherlanguage*} 环境中。
 请注意，此时 \biblatex 将 \env{otherlanguage*} 环境视为 \env{otherlanguage} 环境但其它宏包不会。
 
@@ -328,6 +347,9 @@
 
 \end{valuelist}
 
+\optitem[captions]{langhook}{\opt{captions}, \opt{extras}}
+
+This option controls whether bibliography strings and extras are written to \cmd{captions$<$language$>$} or \cmd{extras$<$language$>$}. The exact effect of this option depend on the language package (\sty{babel}/\sty{polyglossia}). Broadly speaking, the language switching environments provided by those packages (except \env{hyphenrules}) either switch language captions and extras or only language extras. Hence, if this option is set to \opt{extras}, all language switches will affect \biblatex, whereas with \opt{captions} only language switches that also switch other parts of the document language affect \biblatex.
 \optitem[none]{block}{\opt{none}, \opt{space}, \opt{par}, \opt{nbpar}, \opt{ragged}}
 
 %This option controls the extra spacing between blocks, \ie larger segments of a bibliography entry. The possible choices are:
@@ -466,6 +488,9 @@
 
 \end{valuelist}
 
+\boolitem[true]{backreffloats}
+
+Whether to enable back references to citations in floats.
 \optitem[false]{indexing}{\opt{true}, \opt{false}, \opt{cite}, \opt{bib}}
 
 %This option controls indexing in citations and in the bibliography. More precisely, it affects the \cmd{ifciteindex} and \cmd{ifbibindex} commands from \secref{aut:aux:tst}. The option is settable on a global, a per-type, or on a per-entry basis. The possible choices are:
@@ -542,19 +567,26 @@
 在每个 \cmd{part}  命令后执行重置。
 \item[chapter] %Perform a reset at every \cmd{chapter} command.
 在每个 \cmd{chapter}  命令后执行重置。
+\item[chapter+] %Perform a reset at every \cmd{chapter} and \cmd{part} command.
+在每个 \cmd{chapter} 和 \cmd{part}命令后执行重置。
 \item[section] %Perform a reset at every \cmd{section} command.
 在每个 \cmd{section}  命令后执行重置。
+\item[section+] %Perform a reset at every \cmd{section}, \prm{chapter} (if supported by the class) and \cmd{part} command.
+在每个 \cmd{section} \cmd{chapter} 和 \cmd{part}命令后执行重置。
 \item[subsection] %Perform a reset at every \cmd{subsection} command.
 在每个 \cmd{subsection}  命令后执行重置。
+\item[subsection+] %Perform a reset at every \cmd{subsection}, \cmd{section}, \prm{chapter} (if supported by the class) and \cmd{part} command.
+在每个 \cmd{subsection} \cmd{section} \cmd{chapter} 和 \cmd{part} 命令后执行重置。
 \end{valuelist}
 %
 %The starred versions of these commands will not trigger a reset.
-这些命令对应的带星号版本不会引起重置。
+%这些命令对应的带星号版本不会引起重置。
 
 \boolitem[true]{abbreviate}
 
 %Whether or not to use long or abbreviated strings in citations and in the bibliography. This option affects the localisation modules. If this option is enabled, key terms such as <editor> are abbreviated. If not, they are written out.
-是否在标注和文献表中使用长字符串或缩写字符串。该选项会影响本地化模块。如果启用该选项，“editor”等键值项会被缩写，反之则会全部写出。
+%This option is also settable on a per-type or per-entry basis.
+是否在标注和文献表中使用长字符串或缩写字符串。该选项会影响本地化模块。如果启用该选项，“editor”等键值项会被缩写，反之则会全部写出。该选项可以针对条目类型和具体条目设置。
 
 \optitem[comp]{date}{\opt{year}, \opt{short}, \opt{long}, \opt{terse}, \opt{comp}, \opt{ymd}, \opt{iso}}
 
@@ -654,8 +686,8 @@ January 21--30, 2010\par
 
 \boolitem[true]{dateabbrev}
 
-%This option controls whether \texttt{long} and \texttt{comp} dates are printed with long or abbreviated month/season names. The option is similar to the generic \opt{abbreviate} option but specific to the date formatting.
-该选项控制打印\texttt{long} 和 \texttt{comp} 日期格式时，使用完整的或是缩写的月份名。该选项类似于一般的 \opt{abbreviate} 选项但是只针对日期格式。
+%This option controls whether \texttt{long} and \texttt{comp} dates are printed with long or abbreviated month/season names. The option is similar to the generic \opt{abbreviate} option but specific to the date formatting.This option is also settable on a per-type and per-entry basis.
+该选项控制打印\texttt{long} 和 \texttt{comp} 日期格式时，使用完整的或是缩写的月份名。该选项类似于一般的 \opt{abbreviate} 选项但是只针对日期格式。该选项可以针对条目类型和具体条目设置。
 
 \boolitem[false]{datecirca}
 
@@ -748,6 +780,9 @@ January 21--30, 2010\par
 \boolitem[false]{defernumbers}
 
 %In contrast to standard \latex, the numeric labels generated by this package are normally assigned to the full list of references at the beginning of the document body. If this option is enabled, numeric labels (\ie the \bibfield{labelnumber} field discussed in \secref{aut:bbx:fld}) are assigned the first time an entry is printed in any bibliography. See \secref{use:cav:lab} for further explanation.  This option requires two \latex runs after the data has been exported to the \file{bbl} file by the backend (in addition to any other runs required by page breaks changing etc.). An important thing to note is that if you change the value of this option in your document (or the value of options which depend on this like some of the options to the \cmd{printbibliography} macro, see \secref{use:bib:bib}), then it is likely that you will need to delete your current \file{aux} file and re-run \latex to obtain the correct numbering. See \secref{aut:int}.
+
+ An important thing to note is that if you are using this option, then changes to options, the \file{bib} file or certain commands like \cmd{printbibliography} will usually require that you delete your current \file{aux} file and re-run \latex to obtain the correct numbering. See \secref{aut:int}.
+
 与标准 \LaTeX 不同，默认情况下，本宏包生成的顺序编码标签在文档正文开始处就分配给文献表的全体文献。但如果该选项被激活，各文献的顺序编码标签（也就是 \secref{aut:bbx:fld} 中讨论的 \bibfield{labelnumber} 域）只有该文献在任意文献表中被打印时才会做第一次分配。进一步解释见 \secref{use:cav:lab} 节。该选项需要在后端将数据导出到 \file{bbl} 文件后再运行两次 \LaTeX （除由分页变化等要求的编译外）。需注意的一个要点是，如果你在文档中改变了该选项值（或者那些依赖于本选项的选项值，例如与\cmd{printbibliography} 宏相关的选项，见\secref{use:bib:bib} 节），那么很可能需要删除当前的 \file{aux} 文件然后重新运行 \LaTeX 来获得正确的顺序编码，见 \secref{aut:int} 节。(\emph{需要注意:该选项只与顺序编码标签有关，而与文献表中文献的排序无关。主要用于解决做文献筛选后顺序编码不连续的问题，具体见\secref{use:cav:lab}节。-译者注})
 
 \boolitem[false]{punctfont}
@@ -782,6 +817,9 @@ arXiv 链接的路径选择。如果启用超链接支持，该选项会控制 a
 \begin{valuelist}
 
 \item[auto] %Try to auto-detect the input encoding. If the \sty{inputenc}\slash \sty{inputenx}\slash \sty{luainputenc} package is available, \biblatex will get the main encoding from that package. If not, it assumes \utf encoding if \xetex or \luatex has been detected, and Ascii otherwise.
+
+If not, it assumes \utf encoding if a \latex format using at least the April 2018 version of the kernel, \xetex or \luatex has been detected, and Ascii otherwise.
+
 尝试自动识别输入的编码。如果有 \sty{inputenc}\slash\sty{inputenx}\slash\sty{luainputenc} 等宏包，
 \biblatex 会从宏包中获取主要编码。否则，当探测到 \XeTeX 或 \LuaTeX 引擎时设定为 \utf 编码，其余情况设为 Ascii。
 
@@ -795,7 +833,7 @@ arXiv 链接的路径选择。如果启用超链接支持，该选项会控制 a
 
 \optitem[auto]{bibencoding}{\opt{auto}, \prm{encoding}}
 
-%Specifies the default encoding of the \file{bib} files. This can be overridden on a per-datasource basis using the \opt{bibencoding} option to \cmd{addbibresource}, see \secref{use:bib:res}.  This corresponds to \biber's \opt{--input-encoding} option. The following choices are available:
+%Specifies the default encoding of the \file{bib} files. This can be overridden on a per-datasource basis using the \opt{bibencoding} option to \cmd{addbibresource}, see \secref{use:bib:res}.  This option corresponds to \biber's \opt{--input-encoding} option. The following choices are available:
 指定 \file{bib} 文件的默认编码。它可以利用\cmd{addbibresource}命令的\opt{bibencoding}选项，
 针对每个数据库进行重设。
 该选项对应于 \biber 程序的 |--output-encoding| 选项。可用选择有：
@@ -833,14 +871,18 @@ arXiv 链接的路径选择。如果启用超链接支持，该选项会控制 a
 
 %As \opt{mincrossrefs} but for \bibfield{xref} fields.
 类似于 \opt{mincrossrefs} 但针对于 \bibfield{xref} 域。
+\boolitem[true]{bibtexcaseprotection}
 
+This option only has an effect when the \sty{expl3} implementation of the case changing functions is selected. If the option is set to \opt{true}, \cmd{MakeSentenceCase*} supports brace protection of words from case change as in classical \bibtex. If the option is set to \opt{false}, pairs of braces no longer imply case protection, which can now be enforced by wrapping the relevant word in \cmd{NoCaseChange}---this makes for a less confusing, if more verbose, markup of case protection.
 \end{optionlist}
 
 \paragraph{特定样式选项}%\paragraph{Style-specific}
 \label{use:opt:pre:bbx}
 
 %The following options are provided by the standard styles (as opposed to the core package). Technically, they are preamble options like those in \secref{use:opt:pre:gen}.
-下列选项由标准样式（而不是宏包内核）提供。技术上讲，它们和 \secref{use:opt:pre:gen} 中的选项一样也是导言区选项。
+%The following options are provided by all standard bibliography styles (as opposed to the core package). The options are available as preamble options like those in \secref{use:opt:pre:gen} and at a per-type and per-entry scope.
+
+下列选项由所有标准样式（而不是宏包内核）提供。它们与 \secref{use:opt:pre:gen} 中的选项类似，可以作为导言区选项，也可用于具体类型和条目范围。
 
 \begin{optionlist}
 
@@ -864,7 +906,170 @@ arXiv 链接的路径选择。如果启用超链接支持，该选项会控制 a
 %This option controls whether \bibfield{eprint} information is printed.
 该选项控制是否打印 \bibfield{eprint} 信息。
 
+\boolitem[true]{related}
+%
+%%Whether or not to use information from related entries or not. See \secref{use:rel}.
+%
+是否使用来自关联条目的信息。参考 \secref{use:rel} 节。
+
 \end{optionlist}
+
+%\subparagraph{\texttt{alphabetic}/\texttt{numeric}} Additionally, styles of the \texttt{alphabetic} and \texttt{numeric} family support the \opt{subentry} option in global, per-type and per-entry scope.
+
+\subparagraph{\texttt{alphabetic}/\texttt{numeric}} 另外，\texttt{alphabetic} 和 \texttt{numeric} 类样式支持在全局（global）、具体类型（per-type）、具体条目（per-entry）范围上使用\opt{subentry}选项。
+
+\begin{optionlist}
+
+\boolitem[false]{subentry}
+
+%This option affects the handling of citations to set members and the display of sets in the bibliography. If the option is enabled, citations to individual set members feature an additional letter that identifies the member, that letter is also printed in the bibliography. If the option is disabled, a citation to the member of a set will display just as a citation to the entire set and there will be no additional letters in the bibliography entries enumerating the members.
+
+该选项影响条目集成员的标注（引用）处理以及在文献表中的显示。如果启用该选项，集内单独成员的标注会使用一个额外的字母来区分该成员，该字母也会在文献表中输出。如果该选项关闭，那么集的成员的标注仅会显示对整个集的引用，文献表中列举成员时也不会有额外的字母。
+
+%Suppose \texttt{key1} and \texttt{key2} are members of the set \texttt{set1}. With \opt{subentry} set to \texttt{true} in a numeric style a citation to \texttt{key1} will show as <[1a]> and a citation to \texttt{key2} as <[1b]>, while the entire set \texttt{set1} will be cited as <[1]>. Furthermore <(a)> and <(b)> will be added in front of the entry data for the set members in the bibliography entry for the set. With \opt{subentry} set to \texttt{false} citations to all three keys will show as <[1]>, no additional letter will be printed in the bibliography.
+
+假设\texttt{key1} 和 \texttt{key2} 是 \texttt{set1}的成员。在顺序编码类样式中，当\opt{subentry} 设置为 \texttt{true}，对\texttt{key1}的引用标注会显示<[1a]>，对于\texttt{key2}则是 <[1b]>，对于整个集\texttt{set1} 则是<[1]>。此外，文献表中文献集所在条目的各个成员数据前面会加上 <(a)> 和 <(b)> 。当\opt{subentry} 设置为 \texttt{false}，则上述3中引用所产生的标注都显示为<[1]>，且文献表中也不会打印额外的字母。
+
+\end{optionlist}
+
+\subparagraph{\texttt{numeric-comp}} The citation style \texttt{numeric-comp}  supports the \opt{subentrycomp} option in global, per-type and per-entry scope.
+
+\begin{optionlist}
+
+\boolitem[true]{subentrycomp}
+
+This option determines whether or not citations to set members are compressed similar to non-set citations. The option only has an effect if \opt{subentry} is set to \texttt{true}.
+
+Suppose \texttt{key1}, \texttt{key2} and \texttt{key3} are members of the set \texttt{set1}. With \opt{subentrycomp} set to \texttt{true} the three entries will be compressed to <[1a--c]> in citations. With \opt{subentry} set to \texttt{false} the citation will show in the more verbose form <[1a, 1b, 1c]>.
+
+The option is intended mainly for backwards compatibility, because earlier versions of \biblatex did not compress set member citations.
+
+\end{optionlist}
+
+%\subparagraph{\texttt{authortitle}/\texttt{authoryear}} All bibliography styles of the \texttt{authoryear} and \texttt{authortitle} family as well as all bibliography styles of the \texttt{verbose} family---whose bibliography styles are based on \texttt{authortitle}---support the option \opt{dashed} in global scope.
+
+\subparagraph{\texttt{authortitle}/\texttt{authoryear}} 所有\texttt{authoryear} 和 \texttt{authortitle} 类的样式，以及所有\texttt{verbose}类样式————该类样式基于\texttt{authortitle} 样式————支持全局范围的\opt{dashed}选项。
+
+\begin{optionlist}
+
+\boolitem[true]{dashed}
+
+%This option controls whether recurrent the same author\slash editor list in the bibliography are replaced by a dash (\cmd{bibnamdeash}, see \secref{use:fmt:fmt}). If the option is enabled, subsequent mentions of the same name list at the beginning of an entry are replaced by a dash provided the entry is not the first on the current page. If the option is disabled, name lists are never replaced by a dash.
+
+该选项控制重复出现的相同作者或编者列表的文献是否用一个短横线（dash，\cmd{bibnamdeash}, 见\secref{use:fmt:fmt}）替代。如果启用该选项，则重复出现的相同姓名列表的文献条目的作者部分将会由短横线代替，有个条件是该条目不是出现在当前页的第一条文献。如果选项不启用，则姓名列表不会被短横线代替。
+
+\end{optionlist}
+
+%\subparagraph{\texttt{authoryear}} Bibliography styles of the \texttt{authoryear} family provide the option \opt{mergedate} in global, per-type and per-entry scope.
+
+\subparagraph{\texttt{authoryear}} \texttt{authoryear} 类样式支持在全局（global）、具体类型（per-type）、具体条目（per-entry）范围上使用 \opt{mergedate} 选项。
+
+\begin{optionlist}
+
+\optitem[true]{mergedate}{\opt{false}, \opt{minimum}, \opt{basic}, \opt{compact}, \opt{maximum}, \opt{true}}
+
+%This option controls whether and how the date specification in the entry is merged with the date label shown directly after the author\slash editor list.
+
+该选项控制融合条目中的日期标签与作者或编者列表与否及其融合方式。
+
+\begin{valuelist}
+\item[false] %Strictly separate the date specification shown in the entry (styled with \opt{date}) from the date label (styled with \opt{labeldate}). The date will always be shown twice.
+    严格分开文献条目日期描述信息（以\opt{date}的样式）和条目标签日期（以\opt{labeldate}的样式）的显示。因此，日期总是显示2次。
+
+\item[minimum] %Omit the date specification whenever it coincides \emph{exactly}---including \bibfield{extradate} information---with the output of the date label.
+    忽略日期描述，无论它是否与日期标签（精确）相同————包括\bibfield{extradate}信息。
+
+
+\item[basic] %Similar to \opt{minimum}, but the date specification will also be omitted if it differs from the date label only by the absence of the \bibfield{extradate} letter.
+    类似于\opt{minimum}，但当文献条目的日期信息在不考虑\bibfield{extradate}时与日期标签不同时，也忽略。
+
+
+\item[compact] %Merges all date specifications with the date label. The date format of that merged date label is controlled by \opt{date}, not \opt{labeldate}, even if it is printed in the position of the date label. The \bibfield{issue} field is not merged.
+    将所有的日期与日期标签融合。融合后的日期格式由\opt{date}控制，而不是\opt{labeldate}，尽管它在标签的位置输出。但\bibfield{issue}域不融合。
+
+\item[maximum] %Like \opt{compact}, but if present the \bibfield{issue} field will also be moved into the date label at the beginning of the entry.
+    类似\opt{compact}，但如果出现\bibfield{issue}域，也会进行融合。
+
+\item[true] %An alias for \opt{compact}.
+    \opt{compact}选项的别名。
+
+\end{valuelist}
+
+%More in-depth examples of this option can be found in the style examples.
+该选项的更多示例可以参考样式示例文档。
+\end{optionlist}
+
+%\subparagraph{<ibid> styles} Citation styles with <ibid.> function, namely \texttt{authortitle-ibid}, \texttt{author\allowbreakhere title-icomp}, \texttt{author\allowbreakhere year-ibid}, \texttt{authoryear-icomp}, \texttt{ver\allowbreakhere bose-ibid}, \texttt{verbose-inote}, \texttt{verbose-trad1}, \texttt{verbose-trad2} and \texttt{verbose-trad3} provide the global \opt{ibidpage} option.
+
+\subparagraph{<ibid> styles} 具有<ibid.> 功能的样式，比如 \texttt{authortitle-ibid}, \texttt{author\allowbreakhere title-icomp}, \texttt{author\allowbreakhere year-ibid}, \texttt{authoryear-icomp}, \texttt{ver\allowbreakhere bose-ibid}, \texttt{verbose-inote}, \texttt{verbose-trad1}, \texttt{verbose-trad2} 和 \texttt{verbose-trad3} 支持全局的\opt{ibidpage} 选项.
+
+\begin{optionlist}
+
+\boolitem[false]{ibidpage}
+
+%Whether \emph{ibidem} without page reference means <same work> or <same work + same page>. If set to \texttt{true} a page range postnote will be suppressed in an \emph{ibidem} citation if the last citation was to the same page range. With \texttt{ibidpage=false} the postnote is not omitted. Citations to different page ranges than the previous always produce the page ranges with either setting.
+
+\emph{ibidem}是否考虑页面，即两种情况<same work> 或 <same work + same page>。当该选项设置为\texttt{true}，那么\emph{ibidem}标注标签中的页面范围前注将会取消，如果前一个引用标注处于同一页上。当设置为\texttt{ibidpage=false}时，前注则不会忽略。不同页上的标注，总是会显示前注，无论是否设置该选项。
+
+
+\end{optionlist}
+
+%\subparagraph{\texttt{verbose}} All citation styles of the \texttt{verbose} family provide the global option \opt{citepages}.
+
+\subparagraph{\texttt{verbose}} 所有\texttt{verbose}类的标注样式提供全局选项 \opt{citepages}.
+
+\begin{optionlist}
+
+\optitem[permit]{citepages}{\opt{permit}, \opt{suppress}, \opt{omit}, \opt{separate}}
+
+%This option controls the output of the \bibfield{page}\slash\bibfield{pagetotal} field in the full citation in combination with a postnote containing a page range. The option can be used to suppress references to two page ranges in full citations like the following
+
+该选项控制包含页码范围前注的完整标注中的\bibfield{page}\slash\bibfield{pagetotal}域的输出。该选项可以用于取消在完整标注中对两个页码范围的跳转，比如下面这样的标注：
+
+\begin{quote}
+Author. \enquote{Title.} In: \emph{Book,} pp.\,100--150, p.\,125.
+\end{quote}
+
+%Here <p.\,125> is the \bibfield{postnote} argument and <pp.\,100--150> is the value of the \bibfield{pages} field.
+
+这里<p.\,125>是\bibfield{postnote}的参数，而<pp.\,100--150>则是\bibfield{pages}域的值。
+
+\begin{valuelist}
+\item[permit] %Allow duplication of page specifications, i.e.\ print both \bibfield{page}\slash\bibfield{pagetotal} and \bibfield{postnote}.
+    允许出现两个页码描述，比如既输出\bibfield{page}\slash\bibfield{pagetotal} 也输出 \bibfield{postnote}。
+
+\item[suppress] %Unconditionally suppress the \bibfield{pages}\slash \bibfield{pagetotal} fields in citations, regardless of the \bibfield{postnote}.
+    无条件取消\bibfield{pages}\slash \bibfield{pagetotal}域的输出，不考虑
+    \bibfield{postnote}的情况
+
+\item[omit] %Suppress the \bibfield{pages}\slash \bibfield{pagetotal} if the \bibfield{postnote} contains a page range. They are still printed if there is no \bibfield{postnote} or if the \bibfield{postnote} is not a number or range.
+    当\bibfield{postnote}包含页码范围时，取消\bibfield{pages}\slash \bibfield{pagetotal} 域的输出。而当\bibfield{postnote}不存在或者不是一个数字或范围时输出。
+
+\item[separate] %Separate the \bibfield{pages}\slash \bibfield{pagetotal} from the \bibfield{postnote} if the latter contains a page range. The string \texttt{thiscite} is added to separate the two page ranges.
+    当\bibfield{postnote}包含一个页码范围时，则两者均输出，两者之间由\texttt{thiscite}字符串分隔。
+\end{valuelist}
+
+\end{optionlist}
+
+%\subparagraph{\texttt{verbose-trad}} The citation styles of the \texttt{verbose-trad} family support the global option \opt{strict}.
+
+\subparagraph{\texttt{verbose-trad}} \texttt{verbose-trad}类的标注样式提供了全局选项 \opt{strict}。
+
+\begin{optionlist}
+
+\boolitem[false]{strict}
+
+%This option allows to restrict the use of the scholarly abbreviations <ibid.> and <op.~cit.> to avoid ambiguities. If the option is set to \texttt{true} these terms will only be used if the relevant work was cited in the same or previous footnote.
+
+该选项用来限制学术缩略词  <ibid.> 和 <op.~cit.> 的使用避免产生歧义。
+如果选项设置为\texttt{true}，这些术语将仅用在相关文献在同一个或前一个脚注中引用时。
+
+\end{optionlist}
+
+%\subparagraph{\texttt{reading}} The \texttt{reading} style supports a number of additional options, but these are not of general interest and can be found in the style example.
+
+\subparagraph{\texttt{reading}} \texttt{reading} 样式支持一些额外选项，若大家感兴趣，可以参考样式示例文档。
+
 
 \paragraph{内部选项}%\paragraph{Internal}
 \label{use:opt:pre:int}
@@ -891,6 +1096,9 @@ arXiv 链接的路径选择。如果启用超链接支持，该选项会控制 a
 \end{valuelist}
 
 %Note that this tracker is disabled in all floats, see \secref{aut:cav:flt}.
+
+Note that this tracker is disabled in all floats unless explicitly requested with \opt{trackfloats}, see \secref{aut:cav:flt}.
+
 注意所有的浮动体都禁用该跟踪器，见 \secref{aut:cav:flt} 节。
 
 \optitem[false]{citecounter}{\opt{true}, \opt{false}, \opt{context}}
@@ -926,7 +1134,11 @@ arXiv 链接的路径选择。如果启用超链接支持，该选项会控制 a
 \end{valuelist}
 
 %Note that this tracker is disabled in all floats, see \secref{aut:cav:flt}.
+Note that this tracker is disabled in all floats unless explicitly requested with \opt{trackfloats}, see \secref{aut:cav:flt}.
+
 注意所有的浮动体都禁用该跟踪器，见 \secref{aut:cav:flt} 节。
+%This option is also settable on a per-type or per-entry basis.
+该选项可以针对具体类型或具体条目设置。
 
 \optitem[false]{ibidtracker}{\opt{true}, \opt{false}, \opt{context}, \opt{strict}, \opt{constrict}}
 
@@ -949,8 +1161,11 @@ arXiv 链接的路径选择。如果启用超链接支持，该选项会控制 a
 该模式是 \opt{context} 和 \opt{strict} 的结合。它也保持对脚注数量的跟踪，不过检测脚注中含义不清的文献时比 \opt{strict} 更加严格。除了 \opt{strict} 选项的条件外，只有当前引用和之前引用都在同一个或者连续的脚注中时，脚注中的文献才认为是含义清晰的。
 \end{valuelist}
 
-%Note that this tracker is disabled in all floats, see \secref{aut:cav:flt}.
+Note that this tracker is disabled in all floats unless explicitly requested with \opt{trackfloats}, see \secref{aut:cav:flt}.
+
 注意所有的浮动体都禁用该跟踪器，见 \secref{aut:cav:flt} 节。
+%This option is also settable on a per-type or per-entry basis.
+该选项可以针对具体类型或具体条目设置。
 
 \optitem[false]{opcittracker}{\opt{true}, \opt{false}, \opt{context}, \opt{strict}, \opt{constrict}}
 
@@ -970,8 +1185,11 @@ arXiv 链接的路径选择。如果启用超链接支持，该选项会控制 a
 该模式是 \opt{context} 和 \opt{strict} 的结合。详见  \kvopt{ibidtracker}{constrict} 选项的解释。
 \end{valuelist}
 
-%Note that this tracker is disabled in all floats, see \secref{aut:cav:flt}.
+Note that this tracker is disabled in all floats unless explicitly requested with \opt{trackfloats}, see \secref{aut:cav:flt}.
+
 注意所有的浮动体都禁用该跟踪器，见 \secref{aut:cav:flt} 节。
+%This option is also settable on a per-type or per-entry basis.
+该选项可以针对具体类型或具体条目设置。
 
 \optitem[false]{loccittracker}{\opt{true}, \opt{false}, \opt{context}, \opt{strict}, \opt{constrict}}
 
@@ -990,9 +1208,12 @@ arXiv 链接的路径选择。如果启用超链接支持，该选项会控制 a
 \item[constrict] %This mode combines the features of \opt{context} and \opt{strict}. See the explanation of \kvopt{ibidtracker}{constrict} for details. In addition to that, this mode also checks if the \prm{postnote} argument is numerical (based on \cmd{ifnumerals} from \secref{aut:aux:tst}).
 该模式是 \opt{context} 和 \opt{strict} 的结合。详见  \kvopt{ibidtracker}{constrict} 选项的解释。此外，该模式也会检查 \prm{postnote} 选项是否是数值型的（基于 \secref{aut:aux:tst} 节的 \cmd{ifnumerals} 命令）。
 \end{valuelist}
+Note that this tracker is disabled in all floats unless explicitly requested with \opt{trackfloats}, see \secref{aut:cav:flt}.
 
-%Note that this tracker is disabled in all floats, see \secref{aut:cav:flt}.
+
 注意所有的浮动体都禁用该跟踪器，见 \secref{aut:cav:flt} 节。
+%This option is also settable on a per-type or per-entry basis.
+该选项可以针对具体类型或具体条目设置。
 
 \optitem[false]{idemtracker}{\opt{true}, \opt{false}, \opt{context}, \opt{strict}, \opt{constrict}}
 
@@ -1013,8 +1234,16 @@ arXiv 链接的路径选择。如果启用超链接支持，该选项会控制 a
 该模式类似于 \opt{context}，只有一个额外条件：对于脚注中的引用，只有当前引用和之前引用位于同一个或相连的脚注中才会认为是含义明确的。
 \end{valuelist}
 
-%Note that this tracker is disabled in all floats, see \secref{aut:cav:flt}.
+Note that this tracker is disabled in all floats unless explicitly requested with \opt{trackfloats}, see \secref{aut:cav:flt}.
+
 注意所有的浮动体都禁用该跟踪器，见 \secref{aut:cav:flt} 节。
+%This option is also settable on a per-type or per-entry basis.
+该选项可以针对具体类型或具体条目设置。
+
+\boolitem[false]{trackfloats}
+
+Whether to enable citation tracking in floats. Citation tracking in floats can be tricky, so this option should only be enabled if absolutely necessary and the output should be scrutinised carefully, see also \secref{aut:cav:flt}.
+
 
 \boolitem[true]{parentracker}
 
@@ -1035,29 +1264,46 @@ arXiv 链接的路径选择。如果启用超链接支持，该选项会控制 a
 
 \boolitem[false]{\prm{namepart}inits}
 
-%When enabled, all $<$namepart$>$ name parts will be rendered as initials. The option will affect the \cmd{if$<$namepart$>$inits} test from \secref{aut:aux:tst}. The valid name parts are defined in the data model by the \cmd{DeclareDatamodelConstant} command (\secref{aut:bbx:drv}).
+%The option sets the \cmd{if$<$namepart$>$inits} test from \secref{aut:aux:tst}. \texttt{$<$namepart$>$} is any valid name part as defined in the data model by the \cmd{DeclareDatamodelConstant} command (\secref{aut:bbx:drv}). For the given name, for example, the option becomes \opt{giveninits}.
+%This option is also settable on a per-type, per-entry, per-name and per-namelist basis.
 
-启用该选项时所有的 \prm{namepart} 姓名部分都会用首字母表示。
-该选项会影响 \secref{aut:aux:tst} 节的 \cmd{if\prm{namepart}inits} 测试。
-在数据模型中有效的姓名部分由 \cmd{DeclareDatamodelConstant} 命令定义，见 \secref{aut:bbx:drv} 节。
+该选项设置\secref{aut:aux:tst}节的\cmd{if$<$namepart$>$inits}测试。
+\texttt{$<$namepart$>$} 是数据模型中由\cmd{DeclareDatamodelConstant}
+（见\secref{aut:bbx:drv}）命令定义的任意有效姓名成分。
+例如，对于名（given name），该选项就变为\opt{giveninits}。该选项可以针对具体类型、条目、姓名和姓名列表设置。
+
+%If \opt{giveninits} is set to \opt{true}, the default name formats will only render the given name initials and not the full given name. The standard styles only use the test \cmd{ifgiveninits} and hence only respond to the option \opt{giveninits}. Setting the option for a name part different from \texttt{given} has no effect on the default name formats.
+
+如果\opt{giveninits}设置为\opt{true}，默认的姓名格式将仅提供名的缩写，而不是全名。标准样式仅适用\cmd{ifgiveninits}测试，因此仅响应\opt{giveninits}选项。设置其它姓名成分的选项对默认的姓名格式没有影响。
+
+
+%Note that sorting and name uniqueness are not automatically affected by this option, that have to be requested explicitly via \cmd{DeclareSortingNamekeyTemplate} and the \opt{uniquename} option (or \cmd{DeclareUniquenameTemplate}), respectively. A warning will be issued if \opt{giveninits} is used together with \opt{uniquename} set to one of the \opt{full} values and \opt{uniquename} is automatically set to the corresponding \opt{init} value.
+
+注意：排序和姓名唯一性处理不会自动受该选项影响，
+而受必须各自显式给出的\cmd{DeclareSortingNamekeyTemplate}和\opt{uniquename}选项
+（或\cmd{DeclareUniquenameTemplate}）的影响。当使用\opt{giveninits}时，且\opt{uniquename}设置为\opt{full}类的值时，会给出警告信息，并自动设置\opt{uniquename}为对应的\opt{init}。
+
+
+
 
 \boolitem[false]{terseinits}
 
-%This option controls the format of all initials generated by \biblatex. If enabled, initials are rendered using a terse format without dots and spaces. For example, the initials of Donald Ervin Knuth would be rendered as <D.~E.> by default, and as <DE> if this option is enabled. The option will affect the \cmd{ifterseinits} test from \secref{aut:aux:tst}. The option works by redefining some macros which control the format of initials. See \secref{use:cav:nam} for details.
-
+%This option controls the format of all initials generated by \biblatex. If enabled, initials are rendered using a terse format without dots and spaces. For example, the initials of Donald Ervin Knuth would be rendered as <D.~E.> by default, and as <DE> if this option is enabled. The option will affect the \cmd{ifterseinits} test from \secref{aut:aux:tst}. The option works by redefining some macros which control the format of initials. See \secref{use:cav:nam} for details. This option is also settable on a per-type or per-entry basis.
 该选项控制 \biblatex 生成的首字母格式。
 当启用时，首字母缩写将采用没有点号和空格的紧凑形式。
 例如 Donald Ervin Knuth 的首字母缩写默认是“D.~E.”，而在此选项启用时会是“DE”。
 该选项会影响 \secref{aut:aux:tst} 中的 \cmd{ifterseinits} 测试。
 该选项会重新定义一些控制首字母格式的宏。详见 \secref{use:cav:nam} 节。
 
+该选项可以针对具体类型或具体条目设置。
+
 \boolitem[false]{labelalpha}
 
 %Whether or not to provide the special fields \bibfield{labelalpha} and \bibfield{extraalpha}, see \secref{aut:bbx:fld} for details.
-%This option is also settable on a per-type basis. See also \opt{maxalphanames} and \opt{minalphanames}. Table \ref{use:opt:tab1} summarises the various \opt{extra*} disambiguation counters and what they track.
+%This option is also settable on a per-type  and per-entry basis. See also \opt{maxalphanames} and \opt{minalphanames}. Table \ref{use:opt:tab1} summarises the various \opt{extra*} disambiguation counters and what they track.
 
 是否提供特殊的域 \bibfield{labelalpha} 和 \bibfield{extraalpha}，详见 \secref{aut:bbx:fld} 节。
-该选项可以基于每一条目类型(per-type)设置。
+该选项可以基于每一条目类型(per-type)或具体条目设置。
 另见 \opt{maxalphanames} 和 \opt{minalphanames} 选项。
 表 \ref{use:opt:tab1} 总结了各种 \opt{extra*} 歧义消除的计数器以及它们所跟踪的选项。
 
@@ -1075,10 +1321,10 @@ arXiv 链接的路径选择。如果启用超链接支持，该选项会控制 a
 \boolitem[false]{labelnumber}
 
 %Whether or not to provide the special field \bibfield{labelnumber}, see \secref{aut:bbx:fld} for details.
-%This option is also settable on a per-type basis.
+%This option is also settable on a per-type and per-entry basis.
 
 是否提供特殊域 \bibfield{labelnumber}，详见  \secref{aut:bbx:fld} 节。
-该选项可基于每一类型而设置。
+该选项可基于具体类型和条目设置。
 
 \boolitem[false]{noroman}
 
@@ -1118,11 +1364,11 @@ arXiv 链接的路径选择。如果启用超链接支持，该选项会控制 a
 
 \boolitem[false]{labeldateparts}
 
-%Whether or not to provide the special fields \bibfield{labelyear}, \bibfield{labelmonth}, \bibfield{labelday}, \bibfield{labelendyear}, \bibfield{labelendmonth}, \bibfield{labelendday}, \bibfield{labelhour}, \bibfield{labelendhour}, \bibfield{labelminute}, \bibfield{labelendminute}, \bibfield{labelsecond}, \bibfield{labelendsecond}, \bibfield{labelseason}, \bibfield{labelendseason}, \bibfield{labeltimezone}, \bibfield{labelendtimeone} and \bibfield{extrayear}, see \secref{aut:bbx:fld} for details.
-%This option is also settable on a per-type basis. Table \ref{use:opt:tab1} summarises the various \opt{extra*} disambiguation counters and what they track.
+%Whether or not to provide the special fields \bibfield{labelyear}, \bibfield{labelmonth}, \bibfield{labelday}, \bibfield{labelendyear}, \bibfield{labelendmonth}, \bibfield{labelendday}, \bibfield{labelhour}, \bibfield{labelendhour}, \bibfield{labelminute}, \bibfield{labelendminute}, \bibfield{labelsecond}, \bibfield{labelendsecond}, \bibfield{labelseason}, \bibfield{labelendseason}, \bibfield{labeltimezone}, \bibfield{labelendtimeone} and \bibfield{extradate}, see \secref{aut:bbx:fld} for details.
+%This option is also settable on a per-type  and per-entry basis. Table \ref{use:opt:tab1} summarises the various \opt{extra*} disambiguation counters and what they track.
 
 是否提供特殊域 \bibfield{labelyear}, \bibfield{labelmonth}, \bibfield{labelday}, \bibfield{labelendyear}, \bibfield{labelendmonth}, \bibfield{labelendday}, \bibfield{labelhour}, \bibfield{labelendhour}, \bibfield{labelminute}, \bibfield{labelendminute}, \bibfield{labelsecond}, \bibfield{labelendsecond}, \bibfield{labelseason}, \bibfield{labelendseason}, \bibfield{labeltimezone}, \bibfield{labelendtimeone} 以及 \bibfield{extrayear}，详见 \secref{aut:bbx:fld} 节。
-该选项也可基于每一类型而设置。
+该选项也可针对具体类型和条目设置。
 表 \ref{use:opt:tab1} 总结了各种 \opt{extra*} 消除歧义的计数器以及所跟踪的选项。
 
 
@@ -1149,53 +1395,57 @@ arXiv 链接的路径选择。如果启用超链接支持，该选项会控制 a
 \boolitem[false]{singletitle}
 
 %Whether or not to provide the data required by the \cmd{ifsingletitle} test, see \secref{aut:aux:tst} for details. See \tabref{use:opt:wu} for details on what determines the data for this test.
-%This option is also settable on a per-type basis.
+%This option is also settable on a per-type  and per-entry basis.
 
 是否提供 \cmd{ifsingletitle} 测试所需的数据，详见 \secref{aut:aux:tst} 节。
 关于该测试中数据的控制因素详见 \tabref{use:opt:wu}。
-该选项也可基于每一类型而设置。
+该选项也可针对具体类型和条目设置。
 
 \boolitem[false]{uniquetitle}
 
 %Whether or not to provide the data required by the \cmd{ifuniquetitle} test, see \secref{aut:aux:tst} for details. See \tabref{use:opt:wu} for details on what determines the data for this test.
-%This option is also settable on a per-type basis.
+%This option is also settable on a per-type  and per-entry basis.
 
 是否提供 \cmd{ifuniquetitle} 测试所需的数据，详见 \secref{aut:aux:tst} 节。
 关于该测试中数据的控制因素详见 \tabref{use:opt:wu}。
-该选项也可基于每一类型而设置。
+该选项也可针对具体类型和条目设置。
 
 \boolitem[false]{uniquebaretitle}
 
 %Whether or not to provide the data required by the \cmd{ifuniquebaretitle} test, see \secref{aut:aux:tst} for details. See \tabref{use:opt:wu} for details on what determines the data for this test.
-%This option is also settable on a per-type basis.
+%This option is also settable on a per-type  and per-entry basis.
 
 是否提供 \cmd{ifuniquebaretitle} 测试所需的数据，详见 \secref{aut:aux:tst} 节。
 关于该测试中数据的控制因素详见 \tabref{use:opt:wu}。
-该选项也可基于每一类型而设置。
+该选项也可针对具体类型和条目设置。
 
 \boolitem[false]{uniquework}
 
 %Whether or not to provide the data required by the \cmd{ifuniquework} test, see \secref{aut:aux:tst} for details. See \tabref{use:opt:wu} for details on what determines the data for this test.
-%This option is also settable on a per-type basis.
+%This option is also settable on a per-type  and per-entry basis.
 
 是否提供 \cmd{ifuniquework} 测试所需的数据，详见 \secref{aut:aux:tst} 节。
 关于该测试中数据的控制因素详见 \tabref{use:opt:wu}。
-该选项也可基于每一类型而设置。
+该选项也可针对具体类型和条目设置。
 
 \boolitem[false]{uniqueprimaryauthor}
 
 %Whether or not to provide the data required by the \cmd{ifuniqueprimaryauthor} test, see \secref{aut:aux:tst} for details.
+
+This option is also settable on a per-type and per-entry basis.
 
 是否提供 \cmd{ifuniqueprimaryauthor} 测试所需的数据，详见 \secref{aut:aux:tst} 节。
 
 \optitem[false]{uniquename}{\opt{true}, \opt{false}, \opt{init}, \opt{full}, \opt{allinit}, \opt{allfull},
 \opt{mininit}, \opt{minfull}}
 
-%Whether or not to update the \cnt{uniquename} counter, see \secref{aut:aux:tst} for details. This feature will disambiguate individual names in the \bibfield{labelname} list. This option is also settable on a per-type basis. The possible choices are:
+%Whether or not to update the \cnt{uniquename} counter, see \secref{aut:aux:tst} for details. This feature will disambiguate individual names in the \bibfield{labelname} list. This option is also settable on a per-type  and per-entry basis. The possible choices are:
+
+ Whether or not to update the \cnt{uniquename} counter, see \secref{aut:aux:tst} for details. This feature will disambiguate individual names in the \bibfield{labelname} list. This option is also settable on a per-type, per-entry, per-namelist and per-name basis. The possible choices are:
 
 是否更新 \cnt{uniquename} 计数器，详见 \secref{aut:aux:tst} 节。
 该特性会消除 \bibfield{labelname} 列表中各个姓名的歧义。
-该选项也可基于每一类型而设置。可用的选择有：
+该选项也可针对具体类型和条目设置。可用的选择有：
 
 \begin{valuelist}
 \item[true] %An alias for \opt{full}.
@@ -1220,19 +1470,22 @@ arXiv 链接的路径选择。如果启用超链接支持，该选项会控制 a
 \end{valuelist}
 %
 %Note that the \opt{uniquename} option will also affect \opt{uniquelist}, the \cmd{ifsingletitle} test, and the \bibfield{extrayear} field. See \secref{aut:cav:amb} for further details and practical examples.
+
+Note that the \opt{uniquename} option will also affect \opt{uniquelist}, the \cmd{ifsingletitle} test, and the \bibfield{extradate} and \bibfield{extraname} fields. See \secref{aut:cav:amb} for further details and practical examples.
+
 请注意，\opt{uniquename} 选项也会影响 \opt{uniquelist} 选项、
 \cmd{ifsingletitle} 测试，以及 \bibfield{extrayear} 域。
 更多细节和实例见 \secref{aut:cav:amb} 节。
 
 \optitem[false]{uniquelist}{\opt{true}, \opt{false}, \opt{minyear}}
 
-%Whether or not to update the \cnt{uniquelist} counter, see \secref{aut:aux:tst} for details. This feature will disambiguate the \bibfield{labelname} list if it has become ambiguous after \opt{maxnames}\slash \opt{minnames} truncation. Essentially, it overrides \opt{maxnames}\slash \opt{minnames} on a per-field basis. This option is also settable on a per-type basis. The possible choices are:
+%Whether or not to update the \cnt{uniquelist} counter, see \secref{aut:aux:tst} for details. This feature will disambiguate the \bibfield{labelname} list if it has become ambiguous after \opt{maxnames}\slash \opt{minnames} truncation. Essentially, it overrides \opt{maxnames}\slash \opt{minnames} on a per-field basis. This option is also settable on a per-type , per-entry and per-namelist basis. The possible choices are:
 
 是否更新 \cnt{uniquelist} 计数器，详见 \secref{aut:aux:tst} 节。
 如果 \bibfield{labelname} 列表在 \opt{maxnames}\slash \opt{minnames} 截断后含义不清，
 那么该特性会消除 \bibfield{labelname} 列表中的歧义。
 本质上，该选项会覆盖基于每一域的 \opt{maxnames}\slash \opt{minnames} 设置。
-该选项也可基于每一类型而设置。可用的选择有：
+该选项也可可针对具体类型、条目和姓名列表设置。可用的选择有：
 
 \begin{valuelist}
 \item[true] %Disambiguate the \bibfield{labelname} list.
@@ -1245,8 +1498,86 @@ arXiv 链接的路径选择。如果启用超链接支持，该选项会控制 a
 \end{valuelist}
 %
 %Note that the \opt{uniquelist} option will also affect the \cmd{ifsingletitle} test and the \bibfield{extrayear} field. See \secref{aut:cav:amb} for further details and practical examples.
+
+Note that the \opt{uniquelist} option will also affect the \cmd{ifsingletitle} test and the \bibfield{extradate} and \bibfield{extraname} fields. See \secref{aut:cav:amb} for furth
+er details and practical examples.
 请注意，\opt{uniquelist} 选项也会影响 \cmd{ifsingletitle} 测试和 \bibfield{extrayear} 域。
 更多细节和实例见 \secref{aut:cav:amb} 节。
+
+
+\boolitem[false]{nohashothers}
+
+%By default, name lists which are truncated with <et al>--either explicitly by <and others> in the data source or the \opt{uniquelist} and \opt{min/maxnames} options--result in different name list hashes (and therefore different \opt{extraname} and \opt{extradate} values) and different sorting. This option allows this behaviour to be tuned. When set to \prm{true}, \biber ignores <et al> truncations for the purposes of generating name list hashes. Consider:
+
+默认情况下，截短的姓名列表附带<et al>————无论是文献数据源中显式给出的<and others>或者
+\opt{uniquelist} 和 \opt{min/maxnames} 选项所产生————会产生不同的姓名列表哈希值（进而产生不同的\opt{extraname} 和 \opt{extradate}值。）和不同的排序。这一选项允许改变这一行为。当选项设置为\prm{true}时，\biber 将忽略在产生姓名列表的哈希值时忽略 <et al> 。考虑：
+
+\begin{lstlisting}{}
+Jones 1972
+Jones/and others 1972
+Smith 2000
+Smith/Vogel/Beast/Tremble 2000
+\end{lstlisting}
+%
+%With \kvopt{maxnames}{3}, \kvopt{minnames}{1}, \kvopt{nohashothers}{false}, the result would be:
+如果设置选项\kvopt{maxnames}{3}, \kvopt{minnames}{1}, \kvopt{nohashothers}{false}，结果为：
+
+\begin{lstlisting}{}
+  Jones 1972
+  Jones et al 1972
+  Smith 2000
+  Smith et al 2000
+\end{lstlisting}
+%
+%Whereas with \kvopt{maxnames}{3}, \kvopt{minnames}{1}, \kvopt{nohashothers}{true}, the result would be:
+当选项设置为\kvopt{maxnames}{3}, \kvopt{minnames}{1}, \kvopt{nohashothers}{true}时，结果则变为：
+
+\begin{lstlisting}{}
+  Jones 1972a
+  Jones et al 1972b
+  Smith 2000a
+  Smith et al 2000b
+\end{lstlisting}
+
+%If desired, this could be further simplified with:
+如果需要，可以通过下面的方式更进一步简化：
+
+\begin{ltxexample}
+  \DefineBibliographyStrings{english}{andothers={}}
+\end{ltxexample}
+%
+%To obtain:
+可以得到：
+
+\begin{lstlisting}{}
+  Jones 1972a
+  Jones 1972b
+  Smith 2000a
+  Smith 2000b
+\end{lstlisting}
+%
+%Note that the \opt{nohashothers} option will affect the \bibfield{extradate} and \bibfield{extraname} fields.
+注意\opt{nohashothers}选项将影响\bibfield{extradate} 和 \bibfield{extraname} 域。
+
+%This option is also settable on a per-type, per-entry and per-namelist basis.
+该选项可以也可以针对具体类型、条目、姓名列表设置。
+
+\boolitem[false]{nosortothers}
+
+%The option  has a related to effect to \opt{nohashothers} but applies to sorting--the visible list of names (which is the \opt{minsortnames} value) used to determine sorting will ignore any truncation. This means that with \kvopt{nosortothers}{true}, the name lists:
+
+该选项与\opt{nohashothers}选项的效果有些相关，但应用于排序————姓名的可见列表（\opt{minsortnames}的值）用于决定排序是否忽略截短。这意味着，当\kvopt{nosortothers}{true}时，姓名列表：
+
+\begin{lstlisting}{}
+Jones, Smith
+Jones, Smith et al
+\end{lstlisting}
+%
+%will sort exactly the same. The default setting of \opt{nosortothers} always sorts in the order shown in the example, that is, by default, truncated names lists always sort after any name lists identical to the point of truncation.
+在排序中完全一样的。\opt{nosortothers}选项的默认设置总是以该例中的顺序排列，即截短的姓名列表总是在与其截短点前面内容一致的姓名列表后面。
+
+%This option is also settable on a per-type, per-entry and per-namelist basis.
+该选项也可针对具体类型、条目、姓名列表设置。
 
 \end{optionlist}
 
@@ -1397,10 +1728,10 @@ labeltitleyear & {\rmfamily---}   & extratitleyear &  labeltitle+labelyear\\
 
 \paragraph{类型/条目选项}%\paragraph{Type/Entry Options}
 \label{use:opt:bib:ded}
-
-%The following options are settable on a per"=type basis or on a per"=entry in the \bibfield{options} field. They are not available globally.
+%%
+%%%The following options are settable on a per"=type basis or on a per"=entry in the \bibfield{options} field. They are not available globally.
 下列选项只能基于类型或条目在 \bibfield{options} 域中设置，而不能全局设置。
-
+%%
 \begin{optionlist}
 
 \boolitem[false]{skipbib}
@@ -1413,7 +1744,7 @@ labeltitleyear & {\rmfamily---}   & extratitleyear &  labeltitle+labelyear\\
 
 \boolitem[false]{skipbiblist}
 
-%If this option is enabled, the entry is excluded from and bibliography lists. It is still included in the bibliography and it may also be cited by shorthand etc.
+%If this option is enabled, the entry is excluded from bibliography lists. It is still included in the bibliography and it may also be cited by shorthand etc.
 %This option is also settable on a per-type basis.
 
 如果激活该选项，该选项将在文献列表中被排除在外，
@@ -1522,6 +1853,9 @@ labeltitleyear & {\rmfamily---}   & extratitleyear &  labeltitle+labelyear\\
 
 %This section provides a short description of all bibliography and citation styles which ship with the \biblatex package. If you want to write your own styles, see \secref{aut}.
 
+
+This section provides a short description of all bibliography and citation styles which come with the \biblatex package. Each style is further illustrated in a style example which is linked in the right margin. The local link may not be available if this document does not reside in the expected folder structure. If you want to write your own styles, see \secref{aut}.
+
 我们常说的参考文献样式，在biblatex中，其实是著录样式和标注(引用)样式的统称。其中著录样式控制文献列表比如书后的文献表的格式，而标注样式则控制正文中引用参考文献所产生的标注的样式。
 
 本节将简要描述本宏包附带的所有著录样式和标注(引用)样式。
@@ -1538,7 +1872,7 @@ labeltitleyear & {\rmfamily---}   & extratitleyear &  labeltitle+labelyear\\
 
 \begin{marglist}
 
-\item[numeric]
+\item[numeric]\seestyleexample{30-style-numeric-biber}
 %This style implements a numeric citation scheme similar to the standard bibliographic facilities of \latex. It should be employed in conjunction with a numeric bibliography style which prints the corresponding labels in the bibliography. It is intended for in-text citations. The style will set the following package options at load time: \kvopt{autocite}{inline}, \kvopt{labelnumber}{true}. This style also provides an additional preamble option called \opt{subentry} which affects the handling of entry sets. If this option is disabled, citations referring to a member of a set will point to the entire set. If it is enabled, the style supports citations like «[5c]» which point to a subentry in a set (the third one in this example). See the style example for details.
 该样式实现与 \LaTeX 的标准文献工具类似的数值式引用格式。
 它应当与某种能在参考文献中打印出相应标签的数值式文献样式一起使用，
@@ -1549,8 +1883,9 @@ labeltitleyear & {\rmfamily---}   & extratitleyear &  labeltitle+labelyear\\
 如果该选项被激活，该样式会支持类似于“[5c]”这样指向条目集中的子条目的引用（这个例子是第三个条目）。
 详见样式例子。
 
-\item[numeric-comp]
-%A compact variant of the \texttt{numeric} style which prints a list of more than two consecutive numbers as a range. This style is similar to the \sty{cite} package and the \opt{sort\&compress} option of the \sty{natbib} package in numerical mode. For example, instead of «[8, 3, 1, 7, 2]» this style would print «[1--3, 7, 8]». It is intended for in-text citations. The style will set the following package options at load time: \kvopt{autocite}{inline}, \kvopt{sortcites}{true}, \kvopt{labelnumber}{true}. It also provides the \opt{subentry} option.
+\item[numeric-comp]\seestyleexample{31-style-numeric-comp-biber}
+A compact variant of the \texttt{numeric} style which prints a list of more than two consecutive numbers as a range. This style is similar to the \sty{cite} package and the \opt{sort\&compress} option of the \sty{natbib} package in numerical mode. For example, instead of «[8, 3, 1, 7, 2]» this style would print «[1--3, 7, 8]». It is intended for in-text citations. The style will set the following package options at load time: \kvopt{autocite}{inline}, \kvopt{sortcites}{true}, \kvopt{labelnumber}{true}. It also provides the \opt{subentry} and \opt{subentrycomp} options.
+
 \texttt{numeric} 样式紧凑形式的变种，会将两个以上的连续数字打印成一个区间。
 该样式类似于 \sty{cite} 宏包和数值模式中的 \sty{natbib} 宏包的 \opt{sort\&compress} 选项。
 例如，“[8, 3, 1, 7, 2]”会变成“[1--3, 7, 8]”。
@@ -1559,7 +1894,7 @@ labeltitleyear & {\rmfamily---}   & extratitleyear &  labeltitle+labelyear\\
 \kvopt{autocite}{inline}、\kvopt{sortcites}{true}、\kvopt{labelnumber}{true}。
 它也提供了 \opt{subentry} 选项。
 
-\item[numeric-verb]
+\item[numeric-verb]\seestyleexample{32-style-numeric-verb-biber}
 %A verbose variant of the \texttt{numeric} style. The difference affects the handling of a list of citations and is only apparent when multiple entry keys are passed to a single citation command. For example, instead of «[2, 5, 6]» this style would print «[2]; [5]; [6]». It is intended for in-text citations. The style will set the following package options at load time: \kvopt{autocite}{inline}, \kvopt{labelnumber}{true}. It also provides the \opt{subentry} option.
 \texttt{numeric} 样式详细形式的变种。
 不同之处在于对一组引用的处理，
@@ -1570,8 +1905,10 @@ labeltitleyear & {\rmfamily---}   & extratitleyear &  labeltitle+labelyear\\
 \kvopt{autocite}{inline}、\kvopt{labelnumber}{true}。
 它也提供了 \opt{subentry} 选项。
 
-\item[alphabetic]
+\item[alphabetic]\seestyleexample{40-style-alphabetic-biber}
 %This style implements an alphabetic citation scheme similar to the \path{alpha.bst} style of traditional \bibtex. The alphabetic labels resemble a compact author"=year style to some extent, but the way they are employed is similar to a numeric citation scheme. For example, instead of «Jones 1995» this style would use the label «[Jon95]». «Jones and Williams 1986» would be rendered as «[JW86]». This style should be employed in conjunction with an alphabetic bibliography style which prints the corresponding labels in the bibliography. It is intended for in-text citations. The style will set the following package options at load time: \kvopt{autocite}{inline}, \kvopt{labelalpha}{true}.
+
+This style also provides an additional preamble option called \opt{subentry} which affects the handling of entry sets. If this option is disabled, citations referring to a member of a set will point to the entire set. If it is enabled, the style supports citations like «[SGW(c)]» which point to a subentry in a set (the third one in this example). See the style example for details.
 
 该样式实现的字母顺序引用格式类似于传统 \BibTeX 的 \path{alpha.bst} 样式。
 字母标签某种程度上类似于紧凑的作者---年份样式，但是使用的方式类似于数字引用格式。
@@ -1580,8 +1917,11 @@ labeltitleyear & {\rmfamily---}   & extratitleyear &  labeltitle+labelyear\\
 它用于文内引用。
 该样式在载入时设置如下的宏包选项：\kvopt{autocite}{inline}、\kvopt{labelalpha}{true}。
 
-\item[alphabetic-verb]
+\item[alphabetic-verb]\seestyleexample{41-style-alphabetic-verb-biber}
 %A verbose variant of the \texttt{alphabetic} style. The difference affects the handling of a list of citations and is only apparent when multiple entry keys are passed to a single citation command. For example, instead of «[Doe92; Doe95; Jon98]» this style would print «[Doe92]; [Doe95]; [Jon98]». It is intended for in-text citations. The style will set the following package options at load time: \kvopt{autocite}{inline}, \kvopt{labelalpha}{true}.
+
+ It also provides the subentry option.
+
 \texttt{alphabetic} 样式详细格式的变种。
 不同之处在于对一组引用的处理，
 并且只当不同的条目键值传递给单个引用命令时才会显示差异。
@@ -1589,17 +1929,17 @@ labeltitleyear & {\rmfamily---}   & extratitleyear &  labeltitle+labelyear\\
 它用于文内引用。
 该样式在载入时设置如下的宏包选项：\kvopt{autocite}{inline}、\kvopt{labelalpha}{true}。
 
-\item[authoryear]
-%This style implements an author"=year citation scheme. If the bibliography contains two or more works by the same author which were all published in the same year, a letter is appended to the year. For example, this style would print citations such as «Doe 1995a; Doe 1995b; Jones 1998». This style should be employed in conjunction with an author"=year bibliography style which prints the corresponding labels in the bibliography. It is primarily intended for in-text citations, but it could also be used with citations given in footnotes. The style will set the following package options at load time: \kvopt{autocite}{inline}, \kvopt{labeldate}{true}, \kvopt{uniquename}{full}, \kvopt{uniquelist}{true}.
+\item[authoryear]\seestyleexample{50-style-authoryear-biber}
+%This style implements an author"=year citation scheme. If the bibliography contains two or more works by the same author which were all published in the same year, a letter is appended to the year. For example, this style would print citations such as «Doe 1995a; Doe 1995b; Jones 1998». This style should be employed in conjunction with an author"=year bibliography style which prints the corresponding labels in the bibliography. It is primarily intended for in-text citations, but it could also be used with citations given in footnotes. The style will set the following package options at load time: \kvopt{autocite}{inline},\kvopt{labeldateparts}{true}, \kvopt{uniquename}{full}, \kvopt{uniquelist}{true}.
 该样式实现了作者---年份引用格式。
 如果参考文献中包含多个由同一作者同一年份发表的作品，那么年份后会附加一个字母用以区分。
 例如该样式会打印出“Doe 1995a; Doe 1995b; Jones 1998”这样的引用。
 该样式应当与一种作者---年份文献样式一起使用，从而可以在参考文献中打印出相应的标签。
 它起初用于文内引用，但也可以用在脚注中。
 该样式在载入时设置如下的宏包选项：
-\kvopt{autocite}{inline}、\kvopt{labeldate}{true}、\kvopt{uniquename}{full}、\kvopt{uniquelist}{true}。
+\kvopt{autocite}{inline}、\kvopt{labeldateparts}{true},、\kvopt{uniquename}{full}、\kvopt{uniquelist}{true}。
 
-\item[authoryear-comp]
+\item[authoryear-comp]\seestyleexample{52-style-authoryear-comp-biber}
 %A compact variant of the \texttt{authoryear} style which prints the author only once if subsequent references passed to a single citation command share the same author. If they share the same year as well, the year is also printed only once. For example, instead of «Doe 1995b; Doe 1992; Jones 1998; Doe 1995a» this style would print «Doe 1992, 1995a,b; Jones 1998». It is primarily intended for in-text citations, but it could also be used with citations given in footnotes. The style will set the following package options at load time: \kvopt{autocite}{inline}, \kvopt{sortcites}{true}, \kvopt{labeldate}{true}, \kvopt{uniquename}{full}, \kvopt{uniquelist}{true}.
 \texttt{authoryear} 样式紧凑格式的变种。
 如果传递给单个引用命令的一列文献作者相同，那么该作者只会打印一次。
@@ -1609,8 +1949,8 @@ labeltitleyear & {\rmfamily---}   & extratitleyear &  labeltitle+labelyear\\
 该样式在载入时设置如下的宏包选项：
 \kvopt{autocite}{inline}、\kvopt{sortcites}{true}、\kvopt{labeldate}{true}、\kvopt{uniquename}{full}、\kvopt{uniquelist}{true}。
 
-\item[authoryear-ibid]
-%A variant of the \texttt{authoryear} style which replaces repeated citations by the abbreviation \emph{ibidem} unless the citation is the first one on the current page or double-page spread, or the \emph{ibidem} would be ambiguous in the sense of the package option \kvopt{ibidtracker}{constrict}. The style will set the following package options at load time: \kvopt{autocite}{inline}, \kvopt{labeldate}{true}, \kvopt{uniquename}{full}, \kvopt{uniquelist}{true}, \kvopt{ibidtracker}{constrict}, \kvopt{pagetracker}{true}. This style also provides an additional preamble option called \opt{ibidpage}. See the style example for details.
+\item[authoryear-ibid]\seestyleexample{51-style-authoryear-ibid-biber}
+%A variant of the \texttt{authoryear} style which replaces repeated citations by the abbreviation \emph{ibidem} unless the citation is the first one on the current page or double-page spread, or the \emph{ibidem} would be ambiguous in the sense of the package option \kvopt{ibidtracker}{constrict}. The style will set the following package options at load time: \kvopt{autocite}{inline},  \kvopt{labeldateparts}{true}, \kvopt{uniquename}{full}, \kvopt{uniquelist}{true}, \kvopt{ibidtracker}{constrict}, \kvopt{pagetracker}{true}. This style also provides an additional preamble option called \opt{ibidpage}. See the style example for details.
 \texttt{authoryear} 样式的变种，会用缩略语 \emph{ibidem} 替代重复的引用，
 除非该引用在当前页或跨页是第一次出现，
 或者 \emph{ibidem} 在宏包选项 \kvopt{ibidtracker}{constrict} 的意义下表意不清。
@@ -1619,7 +1959,7 @@ labeltitleyear & {\rmfamily---}   & extratitleyear &  labeltitle+labelyear\\
 该样式还额外提供了一个导言区选项 \opt{ibidpage}。
 详见样式例子。
 
-\item[authoryear-icomp]
+\item[authoryear-icomp]\seestyleexample{53-style-authoryear-icomp-biber}
 %A style combining \texttt{authoryear-comp} and \texttt{authoryear-ibid}. The style will set the following package options at load time: \kvopt{autocite}{inline}, \kvopt{labeldate}{true}, \kvopt{uniquename}{full}, \kvopt{uniquelist}{true}, \kvopt{ibidtracker}{constrict}, \kvopt{pagetracker}{true}, \kvopt{sortcites}{true}. This style also provides an additional preamble option called \opt{ibidpage}. See the style example for details.
 一个结合了 \texttt{authoryear-comp} 和 \texttt{authoryear-ibid} 的样式。
 该样式在载入时设置如下的宏包选项：
@@ -1627,7 +1967,7 @@ labeltitleyear & {\rmfamily---}   & extratitleyear &  labeltitle+labelyear\\
 该样式还额外提供了一个导言区选项 \opt{ibidpage}。
 详见样式例子。
 
-\item[authortitle]
+\item[authortitle]\seestyleexample{60-style-authortitle-biber}
 %This style implements a simple author"=title citation scheme. It will make use of the \bibfield{shorttitle} field, if available. It is intended for citations given in footnotes. The style will set the following package options at load time: \kvopt{autocite}{footnote}, \kvopt{uniquename}{full}, \kvopt{uniquelist}{true}.
 该样式实现了一个简单的作者---标题引用格式。
 如果可用的话，它会使用 \bibfield{shorttitle} 域。
@@ -1635,7 +1975,7 @@ labeltitleyear & {\rmfamily---}   & extratitleyear &  labeltitle+labelyear\\
 该样式在载入时设置如下的宏包选项：
 \kvopt{autocite}{footnote}、\kvopt{uniquename}{full}、\kvopt{uniquelist}{true}。
 
-\item[authortitle-comp]
+\item[authortitle-comp]\seestyleexample{62-style-authortitle-comp-biber}
 %A compact variant of the \texttt{authortitle} style which prints the author only once if subsequent references passed to a single citation command share the same author. For example, instead of «Doe, \emph{First title}; Doe, \emph{Second title}» this style would print «Doe, \emph{First title}, \emph{Second title}». It is intended for citations given in footnotes. The style will set the following package options at load time: \kvopt{autocite}{footnote}, \kvopt{sortcites}{true}, \kvopt{uniquename}{full}, \kvopt{uniquelist}{true}.
 \texttt{authortitle} 样式紧凑格式的变种。
 如果传递给单个引用命令的一列文献作者相同，那么该作者只会打印一次。
@@ -1644,7 +1984,7 @@ labeltitleyear & {\rmfamily---}   & extratitleyear &  labeltitle+labelyear\\
 该样式在载入时设置如下的宏包选项：
 \kvopt{autocite}{footnote}、\kvopt{sortcites}{true}、\kvopt{uniquename}{full}、\kvopt{uniquelist}{true}。
 
-\item[authortitle-ibid]
+\item[authortitle-ibid]\seestyleexample{61-style-authortitle-ibid-biber}
 %A variant of the \texttt{authortitle} style which replaces repeated citations by the abbreviation \emph{ibidem} unless the citation is the first one on the current page or double-page spread, or the \emph{ibidem} would be ambiguous in the sense of the package option \kvopt{ibidtracker}{constrict}. It is intended for citations given in footnotes. The style will set the following package options at load time: \kvopt{autocite}{footnote}, \kvopt{uniquename}{full}, \kvopt{uniquelist}{true}, \kvopt{ibidtracker}{constrict}, \kvopt{pagetracker}{true}. This style also provides an additional preamble option called \opt{ibidpage}. See the style example for details.
 \texttt{authortitle} 样式的变种，会用缩略语 \emph{ibidem} 替代重复的引用，
 除非该引用在当前页或跨页是第一次出现，
@@ -1655,7 +1995,7 @@ labeltitleyear & {\rmfamily---}   & extratitleyear &  labeltitle+labelyear\\
 该样式还额外提供了一个导言区选项 \opt{ibidpage}。
 详见样式例子。
 
-\item[authortitle-icomp]
+\item[authortitle-icomp]\seestyleexample{63-style-authortitle-icomp-biber}
 %A style combining the features of \texttt{authortitle-comp} and \texttt{authortitle-ibid}. The style will set the following package options at load time: \kvopt{autocite}{footnote}, \kvopt{uniquename}{full}, \kvopt{uniquelist}{true}, \kvopt{ibidtracker}{constrict}, \kvopt{pagetracker}{true}, \kvopt{sortcites}{true}. This style also provides an additional preamble option called \opt{ibidpage}. See the style example for details.
 结合了 \texttt{authortitle-comp} 和 \texttt{authortitle-ibid} 特性的样式。
 该样式在载入时设置如下的宏包选项：
@@ -1663,7 +2003,7 @@ labeltitleyear & {\rmfamily---}   & extratitleyear &  labeltitle+labelyear\\
 该样式还额外提供了一个导言区选项 \opt{ibidpage}。
 详见样式例子。
 
-\item[authortitle-terse]
+\item[authortitle-terse]\seestyleexample{64-style-authortitle-terse-biber}
 %A terse variant of the \texttt{authortitle} style which only prints the title if the bibliography contains more than one work by the respective author\slash editor. This style will make use of the \bibfield{shorttitle} field, if available. It is suitable for in-text citations as well as citations given in footnotes. The style will set the following package options at load time: \kvopt{autocite}{inline}, \kvopt{singletitle}{true}, \kvopt{uniquename}{full}, \kvopt{uniquelist}{true}.
 \texttt{authortitle} 样式简明格式的变种，
 如果文献中包含多个相应作者/编辑的作品，那么只会打印出标题。
@@ -1671,7 +2011,7 @@ labeltitleyear & {\rmfamily---}   & extratitleyear &  labeltitle+labelyear\\
 它在文中引用和脚注中引用都适用。
 该样式在载入时设置如下的宏包选项：\kvopt{autocite}{inline}、\kvopt{singletitle}{true}、\kvopt{uniquename}{full}、\kvopt{uniquelist}{true}。
 
-\item[authortitle-tcomp]
+\item[authortitle-tcomp]\seestyleexample{65-style-authortitle-tcomp-biber}
 %A style combining the features of \texttt{authortitle-comp} and \texttt{authortitle-terse}. This style will make use of the \bibfield{shorttitle} field, if available. It is suitable for in-text citations as well as citations given in footnotes. The style will set the following package options at load time: \kvopt{autocite}{inline}, \kvopt{sortcites}{true}, \kvopt{singletitle}{true}, \kvopt{uniquename}{full}, \kvopt{uniquelist}{true}.
 结合了 \texttt{authortitle-comp} 和 \texttt{authortitle-terse} 特性的样式。
 如果可用的话，该样式会使用 \bibfield{shorttitle} 域。
@@ -1679,7 +2019,7 @@ labeltitleyear & {\rmfamily---}   & extratitleyear &  labeltitle+labelyear\\
 该样式在载入时设置如下的宏包选项：
 \kvopt{autocite}{inline}、\kvopt{sortcites}{true}、\kvopt{singletitle}{true}、\kvopt{uniquename}{full}、\kvopt{uniquelist}{true}。
 
-\item[authortitle-ticomp]
+\item[authortitle-ticomp]\seestyleexample{66-style-authortitle-ticomp-biber}
 %A style combining the features of \texttt{authortitle-icomp} and \texttt{authortitle-terse}. In other words: a variant of the \texttt{authortitle-tcomp} style with an \emph{ibidem} feature. This style is suitable for in-text citations as well as citations given in footnotes. It will set the following package options at load time: \kvopt{autocite}{inline}, \kvopt{ibidtracker}{constrict}, \kvopt{pagetracker}{true}, \kvopt{sortcites}{true}, \kvopt{singletitle}{true}, \kvopt{uniquename}{full}, \kvopt{uniquelist}{true}. This style also provides an additional preamble option called \opt{ibidpage}. See the style example for details.
 结合了 \texttt{authortitle-icomp} 和 \texttt{authortitle-terse} 特性的样式。
 换句话说就是带有 \emph{ibidem} 特性的 \texttt{authortitle-tcomp} 样式变种。
@@ -1689,7 +2029,7 @@ labeltitleyear & {\rmfamily---}   & extratitleyear &  labeltitle+labelyear\\
 该样式还额外提供了一个导言区选项 \opt{ibidpage}。
 详见样式例子。
 
-\item[verbose]
+\item[verbose]\seestyleexample{70-style-verbose-biber}
 %A verbose citation style which prints a full citation similar to a bibliography entry when an entry is cited for the first time, and a short citation afterwards. If available, the \bibfield{shorttitle} field is used in all short citations. If the \bibfield{shorthand} field is defined, the shorthand is introduced on the first citation and used as the short citation thereafter. This style may be used without a list of references and shorthands since all bibliographic data is provided on the first citation. It is intended for citations given in footnotes. The style will set the following package options at load time: \kvopt{autocite}{footnote}, \kvopt{citetracker}{context}. This style also provides an additional preamble option called \opt{citepages}. See the style example for details.
 完整信息样式（多词标注样式、详细标注样式），在第一次引用某条目时会打印出类似于参考文献那样的长标注格式，并且在之后打印出短格式。
 如果可用的话，\bibfield{shorttitle} 域会用在所有的短格式中。
@@ -1700,7 +2040,7 @@ labeltitleyear & {\rmfamily---}   & extratitleyear &  labeltitle+labelyear\\
 该样式还额外提供了一个导言区选项 \opt{citepages}。
 详见样式例子。
 
-\item[verbose-ibid]
+\item[verbose-ibid]\seestyleexample{71-style-verbose-ibid-biber}
 %A variant of the \texttt{verbose} style which replaces repeated citations by the abbreviation \emph{ibidem} unless the citation is the first one on the current page or double-page spread, or the \emph{ibidem} would be ambiguous in the sense of \kvopt{ibidtracker}{strict}. This style is intended for citations given in footnotes. The style will set the following package options at load time: \kvopt{autocite}{footnote}, \kvopt{citetracker}{context}, \kvopt{ibidtracker}{constrict}, \kvopt{pagetracker}{true}. This style also provides additional preamble options called \opt{ibidpage} and \opt{citepages}. See the style example for details.
 \texttt{verbose} 样式的变种，会用缩略语 \emph{ibidem} 替代重复的引用，
 除非该引用在当前页或跨页是第一次出现，
@@ -1711,7 +2051,7 @@ labeltitleyear & {\rmfamily---}   & extratitleyear &  labeltitle+labelyear\\
 该样式还额外提供了导言区选项 \opt{ibidpage} 和 \opt{citepages}。
 详见样式例子。
 
-\item[verbose-note]
+\item[verbose-note]\seestyleexample{72-style-verbose-note-biber}
 %This style is similar to the \texttt{verbose} style in that it prints a full citation similar to a bibliography entry when an entry is cited for the first time, and a short citation afterwards. In contrast to the \texttt{verbose} style, the short citation is a pointer to the footnote with the full citation. If the bibliography contains more than one work by the respective author\slash editor, the pointer also includes the title. If available, the \bibfield{shorttitle} field is used in all short citations. If the \bibfield{shorthand} field is defined, it is handled as with the \texttt{verbose} style. This style may be used without a list of references and shorthands since all bibliographic data is provided on the first citation. It is exclusively intended for citations given in footnotes. The style will set the following package options at load time: \kvopt{autocite}{footnote}, \kvopt{citetracker}{context}, \kvopt{singletitle}{true}. This style also provides additional preamble options called \opt{pageref} and \opt{citepages}. See the style example for details.
 该样式与 \texttt{verbose} 样式类似，
 会在第一次引用某条目时打印出类似于参考文献那样的长格式，并且在之后打印出短格式。
@@ -1726,7 +2066,7 @@ labeltitleyear & {\rmfamily---}   & extratitleyear &  labeltitle+labelyear\\
 该样式还额外提供了导言区选项 \opt{pageref} 和 \opt{citepages}。
 详见样式例子。
 
-\item[verbose-inote]
+\item[verbose-inote]\seestyleexample{73-style-verbose-inote-biber}
 %A variant of the \texttt{verbose"=note} style which replaces repeated citations by the abbreviation \emph{ibidem} unless the citation is the first one on the current page or double-page spread, or the \emph{ibidem} would be ambiguous in the sense of \kvopt{ibidtracker}{strict}. This style is exclusively intended for citations given in footnotes. It will set the following package options at load time: \kvopt{autocite}{footnote}, \kvopt{citetracker}{context}, \kvopt{ibidtracker}{constrict}, \kvopt{singletitle}{true}, \kvopt{pagetracker}{true}. This style also provides additional preamble options called \opt{ibidpage}, \opt{pageref}, and \opt{citepages}. See the style example for details.
 \texttt{verbose-note} 样式的变种，会用缩略语 \emph{ibidem} 替代重复的引用，
 除非该引用在当前页或跨页是第一次出现，
@@ -1737,7 +2077,7 @@ labeltitleyear & {\rmfamily---}   & extratitleyear &  labeltitle+labelyear\\
 该样式还额外提供了导言区选项 \opt{ibidpage}、\opt{pageref} 和 \opt{citepages}。
 详见样式例子。
 
-\item[verbose-trad1]
+\item[verbose-trad1]\seestyleexample{74-style-verbose-trad1-biber}
 %This style implements a traditional citation scheme. It is similar to the \texttt{verbose} style in that it prints a full citation similar to a bibliography entry when an item is cited for the first time, and a short citation afterwards. Apart from that, it uses the scholarly abbreviations \emph{ibidem}, \emph{idem}, \emph{op.~cit.}, and \emph{loc.~cit.} to replace recurrent authors, titles, and page numbers in repeated citations in a special way. If the \bibfield{shorthand} field is defined, the shorthand is introduced on the first citation and used as the short citation thereafter. This style may be used without a list of references and shorthands since all bibliographic data is provided on the first citation. It is intended for citations given in footnotes. The style will set the following package options at load time: \kvopt{autocite}{footnote}, \kvopt{citetracker}{context}, \kvopt{ibidtracker}{constrict}, \kvopt{idemtracker}{constrict}, \kvopt{opcittracker}{context}, \kvopt{loccittracker}{context}. This style also provides additional preamble options called \opt{ibidpage}, \opt{strict}, and \opt{citepages}. See the style example for details.
 该样式实现了传统的引用格式。
 与 \texttt{verbose} 样式类似，
@@ -1751,7 +2091,7 @@ labeltitleyear & {\rmfamily---}   & extratitleyear &  labeltitle+labelyear\\
 该样式还额外提供了导言区选项 \opt{ibidpage}、\opt{strict} 和 \opt{citepages}。
 详见样式例子。
 
-\item[verbose-trad2]
+\item[verbose-trad2]\seestyleexample{75-style-verbose-trad2-biber}
 %Another traditional citation scheme. It is also similar to the \texttt{verbose} style but uses scholarly abbreviations like \emph{ibidem} and \emph{idem} in repeated citations. In contrast to the \texttt{verbose-trad1} style, the logic of the \emph{op.~cit.} abbreviations is different in this style and \emph{loc.~cit.} is not used at all. It is in fact more similar to \texttt{verbose-ibid} and \texttt{verbose-inote} than to \texttt{verbose-trad1}. The style will set the following package options at load time: \kvopt{autocite}{footnote}, \kvopt{citetracker}{context}, \kvopt{ibidtracker}{constrict}, \kvopt{idemtracker}{constrict}. This style also provides additional preamble options called \opt{ibidpage}, \opt{strict}, and \opt{citepages}. See the style example for details.
 另外一种传统引用格式。
 它同样类似于 \texttt{verbose} 样式但是在重复的引用中使用 \emph{ibidem} 和 \emph{idem} 等学术性缩略语。
@@ -1763,7 +2103,7 @@ labeltitleyear & {\rmfamily---}   & extratitleyear &  labeltitle+labelyear\\
 该样式还额外提供了导言区选项 \opt{ibidpage}、\opt{strict} 和 \opt{citepages}。
 详见样式例子。
 
-\item[verbose-trad3]
+\item[verbose-trad3]\seestyleexample{76-style-verbose-trad3-biber}
 %Yet another traditional citation scheme. It is similar to the \texttt{verbose-trad2} style but uses the scholarly abbreviations \emph{ibidem} and \emph{op.~cit.} in a slightly different way. The style will set the following package options at load time: \kvopt{autocite}{footnote}, \kvopt{citetracker}{context}, \kvopt{ibidtracker}{constrict}, \kvopt{loccittracker}{constrict}. This style also provides additional preamble options called \opt{strict} and \opt{citepages}. See the style example for details.
 仍然是一种传统的引用格式。
 它类似于 \texttt{verbose-trad2} 样式，
@@ -1773,7 +2113,7 @@ labeltitleyear & {\rmfamily---}   & extratitleyear &  labeltitle+labelyear\\
 该样式也额外提供了导言区选项 \opt{strict} 和 \opt{citepages}。
 详见样式例子。
 
-\item[reading]
+\item[reading]\seestyleexample{80-style-reading-biber}
 %A citation style which goes with the bibliography style by the same name. It simply loads the \texttt{authortitle} style.
 为配合同名的reading文献著录样式所引入的标注样式，它只是简单的载入 \texttt{authortitle} 标注样式作为 reading 标注样式。
 
@@ -1784,12 +2124,12 @@ labeltitleyear & {\rmfamily---}   & extratitleyear &  labeltitle+labelyear\\
 
 \begin{marglist}
 
-\item[draft]
+\item[draft]\seestyleexample{81-style-draft-biber}
 %A draft style which uses the entry keys in citations. The style will set the following package options at load time: \kvopt{autocite}{plain}.
 在引用中使用条目键的草稿样式。
 该样式在载入时设置如下的宏包选项：\kvopt{autocite}{plain}。
 
-\item[debug]
+\item[debug]\seestyleexample{82-style-debug-biber}
 %This style prints the entry key rather than some kind of label. It is intended for debugging only and will set the following package options at load time: \kvopt{autocite}{plain}.
 该样式会打印出条目键而不是标签。
 它只用于调试，在载入时设置如下的宏包选项：\kvopt{autocite}{plain}。
@@ -1809,7 +2149,7 @@ labeltitleyear & {\rmfamily---}   & extratitleyear &  labeltitle+labelyear\\
 
 \begin{marglist}
 
-\item[numeric]
+\item[numeric]\seestyleexample{30-style-numeric-biber}
 %This style prints a numeric label similar to the standard bibliographic facilities of \latex. It is intended for use in conjunction with a numeric citation style. Note that the \bibfield{shorthand} field overrides the default label. The style will set the following package options at load time: \kvopt{labelnumber}{true}. This style also provides an additional preamble option called \opt{subentry} which affects the formatting of entry sets. If this option is enabled, all members of a set are marked with a letter which may be used in citations referring to a set member rather than the entire set. See the style example for details.
 该样式打印出类似于 \LaTeX 标准文献功能的数值标签。
 它应与数值引用样式结合使用。
@@ -1819,14 +2159,14 @@ labeltitleyear & {\rmfamily---}   & extratitleyear &  labeltitle+labelyear\\
 如果该选项被激活，条目集中的所有成员都会用一个字母标记，这可用于集成员的引用而不是整个条目集。
 详见样式例子。
 
-\item[alphabetic]
+\item[alphabetic]\seestyleexample{40-style-alphabetic-biber}
 %This style prints an alphabetic label similar to the \path{alpha.bst} style of traditional \bibtex. It is intended for use in conjunction with an alphabetic citation style. Note that the \bibfield{shorthand} field overrides the default label. The style will set the following package options at load time: \kvopt{labelalpha}{true}, \kvopt{sorting}{anyt}.
 该样式打印的字母顺序标签类似于传统 \BibTeX 的 \path{alpha.bst} 样式。
 它应与字母顺序引用样式结合使用。
 请注意，\bibfield{shorthand} 域会覆盖默认标签。
 该样式在载入时设置如下的宏包选项：\kvopt{labelalpha}{true}、\kvopt{sorting}{anyt}。
 
-\item[authoryear]
+\item[authoryear]\seestyleexample{50-style-authoryear-biber}
 %This style differs from the other styles in that the publication date is not printed towards the end of the entry but rather after the author\slash editor. It is intended for use in conjunction with an author"=year citation style. Recurring author and editor names are replaced by a dash unless the entry is the first one on the current page or double-page spread. This style provides an additional preamble option called \opt{dashed} which controls this feature. It also provided a preamble option called \opt{mergedate}. See the style example for details. The style will set the following package options at load time: \kvopt{labeldate}{true}, \kvopt{sorting}{nyt}, \kvopt{pagetracker}{true}, \kvopt{mergedate}{true}.
 该样式不同于其它样式之处在于，发表日期不是在条目的末尾而是在作者/编辑之后。
 它应与一个作者---年份引用样式结合使用。
@@ -1837,7 +2177,7 @@ labeltitleyear & {\rmfamily---}   & extratitleyear &  labeltitle+labelyear\\
 该样式在载入时设置如下的宏包选项：
 \kvopt{labeldate}{true}、\kvopt{sorting}{nyt}、\kvopt{pagetracker}{true}、 \kvopt{mergedate}{true}。
 
-\item[authortitle]
+\item[authortitle]\seestyleexample{60-style-authortitle-biber}
 %This style does not print any label at all. It is intended for use in conjunction with an author"=title citation style. Recurring author and editor names are replaced by a dash unless the entry is the first one on the current page or double-page spread. This style also provides an additional preamble option called \opt{dashed} which controls this feature. See the style example for details. The style will set the following package options at load time: \kvopt{pagetracker}{true}.
 该样式不会打印出任何标签。
 它应与一个作者---年份引用样式结合使用。
@@ -1846,14 +2186,14 @@ labeltitleyear & {\rmfamily---}   & extratitleyear &  labeltitle+labelyear\\
 详见样式例子。
 该样式在载入时设置如下的宏包选项：\kvopt{pagetracker}{true}。
 
-\item[verbose]
+\item[verbose]\seestyleexample{70-style-verbose-biber}
 %This style is similar to the \texttt{authortitle} style. It also provides an additional preamble option called \opt{dashed}. See the style example for details. The style will set the following package options at load time: \kvopt{pagetracker}{true}.
 该样式类似于 \texttt{authortitle} 样式。
 该样式额外提供了一个导言区选项 \opt{dashed}。
 详见样式例子。
 该样式在载入时设置如下的宏包选项：\kvopt{pagetracker}{true}。
 
-\item[reading]
+\item[reading]\seestyleexample{80-style-reading-biber}
 %This special bibliography style is designed for personal reading lists, annotated bibliographies, and similar applications. It optionally includes the fields \bibfield{annotation}, \bibfield{abstract}, \bibfield{library}, and \bibfield{file} in the bibliography. If desired, it also adds various kinds of short headers to the bibliography. This style also provides the additional preamble options \opt{entryhead}, \opt{entrykey}, \opt{annotation}, \opt{abstract}, \opt{library}, and \opt{file} which control whether or not the corresponding items are printed in the bibliography. See the style example for details. See also \secref{use:use:prf}. The style will set the following package options at load time: \kvopt{loadfiles}{true}, \kvopt{entryhead}{true}, \kvopt{entrykey}{true}, \kvopt{annotation}{true}, \kvopt{abstract}{true}, \kvopt{library}{true}, \kvopt{file}{true}.
 这一特殊的文献样式是为个人阅读列表、带有注释的文献和类似应用而设计的。
 它选择性地在参考文献中包含 \bibfield{annotation}、\bibfield{abstract}、\bibfield{library} 和 \bibfield{file} 等域。
@@ -1870,19 +2210,76 @@ labeltitleyear & {\rmfamily---}   & extratitleyear &  labeltitle+labelyear\\
 
 \begin{marglist}
 
-\item[draft]
+\item[draft]\seestyleexample{81-style-draft-biber}
 %This draft style includes the entry keys in the bibliography. The bibliography will be sorted by entry key. The style will set the following package options at load time: \kvopt{sorting}{debug}.
 草稿样式会在参考文献中包含条目键。
 文献会按照条目键排序。
 该样式在载入时设置如下的宏包选项：\kvopt{sorting}{debug}。
 
-\item[debug]
+\item[debug]\seestyleexample{82-style-debug-biber}
 %This style prints all bibliographic data in tabular format. It is intended for debugging only and will set the following package options at load time: \kvopt{sorting}{debug}.
 该样式会以表格形式打印出所有的文献数据。
 它只用于调试，在载入时设置如下的宏包选项：\kvopt{sorting}{debug}。
 
 \end{marglist}
 
+\subsection{Extended Name Format}
+\label{use:enf}
+The parsing rules for \bibtex names are rather archaic and not suited to
+many international name formats. \biber supports an extended name format
+which allows explicit specification of the parts of names. This allows the
+use of custom name parts apart from the four standard \bibtex parts. Extended
+name formats are supported in all name fields and can be used along with
+the usual \bibtex name format. Recognition of extended name format can be
+disabled with the \biber option \opt{--noxname} in case you do not need the
+extended format and the auto-detection causes problems with normal name
+parsing. The separator \verb+=+ which comes between the namepart names and
+values is customisable with the \biber option \opt{--xnamesep}. Here is an
+example:
+
+\begin{lstlisting}[style=bibtex]{}
+AUTHOR = {Hans Harman and Simon de Beumont}
+AUTHOR = {given=Hans, family=Harman and given=Simon, prefix=de, family=Beumont}
+\end{lstlisting}
+%
+These two name specifications are equivalent but the extended format
+explicitly names the parts. The supported parts are those specified by the
+\biblatex data mode constant \opt{nameparts}, see \secref{aut:bbx:drv}. As
+with traditional \bibtex name parsing, initials are automatically generated
+but it is also possible to specify these explicitly:
+
+\begin{lstlisting}[style=bibtex]{}
+AUTHOR = {given=Jean, prefix=de la, prefix-i=d, family=Rousse}
+AUTHOR = {given={Jean Pierre Simon}, given-i=JPS}
+\end{lstlisting}
+%
+Initials are specified by adding the suffix \verb+-i+ to the namepart name.
+Compound parts may be protected with braces:
+
+\begin{lstlisting}[style=bibtex]{}
+AUTHOR = {given={Jean Pierre}}
+\end{lstlisting}
+%
+If a namepart contains a comma, the whole namepart should be protected with
+quotes:
+
+\begin{lstlisting}[style=bibtex]{}
+AUTHOR = {"family={Robert and Sons, Inc.}"}
+\end{lstlisting}
+%
+Traditional \bibtex name formats and the extended form may be used together:
+
+\begin{lstlisting}[style=bibtex]{}
+AUTHOR = {Hans Harman and given=Simon, prefix=de, family=Beumont}
+\end{lstlisting}
+%
+Per-namelist and per-name options may be specified in the extended name
+format, see \secref{use:opt:bib:hyb}:
+
+\begin{lstlisting}[style=bibtex]{}
+AUTHOR = {nosortothers=true and Hans Harman and
+          given=Simon, family=Beumont, prefix=de, useprefix=true}
+\end{lstlisting}
 \subsection{关联条目}%\subsection{Related Entries}
 \label{use:rel}
 
@@ -2066,6 +2463,8 @@ labeltitleyear & {\rmfamily---}   & extratitleyear &  labeltitle+labelyear\\
 但是这一做法比较复杂而且不可靠，很多用户不愿意使用。
 
 %In order to address these issues, \biblatex has a general data annotation facility which allows you to attach a comma"=separated list of annotations to data fields, items within data field lists (like names) and even parts of specific items such as parts of names (given name, family name etc.). There are macros provided to check for annotations which can be used in formatting directives.
+
+ In order to address these issues, \biblatex has a general data annotation facility which allows you to attach any number of a comma"=separated list of annotations to data fields, items within data field lists (like names) and even parts of specific items such as parts of names (given name, family name etc.). There are macros provided to check for annotations which can be used in formatting directives.
 为了处理这些问题，\biblatex 提供了一般性的数据注解功能，
 使得可以向数据域、数据域列表中的项目（例如姓名），以及某些项目的一部分（例如姓、名等姓名部分）中附加逗号分隔列表作为注解。
 此外还提供了一些宏来检查可以用于格式指令的注解。
@@ -2128,6 +2527,9 @@ The format of annotation fields in \bibtex data sources is is as follows:
 \end{lstlisting}
 %
 %That is, one or more specifications separated by semi-colons. Each specification is an equals sign followed by a comma"=separated list of annotation keywords. To annotation a specific item in a list, put the number of the list item before the equals sign (lists start at 1). If you need to annotate a specific part of the list item, give its name after the list item number, preceded by a colon. Name part names are defined in the data model, see \secref{aut:bbx:drv}. Some examples:
+
+That is, one or more specifications separated by semicolons. Each specification is an equals sign followed by a comma"=separated list of annotation keywords or a string enclosed in double-quotes (a <literal> annotation, see below). To annotate a specific item in a list, put the number of the list item before the equals sign (lists start at 1). If you need to annotate a specific part of the list item, give its name after the list item number, preceded by a colon. Name part names are defined in the data model, see \secref{aut:bbx:drv}. Some further examples:
+
 也就是说，多个特性之间由分号分隔。
 每一特性是一个等号后跟一个逗号分隔的注解关键字列表。
 为了为列表中某一项作注解，需要将该列表项的编号放在等号前面（列表从1开始编号）。
@@ -2187,11 +2589,15 @@ LANGUAGE+an = {1=annotation3; 2=annotation4}
 
 %Executes \prm{true} if the current data field has an annotation \prm{annotation} and false otherwise.
 
+Executes \prm{true} if the data field \prm{field} has an annotation \prm{annotation} for the annotation called \prm{annotationname} and false otherwise. If \prm{annotationname} is not given, then the annotation named <default> is assumed (this is the name given to annotations defined without an explicit name). If \prm{field} is not given, the current data field as indicated by \cmd{currentfield}, \cmd{currentlist} or \cmd{currentname} (see \secref{aut:bib:fmt}) is assumed. Of course, this is only possible if these commands are defined, that is, inside formatting directives.
+
 如果当前数据域有注解，那么执行 \prm{true}，否则为 false。
 
 \cmditem{ifitemannotation}[field][annotationname][item]{annotation}{true}{false}
 
 %Executes \prm{true} if the current item in the current data field has an annotation \prm{annotation} and false otherwise.
+
+Executes \prm{true} if the item \prm{item} in the data field \prm{field} has an annotation \prm{annotation} and false otherwise. If \prm{annotationname} is not given, then the annotation named <default> is assumed (this is the name given to annotations defined without an explicit name). The optional argument \prm{field} can be inferred if not provided as with \cmd{iffieldannotation}. If \prm{item} is not given, the number of the item currently being processed as given by \cnt{listcount} is used.
 
 如果当前数据域的当前项目有注解，那么执行 \prm{true}，否则为 false。
 
@@ -2199,6 +2605,8 @@ LANGUAGE+an = {1=annotation3; 2=annotation4}
 \cmditem{ifpartannotation}[field][annotationname][item]{part}{annotation}{true}{false}
 
 %Executes \prm{true} if the part named \prm{part} in current item in the current data field has an annotation \prm{annotation} and false otherwise.
+
+Executes \prm{true} if the part named \prm{part} in item \prm{item} in the data field \prm{field} has an annotation \prm{annotation} and false otherwise. If \prm{annotationname} is not given, then the annotation named <default> is assumed (this is the name given to annotations defined without an explicit name). The two optional arguments \prm{field} and \prm{item} can be inferred as in \cmd{ifitemannotation}. The parameter \prm{part} can never be inferred and is therefore a mandatory argument.
 
 如果当前数据域中当前项目中名为 \prm{part} 的部分有注解，那么执行 \prm{true}，否则为 false。
 
@@ -2232,15 +2640,22 @@ LANGUAGE+an = {1=annotation3; 2=annotation4}
 
 %Executes \prm{true} if the part named \prm{part} in the item \prm{item} in the data field \prm{field} has a literal annotation \prm{annotationname} defined and false otherwise. If \prm{annotatationname} is not given, then the annotation named <default> is assumed (this is the name given to annotations defined without an explicit name). The two optional arguments \prm{field} and \prm{item} can be inferred as in \cmd{ifitemannotation}. The parameter \prm{part} can never be inferred and is therefore a mandatory argument.
 
+Date fields are special and handled in a context where \cmd{currentfield} is not accessible. Thus there is a fourth command to test the existence of annotations for dates.
+
 展开为\prm{true}，如果数据域 \prm{field} 内的\prm{item}中的\prm{part}存在
 文本注解\prm{annotationname} ，否则为false。如果\prm{annotatationname}未给出，那么会假定为<default>(该名称用来标识未显式给出名称的注解)。
 两个可选参数\prm{field}和\prm{item}在\cmd{ifitemannotation}可以推断出来。
 \prm{part} 参数无法推断，因此是必须的。
 
+\cmditem{hasdateannotation}[annotationname]{datetype}{true}{false}
+
+Executes \prm{true} if the date field \prm{datetype} has any annotation \prm{annotationname} defined and false otherwise. If \prm{annotationname} is not given, then the annotation named <default> is assumed (this is the name given to annotations defined without an explicit name). The \prm{datetype} argument is mandatory, because it cannot be inferred in most contexts where \cmd{ifdateannotation} will be used.
 
 \end{ltxsyntax}
 %
-%These macros are available in the same places as \cmd{currentfield}, \cmd{currentlist} and \cmd{currentname} (see \secref{aut:bib:fmt}), that is, inside formatting directives. They automatically determine the name of the current data field being processed and also the current \opt{listcount} value which determines the current item in list fields. Parts such as name parts need to be named explicitly. As an example of how to use the annotation information to solve the problem originally presented in this section, this could be used in the name formatting directives to put an asterisk after all family names annotated as «student»:
+%These macros are available in the same places as \cmd{currentfield}, \cmd{currentlist} and \cmd{currentname} (see \secref{aut:bib:fmt}), that is, inside formatting directives. They automatically determine the name of the current data field being processed and also the current \opt{listcount} value which determines the current item in list fields. Parts such as name parts need to be named explicitly.
+
+  As an example of how to use the annotation information to solve the problem originally presented in this section, this could be used in the name formatting directives to put an asterisk after all family names annotated as «student»:
 这些宏的使用场合与 \cmd{currentfield}, \cmd{currentlist} 和 \cmd{currentname} 等命令相同（见 \secref{aut:bib:fmt} 节），
 即，在格式指令内部。
 它们自动确定当前被处理的数据域的名称，以及能够确定列表域中当前项目的 \opt{listcount} 值。
@@ -2365,6 +2780,8 @@ In order to get something like this in the bibliography when formatting names:
 
 %Adds a \prm{resource}, such as a \file{.bib} file, to the default resource list. This command is only available in the preamble. It replaces the \cmd{bibliography} legacy command. Note that files must be specified with their full name, including the extension. Do not omit the \file{.bib} extension from the filename. Also note that the \prm{resource} is a single resource. Invoke \cmd{addbibresource} multiple times to add more resources, for example:
 
+Adds a \prm{resource}, such as a \file{.bib} file, to the default resource list. This command is only available in the preamble. It replaces the \cmd{bibliography} legacy command. Note that files must be specified with their full name, including the extension. With \biber, the resource name can be a BSD-style glob pattern. This only makes sense when resources refer to files with an absolute or relative path and does not work when looking for data resources in \biber s input/output directories or with resources located by \prm{kpsewhich} etc. When running on Windows, \biber will switch to a Windows compatible globbing mode where backslashes are also useable as path separators and case does not matter. If the resources contain duplicate entries (that is, duplicate \bibfield{entrykey}s), it is backend dependent what then happens. For example, by default \biber will ignore further occurrence of \bibfield{entrykey}s unless its \opt{--noskipduplicates} options is used. Invoke \cmd{addbibresource} multiple times to add more resources, for example:
+
 将 \prm{resource} 添加到默认资源列表中，例如 \file{.bib} 文件。
 该命令只能在导言区中使用。
 它取代了过时的 \cmd{bibliography} 命令。
@@ -2374,7 +2791,10 @@ In order to get something like this in the bibliography when formatting names:
 \begin{ltxexample}
 \addbibresource{bibfile1.bib}
 \addbibresource{bibfile2.bib}
-\addbibresource[location=remote]{http://www.citeulike.org/bibtex/group/9517}
+\addbibresource[glob]{bibfiles/bibfile*.bib}
+\addbibresource[glob]{bibfile-num?.bib}
+\addbibresource[glob]{bibfile{1,2,3}.bib}
+\addbibresource[location=remote]{https://raw.githubusercontent.com/plk/biblatex/master/bibtex/bib/biblatex/biblatex-examples.bib}
 \addbibresource[location=remote,label=lan]{ftp://192.168.1.57/~user/file.bib}
 \end{ltxexample}
 %
@@ -2394,6 +2814,8 @@ In order to get something like this in the bibliography when formatting names:
 \valitem{label}{identifier}
 
 %Assigns a label to a resource. The \prm{identifier} may be used in place of the full resource name in the optional argument of \env{refsection} (see \secref{use:bib:sec}).
+
+The label is a \emph{unique} identifier for the \prm{resource}, so each label should only be used once.
 
 给该数据源分配一个标签。
 \prm{identifier} 可以用于在 \env{refsection} 环境的可选参数中以取代该数据源的全名
@@ -2432,6 +2854,12 @@ In order to get something like this in the bibliography when formatting names:
 
 \end{valuelist}
 
+\boolitem{glob}
+
+Whether \biber should glob (expand according to pattern) the datasource name. There is
+a global setting for this in \biber (false by default and settable to true
+using the \opt{--glob-datasources} option). This option allows overriding
+the \biber default on a per-resource basis.
 \end{optionlist*}
 
 
@@ -2512,7 +2940,13 @@ In order to get something like this in the bibliography when formatting names:
 
 如果标题定义支持的话，该选项覆盖由 \opt{heading} 选项提供的缺省标题名。
 详见 \secref{use:bib:hdg} 节。
+\valitem{label}{label}
 
+If \prm{label} is nonempty, issue \texttt{\textbackslash label\{\prm{label}\}} after typesetting the heading. No sanity checking is done whether or not it is useful to set a label after the heading (\eg if the heading is not numbered a \texttt{\textbackslash ref} to the label might not result in useful output).
+
+\optitem[\normalfont\emph{global setting} (\opt{none})]{block}{\opt{none}, \opt{space}, \opt{par}, \opt{nbpar}, \opt{ragged}}
+
+This option overrides the global \opt{block} option (see \secref{use:opt:pre:gen}, the meaning of the settings is explained there as well).
 \valitem{prenote}{name}
 
 %The prenote is an arbitrary piece of text to be printed after the heading but before the list of references. This option selects the prenote \prm{name}, as defined with \cmd{defbibnote}. By default, no prenote is printed. The note is printed in the standard text font. It is not affected by \cmd{bibsetup} and \cmd{bibfont} but it may contain its own font declarations. See \secref{use:bib:nts} for details.
@@ -2694,12 +3128,26 @@ In order to get something like this in the bibliography when formatting names:
 
 %This command prints a bibliography heading defined with \cmd{defbibheading}. It takes one optional argument, which is a list of options given in \keyval notation. The options are a small subset of those supported by \cmd{printbibliography}. Valid options are \opt{heading} and \opt{title}. By default, this command uses the heading \texttt{bibliography}. See \secref{use:bib:hdg} for details. Also see \secref{use:use:mlt,use:use:div} for usage examples.
 
+This command prints a bibliography heading defined with \cmd{defbibheading}. It takes one optional argument, which is a list of options given in \keyval notation. The options are a small subset of those supported by \cmd{printbibliography}. Valid options are \opt{heading}, \opt{title} and \opt{label}. By default, this command uses the heading \texttt{bibliography}. See \secref{use:bib:hdg} for details. Also see \secref{use:use:mlt,use:use:div} for usage examples.
+
 该命令打印出由 \cmd{defbibheading} 定义的参考文献标题。
 它有一个可选项，是用 \keyval 记号给出的选项列表。
 选项是 \cmd{printbibliography} 支持的一个小子集。
 有效选项是 \opt{heading} 和 \opt{title}。
 缺省情况下，该命令使用标题 \texttt{bibliography}。
 详见 \secref{use:bib:hdg} 节。实例也可见 \secref{use:use:mlt,use:use:div} 节。
+\cmditem{DeclarePrintbibliographyDefaults}{key=value, \dots}
+
+This command can be used to globally set defaults for some options to \cmd{printbibliography}, the \cmd{bibby...} bibliography commands and \cmd{printbibheading}.
+The supported keys are
+\begin{itemize}
+  \item \opt{env}
+  \item \opt{heading}
+  \item \opt{title}
+  \item \opt{prenote}
+  \item \opt{postnote}
+  \item \opt{filter}
+\end{itemize}
 
 \end{ltxsyntax}
 %
@@ -2910,6 +3358,8 @@ In order to get something like this in the bibliography when formatting names:
 \envitem{refsection}[resource, \dots]
 
 %The optional argument is a comma"=separated list of resources specific to the reference section. If the argument is omitted, the reference section will use the default resource list, as specified with \cmd{addbibresource} in the preamble. If the argument is provided, it replaces the default resource list. Global resources specified with \cmd{addglobalbib} are always considered. \env{refsection} environments may not be nested, but you may use \env{refsegment} environments within a \env{refsection} to subdivide it into segments. Use the \opt{section} option of \cmd{printbibliography} to select a section when printing the bibliography, and the corresponding option of \cmd{printbiblist} when printing bibliography lists. Bibliography sections are numbered starting at~\texttt{1}. The number of the current section is also written to the transcript file. All citations given outside a \env{refsection} environment are assigned to section~0. If \cmd{printbibliography} is used within a \env{refsection}, it will automatically select the current section. The \opt{section} option is not required in this case. This also applies to \cmd{printbiblist}.
+
+ Beginning a new reference section automatically ends the active reference context (see \secref{use:bib:context}).
 
 可选项是特定于该参考文献分节的逗号分隔资源列表。
 如果省略了该选项，参考文献节会使用缺省的数据源列表，由导言区的 \cmd{addbibresource} 指定。
@@ -3277,6 +3727,8 @@ In order to get something like this in the bibliography when formatting names:
 
 %References in a bibliography are cited and printed in a <context>. The context determines the data which is actually used to cite or provide bibliographic data for an entry. A context consists of the following information (the <context> concept is designed for future extensibility):
 
+ A context consists of the following information:
+
 参考文献列表中文献的引用和打印都处于某个\emph{文境（语境）}（context）内。
 对于某一条目，文境决定了实际用于标注或者在文献表中打印的数据。
 一个文境包括以下信息(设计“文境”这一概念的目的在于，使其在未来具有可扩展性。)：
@@ -3312,7 +3764,7 @@ In order to get something like this in the bibliography when formatting names:
 %Here we print two bibliographies, one with the default <nyt> sorting template and one with the <ydnt> sorting scheme.
 这里我们打印两个参考文献表。其中一个带有默认的“nyt”排序格式，另一个则使用“ydnt”排序格式。
 
-%To demonstrate the second type of use of bibliography contexts, we have to understand that the actual data for an entry can vary depending on the context. This is most obvious in the case of the \opt{extra*} fields like \opt{extrayear} which are generated by the backend according to the order of entries \emph{after} sorting so that they come out in the expected <a, b, c> order. This clearly shows that the \emph{data} in an entry can be different between sorting schemes. If a document contains more than one bibliography list with different sorting schemes, it can happen then that the \file{.bbl} contains sorting lists with the same entry but containing different data (a different value for \bibfield{extrayear}, for example). The purpose of bibliography contexts is to encapsulate things inside a context so that \biblatex can use the correct entry data. An example is printing a bibliography list with a different sorting order to the global sorting order where the \opt{extra*} fields are different for the same entry between sorting lists:
+%To demonstrate the second type of use of bibliography contexts, we have to understand that the actual data for an entry can vary depending on the context. This is most obvious in the case of the \opt{extra*} fields like \opt{extradate} which are generated by the backend according to the order of entries \emph{after} sorting so that they come out in the expected <a, b, c> order. This clearly shows that the \emph{data} in an entry can be different between sorting schemes. If a document contains more than one bibliography list with different sorting schemes, it can happen then that the \file{.bbl} contains sorting lists with the same entry but containing different data (a different value for \bibfield{extradate}, for example). The purpose of bibliography contexts is to encapsulate things inside a context so that \biblatex can use the correct entry data. An example is printing a bibliography list with a different sorting order to the global sorting order where the \opt{extra*} fields are different for the same entry between sorting lists:
 为了说明著录文境的第二类应用，我们必须理解一点：条目的实际应用数据可以随著录文境的变化而变化。
 \opt{extra*} 域（例如 \opt{extrayear}）就是一个最明显的例子：\opt{extrayear}是由后端根据排序\emph{之后}的条目顺序生成的，所以会出现以“a, b, c”表示的预期的顺序。这就清楚地表明，条目的\emph{数据}在不同排序格式下可以不一样。
 如果文档中包含多个具有不同排序格式的参考文献表，那么 \file{.bbl} 文件中就可能包含多个排序列表，列表中的条目相同但其数据可以不同（例如 \bibfield{extrayear} 的值可以不同）。著录文境的目的就在于将这些事项封装在一个语境内部，这样 \biblatex 就可以使用正确的条目数据。下面的例子打印一个使用与全局排序格式不同的排序格式的文献表，其中同一条目的 \opt{extra*} 域在不同排序的文献表中是不同的：
@@ -3407,6 +3859,10 @@ In order to get something like this in the bibliography when formatting names:
 \valitem{sortingnamekeytemplatename}{name}
 
 %Specify a sorting name key template defined previously with \cmd{DeclareSortingNamekeyTemplate}. This scheme is used to construct sorting keys for names inside the context.
+
+Specify a sorting name key template defined previously with \cmd{DeclareSortingNamekeyTemplate}. This template is used to construct sorting keys for names inside the context. The template name can also be specified (in increasing order of preference) per"=entry, per"=name list and per"=name. See \secref{apx:opt} for information on setting per"=option, per"=namelist and per"=name options.
+
+
 指定由 \cmd{DeclareSortingNamekeyTemplate} 命令预先定义的姓名排序关键字模板(格式)。该模板用于构建文境内的姓名排序关键字。
 
 \valitem{uniquenametemplatename}{name}
@@ -3428,6 +3884,9 @@ In order to get something like this in the bibliography when formatting names:
 \valitem{labelprefix}{string}
 
 %This option applies to numerical citation\slash bibliography styles only and requires that the \opt{defernumbers} option from \secref{use:opt:pre:gen} be enabled globally. Setting this option will implicitly enable \opt{resetnumbers} for the any \cmd{printbibliography} in the scope of the context (unless overridden by a user-specified value for \opt{resetnumbers}). The option assigns the \prm{string} as a prefix to all entries in the reference context. For example, if the \prm{string} is \texttt{A}, the numerical labels printed will be \texttt{[A1]}, \texttt{[A2]}, \texttt{[A3]}, etc. This is useful for subdivided numerical bibliographies where each subbibliography uses a different prefix. The \prm{string} is available to styles in the \bibfield{labelprefix} field of all affected entries. See \secref{aut:bbx:fld:lab} for details.
+
+Note that the \prm{string} is fully expanded, which means that you can use context-dependent macros like \cmd{thechapter}, but not unexpandable commands such as \cmd{dag}. If you need to pass unexpandable code to \prm{string}, protect it from expansion with \cmd{detokenize}.
+
 该选项只用于顺序编码的标注和著录样式样式，需要全局开启 \secref{use:opt:pre:gen} 节中的 \opt{defernumbers} 选项。设置该选项也会为文境范围内的任意 \cmd{printbibliography} 启用 \opt{resetnumbers} 选项（除非 \opt{resetnumbers} 被用户指定的值覆盖）。该选项将为文境内的所有条目分配一个 \prm{string} 的前缀。例如，如果 \prm{string} 是 \texttt{A}，那么打印出来的编码标签将形如 \texttt{[A1]}, \texttt{[A2]}, \texttt{[A3]} 等。这适用于划分成不同部分的子文献表使用不同前缀的情况。
 所有受影响条目的 \bibfield{labelprefix} 域的格式设置也能使用该\prm{string}。详见 \secref{aut:bbx:fld:lab} 节。
 
@@ -3519,6 +3978,10 @@ In order to get something like this in the bibliography when formatting names:
 
 \end{ltxsyntax}
 %These commands automate putting citations into refcontexts when the default behaviour is not sufficient. The default behaviour is that the data for a citation is drawn from the refcontext of the last bibliography in which it was printed. For citations that are used in some way but not printed in a bibliography or bibliography list, they default to drawing their data from the global refcontext established at the beginning of the document. To override this behaviour, instead of manually wrapping citation commands in \env{refcontext} environments, which might be error-prone and tedious, you can register a comma"=separated list of \prm{keywords}, \prm{categories} or \prm{entrykeys} which, respectively, make the entries with any of the specified keywords, entries in any of the specified categories (see \secref{use:use:div}) or entries with any of the specified citation keys draw their data from a particular refcontext specified by the \prm{refcontext key/values} which are parsed as the per the corresponding \env{refcontext} options. Such refcontext auto-assignments are specific to the current refsection. You may specify the same citation key in any of these commands but be aware that assignment is done in the order \prm{keywords}, \prm{categories}, \prm{entrykeys} with the later specifications overriding the earlier. \cmd{assignrefcontextentries} accepts a single asterisk instead of a list of entrykeys which allows the assignment of all keys in a refsection to a refcontext with having to explicitly list them. An example:
+
+
+ These commands automate putting citations into refcontexts when the default behaviour is not sufficient. The \prm{key=value} options are as for \cmd{DeclareRefcontext} with the addition of the \kvopt{name}{refcontextname} option which sets all options from those defined for the named refcontext \prm{refcontextname}. Use \kvopt{name}{default} to use the global default refcontext options. The specific \keyval options override those set by any named \prm{refcontextname}. The default behaviour is that the data for a citation is drawn from the refcontext of the most recently processed bibliography in which it was printed\footnote{This does not always mean what one might think. In a document containing multiple bibliographies, the last bibliography will be the context for any citations \emph{before} the first bibliography because all bibliographies are processed when the \file{.bbl} is read.}. For citations that are used in some way but not printed in a bibliography or bibliography list, they default to drawing their data from the global refcontext established at the beginning of the document. To override this behaviour, instead of manually wrapping citation commands in \env{refcontext} environments, which might be error-prone and tedious, you can register a comma"=separated list of \prm{keywords}, \prm{categories} or \prm{entrykeys} which, respectively, make the entries with any of the specified keywords, entries in any of the specified categories (see \secref{use:use:div}) or entries with any of the specified citation keys draw their data from a particular named refcontext and/or specified \prm{refcontext key/values}. Such refcontext auto-assignments are specific to the current refsection. You may specify the same citation key in any of these commands but be aware that assignment is done in the order \prm{keywords}, \prm{categories}, \prm{entrykeys} with the later specifications overriding the earlier. \cmd{assignrefcontextentries} accepts a single asterisk instead of a list of entrykeys which allows the assignment of all keys in a refsection to a refcontext with having to explicitly list them. An example:
+
 标注命令自动从打印当前条目的最后一个文献表所在文境提取数据这种默认方式有时是无法满足需求的。
 对于某些没有在文献表中打印条目但又以某种方式给出的标注命令，它们默认从文档开始时建立的全局文境获取数据。
 要覆盖这一行为，可以手动将标注命令放在 \env{refcontext} 环境内，但是这样容易出错并且很繁琐。
@@ -3553,6 +4016,27 @@ In order to get something like this in the bibliography when formatting names:
 \bibfield{key2} 的引用数据会从 \opt{labelprefix=B} 文境中提取。注意，这些命令大部分情况下都不必使用，
 除非多个参考文献表中有相同文献的标注(引用)且 \biblatex 按照默认设置无法知道标注应该指向哪一个文献表。
 更多细节详见文件 \file{94-labelprefix.tex} 中的例子。
+\begin{ltxexample}[style=latex]
+\DeclareRefcontext{testrc}{labelprefix=A}
+\assignrefcontextentries[name=testrc]{key2}
+\cite{key1}
+\begin{refcontext}[labelprefix=B]
+\cite{key2}
+\end{refcontext}
+\end{ltxexample}
+%
+Here, the data for the citation of \bibfield{key2} will be drawn from the refcontext named <testrc> which has \opt{labelprefix=A} and not \opt{labelprefix=B} (resulting in a label with prefix <A> and not <B>).
+
+\begin{ltxexample}[style=latex]
+\DeclareRefcontext{testrc}{labelprefix=A}
+\assignrefcontextentries[name=testrc,labelprefix=C]{key2}
+\cite{key1}
+\begin{refcontext}[labelprefix=B]
+\cite{key2}
+\end{refcontext}
+\end{ltxexample}
+%
+Here, the data for the citation of \bibfield{key2} will be drawn from refcontext with \opt{labelprefix=C} and not \opt{labelprefix=A} since the explicit options override the named refcontext (resulting in a label with prefix <C> and not <A> or <B>).
 
 \subsubsection{动态条目集}%\subsubsection{Dynamic Entry Sets}
 \label{use:bib:set}
@@ -3867,7 +4351,7 @@ In order to get something like this in the bibliography when formatting names:
 \cmditem{citeyear}[prenote][postnote]{key}
 \cmditem*{citeyear*}[prenote][postnote]{key}
 
-%This command prints the year (\bibfield{year} field or year component of \bibfield{date}). The starred variant includes the \bibfield{extrayear} information, if any.
+This command prints the year (\bibfield{year} field or year component of \bibfield{date}). The starred variant includes the \bibfield{extradate} information, if any.
 
 该命令会打印出年份（\bibfield{year} 域或者 \bibfield{date} 域中的年份成分）。
 带星号的版本会包括可能有的 \bibfield{extrayear} 信息。
@@ -3875,7 +4359,7 @@ In order to get something like this in the bibliography when formatting names:
 \cmditem{citedate}[prenote][postnote]{key}
 \cmditem*{citedate*}[prenote][postnote]{key}
 
-%This command prints the full date (\bibfield{date} or \bibfield{year}). The starred variant includes the \bibfield{extrayear} information, if any.
+This command prints the full date (\bibfield{date} or \bibfield{year}). The starred variant includes the \bibfield{extradate} information, if any.
 
 该命令会打印出日期（\bibfield{date} 或 \bibfield{year} 域）。
 带星号的版本会包括可能有的 \bibfield{extrayear} 信息。
@@ -3912,9 +4396,10 @@ In order to get something like this in the bibliography when formatting names:
 \cmditem{nocite}{key}
 \cmditem*{nocite}|\{*\}|
 
-%This command is similar to the standard \latex \cmd{nocite} command. It
-%adds the \prm{key} to the bibliography without printing a citation. If the
-%\prm{key} is an asterisk, all entries available in the in-scope bibliography datasource(s) are added to the bibliography. Like all other citation commands, \cmd{nocite} commands in the document body are local to the enclosing \env{refsection} environment, if any. In contrast to standard \latex, \cmd{nocite} may also be used in the document preamble. In this case, the references are assigned to reference section~0.
+This command is similar to the standard \latex \cmd{nocite} command. It
+adds the \prm{key} to the bibliography without printing a citation. If the
+\prm{key} is an asterisk, all entries available in the in-scope bibliography datasource(s) are added to the bibliography. Like all other citation commands, \cmd{nocite} commands in the document body are local to the enclosing \env{refsection} environment, if any. In contrast to standard \latex, \cmd{nocite} may also be used in the document preamble. In this case, the references are assigned to reference section~0. For the purposes of ordering citations by appearance \cmd{nocite} will behave like all other cite commands, with the added rule that a \cmd{nocite} issued in the preamble is treated as coming before all explicit citations in reference section~0 from the document body.
+
 
 该命令类似于 \LaTeX\ 中的 \cmd{nocite} 命令。
 它将没有引用的条目 \prm{key} 添加到参考文献中。
@@ -3938,7 +4423,8 @@ In order to get something like this in the bibliography when formatting names:
 \cmditem{volcite}[prenote]{volume}[page]{key}
 \cmditem{Volcite}[prenote]{volume}[page]{key}
 
-%These commands are similar to \cmd{cite} and \cmd{Cite} but intended for references to multi"=volume works which are cited by volume and page number. Instead of the \prm{postnote}, they take a mandatory \prm{volume} and an optional \prm{page} argument. Since they merely compose the postnote and pass it to the \cmd{cite} command provided by the citation style as a \prm{postnote} argument, these commands are style independent. The format of the volume portion is controlled by the field formatting directive \opt{volcitevolume}, the format of the page/text portion is controlled by the field formatting directive \opt{volcitepages} (\secref{aut:fmt:ich}). The delimiter printed between the volume portion and the page/text portion may be modified by redefining the macro \cmd{volcitedelim} (\secref{aut:fmt:fmt}).
+These commands are similar to \cmd{cite} and \cmd{Cite} but intended for references to multi"=volume works which are cited by volume and page number. Instead of the \prm{postnote}, they take a mandatory \prm{volume} and an optional \prm{pages} argument. Since they merely compose the postnote and pass it to the \cmd{cite} command provided by the citation style as a \prm{postnote} argument, these commands are style independent. The volume and pages/text portion are formatted with the macro \cmd{mkvolcitenote} when they are passed on to the citation command. Additionally they are made available in the special fields \bibfield{volcitevolume} and \bibfield{volcitevolume} (\secref{aut:cbx:fld}) The format of the volume portion is controlled by the field formatting directive \opt{volcitevolume}, the format of the pages/text portion is controlled by the field formatting directive \opt{volcitepages} (\secref{aut:fmt:ich}). The delimiter printed between the volume portion and the pages/text portion may be modified by redefining the macro \cmd{volcitedelim} (\secref{aut:fmt:fmt}).
+
 
 这些命令类似于 \cmd{cite} 和 \cmd{Cite}，不过用于多卷作品以卷数和页码样式的引用。
 与 \prm{postnote} 不同，命令中有一个必选的 \prm{volume} 和一个可选的 \prm{page} 选项。
@@ -4162,6 +4648,13 @@ In order to get something like this in the bibliography when formatting names:
 更多细节和使用说明见 \secref{use:cav:pag} 节。
 打印出的后缀是本地化字符串 \texttt{sequens}（见 \secref{aut:lng:key} 节）。
 请注意，该命令只能用于引用和参考文献中局部。
+\cmditem{pnfmt}{text}
+
+This command formats its argument \prm{text} in the same format as \bibfield{postnote}. The command can be used to format a page range while adding additional text in the postnote argument of a cite command.
+
+\begin{ltxexample}
+\autocite[\pnfmt{378-381, 383} and more]{sigfridsson}
+\end{ltxexample}
 
 \cmditem{RN}{integer}
 
@@ -4265,6 +4758,8 @@ In order to get something like this in the bibliography when formatting names:
 |\textcite|	& |\mtextcite| \\
 |\Textcite|	& |\Mtextcite| \\
 |\supercite|	& |\msupercite| \\
+|\autocite|	& |\mautocite| \\
+|\Autocite|	& |\Mautocite| \\
 \bottomrule
 \end{tabular}
 %\caption{\sty{mcite}-like commands}
@@ -4474,20 +4969,26 @@ The \prm{language} must be a language name known to the \sty{babel}/\sty{polyglo
 详见 \secref{use:cav:nam} 节。
 
 \csitem{bibnamedelimb}
-%This delimiter is inserted between the elements which make up a name part where \cmd{bibnamedelima} does not apply. The default definition is an interword space penalized by the value of the \cnt{lownamepenalty} counter (\secref{use:fmt:len}). Please refer to \secref{use:cav:nam} for further details.
+This delimiter controls the spacing between the elements which make up a name part. It is inserted automatically by the backend between all name elements where \cmd{bibnamedelima} does not apply. The default definition is \cmd{addlowpenspace}, \ie a space penalized by the value of the \cnt{lownamepenalty} counter (\secref{use:fmt:len}). Please refer to \secref{use:cav:nam} for further details.
+
+
 该定界符插入在 \cmd{bibnamedelima} 不可用的姓名成分之间。
 缺省值是一个词间距加上由计数器 \cnt{lownamepenalty}（\secref{use:fmt:len}）的值控制的惩罚项。
 详见 \secref{use:cav:nam} 节。
 
 \csitem{bibnamedelimc}
-%This delimiter controls the spacing between name parts. It is inserted between the name prefix and the last name if \kvopt{useprefix}{true}. The default definition is an interword space penalized by the value of the \cnt{highnamepenalty} counter (\secref{use:fmt:len}). Please refer to \secref{use:cav:nam} for further details.
+This delimiter controls the spacing between name parts. The default name formats use it between the name prefix and the family name if \kvopt{useprefix}{true}. The default definition is \cmd{addhighpenspace}, \ie a space penalized by the value of the \cnt{highnamepenalty} counter (\secref{use:fmt:len}). Please refer to \secref{use:cav:nam} for further details.
+
+
 该定界符控制姓名成分之间的空白。
 如果 \kvopt{useprefix}{true}，那么它插入在名前缀（name prefix）和姓（last name）之间。
 缺省值是一个词间距加上由计数器 \cnt{highnamepenalty}（\secref{use:fmt:len}）的值控制的惩罚项。
 详见 \secref{use:cav:nam} 节。
 
 \csitem{bibnamedelimd}
-%This delimiter is inserted between all name parts where \cmd{bibnamedelimc} does not apply. The default definition is an interword space penalized by the value of the \cnt{lownamepenalty} counter (\secref{use:fmt:len}). Please refer to \secref{use:cav:nam} for further details.
+This delimiter controls the spacing between name parts. The default name formats use it between all name parts where \cmd{bibnamedelimc} does not apply. The default definition is \cmd{addlowpenspace}, \ie a space penalized by the value of the \cnt{lownamepenalty} counter (\secref{use:fmt:len}). Please refer to \secref{use:cav:nam} for further details.
+
+
 该定界符插入在所有的 \cmd{bibnamedelimc} 不可用的姓名成分之间。
 缺省值是一个词间距加上由计数器 \cnt{lownamepenalty}（\secref{use:fmt:len}）的值控制的惩罚项。
 详见 \secref{use:cav:nam} 节。
@@ -4499,19 +5000,25 @@ The \prm{language} must be a language name known to the \sty{babel}/\sty{polyglo
 而不是由 \biblatex 自动生成的首字母缩写，后者会使用自己的定界符集。
 
 \csitem{bibinitperiod}
-%The punctuation inserted after initials unless \cmd{bibinithyphendelim} applies. The default definition is a period (\cmd{adddot}). Please refer to \secref{use:cav:nam} for further details.
+The punctuation inserted automatically by the backend after all initials unless \cmd{bibinithyphendelim} applies. The default definition is a period (\cmd{adddot}). Please refer to \secref{use:cav:nam} for further details.
+
+
 当没有使用 \cmd{bibinithyphendelim} 时插入在首字母缩写之后的标点。
 缺省值是句点（\cmd{adddot}）。
 详见 \secref{use:cav:nam} 节。
 
 \csitem{bibinitdelim}
-%The spacing inserted between multiple initials unless \cmd{bibinithyphendelim} applies. The default definition is an unbreakable interword space. Please refer to \secref{use:cav:nam} for further details.
+The spacing inserted automatically by the backend between multiple initials unless \cmd{bibinithyphendelim} applies. The default definition is an unbreakable interword space. Please refer to \secref{use:cav:nam} for further details.
+
+
 当没有使用 \cmd{bibinithyphendelim} 时多重首字母缩写之间的空白。
 缺省值是一个不可打断的词间距。
 详见 \secref{use:cav:nam} 节。
 
 \csitem{bibinithyphendelim}
-%The punctuation inserted between the initials of hyphenated name parts, replacing \cmd{bibinitperiod} and \cmd{bibinitdelim}. The default definition is a period followed by an unbreakable hyphen. Please refer to \secref{use:cav:nam} for further details.
+The punctuation inserted automatically by the backend between the initials of hyphenated name parts, replacing \cmd{bibinitperiod} and \cmd{bibinitdelim}. The default definition is a period followed by an unbreakable hyphen. Please refer to \secref{use:cav:nam} for further details.
+
+
 带连字符的姓名成分首字母缩写之间插入的标点，用以替代 \cmd{bibinitperiod} 和 \cmd{bibinitdelim}。
 缺省定义是一个句点后接一个不可打断的连字符。
 详见 \secref{use:cav:nam} 节。
@@ -4549,7 +5056,9 @@ The \prm{language} must be a language name known to the \sty{babel}/\sty{polyglo
 在索引中代替 \cmd{bibinithyphendelim}。
 
 \csitem{revsdnamepunct}
-%The punctuation to be printed between the first and last name parts when a name is reversed. Here is an example showing a name with the default comma as \cmd{revsdnamedelim}:
+The punctuation to be printed between the given and family name parts when a name is reversed. The default is a comma. Here is an example showing a name with the default comma as \cmd{revsdnamedelim}:
+
+
 当名字反写（姓在前）时姓和名之间的标点。
 如下是一个使用缺省的逗号作为 \cmd{revsdnamedelim} 的例子：
 
@@ -4567,7 +5076,12 @@ Jones<<,>> Edward
 缺省值是一个 <em> 或 <en> 长度横线，取决于文献列表的缩进。
 
 \csitem{labelnamepunct}\DeprecatedMark
-%A separator to be printed after the name used for alphabetizing in the bibliography (\bibfield{author} or \bibfield{editor}, if the \bibfield{author} field is undefined). With the default styles, this separator replaces \cmd{newunitpunct} at this location. The default definition is \cmd{newunitpunct}, \ie it is not handled differently from regular unit punctuation.
+A separator to be printed after the name used for alphabetizing in the bibliography (\bibfield{author} or \bibfield{editor}, if the \bibfield{author} field is undefined) instead of \cmd{newunitpunct}. The default is \cmd{newunitpunct}, \ie it is not handled differently from regular unit punctuation but permits convenient reconfiguration. This punctuation command is deprecated and has been superseded by the context-sensitive \cmd{nametitledelim} (see \secref{use:fmt:csd}). For backwards compatibility reasons, however, \cmd{nametitledelim} still defaults to \cmd{labelnamepunct} in the \texttt{bib} and \texttt{biblist} contexts. Style authors may want to consider replacing \cmd{labelnampunct} with \texttt{\textbackslash printdelim\{nametitledelim\}} and users may want to prefer modifying the context-sensitive \texttt{nametitledelim} in the \texttt{bib} context with \cmd{DeclareDelimFormat} over redefining \cmd{labelnamepunct}, e.g.
+\begin{ltxexample}
+\DeclareDelimFormat[bib]{nametitledelim}{%
+  \addcolon\space}
+\end{ltxexample}
+
 在参考文献按字母排序时用在名字之后的分隔符（\bibfield{author}，在其未定义时是 \bibfield{editor}）。
 对于缺省样式，该分隔符在此位置代替 \cmd{newunitpunct}。
 缺省定义是 \cmd{newunitpunct}，即对其处理与常规单元标点没有不同之处。
@@ -4594,6 +5108,8 @@ Jones<<,>> Edward
 %The separator printed before the \bibfield{pageref} field. The default is an interword space.
 域 \bibfield{pageref} 之前的分隔符。
 缺省值是一个词间距。
+\csitem{bibeidpunct}
+The separator printed before the \bibfield{eid} field (similar to \cmd{bibpagespunct}). The default is a comma plus an interword space.
 
 \csitem{multinamedelim}\CSdelimMark
 %The delimiter printed between multiple items in a name list like \bibfield{author} or \bibfield{editor} if there are more than two names in the list. The default is a comma plus an interword space. See \cmd{finalnamedelim} for an example.\footnote{Note that \cmd{multinamedelim} is not used at all if there are only two names in the list. In this case, the default styles use the \cmd{finalnamedelim}.}
@@ -4618,7 +5134,8 @@ Edward Jones <<and>> Joe Williams
 另见 \secref{use:fmt:lng} 节中的 \cmd{finalandcomma}。
 
 \csitem{revsdnamedelim}\CSdelimMark
-%An extra delimiter printed after the first name in a name list if the first name is reversed. The default is an empty string, \ie no extra delimiter will be printed. Here is an example showing a name list with a comma as \cmd{revsdnamedelim}:
+An extra delimiter printed after the first name in a name list if the first name is reversed (only in lists with two names). The default is an empty string, \ie no extra delimiter will be printed. Here is an example showing a name list with a comma as \cmd{revsdnamedelim}:
+
 当姓名反序时打印在名（first name）后面的额外定界符。
 缺省值是空字符串，即没有额外的定界符。
 这里是一个设置 \cmd{revsdnamedelim} 为逗号的姓名列表例子：
@@ -4657,9 +5174,29 @@ Jones, Edward<<, and>> Joe Williams
 当多个条目键传递给单个引用命令时打印在引用之间的定界符。
 缺省值是一个分号加上一个词间距。
 
+\csitem{multiciterangedelim}
+The delimiter printed between two citations if they are compressed to a range. The default is \cmd{bibrangedash}.
+
+\csitem{multicitesubentrydelim}
+The delimiter printed between subentry citations of the same set. This delimiter is only used in citation styles that reduce citations of the same set to a more compact form (\opt{subentry} of \texttt{numeric-comp}). The default is a comma.
+
+\csitem{multicitesubentryrangedelim}
+The delimiter printed between two citations of the same set if they are compressed to a range. The default is \cmd{multiciterangedelim}.
+
 \csitem{supercitedelim}
 %Similar to \cmd{multicitedelim}, but used by the \cmd{supercite} command only. The default is a comma.
 类似于 \cmd{multicitedelim} 但只用在 \cmd{supercite} 中。缺省值是一个逗号。
+
+
+\csitem{superciterangedelim}
+Analogue of \cmd{multiciterangedelim} for \cmd{supercite}. The default is \cmd{bibrangedash}.
+
+\csitem{supercitesubentrydelim}
+Analogue of \cmd{multicitesubentrydelim} for \cmd{supercite}. The default is \cmd{supercitedelim}.
+
+\csitem{supercitesubentryrangedelim}
+Analogue of \cmd{multicitesubentryrangedelim} for \cmd{supercite}. The default is \cmd{superciterangedelim}.
+
 
 \csitem{compcitedelim}
 %Similar to \cmd{multicitedelim}, but used by certain citation styles when <compressing> multiple citations. The default definition is a comma plus an interword space.
@@ -4732,7 +5269,8 @@ Jones, Edward<<, and>> Joe Williams
 另见 \secref{use:fmt:lng} 节的 \cmd{finalandcomma} 和 \cmd{finalandsemicolon}。
 
 \csitem{nametitledelim}\CSdelimMark
-%The delimiter printed between the author\slash editor and the title by author-title and some verbose citation styles. The default definition inside bibliographies is \cmd{labelnamepunct} and is a comma plus an interword space otherwise.
+The delimiter printed between the author\slash editor and the title by author-title and some verbose citation styles and in the bibliography. In author-year bibliography styles this delimiter is placed after the author\slash editor and year and before the title. The default definition inside bibliographies is the now deprecated \cmd{labelnamepunct} and is a comma plus an interword space otherwise.
+
 作者---标题和其它一些详细引用样式中作者/编辑和标题之间的定界符。
 缺省定义是一个逗号加上一个词间距。
 
@@ -4746,20 +5284,22 @@ Jones, Edward<<, and>> Joe Williams
 缺省定义是一个词间距。
 
 \csitem{nonameyeardelim}\CSdelimMark
-%The delimiter printed between the substitute for the labelname when it does not exist (usually the label or title in standard styles) and the year in author-year citation styles. This is only used when there is no labelname since when the labelname exists, \cmd{nameyeardelim} is used. The default definition is an interword space.
+The delimiter printed between the substitute for the labelname when it does not exist (usually the label or title in standard styles) and the year in author-year citation and bibliography styles. This is only used when there is no labelname since when the labelname exists, \cmd{nameyeardelim} is used. The default definition is an interword space.
+
 在作者---年份引用样式中，当某一标签名不存在（标准样式中通常是标签或者标题）时其替代者与年份之间的定界符。
 仅当没有标签名时使用。这是因为标签名存在时会使用 \cmd{nameyeardelim}。缺省值是一个词间距。
 
 \csitem{authortypedelim}\CSdelimMark
-%The delimiter printed between the author and the \texttt{authortype}.
+The delimiter printed between the author and the \texttt{authortype}. The default is a comma followed by a space.
 作者和作者类型之间打印的分隔符。
 
 \csitem{editortypedelim}\CSdelimMark
-%The delimiter printed between the editor and the \texttt{editor} or \texttt{editortype} string.
+The delimiter printed between the editor and the \texttt{editor} or \texttt{editortype} string. The default is a comma followed by a space.
+
 编者和编者(类型)本地化字符串之间打印的分隔符。
 
 \csitem{translatortypedelim}\CSdelimMark
-%The delimiter printed between the translator and the \texttt{translator} string.
+The delimiter printed between the translator and the \texttt{translator} string. The default is a comma followed by a space.
 译者和译者本地化字符串之间打印的分隔符。
 
 \csitem{labelalphaothers}
@@ -4783,6 +5323,13 @@ Jones, Edward<<, and>> Joe Williams
 %If \cmd{sortalphaothers} is not redefined, it defaults to \cmd{labelalphaothers}.
 如果 \cmd{sortalphaothers} 没有定义，其缺省值为 \cmd{labelalphaothers}。
 
+\csitem{volcitedelim}
+The delimiter printed between the volume portion and the page/text portion of \cmd{volcite} and related commands (\secref{use:cit:spc}).
+
+\cmditem{mkvolcitenote}{volume}{pages}
+
+This macro formats the \prm{volume} and \prm{pages} arguments of \cmd{volcite} and related commands (\secref{use:cit:spc}) when they are passed on to the underlying citation command.
+
 \csitem{prenotedelim}
 %The delimiter printed after the \prm{prenote} argument of a citation command. See \secref{use:cit} for details. The default is an interword space.
 引用命令的 \prm{prenote} 选项之后打印的定界符。
@@ -4799,6 +5346,12 @@ Jones, Edward<<, and>> Joe Williams
 在标准样式中，如果引用使用条目的shorthand域就会出现这一现象。
 详见 \secref{use:cit} 节。
 缺省值是一个词间距。
+
+\csitem{multiprenotedelim}\CSdelimMark
+The delimiter printed after the \prm{multiprenote} argument of a citation command. See \secref{use:cit} for details. The default is \cs{prenotedelim}.
+
+\csitem{multipostnotedelim}\CSdelimMark
+The delimiter printed before the \prm{multipostnote} argument of a citation command. See \secref{use:cit} for details. The default is \cs{postnotedelim}.
 
 \cmditem{mkbibname\prm{namepart}}{text}
 %This command, which takes one argument, is used to format the name part <namepart> of name list fields. The default datamodel defines the name parts <family>, <given>, <prefix> and <suffix> and therefore the following macros are automatically defined:
@@ -4823,6 +5376,47 @@ Jones, Edward<<, and>> Joe Williams
 \mkbibnameaffix
 \end{ltxexample}
 
+\cmditem{mkbibcompletenamefamily}{text}
+This command, which takes one argument, is used to format the complete name in \texttt{family} format order.
+
+\cmditem{mkbibcompletenamefamilygiven}{text}
+This command, which takes one argument, is used to format the complete name in \texttt{family-given} format order.
+
+\cmditem{mkbibcompletenamegivenfamily}{text}
+This command, which takes one argument, is used to format the complete name in \texttt{given-family} format order.
+
+\cmditem{mkbibcompletename}{text}
+The initial value of all default formatting hooks \cmd{mkbibcompletename<formatorder>}.
+
+\csitem{datecircadelim}\CSdelimMark
+When formatting dates with the global option \opt{datecirca} enabled, the delimiter printed after any localised <circa> term. Defaults to interword space.
+
+\csitem{dateeradelim}\CSdelimMark
+When formatting dates with the global option \opt{dateera} set, the delimiter printed before the localisation era term. Defaults to interword space.
+
+\csitem{dateuncertainprint}
+Prints date uncertainty information when the global option \opt{dateuncertain} is enabled and the \cmd{ifdateuncertain} test is true. By default, prints the language specific \cmd{bibdateuncertain} string (\secref{use:fmt:lng}).
+
+\csitem{enddateuncertainprint}
+Prints date uncertainty information when the global option \opt{dateuncertain} is enabled and the \cmd{ifenddateuncertain} test is true. By default, prints the language specific \cmd{bibdateuncertain} string (\secref{use:fmt:lng}).
+
+\csitem{datecircaprint}
+Prints date circa information when the global option \opt{datecirca} is enabled and the \cmd{ifdatecirca} test is true. By default, prints the <circa> localised term (\secref{aut:lng:key:dt}) and the \opt{datecircadelim} delimiter.
+
+\csitem{enddatecircaprint}
+Prints date circa information when the global option \opt{datecirca} is enabled and the \cmd{ifenddatecirca} test is true. By default, prints the <circa> localised term (\secref{aut:lng:key:dt}) and the \opt{datecircadelim} delimiter.
+
+\csitem{datecircaprintiso}
+Prints \acr{ISO8601-2} format date circa information when the global option \opt{datecirca} is enabled and the \cmd{ifdatecirca} test is true. Prints \cmd{textasciitilde}.
+
+\csitem{enddatecircaprintiso}
+Prints \acr{ISO8601-2} format date circa information when the global option \opt{datecirca} is enabled and the \cmd{ifenddatecirca} test is true. Prints \cmd{textasciitilde}.
+
+\cmditem{dateeraprint}{yearfield}
+Prints date era information when the global option \opt{dateera} is set to <secular> or <christian>. By default, prints the \opt{dateeradelim} delimiter and the appropriate localised era term (\secref{aut:lng:key:dt}). If the \opt{dateeraauto} option is set, then the passed \prm{yearfield} (which is the name of a year field such as <year>, <origyear>, <endeventyear> etc.) is tested to see if its value is earlier than the \opt{dateeraauto} threshold and if so, then the BCE/CE localisation will be output too. The default setting for \opt{dateeraauto} is 0 and so only BCE/BC localisation strings are candidates for output. Detects whether the start or end year era information is to be printed by looking at the \prm{yearfield} name passed to it.
+
+\csitem{dateeraprintpre}
+Prints date era information when the global option \opt{dateera} is set to <astronomical>. By default, prints \opt{bibdataeraprefix}. Detects whether the start or end year era information is to be printed by looking at the \prm{yearfield} name passed to it.
 \csitem{relatedpunct}
 %The separator between the \bibfield{relatedtype} bibliography localisation string and the data from the first related entry. Here is an example with \cmd{relatedpunct} set to a dash:
 在 \bibfield{relatedtype} 文献的本地化字符串和第一个相应条目数据之间的分隔符。
@@ -4891,8 +5485,8 @@ Vol. E: Computer Modern Typefaces. 1986.
 \cmditem*{DeclareDelimAlias}*[alias context, \dots]{alias}[delim context]{delim}
 
 
-%Declares \prm{alias} to be an alias for the delimiter \prm{delim}. The assigment is performed for all existing contexts of \prm{alias}.
-%The starred version assigns the alias for specific contexts only. The first optional argument \prm{alias context} holds a list of contexts for which the assignment is going to be performed. If it is empty or missing the global/empty context is assumed. The second optional argument \prm{delim context} specifies the context of the target delimiter. This argument may not be a list, it can only hold one context. If it is missing the \prm{alias context} is assumed (if \prm{alias context} is a list, the assignment is performed separately for each list item), if it is empty the global context is used.
+Declares \prm{alias} to be an alias for the delimiter \prm{delim}. If the optional \prm{alias context, \dots} nor \prm{delim context} are given, the assigment is performed for all existing contexts of the target \prm{delim} separately, so that \prm{alias} becomes an exact copy of \prm{delim} in all contexts. If only the second optional argument \prm{delim context} is given, all existing contexts of \prm{alias} will be cleared and the global/empty context becomes an alias of \prm{delim} in the context \prm{delim context}. The first optional argument \prm{alias context, \dots} may hold a list of contexts for which the alias is assigned. In that case the second optional argument \prm{delim context} specifies the context of the target delimiter. This argument may not be a list, it can only hold one context. If it is missing, the \prm{alias context} is assumed (if \prm{alias context} is a list, the assignment is performed separately for each list item), if it is empty the global context is used.
+
 
 
 将\prm{alias}声明为分隔符\prm{delim}的别名。该声明对于现有的全部文境都有效。
@@ -4924,6 +5518,11 @@ Vol. E: Computer Modern Typefaces. 1986.
 为\opt{bib} 环境中的\cmd{multinamedelim} 的别名，且将\opt{biblist}环境中
 的\cmd{finalnamedelim}定义
 为\opt{biblist}环境中的\cmd{multinamedelim}的别名。
+\cmditem*{DeclareDelimAlias}*[alias context, \dots]{alias}[delim context]{delim}\DeprecatedMark
+
+The starred version of \cmd{DeclareDelimAlias} is deprecated in favour of using unstarred \cmd{DeclareDelimAlias} with optional arguments.
+
+It assigns the delimiter alias for specific contexts only. The first optional argument \prm{alias context} holds a list of contexts for which the assignment is going to be performed. If it is empty or missing the global/empty context is assumed. The second optional argument \prm{delim context} specifies the context of the target delimiter. This argument may not be a list, it can only hold one context. If it is missing the \prm{alias context} is assumed (if \prm{alias context} is a list, the assignment is performed separately for each list item), if it is empty the global context is used.
 
 \cmditem{printdelim}[context]{name}
 
@@ -5005,7 +5604,8 @@ Vol. E: Computer Modern Typefaces. 1986.
 \DeclareDelimFormat[textcite]{nametitledelim}{\addspace}
 \end{ltxexample}
 %
-%This means that \cmd{nametitledelim} is defined globally as <\cmd{addcomma}\cmd{space}> as per the standard delimiter interface. However, in addition, the delimiter can be printed using \cmd{printdelim} which would print the same as \cmd{nametitledelim} apart from inside a \cmd{textcite}, in which it would print \cmd{addspace} which is more suitable for running text. If desired, a context can be forced with the optional argument to \cmd{printdelim}, so
+This means that \cmd{nametitledelim} is defined globally as <\cmd{addcomma}\cmd{space}> as per the standard delimiter interface. However, in addition, the delimiter can be printed using \cmd{printdelim} which would print the same as \cmd{nametitledelim} apart from inside a \cmd{textcite}, in which it would print \cmd{addspace} which is more suitable for running text, and in a bibliography (list) in which it takes the value of \cmd{labelnamepunct} for compatibility reasons. If desired, a context can be forced with the optional argument to \cmd{printdelim}, so
+
 这意味着对于每个标准分隔符接口，\cmd{nametitledelim} 全局定义为 \cmd{addcomma}\cmd{space}。
 此外，总体上使用 \cmd{printdelim} 可以打印该分隔符为 \cmd{nametitledelim}，
 不过在 \cmd{textcite} 内部会打印 \cmd{addspace}，这对于行文更适合。
@@ -5067,11 +5667,11 @@ Vol. E: Computer Modern Typefaces. 1986.
 
 \csitem{bibdaterangesep}
 
-%The language specific separator to be used for date ranges. Defaults to \cmd{textendash} for all date formats apart from \opt{ymd} which defaults to a \cmd{slash}. The date format option \opt{edtf} is hard-coded to \cmd{slash} since this is a standards compliant format.
+%The language specific separator to be used for date ranges. Defaults to \cmd{textendash} for all date formats apart from \opt{ymd} which defaults to a \cmd{slash}. The date format option \opt{iso} is hard-coded to \cmd{slash} since this is a standards compliant format.
 用于日期范围的分隔符。
 对于 \opt{ymd} 格式默认为 \cmd{slash}，
 对于其它日期格式默认为 \cmd{textendash}。
-日期格式选项 \opt{edtf} 则硬编码为 \cmd{slash}，因为这是标准兼容格式。
+日期格式选项 \opt{iso} 则硬编码为 \cmd{slash}，因为这是标准兼容格式。
 
 \csitem{mkbibdatelong}
 
@@ -5114,7 +5714,9 @@ Vol. E: Computer Modern Typefaces. 1986.
 
 %The language specific marker which separates time components. Defaults to a colon.
 分隔时间成分的标识符，默认为冒号。
+\csitem{bibutctimezone}
 
+The language specific string printed for the UTC timezone. Defaults to <Z>.
 \csitem{bibtimezonesep}
 
 %The language specific marker which separates an optional time zone component from a time. Empty by default.
@@ -5204,7 +5806,8 @@ Goossens, Mittelbach, and Samarin; Bertram and Wenworth<<;>> and Knuth
 
 \lenitem{bibhang}
 
-%The hanging indentation of the bibliography, if applicable. This length is initialized to \cmd{parindent} at load-time.
+The hanging indentation of the bibliography, if applicable. This length is initialized to \cmd{parindent} at load-time. If \cmd{parindent} is zero length for some reason, \cmd{bibhang} will default to \texttt{1em}.
+
 
 参考文献的悬挂缩进（当使用时）。
 该长度在导入时初始化为 \cmd{parindent}。
@@ -5288,6 +5891,41 @@ Goossens, Mittelbach, and Samarin; Bertram and Wenworth<<;>> and Knuth
 如果你不喜欢相应的断行，可以设置为更高的值。
 如果你不介意这些效果，可以设置为零。
 
+\cntitem{biburlnumpenalty}
+
+If this counter is set to a value greater than zero, \biblatex will permit linebreaks after numbers in all strings formatted with the \cmd{url} command from the \sty{url} package. This will affect \acr{url}s and \acr{doi}s in the bibliography. The breakpoints will be penalized by the value of this counter. If \acr{url}s and/or \acr{doi}s in the bibliography run into the margin, try setting this counter to a value greater than zero but less than 10000 (you normally want to use a high value like 9000). Setting the counter to zero disables this feature. This is the default setting.
+
+\cntitem{biburlucpenalty}
+
+Similar to \cnt{biburlnumpenalty}, except that it will add a breakpoint after all uppercase letters.
+
+\cntitem{biburllcpenalty}
+
+Similar to \cnt{biburlnumpenalty}, except that it will add a breakpoint after all lowercase letters.
+
+\cntitem{biburlbigbreakpenalty}
+
+The \sty{biblatex} version of \sty{url}'s \len{UrlBigBreakPenalty}. The default value is \texttt{100}.
+
+\cntitem{biburlbreakpenalty}
+
+The \sty{biblatex} version of \sty{url}'s \len{UrlBreakPenalty}. The default value is \texttt{200}.
+
+\lenitem{biburlbigskip}
+
+The \sty{biblatex} version of \len{Urlmuskip}. This length holds the additional (stretchable) space inserted around breakable characters in the \cmd{url} command from the \sty{url} package. The default value is \texttt{0mu plus 3mu}.
+
+\lenitem{biburlnumskip}
+
+The additional space inserted after numbers in strings formatted with the \cmd{url} command from the \sty{url} package. This will affect \acr{url}s and \acr{doi}s in the bibliography. If \acr{url}s and/or \acr{doi}s in the bibliography run into the margin, it may help to set this length to add some small stretchable space, for example \texttt{0mu plus 1mu}. The default setting is \texttt{0mu}. This value is only used if \cnt{biburlnumpenalty} is set to a value different from zero.
+
+\lenitem{biburlucskip}
+
+Similar to \cnt{biburlnumskip}, except that it will add space after all uppercase letters.
+
+\lenitem{biburllcskip}
+
+Similar to \cnt{biburlnumskip}, except that it will add space after all uppercase letters.
 \end{ltxsyntax}
 
 \subsubsection{通用命令}%\subsubsection{All-purpose Commands}
@@ -5336,7 +5974,8 @@ Goossens, Mittelbach, and Samarin; Bertram and Wenworth<<;>> and Knuth
 
 \csitem{nohyphenation}
 
-%A generic switch which suppresses hyphenation locally. Its scope should normally be confined to a group.
+A generic switch which suppresses hyphenation locally. Its scope should normally be confined to a group. The command uses a language without hyphenation patterns to suppress hyphenation. The idea was taken from Peter Wilson's \sty{hyphenat} package. Note that this command should only be used for small portions of text and that its effects are negated if \sty{babel}/\sty{polyglossia} is used to switch the language while it is active.
+
 
 局部抑制连字号的一般切换命令。
 正常情况下其作用范围应被限定在一个组内。
@@ -5349,7 +5988,8 @@ Goossens, Mittelbach, and Samarin; Bertram and Wenworth<<;>> and Knuth
 
 \cmditem{mknumalph}{integer}
 
-%Takes an integer in the range 1--702 as its argument and converts it to a string as follows: 1=a, \textellipsis, 26=z, 27=aa, \textellipsis, 702=zz. This is intended for use in formatting directives for the \bibfield{extrayear} and \bibfield{extraalpha} fields.
+Takes an integer in the range 1--702 as its argument and converts it to a string as follows: 1=a, \textellipsis, 26=z, 27=aa, \textellipsis, 702=zz. This is intended for use in formatting directives for the \bibfield{extradate}, \bibfield{extraname} and \bibfield{extraalpha} fields.
+
 
 将 1--702 间的整数作为选项并将其转化为如下的字符串： 1=a, \textellipsis, 26=z, 27=aa, \textellipsis, 702=zz。
 这用于 \bibfield{extrayear} 和 \bibfield{extraalpha} 等域的格式设置。
@@ -5438,6 +6078,35 @@ Goossens, Mittelbach, and Samarin; Bertram and Wenworth<<;>> and Knuth
 除了以上只在需要显式指明 \texttt{american} 时才启用的特性，
 \biblatex 宏包本质上将 \texttt{english} 作为 \opt{american} 的别名。
 
+\subsubsection{Bulgarian}
+\label{use:loc:bul}
+
+Like the Greek localisation module, the Bulgarian module also requires \utf support. It will not work with any other encoding.
+
+\subsubsection{Greek}
+\label{use:loc:grk}
+
+The Greek localisation module requires \utf support. It will not work with any other encoding. Generally speaking, the \biblatex package is compatible with the \sty{inputenc} package and with the Unicode engines \lualatex and \xelatex. The \sty{ucs} package will not work. Note that you may need to load additional packages which set up Greek fonts. As a rule of thumb, a setup which works for regular Greek documents should also work with \biblatex. However, there is one fundamental limitation. As of this writing, \biblatex has no support for switching scripts. Greek titles in the bibliography should work fine, but English and other titles in the bibliography may be rendered in Greek letters. If you need multi-script bibliographies, using a Unicode engine is the only sensible choice.
+
+\subsubsection{Hungarian}
+\label{use:loc:hun}
+
+The Hungarian localisation module needs to redefine certain field formats to obtain the grammatically correct word order. This means that these field formats are overwritten whenever the Hungarian localisation is active, no matter whether they were defined in the preamble or by a custom style. So please be aware that using the Hungarian localisation module may cause the bibliography output to deviate from the format dictated by the loaded style and preamble definitions. Changes to this behaviour need to be made using \cmd{DefineBibliographyExtras}. In particular \cmd{mkpageprefix} is redefined to output the <page> or <pages> string as a suffix after the page number following Hungarian conventions, and all formats of fields involving pages, chapters and volumes were modified so that numbers are printed as ordinals. The Hungarian localisation module will print a warning to remind you of these changes whenever it is loaded in a document. The warning tells you how to silence it.
+
+\subsubsection{Latvian}
+\label{use:loc:lav}
+
+The Latvian localisation module, like the Hungarian language module, needs to redefine certain field formats to obtain the grammatically correct word order. This means that these field formats are overwritten whenever the Latvian localisation is active, no matter whether they were defined in the preamble or by a custom style. So please be aware that using the Latvian localisation module may cause the bibliography output to deviate from the format dictated by the loaded style and preamble definitions. Changes to this behaviour need to be made using \cmd{DefineBibliographyExtras}. In particular \cmd{mkpageprefix} is redefined to output the <page> or <pages> string as a suffix after the page number following Latvian conventions, and all formats of fields involving pages, chapters and volumes were modified so that numbers are printed as ordinals. The Latvian localisation module will print a warning to remind you of these changes whenever it is loaded in a document. The warning tells you how to silence it.
+
+\subsubsection{Lithuanian}
+\label{use:loc:lit}
+
+The Lithuanian localisation module needs \utf support and will only work with this encoding.
+
+\subsubsection{Russian}
+\label{use:loc:rus}
+
+Like the Greek and Lithuanian localisation module, the Russian module also requires \utf support. It will not work with any other encoding.
 %\subsubsection{Spanish}
 \subsubsection{西班牙文}
 \label{use:loc:esp}
@@ -5518,6 +6187,11 @@ author = {Edward Jones and <<{\forceE{E}}>>oin Maguire},
 \label{use:loc:hun}
 
 The Hungarian localisation module needs to redefine certain field formats to obtain the grammatically correct word order. This means that these field formats are overwritten whenever the Hungarian localisation is active, no matter whether they were defined in the preamble or by a custom style. So please be aware that using the Hungarian localisation module may cause the bibliography output to deviate from the format dictated by the loaded style and preamble definitions. Changes to this behaviour need to be made using \cmd{DefineBibliographyExtras}. In particular \cmd{mkpageprefix} is redefined to output the page number as a prefix following Hungarian convention, and all formats of fields involving pages were modified so that page ranges are printed as ordinal ranges. The Hungarian localisation module will print a warning to remind you of these changes whenever it is loaded in a document. The warning tells you how to silence it.
+
+ \subsubsection{Turkish}
+\label{use:loc:tur}
+
+By default \sty{babel}'s Turkish localisation module makes <\texttt{=}> a <shorthand>, which breaks the \keyval parser uses by \biblatex. This problem can be resolved by telling \sty{babel} not to make <\texttt{=}> a shorthand (for example by loading \sty{babel} with the option \texttt{shorthands=:!}) or by loading a \keyval package that can deal with active characters (\sty{kvsetkeys} and \sty{xkeyval})\fnurl{https://tex.stackexchange.com/a/160428/35864}.
 
 
 \subsection{关于用法的注意事项}%\subsection{Usage Notes}
@@ -5852,6 +6526,8 @@ The Hungarian localisation module needs to redefine certain field formats to obt
 
 %An entry set is a group of entries which are cited as a single reference and listed as a single item in the bibliography. The individual entries in the set are separated by \cmd{entrysetpunct} (\secref{aut:fmt:fmt}). The \biblatex package supports two types of entry sets. Static entry sets are defined in the \file{bib} file like any other entry. Dynamic entry sets are defined with \cmd{defbibentryset} (\secref{use:bib:set}) on a per-document\slash per-refsection basis in the document preamble or the document body. This section deals with the definition of entry sets; style authors should also see \secref{aut:cav:set} for further information.
 
+ Please note that entry sets only make sense for styles which refer to entries by labels such as the provided \texttt{numeric} and \texttt{alphabetic} styles. Styles which refer to entries via names, titles etc. (\texttt{authoryear}, \texttt{authortitle}, \texttt{verbose} etc.) rarely employ sets and do not support them by default when they are cited directly. Custom styles may of course choose to implement some manner of set citation support in any manner they choose.
+
 条目集是用单个引用并在参考文献中作为一项列出的一组条目。
 条目集中每一项用 \cmd{entrysetpunct} 分隔（\secref{aut:fmt:fmt} 节）。
 \biblatex 宏包支持两种类型的条目集。
@@ -5875,6 +6551,8 @@ The Hungarian localisation module needs to redefine certain field formats to obt
 \end{lstlisting}
 %
 %Entries may be part of a set in one document\slash refsection and stand-alone references in another one, depending on the presence of the \bibtype{set} entry. If the \bibtype{set} entry is cited, the set members are grouped automatically. If not, they will work like any regular entry.
+
+Note that with \bibtex as the backend, there must also be an \bibfield{entryset} field in the set members which point to the set parent. With \biber, this is not necessary.
 条目可以是文档或参考文件分节中一个集合的一部分，或者是另外一个条目集中的孤立文献，这取决于 \bibtype{set} 条目。
 如果 \bibtype{set} 条目被引用，其中的成员自动分成一组。否则它们就像其它的常规条目一样。
 
@@ -5898,7 +6576,8 @@ The Hungarian localisation module needs to redefine certain field formats to obt
 \subsubsection[数据容器]{数据容器}%\subsubsection[Data Containers]{Data Containers}
 \label{use:use:xdat}
 
-%The \bibtype{xdata} entry type serves as a data container holding one or more fields. These fields may be inherited by other entries using the \bibfield{xdata} field. \bibtype{xdata} entries may not be cited or added to the bibliography, they only serve as a data source for other entries. This data inheritance mechanism is useful for fixed field combinations such as \bibfield{publisher}\slash \bibfield{location} and for other frequently used data:
+The \bibtype{xdata} entry type serves as a data container holding one or more fields. Data in \bibtype{xdata} entries may be referenced and used by other entries. \bibtype{xdata} entries may not be cited or added to the bibliography, they only serve as a data source for other entries (including other \bibtype{xdata} entries). This data inheritance mechanism is useful for fixed field combinations such as \bibfield{publisher}\slash \bibfield{location} and for other frequently used data:
+
 
 作为数据容器，\bibtype{xdata} 条目类型可以包含一个或更多域。
 这些域可以被其它条目使用 \bibfield{xdata} 来继承。
@@ -5941,6 +6620,64 @@ The Hungarian localisation module needs to redefine certain field formats to obt
 }
 \end{lstlisting}
 %
+
+More granular \bibtype{xdata} entry data may be referenced. It is not necessary to reference only entire fields. For example:
+
+\begin{lstlisting}[style=bibtex]{}
+@XData{someauthors,
+  author     = {John Smith and Brian Brown}
+}
+@XData{somelocations,
+  location   = {Location1 and Location2}
+}
+@XData{somenotes,
+  note   = {A note}
+}
+@Book{...,
+  author     = {Alan Drudge and xdata=someauthors-author-2},
+  editor     = {xdata=someauthors-author},
+  location   = {xdata=somelocations-location-1 and Location3},
+  note       = {xdata=somenotes-note}
+}
+\end{lstlisting}
+%
+The format of granular \bibtype{xdata} references are as follows:
+
+\begin{namesample}
+\item~\delim{x}{1}data\delim{=}{2}\delim{$<$}{3}key$>$\delim{-}{4}\delim{$<$}{5}field$>$\delim{-}{6}\delim{$<$}{7}index$>$
+\end{namesample}
+
+\begin{enumerate}
+  \item The value of the \biber option \opt{--xdatamarker} (by default '\texttt{xdata}')
+  \item The value of the \biber option \opt{--xnamesep} (by default '\texttt{=}')
+  \item A valid entry key of an \bibtype{xdata} entry
+  \item The value of the \biber option \opt{--xdatasep} (by default '\texttt{-}')
+  \item A valid entry field in the source \bibtype {xdata} entry
+  \item (Optional) The value of the \biber option \opt{--xdatasep} (by default '\texttt{-}')
+  \item (Optional) A valid 1-based index into a list/name field in the source \bibtype {xdata} entry
+\end{enumerate}
+%
+There are \opt{--output-*} variants of the above options for \biber tool mode output so that these separators and markers can be programatically changed. Taking the example above, this \bibtype{book} would resolve to:
+
+\begin{lstlisting}[style=bibtex]{}
+@Book{...,
+  author     = {Alan Drudge and Brian Brown},
+  editor     = {John Smith},
+  location   = {Location1 and Location3},
+  note       = {A note}
+}
+\end{lstlisting}
+%
+Things to note with granular \bibtype{xdata} references:
+
+\begin{itemize}
+  \item References must be made only to \bibtype{xdata} fields. An warning will be generated otherwise and the reference will not be resolved
+  \item References must be made only to \bibtype{xdata} fields of the same type (list/name and datatype) as the referencing field. An warning will be generated otherwise and the reference will not be resolved
+  \item References to fields of datatype 'date' are not possible. References to legacy \bibfield{year} and \bibfield{month} fields are possible
+  \item References to missing entries, fields or list/name indices will generate a warning and the reference will not be resolved
+  \item If an index is missing for a reference to a list/name field, 1 is assumed
+\end{itemize}
+
 %See also \secref{bib:typ:blx,bib:fld:spc}.
 另见 \secref{bib:typ:blx,bib:fld:spc} 节。
 
@@ -6115,7 +6852,10 @@ This is an abstract of entry `key1'.
 \subsubsection{与 \acr{KOMA}-Script 文档类共用}
 \label{use:cav:scr}
 
-%When using \biblatex in conjunction with one of the \sty{scrbook}, \sty{scrreprt}, or \sty{scrartcl} classes, the headings \texttt{bibliography} and \texttt{biblist} from \secref{use:bib:hdg} are responsive to the bibliography"=related options of these classes.\footnote{This applies to the traditional syntax of these options (\opt{bibtotoc} and \opt{bibtotocnumbered}) as well as to the \keyval syntax introduced in \acr{KOMA}-Script 3.x, \ie to \kvopt{bibliography}{nottotoc}, \kvopt{bibliography}{totoc}, and \kvopt{bibliography}{totocnumbered}. The global \kvopt{toc}{bibliography} and \kvopt{toc}{bibliographynumbered} options as well as their aliases are detected as well. In any case, the options must be set globally in the optional argument to \cmd{documentclass}.} You can override the default headings by using the \opt{heading} option of \cmd{printbibliography}, \cmd{printbibheading} and \cmd{printbiblist}. See \secref{use:bib:bib, use:bib:biblist, use:bib:hdg} for details. All default headings are adapted at load-time such that they blend with the behavior of these classes. If one of the above classes is detected, \biblatex will also provide the following additional tests which may be useful in custom heading definitions:
+When used in conjunction with a recent version\footnote{At least \acr{KOMA}-Script 3.25 (2018/03/30).} one of the \sty{scrbook}, \sty{scrreprt}, or \sty{scrartcl} classes, \biblatex passes control over the (default) headings \texttt{bibliography} and \texttt{biblist} from \secref{use:bib:hdg} to the class. Hence, bibliography-heading-related class options can be used as usual. You can override the default headings by using the \opt{heading} option of \cmd{printbibliography}, \cmd{printbibheading} and \cmd{printbiblist}. See \secref{use:bib:bib, use:bib:biblist, use:bib:hdg} for details.
+
+\biblatex also tries to detect bibliography-related class options and settings itself.\footnote{This applies to the traditional syntax of these options (\opt{bibtotoc} and \opt{bibtotocnumbered}) as well as to the \keyval syntax introduced in \acr{KOMA}-Script 3.x, \ie to \kvopt{bibliography}{nottotoc}, \kvopt{bibliography}{totoc}, and \kvopt{bibliography}{totocnumbered}. The global \kvopt{toc}{bibliography} and \kvopt{toc}{bibliographynumbered} options as well as their aliases are detected as well. In any case, the options must be set globally in the optional argument to \cmd{documentclass}.} This was required to be able to adapt the bibliography headings to the class settings in older versions of \acr{KOMA}-Script. If one of the above classes is detected, \biblatex will provide the following additional tests which may be useful in custom heading definitions. Since these tests rely on the error-prone external detection of \acr{KOMA}-Script settings and are no longer used with newer \acr{KOMA}-Script versions, these tests are deprecated and should no longer be use
+
 
 当在 \sty{scrbook}、\sty{scrreprt} 或 \sty{scrartcl} 文档类中使用 \biblatex 时，
 \secref{use:bib:hdg} 节中的标题 \texttt{bibliography} 和 \texttt{shorthands} 会与这些文档类的文献相关选项有关。\footnote{%
@@ -6208,7 +6948,8 @@ This is an abstract of entry `key1'.
 \cite[vii--x; 5, 7]{key}
 \end{ltxexample}
 %
-%In some other cases, however, the tests may get it wrong and you need to resort to the auxiliary commands \cmd{pno}, \cmd{ppno}, and \cmd{nopp} from \secref{use:cit:msc}. For example, suppose a work is cited by a special pagination scheme consisting of numbers and letters. In this scheme, the string <|27a|> would mean <page~27, part~a>. Since this string does not look like a number or a range to \biblatex, you need to force the prefix for a single number manually:
+In some other cases, however, the tests may get it wrong and you need to resort to the auxiliary commands \cmd{pnfmt}, \cmd{pno}, \cmd{ppno}, and \cmd{nopp} from \secref{use:cit:msc}. For example, suppose a work is cited by a special pagination scheme consisting of numbers and letters. In this scheme, the string <|27a|> would mean <page~27, part~a>. Since this string does not look like a number or a range to \biblatex, you need to force the prefix for a single number manually:
+
 然而在其它一些情况该测试会失败，
 此时需要考虑 \secref{use:cit:msc} 节的一些辅助命令 \cmd{pno}、\cmd{ppno} 和 \cmd{nopp}。
 例如，假设一部作品由一种包含数字和字母的特殊页码标记格式所引用。
@@ -6237,6 +6978,12 @@ This is an abstract of entry `key1'.
 \cite[see][\ppno~37--46, in particular \pno~40]{key}
 \end{ltxexample}
 %
+The command \cmd{pnfmt} can be used for \prm{postnote}s consisting of a page range and some additional text. \cmd{pnfmt} prints its argument in the format specified for the postnote and can be used to format the page range automatically without the need for \cmd{pno} and \cmd{ppno}.
+
+\begin{ltxexample}
+\cite[\pnfmt{37-46}, in particular \pnfmt{40}]{key}
+\end{ltxexample}
+%
 %There are also two auxiliary command for suffixes like <the following page(s)>. Instead of inserting such suffixes literally (which would require \cmd{ppno} to force a prefix):
 还有两个用于形如“the following page(s)”的后缀的辅助命令。
 使用辅助命令 \cmd{psq} 和 \cmd{psqq} 来代替用文本插入这样的后缀（这要求 \cmd{ppno} 来强加一个前缀）：
@@ -6254,7 +7001,9 @@ This is an abstract of entry `key1'.
 \cite[55\psqq]{key}
 \end{ltxexample}
 %
-%Since the postnote is printed without any prefix if it includes any character which is not an Arabic or Roman numeral, you may also type the prefix manually:
+Since the postnote is printed without any prefix if it includes any character which is not an Arabic or Roman numeral, you may also type the prefix manually---though this is discouraged:
+
+
 由于当后注包括任何非阿拉伯或罗马数字时将会以不带任何前缀的方式打印，
 也可以手动输入前缀：
 
@@ -6374,6 +7123,7 @@ c & \cmd{bibinithyphendelim} & %Inserted by the backend between the initials of 
 \item K\delim{.-}{c}H\delim{.}{a} Mustermann
 \end{namesample}
 
+%\subsubsection{Split Bibliographies and Citation Labels}
 \subsubsection{文献筛选和标注标签}%\subsubsection{Bibliography Filters and Citation Labels}
 \label{use:cav:lab}
 
@@ -6384,6 +7134,27 @@ c & \cmd{bibinithyphendelim} & %Inserted by the backend between the initials of 
 然而，当使用数值型引用格式时，这很可能会导致在各个划分出来的参考文献表中编号不连续。
 使用 \opt{defernumber} 宏包选项可以避免这一问题。
 如果启用该选项，数值标签会在任一文献条目中第一次打印时才被分配。
+Compare the output of the following example with \texttt{defernumbers=true} and \texttt{defernumbers=false}.
+%
+\begin{ltxexample}
+\documentclass{article}
+\usepackage[defernumbers=true]{biblatex}
+
+\addbibresource{biblatex-examples.bib}
+
+\begin{document}
+Lorem \autocite{worman} ipsum \autocite{sigfridsson}
+dolor \autocite{nussbaum} sit \autocite{aksin}
+
+\printbibheading[title={Bibliography}]
+\printbibliography[heading=subbibliography,
+  type=book, title={Books}]
+\printbibliography[heading=subbibliography,
+  type=article, title={Articles}]
+\end{document}
+\end{ltxexample}
+
+There are pathological cases where neither \texttt{defernumbers=true} nor \texttt{defernumbers=false} produce fully desirable output. This may be the case when entries can end up in several of the split bibliographies---or if there is an additional global bibliography. But in most cases with non-overlapping split bibliographies \texttt{defernumbers=true} produces better results. \sty{biblatex} will therefore suggest setting \opt{defernumbers} to \opt{true} in a warning when a split bibliography setup is detected. That warning can be suppressed in case setting \opt{defernumbers} to \opt{true} is not desirable.
 
 \subsubsection{参考文献标题中的活动字符}%\subsubsection{Active Characters in Bibliography Headings}
 \label{use:cav:act}

@@ -48,6 +48,8 @@
 \MakeAutoQuote*{<}{>}
 \MakeShortVerb{\|}
 
+\newcommand*{\allowbreakhere}{\discretionary{}{}{}}
+
 \newcommand*{\biber}{\sty{biber}\xspace}
 \newcommand*{\biblatex}{\sty{biblatex}\xspace}
 \newcommand*{\biblatexml}{\sty{biblatexml}\xspace}
@@ -148,6 +150,18 @@
 \makeatletter
   \newcommand\fnurl@[1]{\footnote{\url@{#1}}}
   \DeclareRobustCommand{\fnurl}{\hyper@normalise\fnurl@}
+  
+  
+  \newcommand*{\seestyleexample}[1]{%
+  \leavevmode
+  \marginpar{%
+    \raggedright
+    \footnotesize
+    Style example:\\
+    \href{file:examples/#1.pdf}{local},
+    \href{http://mirrors.ctan.org/macros/latex/contrib/biblatex/doc/examples/#1.pdf}
+    {online}.}%
+  \ignorespaces}
 
 \makeatother
 
@@ -198,11 +212,11 @@
 \input{Introduction}
 
 \input{DatabaseGuide}
-
+%
 \input{UserGuide}
-
+%
 \input{AuthorGuide}
-
+%
 \input{Appendix}
 
 \printglossary[type=trans,style=longragged3colborder,nopostdot=true,nogroupskip]%long3colborder
